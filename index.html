@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="author" content="saigsf<2270029397@qq.com>" />
+    <!-- 屏幕适配 -->
+    <script>
+        ! function(a, b) {
+            function c() {
+                var b = f.getBoundingClientRect().width;
+                b / i > 540 && (b = 540 * i);
+                var c = b / 10;
+                f.style.fontSize = c + "px", k.rem = a.rem = c
+            }
+            var d, e = a.document,
+                f = e.documentElement,
+                g = e.querySelector('meta[name="viewport"]'),
+                h = e.querySelector('meta[name="flexible"]'),
+                i = 0,
+                j = 0,
+                k = b.flexible || (b.flexible = {});
+            if (g) {
+                console.warn("将根据已有的meta标签来设置缩放比例");
+                var l = g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                l && (j = parseFloat(l[1]), i = parseInt(1 / j))
+            } else if (h) {
+                var m = h.getAttribute("content");
+                if (m) {
+                    var n = m.match(/initial\-dpr=([\d\.]+)/),
+                        o = m.match(/maximum\-dpr=([\d\.]+)/);
+                    n && (i = parseFloat(n[1]), j = parseFloat((1 / i).toFixed(2))), o && (i = parseFloat(o[1]), j = parseFloat((1 / i).toFixed(2)))
+                }
+            }
+            if (!i && !j) {
+                var p = (a.navigator.appVersion.match(/android/gi), a.navigator.appVersion.match(/iphone/gi)),
+                    q = a.devicePixelRatio;
+                i = p ? q >= 3 && (!i || i >= 3) ? 3 : q >= 2 && (!i || i >= 2) ? 2 : 1 : 1, j = 1 / i
+            }
+            if (f.setAttribute("data-dpr", i), !g)
+                if (g = e.createElement("meta"), g.setAttribute("name", "viewport"), g.setAttribute("content", "initial-scale=" + j + ", maximum-scale=" + j + ", minimum-scale=" + j + ", user-scalable=no"), f.firstElementChild) f.firstElementChild.appendChild(g);
+                else {
+                    var r = e.createElement("div");
+                    r.appendChild(g), e.write(r.innerHTML)
+                }
+            a.addEventListener("resize", function() {
+                clearTimeout(d), d = setTimeout(c, 300)
+            }, !1), a.addEventListener("pageshow", function(a) {
+                a.persisted && (clearTimeout(d), d = setTimeout(c, 300))
+            }, !1), "complete" === e.readyState ? e.body.style.fontSize = 12 * i + "px" : e.addEventListener("DOMContentLoaded", function() {
+                e.body.style.fontSize = 12 * i + "px"
+            }, !1), c(), k.dpr = a.dpr = i, k.refreshRem = c, k.rem2px = function(a) {
+                var b = parseFloat(a) * this.rem;
+                return "string" == typeof a && a.match(/rem$/) && (b += "px"), b
+            }, k.px2rem = function(a) {
+                var b = parseFloat(a) / this.rem;
+                return "string" == typeof a && a.match(/px$/) && (b += "rem"), b
+            }
+        }(window, window.lib || (window.lib = {}));
+    </script>
+    <!-- mui -->
+    <script src="./src/js/common/mui.min.js"></script>
+    <link href="./src/css/mui.min.css" rel="stylesheet" />
+    <title>首页</title>
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/common.css">
+</head>
+
+<body>
+    <!-- header -->
+    <div class="head-wrapper">
+        <h1>Hello World !</h1>
+    </div>
+    <!-- 中间内容 -->
+    <div class="container clearfix"></div>
+    <!-- footer -->
+    <div class="foot-wrapper">
+        <div class="foot-wrapper-list">
+            <div class="foot-wrapper-item active">
+                <i class="icon icon-home"></i>
+                <span>首页</span>
+            </div>
+            <div class="foot-wrapper-item">
+                <i class="icon icon-car"></i>
+                <span>车辆</span>
+            </div>
+            <div class="foot-wrapper-item">
+                <i class="icon icon-repair"></i>
+                <span>维修</span>
+            </div>
+            <div class="foot-wrapper-item">
+                <i class="icon icon-user"></i>
+                <span>我的</span>
+            </div>
+        </div>
+        <div class="btn-add" id="btn_add"></div>
+        <div class="overlay" id="overlay">
+            <div class="overlay-item">
+                <i class="icon icon-door"></i>
+                <span>门岗</span>
+            </div>
+            <div class="overlay-item">
+                <i class="icon icon-log"></i>
+                <span>日志</span>
+            </div>
+            <div class="overlay-item">
+                <i class="icon icon-data"></i>
+                <span>数据</span>
+            </div>
+            <div class="overlay-item">
+                <i class="icon icon-power"></i>
+                <span>权限</span>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="./src/js/common/jquery.min.js"></script>
+    <!-- config -->
+    <script src="./src/js/common/config.js"></script>
+    <!-- 页面通用js -->
+    <script src="./src/js/common/common.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,224 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    // line-height: 21px;
+}
+/* 头部 */
+.head-wrapper {
+    height: .88rem;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 15px #666;
+    h1 {
+        text-align: center;
+    }
+}
+/* 主要内容部分 */
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+/* 底部 */
+.foot-wrapper {
+    line-height: normal;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 0 15px #666;
+    background-color: #fff;
+    padding: .1rem .24rem;
+    &-list {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &-item {
+        padding: 0 .24rem;
+        &:nth-child(2) {
+            margin-right: .8rem;
+        }
+        &:nth-child(3) {
+            margin-left: .8rem;
+        }
+        &.active {
+            .icon {
+                &-home {
+                    background-image: url(../img/common/icon_bg_home_active.png);
+                }
+                &-car {
+                    background-image: url(../img/common/icon_bg_car_active.png);
+                }
+                &-repair {
+                    background-image: url(../img/common/icon_bg_repair_active.png);
+                }
+                &-user {
+                    background-image: url(../img/common/icon_bg_user_active.png);
+                }
+            }
+        }
+        span {
+            display: block;
+            text-align: center;
+            color: #4c4b4b;
+        }
+    }
+    .btn-add {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -90%);
+        width: 1.2rem;
+        height: 1.2rem;
+        background: url(../img/common/icon_bg_add.png) no-repeat center;
+        border: 8px solid #fff;
+        border-radius: 50%;
+        background-color: #2885cf;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+        z-index: 99;
+        transition: all 0 ease-in-out 1s;
+        &.active {
+            background: url(../img/common/icon_bg_add_active.png) no-repeat center; 
+        }
+    }
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .4);
+        &-item {
+            position: absolute;
+            width: 1.2rem;
+            height: 1.2rem;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            span {
+                display: block;
+                text-align: center;
+                color: #4c4b4b;
+            }
+            &:nth-child(1) {
+                left: 1.8rem;
+                bottom: 1.6rem;
+                animation: openOne 1s
+            }
+            &:nth-child(2) {
+                left: 3.4rem;
+                bottom: 2.8rem;
+                animation: openTwo 1s;
+            }
+            &:nth-child(3) {
+                right: 3.4rem;
+                bottom: 2.8rem;
+                animation: openThree 1s;
+            }
+            &:nth-child(4) {
+                right: 1.8rem;
+                bottom: 1.6rem;
+                animation: openFore 1s;
+            }
+        }
+    }
+}
+/* 加号按钮点击效果 */
+@keyframes openOne {
+    0% {
+        transform: translate(2.59rem, 1.15rem) rotate(0deg);
+        opacity: .4;
+    }
+    80% {
+        transform: translate(-.259rem, -.115rem) rotate(-90deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0%, 0%) rotate(0deg);
+        opacity: 1;
+    }
+}
+@keyframes openTwo {
+    0% {
+        transform: translate(1rem, 2.36rem) rotate(0deg);
+        opacity: .4;
+    }
+    80% {
+        transform: translate(-.1rem, -.236rem) rotate(-90deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0%, 0%) rotate(0deg);
+        opacity: 1;
+    }
+}
+@keyframes openThree {
+    0% {
+        transform: translate(-1rem, 2.36rem) rotate(0deg);
+        opacity: .4;
+    }
+    80% {
+        transform: translate(.1rem, -.236rem) rotate(-90deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0%, 0%) rotate(0deg);
+        opacity: 1;
+    }
+}
+@keyframes openFore {
+    0% {
+        transform: translate(-2.59rem, 1.15rem) rotate(0deg);
+        opacity: .4;
+    }
+    80% {
+        transform: translate(.259rem, -.115rem) rotate(-90deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0%, 0%) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* icon 图标 */
+.icon {
+    display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    margin: 0 auto;
+    width: .5rem;
+    height: .5rem;
+    &-home {
+        background-image: url(../img/common/icon_bg_home.png);
+    }
+    &-car {
+        background-image: url(../img/common/icon_bg_car.png);
+    }
+    &-repair {
+        background-image: url(../img/common/icon_bg_repair.png);
+    }
+    &-user {
+        background-image: url(../img/common/icon_bg_user.png);
+    }
+    &-door {
+        background-image: url(../img/common/icon_bg_door.png);
+    }
+    &-log {
+        background-image: url(../img/common/icon_bg_log.png);
+    }
+    &-data {
+        background-image: url(../img/common/icon_bg_data.png);
+    }
+    &-power {
+        background-image: url(../img/common/icon_bg_power.png);
+    }
+}

@@ -1,0 +1,37 @@
+
+// mixin
+// set attr
+@mixin z($attr, $value···) {
+  #{$attr}: $value···
+}
+
+// set height and line-height
+@mixin h($h) {
+  @include z(height, $h);
+  @include z(line-height, $h);
+}
+
+// set width
+@mixin w($w) {
+  @include z(width, $w);
+}
+
+// set font-size
+@mixin f($size) {
+  @include z(font-size, $size);
+}
+
+// set padding
+@mixin pad($p···) {
+  @include z(padding, $p···);
+}
+
+// set margin
+@mixin margin($m···) {
+  @include z(margin, $m···);
+}
+
+// set box-shadow
+@mixin shadow($s···) {
+  @include z(box-shadow, $s···);
+}

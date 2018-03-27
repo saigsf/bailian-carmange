@@ -1,0 +1,295 @@
+@charset: "utf-8";
+
+/* 样式重置 */
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+a,
+code,
+em,
+img,
+q,
+small,
+strong,
+dd,
+dl,
+dt,
+li,
+ol,
+ul,
+fieldset,
+form,
+label,
+table,
+tbody,
+tr,
+th,
+td,
+input,
+textarea,
+button,
+i,
+input,
+select,
+option,
+header,
+footer,
+main,
+article,
+section,
+aside,
+nav {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+i,
+em {
+    font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong {
+    font-weight: normal;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+
+/* 图片链接 */
+
+a {
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    &:focus,
+    &:active,
+    &:hover {
+        outline: none;
+    }
+    img {
+        vertical-align: top;
+    }
+}
+
+a,
+img {
+    -webkit-touch-callout: none;
+}
+
+img {
+    border: none;
+}
+
+
+/* 页面渲染样式 */
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* h5元素格式化 */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+    display: block;
+}
+
+hr {
+    height: 1px;
+    background-color: #ddd;
+    margin: 10px 0;
+    border: none;
+}
+
+
+/* 表格样式重置 */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* 表单样式统一 */
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer
+}
+
+input[type="text"],
+input[type="search"],
+input[type="password"] {
+    -webkit-appearance: none;
+    border: none;
+    background: none
+}
+
+button,
+input[type="radio"],
+input[type="checkbox"] {
+    border: none;
+    outline: none
+}
+
+textarea {
+    border: 1px solid #e7e7e7;
+    color: #444;
+    font-size: 14px;
+    padding: 8px 10px;
+    resize: none;
+    overflow: auto;
+    vertical-align: top
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="submit"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+input[type="search"]:focus,
+input[type="search"]:active {
+    -webkit-box-shadow: 0;
+    box-shadow: 0;
+    outline: 0 none
+}
+
+input[type="submit"],
+input[type="submit"]:focus {
+    border: 0
+}
+
+
+
+/* 修改默认placholder颜色 */
+
+::-webkit-input-placeholder {
+    color: #999;
+}
+
+:-moz-placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+::-moz-placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: #999;
+}
+
+
+/* 浮动与清楚浮动 */
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.clearfix {
+    zoom: 1;
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+        overflow: hidden;
+    }
+}
+
+
+/* 原子类 */
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+//单行文本溢出…
+.inaline {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+//多行文本溢出…
+.intwoline {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+}
+// 禁止复制选中文本
+.user_select {
+    user-select: none
+}
+
+
