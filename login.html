@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+<head>
+    <meta charset="utf-8">
+    <!-- 屏幕适配 -->
+    <script>
+        ! function(a, b) {
+            function c() {
+                var b = f.getBoundingClientRect().width;
+                b / i > 540 && (b = 540 * i);
+                var c = b / 10;
+                f.style.fontSize = c + "px", k.rem = a.rem = c
+            }
+            var d, e = a.document,
+                f = e.documentElement,
+                g = e.querySelector('meta[name="viewport"]'),
+                h = e.querySelector('meta[name="flexible"]'),
+                i = 0,
+                j = 0,
+                k = b.flexible || (b.flexible = {});
+            if (g) {
+                console.warn("将根据已有的meta标签来设置缩放比例");
+                var l = g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                l && (j = parseFloat(l[1]), i = parseInt(1 / j))
+            } else if (h) {
+                var m = h.getAttribute("content");
+                if (m) {
+                    var n = m.match(/initial\-dpr=([\d\.]+)/),
+                        o = m.match(/maximum\-dpr=([\d\.]+)/);
+                    n && (i = parseFloat(n[1]), j = parseFloat((1 / i).toFixed(2))), o && (i = parseFloat(o[1]), j = parseFloat((1 / i).toFixed(2)))
+                }
+            }
+            if (!i && !j) {
+                var p = (a.navigator.appVersion.match(/android/gi), a.navigator.appVersion.match(/iphone/gi)),
+                    q = a.devicePixelRatio;
+                i = p ? q >= 3 && (!i || i >= 3) ? 3 : q >= 2 && (!i || i >= 2) ? 2 : 1 : 1, j = 1 / i
+            }
+            if (f.setAttribute("data-dpr", i), !g)
+                if (g = e.createElement("meta"), g.setAttribute("name", "viewport"), g.setAttribute("content", "initial-scale=" + j + ", maximum-scale=" + j + ", minimum-scale=" + j + ", user-scalable=no"), f.firstElementChild) f.firstElementChild.appendChild(g);
+                else {
+                    var r = e.createElement("div");
+                    r.appendChild(g), e.write(r.innerHTML)
+                }
+            a.addEventListener("resize", function() {
+                clearTimeout(d), d = setTimeout(c, 300)
+            }, !1), a.addEventListener("pageshow", function(a) {
+                a.persisted && (clearTimeout(d), d = setTimeout(c, 300))
+            }, !1), "complete" === e.readyState ? e.body.style.fontSize = 12 * i + "px" : e.addEventListener("DOMContentLoaded", function() {
+                e.body.style.fontSize = 12 * i + "px"
+            }, !1), c(), k.dpr = a.dpr = i, k.refreshRem = c, k.rem2px = function(a) {
+                var b = parseFloat(a) * this.rem;
+                return "string" == typeof a && a.match(/rem$/) && (b += "px"), b
+            }, k.px2rem = function(a) {
+                var b = parseFloat(a) / this.rem;
+                return "string" == typeof a && a.match(/px$/) && (b += "rem"), b
+            }
+        }(window, window.lib || (window.lib = {}));
+    </script>
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> -->
+    <title>login</title>
+    <link rel="stylesheet" href="src/css/reset.css">
+    <link rel="stylesheet" href="src/css/common.css">
+    <link rel="stylesheet" href="src/css/login.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <img class="background" src="./src/img/login/md_background.png" alt="">
+        <form id='login-form' class="input-group">
+            <div class="input-row">
+                <label>
+                    <i class="icon icon-username"></i>
+                    <span>|</span>
+                </label>
+                <input id='account' type="text" class="input-clear input" placeholder="请输入账号">
+            </div>
+            <div class="input-row">
+                <label>
+                    <i class="icon icon-psd"></i>
+                    <span>|</span>
+                </label>
+                <input id='password' type="password" class="input-clear input" placeholder="请输入密码">
+            </div>
+        </form>
+
+        <div class="container-padded">
+            <button id='login' class="btn btn-block btn-primary">登录</button>
+            <div class="link-area">
+                <a id='reg' href="javascript:;">注销账号</a>
+            </div>
+        </div>
+        <div class="container-padded three">
+            <h1>第三方登陆</h1>
+            <div class="row three-link">
+                <a href="javascript:;">
+                    <i class="icon icon-weixin"></i>
+                </a>
+                <a href="javascript:;">
+                    <i class="icon icon-weibo"></i>
+                </a>
+                <a href="javascript:;">
+                    <i class="icon icon-qq"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
