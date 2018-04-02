@@ -6,6 +6,8 @@
 	<meta name="renderer" content="webkit" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 	<meta name="author" content="saigsf<2270029397@qq.com>" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-status-bar-style" content="black">
 	<!-- 屏幕适配 -->
 	<script>
 		! function (a, b) {
@@ -64,7 +66,8 @@
 	<!-- <script src="./src/js/common/mui.min.js"></script>
     <link href="./src/css/mui.min.css" rel="stylesheet" /> -->
 	<title>车辆</title>
-	<!-- <script src="src/js/common/layui/css/layui.css"></script> -->
+	<link rel="stylesheet" href="src/js/common/layui/css/layui.css"></link>
+	<!-- <link rel="stylesheet" href="src/js/common/layui/css/layui.mobile.css"></link> -->
 
 	<link rel="stylesheet" href="./src/css/reset.css">
 	<link rel="stylesheet" href="./src/css/common.css">
@@ -74,9 +77,10 @@
 <body>
 	<div class="container">
 		<div class="bar bar-head">
-      <ul class="tab-title">
-				<li class="active">车辆录入</li>
-				<li>车辆列表</li>
+			<div class="topbar"></div>
+			<ul class="tab-title">
+				<li>车辆录入</li>
+				<li class="active">车辆列表</li>
 				<li>接车点检</li>
 				<li>还车点检</li>
 				<li>车辆/安全</li>
@@ -85,11 +89,41 @@
 					<i lay-stope="tabmore" class="icon"></i>
 				</span> -->
 			</ul>
-    </div>
-	
+		</div>
+
 		<div class="tab-content">
-			<div class="tab-item active">内容不一样是要有，因为你可以监听tab事件（阅读下文档就是了）</div>
-			<div class="tab-item">内容2</div>
+			<div class="tab-item">内容不一样是要有，因为你可以监听tab事件（阅读下文档就是了）</div>
+			<div class="tab-item tab-item-vehicle-list active">
+				<div class="row top clearfix">
+					<div class="row-search fl">
+						<label>
+							<i class="icon icon-search"></i>
+						</label>
+						<input type="text" placeholder="请输入车牌编号">
+					</div>
+					<div class="bar bar-tab fr">
+						<a class="bar-tab-item" id="openPopover" href="#popover">
+							<!-- <span class="btn btn-list">
+								<i class="icon icon-add"></i>
+							</span> -->
+						</a>
+						<a class="bar-tab-item" id="openPopover" href="#popover">
+							<span class="btn btn-list">
+								<i class="icon icon-list"></i>
+							</span>
+						</a>
+						<a class="bar-tab-item" id="openPopover" href="#popover">
+							<span class="btn btn-more">
+								<i class="icon icon-more"></i>
+							</span>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<table class="layui-hide" id="test"></table>
+				</div>
+
+			</div>
 			<div class="tab-item">内容3</div>
 			<div class="tab-item">内容4</div>
 			<div class="tab-item">内容5</div>
@@ -124,6 +158,131 @@
 
 	<!-- layui -->
 	<script src="src/js/common/layui/layui.js"></script>
+	<script>
+		layui.use('table', function () {
+			var table = layui.table;
+
+			table.render({
+				elem: '#test'
+				, cellMinWidth: 265
+				, width: 702
+				, cols: [[
+					{ field: 'car_id', title: '车辆编号', sort: true, fixed: 'left' }
+					, { field: 'plate_number', title: '车牌号' }
+					, { field: 'GPS_number', title: 'GPS编号', sort: true }
+					, { field: 'car_name', title: '车辆名称' }
+					, { field: 'state', title: '授权状态', sort: true }
+					, { field: 'alow_events', title: '允许事件' }
+					, { field: 'option', title: '操作', sort: true, fixed: 'right' }
+				]]
+				, data: [
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					},
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					},
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					},
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					},
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					},
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					},
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					},
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					},
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					},
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					},
+					{
+						"car_id": "10001"
+						, "plate_number": "杜甫"
+						, "GPS_number": "xianxin@layui.com"
+						, "car_name": "男"
+						, "state": "浙江杭州"
+						, "alow_events": "人生恰似一场修行"
+						, "option": "删除"
+					}]
+				//,skin: 'line' //表格风格
+				, even: true
+				//,page: true //是否显示分页
+				//,limits: [5, 7, 10]
+				//,limit: 5 //每页默认显示的数量
+			});
+		});
+	</script>
 </body>
 
 </html>
