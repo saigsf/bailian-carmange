@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+	<meta name="author" content="saigsf<2270029397@qq.com>" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-status-bar-style" content="black">
+	<!-- 屏幕适配 -->
+	<script>
+		! function (a, b) {
+			function c() {
+				var b = f.getBoundingClientRect().width;
+				b / i > 540 && (b = 540 * i);
+				var c = b / 10;
+				f.style.fontSize = c + "px", k.rem = a.rem = c
+			}
+			var d, e = a.document,
+				f = e.documentElement,
+				g = e.querySelector('meta[name="viewport"]'),
+				h = e.querySelector('meta[name="flexible"]'),
+				i = 0,
+				j = 0,
+				k = b.flexible || (b.flexible = {});
+			if (g) {
+				console.warn("将根据已有的meta标签来设置缩放比例");
+				var l = g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+				l && (j = parseFloat(l[1]), i = parseInt(1 / j))
+			} else if (h) {
+				var m = h.getAttribute("content");
+				if (m) {
+					var n = m.match(/initial\-dpr=([\d\.]+)/),
+						o = m.match(/maximum\-dpr=([\d\.]+)/);
+					n && (i = parseFloat(n[1]), j = parseFloat((1 / i).toFixed(2))), o && (i = parseFloat(o[1]), j = parseFloat((1 / i).toFixed(2)))
+				}
+			}
+			if (!i && !j) {
+				var p = (a.navigator.appVersion.match(/android/gi), a.navigator.appVersion.match(/iphone/gi)),
+					q = a.devicePixelRatio;
+				i = p ? q >= 3 && (!i || i >= 3) ? 3 : q >= 2 && (!i || i >= 2) ? 2 : 1 : 1, j = 1 / i
+			}
+			if (f.setAttribute("data-dpr", i), !g)
+				if (g = e.createElement("meta"), g.setAttribute("name", "viewport"), g.setAttribute("content", "initial-scale=" + j + ", maximum-scale=" + j + ", minimum-scale=" + j + ", user-scalable=no"), f.firstElementChild) f.firstElementChild.appendChild(g);
+				else {
+					var r = e.createElement("div");
+					r.appendChild(g), e.write(r.innerHTML)
+				}
+			a.addEventListener("resize", function () {
+				clearTimeout(d), d = setTimeout(c, 300)
+			}, !1), a.addEventListener("pageshow", function (a) {
+				a.persisted && (clearTimeout(d), d = setTimeout(c, 300))
+			}, !1), "complete" === e.readyState ? e.body.style.fontSize = 12 * i + "px" : e.addEventListener("DOMContentLoaded", function () {
+				e.body.style.fontSize = 12 * i + "px"
+			}, !1), c(), k.dpr = a.dpr = i, k.refreshRem = c, k.rem2px = function (a) {
+				var b = parseFloat(a) * this.rem;
+				return "string" == typeof a && a.match(/rem$/) && (b += "px"), b
+			}, k.px2rem = function (a) {
+				var b = parseFloat(a) / this.rem;
+				return "string" == typeof a && a.match(/px$/) && (b += "rem"), b
+			}
+		}(window, window.lib || (window.lib = {}));
+	</script>
+	<!-- mui -->
+	<!-- <script src="./src/js/common/mui.min.js"></script>
+    <link href="./src/css/mui.min.css" rel="stylesheet" /> -->
+	<title>车辆</title>
+	<link rel="stylesheet" href="src/js/common/layui/css/layui.css"></link>
+	<!-- <link rel="stylesheet" href="src/js/common/layui/css/layui.mobile.css"></link> -->
+
+	<link rel="stylesheet" href="./src/css/reset.css">
+	<link rel="stylesheet" href="./src/css/common.css">
+	<link rel="stylesheet" href="./src/css/repair_apply.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="bar bar-head">
+			<div class="topbar"></div>
+			<ul class="tab-title">
+				<li>维修列表</li>
+				<li class="active">维修申请</li>
+				<li>维修进度</li>
+				<li>维修车间</li>
+				<li>维修协调员填写</li>
+			</ul>
+		</div>
+
+		<div class="tab-content">
+			<div class="tab-item">内容不一样是要有，因为你可以监听tab事件（阅读下文档就是了）</div>
+			<div class="tab-item active">
+        <div class="row">
+          <h3 class="apply-title">维修申请</h3>
+        </div>
+        <ul class="table-view">
+            <li class="table-view-cell">
+                <label>车辆编号</label>
+                <div class="input">
+                  <input type="text" placeholder="请输入车辆编号">
+                </div>
+                
+            </li>
+            <li class="table-view-cell">
+                <label>停放地点</label>
+                <div class="input">
+                    <input type="text" placeholder="请输入车辆编号">
+                  </div>
+            </li>
+            <li class="table-view-cell">
+                <label>维修原因</label>
+                <div class="input">
+                    <input type="text" placeholder="请输入车辆编号">
+                  </div>
+                <!-- <textarea cols="30" rows="10" placeholder="请输入车辆编号"></textarea> -->
+            </li>
+            <li class="table-view-cell">
+                <label>备 注</label>
+                <div class="input">
+                    <input type="text" placeholder="请输入车辆编号">
+                  </div>
+                <!-- <textarea cols="30" rows="10" placeholder="请输入车辆编号"></textarea> -->
+            </li>
+        </ul>
+        <div class="row">
+          <div class="btn btn-primary">提交</div>
+        </div>
+      </div>
+			<div class="tab-item">内容4</div>
+			<div class="tab-item">内容5</div>
+		</div>
+	</div>
+
+
+	<!-- 底部导航 -->
+	<nav class="bar bar-tab bar-foot">
+		<a id="defaultTab" class="bar-tab-item" href="index.html">
+			<span class="icon icon-home"></span>
+			<span class="bar-tab-label">首页</span>
+		</a>
+		<a class="bar-tab-item active" href="vehicle.html">
+			<span class="icon icon-vehicle"></span>
+			<span class="bar-tab-label">车辆</span>
+		</a>
+		<a class="bar-tab-item" id="openPopover" href="#popover">
+			<span class="btn btn-add">
+				<i class="icon icon-add"></i>
+			</span>
+		</a>
+		<a class="bar-tab-item" href="repair.html">
+			<span class="icon icon-repair"></span>
+			<span class="bar-tab-label">维修</span>
+		</a>
+		<a class="bar-tab-item" href="user.html">
+			<span class="icon icon-user"></span>
+			<span class="bar-tab-label">我的</span>
+		</a>
+	</nav>
+
+	<!-- layui -->
+	<script src="src/js/common/layui/layui.js"></script>
+</body>
+
+</html>

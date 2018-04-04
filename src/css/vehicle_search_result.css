@@ -1,0 +1,17 @@
+/* vehicle_search_result 独立样式 */
+.bar-head {
+  background-color: #fff;
+  color: #333;
+}
+.container {
+  padding-top: 2.16rem;
+  margin-top: -1.76rem;
+  background-color: #f7f7f7;
+}
+.icon-finished {
+  background-size: auto;
+  background-color: #2885cf;
+  border-radius: 50%;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInZlaGljbGVfc2VhcmNoX3Jlc3VsdC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFDQTtFQUNFLHNCQUFBO0VBQ0EsV0FBQTs7QUFFRjtFQUNFLG9CQUFBO0VBQ0Esb0JBQUE7RUFDQSx5QkFBQTs7QUFHRjtFQUNFLHFCQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQSIsInNvdXJjZXNDb250ZW50IjpbIi8qIHZlaGljbGVfc2VhcmNoX3Jlc3VsdCDni6znq4vmoLflvI8gKi9cclxuLmJhci1oZWFkIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmO1xyXG4gIGNvbG9yOiAjMzMzO1xyXG59XHJcbi5jb250YWluZXIge1xyXG4gIHBhZGRpbmctdG9wOiAyLjE2cmVtO1xyXG4gIG1hcmdpbi10b3A6IC0xLjc2cmVtO1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNmN2Y3Zjc7XHJcbn1cclxuXHJcbi5pY29uLWZpbmlzaGVkIHtcclxuICBiYWNrZ3JvdW5kLXNpemU6IGF1dG87XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogIzI4ODVjZjtcclxuICBib3JkZXItcmFkaXVzOiA1MCVcclxufSJdLCJmaWxlIjoidmVoaWNsZV9zZWFyY2hfcmVzdWx0LmNzcyJ9 */

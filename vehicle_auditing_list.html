@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+  <meta name="author" content="saigsf<2270029397@qq.com>" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!-- 屏幕适配 -->
+  <script>
+    ! function (a, b) {
+      function c() {
+        var b = f.getBoundingClientRect().width;
+        b / i > 540 && (b = 540 * i);
+        var c = b / 10;
+        f.style.fontSize = c + "px", k.rem = a.rem = c
+      }
+      var d, e = a.document,
+        f = e.documentElement,
+        g = e.querySelector('meta[name="viewport"]'),
+        h = e.querySelector('meta[name="flexible"]'),
+        i = 0,
+        j = 0,
+        k = b.flexible || (b.flexible = {});
+      if (g) {
+        console.warn("将根据已有的meta标签来设置缩放比例");
+        var l = g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+        l && (j = parseFloat(l[1]), i = parseInt(1 / j))
+      } else if (h) {
+        var m = h.getAttribute("content");
+        if (m) {
+          var n = m.match(/initial\-dpr=([\d\.]+)/),
+            o = m.match(/maximum\-dpr=([\d\.]+)/);
+          n && (i = parseFloat(n[1]), j = parseFloat((1 / i).toFixed(2))), o && (i = parseFloat(o[1]), j = parseFloat((1 / i).toFixed(2)))
+        }
+      }
+      if (!i && !j) {
+        var p = (a.navigator.appVersion.match(/android/gi), a.navigator.appVersion.match(/iphone/gi)),
+          q = a.devicePixelRatio;
+        i = p ? q >= 3 && (!i || i >= 3) ? 3 : q >= 2 && (!i || i >= 2) ? 2 : 1 : 1, j = 1 / i
+      }
+      if (f.setAttribute("data-dpr", i), !g)
+        if (g = e.createElement("meta"), g.setAttribute("name", "viewport"), g.setAttribute("content", "initial-scale=" + j + ", maximum-scale=" + j + ", minimum-scale=" + j + ", user-scalable=no"), f.firstElementChild) f.firstElementChild.appendChild(g);
+        else {
+          var r = e.createElement("div");
+          r.appendChild(g), e.write(r.innerHTML)
+        }
+      a.addEventListener("resize", function () {
+        clearTimeout(d), d = setTimeout(c, 300)
+      }, !1), a.addEventListener("pageshow", function (a) {
+        a.persisted && (clearTimeout(d), d = setTimeout(c, 300))
+      }, !1), "complete" === e.readyState ? e.body.style.fontSize = 12 * i + "px" : e.addEventListener("DOMContentLoaded", function () {
+        e.body.style.fontSize = 12 * i + "px"
+      }, !1), c(), k.dpr = a.dpr = i, k.refreshRem = c, k.rem2px = function (a) {
+        var b = parseFloat(a) * this.rem;
+        return "string" == typeof a && a.match(/rem$/) && (b += "px"), b
+      }, k.px2rem = function (a) {
+        var b = parseFloat(a) / this.rem;
+        return "string" == typeof a && a.match(/px$/) && (b += "rem"), b
+      }
+    }(window, window.lib || (window.lib = {}));
+  </script>
+  <!-- mui -->
+  <!-- <script src="./src/js/common/mui.min.js"></script>
+    <link href="./src/css/mui.min.css" rel="stylesheet" /> -->
+  <title>车辆审核</title>
+  <link rel="stylesheet" href="./src/css/reset.css">
+  <link rel="stylesheet" href="./src/css/common.css">
+  <link rel="stylesheet" href="./src/css/vehicle_auditing_list.css ">
+  <style>
+  </style>
+
+</head>
+
+<body>
+  <!-- 顶部 -->
+  <div class="head-container bg-blue">
+    <div class="topbar"></div>
+    <h2>车辆审核</h2>
+    <div class="btn btn-back">
+      <i class="icon icon-back"></i>
+    </div>
+    <div class="btn btn-search">
+      <i class="icon icon-search"></i>
+    </div>
+
+  </div>
+  <!-- 内容 -->
+  <div class="container">
+    <div class="row">
+      <ul class="tab-title">
+        <li>未审核</li>
+        <li>未通过审核</li>
+        <li class="active">已审核</li>
+      </ul>
+    </div>
+
+    <div class="tab-content">
+      <div class="tab-item">
+        <div class="row">
+          <table>
+            <thead>
+              <tr>
+                <td>车辆编号</td>
+                <td>安全检查</td>
+                <td>录入状态</td>
+                <td>审核</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>陕A88888</td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <a href="javascript:;">审核</a>
+                </td>
+              </tr>
+              <tr>
+                <td>陕A88888</td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <a href="javascript:;">审核</a>
+                </td>
+              </tr>
+              <tr>
+                <td>陕A88888</td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <a href="javascript:;">审核</a>
+                </td>
+              </tr>
+              <tr>
+                <td>陕A88888</td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <a href="javascript:;">审核</a>
+                </td>
+              </tr>
+              <tr>
+                <td>陕A88888</td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <a href="javascript:;">审核</a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-item">
+        <div class="row">
+          <table>
+            <thead>
+              <tr>
+                <td>车辆编号</td>
+                <td>安全检查</td>
+                <td>录入状态</td>
+                <td>详情</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>陕A88888</td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <a href="javascript:;">查看详情</a>
+                </td>
+              </tr>
+              <tr>
+                <td>陕A88888</td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <a href="javascript:;">查看详情</a>
+                </td>
+              </tr>
+              <tr>
+                <td>陕A88888</td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <a href="javascript:;">查看详情</a>
+                </td>
+              </tr>
+              <tr>
+                <td>陕A88888</td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <a href="javascript:;">查看详情</a>
+                </td>
+              </tr>
+              <tr>
+                <td>陕A88888</td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <p>张三</p>
+                  <p>2018-01-01</p>
+                </td>
+                <td>
+                  <a href="javascript:;">查看详情</a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-item active">
+          <div class="row">
+              <table>
+                <thead>
+                  <tr>
+                    <td>车辆编号</td>
+                    <td>安全检查</td>
+                    <td>xx检查</td>
+                    <td>审核人</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>陕A88888</td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>陕A88888</td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>陕A88888</td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>陕A88888</td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                    <td>
+                      <p>张三</p>
+                      <p>2018-01-01</p>
+                    </td>
+                  </tr>
+                  
+    
+                </tbody>
+              </table>
+            </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- 底部 -->
+  <nav class="bar bar-tab bar-foot">
+    <a id="defaultTab" class="bar-tab-item active" href="index.html">
+      <span class="icon icon-home"></span>
+      <span class="bar-tab-label">首页</span>
+    </a>
+    <a class="bar-tab-item" href="vehicle.html">
+      <span class="icon icon-vehicle"></span>
+      <span class="bar-tab-label">消息</span>
+    </a>
+    <a class="bar-tab-item" id="openPopover" href="#popover">
+      <span class="btn btn-add">
+        <i class="icon icon-add"></i>
+      </span>
+    </a>
+    <a class="bar-tab-item" href="repair.html">
+      <span class="icon icon-repair"></span>
+      <span class="bar-tab-label">维修</span>
+    </a>
+    <a class="bar-tab-item" href="user.html">
+      <span class="icon icon-user"></span>
+      <span class="bar-tab-label">我的</span>
+    </a>
+  </nav>
+
+
+</body>
+
+</html>

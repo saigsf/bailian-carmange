@@ -65,7 +65,7 @@
 	<!-- mui -->
 	<!-- <script src="./src/js/common/mui.min.js"></script>
     <link href="./src/css/mui.min.css" rel="stylesheet" /> -->
-	<title>车辆</title>
+	<title>车辆未完成录入</title>
 	<link rel="stylesheet" href="src/js/common/layui/css/layui.css"></link>
 	<!-- <link rel="stylesheet" href="src/js/common/layui/css/layui.mobile.css"></link> -->
 
@@ -95,34 +95,35 @@
 		<div class="tab-content">
 			<div class="tab-item">内容不一样是要有，因为你可以监听tab事件（阅读下文档就是了）</div>
 			<div class="tab-item tab-item-vehicle-list active">
-				<div class="row top clearfix">
-					<div class="row-search fl">
-						<label>
-							<i class="icon icon-search"></i>
-						</label>
-						<input type="text" placeholder="请输入车牌编号">
-					</div>
-					<div class="bar bar-tab fr">
-						<a class="bar-tab-item" id="openPopover" href="#popover">
-							<!-- <span class="btn btn-list">
-								<i class="icon icon-add"></i>
-							</span> -->
-						</a>
-						<a class="bar-tab-item" id="openPopover" href="#popover">
-							<span class="btn btn-list">
-								<i class="icon icon-list"></i>
-							</span>
-						</a>
-						<a class="bar-tab-item" id="openPopover" href="#popover">
-							<span class="btn btn-more">
-								<i class="icon icon-more"></i>
-							</span>
-						</a>
+				<div class="row">
+					<div class="unfinished-input-top">
+						<div class="row-search">
+							<input type="text" placeholder="请输入车牌编号">
+							<label>
+								<i class="icon icon-search"></i>
+							</label>
+						</div>
+						<div class="bar bar-tab">
+							<!-- <a class="bar-tab-item" href="#popover"></a> -->
+							<a class="bar-tab-item" href="#popover">
+								<span class="icon icon-look"></span>
+								<span class="bar-tab-label">还车点检</span>
+							</a>
+							<a class="bar-tab-item" href="#popover">
+								<span class="icon icon-enclosure"></span>
+								<span class="bar-tab-label">车辆/安全/附件检查</span>
+							</a>
+							<a class="bar-tab-item" href="#popover">
+								<span class="icon icon-car-top"></span>
+								<span class="bar-tab-label">接车点检</span>
+							</a>
+							<!-- <a class="bar-tab-item" href="#popover"></a> -->
+						</div>
 					</div>
 				</div>
 				<!-- 车辆列表 -->
 				<div class="row">
-					<table>	
+					<table>
 						<thead>
 							<tr>
 								<td>车辆编号</td>
@@ -170,7 +171,6 @@
 							</tr>
 						</tbody>
 					</table>
-					
 				</div>
 			</div>
 			<div class="tab-item">内容3</div>
@@ -203,11 +203,11 @@
 			<span class="icon icon-user"></span>
 			<span class="bar-tab-label">我的</span>
 		</a>
-  </nav>
-  
+	</nav>
+	<!-- jQueryz -->
+	<script src="src/js/common/jquery.min.js"></script>
 	<!-- layui -->
 	<script src="src/js/common/layui/layui.js"></script>
-	
 </body>
 
 </html>
