@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-status-bar-style" content="black">
+    <!--mui样式应用-->
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <!--自定义图标样式-->
+    <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+    <!--自定义页面样式-->
+    <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+    <!--独立样式-->
+
+    <style type="text/css">
+      .mui-table-view-cell {
+        background-color: transparent;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="mui-content">
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>试验车号</label>
+            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>客户</label>
+            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>项目工程师</label>
+            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>发动机型号</label>
+            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label class="padtb0">发动机排量（L）</label>
+            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label class="padtb0">变速箱油规格</label>
+            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>后轮胎压力</label>
+            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>发动机号</label>
+            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row mui-checkbox mui-left">
+            <label>已知晓测试车辆注意事项</label>
+            <input name="checkbox1" value="Item 1" type="checkbox" checked>
+          </div>
+          <div class="mui-button-row">
+            <button type="button" class="mui-btn mui-btn-blue" id="next">保存</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <script src="../js/mui.min.js"></script>
+    <script type="text/javascript">
+      mui.init();
+
+      mui.plusReady(function() {
+        var self = plus.webview.currentWebview();
+        var H = self.H;
+
+        //添加点击事件进入下一页
+        document.getElementById('next').addEventListener('tap', function() {
+          //打开接车点检页面
+          mui.openWindow({
+            url: 'vehicle-check-up.html',
+            id: 'vehicle-check-up', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H
+            }, //自定义扩展参数
+            createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+            show: {
+              autoShow: true, //页面loaded事件发生后自动显示，默认为true
+            },
+            waiting: {
+              autoShow: true, //自动显示等待框，默认为true
+              title: '正在加载...', //等待对话框上显示的提示内容
+            }
+          })
+        })
+      })
+    </script>
+  </body>
+
+</html>

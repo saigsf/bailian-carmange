@@ -1,0 +1,18 @@
+{
+  "index.html": {
+    "resources": [
+      "html/setting.html"
+    ],
+    "refer": [
+      "html/repair.html",
+      "html/setting.html",
+      "html/vehicle.html",
+      "html/home.html"
+    ]
+  },
+  "html/vehicle.html": {
+    "refer": [
+      "html/vehicle-list.html"
+    ]
+  }
+}

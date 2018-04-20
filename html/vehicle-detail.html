@@ -1,0 +1,342 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-status-bar-style" content="black">
+    <!--mui样式应用-->
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <!--自定义图标样式-->
+    <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+    <!--自定义页面样式-->
+    <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+    <!--独立样式-->
+    <style type="text/css">
+      .vehicle-info {
+        width: 90%;
+        padding: 15px 0;
+        border-radius: 5px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+        margin: auto;
+        background-color: #fff;
+        position: relative;
+        margin-bottom: 10px;
+      }
+      
+      .vehicle-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .vehicle-title-text {
+        padding: 0 5px;
+      }
+      
+      .vehicle-title-left,
+      .vehicle-title-right {
+        width: 75px;
+        height: 4px;
+      }
+      
+      .vehicle-title-left {
+        background: linear-gradient(to left, #666, #fff);
+      }
+      
+      .vehicle-title-right {
+        background: linear-gradient(to right, #666, #fff);
+      }
+      
+      .auditing-wrapper .mui-btn {
+        border: none;
+      }
+      
+      .mui-button-group {
+        padding: 15px 0;
+      }
+      
+      .mui-scroll-wrapper {
+        padding-top: 98px;
+      }
+      
+      .mui-button-row {
+        padding-bottom: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="mui-bar mui-bar-nav">
+      <a class="mui-action-back icon icon-back mui-pull-left"></a>
+      <h1 class="mui-title">车辆信息</h1>
+    </header>
+    <div class="mui-content">
+      <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+
+          <div class="vehicle-info">
+            <div class="vehicle-title">
+              <span class="vehicle-title-left"></span>
+              <span class="vehicle-title-text">信息录入</span>
+              <span class="vehicle-title-right"></span>
+            </div>
+            <div class="mui-table-view">
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>试验车号</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>客户</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>项目工程师</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>发动机型号</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label class="padtb0">发动机排量（L）</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label class="padtb0">变速箱油规格</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>后轮胎压力</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>发动机号</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+
+            </div>
+            <div class="vehicle-title">
+              <span class="vehicle-title-left"></span>
+              <span class="vehicle-title-text">信息录入</span>
+              <span class="vehicle-title-right"></span>
+            </div>
+            <div class="mui-table-view">
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>试验车号</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>客户</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>项目工程师</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>发动机型号</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label class="padtb0">发动机排量（L）</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label class="padtb0">变速箱油规格</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>后轮胎压力</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>发动机号</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+
+            </div>
+            <div class="vehicle-title">
+              <span class="vehicle-title-left"></span>
+              <span class="vehicle-title-text">信息录入</span>
+              <span class="vehicle-title-right"></span>
+            </div>
+            <div class="mui-table-view">
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>试验车号</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>客户</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>项目工程师</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>发动机型号</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label class="padtb0">发动机排量（L）</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label class="padtb0">变速箱油规格</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>后轮胎压力</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>发动机号</label>
+                  <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                </div>
+              </li>
+
+            </div>
+
+          </div>
+
+          <div class="mui-button-row" id="auditing_btn">
+            <button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" id="through">审核通过</button>
+            <button type="button" class="mui-btn mui-btn-blue" id="not_through">不通过</button>
+          </div>
+
+          <div class="mui-button-row" id="change_btn">
+            <button type="button" class="mui-btn mui-btn-blue" id="save">保存</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/h.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+      mui.init({
+        swipeBack: false
+      });
+
+      (function($) {
+        $('.mui-scroll-wrapper').scroll({
+          indicators: true //是否显示滚动条
+        });
+
+        var webview = plus.webview.currentWebview();
+        console.log(webview.isChange)
+        if(webview.isChange) {
+          document.getElementById('auditing_btn').style.display = 'none';
+          document.getElementById('change_btn').style.display = 'block';
+        } else {
+          document.getElementById('auditing_btn').style.display = 'block';
+          document.getElementById('change_btn').style.display = 'none';
+        }
+
+        mui.plusReady(function() {
+          var self = plus.webview.currentWebview();
+          var H = self.H;
+          //通过审核的事件
+          document.getElementById('through').addEventListener('tap', function() {
+            //打开接车点检页面
+            mui.openWindow({
+              url: 'vehicle-auditing-add-explain.html',
+              id: 'vehicle-auditing-add-explain', //默认使用当前页面的url作为id
+              styles: {
+                top: '0px',
+                bottom: H
+              }, //窗口参数
+              extras: {
+                H
+              }, //自定义扩展参数
+              createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+              show: {
+                autoShow: true, //页面loaded事件发生后自动显示，默认为true
+              },
+              waiting: {
+                autoShow: true, //自动显示等待框，默认为true
+                title: '正在加载...', //等待对话框上显示的提示内容
+              }
+            })
+          })
+
+          //未通过审核的事件
+          document.getElementById('not_through').addEventListener('tap', function() {
+            //打开接车点检页面
+            mui.openWindow({
+              url: 'vehicle-auditing-add-explain.html',
+              id: 'vehicle-auditing-add-explain', //默认使用当前页面的url作为id
+              styles: {
+                top: '0px',
+                bottom: H
+              }, //窗口参数
+              extras: {
+                H
+              }, //自定义扩展参数
+              createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+              show: {
+                autoShow: true, //页面loaded事件发生后自动显示，默认为true
+              },
+              waiting: {
+                autoShow: true, //自动显示等待框，默认为true
+                title: '正在加载...', //等待对话框上显示的提示内容
+              }
+            })
+          })
+        })
+      })(mui);
+    </script>
+  </body>
+
+</html>

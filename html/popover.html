@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-status-bar-style" content="black">
+    <!--mui样式应用-->
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <!--自定义图标样式-->
+    <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+    <style type="text/css">
+    	html,
+    	body {
+    		background-color: rgba(0, 0, 0, .3);
+    		height: 100%;
+    		width: 100%;
+    		overflow: hidden;
+    	}
+    </style>
+  </head>
+
+  <body>
+  	
+  </body>
+
+  <script src="../js/h.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/mui.min.js"></script>
+  <script type="text/javascript">
+  	;(function () {
+  		mui.init();
+	  	mui.plusReady(function () {
+	  		var ws = plus.webview.currentWebview();
+	  		console.log(ws.id)
+	  	})
+  	})();
+  </script>
+
+</html>

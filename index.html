@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-status-bar-style" content="black">
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/style-icon.css" />
+    <style type="text/css">
+      .mui-bar-tab {
+        border-top: 1px solid #ccc;
+        background-color: #fff;
+      }
+      
+      .mui-bar-tab .mui-tab-item.mui-active {
+        color: #2885cf;
+      }
+      
+      .mui-tab-item.mui-active .icon-home {
+        background-image: url(img/common/icon_md_home_active.png);
+      }
+      
+      .mui-tab-item.mui-active .icon-vehicle {
+        background-image: url(img/common/icon_md_car_active.png);
+      }
+      
+      .mui-tab-item.mui-active .icon-repair {
+        background-image: url(img/common/icon_md_repair_active.png);
+      }
+      
+      .mui-tab-item.mui-active .icon-user {
+        background-image: url(img/common/icon_md_user_active.png);
+      }
+      
+      .mui-bar-tab .mui-tab-item .mui-icon.icon-add {
+        background-color: #2885CF;
+        /*padding: 10px;*/
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background-size: 24px 24px;
+        margin-top: -2px;
+      }
+      
+      #popover {
+        height: 100px;
+        width: 200px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!--底部导航-->
+    <nav class="mui-bar mui-bar-tab" id="mui_bar_tab">
+      <a id="defaultTab" class="mui-tab-item mui-active" href="html/home.html">
+        <span class="mui-icon icon icon-home"></span>
+        <span class="mui-tab-label">首页</span>
+      </a>
+      <a class="mui-tab-item" href="html/vehicle.html">
+        <span class="mui-icon icon icon-vehicle"></span>
+        <span class="mui-tab-label">车辆</span>
+      </a>
+      <a class="mui-tab-item" href="html/popover.html" id="openPopover">
+        <span class="mui-icon icon icon-add"></span>
+      </a>
+      <a class="mui-tab-item" href="html/repair.html">
+        <span class="mui-icon icon icon-repair"></span>
+        <span class="mui-tab-label">维修</span>
+      </a>
+      <a class="mui-tab-item" href="html/setting.html">
+        <span class="mui-icon icon icon-user"></span>
+        <span class="mui-tab-label">我的</span>
+      </a>
+    </nav>
+    <script src="js/mui.min.js"></script>
+    <script src="js/h.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      var closeView = function() {
+        var ws = plus.webview.getDisplayWebview();
+
+        if(ws.length === 2) {
+          ws[0].close();
+          setTimeout(function() {
+            closeView()
+          }, 1);
+        }
+      };
+      (function() {
+        mui.init();
+
+        //iponeX底部高度
+        var H = 34;
+
+        //子页面列表
+        var subpages = ['html/home.html', 'html/vehicle.html', 'html/repair.html', 'html/setting.html'];
+
+        // 子页面切换效果
+        var subpages_style = {
+          top: '0px',
+          bottom: '50px'
+        }
+
+        //页面切换效果
+        var aniShow = {};
+
+        //页面传值
+        var extras = {
+          H: subpages_style.bottom
+        }
+
+        // 创建子页面，显示首个选项卡其他都影藏
+        mui.plusReady(function() {
+          //获取底部导航栏的实际高度
+          var tabH = h('#mui_bar_tab').height()
+          //iphonX适配
+          if(plus.device.model === 'iPhoneX') {
+            //子页面导入样式重置
+            subpages_style.bottom = tabH + H + 1 + 'px';
+            //传参重置
+            extras.H = subpages_style.bottom;
+            //页面样式重置
+            document.getElementById('mui_bar_tab').style.height = tabH + H + 'px';
+            document.getElementById('mui_bar_tab').style.paddingBottom = H + 'px';
+          }
+          //更改状态栏颜色
+          plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+
+          //禁止横屏
+          plus.screen.lockOrientation("portrait-primary");
+
+          var self = plus.webview.currentWebview();
+
+          for(var i = 0; i < subpages.length; i++) {
+            var temp = {};
+            var sub = plus.webview.create(subpages[i], subpages[i], subpages_style, extras);
+            if(i > 0) {
+              sub.hide();
+            } else {
+              temp[subpages[i]] = "true";
+              mui.extend(aniShow, temp);
+            }
+
+            self.append(sub);
+          }
+
+        });
+
+        //当前激活选项
+        var activeTab = subpages[0];
+        //选项卡点击事件
+        mui('.mui-bar-tab').on('tap', 'a', function(e) {
+          var targetTab = this.getAttribute('href');
+
+          if(targetTab == activeTab) {
+            return;
+          }
+					
+          if(targetTab === 'html/popover.html') {
+            mui.openWindow({
+              url: "html/popover.html",
+              id: "html/popover.html",
+              styles: {
+                position: 'absolute',
+                scrollIndicator: 'none',
+                background: 'transparent'
+              },
+              show: {
+              	aniShow: 'fade-in'
+              }
+            });
+            activeTab = targetTab;
+            return;
+          }
+          //显示目标选项卡
+          //若为iOS平台或非首次显示，则直接显示
+          if(mui.os.ios || aniShow[targetTab]) {
+            plus.webview.show(targetTab);
+          } else {
+            //否则，使用fade-in动画，且保存变量
+            var temp = {};
+            temp[targetTab] = "true";
+            mui.extend(aniShow, temp);
+            plus.webview.show(targetTab, "fade-in", 300);
+          }
+
+          //隐藏当前;
+          plus.webview.hide(activeTab);
+          //更改当前活跃的选项卡
+          activeTab = targetTab;
+
+          closeView();
+
+        });
+
+        //自定义事件，模拟点击“首页选项卡”
+        document.addEventListener('gohome', function() {
+          var defaultTab = document.getElementById("defaultTab");
+
+          //模拟首页点击
+          mui.trigger(defaultTab, 'tap');
+          //切换选项卡高亮
+          var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+          if(defaultTab !== current) {
+            current.classList.remove('mui-active');
+            defaultTab.classList.add('mui-active');
+          }
+        });
+      })()
+    </script>
+  </body>
+
+</html>
