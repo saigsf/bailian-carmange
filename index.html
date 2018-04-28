@@ -77,6 +77,7 @@
       </a>
     </nav>
     <script src="js/mui.min.js"></script>
+    <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/h.min.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
       var closeView = function() {
@@ -91,6 +92,12 @@
       };
       (function() {
         mui.init();
+        
+        var settings = app.getSettings();
+        
+        window.addEventListener('show', function() {
+					var state = app.getState();
+				}, false);
 
         //iponeX底部高度
         var H = 34;
@@ -162,7 +169,7 @@
           if(targetTab === 'html/popover.html') {
             mui.openWindow({
               url: "html/popover.html",
-              id: "html/popover.html",
+              id: "popover",
               styles: {
                 position: 'absolute',
                 scrollIndicator: 'none',
@@ -172,7 +179,7 @@
               	aniShow: 'fade-in'
               }
             });
-            activeTab = targetTab;
+            // activeTab = targetTab;
             return;
           }
           //显示目标选项卡
@@ -190,6 +197,7 @@
           //隐藏当前;
           plus.webview.hide(activeTab);
           //更改当前活跃的选项卡
+
           activeTab = targetTab;
 
           closeView();
@@ -209,6 +217,8 @@
             defaultTab.classList.add('mui-active');
           }
         });
+        
+        
       })()
     </script>
   </body>

@@ -41,21 +41,11 @@
       </div>
 
     </div>
+    <script src="../js/zepto.min.js"></script>
     <script src="../js/mui.min.js"></script>
-    <script src="../js/h.min.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
-      mui.init();
-
-      // 发表
-      document.getElementById('issue').addEventListener('tap', function() {
-        if(h('#issue_text').val()) {
-          mui.toast(h('#issue_text').val())
-        } else {
-          mui.alert('亲，请输入内容！！', '提示', '确定')
-        }
-
-      })
-    </script>
+    <script src="../js/config.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/vehicle-check-add-explain.js"></script>
   </body>
 
 </html>

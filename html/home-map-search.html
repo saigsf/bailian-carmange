@@ -15,7 +15,68 @@
     <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
     <!--独立样式-->
     <style type="text/css">
-
+    	html,
+    	body {
+    		height: 100%;
+    		overflow: hidden;
+    	}
+    	.mui-content {
+    		height: 100%;
+    	}
+			.mui-segmented-control {
+				position: absolute;
+				top: 108px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 80%;
+				border-radius: 40px;
+				border-color: #2885CF;
+				z-index: 1;
+				background-color: #fff;
+			}
+			.mui-segmented-control .mui-control-item {
+				color: #2885CF;
+			}
+			.mui-segmented-control .mui-control-item.mui-active {
+				background-color: #2885CF;
+			}
+			.mui-control-content {
+				height: 100%;
+				width: 100%;
+			}
+			.bottom-search {
+				padding-top: 15px;
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				background-image: url(../img/common/background_ellipse.png);
+				background-position: top center;
+				background-size: 150%;
+				background-repeat: no-repeat;
+				width: 100%;
+				
+			}
+			.mui-btn.mui-btn-block.mui-btn-outlined {
+				font-size: 24px;
+				padding: 10px 0;
+				border: none;
+			}
+			.mui-input-row.mui-search {
+				width: 80%;
+				margin: 20px auto;
+				border: 1px solid #ccc;
+				border-radius: 34px;
+			}
+			.mui-input-row.mui-search input[type=search] {
+      	height: 40px;
+      	background-color: rgba(255, 255, 255, .7);
+      	margin: 0;
+      	
+      }
+      .mui-search.mui-active:before {
+      	margin: 0;
+      	transform: translateY(-50%);
+      }
     </style>
   </head>
 
@@ -26,15 +87,44 @@
     </header>
     <!-- 主页面内容容器 -->
     <div class="mui-content">
-      <!-- 主界面具体展示内容 -->
-      <!--车辆页面的子页面-->
 
+      <div class="mui-segmented-control">
+          <a class="mui-control-item mui-active" href="#item1">轨迹查询</a>
+          <a class="mui-control-item" href="#item2">实时监控</a>
+      </div>
+      
+      <div class="mui-control-content mui-active" id="item1">
+      	<div class="item1-mask"></div>
+      	<div class="item1-map"></div>
+      </div>
+ 			<div class="mui-control-content" id="item2">
+ 				<div class="item2-mask"></div>
+ 				<div class="item2-map">
+ 					<a class="mui-btn mui-btn-block" id="openPopover" href="#popover">车辆信息</a>
+ 				</div>
+ 			</div>
+ 			
+ 			<!--车辆信息弹框-->
+ 			<div id="popover" class="mui-popover">
+			  <div class="vehicle-info">   </div>
+			</div>
+ 			
+ 			<!--底部搜索-->
+ 			<div class="bottom-search">
+ 				<div class="mui-btn mui-btn-block mui-btn-outlined">
+ 					<i class="mui-icon mui-icon-arrowdown"></i>
+ 				</div>
+ 				<div class="mui-input-row mui-search mui-right">
+ 				    <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
+ 				</div>
+ 			</div>
     </div>
     <script src="../js/mui.min.js"></script>
     <script type="text/javascript">
       mui.init({
         swipeBack: true //启用右滑关闭功能
       });
+      mui('.mui-popover').popover('toggle',document.getElementById("openPopover"));
     </script>
   </body>
 

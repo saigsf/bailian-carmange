@@ -21,12 +21,12 @@
 
   <body>
     <header class="mui-bar mui-bar-nav">
+    	
       <h1 class="mui-title">home</h1>
     </header>
     <!-- 主页面内容容器 -->
     <div class="mui-content">
       <!-- 主界面具体展示内容 -->
-      <!--车辆页面的子页面-->
 
     </div>
     <script src="../js/mui.min.js"></script>
@@ -34,6 +34,10 @@
       mui.init({
         swipeBack: true //启用右滑关闭功能
       });
+      mui.plusReady(function () {
+      	//更改状态栏颜色
+          plus.navigator.setStatusBarStyle('light');
+      })
     </script>
   </body>
 

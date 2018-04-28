@@ -19,23 +19,84 @@
     		width: 100%;
     		overflow: hidden;
     	}
+    	.mui-btn {
+    		position: absolute;
+    		top: 60%;
+    		transform: translateX(-50%);
+    	}
+    	.mui-btn:nth-child(1) {
+    		left: 20%;
+    	}
+    	.mui-btn:nth-child(2) {
+    		left: 40%;
+    	}
+    	.mui-btn:nth-child(3) {
+    		left: 60%;
+    	}
+    	.mui-btn:nth-child(4) {
+    		left: 80%;
+    	}
+    	
+    	.close {
+    		position: absolute;
+    		top: 90.25%;
+    		left: 50%;
+				transform: translateX(-50%);
+				width: 44px;
+				height: 44px;
+				border-radius: 50%;
+				background-color: #2885cf;
+				transition: all .5s ease 0;
+			}
+			.close .icon {
+				background-size: 24px 24px
+			}
+			
+    	.mui-btn {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 60px;
+				height: 60px;
+				border: 1px solid #ccc;
+				border-radius: 100%;
+				flex-direction: column;
+				padding: 0
+			}
+			.mui-btn .icon {
+				width: 30px;
+				height: 30px;
+			}
     </style>
   </head>
 
   <body>
+  	<div class="mui-btn">
+			<i class="icon icon-door"></i>
+			<span>门岗</span>
+  	</div>
+  	<div class="mui-btn">
+			<i class="icon icon-log"></i>
+			<span>日志</span>
+  	</div>
+  	<div class="mui-btn">
+			<i class="icon icon-data"></i>
+			<span>数据</span>
+  	</div>
+  	<div class="mui-btn">
+			<i class="icon icon-power"></i>
+			<span>系统</span>
+  	</div>
   	
-  </body>
+  	<div class="close">
+  		<i class="icon icon-add"></i>
+  	</div>
 
-  <script src="../js/h.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="../js/mui.min.js"></script>
-  <script type="text/javascript">
-  	;(function () {
-  		mui.init();
-	  	mui.plusReady(function () {
-	  		var ws = plus.webview.currentWebview();
-	  		console.log(ws.id)
-	  	})
-  	})();
-  </script>
+  </body>
+	<script src="../js/zepto.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/config.js"></script>
+	<script src="../js/app.js"></script>
+  <script src="../js/popover.js"></script>
 
 </html>
