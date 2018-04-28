@@ -6,12 +6,12 @@
     indicators: true //是否显示滚动条
   });
   
-  // app.pageQuery({
-  // 	page: 1,
-  // 	size: 10
-  // }, function (vehicleList) {
-  // 	$.toast('车辆列表获取成功')
-  // });
+  app.pageQuery({
+  	page: 1,
+  	size: 10
+  }, function (res) {
+  	$.toast('车辆列表获取成功!')
+  });
 
   $('#OA_task_1').on('tap', '.delete', function(event) {
     var elem = this;

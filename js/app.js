@@ -211,19 +211,21 @@
 			dataType: 'jsonp',//服务器返回json格式数据
 			jsonp: "jsonCallback",
 			beforeSend: function () {
-				console.log('beforesend!' + JSON.stringify(data))
+				console.log('beforesend!')
 			},
-			success: function (data) {
+			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
-				console.log(data)
-				data = JSON.parse(data);
-				if(data instanceof Array) {
-					callback(data);
-				} else if (data.ret) {
-					$.toast(data.msg);
-					callback(data.data);
+				console.log(res)
+
+				res = (typeof res == 'String') ? JSON.parse(res) : res;
+
+				if(res instanceof Array) {
+					callback(res);
+				} else if (res.ret) {
+					$.toast(res.msg);
+					callback(res.data);
 				} else {
-					$.toast(data.msg)
+					$.toast(res.msg)
 				}
 			},
 			error: function (xhr, type, errorThrown) {
