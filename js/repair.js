@@ -1,7 +1,9 @@
 (function () {
+
   mui.init();
+  
   //子页面列表
-  var subpages = ['vehicle-input.html', 'vehicle-list.html', 'vehicle-auditing.html', 'vehicle-input-unfinished.html'];
+  var subpages = ['repair-list.html', 'repair-apply.html'];
 
   // 子页面切换样式
   var subpages_style = {
@@ -64,18 +66,5 @@
     plus.webview.hide(activeTab);
     //更改当前活跃的选项卡
     activeTab = targetTab;
-  });
-
-  //自定义事件，模拟点击“首页选项卡”
-  document.addEventListener('gohome', function () {
-    var defaultTab = document.getElementById("defaultTab");
-    //模拟首页点击
-    mui.trigger(defaultTab, 'tap');
-    //切换选项卡高亮
-    var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
-    if (defaultTab !== current) {
-      current.classList.remove('mui-active');
-      defaultTab.classList.add('mui-active');
-    }
   });
 })()

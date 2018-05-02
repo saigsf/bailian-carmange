@@ -220,7 +220,7 @@ header.mui-navbar .mui-bar-nav {
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   display: block;
-  height: 40%;
+  height: 30%;
   width: 1px;
   background-color: #999;
 }
@@ -394,10 +394,14 @@ input[type=submit] {
   border-bottom: 1px solid #ccc;
 }
 
-.item-right-top h5 {
+.item-right-top h4 {
   color: #2885CF;
   font-weight: bold;
   margin: 0;
+  /* font-size: 14px */
+}
+.item-right-top p {
+  font-size: 12px
 }
 
 .item-right-top .mui-btn {
@@ -409,6 +413,7 @@ input[type=submit] {
   align-items: center;
   justify-content: space-between;
   padding-top: 10px;
+  padding-left: 10px;
 }
 
 .bottom-item {

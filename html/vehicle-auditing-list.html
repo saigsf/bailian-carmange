@@ -1,221 +1,236 @@
 <!doctype html>
 <html>
 
-  <head>
-    <meta charset="UTF-8">
-    <title>车辆审核</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-status-bar-style" content="black">
-    <!--mui样式应用-->
-    <link href="../css/mui.min.css" rel="stylesheet" />
-    <!--自定义图标样式-->
-    <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
-    <!--自定义页面样式-->
-    <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
-    <!--独立样式-->
-    <style type="text/css">
-      .mui-scroll-wrapper {
-        padding-top: 88px;
-      }
-      
-      .mui-segmented-control {
-        margin: 15px auto;
-        width: 80%;
-        border-radius: 5px;
-      }
-      
-      table thead {
-        line-height: 30px;
-      }
-      
-      table tbody tr td:nth-child(1) {
-        color: #2885cf;
-      }
-      
-      table tr td {
-        padding: 5px 7px;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <title>车辆审核</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-scroll-wrapper {
+      padding-top: 88px;
+    }
 
-  <body>
-    <!--页面标题栏开始-->
-    <header class="mui-bar mui-bar-nav">
-      <a class="mui-action-back icon icon-back mui-pull-left"></a>
-      <h1 class="mui-title">车辆审核</h1>
-      <a class="mui-action-menu mui-icon mui-icon-search mui-pull-right"></a>
-    </header>
+    .mui-segmented-control {
+      margin: 15px auto;
+      width: 80%;
+      border-radius: 11px;
+      border-color: #2885cf;
+    }
+    .mui-segmented-control .mui-control-item.mui-active {
+      background-color: #2885cf;
+    }
+    .mui-segmented-control .mui-control-item {
+      color: #2885cf;
+      border-color: #2885cf;
+      border-left: 1px solid #2885cf;
+    }
 
-    <!--页面标题栏结束-->
-    <div class="mui-content">
+    .mui-table-view-cell {
+      margin-bottom: 10px;
+      background-color: #fff;
+      box-shadow: 0 3px 3px rgba(0, 0, 0, .1)
+    }
 
-      <div class="mui-scroll-wrapper">
-        <div class="mui-scroll">
+    table thead {
+      line-height: 30px;
+    }
 
-          <div class="mui-segmented-control">
-            <a class="mui-control-item mui-active" href="#item1">未审核</a>
-            <a class="mui-control-item" href="#item2">未通过审核</a>
-            <a class="mui-control-item" href="#item3">已审核</a>
-          </div>
+    table tbody tr td:nth-child(1) {
+      color: #2885cf;
+    }
 
-          <div id="item1" class="mui-control-content mui-active">
-            <ul id="OA_task_1" class="mui-table-view">
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
+    table tr td {
+      padding: 5px 7px;
+    }
+  </style>
+</head>
+
+<body>
+  <!--页面标题栏开始-->
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">车辆审核</h1>
+    <a class="mui-action-menu mui-icon mui-icon-search mui-pull-right"></a>
+  </header>
+
+  <!--页面标题栏结束-->
+  <div class="mui-content">
+
+    <div class="mui-scroll-wrapper">
+      <div class="mui-scroll">
+
+        <div class="mui-segmented-control">
+          <a class="mui-control-item mui-active" href="#item1">未审核</a>
+          <a class="mui-control-item" href="#item2">未通过审核</a>
+          <a class="mui-control-item" href="#item3">已审核</a>
+        </div>
+
+        <div id="item1" class="mui-control-content mui-active">
+          <ul id="OA_task_1" class="mui-table-view">
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
                       </div>
-                      <div class="item-right-bottom">
-                        <div class="bottom-item">
-                          <span>安全检查：张三</span>
-                          <span>2018-02-22</span>
-                        </div>
-                        <div class="bottom-item bottom-item-empty"></div>
-                        <div class="bottom-item">
-                          <span>安全检查：张三</span>
-                          <span>2018-02-22</span>
-                        </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                        <i class="mui-icon mui-icon-arrowright"></i>
                       </div>
-
                     </div>
+                    <div class="item-right-bottom">
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                      <div class="bottom-item bottom-item-empty"></div>
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-              </li>
+              </div>
+            </li>
 
-            </ul>
-
-          </div>
-          <div id="item2" class="mui-control-content">
-            <ul id="OA_task_2" class="mui-table-view">
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">去修改
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-
-                      <div class="item-right-bottom">
-                        <div class="bottom-item">
-                          <span>安全检查：张三</span>
-                          <span>2018-02-22</span>
-                        </div>
-                        <div class="bottom-item bottom-item-empty"></div>
-                        <div class="bottom-item">
-                          <span>审核：张三</span>
-                          <span>2018-02-22</span>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>原因：</h5>
-                        <p>查百度本地好的年度承诺低成就丢成都成都农村调查读的所称的斯UC呼唤你多少次的水泥厂的都成家地产的</p>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-            </ul>
-
-          </div>
-          <div id="item3" class="mui-control-content">
-            <table>
-              <thead>
-                <tr>
-                  <td>车辆编号</td>
-                  <td>安全检查</td>
-                  <td>安全检查</td>
-                  <td>审核人</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>01000000</td>
-                  <td>
-                    <span>张三</span>
-                    <span>2018-02-22</span>
-                  </td>
-                  <td>
-                    <span>张三</span>
-                    <span>2018-02-22</span>
-                  </td>
-                  <td>
-                    <span>张三</span>
-                    <span>2018-02-22</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>01000000</td>
-                  <td>
-                    <span>张三</span>
-                    <span>2018-02-22</span>
-                  </td>
-                  <td>
-                    <span>张三</span>
-                    <span>2018-02-22</span>
-                  </td>
-                  <td>
-                    <span>张三</span>
-                    <span>2018-02-22</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>01000000</td>
-                  <td>
-                    <span>张三</span>
-                    <span>2018-02-22</span>
-                  </td>
-                  <td>
-                    <span>张三</span>
-                    <span>2018-02-22</span>
-                  </td>
-                  <td>
-                    <span>张三</span>
-                    <span>2018-02-22</span>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
+          </ul>
 
         </div>
-      </div>
+        <div id="item2" class="mui-control-content">
+          <ul id="OA_task_2" class="mui-table-view">
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">去修改
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
 
+                    <div class="item-right-bottom">
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                      <div class="bottom-item bottom-item-empty"></div>
+                      <div class="bottom-item">
+                        <span>审核：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                    </div>
+                    <div class="item-right-middle">
+                      <h5>原因：</h5>
+                      <p>查百度本地好的年度承诺低成就丢成都成都农村调查读的所称的斯UC呼唤你多少次的水泥厂的都成家地产的</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+        <div id="item3" class="mui-control-content">
+          <table>
+            <thead>
+              <tr>
+                <td>车辆编号</td>
+                <td>安全检查</td>
+                <td>安全检查</td>
+                <td>审核人</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01000000</td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+              </tr>
+              <tr>
+                <td>01000000</td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+              </tr>
+              <tr>
+                <td>01000000</td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
     </div>
-    <script src="../js/zepto.min.js"></script>
-    <script src="../js/mui.min.js"></script>
-    <script src="../js/config.js"></script>
-    <script src="../js/app.js"></script>
-    <script src="../js/vehicle-auditing-list.js"></script>
-  </body>
+
+  </div>
+  <script src="../js/zepto.min.js"></script>
+  <script src="../js/mui.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/vehicle-auditing-list.js"></script>
+</body>
 
 </html>

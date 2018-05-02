@@ -129,37 +129,37 @@
         // })
 
         // 缸压检查数据获取和提交
-        if (CNID == 1) {
-          // 输入检查
+        // if (CNID == 1) {
+        //   // 输入检查
 
-          // 缸压检查数据获取
-          // data_1.cylinder_p = $('#cyliner_p').val();
-          data_1.one_p = $('#one_p').val();
-          data_1.two_p = $('#two_p').val();
-          data_1.three_p = $('#three_p').val();
-          data_1.four_p = $('#four_p').val();
-          data_1.fuel_p = 4.0;
-          data_1.actual_p = $('#actual_p').val();
+        //   // 缸压检查数据获取
+        //   // data_1.cylinder_p = $('#cyliner_p').val();
+        //   data_1.one_p = $('#one_p').val();
+        //   data_1.two_p = $('#two_p').val();
+        //   data_1.three_p = $('#three_p').val();
+        //   data_1.four_p = $('#four_p').val();
+        //   data_1.fuel_p = 4.0;
+        //   data_1.actual_p = $('#actual_p').val();
 
-          // 数据提交
-          app[apiArr[0]](data_1, function (res) {
-            if(res && res.ret) {
-              console.log('缸压检查完毕');
-            } else {
-              console.log(res.msg)
-            }
+        //   // 数据提交
+        //   app[apiArr[0]](data_1, function (res) {
+        //     if(res && res.ret) {
+        //       console.log('缸压检查完毕');
+        //     } else {
+        //       console.log(res.msg)
+        //     }
             
-          })
+        //   })
 
-          // app[apiFindArr[0]]({ vSn: data_1.vSn }, function (res) {
-          //   console.log(res)
-          //   if (res == null || res.length == 0) {
+        //   // app[apiFindArr[0]]({ vSn: data_1.vSn }, function (res) {
+        //   //   console.log(res)
+        //   //   if (res == null || res.length == 0) {
               
-          //   } else {
-          //     console.log('数据更新')
-          //   }
-          // })
-        }
+        //   //   } else {
+        //   //     console.log('数据更新')
+        //   //   }
+        //   // })
+        // }
 
 
         // 判断其他检查是否完成，如果都完成则跳转到其他页面，否则执行返回操作

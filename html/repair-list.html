@@ -57,7 +57,7 @@
     .mui-table-view-cell {
       margin-bottom: 10px;
       background-color: #fff;
-      box-shadow: 0 3px 3px rgba(0, 0, 0, .1)
+      box-shadow: 0 2px 2px rgba(0, 0, 0, .1)
     }
 
     .mui-table-view-cell:after {
@@ -68,7 +68,32 @@
       height: 100%;
       /* padding-top: 66px; */
     }
-
+    .item-right-middle {
+      flex-direction: column;
+    }
+    .item-right-middle p {
+      font-size: 12px;
+      width: 100%;
+      line-height: 20px;
+    }
+    .item-right-middle p span {
+      display: inline-block;
+      line-height: 0;
+      width: 18%;
+      text-align: justify;
+    }
+    .item-right-middle p span:after {
+      content: "";
+      display: inline-block;
+      width: 100%
+    }
+    .bottom-item {
+      width: 50%;
+      text-align: left;
+    }
+    .mui-btn-gray {
+      background-color: gray;
+    }
     body {
       font-size: 12px;
     }
@@ -76,9 +101,8 @@
 </head>
 
 <body>
-  <div class="mui-content">
-
-    <div class="mui-scroll-wrapper">
+  <!--下拉刷新容器-->
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
       <div class="mui-scroll">
         <div class="top">
           <div class="mui-input-row mui-search">
@@ -90,9 +114,11 @@
 
         </div>
         <ul id="OA_task_1" class="mui-table-view">
-          <!-- <li class="mui-table-view-cell">
+          <li class="mui-table-view-cell">
             <div class="mui-slider-right mui-disabled">
+              <a class="mui-btn mui-btn-gray settop">置顶</a>
               <a class="mui-btn mui-btn-red delete">删除</a>
+              
             </div>
             <div class="mui-slider-handle">
               <div class="list-item">
@@ -105,34 +131,33 @@
                       <h5>2018-0591</h5>
                       <p>陕A6509B</p>
                     </div>
-                    <div class="mui-btn mui-btn-blue mui-btn-outlined goback">去还车
+                    <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                      <span>维修中</span>
                       <i class="mui-icon mui-icon-arrowright"></i>
                     </div>
                   </div>
+                  <div class="item-right-middle">
+                    <p><span>维修项目</span>：</p>
+                    <p><span>停放地点</span>：</p>
+                    <p><span>送修人</span>：</p>
+                    <p><span>备注</span>：</p>
+                  </div>
                   <div class="item-right-bottom">
                     <div class="bottom-item">
-                      <span>安全检查：张三</span>
-                      <span>2018-02-22</span>
+                      <span>送修日期：2018-02-22</span>
                     </div>
-                    <div class="bottom-item bottom-item-empty"></div>
                     <div class="bottom-item">
-                      <span>安全检查：张三</span>
-                      <span>2018-02-22</span>
-                    </div>
-                    <div class="bottom-item bottom-item-empty"></div>
-                    <div class="bottom-item">
-                      <span>审核：张三</span>
-                      <span>2018-02-22</span>
+                      <span>截止日期：2018-02-22</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </li> -->
+          </li>
 
         </ul>
       </div>
-    </div>
+
 
   </div>
   
@@ -140,7 +165,7 @@
   <script src="../js/zepto.min.js"></script>
   <script src="../js/config.js" type="text/javascript" charset="utf-8"></script>
   <script src="../js/app.js" type="text/javascript" charset="utf-8"></script>
-  <script src="../js/vehicle-list.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/repair-list.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
 </html>

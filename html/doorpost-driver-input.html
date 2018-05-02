@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-table-view-cell {
+      background-color: transparent;
+    }
+
+    .mui-input-row label {
+      width: 22%;
+    }
+
+    .mui-radio label {
+      padding: 0;
+      padding-left: 5px;
+      padding-right: 24px;
+      line-height: 20px;
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: auto;
+    }
+
+    .mui-radio input[type=radio] {
+      position: relative;
+      left: 0;
+      top: 10px;
+    }
+
+    .mui-radio input[type=radio]:before {
+      font-size: 20px;
+    }
+
+    .mui-radio-box {
+      padding-left: 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    header {
+      z-index: 999;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">接车点检</h1>
+  </header>
+  <div class="mui-content mui-scroll-wrapper">
+    <!--<div class="mui-scroll-wrapper">-->
+    <div class="mui-scroll">
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>姓名</label>
+            <input id="driver_name" type="text" class="mui-input-clear" placeholder="" disabled>
+            <!-- <span class="icon-red-star">*</span> -->
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>性别</label>
+            <div class="mui-radio-box">
+              <div class="mui-radio">
+                <input name="sex" id="man" type="radio" checked>
+                <label for="#man">男</label>
+              </div>
+              <div class="mui-radio">
+                <input name="sex" id="woman" type="radio">
+                <label for="#woman">女</label>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>出生日期</label>
+            <input id="engineNumber" type="text" class="mui-input-clear" placeholder="" disabled>
+            <!-- <span class="icon-red-star">*</span> -->
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>ICcard</label>
+            <input id="item" type="text" class="mui-input-clear" placeholder="">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>是否授权</label>
+              <div class="mui-radio-box">
+                <div class="mui-radio">
+                  <input name="war" id="yes" type="radio" checked>
+                  <label for="#yes">是</label>
+                </div>
+                <div class="mui-radio">
+                  <input name="war" id="no" type="radio">
+                  <label for="#no">否</label>
+                </div>
+              </div>
+            </div>
+          </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>授权起始</label>
+            <input id="sparetyre" type="text" class="mui-input-clear" placeholder="">
+            <!-- <span class="unit">/只</span> -->
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>授权终止</label>
+            <input id="jack" type="text" class="mui-input-clear" placeholder="">
+            <!-- <span class="unit">/只</span> -->
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-button-row">
+            <button type="button" class="mui-btn mui-btn-blue" id="next">保存</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!--</div>-->
+
+  </div>
+  <script src="../js/mui.min.js"></script>
+  <!-- 扩展mui的dom操作 -->
+  <script src="../js/h.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/app.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/doorpost-driver-input.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

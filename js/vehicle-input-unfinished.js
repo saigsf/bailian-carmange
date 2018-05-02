@@ -56,10 +56,75 @@
     mui.alert('goback');
   });
 
+  var statusobj = [{
+    value: "",
+    name: "全部"
+  }, {
+    value: 0,
+    name: "已录入"
+  }, {
+    value: 1,
+    name: "已点检"
+  }, {
+    value: 2,
+    name: "已安全检查"
+  }, {
+    value: 3,
+    name: "已线束检查"
+  }, {
+    value: 4,
+    name: "已bom检查"
+  }, {
+    value: 5,
+    name: "已审核"
+  }, {
+    value: 6,
+    name: "已还车"
+  }];
 
   // 获取未完成列表
-  app.vehicleQuery({},function (res) {
-    console.log(res)
+  app.vehicleQuery({
+    "vSn": "",
+    "status": "",
+    "carName": "",
+    "cGroup": {
+      "id": "",
+      "name": "",
+      "remark": ""
+    }
+  }, function (res) {
+    console.log(res.length)
+    console.log(JSON.stringify(res));
+
+    var html = '';
+    for (let i = 0; i < res.length; i++) {
+      const item = res[i];
+      html += '<li class="mui-table-view-cell">'
+        + '<div class="mui-slider-right mui-disabled">'
+        + '<a class="mui-btn mui-btn-red delete">删除</a>'
+        + '</div>'
+        + '<div class="mui-slider-handle">'
+        + '<div class="list-item">'
+        + '<div class="item-left">'
+        + '<img src="../img/common/icon_app.png" />'
+        + '</div>'
+        + '<div class="item-right">'
+        + '<div class="item-right-top">'
+        + '<div class="number">'
+        + '<h5>'+item.vSn+'</h5>'
+        + '<p>陕A6509B</p>'
+        + '</div>'
+        + '<div class="mui-btn mui-btn-blue mui-btn-outlined goback">去还车'
+        + '<i class="mui-icon mui-icon-arrowright"></i>'
+        + '</div>'
+        + '</div>'
+        + '<div class="item-right-middle">'
+        + '<h5>录入状态：'+statusobj[item.status].name+'</h5>'
+        + '</div></div></div></div></li>'
+
+    }
+
+    $('#OA_task_0').html(html)
   })
 
 

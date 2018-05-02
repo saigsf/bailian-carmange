@@ -40,10 +40,10 @@
 
 
       app.upcheck(data, function (err) {
-        if(err && typeof err === 'String') {
-          $.toast(err);
-          return;
-        }
+        // if(err && typeof err === 'String') {
+        //   $.toast(err);
+        //   return;
+        // }
         $.openWindow({
           url: 'vehicle-check-safety.html',
           id: 'vehicle-check-safety', //默认使用当前页面的url作为id

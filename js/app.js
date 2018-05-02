@@ -202,7 +202,7 @@
 	 * @param  data 请求参数
 	 * @param  callback 回掉函数
 	 */
-	owner.HTTPRequest = function (type, url, data, callback) {
+	owner.HTTPRequest = function (type, url, data, callback, loading) {
 		callback = callback || $.noop;
 		$.ajax({
 			type: type,//HTTP请求类型
@@ -211,22 +211,23 @@
 			dataType: 'jsonp',//服务器返回json格式数据
 			jsonp: "jsonCallback",
 			beforeSend: function () {
-				console.log('beforesend!')
+				console.log('beforesend!');
+				// loading && plus.nativeUI.showWaiting();
 			},
 			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
-				console.log(res)
+				console.log(res);
+				callback(res);
 
-				res = (typeof res == 'String') ? JSON.parse(res) : res;
+				// res = (typeof res == 'String') ? JSON.parse(res) : res;
 
-				if(res instanceof Array) {
-					callback(res);
-				} else if (res.ret) {
-					$.toast(res.msg);
-					callback(res.data);
-				} else {
-					$.toast(res.msg)
-				}
+				// if(res instanceof Array) {
+				// 	callback(res);
+				// } else if (res.ret) {
+				// 	callback(res.data);
+				// } else if(res.totalCount) {
+				// 	callback(res);
+				// }
 			},
 			error: function (xhr, type, errorThrown) {
 				//异常处理；
@@ -238,7 +239,8 @@
 				}
 			},
 			complete: function () {
-				console.log('complete')
+				console.log('complete');
+				// loading && plus.nativeUI.closeWaiting();
 			}
 		});
 	}
@@ -256,18 +258,15 @@
 			type: type,//HTTP请求类型
 			url: BASE_URL_1 + url,
 			data: data,
-			// dataType: 'jsonp',//服务器返回json格式数据
-			// jsonp: "jsonCallback",
 			contentType: 'application/json;charset=UTF-8', //contentType很重要 
-      // crossDomain: true,
-			// timeout: 10000,//超时时间设置为10秒；
+      crossDomain: true,
 			beforeSend: function () {
-				console.log('beforesend!' + JSON.stringify(data))
+				console.log('beforesend!')
 			},
-			success: function (data) {
+			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
-				console.log(data)
-				callback(data);
+				console.log(res)
+				callback(res);
 			},
 			error: function (xhr, type, errorThrown) {
 				//异常处理；
@@ -313,10 +312,15 @@
 		owner.check({
 			param: data.vSn,
 			type: 1
-		}, function () {
+		}, function (res) {
+			res = JSON.parse(res);
+			if(res.ret) {
+				var url = 'car-management/tempcar/addTcar.action';
+				owner.HTTPRequest('POST', url, data, callback)
+			} else {
+				mui.toast(res.msg);
+			}
 			
-			var url = 'car-management/tempcar/addTcar.action';
-			owner.HTTPRequest('POST', url, data, callback)
 		});
 
 		// callback()
@@ -642,7 +646,9 @@
 
 		var url = 'car-management/tempcar/query.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		data = JSON.stringify(data)
+
+		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
@@ -687,7 +693,7 @@
 
 		var url = 'car-management/car/pageQuery.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequest('POST', url, data, callback, true)
 	}
 
 	/**
