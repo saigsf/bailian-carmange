@@ -1,7 +1,24 @@
 ; (function () {
-  mui.init();
+  mui.init({
+    pullRefresh: {
+      container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+      down: {
+        auto: true,//可选,默认false.首次加载自动下拉刷新一次
+        callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+      }
+    }
+  });
 
-  
+  // 下拉刷新业务
+  function pulldownRwfresh() {
+    
+    setTimeout(function () {
+      mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+      // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+    }, 1000)
+  }
+
+
   var byId = function (id) {
     return document.getElementById(id);
   };
@@ -120,8 +137,8 @@
       }]
     };
 
-    echartOne.setOption(echartOneOptions);
-    
+  echartOne.setOption(echartOneOptions);
+
   var echartTwo = echarts.init($('#two')[0]),
     echartTwoOptions = {
       color: ['rgba(166, 209, 14, .7)', 'rgba(216, 79, 95, .7)', 'rgba(149, 202, 153, .7)', 'rgba(190, 219, 233, .7)', '#EDEBEE', 'rgba(166, 209, 14, .7)'],
@@ -185,7 +202,7 @@
       }]
     };
 
-    echartThree.setOption(echartThreeOptions);
+  echartThree.setOption(echartThreeOptions);
 
 
   mui.plusReady(function () {

@@ -1,0 +1,73 @@
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Logging to file: E:\work_catalog\work_m_car_msg3\unpackage\release\H54F76A3F_0504122818.ipa_1805041334.log
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Logging configured successfully.
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: iTMSTransporter : iTunes Store Transporter [1.9.8]
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: OS identifier: Windows 10 10.0 (amd64); jvm=25.151-b12; jre=1.8.0_151-b12
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Memory: [JVM] 104M free, 290M total, 1799M max [System] (Physical) 3447M free, 8089M total (Swap) 10660M free, 18841M total
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Upload mode selected.
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Examining the package at: C:\Users\saigsf\AppData\Local\Temp\au\itmsp\1380524677.itmsp
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Ensuring that package has well formed metadata file...
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Gathering the list of valid files from the package ...
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Finished gathering the list of valid files from the package.
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Verify progress: Analyzing metadata (Step 2/?)
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Performing authentication of package 1380524677.itmsp ...
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: Verify progress: Analyzing metadata (Step 3/2)
+[2018-05-04 13:34:05 CST] <Thread-21>  INFO: id = 20180504133405-349
+[2018-05-04 13:34:06 CST] <Thread-21>  INFO: id = 20180504133406-046
+[2018-05-04 13:34:08 CST] <Thread-21>  INFO: The list of files requested for upload by Apple is: [metadata.xml, 1380524677.ipa].  These are the files that will be uploaded.
+[2018-05-04 13:34:08 CST] <Thread-21>  INFO: Starting media analysis of assets
+[2018-05-04 13:34:08 CST] <Thread-21>  INFO: Verify progress: Adding asset to analyze: 1380524677.ipa (Step 4/3)
+[2018-05-04 13:34:08 CST] <Thread-21>  INFO: Asset media analysis has completed
+[2018-05-04 13:34:08 CST] <Thread-21>  INFO: id = 20180504133408-588
+[2018-05-04 13:34:18 CST] <Thread-21>  INFO: Verify progress: Validating assets (Step 5/3)
+[2018-05-04 13:34:18 CST] <Thread-21>  INFO: Verify progress: Validating assets (Step 6/3)
+[2018-05-04 13:34:18 CST] <Thread-21>  INFO: id = 20180504133418-171
+[2018-05-04 13:34:30 CST] <Thread-21>  INFO: The list of files requested for upload by Apple is: [metadata.xml, 1380524677.ipa].  These are the files that will be uploaded.
+[2018-05-04 13:34:30 CST] <Thread-21>  INFO: Done performing authentication.
+[2018-05-04 13:34:30 CST] <Thread-21>  INFO: The asset replacement verification check is disabled.
+[2018-05-04 13:34:30 CST] <Thread-21>  INFO: Checking the file size of the files: [1380524677.ipa]
+[2018-05-04 13:34:30 CST] <Thread-21>  INFO: Done checking the file sizes.
+[2018-05-04 13:34:30 CST] <Thread-21>  INFO: Checking the md5 checksum of the files: [1380524677.ipa]
+[2018-05-04 13:34:30 CST] <Thread-21>  INFO: Done checking the md5 checksum.
+[2018-05-04 13:34:30 CST] <Thread-21>  INFO: Preparing to upload package 1380524677.itmsp ...
+[2018-05-04 13:34:30 CST] <Thread-21>  INFO: Starting to upload the package's files (1380524677.itmsp) ...
+[2018-05-04 13:34:30 CST] <Thread-21>  INFO: Attempting to connect to Apple's webDAV...
+[2018-05-04 13:34:31 CST] <Thread-21>  INFO: Successfully connected to Apple's webDAV.
+[2018-05-04 13:34:31 CST] <Thread-21>  INFO: Attempting to create the package's folder on Apple's webDAV: /5/G6Q46R644B/uploading/1380524677-20180503223422-029.itmsp/
+[2018-05-04 13:34:31 CST] <Thread-21>  INFO: Successfully created/set the package's folder on Apple's webDAV.
+[2018-05-04 13:34:31 CST] <Thread-21>  INFO: Determining which files should be uploaded ...
+[2018-05-04 13:34:31 CST] <Thread-21>  INFO: Finished determining which files should be uploaded.
+[2018-05-04 13:34:31 CST] <Thread-21>  INFO: Computing total size of files to upload ...
+[2018-05-04 13:34:31 CST] <Thread-21>  INFO: Done computing total size of files to upload.
+[2018-05-04 13:34:32 CST] <Thread-21>  INFO: Starting upload of file: C:\Users\saigsf\AppData\Local\Temp\au\itmsp\1380524677.itmsp\1380524677.ipa ...
+[2018-05-04 13:34:37 CST] <Thread-21>  INFO:      File: 1380524677.ipa 10485760/16422491, 63% completed
+[2018-05-04 13:34:42 CST] <Thread-21>  INFO:      File: 1380524677.ipa 16422491/16422491, 100% completed
+[2018-05-04 13:34:42 CST] <Thread-21>  INFO:   Successfully uploaded file: C:\Users\saigsf\AppData\Local\Temp\au\itmsp\1380524677.itmsp\1380524677.ipa
+[2018-05-04 13:34:42 CST] <Thread-21>  INFO: Package upload progress: 99% completed
+[2018-05-04 13:34:42 CST] <Thread-21>  INFO: Finished upload of file: C:\Users\saigsf\AppData\Local\Temp\au\itmsp\1380524677.itmsp\1380524677.ipa.
+[2018-05-04 13:34:42 CST] <Thread-21>  INFO: Starting upload of file: C:\Users\saigsf\AppData\Local\Temp\au\itmsp\1380524677.itmsp\metadata.xml ...
+[2018-05-04 13:34:43 CST] <Thread-21>  INFO:      File: metadata.xml 521/521, 100% completed
+[2018-05-04 13:34:43 CST] <Thread-21>  INFO:   Successfully uploaded file: C:\Users\saigsf\AppData\Local\Temp\au\itmsp\1380524677.itmsp\metadata.xml
+[2018-05-04 13:34:44 CST] <Thread-21>  INFO: Package upload progress: 100% completed
+[2018-05-04 13:34:44 CST] <Thread-21>  INFO: Finished upload of file: C:\Users\saigsf\AppData\Local\Temp\au\itmsp\1380524677.itmsp\metadata.xml.
+[2018-05-04 13:34:44 CST] <Thread-21>  INFO: Gathering list of uploaded files from Apple's webDAV...
+[2018-05-04 13:34:45 CST] <Thread-21>  INFO: Done gathering list of uploaded files from Apple's webDAV...
+[2018-05-04 13:34:45 CST] <Thread-21>  INFO: Checking if any encryption/compression files are outdated locally ...
+[2018-05-04 13:34:45 CST] <Thread-21>  INFO: Finished checking if any encryption/compression files are outdated locally.
+[2018-05-04 13:34:45 CST] <Thread-21>  INFO: Confirming that the previously uploaded files were uploaded correctly ...
+[2018-05-04 13:34:45 CST] <Thread-21>  INFO: Finished confirming that the previously uploaded files were uploaded correctly.
+[2018-05-04 13:34:45 CST] <Thread-21>  INFO: Determining which files were not uploaded ...
+[2018-05-04 13:34:45 CST] <Thread-21>  INFO: Finished determining which files were not uploaded.
+[2018-05-04 13:34:45 CST] <Thread-21>  INFO: Done performing upload.
+[2018-05-04 13:34:45 CST] <Thread-21>  INFO: id = 20180504133445-759
+[2018-05-04 13:34:47 CST] <Thread-21>  INFO: Done performing uploadDone notification to Apple.
+[2018-05-04 13:34:47 CST] <Thread-21>  INFO: The package: C:\Users\saigsf\AppData\Local\Temp\au\itmsp\1380524677.itmsp has been successfully uploaded.
+[2018-05-04 13:34:47 CST] <Thread-21>  INFO: Verify progress: Operation completed (Step 3/3)
+
+
+
+Package Summary:
+ 
+1 packages were uploaded successfully:
+	C:\Users\saigsf\AppData\Local\Temp\au\itmsp\1380524677.itmsp
+[2018-05-04 14:11:52 CST] <Thread-23> Invalid cookie header: "Set-Cookie: dqsid=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJnMXpLeldlb2UwX04ybzhTZmhobk9BIn0.sIt_Ko8c2Z_bddFzqAhPUEBr71csoZeWhA1nRmqc0NY; Max-Age=1800; Expires=Fri, 04 May 2018 06:41:53 GMT; Path=/; Secure; HTTPOnly". Invalid 'expires' attribute: Fri, 04 May 2018 06:41:53 GMT
+[2018-05-04 14:11:52 CST] <Thread-23> list apps success

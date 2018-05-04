@@ -20,30 +20,39 @@
       margin: 0px;
       padding: 0px;
     }
+
     .mui-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     .mui-row .chart {
       height: 100px;
       width: 100px;
       margin: 80px 0
     }
+    .mui-scroll {
+      height: 100%
+    }
   </style>
 </head>
 
 <body>
-  <div class="mui-content">
-    <div class="chart" id="pieChart"></div>
-    <div class="mui-row">
-      <div class="chart" id="one"></div>
-      <div class="chart" id="two"></div>
-      <div class="chart" id="three"></div>
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!--这里放置真实显示的DOM内容-->
+      <div class="chart" id="pieChart"></div>
+      <div class="mui-row">
+        <div class="chart" id="one"></div>
+        <div class="chart" id="two"></div>
+        <div class="chart" id="three"></div>
+      </div>
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-blue" id="look_auditing">查看审核</button>
+      </div>
     </div>
-    <div class="mui-button-row">
-      <button type="button" class="mui-btn mui-btn-blue" id="look_auditing">查看审核</button>
-    </div>
+
   </div>
 
 </body>

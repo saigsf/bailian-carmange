@@ -77,8 +77,9 @@
     </a>
   </nav>
   <script src="js/mui.min.js"></script>
+  <script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/h.min.js" type="text/javascript" charset="utf-8"></script>
+  <!--<script src="js/h.min.js" type="text/javascript" charset="utf-8"></script>-->
   <script type="text/javascript" charset="utf-8">
     var closeView = function () {
       var ws = plus.webview.getDisplayWebview();
@@ -123,7 +124,7 @@
       mui.plusReady(function () {
 
         //获取底部导航栏的实际高度
-        var tabH = h('#mui_bar_tab').height()
+        var tabH = $('#mui_bar_tab').height()
         //iphonX适配
         if (plus.device.model === 'iPhoneX') {
           //子页面导入样式重置
@@ -178,7 +179,7 @@
             },
             extras: extras, //自定义扩展参数
             show: {
-              aniShow: 'fade-in'
+              aniShow: ''
             }
           });
           // activeTab = targetTab;
