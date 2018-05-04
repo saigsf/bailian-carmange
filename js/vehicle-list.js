@@ -1,6 +1,17 @@
 (function (mui, doc) {
 
-  mui.init();
+  mui.init({
+    pullRefresh: {
+      container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+      down: {
+        auto: true,//可选,默认false.首次加载自动下拉刷新一次
+        callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+      },
+      up: {
+        callback: pullupRefresh
+      }
+    }
+  });
 
   mui('.mui-scroll-wrapper').scroll({
     indicators: true //是否显示滚动条
@@ -27,10 +38,29 @@
     plus.webview.currentWebview().setStyle({
       softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
     });
+    
+    addEvent();
+  })
 
-    var self = plus.webview.currentWebview();
-    var H = self.H;
+  // 下拉刷新业务
+  function pulldownRwfresh() {
+    
+    setTimeout(function () {
+      mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+      // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+    }, 1000)
+  }
 
+  // 上拉加载业务
+  function pullupRefresh() {
+    // getData();
+    setTimeout(function () {
+      mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+    }, 1000)
+  }
+  // 获取数据
+  function getData() {
+    var data = null;
     app.pageQuery({
       page: 1,
       size: 10
@@ -86,9 +116,16 @@
       $('#OA_task_1').html(html)
 
     });
-    //查看车辆信息
-    $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
+    return data
+  }
 
+  //添加事件
+  function addEvent() {
+    var self = plus.webview.currentWebview();
+    var H = self.H;
+    //查看车辆信息
+    $('#OA_task_1').on('tap', '.mui-slider-handle', function (e) {
+      e.stopPropagation();
       // 需要传递参数vSn
       //打开接车点检页面
       mui.openWindow({
@@ -113,10 +150,10 @@
       })
     });
     //去还车
-    mui('#OA_task_1').on('tap', '.goback', function (e) {
+    $('#OA_task_1').on('tap', '.goback', function (e) {
       e.stopPropagation();
 
-      //打开接车点检页面
+      //打开页面
       mui.openWindow({
         url: 'vehicle-check-down.html',
         id: 'vehicle-check-down', //默认使用当前页面的url作为id
@@ -137,6 +174,6 @@
         }
       })
     })
-  })
+  }
 
 })(mui, document);

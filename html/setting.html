@@ -31,7 +31,7 @@
       }
       
       .mui-pages {
-        top: 88px;
+        top: 64px;
         height: auto;
       }
       
@@ -130,7 +130,7 @@
       }
       
       .mui-table-view {
-        margin-top: 20px;
+        margin-top: 15px;
       }
       
       .mui-table-view span.mui-pull-right {
@@ -215,6 +215,12 @@
       .mui-table-view-cell>a:not(.mui-btn).mui-active {
         background-color: transparent;
       }
+      .exit {
+        font-size: 16px;
+        color: #ff0000;
+        border: 0;
+        margin-top: 15px
+      }
       /*问题反馈在setting页面单独的css*/
       
       #feedback .mui-popover {
@@ -261,7 +267,7 @@
             <ul class="mui-table-view mui-table-view-chevron">
               <li class="mui-table-view-cell user-logo">
                 <img class="head-img" src="../img/login/user_logo.png" id="head-img" />
-                <a href="#" id="exit">退出登录</a>
+                <a href="#"  id="username">用户名</a>
               </li>
             </ul>
             <ul class="mui-table-view mui-table-view-chevron">
@@ -295,6 +301,7 @@
                 <a class="mui-navigate-right" href="#">版本更新</a>
               </li>
             </ul>
+            <div class="mui-btn mui-btn-block exit" id="exit">退出登录</div>
           </div>
         </div>
       </div>
@@ -328,7 +335,7 @@
             </ul>
             <ul class="mui-table-view">
               <li class="mui-table-view-cell">
-                <a>QQ号<span class="mui-pull-right">88888888</span></a>
+                <a>QQ号<span class="mui-pull-right">64646464</span></a>
               </li>
               <li class="mui-table-view-cell">
                 <a>手机号<span class="mui-pull-right">18601234567</span></a>
@@ -624,6 +631,7 @@
     </div>
 
   </body>
+  <script src="../js/zepto.min.js"></script>
   <script src="../js/mui.min.js "></script>
   <script src="../js/mui.view.js "></script>
   <script src='../js/feedback.js'></script>

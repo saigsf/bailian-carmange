@@ -5,6 +5,17 @@
     deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
   });
   $.plusReady(function () {
+    if (plus.device.model === 'iPhoneX') {
+      //页面样式重置
+      $('header').css({
+        'height': '88px',
+        'paddingTop': '40px'
+      });
+      $('.mui-bar-nav~.mui-content').css({
+        'paddingTop': '88px'
+      })
+    }
+  	
     plus.webview.currentWebview().setStyle({
       softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
     });

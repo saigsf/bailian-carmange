@@ -17,22 +17,37 @@
   <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
   <!--独立样式-->
   <style type="text/css">
+    .mui-table-view {
+      padding-top: 20px;
+    }
+
     .mui-table-view-cell {
       background-color: transparent;
     }
+
     .mui-content>.mui-table-view:first-child {
       margin-top: 0
     }
+
     .mui-input-row label {
       width: 22%
     }
-    .mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {
+
+    .mui-input-row label~input,
+    .mui-input-row label~select,
+    .mui-input-row label~textarea {
       border-bottom: 1px solid #ccc;
-      
+
     }
-    .mui-input-row label~input[type=text], .mui-input-row label~input[type=password], .mui-input-row label~select, .mui-input-row label~textarea {
-      width: 78%
+
+    .mui-input-row label~input[type=text],
+    .mui-input-row label~input[type=password],
+    .mui-input-row label~select,
+    .mui-input-row label~textarea {
+      width: 78%;
+      border-radius: 0
     }
+
     .mui-table-view-cell:after {
       display: none
     }

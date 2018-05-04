@@ -7,7 +7,7 @@
 
   // 子页面切换样式
   var subpages_style = {
-    top: '88px',
+    top: '64px',
     bottom: '0px'
   }
   //页面切换动画
@@ -18,8 +18,19 @@
 
   // 创建子页面，显示首个选项卡其他都影藏
   mui.plusReady(function () {
-    //更改状态栏颜色
-    plus.navigator.setStatusBarStyle("light");
+    // //更改状态栏颜色
+    // plus.navigator.setStatusBarStyle("light");
+
+    if (plus.device.model === 'iPhoneX') {
+      //子页面导入样式重置
+      subpages_style.top = 88 + 'px';
+      //传参重置
+      //页面样式重置
+      $('header').css({
+        'height': '88px',
+        'paddingTop': '40px'
+      })
+    }
 
     var self = plus.webview.currentWebview();
 
@@ -52,7 +63,7 @@
     //若为iOS平台或非首次显示，则直接显示
     if (mui.os.ios || aniShow[targetTab]) {
       plus.webview.show(targetTab);
-      plus.webview.getWebviewById(targetTab).reload()
+      // plus.webview.getWebviewById(targetTab).reload()
     } else {
       //否则，使用fade-in动画，且保存变量
       var temp = {};
@@ -60,7 +71,7 @@
       temp[targetTab] = "true";
       mui.extend(aniShow, temp);
       plus.webview.show(targetTab, "slide-in-right", 300);
-      plus.webview.getWebviewById(targetTab).reload()
+      // plus.webview.getWebviewById(targetTab).reload()
     }
     //隐藏当前;
     plus.webview.hide(activeTab);

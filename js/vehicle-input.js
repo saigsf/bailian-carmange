@@ -5,6 +5,13 @@
   });
 
   mui.plusReady(function () {
+    if (plus.device.model === 'iPhoneX') {
+      //页面样式重置
+      $('header').css({
+        'height': '88px',
+        'paddingTop': '40px'
+      })
+    }
     //更改状态栏颜色
     plus.navigator.setStatusBarStyle("light");
     // 弹出软键盘时自动改变webview的高度
@@ -20,25 +27,25 @@
       //打开接车点检页面
       var data = {};
 
-      data.vSn = h('#vSn').val(); //车辆编号
-      data.product_sn = h('#product_sn').val(); //项目编号
-      data.product_name = h('#product_name').val(); //项目名称
-      data.carName = h('#carName').val(); //车辆名称
-      data.vCarType = h('#vCarType').val(); //车辆类型
-      data.customer = h('#customer').val(); //客户
-      data.projectEngineer = h('#projectEngineer').val(); //项目工程师
-      data.contactNumber = h('#contactNumber').val(); //联系电话
-      data.engineType = h('#engineType').val(); //发动机型号
-      data.engineNumber = h('#engineNumber').val(); //发动机编号
-      data.engineCapacity = +h('#engineCapacity').val(); //发动机排量
-      data.fulType = h('#fulType').val(); //燃油规格
-      data.oilspecification = h('#oilspecification').val(); //机油规格
-      data.tyresize = h('#tyresize').val(); //轮胎规格
-      data.GBTS = h('#GBTS').val(); //变速箱规格
-      data.reaTireP = h('#reaTireP').val(); //前轮胎压
-      data.frontTireP = h('#frontTireP').val(); //后轮胎压
-      data.vin = h('#vin').val(); //车辆识别码
-      data.operator = h('#operator').val(); //填写人
+      data.vSn = $('#vSn').val(); //车辆编号
+      data.product_sn = $('#product_sn').val(); //项目编号
+      data.product_name = $('#product_name').val(); //项目名称
+      data.carName = $('#carName').val(); //车辆名称
+      data.vCarType = $('#vCarType').val(); //车辆类型
+      data.customer = $('#customer').val(); //客户
+      data.projectEngineer = $('#projectEngineer').val(); //项目工程师
+      data.contactNumber = $('#contactNumber').val(); //联系电话
+      data.engineType = $('#engineType').val(); //发动机型号
+      data.engineNumber = $('#engineNumber').val(); //发动机编号
+      data.engineCapacity = +$('#engineCapacity').val(); //发动机排量
+      data.fulType = $('#fulType').val(); //燃油规格
+      data.oilspecification = $('#oilspecification').val(); //机油规格
+      data.tyresize = $('#tyresize').val(); //轮胎规格
+      data.GBTS = $('#GBTS').val(); //变速箱规格
+      data.reaTireP = $('#reaTireP').val(); //前轮胎压
+      data.frontTireP = $('#frontTireP').val(); //后轮胎压
+      data.vin = $('#vin').val(); //车辆识别码
+      data.operator = $('#operator').val(); //填写人
 
       // data.gids = '123'; //车辆分组
       app.addTcar(data, function () {

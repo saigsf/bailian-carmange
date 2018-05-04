@@ -72,20 +72,11 @@
       flex-direction: column;
     }
     .item-right-middle p {
-      font-size: 12px;
       width: 100%;
       line-height: 20px;
     }
     .item-right-middle p span {
-      display: inline-block;
-      line-height: 0;
-      width: 18%;
-      text-align: justify;
-    }
-    .item-right-middle p span:after {
-      content: "";
-      display: inline-block;
-      width: 100%
+      width: 26%;
     }
     .bottom-item {
       width: 50%;
@@ -94,9 +85,9 @@
     .mui-btn-gray {
       background-color: gray;
     }
-    body {
+    /* body {
       font-size: 12px;
-    }
+    } */
   </style>
 </head>
 
@@ -108,17 +99,12 @@
           <div class="mui-input-row mui-search">
             <input type="search" class="mui-input-clear" placeholder="请输入关键词">
           </div>
-          <div class="btn">
-            <i class="icon icon-more"></i>
-          </div>
-
         </div>
         <ul id="OA_task_1" class="mui-table-view">
           <li class="mui-table-view-cell">
             <div class="mui-slider-right mui-disabled">
-              <a class="mui-btn mui-btn-gray settop">置顶</a>
-              <a class="mui-btn mui-btn-red delete">删除</a>
-              
+              <a class="mui-btn mui-btn-gray settop">通过</a>
+              <a class="mui-btn mui-btn-red delete">拒绝</a>
             </div>
             <div class="mui-slider-handle">
               <div class="list-item">
@@ -128,27 +114,138 @@
                 <div class="item-right">
                   <div class="item-right-top">
                     <div class="number">
-                      <h5>2018-0591</h5>
+                      <h4>2018-0591</h4>
                       <p>陕A6509B</p>
                     </div>
                     <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                      <span>维修中</span>
-                      <i class="mui-icon mui-icon-arrowright"></i>
+                      <span>未处理</span>
+                      <!-- <i class="mui-icon mui-icon-arrowright"></i> -->
                     </div>
                   </div>
                   <div class="item-right-middle">
-                    <p><span>维修项目</span>：</p>
-                    <p><span>停放地点</span>：</p>
-                    <p><span>送修人</span>：</p>
-                    <p><span>备注</span>：</p>
+                    <p><span>驾驶员</span>：张三</p>
+                    <p><span>牌照有效期</span>：2019-01-01</p>
+                    <p><span>处理状态</span>：未处理</p>
                   </div>
-                  <div class="item-right-bottom">
-                    <div class="bottom-item">
-                      <span>送修日期：2018-02-22</span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-slider-right mui-disabled">
+              <a class="mui-btn mui-btn-gray settop">通过</a>
+              <a class="mui-btn mui-btn-red delete">拒绝</a>
+            </div>
+            <div class="mui-slider-handle">
+              <div class="list-item">
+                <div class="item-left">
+                  <img src="../img/common/icon_app.png" />
+                </div>
+                <div class="item-right">
+                  <div class="item-right-top">
+                    <div class="number">
+                      <h4>2018-0591</h4>
+                      <p>陕A6509B</p>
                     </div>
-                    <div class="bottom-item">
-                      <span>截止日期：2018-02-22</span>
+                    <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                      <span>未处理</span>
+                      <!-- <i class="mui-icon mui-icon-arrowright"></i> -->
                     </div>
+                  </div>
+                  <div class="item-right-middle">
+                    <p><span>驾驶员</span>：张三</p>
+                    <p><span>牌照有效期</span>：2019-01-01</p>
+                    <p><span>处理状态</span>：未处理</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-slider-right mui-disabled">
+              <a class="mui-btn mui-btn-gray settop">通过</a>
+              <a class="mui-btn mui-btn-red delete">拒绝</a>
+            </div>
+            <div class="mui-slider-handle">
+              <div class="list-item">
+                <div class="item-left">
+                  <img src="../img/common/icon_app.png" />
+                </div>
+                <div class="item-right">
+                  <div class="item-right-top">
+                    <div class="number">
+                      <h4>2018-0591</h4>
+                      <p>陕A6509B</p>
+                    </div>
+                    <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                      <span>未处理</span>
+                      <!-- <i class="mui-icon mui-icon-arrowright"></i> -->
+                    </div>
+                  </div>
+                  <div class="item-right-middle">
+                    <p><span>驾驶员</span>：张三</p>
+                    <p><span>牌照有效期</span>：2019-01-01</p>
+                    <p><span>处理状态</span>：未处理</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-slider-right mui-disabled">
+              <a class="mui-btn mui-btn-gray adopt">通过</a>
+              <a class="mui-btn mui-btn-red refuse">拒绝</a>
+            </div>
+            <div class="mui-slider-handle">
+              <div class="list-item">
+                <div class="item-left">
+                  <img src="../img/common/icon_app.png" />
+                </div>
+                <div class="item-right">
+                  <div class="item-right-top">
+                    <div class="number">
+                      <h4>2018-0591</h4>
+                      <p>陕A6509B</p>
+                    </div>
+                    <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                      <span>未处理</span>
+                      <!-- <i class="mui-icon mui-icon-arrowright"></i> -->
+                    </div>
+                  </div>
+                  <div class="item-right-middle">
+                    <p><span>驾驶员</span>：张三</p>
+                    <p><span>牌照有效期</span>：2019-01-01</p>
+                    <p><span>处理状态</span>：未处理</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-slider-right mui-disabled">
+              <a class="mui-btn mui-btn-gray settop">通过</a>
+              <a class="mui-btn mui-btn-red delete">拒绝</a>
+            </div>
+            <div class="mui-slider-handle">
+              <div class="list-item">
+                <div class="item-left">
+                  <img src="../img/common/icon_app.png" />
+                </div>
+                <div class="item-right">
+                  <div class="item-right-top">
+                    <div class="number">
+                      <h4>2018-0591</h4>
+                      <p>陕A6509B</p>
+                    </div>
+                    <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                      <span>未处理</span>
+                      <!-- <i class="mui-icon mui-icon-arrowright"></i> -->
+                    </div>
+                  </div>
+                  <div class="item-right-middle">
+                    <p><span>驾驶员</span>：张三</p>
+                    <p><span>牌照有效期</span>：2019-01-01</p>
+                    <p><span>处理状态</span>：未处理</p>
                   </div>
                 </div>
               </div>
@@ -157,8 +254,6 @@
 
         </ul>
       </div>
-
-
   </div>
   
   <script src="../js/mui.min.js"></script>

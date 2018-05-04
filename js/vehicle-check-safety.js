@@ -8,6 +8,16 @@
   mui('.mui-scroll-wrapper').scroll();
 
   mui.plusReady(function () {
+    if (plus.device.model === 'iPhoneX') {
+      //页面样式重置
+      $('header').css({
+        'height': '88px',
+        'paddingTop': '40px'
+      });
+      $('.mui-bar-nav~.mui-content').css({
+        'paddingTop': '88px'
+      })
+    }
 
     // plus.webview.currentWebview().setStyle({
     //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度

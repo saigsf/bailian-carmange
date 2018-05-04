@@ -161,6 +161,18 @@
   line-height: 40px;
   color: #ff0000;
 }
+
+.icon-man {
+  width: 16px;
+  height: 16px;
+  background-image: url(../img/other/icon_md_man.png);
+}
+.icon-woman {
+  width: 16px;
+  height: 16px;
+  background-image: url(../img/other/icon_md_woman.png);
+}
+
 .unit {
   line-height: 40px;
 }

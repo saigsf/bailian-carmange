@@ -16,7 +16,14 @@
   <!--独立样式-->
   <style type="text/css">
     .mui-scroll-wrapper {
-      padding-top: 88px;
+      padding-top: 64px;
+    }
+    .mui-bar-nav~.mui-content .mui-pull-top-pocket {
+      top: 64px
+    }
+    .mui-scroll {
+      top: 64px;
+      height: auto
     }
 
     .mui-segmented-control {
@@ -39,6 +46,9 @@
       background-color: #fff;
       box-shadow: 0 3px 3px rgba(0, 0, 0, .1)
     }
+    .mui-table-view-cell:after {
+      display: none
+    }
 
     table thead {
       line-height: 30px;
@@ -50,6 +60,9 @@
 
     table tr td {
       padding: 5px 7px;
+    }
+    body {
+      font-size: 12px
     }
   </style>
 </head>
@@ -63,9 +76,7 @@
   </header>
 
   <!--页面标题栏结束-->
-  <div class="mui-content">
-
-    <div class="mui-scroll-wrapper">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
       <div class="mui-scroll">
 
         <div class="mui-segmented-control">
@@ -111,12 +122,312 @@
                 </div>
               </div>
             </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+                    <div class="item-right-bottom">
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                      <div class="bottom-item bottom-item-empty"></div>
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+                    <div class="item-right-bottom">
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                      <div class="bottom-item bottom-item-empty"></div>
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+                    <div class="item-right-bottom">
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                      <div class="bottom-item bottom-item-empty"></div>
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+                    <div class="item-right-bottom">
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                      <div class="bottom-item bottom-item-empty"></div>
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
 
           </ul>
 
         </div>
         <div id="item2" class="mui-control-content">
           <ul id="OA_task_2" class="mui-table-view">
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">去修改
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+
+                    <div class="item-right-bottom">
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                      <div class="bottom-item bottom-item-empty"></div>
+                      <div class="bottom-item">
+                        <span>审核：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                    </div>
+                    <div class="item-right-middle">
+                      <h5>原因：</h5>
+                      <p>查百度本地好的年度承诺低成就丢成都成都农村调查读的所称的斯UC呼唤你多少次的水泥厂的都成家地产的</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">去修改
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+
+                    <div class="item-right-bottom">
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                      <div class="bottom-item bottom-item-empty"></div>
+                      <div class="bottom-item">
+                        <span>审核：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                    </div>
+                    <div class="item-right-middle">
+                      <h5>原因：</h5>
+                      <p>查百度本地好的年度承诺低成就丢成都成都农村调查读的所称的斯UC呼唤你多少次的水泥厂的都成家地产的</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">去修改
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+
+                    <div class="item-right-bottom">
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                      <div class="bottom-item bottom-item-empty"></div>
+                      <div class="bottom-item">
+                        <span>审核：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                    </div>
+                    <div class="item-right-middle">
+                      <h5>原因：</h5>
+                      <p>查百度本地好的年度承诺低成就丢成都成都农村调查读的所称的斯UC呼唤你多少次的水泥厂的都成家地产的</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">去修改
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+
+                    <div class="item-right-bottom">
+                      <div class="bottom-item">
+                        <span>安全检查：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                      <div class="bottom-item bottom-item-empty"></div>
+                      <div class="bottom-item">
+                        <span>审核：张三</span>
+                        <span>2018-02-22</span>
+                      </div>
+                    </div>
+                    <div class="item-right-middle">
+                      <h5>原因：</h5>
+                      <p>查百度本地好的年度承诺低成就丢成都成都农村调查读的所称的斯UC呼唤你多少次的水泥厂的都成家地产的</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
             <li class="mui-table-view-cell">
               <div class="mui-slider-right mui-disabled">
                 <a class="mui-btn mui-btn-red delete">删除</a>
@@ -217,14 +528,117 @@
                   <span>2018-02-22</span>
                 </td>
               </tr>
+              <tr>
+                <td>01000000</td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+              </tr>
+              <tr>
+                <td>01000000</td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+              </tr>
+              <tr>
+                <td>01000000</td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+              </tr>
+              <tr>
+                <td>01000000</td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+              </tr>
+              <tr>
+                <td>01000000</td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+              </tr>
+              <tr>
+                <td>01000000</td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+              </tr>
+              <tr>
+                <td>01000000</td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+                <td>
+                  <span>张三</span>
+                  <span>2018-02-22</span>
+                </td>
+              </tr>
 
             </tbody>
           </table>
         </div>
 
       </div>
-    </div>
-
   </div>
   <script src="../js/zepto.min.js"></script>
   <script src="../js/mui.min.js"></script>
