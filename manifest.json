@@ -4,10 +4,10 @@
     "iPhone",
     "iPad"
   ],
-  "id": "com.app.delphi",/*应用的标识，创建应用时自动生成，勿手动修改*/
+  "id": "H54F76A3F",/*应用的标识，创建应用时自动生成，勿手动修改*/
   "name": "work_m_car_msg3",/*应用名称，程序桌面图标名称*/
   "version": {
-    "name": "1.0.7",/*应用版本名称*/
+    "name": "1.0.10",/*应用版本名称*/
     "code": "83"
   },
   "description": "",/*应用描述信息*/
@@ -37,7 +37,7 @@
       "autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
       "waiting": true
     },
-    "runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+    "runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
     "signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
     "distribute": {
       "plugins": {
@@ -62,9 +62,7 @@
         "aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
         "permissions": ["<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
       },
-      "orientation": [
-        "portrait-primary"
-      ],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+      "orientation": ["portrait-primary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
       "icons": {
         "ios": {
           "prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/

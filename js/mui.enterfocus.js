@@ -1,3 +1,4 @@
+
 (function($) {
 	$.enterfocus = function(selector, callback) {
 		var boxArray = [].slice.call(document.querySelectorAll(selector));
