@@ -69,3 +69,5 @@ Package Summary:
  
 1 packages were uploaded successfully:
 	C:\Users\saigsf\AppData\Local\Temp\au\itmsp\1380524677.itmsp
+[2018-05-07 11:12:29 CST] <Thread-22> Invalid cookie header: "Set-Cookie: dqsid=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJsUzNuMTlPdTVISzg1ejd0MU0wLUdnIn0.EGLu5AedbOkXeBjWOzBjkRLl1-2eyxfPlXsEn00Pv00; Max-Age=1800; Expires=Mon, 07 May 2018 03:42:29 GMT; Path=/; Secure; HTTPOnly". Invalid 'expires' attribute: Mon, 07 May 2018 03:42:29 GMT
+[2018-05-07 11:12:29 CST] <Thread-22> list apps success
