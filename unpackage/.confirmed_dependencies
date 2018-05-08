@@ -11,7 +11,11 @@
       "js/lib/jquery.min.js",
       "js/mui.min.js",
       "js/app/config.js",
-      "js/app/app.js"
+      "js/app/app.js",
+      "img/common/md/icon_home_active.png",
+      "img/common/md/icon_car_active.png",
+      "img/common/md/icon_repair_active.png",
+      "img/common/md/icon_user_active.png"
     ],
     "refer": [
       "html/repair.html",
@@ -65,7 +69,8 @@
       "js/mui.min.js",
       "js/app/config.js",
       "js/app/app.js",
-      "js/app/vehicle-check-safety.js"
+      "js/app/vehicle-check-safety.js",
+      "js/lib/mui.view.js"
     ],
     "refer": [
       "html/vehicle-check-add-explain.html"
@@ -297,7 +302,8 @@
       "js/app/config.js",
       "js/app/app.js",
       "js/app/login.js",
-      "img/login/md_background.png"
+      "img/login/md_background.png",
+      "img/login/md/background.png"
     ],
     "refer": [
       "index.html"
@@ -314,7 +320,10 @@
       "js/lib/jquery.min.js",
       "js/mui.min.js",
       "js/app/setting.js",
-      "img/login/user_logo.png"
+      "img/login/user_logo.png",
+      "js/app/config.js",
+      "js/app/app.js",
+      "js/lib/mui.view.js"
     ],
     "refer": [
       "login.html"
