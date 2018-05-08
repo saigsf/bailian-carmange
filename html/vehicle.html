@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!-- 样式重置 -->
+  <link rel="stylesheet" href="../css/reset.css">
   <!--mui样式应用-->
   <link href="../css/mui.min.css" rel="stylesheet" />
   <!--自定义图标样式-->
@@ -27,6 +29,53 @@
     .mui-scroll {
       background-color: transparent;
     }
+
+    .wrapper {
+      height: 44px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+
+    }
+
+    .scroller {
+      position: absolute;
+      height: 100%;
+    }
+
+    .wrapper ul li {
+      float: left;
+      height: 100%;
+      line-height: 44px;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .wrapper ul li:after {
+      content: "";
+      width: 80%;
+      height: 2px;
+      background-color: transparent;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    .wrapper ul li.active a {
+      color: #2885cf;
+
+    }
+
+    .wrapper ul li.active:after {
+      background-color: #2885cf;
+    }
+
+    .wrapper ul li a {
+      font-size: 16px;
+      height: 100%;
+      display: inline-block
+    }
   </style>
 </head>
 
@@ -35,26 +84,14 @@
     <div id="slider" class="mui-slider">
       <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
         <div class="mui-scroll">
-          <a id="defaultTab" class="mui-control-item mui-active" href="vehicle-input.html">
-            车辆录入
-          </a>
-          <a class="mui-control-item" href="vehicle-list.html">
-            车辆列表
-          </a>
-          <a class="mui-control-item" href="vehicle-auditing.html">
-            车辆审核
-          </a>
-          <a class="mui-control-item" href="vehicle-input-unfinished.html">
-            未完成录入
-          </a>
+          <a id="defaultTab" class="mui-control-item mui-active" href="vehicle-input.html">车辆录入</a>
+          <a class="mui-control-item" href="vehicle-list.html">车辆列表</a>
+          <a class="mui-control-item" href="vehicle-auditing.html">车辆审核</a>
+          <a class="mui-control-item" href="vehicle-input-unfinished.html">未完成录入</a>
         </div>
       </div>
-
     </div>
   </header>
-  <div class="mui-content">
-
-  </div>
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->

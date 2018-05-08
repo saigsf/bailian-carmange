@@ -42,4 +42,18 @@
     })
 
   }
+
+    // 百度地图API功能	
+    var map1 = new BMap.Map("item1-map");
+
+    map1.centerAndZoom(new BMap.Point(104.114129, 37.550339), 5);
+    map1.addControl(new BMap.NavigationControl()); // 添加平移缩放控件
+    map1.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
+
+      // 百度地图API功能	
+  var map2 = new BMap.Map("item2-map");
+
+  map2.centerAndZoom(new BMap.Point(104.114129, 37.550339), 5);
+  map2.addControl(new BMap.NavigationControl()); // 添加平移缩放控件
+  map2.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
 })()

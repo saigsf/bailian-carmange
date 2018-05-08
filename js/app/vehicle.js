@@ -1,4 +1,20 @@
 (function () {
+  // 顶部导航
+
+  $('.mui-scroll').on('tap', 'a', function() {
+    var l = $(this).offset().left;
+    var L = $('.mui-scroll').offset().left;
+    var w = $('.mui-scroll').width();
+    var W = $('.mui-scroll-wrapper').width();
+    if(l+L>W/2) {
+      mui('.mui-scroll-wrapper').scroll().scrollTo(W-w, 0, 100);
+    } else {
+      mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
+    }
+    
+  })
+
+
   mui.init();
   //子页面列表
   var subpages = ['vehicle-input.html', 'vehicle-list.html', 'vehicle-auditing.html', 'vehicle-input-unfinished.html'];
@@ -53,7 +69,7 @@
   //选项卡点击事件
   mui('.mui-scroll').on('tap', 'a', function (e) {
     var targetTab = this.getAttribute('href');
-
+   
     if (targetTab == activeTab) {
       return;
     }
