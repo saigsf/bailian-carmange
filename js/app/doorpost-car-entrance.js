@@ -14,14 +14,14 @@
   // 
   if (mui.os.plus) {
     mui.plusReady(function () {
-      setTimeout(function () {
-        mui('#refreshContainer').pullRefresh().pullupLoading();
-      }, 1000);
+      // setTimeout(function () {
+      //   mui('#refreshContainer').pullRefresh().pullupLoading();
+      // }, 1000);
       addEvent()
     });
   } else {
     mui.ready(function () {
-      mui('#refreshContainer').pullRefresh().pullupLoading();
+      // mui('#refreshContainer').pullRefresh().pullupLoading();
     });
     addEvent()
   }

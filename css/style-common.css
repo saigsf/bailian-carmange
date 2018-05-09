@@ -356,6 +356,13 @@ input[type=submit] {
     background-color: transparent;
 }
 
+.mui-btn-red {
+    background-color: #ff3a31;
+}
+.mui-btn-gray {
+    background-color: #c8c7cd;
+  }
+
 /* 顶部导航 */
 
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {

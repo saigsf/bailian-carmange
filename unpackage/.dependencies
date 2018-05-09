@@ -1,170 +1,25 @@
 {
-  "html/vehicle-check-add-explain.html": {
-    "href": "html/vehicle-check-add-explain.html",
-    "resources": [],
-    "priority": 0
-  },
-  "html/vehicle-check-safety.html": {
-    "href": "html/vehicle-check-safety.html",
-    "resources": [],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-check-up.html": {
-    "href": "html/vehicle-check-up.html",
-    "resources": [],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-input.html": {
-    "href": "html/vehicle-input.html",
-    "resources": [],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-auditing-add-explain.html": {
-    "href": "html/vehicle-auditing-add-explain.html",
-    "resources": [],
-    "priority": 1
-  },
-  "html/vehicle-detail.html": {
-    "href": "html/vehicle-detail.html",
-    "resources": [],
-    "refer": [],
-    "priority": 1
-  },
-  "html/vehicle-auditing-reason.html": {
-    "href": "html/vehicle-auditing-reason.html",
-    "resources": [],
-    "priority": 2
-  },
-  "html/vehicle-auditing-list.html": {
-    "href": "html/vehicle-auditing-list.html",
-    "resources": [],
-    "refer": [],
-    "priority": 1
-  },
   "html/vehicle-auditing.html": {
     "href": "html/vehicle-auditing.html",
-    "resources": [],
-    "refer": [],
-    "priority": 1
-  },
-  "html/vehicle-info.html": {
-    "href": "html/vehicle-info.html",
-    "resources": [],
-    "priority": 2
-  },
-  "html/vehicle-success.html": {
-    "href": "html/vehicle-success.html",
-    "resources": [],
-    "priority": 3
-  },
-  "html/vehicle-check-down.html": {
-    "href": "html/vehicle-check-down.html",
-    "resources": [],
-    "refer": [],
-    "priority": 3
-  },
-  "html/vehicle-list.html": {
-    "href": "html/vehicle-list.html",
-    "resources": [],
+    "resources": [
+      "js/lib/echarts-all.js"
+    ],
     "refer": [],
     "priority": 2
-  },
-  "html/vehicle-input-unfinished.html": {
-    "href": "html/vehicle-input-unfinished.html",
-    "resources": [],
-    "refer": [],
-    "priority": 3
   },
   "html/vehicle.html": {
     "href": "html/vehicle.html",
-    "resources": [],
+    "resources": [
+      "css/reset.css"
+    ],
     "refer": [],
     "priority": 0
   },
   "html/popover.html": {
     "href": "html/popover.html",
-    "resources": [],
+    "resources": [
+      "img/common/md/icon_add_active.png"
+    ],
     "priority": 1
-  },
-  "html/setting.html": {
-    "href": "html/setting.html",
-    "resources": [],
-    "refer": [],
-    "priority": 2
-  },
-  "html/repair-apply.html": {
-    "href": "html/repair-apply.html",
-    "resources": [],
-    "priority": 3
-  },
-  "html/repair-repairman.html": {
-    "href": "html/repair-repairman.html",
-    "resources": [],
-    "priority": 4
-  },
-  "html/repair-list.html": {
-    "href": "html/repair-list.html",
-    "resources": [],
-    "refer": [],
-    "priority": 4
-  },
-  "html/repair.html": {
-    "href": "html/repair.html",
-    "resources": [],
-    "refer": [],
-    "priority": 3
-  },
-  "html/home-map-search.html": {
-    "href": "html/home-map-search.html",
-    "resources": [],
-    "priority": 4
-  },
-  "html/home.html": {
-    "href": "html/home.html",
-    "resources": [],
-    "refer": [],
-    "priority": 4
-  },
-  "html/doorpost-car-entrance.html": {
-    "href": "html/doorpost-car-entrance.html",
-    "resources": [],
-    "priority": 5
-  },
-  "html/doorpost-driver-input.html": {
-    "href": "html/doorpost-driver-input.html",
-    "resources": [],
-    "priority": 6
-  },
-  "html/doorpost-driver-info.html": {
-    "href": "html/doorpost-driver-info.html",
-    "resources": [],
-    "priority": 7
-  },
-  "html/doorpost-driver.html": {
-    "href": "html/doorpost-driver.html",
-    "resources": [],
-    "refer": [],
-    "priority": 6
-  },
-  "html/doorpost.html": {
-    "href": "html/doorpost.html",
-    "resources": [],
-    "refer": [],
-    "priority": 5
-  },
-  "index.html": {
-    "href": "index.html",
-    "resources": [],
-    "refer": [],
-    "priority": 0
-  },
-  "login.html": {
-    "href": "login.html",
-    "resources": [],
-    "refer": [],
-    "priority": 0
   }
 }

@@ -4,6 +4,7 @@
  * 请注意将相关方法调整成 “基于服务端Service” 的实现。
  **/
 (function ($, owner) {
+
 	/**
 	 * 用户登录
 	 **/
@@ -377,7 +378,7 @@
 	/**
 	 * 
 	 * @param {json} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {Function} callback 回掉函数
 	 * @name 接车点检
 	 */
 	owner.upcheck = function (data, callback) {
@@ -412,7 +413,7 @@
 
 	/**
 	 * @param {vSn} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {Function} callback 回掉函数
 	 * @name 接车点检信息查看
 	 */
 	owner.findUpcheck = function (data, callback) {
@@ -426,8 +427,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 安全检查
 	 */
 	owner.addSafeCheck = function (data, callback) {
@@ -441,8 +442,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 安全检查查看
 	 */
 	owner.findSafeCheckByCar = function (data, callback) {
@@ -456,8 +457,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 缸压检查
 	 */
 	owner.saveClacyLindersss = function (data, callback) {
@@ -471,8 +472,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 缸压检查查看
 	 */
 	owner.findCldCheckByCar = function (data, callback) {
@@ -486,8 +487,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 线束检查
 	 */
 	owner.addHiCheck = function (data, callback) {
@@ -501,8 +502,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 线束检查查看
 	 */
 	owner.findHiCheckByCar = function (data, callback) {
@@ -516,8 +517,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name BOM/EMS检查
 	 */
 	owner.addEmsAndBomCheck = function (data, callback) {
@@ -531,8 +532,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name BOM/EMS检查查看
 	 */
 	owner.findEmsAndBomCheckByCar = function (data, callback) {
@@ -546,8 +547,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 车辆审核，审核通过
 	 */
 	owner.passReview = function (data, callback) {
@@ -561,8 +562,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 车辆审核，审核不通过
 	 */
 	owner.notPassReview = function (data, callback) {
@@ -576,8 +577,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 待审核列表
 	 */
 	owner.findWaitReviewCar = function (data, callback) {
@@ -591,8 +592,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 已经完成的审核列表
 	 */
 	owner.findPassReview = function (data, callback) {
@@ -606,8 +607,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 审核失败列表
 	 */
 	owner.findNotPassReview = function (data, callback) {
@@ -621,8 +622,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 删除审核记录
 	 */
 	owner.deleteReview = function (data, callback) {
@@ -636,8 +637,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 未完成车辆列表
 	 */
 	owner.vehicleQuery = function (data, callback) {
@@ -653,8 +654,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 车辆搜索
 	 */
 	owner.vehicleSearch = function (data, callback) {
@@ -668,8 +669,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 车辆删除
 	 */
 	owner.vehicleDelete = function (data, callback) {
@@ -683,8 +684,8 @@
 
 	/**
 	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 * @name 车辆列表
 	 */
 	owner.pageQuery = function (data, callback) {
@@ -697,10 +698,9 @@
 	}
 
 	/**
-	 * 
-	 * @param {*} data 请求参数	
-	 * @param {*} callback 回掉函数
-	 * @name 车辆列表删除
+	 * 车辆列表删除
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 */
 	owner.delete = function (data, callback) {
 		callback = callback || $.noop;
@@ -710,5 +710,119 @@
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
+
+	/**
+	 * 所有车辆实时定位数据
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.allcar = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/allcar.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 单个车辆实时数据查询
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carData = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/carData.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 模糊匹配车辆编号
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.likevSn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/likevSn.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 维修申请校验
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carMaintainCheck = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/carMaintain/check/'+ data.vSn +'.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 维修申请
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.PutInCarMaintainApply = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/carMaintain/PutInCarMaintainApply.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 维修协调员填写
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.Maintenancecoordination = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/carMaintain/Maintenancecoordination.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 维修列表
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.pageQueryCarMaintain = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/carMaintain/pageQueryCarMaintain.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 删除维修
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carMaintainDelete = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/carMaintain/carMaintain/delete.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+
 
 }(mui, window.app = {}));

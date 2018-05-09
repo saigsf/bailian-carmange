@@ -41,7 +41,8 @@
       "js/mui.min.js",
       "js/app/config.js",
       "js/app/app.js",
-      "js/app/vehicle.js"
+      "js/app/vehicle.js",
+      "css/reset.css"
     ]
   },
   "html/vehicle-check-add-explain.html": {
@@ -186,7 +187,8 @@
       "js/app/vehicle-auditing.js",
       "css/mui.min.css",
       "css/style-icon.css",
-      "css/style-common.css"
+      "css/style-common.css",
+      "js/lib/echarts-all.js"
     ],
     "refer": [
       "html/vehicle-auditing-list.html"
@@ -286,7 +288,8 @@
       "js/mui.min.js",
       "js/app/config.js",
       "js/app/app.js",
-      "js/app/popover.js"
+      "js/app/popover.js",
+      "img/common/md/icon_add_active.png"
     ],
     "refer": [],
     "priority": 0

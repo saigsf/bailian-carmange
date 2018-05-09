@@ -3,7 +3,7 @@
   var totalPage = 1; //后台算出总页数
   // 下拉刷新
   var pulldownRwfresh = function () {
-
+    getPageData()
     setTimeout(function () {
 
       mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
@@ -12,6 +12,7 @@
   }
   // 上拉加载
   var pullupRefresh = function () {
+    getPageData()
     setTimeout(function () {
       mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
     }, 1000);
@@ -31,16 +32,16 @@
 
   if (mui.os.plus) {
     mui.plusReady(function () {
-      setTimeout(function () {
-        mui('#refreshContainer').pullRefresh().pullupLoading();
-      }, 1000);
+      // setTimeout(function () {
+      //   mui('#refreshContainer').pullRefresh().pullupLoading();
+      // }, 1000);
       // console.log(H)
       addEvent();
 
     });
   } else {
     mui.ready(function () {
-      mui('#refreshContainer').pullRefresh().pullupLoading();
+      // mui('#refreshContainer').pullRefresh().pullupLoading();
       addEvent();
     });
   }
@@ -50,18 +51,16 @@
     */
   function getPageData(page) {
     var data = null;
-    // mui.ajax("/wapp/vip/hits.html",{
-    //     data:{'page':page},
-    //     dataType:'json',
-    //     type:"post",
-    //     async:false,
-    //     success:function(d){
-    //         data=d;
-    //     }
-    // });
+
+    app.pageQueryCarMaintain({
+      page: 1,
+      size: 10
+    }, function(res) {
+      console.log(res)
+    })
     return data;
   }
-
+  getPageData()
   // 添加点击事件，维修员填写工作内容
   function addEvent() {
     var self = plus.webview.currentWebview();

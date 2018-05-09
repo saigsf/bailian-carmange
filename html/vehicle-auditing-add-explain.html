@@ -50,35 +50,7 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script type="text/javascript">
-    mui.init();
-
-    var oldBack = mui.back;
-    mui.back = function (url) {
-      if (url) {
-        var webview = plus.webview.getWebviewById(url); //假设第一个Webview的id是home
-        webview.close();
-      } else {
-        oldBack()
-      }
-
-    };
-
-    // 发表
-    document.getElementById('issue').addEventListener('tap', function () {
-      if ($('#issue_text').val()) {
-
-        mui.plusReady(function () {
-          plus.webview.currentWebview().close();
-
-        });
-        mui.back('vehicle-detail')
-      } else {
-        mui.alert('亲，请输入内容！！', '提示', '确定')
-      }
-
-    })
-  </script>
+  <script src="../js/app/vehicle-auditing-add-explain.js"></script>
 </body>
 
 </html>

@@ -74,14 +74,14 @@
         if (X < w / 2) {
           X = 0;
         }
-        if (docw - X < w / 2) {
+        if (docw - X < w) {
           X = docw - w;
         }
 
-        if (Y < h / 2) {
-          Y = 0;
+        if (Y < h / 2 +34) {
+          Y = 34;
         }
-        if (doch - Y < h / 2) {
+        if (doch - Y < h) {
           Y = doch - h;
         }
 

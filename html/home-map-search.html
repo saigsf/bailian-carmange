@@ -36,9 +36,13 @@
 			}
 			.mui-segmented-control .mui-control-item {
 				color: #2885CF;
+				border-color: #2885CF;
+				border-left: 1px solid #2885CF;
 			}
 			.mui-segmented-control .mui-control-item.mui-active {
 				background-color: #2885CF;
+				border-color: #2885CF;
+				border-left: 1px solid #2885CF;
 			}
 			.mui-control-content {
 				height: 100%;
@@ -60,6 +64,7 @@
 				font-size: 24px;
 				padding: 10px 0;
 				border: none;
+				margin-bottom: 0;
 			}
 			.mui-input-row.mui-search {
 				width: 80%;
@@ -68,18 +73,23 @@
 				border-radius: 34px;
 			}
 			.mui-input-row.mui-search input[type=search] {
-      	height: 40px;
+				height: 40px;
       	background-color: rgba(255, 255, 255, .7);
       	margin: 0;
       	
-      }
+			}
+			.mui-search .mui-placeholder {
+				height: 40px;
+				line-height: 40px
+			}
       .mui-search.mui-active:before {
       	margin: 0;
       	transform: translateY(-50%);
 			}
 			
 			.mui-btn .mui-icon {
-				padding: 10px
+				padding: 10px;
+				font-weight: bold
 			}
 
 			.item1-map,
