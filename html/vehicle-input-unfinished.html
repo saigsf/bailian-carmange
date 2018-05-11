@@ -1,675 +1,242 @@
 <!doctype html>
 <html>
 
-  <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-status-bar-style" content="black">
-    <!--mui样式应用-->
-    <link href="../css/mui.min.css" rel="stylesheet" />
-    <!--自定义图标样式-->
-    <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
-    <!--自定义页面样式-->
-    <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
-    <!--独立样式-->
-    <style type="text/css">
-      .unfinished-top {
-        padding: 15px;
-        padding-bottom: 5px;
-        background-color: #333;
-        z-index: 4;
-        position: relative;
-      }
-      
-      .mui-input-row.mui-search input[type=search] {
-        background-color: #EFEFF4;
-        margin: 0;
-      }
-      
-      .mui-input-row.mui-search.mui-active:before {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        margin: 0;
-      }
-      
-      .mui-table-view-cell:after {
-        display: none;
-      }
-      
-      .mui-table-view-cell {
-        margin-bottom: 10px;
-        background-color: #fff;
-        box-shadow: 0 3px 3px rgba(0, 0, 0, .1)
-      }
-      
-      .mui-scroll-wrapper {
-        height: 100%;
-        padding-top: 125px;
-      }
-      
-      .mui-segmented-control {
-        z-index: 4;
-        background: linear-gradient(#333 0%, #333 32%, #f5f5f5 33%, #f5f5f5 100%);
-        padding-top: 10px;
-        border: none;
-      }
-      
-      .mui-segmented-control .icon {
-        background-color: #f5f5f5;
-        border-radius: 50%;
-        background-position: top;
-        width: 55px;
-        height: 55px;
-      }
-      
-      .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
-        border: none;
-        color: #2885CF;
-      }
-      
-      .mui-segmented-control .mui-control-item {
-        line-height: normal;
-      }
-      .mui-pull-top-pocket {
-        top: 125px
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .unfinished-top {
+      padding: 15px;
+      padding-bottom: 5px;
+      background-color: #333;
+      z-index: 4;
+      position: relative;
+    }
 
-  <body>
-    <div class="mui-content">
-      <div class="unfinished-top">
-        <!-- <div class="mui-input-row mui-search">
+    .mui-input-row.mui-search input[type=search] {
+      background-color: #EFEFF4;
+      margin: 0;
+    }
+
+    .mui-input-row.mui-search.mui-active:before {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+    }
+
+    .mui-table-view-cell:after {
+      display: none;
+    }
+
+    .mui-table-view-cell {
+      margin-bottom: 10px;
+      background-color: #fff;
+      box-shadow: 0 3px 3px rgba(0, 0, 0, .1)
+    }
+
+    .mui-scroll-wrapper {
+      height: 100%;
+      padding-top: 125px;
+    }
+
+    .mui-segmented-control {
+      z-index: 4;
+      background: linear-gradient(#333 0%, #333 32%, #f5f5f5 33%, #f5f5f5 100%);
+      padding-top: 10px;
+      border: none;
+    }
+
+    .mui-segmented-control .icon {
+      background-color: #f5f5f5;
+      border-radius: 50%;
+      background-position: top;
+      width: 55px;
+      height: 55px;
+    }
+
+    .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+      border: none;
+      color: #2885CF;
+    }
+
+    .mui-segmented-control .mui-control-item {
+      line-height: normal;
+    }
+
+    .mui-pull-top-pocket {
+      top: 125px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mui-content">
+    <div class="unfinished-top">
+      <!-- <div class="mui-input-row mui-search">
           <input type="search" class="mui-input-clear" placeholder="请输入关键词">
         </div> -->
-      </div>
-      <div class="mui-segmented-control mui-segmented-control-inverted ">
-        <a class="mui-control-item" href="#item1">
-          <span class="icon icon-look"></span>
-          <span class="mui-tab-label">接车点检</span>
-        </a>
-        <a class="mui-control-item" href="#item2">
-          <span class="icon icon-enclosure"></span>
-          <span class="mui-tab-label">车辆/安全/附件检查</span>
-        </a>
-        <a class="mui-control-item" href="#item3">
-          <span class="icon icon-car-top"></span>
-          <span class="mui-tab-label">还车点检</span>
-        </a>
-      </div>
-      <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-        <div class="mui-scroll">
-          <div id="item0" class="mui-control-content mui-active">
-            <ul id="OA_task_0" class="mui-table-view">
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
+    </div>
+    <div class="mui-segmented-control mui-segmented-control-inverted ">
+      <a class="mui-control-item" href="#item1">
+        <span class="icon icon-look"></span>
+        <span class="mui-tab-label">接车点检</span>
+      </a>
+      <a class="mui-control-item" href="#item2">
+        <span class="icon icon-enclosure"></span>
+        <span class="mui-tab-label">车辆/安全/附件检查</span>
+      </a>
+      <a class="mui-control-item" href="#item3">
+        <span class="icon icon-car-top"></span>
+        <span class="mui-tab-label">还车点检</span>
+      </a>
+    </div>
+    <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <div id="item0" class="mui-control-content mui-active">
+          <ul id="OA_task_0" class="mui-table-view">
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
                     </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
+                    <div class="item-right-middle">
+                      <h5>录入状态：接车点检（未完成）</h5>
+                    </div>
 
-                    </div>
                   </div>
                 </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-            </ul>
-
-          </div>
-          <div id="item1" class="mui-control-content">
-            <ul id="OA_task_1" class="mui-table-view">
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-            </ul>
-
-          </div>
-          <div id="item2" class="mui-control-content">
-            <ul id="OA_task_2" class="mui-table-view">
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-            </ul>
-
-          </div>
-          <div id="item3" class="mui-control-content">
-            <ul id="OA_task_3" class="mui-table-view">
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mui-table-view-cell">
-                <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red delete">删除</a>
-                </div>
-                <div class="mui-slider-handle">
-                  <div class="list-item">
-                    <div class="item-left">
-                      <img src="../img/common/icon_app.png" />
-                    </div>
-                    <div class="item-right">
-                      <div class="item-right-top">
-                        <div class="number">
-                          <h4>2018-0591</h4>
-                          <p>陕A6509B</p>
-                        </div>
-                        <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                          <i class="mui-icon mui-icon-arrowright"></i>
-                        </div>
-                      </div>
-                      <div class="item-right-middle">
-                        <h5>录入状态：接车点检（未完成）</h5>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-            </ul>
-
-          </div>
+              </div>
+            </li>
+          </ul>
 
         </div>
+        <div id="item1" class="mui-control-content">
+          <ul id="OA_task_1" class="mui-table-view">
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+                    <div class="item-right-middle">
+                      <h5>录入状态：接车点检（未完成）</h5>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+        <div id="item2" class="mui-control-content">
+          <ul id="OA_task_2" class="mui-table-view">
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+                    <div class="item-right-middle">
+                      <h5>录入状态：接车点检（未完成）</h5>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+        <div id="item3" class="mui-control-content">
+          <ul id="OA_task_3" class="mui-table-view">
+            <li class="mui-table-view-cell">
+              <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-red delete">删除</a>
+              </div>
+              <div class="mui-slider-handle">
+                <div class="list-item">
+                  <div class="item-left">
+                    <img src="../img/common/icon_app.png" />
+                  </div>
+                  <div class="item-right">
+                    <div class="item-right-top">
+                      <div class="number">
+                        <h4>2018-0591</h4>
+                        <p>陕A6509B</p>
+                      </div>
+                      <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                        <i class="mui-icon mui-icon-arrowright"></i>
+                      </div>
+                    </div>
+                    <div class="item-right-middle">
+                      <h5>录入状态：接车点检（未完成）</h5>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+
       </div>
     </div>
+  </div>
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
@@ -678,8 +245,8 @@
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
-  <!-- 当前页面js --> 
-    <script src="../js/app/vehicle-input-unfinished.js"></script>
-  </body>
+  <!-- 当前页面js -->
+  <script src="../js/app/vehicle-input-unfinished.js"></script>
+</body>
 
 </html>

@@ -254,6 +254,10 @@
     .mui-table-view-cell[data-value=unfinished] span.finished {
       display: none;
     }
+
+    .mui-scroll {
+      min-height: 100%;
+    }
   </style>
 </head>
 
@@ -411,13 +415,26 @@
           <table>
             <thead>
               <tr>
-                <td width="40%">检查项目</td>
+                <td width="30%">检查项目</td>
                 <td width="30%">要求</td>
                 <td width="20%">状态</td>
-                <td width="10%">说明</td>
+                <td width="20%">说明</td>
               </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td width="30%">检查项目</td>
+                    <td width="30%">要求</td>
+                    <td width="20%">
+                      <select name="" id="">
+                        <option value="是">是</option>
+                        <option value="否">否</option>
+                      </select>
+                    </td>
+                    <td width="20%">
+                      <i class="icon icon-add"></i>
+                    </td>
+                  </tr>
             </tbody>
           </table>
           <div class="mui-button-row">

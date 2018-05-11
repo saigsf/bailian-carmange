@@ -32,7 +32,34 @@
       })
     }
     var self = plus.webview.currentWebview();
-    mui.toast(self.vSn)
+    if(!self.vSn) {
+      return
+    }
+    getData(self.vSn)
+    mui.toast(self.vSn);
   })
+
+  function getData(vSn) {
+    app.vehicleSearch({
+      vSn: vSn,
+      status: '', 
+      carName: '',
+      cGroup: {
+          id: 0,
+          name: '',
+          remark: ''
+      }
+  }, function(res) {
+      console.log(JSON.stringify(res))
+      // updateView(res)
+    })
+  }
+
+  // 更新视图
+  function updateView(data) {
+
+  }
+
+  // 去还车
 
 })(mui);

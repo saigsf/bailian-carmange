@@ -9,6 +9,7 @@ mui('.mui-scroll-wrapper').scroll();
 var shares = {};
 
 mui.plusReady(function () {
+  
   if (plus.device.model === 'iPhoneX') {
     //页面样式重置
     $('header').css({

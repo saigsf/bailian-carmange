@@ -14,9 +14,11 @@
         'height': '88px',
         'paddingTop': '40px'
       });
-      $('.mui-bar-nav~.mui-content').css({
-        'paddingTop': '88px'
-      })
+      $('.mui-bar-nav').css({
+        'height': '88px',
+        'paddingTop': '40px'
+      });
+      $('.mui-pages').css('top', '88px')
     }
 
     // plus.webview.currentWebview().setStyle({
@@ -26,6 +28,11 @@
     var self = plus.webview.currentWebview();
     var H = self.H;
     var vSn = self.vSn;
+
+    fetchData.findAllCheckName()
+    fetchData.findAllParentItemOne(vSn);
+    fetchData.findAllParentItemTwo(vSn);
+    fetchData.findAllParentItemThree(vSn);
 
     //添加说明
     mui('.mui-fullscreen').on('tap', '.add', function () {
@@ -121,18 +128,18 @@
         // console.log(data);
         //数据提交
         app[apiArr[CNID]](data, function (res) {
-          if(res && res.ret) {
+          if (res && res.ret) {
             console.log(apiArr[CNID] + '已完成提交')
           } else {
             console.log(res.msg)
           }
-          
+
         })
 
         // app[apiFindArr[CNID]]({ vSn: data.vSn }, function (res) {
         //   console.log(res)
         //   if (res == null || res.length == 0) {
-            
+
         //   } else {
         //     console.log('数据更新')
         //   }
@@ -158,13 +165,13 @@
         //     } else {
         //       console.log(res.msg)
         //     }
-            
+
         //   })
 
         //   // app[apiFindArr[0]]({ vSn: data_1.vSn }, function (res) {
         //   //   console.log(res)
         //   //   if (res == null || res.length == 0) {
-              
+
         //   //   } else {
         //   //     console.log('数据更新')
         //   //   }
@@ -181,17 +188,6 @@
         }
       })
     }
-
-
-    // 获取检查类型字典
-    app.findAllCheckName({}, function (checkList) {
-      $('#all_check li').each(function (i) {
-        //获得原生dom
-        $(this).find('h4').html(checkList[i].name);
-        $(this).attr('data-id', checkList[i].id);
-        $('.mui-page').eq(i + 1).find('h1.mui-title').html(checkList[i].name);
-      });
-    });
 
     var check_html = $('#app');
 
@@ -224,5 +220,89 @@
       });
     });
   });
+
+  // 获取数据
+  var fetchData = {
+    findAllCheckName: function () {
+      // 获取检查类型字典
+      app.findAllCheckName({}, function (res) {
+        // console.log(res)
+        res = JSON.parse(res)
+        updateView.findAllCheckName(res)
+      });
+    },
+    findAllParentItemOne: function (vSn) {
+      app.findAllParentItem({
+        CNID: 1,
+        param: vSn,
+        type: 1
+      }, function (res) {
+        console.log(res)
+      })
+    },
+    findAllParentItemTwo: function (vSn) {
+      app.findAllParentItem({
+        CNID: 2,
+        param: vSn,
+        type: 1
+      }, function (res) {
+        console.log(res)
+      })
+    },
+    findAllParentItemThree: function () {
+      app.findAllParentItem({
+        CNID: 3,
+        param: vSn,
+        type: 1
+      }, function (res) {
+        console.log(res)
+      })
+    },
+  }
+
+  var updateView = {
+    findAllCheckName: function (data) {
+      var html = '';
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        html += '<li class="mui-table-view-cell" data-id="' + item.id + '" data-value="unfinished">'
+          + '<a href="#check_BOM' + (i == 0 ? '' : ('_' + i)) + '" class="mui-btn">'
+          + '<label><i class="icon icon-safe"></i></label>'
+          + '<div class="inner">'
+          + '<h4>' + item.name + '</h4>'
+          + '<span class="unfinished">(未完成，点击开始)</span>'
+          + '<span class="finished">(已完成)</span>'
+          + '</div>'
+          + '</a>'
+          + '</li>';
+
+        $('.mui-page').eq(i + 1).find('h1.mui-title').html(item.name);
+      }
+      $('#all_check').html(html)
+    },
+    findAllParentItemOne: function (data) {
+      var html = '';
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        html += '<tr>'
+          + '<td>' + item.pname + '</td>'
+          + '<td>' + item.carCheckRequest.request + '</td>'
+          + '<td><select name="" id="">'
+          + '<option value="是">是</option>'
+          + '<option value="否">否</option>'
+          + '</select></td>'
+          + '<td>说明</td>'
+          + '</tr>'
+      }
+
+      $('#check_BOM tbody').html(html)
+    },
+    findAllParentItemTwo: function (data) {
+
+    },
+    findAllParentItemThree: function (data) {
+
+    }
+  }
 
 })(mui, document)

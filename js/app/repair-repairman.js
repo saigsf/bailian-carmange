@@ -12,4 +12,27 @@
       })
     }
   })
+
+  $('#next').on('tap', function () {
+    var data = {};
+
+    data.infoid = $('#infoid').val();
+    data.finish_park = $('#finish_park').val();
+    data.work = $('#work').val();
+    data.remark = $('#remark').val();
+
+    console.log(JSON.stringify(data))
+
+    app.Maintenancecoordination(data, function (res) {
+      console.log(res);
+      res = JSON.parse(res);
+      if (res.ret) {
+        // mui.toast(res.msg);
+        mui.back()
+      } else {
+        mui.toast(res.msg);
+      }
+    })
+  })
+
 })();

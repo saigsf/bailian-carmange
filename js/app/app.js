@@ -46,7 +46,7 @@
 				data = JSON.parse(data);
 				if (data.ret) {
 					$.toast(data.msg);
-					owner.createState(loginInfo.account, callback);
+					owner.createState(data.data.username, data.data.password, callback);
 				} else {
 					$.toast(data.msg)
 				}
@@ -78,10 +78,10 @@
 		// }
 	};
 
-	owner.createState = function (name, callback) {
+	owner.createState = function (name, token, callback) {
 		var state = owner.getState();
 		state.account = name;
-		state.token = "token123456789";
+		state.token = token;
 		owner.setState(state);
 		return callback();
 	};
@@ -123,9 +123,9 @@
 	owner.setState = function (state) {
 		state = state || {};
 		localStorage.setItem('$state', JSON.stringify(state));
-		//var settings = owner.getSettings();
-		//settings.gestures = '';
-		//owner.setSettings(settings);
+		var settings = owner.getSettings();
+		settings.gestures = '';
+		owner.setSettings(settings);
 	};
 
 	var checkEmail = function (email) {
@@ -217,7 +217,7 @@
 			},
 			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
-				console.log(res);
+				// console.log(res);
 				callback(res);
 
 				// res = (typeof res == 'String') ? JSON.parse(res) : res;
@@ -266,7 +266,6 @@
 			},
 			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
-				console.log(res)
 				callback(res);
 			},
 			error: function (xhr, type, errorThrown) {
@@ -370,9 +369,12 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/findAllParentItem.action';
+		var url = 'car-management/car/findAllParentItem.action?CNID='+ data.CNID;
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequest('POST', url, {
+			param: data.param,
+			type: data.type
+		}, callback)
 	}
 
 	/**
@@ -576,10 +578,9 @@
 	}
 
 	/**
-	 * 
+	 * 待审核列表
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 待审核列表
 	 */
 	owner.findWaitReviewCar = function (data, callback) {
 		callback = callback || $.noop;
@@ -591,10 +592,9 @@
 	}
 
 	/**
-	 * 
+	 * 已经完成的审核列表
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 已经完成的审核列表
 	 */
 	owner.findPassReview = function (data, callback) {
 		callback = callback || $.noop;
@@ -606,10 +606,9 @@
 	}
 
 	/**
-	 * 
+	 * 审核失败列表
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 审核失败列表
 	 */
 	owner.findNotPassReview = function (data, callback) {
 		callback = callback || $.noop;
@@ -621,10 +620,9 @@
 	}
 
 	/**
-	 * 
+	 * 删除审核记录
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 删除审核记录
 	 */
 	owner.deleteReview = function (data, callback) {
 		callback = callback || $.noop;
@@ -653,10 +651,9 @@
 	}
 
 	/**
-	 * 
+	 * 车辆搜索
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 车辆搜索
 	 */
 	owner.vehicleSearch = function (data, callback) {
 		callback = callback || $.noop;
@@ -664,21 +661,23 @@
 
 		var url = 'car-management/tempcar/query.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		data = JSON.stringify(data);
+		console.log(data)
+		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
-	 * 
+	 * 车辆删除
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 车辆删除
 	 */
 	owner.vehicleDelete = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/tempcar/query.action';
+		var url = 'car-management/tempcar/delete.action';
 
+		// data = JSON.stringify(data)
 		owner.HTTPRequest('POST', url, data, callback)
 	}
 
@@ -776,9 +775,16 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/carMaintain/PutInCarMaintainApply.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
+		// 维修申请校验
+		owner.carMaintainCheck({vSn: data.vSn}, function(res) {
+			res = JSON.parse(res);
+			if(res.ret) {
+				var url = 'car-management/carMaintain/PutInCarMaintainApply.action';
+				owner.HTTPRequest('POST', url, data, callback)
+			} else {
+				mui.toast(res.msg)
+			}
+		})
 	}
 
 	/**
@@ -822,6 +828,87 @@
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
+
+	/**
+	 * 驾驶员列表
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carDriverList = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/carDriver/CarDriverList.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 取消授权
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.cancelAuthorized = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {
+			ids: 1
+		};
+
+		var url = 'car-management/carDriver/cancelAuthorized.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+	
+	/**
+	 * 驾驶员授权
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.authorized = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {
+			ids: 1
+		};
+
+		var url = 'car-management/carDriver/authorized.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 驾驶员信息获取
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carDriverEdit = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {
+			ids: 1
+		};
+
+		var url = 'car-management/carDriver/edit.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 驾驶员删除
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carDriverDelete = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {
+			ids: 1
+		};
+
+		var url = 'car-management/carDriver/delete.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+
+
 
 
 

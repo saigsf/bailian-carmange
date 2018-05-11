@@ -77,7 +77,7 @@
     //若为iOS平台或非首次显示，则直接显示
     if (mui.os.ios || aniShow[targetTab]) {
       plus.webview.show(targetTab);
-      // plus.webview.getWebviewById(targetTab).reload()
+      plus.webview.getWebviewById(targetTab).reload()
     } else {
       //否则，使用fade-in动画，且保存变量
       var temp = {};
@@ -85,7 +85,7 @@
       temp[targetTab] = "true";
       mui.extend(aniShow, temp);
       plus.webview.show(targetTab, "slide-in-right", 300);
-      // plus.webview.getWebviewById(targetTab).reload()
+      plus.webview.getWebviewById(targetTab).reload()
     }
     //隐藏当前;
     plus.webview.hide(activeTab);

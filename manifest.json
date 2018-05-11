@@ -7,7 +7,7 @@
   "id": "H54F76A3F",/*应用的标识，创建应用时自动生成，勿手动修改*/
   "name": "work_m_car_msg3",/*应用名称，程序桌面图标名称*/
   "version": {
-    "name": "0.0.7",/*应用版本名称*/
+    "name": "0.0.8",/*应用版本名称*/
     "code": "83"
   },
   "description": "",/*应用描述信息*/
@@ -3576,6 +3576,17 @@
 	  "img/user/user_logo.png",
 	  "js/lib/mui.enterfocus.js",
 	  "js/lib/zepto.min.js",
-	  "js/mui.js"
+	  "js/mui.js",
+	  "img/common/lg/icon_add_active.png",
+	  "screen-snapshot/12.9/1.png",
+	  "screen-snapshot/12.9/2.png",
+	  "screen-snapshot/12.9/3.png",
+	  "screen-snapshot/5.5/1.png",
+	  "screen-snapshot/5.5/2.png",
+	  "screen-snapshot/5.5/3.png",
+	  "screen-snapshot/5.8/1.png",
+	  "screen-snapshot/5.8/2.png",
+	  "screen-snapshot/5.8/3.png",
+	  "screen-snapshot/icon.png"
 	]
 }
