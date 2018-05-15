@@ -21,18 +21,15 @@
       $('.mui-pages').css('top', '88px')
     }
 
-    // plus.webview.currentWebview().setStyle({
-    //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-    // });
+    plus.webview.currentWebview().setStyle({
+      softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+    });
 
     var self = plus.webview.currentWebview();
     var H = self.H;
     var vSn = self.vSn;
 
-    fetchData.findAllCheckName()
-    fetchData.findAllParentItemOne(vSn);
-    fetchData.findAllParentItemTwo(vSn);
-    fetchData.findAllParentItemThree(vSn);
+    fetchData._init()
 
     //添加说明
     mui('.mui-fullscreen').on('tap', '.add', function () {
@@ -56,7 +53,7 @@
         }
       })
 
-      window.addEventListener('update', (evt) => {
+      window.submitDataListener('update', (evt) => {
         var components = evt.detail.components;
         //do something
         $(this).parent().find('.components').html(components)
@@ -73,39 +70,87 @@
       }
     };
 
-    // 判断其他检查是否完成
-    var checkJudge = function (i) {
-      var $lis = $('#all_check li');
-      var flag = 1;
-      $lis.eq(i - 1).attr('data-value', 'finished');
-      $lis.each(function () {
-        if ($(this).attr('data-value') == 'unfinished') {
-          flag = 0;
-        }
+  });
+
+  // 判断其他检查是否完成
+  var checkJudge = function (i) {
+    var $lis = $('#all_check li');
+    var flag = 1;
+    $lis.eq(i - 1).attr('data-value', 'finished');
+    $lis.each(function () {
+      if ($(this).attr('data-value') == 'unfinished') {
+        flag = 0;
+      }
+    });
+    return !!flag;
+  }
+
+  // 获取数据
+  var fetchData = {
+    view: '',
+    apiArr: [],
+    apiFindArr: [],
+    id: '',
+    id_1: '',
+    CNID: '',
+
+    _init: function () {
+      this.view = plus.webview.currentWebview();
+      this.apiArr = ['saveClacyLindersss', 'addSafeCheck', 'addHiCheck', 'addEmsAndBomCheck'];
+      this.apiFindArr = ['findCldCheckByCar', 'findSafeCheckByCar', 'findHiCheckByCar', 'findEmsAndBomCheckByCar']
+      this._render()
+    },
+
+    _render: function () {
+      this.findAllCheckName();
+      this.findAllParentItem();
+      
+    },
+
+    findAllCheckName: function () {
+      // 获取检查类型字典
+      app.findAllCheckName({}, function (res) {
+        // console.log(res)
+        res = JSON.parse(res)
+        updateView.findAllCheckName(res)
       });
-      return !!flag;
-    }
+    },
 
-    //保存事件
-    var addEvent = function (CNID) {
-      var id = null;
-      var id_1 = null;
+    findAllParentItem: function () {
+      var _this = this;
+      // 给每一行添加点击事件 
+      $('#all_check').on('tap', 'li', function () {
+        _this.CNID = $(this).attr('data-id');
+        // _this.isChecked();
 
-      var apiArr = ['saveClacyLindersss', 'addSafeCheck', 'addHiCheck', 'addEmsAndBomCheck'];
-      var apiFindArr = ['findCldCheckByCar', 'findSafeCheckByCar', 'findHiCheckByCar', 'findEmsAndBomCheckByCar']
+        app.findAllParentItem({ CNID: _this.CNID }, function (list) {
+          list = JSON.parse(list);
+          updateView.findAllParentItem(list, _this.CNID);
+          
+        });
+        
+        _this.submitData();
+      });
+    },
 
-      if (CNID == 1) {
-        id = '#next_BOM';
-        id_1 = '#check_BOM';
-      } else if (CNID == 2) {
-        id = '#next_BOM_1';
-        id_1 = '#check_BOM_1';
-      } else if (CNID == 3) {
-        id = '#next_BOM_2';
-        id_1 = '#check_BOM_2';
+    submitData: function () {
+      var _this = this;
+      var vSn = _this.view.vSn;
+      console.log(_this.CNID)
+
+      if (_this.CNID == 1) {
+        _this.id = '#next_BOM';
+        _this.id_1 = '#check_BOM';
+      } else if (_this.CNID == 2) {
+        _this.id = '#next_BOM_1';
+        _this.id_1 = '#check_BOM_1';
+      } else if (_this.CNID == 3) {
+        _this.id = '#next_BOM_2';
+        _this.id_1 = '#check_BOM_2';
       }
 
-      $(id).off('tap').on('tap', function () {
+      // 完成检查，点击事件
+      $(_this.id).off('tap').on('tap', function () {
         var saftCheckResult = [];
         var data = {
           vSn: vSn
@@ -123,141 +168,81 @@
           });
         });
 
+        // 数据格式化处理
         data.saftCheckResult = JSON.stringify(saftCheckResult);
-        // data.saftCheckResult = saftCheckResult;
-        // console.log(data);
-        //数据提交
-        app[apiArr[CNID]](data, function (res) {
+
+        //检查数据提交
+        app[_this.apiArr[_this.CNID]](data, function (res) {
+          console.log(res)
           if (res && res.ret) {
-            console.log(apiArr[CNID] + '已完成提交')
+            mui.toast(_this.apiArr[_this.CNID] + '已完成提交')
           } else {
-            console.log(res.msg)
+            mui.toast(res.msg)
           }
 
         })
-
-        // app[apiFindArr[CNID]]({ vSn: data.vSn }, function (res) {
-        //   console.log(res)
-        //   if (res == null || res.length == 0) {
-
-        //   } else {
-        //     console.log('数据更新')
-        //   }
-        // })
+        
 
         // 缸压检查数据获取和提交
-        // if (CNID == 1) {
-        //   // 输入检查
+        if (_this.CNID == 1) {
+          // 输入检查
 
-        //   // 缸压检查数据获取
-        //   // data_1.cylinder_p = $('#cyliner_p').val();
-        //   data_1.one_p = $('#one_p').val();
-        //   data_1.two_p = $('#two_p').val();
-        //   data_1.three_p = $('#three_p').val();
-        //   data_1.four_p = $('#four_p').val();
-        //   data_1.fuel_p = 4.0;
-        //   data_1.actual_p = $('#actual_p').val();
+          // 缸压检查数据获取
+          // data_1.cylinder_p = $('#cyliner_p').val();
+          data_1.one_p = $('#one_p').val();
+          data_1.two_p = $('#two_p').val();
+          data_1.three_p = $('#three_p').val();
+          data_1.four_p = $('#four_p').val();
+          data_1.fuel_p = 4.0;
+          data_1.actual_p = $('#actual_p').val();
 
-        //   // 数据提交
-        //   app[apiArr[0]](data_1, function (res) {
-        //     if(res && res.ret) {
-        //       console.log('缸压检查完毕');
-        //     } else {
-        //       console.log(res.msg)
-        //     }
+          // 缸压检查数据提交
+          app[_this.apiArr[0]](data_1, function (res) {
+            if(res && res.ret) {
+              console.log('缸压检查完毕');
+            } else {
+              console.log(res.msg)
+            }
 
-        //   })
+          })
+          // 缸压检查查看
+          // app[_this.apiFindArr[0]]({ vSn: data_1.vSn }, function (res) {
+          //   console.log(res)
+          //   if (res == null || res.length == 0) {
 
-        //   // app[apiFindArr[0]]({ vSn: data_1.vSn }, function (res) {
-        //   //   console.log(res)
-        //   //   if (res == null || res.length == 0) {
-
-        //   //   } else {
-        //   //     console.log('数据更新')
-        //   //   }
-        //   // })
-        // }
+          //   } else {
+          //     console.log('数据更新')
+          //   }
+          // })
+        }
 
 
         // 判断其他检查是否完成，如果都完成则跳转到其他页面，否则执行返回操作
-        if (checkJudge(+CNID)) {
+        if (checkJudge(+_this.CNID)) {
           //去其他页面
-          console.log('所有检查都已完成，我要跳转了！！')
+          mui.toast('所有检查都已完成，我要跳转了！！');
+          _this.view.close()
         } else {
           mui.back();
         }
       })
+    },
+
+    isChecked: function () {
+      var _this = this;
+      var vSn = _this.view.vSn;
+      // 检查查看 
+      app[_this.apiFindArr[_this.CNID]]({ vSn: vSn }, function (res) {
+        console.log(JSON.stringify(res))
+        console.log(res.length)
+        if (res == null || res.length == 0) {
+
+        } else {
+          console.log('数据更新')
+        }
+      })
     }
 
-    var check_html = $('#app');
-
-    // 给每一行添加点击事件
-    $('#all_check li').each(function (i) {
-
-      $(this).on('tap', function () {
-        var CNID = $(this).attr('data-id');
-
-
-        app.findAllParentItem({ CNID: CNID }, function (list) {
-          var html = '';
-          for (let i = 0; i < list.length; i++) {
-            const item = list[i];
-            html += '<tr><td>' + item.pname + '</td>';
-            if (CNID == 1) {
-              html += '<td>' + item.carCheckRequest.request + '</td>'
-            }
-            html += '<td><select class="status">'
-              + '<option value="是">是</option>'
-              + '<option value="否">否</option>'
-              + '<option value="NA">NA</option>'
-              + '</select></td>'
-              + '<td><i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i><span class="components" style="display: none"></span></td></tr>'
-          }
-          check_html.find('tbody').html(html);
-
-          addEvent(CNID);
-        });
-      });
-    });
-  });
-
-  // 获取数据
-  var fetchData = {
-    findAllCheckName: function () {
-      // 获取检查类型字典
-      app.findAllCheckName({}, function (res) {
-        // console.log(res)
-        res = JSON.parse(res)
-        updateView.findAllCheckName(res)
-      });
-    },
-    findAllParentItemOne: function (vSn) {
-      app.findAllParentItem({
-        CNID: 1,
-        param: vSn,
-        type: 1
-      }, function (res) {
-        console.log(res)
-      })
-    },
-    findAllParentItemTwo: function (vSn) {
-      app.findAllParentItem({
-        CNID: 2,
-        param: vSn,
-        type: 1
-      }, function (res) {
-        console.log(res)
-      })
-    },
-    findAllParentItemThree: function () {
-      app.findAllParentItem({
-        CNID: 3,
-        param: vSn,
-        type: 1
-      }, function (res) {
-        console.log(res)
-      })
-    },
   }
 
   var updateView = {
@@ -278,30 +263,28 @@
 
         $('.mui-page').eq(i + 1).find('h1.mui-title').html(item.name);
       }
-      $('#all_check').html(html)
+      $('#all_check').html(html);
     },
-    findAllParentItemOne: function (data) {
+    findAllParentItem: function (data, CNID) {
+      var $check_html = $('#app');
       var html = '';
       for (let i = 0; i < data.length; i++) {
         const item = data[i];
-        html += '<tr>'
-          + '<td>' + item.pname + '</td>'
-          + '<td>' + item.carCheckRequest.request + '</td>'
-          + '<td><select name="" id="">'
+
+        html += '<tr><td>' + item.pname + '</td>';
+        if (item.carCheckRequest) {
+          html += '<td>' + item.carCheckRequest.request + '</td>'
+        }
+        html += '<td><select class="status">'
           + '<option value="是">是</option>'
           + '<option value="否">否</option>'
+          + '<option value="NA">NA</option>'
           + '</select></td>'
-          + '<td>说明</td>'
-          + '</tr>'
+          + '<td><i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i><span class="components" style="display: none"></span></td></tr>'
       }
-
-      $('#check_BOM tbody').html(html)
-    },
-    findAllParentItemTwo: function (data) {
-
-    },
-    findAllParentItemThree: function (data) {
-
+      $check_html.find('tbody').html(html);
+      fetchData.isChecked();
+      // fetchData.submitData(CNID);
     }
   }
 
