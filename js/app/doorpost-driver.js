@@ -29,6 +29,7 @@
   }
   // 下拉刷新业务
   function pulldownRwfresh() {
+    getData(1)
     setTimeout(function () {
       mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
       // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
@@ -50,7 +51,7 @@
       size: 5
     }, function (res) {
       console.log(res)
-      // res = JSON.parse(res);
+      res = JSON.parse(res);
       if (res.total && res.total > 0) {
         totalPage = Math.ceil(res.total / 5)
         updateView(res.rows)
@@ -63,9 +64,9 @@
     var html = '';
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
-      html += '<li class="mui-table-view-cell">'
+      html += '<li class="mui-table-view-cell" data-id="' + item.id + '">'
         + '<div class="mui-slider-right mui-disabled">'
-        + '<a class="mui-btn mui-btn-gray settop">取消授权</a>'
+        + '<a class="mui-btn mui-btn-gray authorize" data-isallow="' + item.isallow + '">' + (item.isallow == 1 ? '授权' : '禁止') + '</a>'
         + '<a class="mui-btn mui-btn-red delete">删除</a>'
         + '</div>'
         + '<div class="mui-slider-handle">'
@@ -75,11 +76,16 @@
         + '<div class="item-right-top">'
         + '<div class="number">'
         + '<h4>'
-        + '<span>张女士</span>'
-        + '<i class="icon icon-woman"></i>'
-        + '<!-- <i class="icon icon-man"></i> -->'
-        + '</h4>'
-        + '<p>陕A6509B</p>'
+        + '<span>' + item.name + '</span>'
+
+      if (item.sex == '男') {
+        html += '<i class="icon icon-man"></i>'
+      } else if (item.sex == '女') {
+        html += '<i class="icon icon-woman"></i>'
+      }
+
+      html += '</h4>'
+        + '<p>' + item.iccard + '</p>'
         + '</div>'
         + '<div class="mui-btn mui-btn-blue mui-btn-outlined goback">'
         + '<!-- <span>未处理</span> -->'
@@ -87,9 +93,9 @@
         + '</div>'
         + '</div>'
         + '<div class="item-right-middle">'
-        + '<p><span>授权状态</span>：已授权</p>'
-        + '<p><span>授权开始</span>：2018-01-01</p>'
-        + '<p><span>授权截至</span>：2019-01-01</p>'
+        + '<p><span>授权状态</span>：' + (item.isallow == 1 ? '未授权' : '已授权') + '</p>'
+        + '<p><span>授权开始</span>：' + (item.allowStartTime ? item.allowStartTime : '') + '</p>'
+        + '<p><span>授权截至</span>：' + (item.allowEndTime ? item.allowEndTime : '') + '</p>'
         + '</div>'
         + '</div>'
         + '</div>'
@@ -102,13 +108,53 @@
   function addEvent() {
     var self = plus.webview.currentWebview();
     var H = self.H;
-    // 通过
-    $('#OA_task_1').on('tap', '.adopt', function () {
-      mui.toast('这里要添加通过业务')
+    // 授权/取消授权业务
+    $('#OA_task_1').on('tap', '.authorize', function () {
+      var $li = $(this).parents('li')
+      // mui.toast('这里要添加授权业务');
+      if ($(this).attr('data-isallow') == 1) {
+        app.authorized({
+          id: $li.attr('data-id')
+        }, function (res) {
+          console.log(res)
+          res = JSON.parse(res);
+          if(res.ret) {
+            getData(1)
+          } else {
+            mui.toast('授权失败')
+          }
+        })
+      } else if ($(this).attr('data-isallow') == 2) {
+        app.cancelAuthorized({
+          ids: $li.attr('data-id')
+        }, function (res) {
+          console.log(res)
+          res = JSON.parse(res);
+          if(res.ret) {
+            getData(1)
+          } else {
+            mui.toast('禁止失败')
+          }
+        })
+      }
     })
-    // 拒绝
-    $('#OA_task_1').on('tap', '.refuse', function () {
-      mui.toast('这里要添加拒绝业务')
+
+    // 删除业务
+    $('#OA_task_1').on('tap', '.delete', function () {
+      var $li = $(this).parents('li')
+      // mui.toast('这里要添加删除业务')
+      app.carDriverDelete({
+        ids: $li.attr('data-id')
+      }, function(res) {
+        console.log(res)
+        res = JSON.parse(res);
+          if(res.ret) {
+            $li.remove();
+            mui.toast('删除失败')
+          } else {
+            mui.toast('删除失败')
+          }
+      })
     })
     // 添加驾驶员
     $('#add').on('tap', function () {
@@ -135,6 +181,7 @@
 
     // 查看驾驶员信息
     $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
+      var $li = $(this).parent('li');
       mui.openWindow({
         url: 'doorpost-driver-info.html',
         id: 'doorpost-driver-info', //默认使用当前页面的url作为id
@@ -143,7 +190,8 @@
           bottom: H
         }, //窗口参数
         extras: {
-          H: H
+          H: H,
+          ids: $li.attr('data-id')
         }, //自定义扩展参数
         createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
         show: {

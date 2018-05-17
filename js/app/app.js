@@ -840,7 +840,7 @@
 
 		var url = 'car-management/carDriver/CarDriverList.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequest('GET', url, data, callback)
 	}
 
 	/**
@@ -854,6 +854,7 @@
 			ids: 1
 		};
 
+
 		var url = 'car-management/carDriver/cancelAuthorized.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
@@ -866,11 +867,13 @@
 	 */
 	owner.authorized = function (data, callback) {
 		callback = callback || $.noop;
-		data = data || {
-			ids: 1
-		};
 
-		var url = 'car-management/carDriver/authorized.action';
+		var url = 'car-management/carDriver/authorized.action?id=' + data.id;
+
+		data = {
+			startTime: '2018-1-1',
+      endTime: '2019-1-1'
+		};
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
@@ -882,13 +885,37 @@
 	 */
 	owner.carDriverEdit = function (data, callback) {
 		callback = callback || $.noop;
-		data = data || {
-			ids: 1
-		};
+		data = data || {};
 
 		var url = 'car-management/carDriver/edit.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		console.log(JSON.stringify(data))
+		// $.ajax({
+		// 	url: BASE_URL_1 + url,
+		// 	type: "post",
+		// 	data: data,
+		// 	beforeSend: function () {
+		// 		console.log('beforesend!')
+		// 	},
+		// 	success: function (res) {
+		// 		//服务器返回响应，根据响应结果，分析是否登录成功；
+		// 		callback(res);
+		// 	},
+		// 	error: function (xhr, type, errorThrown) {
+		// 		//异常处理；
+		// 		console.log(type);
+		// 		if (type == 'timeout') {
+		// 			$.toast("请求超时：请检查网络")
+		// 		} else {
+		// 			$.toast('请求失败：' + type + '\n err:' + errorThrown);
+		// 		}
+		// 	},
+		// 	complete: function () {
+		// 		console.log('complete')
+		// 	}
+		// })
+
+		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
@@ -898,13 +925,12 @@
 	 */
 	owner.carDriverDelete = function (data, callback) {
 		callback = callback || $.noop;
-		data = data || {
-			ids: 1
-		};
+		data = data || {};
 
 		var url = 'car-management/carDriver/delete.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		console.log(JSON.stringify(data))
+		owner.HTTPRequest('get', url, data, callback)
 	}
 
 

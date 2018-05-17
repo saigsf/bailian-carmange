@@ -11,5 +11,14 @@
         'paddingTop': '88px'
       })
     }
+
+    var self = plus.webview.currentWebview();
+    getData(self.ids)
   })
+
+  function getData(id) {
+    app.carDriverEdit({id: id}, function(res) {
+      console.log(res)
+    })
+  }
 })()
