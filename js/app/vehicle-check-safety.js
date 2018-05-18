@@ -161,7 +161,7 @@
         // 输入检查
 
         // 数据获取
-        $(id_1).find('tbody tr').each(function (i) {
+        $(_this.id_1).find('tbody tr').each(function (i) {
           saftCheckResult.push({
             "status": $(this).find('.status').val(),
             "explanation": $(this).find('.components').html()

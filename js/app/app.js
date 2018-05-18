@@ -217,26 +217,15 @@
 			},
 			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
-				// console.log(res);
 				callback(res);
-
-				// res = (typeof res == 'String') ? JSON.parse(res) : res;
-
-				// if(res instanceof Array) {
-				// 	callback(res);
-				// } else if (res.ret) {
-				// 	callback(res.data);
-				// } else if(res.totalCount) {
-				// 	callback(res);
-				// }
 			},
 			error: function (xhr, type, errorThrown) {
 				//异常处理；
-				console.log(type);
+				console.log(xhr.status);
 				if (type == 'timeout') {
 					$.toast("请求超时：请检查网络")
 				} else {
-					$.toast('请求失败：' + type + '\n err:' + errorThrown);
+					$.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
 				}
 			},
 			complete: function () {
@@ -270,11 +259,11 @@
 			},
 			error: function (xhr, type, errorThrown) {
 				//异常处理；
-				console.log(type);
+				console.log(xhr.status);
 				if (type == 'timeout') {
 					$.toast("请求超时：请检查网络")
 				} else {
-					$.toast('请求失败：' + type + '\n err:' + errorThrown);
+					$.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
 				}
 			},
 			complete: function () {
@@ -824,9 +813,23 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/carMaintain/carMaintain/delete.action';
+		var url = 'car-management/carMaintain/delete.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequest('get', url, data, callback)
+	}
+
+	/**
+	 * 置顶
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carMaintainTop = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/carMaintain/top.action';
+
+		owner.HTTPRequest('get', url, data, callback)
 	}
 
 	/**
@@ -853,8 +856,6 @@
 		data = data || {
 			ids: 1
 		};
-
-
 		var url = 'car-management/carDriver/cancelAuthorized.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
@@ -869,10 +870,13 @@
 		callback = callback || $.noop;
 
 		var url = 'car-management/carDriver/authorized.action?id=' + data.id;
+		var startTime = new Date();
+		var startYear = startTime.getFullYear();
+		var endTime = new Date(+startYear + 1)
 
 		data = {
-			startTime: '2018-1-1',
-      endTime: '2019-1-1'
+			startTime: startTime.format('yyyy-MM-dd'),
+      endTime: endTime.format('yyyy-MM-dd')
 		};
 
 		owner.HTTPRequest('POST', url, data, callback)
@@ -890,32 +894,32 @@
 		var url = 'car-management/carDriver/edit.action';
 
 		console.log(JSON.stringify(data))
-		// $.ajax({
-		// 	url: BASE_URL_1 + url,
-		// 	type: "post",
-		// 	data: data,
-		// 	beforeSend: function () {
-		// 		console.log('beforesend!')
-		// 	},
-		// 	success: function (res) {
-		// 		//服务器返回响应，根据响应结果，分析是否登录成功；
-		// 		callback(res);
-		// 	},
-		// 	error: function (xhr, type, errorThrown) {
-		// 		//异常处理；
-		// 		console.log(type);
-		// 		if (type == 'timeout') {
-		// 			$.toast("请求超时：请检查网络")
-		// 		} else {
-		// 			$.toast('请求失败：' + type + '\n err:' + errorThrown);
-		// 		}
-		// 	},
-		// 	complete: function () {
-		// 		console.log('complete')
-		// 	}
-		// })
+		$.ajax({
+			url: BASE_URL_1 + url,
+			type: "post",
+			data: data,
+			beforeSend: function () {
+				console.log('beforesend!')
+			},
+			success: function (res) {
+				//服务器返回响应，根据响应结果，分析是否登录成功；
+				callback(res);
+			},
+			error: function (xhr, type, errorThrown) {
+				//异常处理；
+				console.log(xhr.status);
+				if (type == 'timeout') {
+					$.toast("请求超时：请检查网络")
+				} else {
+					$.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+				}
+			},
+			complete: function () {
+				console.log('complete')
+			}
+		})
 
-		owner.HTTPRequestPost('POST', url, data, callback)
+		// owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**

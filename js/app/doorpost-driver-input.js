@@ -11,5 +11,14 @@
         'paddingTop': '88px'
       })
     }
-  })
+
+    var self = plus.webview.currentWebview();
+    
+    if(self.ids) {
+      $('.mui-title').html('驾驶员编辑');
+      console.log(self.ids)
+    }
+
+  });
+  
 })()

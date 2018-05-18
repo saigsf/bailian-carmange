@@ -119,7 +119,7 @@
           app.vehicleDelete({
             ids: $li.attr('data-id')
           }, function (res) {
-            // console.log(res)
+            console.log(res)
             res = JSON.parse(res);
             if(res.ret) {
               $li.remove();

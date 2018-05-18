@@ -71,7 +71,40 @@
     }
 
     .mui-button-group {
-      padding: 15px 0;
+      padding: 30px 0;
+    }
+
+    .nodata {
+      text-align: center;
+      color: #ccc
+    }
+
+    .mui-radio-box {
+      padding-left: 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .mui-radio label {
+      padding: 0;
+      /* padding-left: 5px; */
+      padding-right: 14px;
+      line-height: 20px;
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: auto;
+    }
+
+    .mui-radio input[type=radio] {
+      position: relative;
+      left: 0;
+      top: 10px;
+    }
+
+    .mui-radio input[type=radio]:before {
+      font-size: 20px;
     }
   </style>
 </head>
@@ -84,13 +117,340 @@
   <div class="mui-content">
     <div id="slider" class="mui-slider">
       <div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control">
-        <a class="mui-control-item mui-active" href="#item1mobile">审核信息</a>
-        <a class="mui-control-item" href="#item2mobile">车辆详情</a>
-
+        <a class="mui-control-item mui-active" href="#item2mobile">车辆详情</a>
+        <a class="mui-control-item" href="#item1mobile">审核信息</a>
       </div>
       <!--<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>-->
       <div class="mui-slider-group">
-        <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+
+        <div id="item2mobile" class="mui-slider-item mui-control-content mui-active">
+          <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+              <div class="mui-loading">
+                <div class="mui-spinner">
+                </div>
+              </div>
+              <div class="vehicle-info">
+                <div class="vehicle-title">
+                  <span class="vehicle-title-left"></span>
+                  <span class="vehicle-title-text">车辆录入信息</span>
+                  <span class="vehicle-title-right"></span>
+                </div>
+                <ul class="mui-table-view">
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>试验车号</label>
+                      <input id="vSn" type="text" class="mui-input-clear" disabled placeholder="车辆编号,如：2017-211">
+                      <span class="icon-red-star">*</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>项目编号</label>
+                      <input id="product_sn" type="text" class="mui-input-clear" disabled placeholder="如：2004">
+                      <span class="icon-red-star">*</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>项目名称</label>
+                      <input id="product_name" type="text" class="mui-input-clear" disabled placeholder="项目名称">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>车辆名称</label>
+                      <input id="carName" type="text" class="mui-input-clear" disabled placeholder="车辆名称">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>车辆类型</label>
+                      <input id="vCarType" type="text" class="mui-input-clear" disabled placeholder="如：轿车，货车">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>客户</label>
+                      <input id="customer" type="text" class="mui-input-clear" disabled placeholder="">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>项目工程师</label>
+                      <input id="projectEngineer" type="text" class="mui-input-clear" disabled placeholder="车辆编号,如：2017-211">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>联系电话</label>
+                      <input id="contactNumber" type="text" class="mui-input-clear" disabled placeholder="如：12345678901">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>发动机型号</label>
+                      <input id="engineType" type="text" class="mui-input-clear" disabled placeholder="如：4G3A">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>发动机编号</label>
+                      <input id="engineNumber" type="text" class="mui-input-clear" disabled placeholder="如：F3000065D">
+                      <span class="icon-red-star">*</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>发动机排量</label>
+                      <input id="engineCapacity" type="text" class="mui-input-clear" disabled placeholder="发动机排量">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>燃油规格</label>
+                      <input id="fulType" type="text" class="mui-input-clear" disabled placeholder="如：93号">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>机油规格</label>
+                      <input id="oilspecification" type="text" class="mui-input-clear" disabled placeholder="">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>轮胎规格</label>
+                      <input id="tyresize" type="text" class="mui-input-clear" disabled placeholder="">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>变速箱规格</label>
+                      <input id="GBTS" type="text" class="mui-input-clear" disabled placeholder="变速箱油规格">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>前轮胎压力</label>
+                      <input id="reaTireP" type="text" class="mui-input-clear" disabled placeholder="前轮胎压力">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>后轮胎压力</label>
+                      <input id="frontTireP" type="text" class="mui-input-clear" disabled placeholder="后轮胎压力">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>车辆识别码</label>
+                      <input id="vin" type="text" class="mui-input-clear" disabled placeholder="如：F3000065D">
+                      <span class="icon-red-star">*</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>填写人</label>
+                      <input id="operator" type="text" class="mui-input-clear" disabled placeholder="填写人姓名">
+                    </div>
+                  </li>
+
+                </ul>
+                <div class="vehicle-title">
+                  <span class="vehicle-title-left"></span>
+                  <span class="vehicle-title-text">接车点检信息</span>
+                  <span class="vehicle-title-right"></span>
+                </div>
+                <ul class="mui-table-view">
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>车辆外观</label>
+                      <div class="mui-radio-box">
+                        <div class="mui-radio">
+                          <input name="radio" id="normal" type="radio" disabled checked>
+                          <label for="#normal">正常</label>
+                        </div>
+                        <div class="mui-radio">
+                          <input name="radio" id="other" type="radio" disabled>
+                          <label for="#other">见下页说明</label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>车辆编号</label>
+                      <input id="vSn" type="text" class="mui-input-clear" disabled placeholder="" disabled>
+                      <span class="icon-red-star">*</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>发动机号</label>
+                      <input id="engineNumber" type="text" class="mui-input-clear" disabled placeholder="" disabled>
+                      <span class="icon-red-star">*</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>随车物品</label>
+                      <input id="item" type="text" class="mui-input-clear" disabled placeholder="">
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>随车工具</label>
+                      <input id="tools" type="text" class="mui-input-clear" disabled placeholder="">
+                      <span class="unit">/套</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>备用轮胎</label>
+                      <input id="sparetyre" type="text" class="mui-input-clear" disabled placeholder="">
+                      <span class="unit">/只</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>千斤顶</label>
+                      <input id="jack" type="text" class="mui-input-clear" disabled placeholder="">
+                      <span class="unit">/只</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>警示牌</label>
+                      <input id="warningboard" type="text" class="mui-input-clear" disabled placeholder="">
+                      <span class="unit">/只</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>灭火器</label>
+                      <input id="fire" type="text" class="mui-input-clear" disabled placeholder="">
+                      <span class="unit">/只</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>钥匙数量</label>
+                      <input id="keyy" type="text" class="mui-input-clear" disabled placeholder="">
+                      <span class="unit">/把</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>里程表</label>
+                      <input id="odometer" type="text" class="mui-input-clear" disabled placeholder="">
+                      <span class="unit">/km</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>送车人</label>
+                      <input id="send_p" type="text" class="mui-input-clear" disabled placeholder="">
+                      <span class="icon-red-star">*</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>接车人</label>
+                      <input id="pickone" type="text" class="mui-input-clear" disabled placeholder="">
+                      <span class="icon-red-star">*</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>电话</label>
+                      <input id="telephone" type="text" class="mui-input-clear" disabled placeholder="">
+                      <span class="icon-red-star">*</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>车架号</label>
+                      <input id="vin" type="text" class="mui-input-clear" placeholder="" disabled>
+                      <span class="icon-red-star">*</span>
+                    </div>
+                  </li>
+                  <li class="mui-table-view-cell">
+                    <div class="mui-input-row">
+                      <label>备注信息</label>
+                      <input id="" type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
+                    </div>
+                  </li>
+
+                </ul>
+                <div class="vehicle-title">
+                  <span class="vehicle-title-left"></span>
+                  <span class="vehicle-title-text">安全检查信息</span>
+                  <span class="vehicle-title-right"></span>
+                </div>
+                <ul class="mui-table-view">
+                  <li class="mui-table-view-cell">
+                    <div class="nodata">无数据</div>
+                  </li>
+                </ul>
+                <div class="vehicle-title">
+                  <span class="vehicle-title-left"></span>
+                  <span class="vehicle-title-text">线束检查信息</span>
+                  <span class="vehicle-title-right"></span>
+                </div>
+                <ul class="mui-table-view">
+                  <li class="mui-table-view-cell">
+                    <div class="nodata">无数据</div>
+                  </li>
+                </ul>
+                <div class="vehicle-title">
+                  <span class="vehicle-title-left"></span>
+                  <span class="vehicle-title-text">BOM检查信息</span>
+                  <span class="vehicle-title-right"></span>
+                </div>
+                <ul class="mui-table-view">
+                  <li class="mui-table-view-cell">
+                    <div class="nodata">无数据</div>
+                  </li>
+                </ul>
+                <div class="vehicle-title">
+                  <span class="vehicle-title-left"></span>
+                  <span class="vehicle-title-text">保养记录</span>
+                  <span class="vehicle-title-right"></span>
+                </div>
+                <ul class="mui-table-view">
+                  <li class="mui-table-view-cell">
+                    <div class="nodata">无数据</div>
+                  </li>
+                </ul>
+                <div class="vehicle-title">
+                  <span class="vehicle-title-left"></span>
+                  <span class="vehicle-title-text">研发记录装备记录</span>
+                  <span class="vehicle-title-right"></span>
+                </div>
+                <ul class="mui-table-view">
+                  <li class="mui-table-view-cell">
+                    <div class="nodata">无数据</div>
+                  </li>
+                </ul>
+                <div class="vehicle-title">
+                  <span class="vehicle-title-left"></span>
+                  <span class="vehicle-title-text">换车点检</span>
+                  <span class="vehicle-title-right"></span>
+                </div>
+                <ul class="mui-table-view">
+                  <li class="mui-table-view-cell">
+                    <div class="nodata">无数据</div>
+                  </li>
+                </ul>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <div id="item1mobile" class="mui-slider-item mui-control-content">
           <div class="auditing-wrapper">
             <div class="auditing-user">
               <h5>审核人：张三</h5>
@@ -107,189 +467,6 @@
             </div>
           </div>
         </div>
-        <div id="item2mobile" class="mui-slider-item mui-control-content">
-          <div class="mui-scroll-wrapper">
-            <div class="mui-scroll">
-              <div class="mui-loading">
-                <div class="mui-spinner">
-                </div>
-              </div>
-              <div class="vehicle-info">
-                <div class="vehicle-title">
-                  <span class="vehicle-title-left"></span>
-                  <span class="vehicle-title-text">信息录入</span>
-                  <span class="vehicle-title-right"></span>
-                </div>
-                <div class="mui-table-view">
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>试验车号</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>客户</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>项目工程师</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>发动机型号</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label class="padtb0">发动机排量（L）</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label class="padtb0">变速箱油规格</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>后轮胎压力</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>发动机号</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-
-                </div>
-                <div class="vehicle-title">
-                  <span class="vehicle-title-left"></span>
-                  <span class="vehicle-title-text">信息录入</span>
-                  <span class="vehicle-title-right"></span>
-                </div>
-                <div class="mui-table-view">
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>试验车号</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>客户</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>项目工程师</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>发动机型号</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label class="padtb0">发动机排量（L）</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label class="padtb0">变速箱油规格</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>后轮胎压力</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>发动机号</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-
-                </div>
-                <div class="vehicle-title">
-                  <span class="vehicle-title-left"></span>
-                  <span class="vehicle-title-text">信息录入</span>
-                  <span class="vehicle-title-right"></span>
-                </div>
-                <div class="mui-table-view">
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>试验车号</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>客户</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>项目工程师</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>发动机型号</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label class="padtb0">发动机排量（L）</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label class="padtb0">变速箱油规格</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>后轮胎压力</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-                  <li class="mui-table-view-cell">
-                    <div class="mui-input-row">
-                      <label>发动机号</label>
-                      <input type="text" class="mui-input-clear" disabled placeholder="请输入用户名">
-                    </div>
-                  </li>
-
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-
-        </div>
       </div>
     </div>
   </div>
@@ -301,7 +478,7 @@
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
-  <!-- 当前页面js --> 
+  <!-- 当前页面js -->
   <script src="../js/app/vehicle-info.js"></script>
 </body>
 

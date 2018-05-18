@@ -57,7 +57,7 @@
   function getData() {
     // 获取待审核列表信息
     app.findWaitReviewCar({}, function (res) {
-      // console.log(res);
+      console.log(res);
       res = JSON.parse(res);
       updateView.waitReviewCar(res);
     })

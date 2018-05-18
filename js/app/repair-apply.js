@@ -7,17 +7,8 @@
 
     plus.nativeUI.pickDate(function (e) {
       var d = e.date;
-      $('#send_time').val(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate());
-      plus.nativeUI.pickTime(function (e) {
-        var d = e.date;
-        $('#send_time').val($('#send_time').val() + ' ' + d.getHours() + ':' + d.getMinutes());
-      }, function (e) {
-        $('#send_time').val('您没有选择日期');
-      }, {
-          title: '',
-          date: dDate,
-          minDate: dDate
-        });
+      $('#send_time').val(d.format('yyyy-MM-dd'));
+
     }, function (e) {
       $('#send_time').val('您没有选择日期');
     }, {
@@ -26,21 +17,13 @@
         minDate: dDate
       });
   });
+
   $('#oppointedtime_box').off().on('tap', function () {
 
     plus.nativeUI.pickDate(function (e) {
       var d = e.date;
-      $('#oppointedtime').val(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate());
-      plus.nativeUI.pickTime(function (e) {
-        var d = e.date;
-        $('#oppointedtime').val($('#oppointedtime').val() + ' ' + d.getHours() + ':' + d.getMinutes());
-      }, function (e) {
-        $('#oppointedtime').val('您没有选择日期');
-      }, {
-          title: '',
-          date: dDate,
-          minDate: dDate
-        });
+      $('#oppointedtime').val(d.format('yyyy-MM-dd'));
+
     }, function (e) {
       $('#oppointedtime').val('您没有选择日期');
     }, {

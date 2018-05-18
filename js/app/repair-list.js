@@ -67,6 +67,7 @@
       page: page,
       size: 5
     }, function (res) {
+      // console.log(res)0
       data = JSON.parse(res);
       if (data.total && data.total > 0) {
         totalPage = Math.ceil(data.total / 5)
@@ -81,11 +82,11 @@
     var html = '';
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
-
-      html += '<li class="mui-table-view-cell">'
+      console.log(item.status)
+      html += '<li class="mui-table-view-cell" data-id="' + item.id + '">'
         + '<div class="mui-slider-right mui-disabled">'
-        + '<a class="mui-btn mui-btn-gray settop" data-id="' + item.id + '">置顶</a>'
-        + '<a class="mui-btn mui-btn-red delete" data-id="' + item.id + '">删除</a>'
+        + '<a class="mui-btn mui-btn-gray settop">置顶</a>'
+        + '<a class="mui-btn mui-btn-red delete">删除</a>'
         + '</div>'
         + '<div class="mui-slider-handle" data-vSn="' + item.carMaintainApply.vSn + '">'
         + '<div class="list-item">'
@@ -98,16 +99,28 @@
         + '<h4>' + item.carMaintainApply.vSn + '</h4>'
         + '<p>' + (item.carMaintainApply.vCarSn ? item.carMaintainApply.vCarSn : '未填写') + '</p>'
         + '</div>'
-        + '<div class="mui-btn mui-btn-blue mui-btn-outlined repairing">'
-        + '<span>' + (item.status == 1 ? '维修中' : '已完成') + '</span>'
-        + '<i class="mui-icon mui-icon-arrowright"></i>'
+
+      if (item.status == 1) {
+        html += '<div class="mui-btn mui-btn-blue mui-btn-outlined repairing">'
+          + '<span>排队中</span>'
+      } else if (item.status == 2) {
+        html += '<div class="mui-btn mui-btn-blue mui-btn-outlined repairing">'
+          + '<span>维修中</span>'
+      } else if (item.status == 4) {
+        html += '<div class="mui-btn mui-btn-blue mui-btn-outlined finished">'
+          + '<span>已完成</span>'
+      } else {
+        html += '<div class="mui-btn mui-btn-blue mui-btn-outlined">'
+      }
+
+      html += '<i class="mui-icon mui-icon-arrowright"></i>'
         + '</div>'
         + '</div>'
         + '<div class="item-right-middle">'
         + '<p><span>维修项目</span>：' + item.carMaintainApply.reason + '</p>'
         + '<p><span>停放地点</span>：' + item.carMaintainApply.send_park + '</p>'
         + '<p><span>送修人</span>：' + item.carMaintainApply.sendPeople + '</p>'
-        + '<p><span>备注</span>：' + item.carMaintainApply.send_remark + '</p>'
+        + '<p><span>备注</span>：' + (item.carMaintainApply.send_remark ? item.carMaintainApply.send_remark : '无') + '</p>'
         + '<p><span>送修日期</span>：' + item.carMaintainApply.send_time + '<span>截止日期</span>：' + item.carMaintainApply.appointedtime + '</p>'
         + '</div>'
         + '</div>'
@@ -123,7 +136,7 @@
   function addEvent() {
     var self = plus.webview.currentWebview();
     var H = self.H;
-    $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
+    $('#OA_task_1').on('tap', '.repairing', function () {
       mui.openWindow({
         url: 'repair-repairman.html',
         id: 'repair-repairman', //默认使用当前页面的url作为id
@@ -150,34 +163,51 @@
     $('#OA_task_1').on('tap', '.settop', function () {
       var elem = this;
       var $li = $(this).parents('li');
-      $('#OA_task_1').prepend($li.remove());
-      setTimeout(function () {
-        mui.swipeoutClose($li[0]);
-      }, 0);
+
+      app.carMaintainTop({
+        infoid: $li.attr('data-id')
+      }, function (res) {
+        console.log(res);
+        res = JSON.parse(res);
+        if(res.ret) {
+          mui.toast(res.msg)
+          $('#OA_task_1').prepend($li.remove());
+          setTimeout(function () {
+            mui.swipeoutClose($li[0]);
+          }, 0);
+        } else {
+          mui.toast(res.msg)
+        }
+      })
     })
 
     // 删除
     $('#OA_task_1').on('tap', '.delete', function () {
       var btnArray = ['确认', '取消'];
       var elem = this;
-      var li = elem.parentNode.parentNode;
+      var $li = $(this).parents('li');
       mui.confirm('您确定要删除这条信息吗？', '确认信息', btnArray, function (e) {
 
         if (e.index == 0) {
           // 确认删除
-          li.parentNode.removeChild(li);// 操作dom
-
-          var id = $(elem).id;
+          var id = $li.attr('data-id');
           // 后台删除
           app.carMaintainDelete({
             infoid: id
           }, function (res) {
-            console.log(res)
+            // console.log(res);
+            res = JSON.parse(res);
+            if (res.ret) {
+              $li.remove();
+              mui.toast(res.msg);
+            } else {
+              mui.toast(res.msg);
+            }
           })
         } else {
           // 后悔！取消
           setTimeout(function () {
-            mui.swipeoutClose(li);
+            mui.swipeoutClose($li[0]);
           }, 0);
         }
       })

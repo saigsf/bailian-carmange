@@ -173,11 +173,20 @@
       var $li = $(this).parents('li');
       mui.confirm('确认删除该条记录？', '提示', btnArray, function (e) {
         if (e.index == 0) {
-          $li.remove();
           app.delete({
             ids: $li.attr('data-id')
           }, function (res) {
             console.log(res)
+            res = JSON.parse(res);
+
+            if(res.ret) {
+              mui.toast(res.msg);
+              $li.remove();
+            } else {
+              mui.toast(res.msg);
+              mui.swipeoutClose(li);
+            }
+            
           })
         } else {
           setTimeout(function () {
