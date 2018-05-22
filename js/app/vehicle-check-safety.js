@@ -136,7 +136,6 @@
     submitData: function () {
       var _this = this;
       var vSn = _this.view.vSn;
-      console.log(_this.CNID)
 
       if (_this.CNID == 1) {
         _this.id = '#next_BOM';
@@ -173,7 +172,7 @@
 
         //检查数据提交
         app[_this.apiArr[_this.CNID]](data, function (res) {
-          console.log(res)
+          // console.log(res)
           if (res && res.ret) {
             mui.toast(_this.apiArr[_this.CNID] + '已完成提交')
           } else {
@@ -233,8 +232,8 @@
       var vSn = _this.view.vSn;
       // 检查查看 
       app[_this.apiFindArr[_this.CNID]]({ vSn: vSn }, function (res) {
-        console.log(JSON.stringify(res))
-        console.log(res.length)
+        // console.log(JSON.stringify(res))
+        // console.log(res.length)
         if (res == null || res.length == 0) {
 
         } else {

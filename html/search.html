@@ -15,23 +15,111 @@
   <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
   <!--独立样式-->
   <style type="text/css">
+    header.mui-bar,
+    header.mui-navbar {
+      background-color: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    header.mui-bar *,
+    header.mui-navbar * {
+      color: #333;
+    }
+
+    .search-btn {
+      width: 44px;
+      height: 44px;
+      line-height: 44px;
+      text-align: center;
+      display: block;
+    }
+
+    .mui-search {
+      width: 77%
+    }
+
+    .noData,
+    .noNet,
+    .result {
+      height: 100%;
+      position: relative;
+    }
+
+    .noData {
+      background-image: url(../img/common/md/no_result.png);
+      background-position: center 25%;
+      background-repeat: no-repeat;
+      background-size: 100px;
+      display: none
+    }
+
+    .noData h4 {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      top: 45%;
+      color: #ccc;
+    }
+
+    .noNet {
+      background-image: url(../img/common/md/no_net.png);
+      background-position: center 25%;
+      background-repeat: no-repeat;
+      background-size: 100px;
+      display: none;
+    }
+
+    .noNet h4 {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      top: 45%;
+      color: #ccc;
+    }
+
+    .result {
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-content: flex-start;
+    }
+
+    .result .mui-btn {
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 
 <body>
   <header class="mui-bar mui-bar-nav">
-
-    <h1 class="mui-title">home</h1>
+    <a class="icon icon-back-black" id="back_btn"></a>
+    <div class="mui-input-row mui-search">
+      <input type="search" class="mui-input-clear" id="current_input" placeholder="">
+    </div>
+    <a class="search-btn" id="search_btn">搜索</a>
   </header>
   <!-- 主页面内容容器 -->
   <div class="mui-content">
     <!-- 主界面具体展示内容 -->
-
+    <div class="noData" id="no_data">
+      <h4>未搜索到结果！</h4>
+    </div>
+    <div class="noNet" id="no_net">
+      <h4>服务器打盹了，请重试！</h4>
+    </div>
+    <div class="result" id="result">
+    </div>
   </div>
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- 键盘事件 -->
+  <script src="../js/lib/mui.enterfocus.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -41,10 +129,77 @@
     mui.init({
       swipeBack: true //启用右滑关闭功能
     });
+    // 输入框获取焦点
+    app.focusAndOpenKeyboard(document.getElementById('current_input'))
+
     mui.plusReady(function () {
+      var self = plus.webview.currentWebview();
+
+      var view = plus.webview.getWebviewById(self.prevId);
+
       //更改状态栏颜色
-      plus.navigator.setStatusBarStyle('light');
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      plus.navigator.setStatusBarStyle('dark');
+      // plus.navigator.setStatusBarStyle('light');
+      // 返回事件
+      $('#back_btn').on('tap', function () {
+        mui.fire(view, 'statusBar', {});
+        mui.back()
+      });
+      search();
+
+      $('#result').on('tap', '.mui-btn', function () {
+        var $btn = $(this);
+        console.log($btn.attr('data-vSn'))
+        mui.fire(view, 'statusBar', {
+          vSn: $btn.attr('data-vSn')
+        });
+        mui.back()
+      })
+
+
     })
+    var searchArr = [];
+    searchArr.push(function () {
+      app.likevSn({
+        vSn: $('#current_input').val()
+      }, function (res) {
+        console.log(typeof res)
+        // res = JSON.parse(res)
+        console.log(res)
+
+        if (res && res.length > 0) {
+          console.log(res.length);
+          var html = ''
+          for (let i = 0; i < res.length; i++) {
+            const item = res[i];
+            html += '<div class="mui-btn" data-vSn="' + item + '">' + item + '</div>'
+          }
+          $('#result').html(html);
+        } else {
+
+          $('#no_data').show();
+          $('#result').hide()
+        }
+      })
+    })
+
+    function search() {
+      $('#search_btn').on('tap', function () {
+        searchArr[0]()
+      })
+    }
+
+
   </script>
 </body>
 

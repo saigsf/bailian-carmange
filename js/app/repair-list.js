@@ -82,13 +82,13 @@
     var html = '';
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
-      console.log(item.status)
-      html += '<li class="mui-table-view-cell" data-id="' + item.id + '">'
+      // console.log(item.status)
+      html += '<li class="mui-table-view-cell" data-id="' + item.id + '" data-vSn="' + item.carMaintainApply.vSn + '">'
         + '<div class="mui-slider-right mui-disabled">'
         + '<a class="mui-btn mui-btn-gray settop">置顶</a>'
         + '<a class="mui-btn mui-btn-red delete">删除</a>'
         + '</div>'
-        + '<div class="mui-slider-handle" data-vSn="' + item.carMaintainApply.vSn + '">'
+        + '<div class="mui-slider-handle">'
         + '<div class="list-item">'
         + '<div class="item-left">'
         + '<img src="../img/common/icon_app.png" />'
@@ -106,11 +106,12 @@
       } else if (item.status == 2) {
         html += '<div class="mui-btn mui-btn-blue mui-btn-outlined repairing">'
           + '<span>维修中</span>'
-      } else if (item.status == 4) {
+      } else if (item.status == 3) {
         html += '<div class="mui-btn mui-btn-blue mui-btn-outlined finished">'
-          + '<span>已完成</span>'
+          + '<span>查看详情</span>'
       } else {
-        html += '<div class="mui-btn mui-btn-blue mui-btn-outlined">'
+        html += '<div class="mui-btn mui-btn-blue mui-btn-outlined finished">'
+          + '<span>查看详情</span>'
       }
 
       html += '<i class="mui-icon mui-icon-arrowright"></i>'
@@ -136,7 +137,9 @@
   function addEvent() {
     var self = plus.webview.currentWebview();
     var H = self.H;
+    // 维修
     $('#OA_task_1').on('tap', '.repairing', function () {
+      var $li = $(this).parents('li');
       mui.openWindow({
         url: 'repair-repairman.html',
         id: 'repair-repairman', //默认使用当前页面的url作为id
@@ -146,7 +149,8 @@
         }, //窗口参数
         extras: {
           H: H,
-          vSn: $(this).attr('data-vSn')
+          vSn: $li.attr('data-vSn'),
+          infoid: $li.attr('data-id')
         }, //自定义扩展参数
         createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
         show: {
@@ -169,7 +173,7 @@
       }, function (res) {
         console.log(res);
         res = JSON.parse(res);
-        if(res.ret) {
+        if (res.ret) {
           mui.toast(res.msg)
           $('#OA_task_1').prepend($li.remove());
           setTimeout(function () {
@@ -212,6 +216,37 @@
         }
       })
     })
+
+    // 查看详情 
+    $('#OA_task_1').on('tap', '.finished', function () {
+      var $li = $(this).parents('li');
+      mui.openWindow({
+        url: 'repair-info.html',
+        id: 'repair-info', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H,
+          vSn: $li.attr('data-vSn'),
+          infoid: $li.attr('data-id')
+        }, //自定义扩展参数
+        createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+        show: {
+          autoShow: true, //页面loaded事件发生后自动显示，默认为true
+        },
+        waiting: {
+          autoShow: true, //自动显示等待框，默认为true
+          title: '正在加载...', //等待对话框上显示的提示内容
+        }
+      })
+    });
   }
+
+  // 返回刷新
+  document.addEventListener('update', function (e) {
+    plus.webview.currentWebview().reload();
+  })
 
 })()

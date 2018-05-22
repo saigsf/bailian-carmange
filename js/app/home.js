@@ -3,12 +3,43 @@
     swipeBack: true //启用右滑关闭功能
   });
 
-  // 百度地图API功能	
-  var map = new BMap.Map("map");
+  var pointArr = [];
+  // 放缩比
+  var zoom = 5;
 
-  map.centerAndZoom(new BMap.Point(104.114129, 37.550339), 5);
-  map.addControl(new BMap.NavigationControl()); // 添加平移缩放控件
-  map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
+  // 地图初始化
+  map = new BMap.Map("map"); // 首页地图
+
+  // 地图初始化
+  navigator.geolocation.getCurrentPosition(translatePoint); //定位
+
+  function translatePoint(position) {
+    var currentLat = position.coords.latitude;
+    var currentLon = position.coords.longitude;
+    var gpsPoint = [new BMap.Point(currentLon, currentLat)];
+    var convertor = new BMap.Convertor();
+    convertor.translate(gpsPoint, 1, 5, initMap); //转换坐标 
+  }
+
+  function initMap(data) {
+    // 控件
+    map.addControl(new BMap.NavigationControl());
+    map.addControl(new BMap.ScaleControl());
+    map.addControl(new BMap.OverviewMapControl());
+
+
+    if (data.status === 0) {
+      for (var i = 0; i < data.points.length; i++) {
+        // 中心点及放缩比设置
+        map.centerAndZoom(data.points[i], zoom);
+        // 添加marker
+        map.addOverlay(new BMap.Marker(data.points[i]));
+      }
+    }
+
+
+
+  }
 
   mui.plusReady(function () {
     // 弹出软键盘时自动改变webview的高度
@@ -40,6 +71,8 @@
         }
       })
     })
+
+    getData();
   })
 
   // 拖住啊
@@ -78,7 +111,7 @@
           X = docw - w;
         }
 
-        if (Y < h / 2 +34) {
+        if (Y < h / 2 + 34) {
           Y = 34;
         }
         if (doch - Y < h) {
@@ -98,8 +131,47 @@
 
     })
   }
-
   drag()
+
+  function getData() {
+    app.allcar({}, function (res) {
+      console.log(138);
+      updateView(res)
+    })
+  }
+
+  function updateView(data) {
+    map.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 14);
+    map.clearOverlays();       //清除地图上所有覆盖物
+
+    if (!document.createElement('canvas').getContext) {
+      alert('请在chrome、safari、IE8+以上浏览器查看');
+      return;
+    }
+
+    var points = [];
+    for (let i = 0; i < data.length; i++) {
+      const item = data[i];
+      var point = new BMap.Point(item.longitude, item.latitude)
+      // 添加信息
+      // ···
+      points.push(point);
+    }
+
+    var options = {
+      size: BMAP_POINT_SIZE_BIG,
+      shape: BMAP_POINT_SHAPE_STAR,
+      color: '#d340c3'
+    }
+    console.log(JSON.stringify(points))
+
+    var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
+    pointCollection.addEventListener('click', function (e) {
+      alert('单击点的坐标为：' + e.point.lng + ',' + e.point.lat);  // 监听点击事件
+    });
+    map.addOverlay(pointCollection);  // 添加Overlay
+  }
+
 
 
 })()

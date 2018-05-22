@@ -128,7 +128,7 @@
         app.cancelAuthorized({
           ids: $li.attr('data-id')
         }, function (res) {
-          console.log(res)
+          // console.log(res)
           res = JSON.parse(res);
           if(res.ret) {
             getData(1)

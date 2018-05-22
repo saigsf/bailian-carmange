@@ -5,7 +5,7 @@ var BASE_URL_1 = 'http://47.98.182.165/';
 
 /**
  * 时间格式化函数
- * @param {'yyyy-MM-dd hh:mm:ss'} format 目标格式
+ * @param {String} format 目标格式 'yyyy-MM-dd hh:mm:ss'
  */
 Date.prototype.format = function (format) {
 
@@ -21,7 +21,7 @@ Date.prototype.format = function (format) {
 
   if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
   for (var k in o) {
-    if (new RegExp("(" + k + ")").test(format)) 
+    if (new RegExp("(" + k + ")").test(format))
       format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
   }
 
@@ -34,9 +34,9 @@ Date.prototype.format = function (format) {
  * @param {Number} max 最大值
  */
 function randomRange(min, max) {
-	if (!max) {
-		max = min;
-		min = 0;
-	}
-	return Math.floor(Math.random() * (max - min) + min);
+  if (!max) {
+    max = min;
+    min = 0;
+  }
+  return Math.floor(Math.random() * (max - min) + min);
 }

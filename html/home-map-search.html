@@ -96,13 +96,19 @@
 			.item2-map {
 				height: 100%;
 			}
+			.search {
+				padding: 0 10px
+			}
     </style>
   </head>
 
   <body>
     <header class="mui-bar mui-bar-nav">
       <a class="mui-action-back icon icon-back mui-pull-left"></a>
-      <h1 class="mui-title">车辆轨迹</h1>
+			<h1 class="mui-title">车辆轨迹</h1>
+			<a class="search mui-pull-right" id="search">
+				<i class="icon icon-search-white"></i>
+			</a>
     </header>
     <!-- 主页面内容容器 -->
     <div class="mui-content">
@@ -132,8 +138,9 @@
  					<i class="mui-icon mui-icon-arrowdown" id="btn"></i>
  				</div>
  				<div class="mui-input-row mui-search mui-right">
- 				    <input type="search" class="mui-input-clear" disabled placeholder="请输入车辆编号">
- 				</div>
+ 				    <input type="search" class="mui-input-clear" id="current_input"  placeholder="请输入车辆编号">
+				 </div>
+				 
  			</div>
     </div>
 		<!-- jquery -->

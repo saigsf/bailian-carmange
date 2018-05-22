@@ -20,34 +20,258 @@
 			overflow: hidden;
 		}
 
+		.container {
+			height: 100%;
+			width: 100%;
+			position: relative;
+		}
+
 		.mui-btn {
 			position: absolute;
 			overflow: hidden;
 			transform: translateX(-50%);
-
+			top: 90.25%;
+			left: 50%;
+			transition: all 1s;
 		}
 
-		.mui-btn:nth-child(1) {
-			top: 70%;
-			left: 20%;
-			animation: moveOne 3s 3s;
-			-webkit-animation: moveOne 3s 3s
+		.mui-btn {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 44px;
+			height: 44px;
+			/* border: 1px solid #ccc; */
+			box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+			border-radius: 50%;
+			flex-direction: column;
+			padding: 0
 		}
 
-		.mui-btn:nth-child(2) {
-			top: 62%;
-			left: 38%;
+		.mui-btn .icon {
+			width: 30px;
+			height: 30px;
 		}
 
-		.mui-btn:nth-child(3) {
-			top: 62%;
-			left: 62%;
+		.run .mui-btn:nth-child(1) {
+			animation: moveOne 1s 0s forwards; 
+			-webkit-animation: moveOne 1s 0s forwards
+		}
+		.run .mui-btn:nth-child(2) {
+			animation: moveTwo 1s 0s forwards;
+			-webkit-animation: moveTwo 1s 0s forwards
+		}
+		.run .mui-btn:nth-child(3) {
+			animation: moveThree 1s 0s forwards;
+			-webkit-animation: moveThree 1s 0s forwards
+		}
+		.run .mui-btn:nth-child(4) {
+			animation: moveFour 1s 0s forwards;
+			-webkit-animation: moveFour 1s 0s forwards
 		}
 
-		.mui-btn:nth-child(4) {
-			top: 70%;
-			left: 80%;
+		/* popover动画 */
+
+		@-webkit-keyframes moveOne {
+			0% {
+				opacity: 0;
+				top: 90.25%;
+				left: 50%;
+				width: 44px;
+				height: 44px;
+			}
+			80% {
+				opacity: 1;
+				/* top: 68%;
+				left: 17%; */
+				top: 70%;
+				left: 20%;
+				width: 60px;
+				height: 60px;
+			}
+			100% {
+				opacity: 1;
+				top: 70%;
+				left: 20%;
+				width: 60px;
+				height: 60px;
+			}
 		}
+
+		@keyframes moveOne {
+			0% {
+				opacity: 1;
+				top: 90.25%;
+				left: 50%;
+				width: 44px;
+				height: 44px;
+			}
+			80% {
+				opacity: 1;
+				/* top: 68%;
+				left: 17%; */
+				top: 70%;
+				left: 20%;
+				width: 60px;
+				height: 60px;
+			}
+			100% {
+				opacity: 1;
+				top: 70%;
+				left: 20%;
+				width: 60px;
+				height: 60px;
+			}
+		}
+
+		@-webkit-keyframes moveTwo {
+			0% {
+				opacity: 0;
+				top: 90.25%;
+				left: 50%;
+				width: 44px;
+				height: 44px;
+			}
+			80% {
+				opacity: 1;
+				/* top: 60%;
+				left: 37.2%; */
+				top: 62%;
+				left: 38%;
+				width: 60px;
+				height: 60px;
+			}
+			100% {
+				opacity: 1;
+				top: 62%;
+				left: 38%;
+				width: 60px;
+				height: 60px;
+			}
+		}
+
+		@keyframes moveTwo {
+			0% {
+				opacity: 1;
+				top: 90.25%;
+				left: 50%;
+				width: 44px;
+				height: 44px;
+			}
+			80% {
+				opacity: 1;
+				/* top: 60%;
+				left: 37.2%; */
+				top: 62%;
+				left: 38%;
+				width: 60px;
+				height: 60px;
+			}
+			100% {
+				opacity: 1;
+				top: 62%;
+				left: 38%;
+				width: 60px;
+				height: 60px;
+			}
+		}
+
+		@-webkit-keyframes moveThree {
+			0% {
+				opacity: 0;
+				top: 90.25%;
+				left: 50%;
+				width: 44px;
+				height: 44px;
+			}
+			80% {
+				opacity: 1;
+				top: 62%;
+				left: 62%;
+				width: 60px;
+				height: 60px;
+			}
+			100% {
+				opacity: 1;
+				top: 62%;
+				left: 62%;
+				width: 60px;
+				height: 60px;
+			}
+		}
+
+		@keyframes moveThree {
+			0% {
+				opacity: 1;
+				top: 90.25%;
+				left: 50%;
+				width: 44px;
+				height: 44px;
+			}
+			80% {
+				opacity: 1;
+				top: 62%;
+				left: 62%;
+				width: 60px;
+				height: 60px;
+			}
+			100% {
+				opacity: 1;
+				top: 62%;
+				left: 62%;
+				width: 60px;
+				height: 60px;
+			}
+		}
+
+		@-webkit-keyframes moveFour {
+			0% {
+				opacity: 0;
+				top: 90.25%;
+				left: 50%;
+				width: 44px;
+				height: 44px;
+			}
+			80% {
+				opacity: 1;
+				top: 70%;
+				left: 80%;
+				width: 60px;
+				height: 60px;
+			}
+			100% {
+				opacity: 1;
+				top: 70%;
+				left: 80%;
+				width: 60px;
+				height: 60px;
+			}
+		}
+
+		@keyframes moveFour {
+			0% {
+				opacity: 1;
+				top: 90.25%;
+				left: 50%;
+				width: 44px;
+				height: 44px;
+			}
+			80% {
+				opacity: 1;
+				top: 70%;
+				left: 80%;
+				width: 60px;
+				height: 60px;
+			}
+			100% {
+				opacity: 1;
+				top: 70%;
+				left: 80%;
+				width: 60px;
+				height: 60px;
+			}
+		}
+
 
 		.close {
 			position: absolute;
@@ -65,24 +289,6 @@
 			background-size: 24px 24px
 		}
 
-		.mui-btn {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 60px;
-			height: 60px;
-			/* border: 1px solid #ccc; */
-			box-shadow: 0 0 5px rgba(0, 0, 0, .3);
-			border-radius: 50%;
-			flex-direction: column;
-			padding: 0
-		}
-
-		.mui-btn .icon {
-			width: 30px;
-			height: 30px;
-		}
-
 		.icon-add {
 			background-image: url(../img/common/md/icon_add_active.png);
 		}
@@ -90,35 +296,38 @@
 </head>
 
 <body>
-	<div class="mui-btn" id="doorpost">
-		<i class="icon icon-door"></i>
-		<span>门岗</span>
-	</div>
-	<div class="mui-btn">
-		<i class="icon icon-log"></i>
-		<span>日志</span>
-	</div>
-	<div class="mui-btn">
-		<i class="icon icon-data"></i>
-		<span>数据</span>
-	</div>
-	<div class="mui-btn">
-		<i class="icon icon-power"></i>
-		<span>系统</span>
+	<div class="container">
+		<div class="mui-btn" id="doorpost">
+			<i class="icon icon-door"></i>
+			<span>门岗</span>
+		</div>
+		<div class="mui-btn">
+			<i class="icon icon-log"></i>
+			<span>日志</span>
+		</div>
+		<div class="mui-btn">
+			<i class="icon icon-data"></i>
+			<span>数据</span>
+		</div>
+		<div class="mui-btn">
+			<i class="icon icon-power"></i>
+			<span>系统</span>
+		</div>
+
 	</div>
 
 	<div class="close">
 		<i class="icon icon-add"></i>
 	</div>
-  <!-- jquery -->
-  <script src="../js/lib/jquery.min.js"></script>
-  <!-- mui -->
-  <script src="../js/mui.min.js"></script>
-  <!-- config 配置项 -->
-  <script src="../js/app/config.js"></script>
-  <!-- app 数据获取 -->
-  <script src="../js/app/app.js"></script>
-  <!-- 当前页面js --> 
+	<!-- jquery -->
+	<script src="../js/lib/jquery.min.js"></script>
+	<!-- mui -->
+	<script src="../js/mui.min.js"></script>
+	<!-- config 配置项 -->
+	<script src="../js/app/config.js"></script>
+	<!-- app 数据获取 -->
+	<script src="../js/app/app.js"></script>
+	<!-- 当前页面js -->
 	<script src="../js/app/popover.js"></script>
 </body>
 

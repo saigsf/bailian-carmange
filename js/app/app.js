@@ -4,6 +4,49 @@
  * 请注意将相关方法调整成 “基于服务端Service” 的实现。
  **/
 (function ($, owner) {
+	//***** 强制打开软键盘  Begin******  
+	var _softKeyboardwebView, _imm, _InputMethodManager, _isKeyboardInited = false;
+	// 打开软键盘  
+	owner.initSoftKeyboard = function () {
+		if (mui.os.ios) {
+			_softKeyboardwebView = plus.webview.currentWebview().nativeInstanceObject();
+		} else {
+			_softKeyboardwebView = plus.android.currentWebview();
+			plus.android.importClass(_softKeyboardwebView);
+			_softKeyboardwebView.requestFocus();
+			var Context = plus.android.importClass("android.content.Context");
+			_InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+			var main = plus.android.runtimeMainActivity();
+			_imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+		}
+		_isKeyboardInited = true;
+	}
+
+	// 打开软键盘  
+	owner.openSoftKeyboard = function () {
+		if (!_isKeyboardInited) {
+			owner.initSoftKeyboard();
+		}
+		if (mui.os.ios) {
+			_softKeyboardwebView.plusCallMethod({
+				"setKeyboardDisplayRequiresUserAction": false
+			});
+		} else {
+			_imm.toggleSoftInput(0, _InputMethodManager.SHOW_FORCED);
+		}
+	}
+
+	// 控件获得焦点并弹出软键盘  
+	// input：需要获得焦点的控件  
+	owner.focusAndOpenKeyboard = function (input) {
+		setTimeout(function () {
+			input.focus();
+			input.focus();
+			owner.openSoftKeyboard();
+		}, 200);
+	}
+
+	//***** 强制打开软键盘  End******  
 
 	/**
 	 * 用户登录
@@ -197,7 +240,7 @@
 
 
 	/**
-	 * HTTP请求分装
+	 * HTTP请求分装 跨域请求
 	 * @param  type 请求方式
 	 * @param  url 请求路径
 	 * @param  data 请求参数
@@ -235,8 +278,8 @@
 		});
 	}
 
-		/**
-	 * HTTP请求分装 post
+	/**
+	 * HTTP请求分装 跨域请求
 	 * @param  type 请求方式
 	 * @param  url 请求路径
 	 * @param  data 请求参数
@@ -249,7 +292,42 @@
 			url: BASE_URL_1 + url,
 			data: data,
 			contentType: 'application/json;charset=UTF-8', //contentType很重要 
-      crossDomain: true,
+			crossDomain: true,
+			beforeSend: function () {
+				console.log('beforesend!')
+			},
+			success: function (res) {
+				//服务器返回响应，根据响应结果，分析是否登录成功；
+				callback(res);
+			},
+			error: function (xhr, type, errorThrown) {
+				//异常处理；
+				console.log(xhr.status);
+				if (type == 'timeout') {
+					$.toast("请求超时：请检查网络")
+				} else {
+					$.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+				}
+			},
+			complete: function () {
+				console.log('complete')
+			}
+		});
+	}
+
+	/**
+	 * HTTP请求分装 不跨域请求
+	 * @param {String} type 请求方式
+	 * @param {String} url 请求路径
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.HttpRequestNonCrossDomain = function (type, url, data, callback) {
+		callback = callback || $.noop;
+		$.ajax({
+			type: type,//HTTP请求类型
+			url: BASE_URL_1 + url,
+			data: data,
 			beforeSend: function () {
 				console.log('beforesend!')
 			},
@@ -273,6 +351,9 @@
 	}
 
 
+
+
+	/* ===============车辆 start==================== */
 
 	/*  */
 	/**
@@ -303,13 +384,13 @@
 			type: 1
 		}, function (res) {
 			res = JSON.parse(res);
-			if(res.ret) {
+			if (res.ret) {
 				var url = 'car-management/tempcar/addTcar.action';
 				owner.HTTPRequest('POST', url, data, callback)
 			} else {
 				mui.toast(res.msg);
 			}
-			
+
 		});
 
 		// callback()
@@ -358,7 +439,7 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/findAllParentItem.action?CNID='+ data.CNID;
+		var url = 'car-management/car/findAllParentItem.action?CNID=' + data.CNID;
 
 		owner.HTTPRequest('POST', url, {
 			param: data.param,
@@ -518,7 +599,7 @@
 
 		var url = 'car-management/car/addEmsAndBomCheck/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url,  data.saftCheckResult, callback)
+		owner.HTTPRequestPost('POST', url, data.saftCheckResult, callback)
 	}
 
 	/**
@@ -699,47 +780,7 @@
 		owner.HTTPRequest('POST', url, data, callback)
 	}
 
-	/**
-	 * 所有车辆实时定位数据
-	 * @param {Object} data 请求参数
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.allcar = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/allcar.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-
-	/**
-	 * 单个车辆实时数据查询
-	 * @param {Object} data 请求参数
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.carData = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/carData.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-
-	/**
-	 * 模糊匹配车辆编号
-	 * @param {Object} data 请求参数
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.likevSn = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/likevSn.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
+	/* ===============车辆维修=============== */
 
 	/**
 	 * 维修申请校验
@@ -750,7 +791,7 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/carMaintain/check/'+ data.vSn +'.action';
+		var url = 'car-management/carMaintain/check/' + data.vSn + '.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
@@ -765,9 +806,9 @@
 		data = data || {};
 
 		// 维修申请校验
-		owner.carMaintainCheck({vSn: data.vSn}, function(res) {
+		owner.carMaintainCheck({ vSn: data.vSn }, function (res) {
 			res = JSON.parse(res);
-			if(res.ret) {
+			if (res.ret) {
 				var url = 'car-management/carMaintain/PutInCarMaintainApply.action';
 				owner.HTTPRequest('POST', url, data, callback)
 			} else {
@@ -781,17 +822,17 @@
 	 * @param {Object} data 请求参数
 	 * @param {Function} callback 回掉函数
 	 */
-	owner.Maintenancecoordination = function (data, callback) {
+	owner.coordination = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/carMaintain/Maintenancecoordination.action';
+		var url = 'car-management/carMaintain/coordination.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
 
 	/**
-	 * 维修列表
+	 * 维修列表-搜索
 	 * @param {Object} data 请求参数
 	 * @param {Function} callback 回掉函数
 	 */
@@ -832,6 +873,9 @@
 		owner.HTTPRequest('get', url, data, callback)
 	}
 
+
+
+	/* =================驾驶员====================== */
 	/**
 	 * 驾驶员列表
 	 * @param {Object} data 请求参数
@@ -860,7 +904,7 @@
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
-	
+
 	/**
 	 * 驾驶员授权
 	 * @param {Object} data 请求参数
@@ -876,7 +920,7 @@
 
 		data = {
 			startTime: startTime.format('yyyy-MM-dd'),
-      endTime: endTime.format('yyyy-MM-dd')
+			endTime: endTime.format('yyyy-MM-dd')
 		};
 
 		owner.HTTPRequest('POST', url, data, callback)
@@ -936,6 +980,66 @@
 		console.log(JSON.stringify(data))
 		owner.HTTPRequest('get', url, data, callback)
 	}
+
+	/* ================GPS地图数据获取================ */
+
+	/**
+	 * 所有车辆实时定位数据
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.allcar = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/allcar.action';
+
+		owner.HttpRequestNonCrossDomain('get', url, data, callback)
+	}
+
+	/**
+	 * 单个车辆实时数据查询
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carData = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/carData.action';
+
+		owner.HttpRequestNonCrossDomain('get', url, data, callback)
+	}
+
+	/**
+	 * 车辆历史轨迹数据
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carTrack = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/carTrack.action';
+
+		owner.HTTPRequest('get', url, data, callback)
+	}
+
+	/**
+	 * 模糊匹配车辆编号
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.likevSn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/likevSn.action';
+
+		owner.HttpRequestNonCrossDomain('POST', url, data, callback)
+	}
+
+
 
 
 

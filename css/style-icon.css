@@ -36,6 +36,10 @@
 	width: 26px;
   background-image: url(../img/common/md/icon_back.png);
 }
+.icon-back-black {
+	width: 26px;
+  background-image: url(../img/common/md/icon_back_black.png);
+}
 .icon-add {
   background-image: url(../img/common/md/icon_add.png);
 }
@@ -77,10 +81,16 @@
   background-image: url(../img/login/md/icon_psd.png);
 }
 .icon-search {
-  width: .5rem;
-  height: .5rem;
+  width: 24px;
+  height: 24px;
   background-image: url(../img/common/md/icon_search.png);
 }
+.icon-search-white {
+  width: 20px;
+  height: 44px;
+  background-image: url(../img/other/md/icon_search_new.png);
+}
+
 .icon-arrow-down {
   width: .6rem;
   height: .6rem;

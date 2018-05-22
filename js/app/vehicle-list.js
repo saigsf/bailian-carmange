@@ -1,6 +1,7 @@
 (function (mui, doc) {
   var curPage = 0;  //当前页码初始化数0开始
   var totalPage = 7; //后台算出总页数
+
   mui.init({
     pullRefresh: {
       container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
@@ -31,6 +32,7 @@
   function pulldownRwfresh() {
     getData(1)
     setTimeout(function () {
+    	
       mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
       // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
     }, 1000)
@@ -173,20 +175,11 @@
       var $li = $(this).parents('li');
       mui.confirm('确认删除该条记录？', '提示', btnArray, function (e) {
         if (e.index == 0) {
+          $li.remove();
           app.delete({
             ids: $li.attr('data-id')
           }, function (res) {
             console.log(res)
-            res = JSON.parse(res);
-
-            if(res.ret) {
-              mui.toast(res.msg);
-              $li.remove();
-            } else {
-              mui.toast(res.msg);
-              mui.swipeoutClose(li);
-            }
-            
           })
         } else {
           setTimeout(function () {

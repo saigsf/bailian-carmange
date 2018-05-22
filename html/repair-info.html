@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>车辆审核</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-table-view-cell {
+      background-color: transparent;
+    }
+
+    .mui-content>.mui-table-view:first-child {
+      margin-top: 0
+    }
+
+    .mui-input-row label {
+      width: 28%
+    }
+
+    .mui-input-row label~input,
+    .mui-input-row label~select,
+    .mui-input-row label~textarea {
+      border-bottom: 1px solid #ccc;
+
+    }
+
+    .mui-input-row label~input[type=text],
+    .mui-input-row label~input[type=password],
+    .mui-input-row label~select,
+    .mui-input-row label~textarea {
+      width: 68%
+    }
+
+    .mui-table-view-cell:after {
+      display: none
+    }
+
+    .repair-info {
+      width: 90%;
+      border-radius: 11px;
+      padding: 10px 20px;
+      margin: 20px auto;
+      border: 1px solid #f1f1f1;
+      background-color: #fff;
+      box-shadow: 0 0 15px #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">维修信息</h1>
+  </header>
+  <div class="mui-scroll-wrapper mui-content">
+    <div class="mui-scroll">
+      <div class="repair-info">
+        <div class="vehicle-title">
+          <span class="vehicle-title-left"></span>
+          <span class="vehicle-title-text">维修申请信息</span>
+          <span class="vehicle-title-right"></span>
+        </div>
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆编号</label>
+              <input id="vSn" type="text" class="mui-input-clear" disabled placeholder="车辆编号,如：2017-211">
+              <!-- <span class="icon-red-star">*</span> -->
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>送车人</label>
+              <input id="sendPeople" type="text" class="mui-input-clear" disabled placeholder="送车人">
+              <!-- <span class="icon-red-star">*</span> -->
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>停放地点</label>
+              <input id="send_park" type="text" class="mui-input-clear" disabled placeholder="请输入停放地点">
+              <!-- <span class="icon-red-star">*</span> -->
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>工作内容</label>
+              <input id="reason" type="text" class="mui-input-clear" disabled placeholder="填写送修原因">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row" id="send_time_box">
+              <label>送修时间</label>
+              <input id="send_time" type="text" class="mui-input-clear" disabled placeholder="约定完成时间">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备注</label>
+              <input id="remark" type="text" class="mui-input-clear" disabled placeholder="备注">
+            </div>
+          </li>
+        </ul>
+        <div class="vehicle-title">
+          <span class="vehicle-title-left"></span>
+          <span class="vehicle-title-text">维修人员填写信息</span>
+          <span class="vehicle-title-right"></span>
+        </div>
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>维修人</label>
+              <input id="operator" type="text" class="mui-input-clear" disabled placeholder="如：2004">
+              <!-- <span class="icon-red-star">*</span> -->
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>停放地点</label>
+              <input id="finish_park" type="text" class="mui-input-clear" disabled placeholder="如：2004">
+              <!-- <span class="icon-red-star">*</span> -->
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>工作内容</label>
+              <input id="work" type="text" class="mui-input-clear" disabled placeholder="工作内容">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row" id="finish_time_box">
+              <label>完成日期</label>
+              <input id="finish_time" type="text" class="mui-input-clear" disabled placeholder="约定完成时间">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备注</label>
+              <input id="remark_new" type="text" class="mui-input-clear" disabled placeholder="备注">
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script src="../js/app/repair-info.js"></script>
+</body>
+
+</html>

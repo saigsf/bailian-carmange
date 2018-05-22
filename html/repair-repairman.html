@@ -56,8 +56,8 @@
     <ul class="mui-table-view">
       <li class="mui-table-view-cell">
         <div class="mui-input-row">
-          <label>编号</label>
-          <input id="infoid" type="text" class="mui-input-clear"  placeholder="车辆编号,如：2017-211">
+          <label>车辆编号</label>
+          <input id="vSn" type="text" class="mui-input-clear" disabled placeholder="车辆编号,如：2017-211">
           <!-- <span class="icon-red-star">*</span> -->
         </div>
       </li>
@@ -75,9 +75,15 @@
         </div>
       </li>
       <li class="mui-table-view-cell">
+        <div class="mui-input-row" id="finish_time_box">
+          <label>完成日期</label>
+          <input id="finish_time" type="text" class="mui-input-clear" readonly placeholder="约定完成时间">
+        </div>
+      </li>
+      <li class="mui-table-view-cell">
         <div class="mui-input-row">
           <label>备注</label>
-          <input id="remark" type="text" class="mui-input-clear" placeholder="车辆名称">
+          <input id="remark" type="text" class="mui-input-clear" placeholder="备注">
         </div>
       </li>
       <li class="mui-table-view-cell">
@@ -96,7 +102,7 @@
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
-  <!-- 当前页面js --> 
+  <!-- 当前页面js -->
   <script src="../js/app/repair-repairman.js"></script>
 </body>
 

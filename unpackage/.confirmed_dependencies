@@ -121,7 +121,8 @@
       "js/lib/jquery.min.js",
       "js/mui.min.js",
       "js/app/config.js",
-      "js/app/app.js"
+      "js/app/app.js",
+      "js/app/vehicle-auditing-add-explain.js"
     ],
     "refer": [],
     "priority": 0
@@ -274,7 +275,10 @@
       "img/common/icon_app.png"
     ],
     "refer": [
-      "html/vehicle-info.html"
+      "html/vehicle-info.html",
+      "html/vehicle-check-safety.html",
+      "html/vehicle-check-up.html",
+      "html/vehicle-check-down.html"
     ],
     "priority": 0
   },
@@ -412,7 +416,9 @@
       "js/app/app.js",
       "js/app/home-map-search.js"
     ],
-    "refer": [],
+    "refer": [
+      "html/search.html"
+    ],
     "priority": 0
   },
   "html/home.html": {
@@ -475,7 +481,9 @@
       "js/app/app.js",
       "js/app/doorpost-driver-info.js"
     ],
-    "refer": [],
+    "refer": [
+      "html/doorpost-driver-input.html"
+    ],
     "priority": 0
   },
   "html/doorpost-driver.html": {
@@ -513,6 +521,21 @@
       "html/doorpost-car-entrance.html",
       "html/doorpost-driver.html"
     ],
+    "priority": 0
+  },
+  "html/search.html": {
+    "href": "html/search.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/lib/mui.enterfocus.js",
+      "js/app/config.js",
+      "js/app/app.js"
+    ],
+    "refer": [],
     "priority": 0
   }
 }

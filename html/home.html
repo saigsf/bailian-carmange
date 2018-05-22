@@ -30,7 +30,6 @@
       height: 40px;
       background-color: rgba(255, 255, 255, .7);
       margin: 0;
-
     }
 
     .mui-search .mui-placeholder {
@@ -81,9 +80,9 @@
     <!-- 主界面具体展示内容 -->
     <!--车辆页面的子页面-->
     <div class="mui-input-row mui-search">
-      <input type="search" class="mui-input-clear" placeholder="请输入车牌号">
+      <input type="search" class="mui-input-clear" id="current_input" placeholder="请输入车牌号">
     </div>
-
+		
     <div class="mui-btn mui-btn-black" id="trajectory">轨迹</div>
 
     <div class="map-container" id="map"></div>
@@ -92,7 +91,7 @@
 		<!-- jquery -->
 		<script src="../js/lib/jquery.min.js"></script>
 		<!-- mui -->
-		<script src="../js/mui.min.js"></script>
+    <script src="../js/mui.min.js"></script>
     <!-- config 配置项 -->
     <script src="../js/app/config.js"></script>
     <!-- app 数据获取 -->
