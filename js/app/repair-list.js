@@ -12,11 +12,22 @@
   }
   // 上拉加载
   var pullupRefresh = function () {
+    var status = null;
+    if ($(this).val() === '排队中') {
+      status = '1'
+    } else if ($(this).val() === '维修中') {
+      status = '2'
+    } else if ($(this).val() === '已维修') {
+      status = '3'
+    } else if ($(this).val() === '已完成') {
+      status = '4'
+    }
+
     curPage++;
     if (curPage > totalPage) {
       mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
     } else {
-      getPageData(curPage)
+      getPageData(curPage, null, status)
     }
     // 
     setTimeout(function () {
@@ -30,24 +41,18 @@
         auto: true,//可选,默认false.首次加载自动下拉刷新一次
         callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
       },
-      up: {
-        callback: pullupRefresh
-      }
+      // up: {
+      //   callback: pullupRefresh
+      // }
     }
   });
 
   if (mui.os.plus) {
     mui.plusReady(function () {
-      // setTimeout(function () {
-      //   mui('#refreshContainer').pullRefresh().pullupLoading();
-      // }, 1000);
-      // console.log(H)
       addEvent();
-
     });
   } else {
     mui.ready(function () {
-      // mui('#refreshContainer').pullRefresh().pullupLoading();
       addEvent();
     });
   }
@@ -55,26 +60,31 @@
   /**
     * 获取数据
     */
-  function getPageData(page) {
-    var data = null;
-    var name = app.getState().account;
-
-    if (!name) {
-      return;
-    }
-
-    app.pageQueryCarMaintain({
+  function getPageData(page, vSn, status) {
+    var data = {
       page: page,
       size: 5
-    }, function (res) {
-      // console.log(res)0
+    };
+
+    if (vSn) {
+      data.vSn = vSn;
+    }
+
+    if (status) {
+      data.status = status;
+    }
+
+    app.pageQueryCarMaintain(data, function (res) {
+      console.log(res)
       data = JSON.parse(res);
-      if (data.total && data.total > 0) {
+      if (data.total) {
+        if(data.total == 0) {
+          mui.toast('没有数据')
+        }
         totalPage = Math.ceil(data.total / 5)
         updateView(data.rows)
-      }
+      } 
     })
-    // return data;
   }
 
   // 更新视图
@@ -242,6 +252,30 @@
         }
       })
     });
+
+    // 搜索
+    $('#current_input').on('keyup', function (e) {
+      var vSn = null;
+      if (e.keyCode == 13) {
+        vSn = $('#current_input').val();
+        getPageData(1, vSn)
+      }
+    })
+
+    $('#status').on('change', function () {
+      var status = null;
+      if ($(this).val() === '排队中') {
+        status = '1'
+      } else if ($(this).val() === '维修中') {
+        status = '2'
+      } else if ($(this).val() === '已维修') {
+        status = '3'
+      } else if ($(this).val() === '已完成') {
+        status = '4'
+      }
+      getPageData(1, null, status)
+    })
+
   }
 
   // 返回刷新

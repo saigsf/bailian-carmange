@@ -1,24 +1,23 @@
-(function () {
+(function (mui, doc) {
   // 顶部导航
 
-  $('.mui-scroll').on('tap', 'a', function() {
-    var l = $(this).offset().left;
-    var L = $('.mui-scroll').offset().left;
-    var w = $('.mui-scroll').width();
-    var W = $('.mui-scroll-wrapper').width();
-    if(l+L>W/2) {
-      mui('.mui-scroll-wrapper').scroll().scrollTo(W-w, 0, 100);
-    } else {
-      mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
-    }
-    
-  })
+//$('.mui-scroll').on('tap', 'a', function() {
+//  var l = $(this).offset().left;
+//  var L = $('.mui-scroll').offset().left;
+//  var w = $('.mui-scroll').width();
+//  var W = $('.mui-scroll-wrapper').width();
+//  if(l+L>W/2) {
+//    mui('.mui-scroll-wrapper').scroll().scrollTo(W-w, 0, 100);
+//  } else {
+//    mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
+//  }
+//  
+//})
 
 
   mui.init();
   //子页面列表
-  var subpages = ['vehicle-input.html', 'vehicle-list.html', 'vehicle-auditing.html', 'vehicle-input-unfinished.html'];
-
+  var subpages = ['vehicle-check-up.html', 'vehicle-input-list.html', 'vehicle-insurance-input.html', 'vehicle-list.html', 'vehicle-check-down.html'];
   // 子页面切换样式
   var subpages_style = {
     top: '64px',
@@ -26,10 +25,8 @@
   }
   //页面切换动画
   var aniShow = {};
-
   //页面传值
   var extras = {}
-
   // 创建子页面，显示首个选项卡其他都影藏
   mui.plusReady(function () {
     //更改状态栏颜色
@@ -105,4 +102,4 @@
       defaultTab.classList.add('mui-active');
     }
   });
-})()
+})(mui, document)

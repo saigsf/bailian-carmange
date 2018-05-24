@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-status-bar-style" content="black">
+    <!--mui样式应用-->
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <!--自定义图标样式-->
+    <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+    <!--自定义页面样式-->
+    <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+    <!--独立样式-->
+    <style type="text/css">
+      .detail {
+        width: 90%;
+        padding: 10px 15px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
+        margin: 20px auto;
+      }
+      
+      .input-operation {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 90%;
+        margin: auto;
+      }
+      
+      .input-operation-item {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #fff;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .input-operation-item a {
+        height: 100%;
+        width: 100%;
+        display: block;
+        line-height: 100px;
+        text-align: center;
+      }
+      
+      .mui-scroll {
+        min-height: 100%;
+      }
+    </style>
+  </head>
+
+  <body class="mui-fullscreen">
+    <!--页面主结构开始-->
+    <div id="app" class="mui-views">
+      <div class="mui-view">
+        <header class="mui-navbar">
+        </header>
+        <div class="mui-pages">
+        </div>
+      </div>
+    </div>
+    <!--页面主结构结束-->
+    <!--单页面开始-->
+    <!--默认页-->
+    <div class="mui-page" id="zero">
+      <!--页面标题栏开始-->
+      <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <a class="mui-action-back icon icon-back mui-pull-left"></a>
+        <h1 class="mui-center mui-title">车辆录入详情</h1>
+      </div>
+      <!--页面标题栏结束-->
+      <!--页面主内容区开始-->
+      <div class="mui-page-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+          <div class="detail">
+            <p>车辆编号：2017-12345</p>
+            <p>车辆编号：2017-12345</p>
+            <p>车辆编号：2017-12345</p>
+            <p>车辆编号：2017-12345</p>
+            <p>车辆编号：2017-12345</p>
+          </div>
+          <div class="input-operation">
+            <div class="input-operation-item" id="vehicle-input">
+              <a href="#one">车辆录入</a>
+            </div>
+            <div class="input-operation-item">
+              <a href="#two">车辆安全</a>
+            </div>
+            <div class="input-operation-item">
+              <a href="#three">线束检查</a>
+            </div>
+            <div class="input-operation-item">
+              <a href="#four">bom检查</a>
+            </div>
+            <div class="input-operation-item">
+              <a href="#five">研发</a>
+            </div>
+            <div class="input-operation-item">
+              <a href="#six">车辆审核</a>
+            </div>
+            <div class="input-operation-item">
+              <a href="#seven">车辆详情</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--页面主内容区结束-->
+    </div>
+
+    <!--信息录入-->
+    <div class="mui-page" id="one">
+      <!--页面标题栏开始-->
+      <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <a class="mui-action-back icon icon-back mui-pull-left"></a>
+        <h1 class="mui-center mui-title">信息录入</h1>
+      </div>
+      <!--页面标题栏结束-->
+      <!--页面主内容区开始-->
+      <div class="mui-page-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+        	
+        </div>
+      </div>
+      <!--页面主内容区结束-->
+    </div>
+
+    <!--车辆检查-->
+    <div class="mui-page" id="two">
+      <!--页面标题栏开始-->
+      <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <a class="mui-action-back icon icon-back mui-pull-left"></a>
+        <h1 class="mui-center mui-title">车辆检查</h1>
+      </div>
+      <!--页面标题栏结束-->
+      <!--页面主内容区开始-->
+      <div class="mui-page-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+
+        </div>
+      </div>
+      <!--页面主内容区结束-->
+    </div>
+
+    <!--线束检查-->
+    <div class="mui-page" id="three">
+      <!--页面标题栏开始-->
+      <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <a class="mui-action-back icon icon-back mui-pull-left"></a>
+        <h1 class="mui-center mui-title">线束检查</h1>
+      </div>
+      <!--页面标题栏结束-->
+      <!--页面主内容区开始-->
+      <div class="mui-page-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+
+        </div>
+      </div>
+      <!--页面主内容区结束-->
+    </div>
+
+    <!--bom检查-->
+    <div class="mui-page" id="four">
+      <!--页面标题栏开始-->
+      <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <a class="mui-action-back icon icon-back mui-pull-left"></a>
+        <h1 class="mui-center mui-title">bom检查</h1>
+      </div>
+      <!--页面标题栏结束-->
+      <!--页面主内容区开始-->
+      <div class="mui-page-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+
+        </div>
+      </div>
+      <!--页面主内容区结束-->
+    </div>
+
+    <!--研发工具-->
+    <div class="mui-page" id="five">
+      <!--页面标题栏开始-->
+      <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <a class="mui-action-back icon icon-back mui-pull-left"></a>
+        <h1 class="mui-center mui-title">研发工具</h1>
+      </div>
+      <!--页面标题栏结束-->
+      <!--页面主内容区开始-->
+      <div class="mui-page-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+
+        </div>
+      </div>
+      <!--页面主内容区结束-->
+    </div>
+
+    <!--车辆审核-->
+    <div class="mui-page" id="six">
+      <!--页面标题栏开始-->
+      <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <a class="mui-action-back icon icon-back mui-pull-left"></a>
+        <h1 class="mui-center mui-title">车辆审核</h1>
+      </div>
+      <!--页面标题栏结束-->
+      <!--页面主内容区开始-->
+      <div class="mui-page-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+
+        </div>
+      </div>
+      <!--页面主内容区结束-->
+    </div>
+
+    <!--车辆详情-->
+    <div class="mui-page" id="seven">
+      <!--页面标题栏开始-->
+      <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <a class="mui-action-back icon icon-back mui-pull-left"></a>
+        <h1 class="mui-center mui-title">车辆详情</h1>
+      </div>
+      <!--页面标题栏结束-->
+      <!--页面主内容区开始-->
+      <div class="mui-page-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+
+        </div>
+      </div>
+      <!--页面主内容区结束-->
+    </div>
+
+    <!-- jquery -->
+    <script src="../js/lib/jquery.min.js"></script>
+    <!-- mui -->
+    <script src="../js/mui.min.js"></script>
+    <!-- mui 单页 -->
+    <script src="../js/lib/mui.view.js "></script>
+    <!-- config 配置项 -->
+    <script src="../js/app/config.js"></script>
+    <!-- app 数据获取 -->
+    <script src="../js/app/app.js"></script>
+    <!-- 当前页面js -->
+    <script src="../js/app/vehicle-input-detail.js"></script>
+  </body>
+
+</html>

@@ -43,10 +43,14 @@
 
     .mui-input-row.mui-search.mui-active:before {
       position: absolute;
+      /* left: auto; */
       left: 5px;
       top: 50%;
       transform: translateY(-50%);
       margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+      color: #999
     }
 
     .top .icon-more {
@@ -99,6 +103,29 @@
     body {
       font-size: 12px;
     }
+
+    .select-container {
+      position: relative;
+    }
+
+    .select-container select {
+      background-color: transparent;
+      margin: 0;
+      padding-left: 10px;
+      padding-right: 25px;
+    }
+
+    .select-container i.mui-icon {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ccc;
+      z-index: -1;
+    }
+
+
+
   </style>
 </head>
 
@@ -110,8 +137,16 @@
           <div class="mui-input-row mui-search">
             <input type="search" class="mui-input-clear" id="current_input" placeholder="请输入关键词">
           </div>
-          <div class="btn">
-            <i class="icon icon-more"></i>
+          <div class="select-container">
+            <!-- <i class="icon icon-more"></i> -->
+            <select name="status" id="status">
+              <option value="全部">全部</option>
+              <option value="排队中">排队中</option>
+              <option value="维修中">维修中</option>
+              <option value="已维修">已维修</option>
+              <option value="已完成">已完成</option>
+            </select>
+            <i class="mui-icon mui-icon-arrowdown"></i>
           </div>
 
         </div>

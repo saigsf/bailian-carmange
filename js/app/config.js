@@ -40,3 +40,79 @@ function randomRange(min, max) {
   }
   return Math.floor(Math.random() * (max - min) + min);
 }
+/**
+ * 表单序列化
+ * @param {jQuery}  form DOM节点
+ * @param {boolean} deep 是否深度遍历
+ */
+var serialize = function ($form, deep) {
+  var str = null;
+  var obj = {};
+
+  if(!deep) {
+    str = $form.serializeArray();
+    for (let i = 0; i < str.length; i++) {
+      const item = str[i];
+      obj[item.name] = item.value;
+    }
+    str = obj;
+  } else {
+    str = $form.serialize();
+  }
+
+  return str;
+}
+
+/**
+ * 对象是否为空
+ * @param {Object} object 
+ */
+var isEmpty = function(object) {
+  for (const key in object) {
+    return false;
+  }
+  return true
+}
+
+/**
+ * 对象是否含有空值,检查指定值是否为空
+ * @param {Object} object 
+ */
+var hasEmptyValue = function(object, arr) {
+  var flag = 0;
+  if(arr && arr.length>0) {
+    for (const key in object) {
+      if (object.hasOwnProperty(key) && arr.contains(key)) {
+        const element = object[key];
+        if(!element) {
+          flag = 1
+        }
+      }
+    }
+  } else {
+    for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        const element = object[key];
+        if(!element) {
+          flag = 1
+        }
+      }
+    }
+  }
+  
+  return !!flag;
+}
+
+/**
+ * 判断obj是否在数组中
+ * @param {*} obj 数组元素
+ */
+Array.prototype.contains = function (obj) {
+  var i = this.length;
+  while (i--) {
+    if (this[i] === obj) {
+      return true;
+    }
+  }
+  return false;
+}

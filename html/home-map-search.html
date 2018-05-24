@@ -1,163 +1,219 @@
 <!doctype html>
 <html>
 
-  <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-status-bar-style" content="black">
-    <!--mui样式应用-->
-    <link href="../css/mui.min.css" rel="stylesheet" />
-    <!--自定义图标样式-->
-    <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
-    <!--自定义页面样式-->
-    <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
-    <!--独立样式-->
-    <style type="text/css">
-    	html,
-    	body {
-    		height: 100%;
-    		overflow: hidden;
-    	}
-    	.mui-content {
-    		height: 100%;
-    	}
-			.mui-segmented-control {
-				position: absolute;
-				top: 108px;
-				left: 50%;
-				transform: translateX(-50%);
-				width: 80%;
-				border-radius: 40px;
-				border-color: #2885CF;
-				z-index: 1;
-				background-color: #fff;
-			}
-			.mui-segmented-control .mui-control-item {
-				color: #2885CF;
-				border-color: #2885CF;
-				border-left: 1px solid #2885CF;
-			}
-			.mui-segmented-control .mui-control-item.mui-active {
-				background-color: #2885CF;
-				border-color: #2885CF;
-				border-left: 1px solid #2885CF;
-			}
-			.mui-control-content {
-				height: 100%;
-				width: 100%;
-			}
-			.bottom-search {
-				padding-top: 15px;
-				position: fixed;
-				left: 0;
-				bottom: 0;
-				background-image: url(../img/common/background_ellipse.png);
-				background-position: top center;
-				background-size: 150%;
-				background-repeat: no-repeat;
-				width: 100%;
-				transition: all ease-in-out .7s;
-			}
-			.mui-btn.mui-btn-block.mui-btn-outlined {
-				font-size: 24px;
-				padding: 10px 0;
-				border: none;
-				margin-bottom: 0;
-			}
-			.mui-input-row.mui-search {
-				width: 80%;
-				margin: 20px auto;
-				border: 1px solid #ccc;
-				border-radius: 34px;
-			}
-			.mui-input-row.mui-search input[type=search] {
-				height: 40px;
-      	background-color: rgba(255, 255, 255, .7);
-      	margin: 0;
-      	
-			}
-			.mui-search .mui-placeholder {
-				height: 40px;
-				line-height: 40px
-			}
-      .mui-search.mui-active:before {
-      	margin: 0;
-      	transform: translateY(-50%);
-			}
-			
-			.mui-btn .mui-icon {
-				padding: 10px;
-				font-weight: bold
-			}
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-status-bar-style" content="black">
+	<!--mui样式应用-->
+	<link href="../css/mui.min.css" rel="stylesheet" />
+	<!--自定义图标样式-->
+	<link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+	<!--自定义页面样式-->
+	<link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+	<!--独立样式-->
+	<style type="text/css">
+		html,
+		body {
+			height: 100%;
+			overflow: hidden;
+		}
 
-			.item1-map,
-			.item2-map {
-				height: 100%;
-			}
-			.search {
-				padding: 0 10px
-			}
-    </style>
-  </head>
+		.mui-content {
+			height: 100%;
+		}
 
-  <body>
-    <header class="mui-bar mui-bar-nav">
-      <a class="mui-action-back icon icon-back mui-pull-left"></a>
-			<h1 class="mui-title">车辆轨迹</h1>
-			<a class="search mui-pull-right" id="search">
-				<i class="icon icon-search-white"></i>
-			</a>
-    </header>
-    <!-- 主页面内容容器 -->
-    <div class="mui-content">
+		.mui-segmented-control {
+			position: absolute;
+			top: 108px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 80%;
+			border-radius: 40px;
+			border-color: #2885CF;
+			z-index: 1;
+			background-color: #fff;
+		}
 
-      <div class="mui-segmented-control">
-          <a class="mui-control-item mui-active" href="#item1">车辆轨迹</a>
-          <a class="mui-control-item" href="#item2">实时监控</a>
-      </div>
-      
-      <div class="mui-control-content mui-active" id="item1">
-      	<div class="item1-mask"></div>
-      	<div class="item1-map" id="item1-map"></div>
-      </div>
- 			<div class="mui-control-content" id="item2">
- 				<div class="item2-mask"></div>
- 				<div class="item2-map" id="item2-map"></div>
- 			</div>
- 			
- 			<!--车辆信息弹框-->
- 			<div id="popover" class="mui-popover">
-			  <div class="vehicle-info">   </div>
+		.mui-segmented-control .mui-control-item {
+			color: #2885CF;
+			border-color: #2885CF;
+			border-left: 1px solid #2885CF;
+		}
+
+		.mui-segmented-control .mui-control-item.mui-active {
+			background-color: #2885CF;
+			border-color: #2885CF;
+			border-left: 1px solid #2885CF;
+		}
+
+		.mui-control-content {
+			height: 100%;
+			width: 100%;
+		}
+
+		.bottom-search {
+			padding-top: 15px;
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			background-image: url(../img/common/background_ellipse.png);
+			background-position: top center;
+			background-size: 150%;
+			background-repeat: no-repeat;
+			width: 100%;
+			transition: all ease-in-out .7s;
+			z-index: 2;
+		}
+
+		.mui-btn.mui-btn-block.mui-btn-outlined {
+			font-size: 24px;
+			padding: 10px 0;
+			border: none;
+			margin-bottom: 0;
+		}
+
+		.mui-input-row.mui-search {
+			width: 80%;
+			margin: 20px auto;
+			border: 1px solid #ccc;
+			border-radius: 34px;
+		}
+
+		.mui-input-row.mui-search input[type=search] {
+			height: 40px;
+			background-color: rgba(255, 255, 255, .7);
+			margin: 0;
+
+		}
+
+		.mui-search .mui-placeholder {
+			height: 40px;
+			line-height: 40px
+		}
+
+		.mui-search.mui-active:before {
+			margin: 0;
+			transform: translateY(-50%);
+		}
+
+		.mui-btn .mui-icon {
+			padding: 10px;
+			font-weight: bold
+		}
+
+		.item1-map,
+		.item2-map {
+			height: 100%;
+		}
+
+		.search-wrapper {
+			width: 80%;
+			margin: 20px auto;
+		}
+		.date-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 80%;
+			margin: auto;
+			margin-top: 20px;
+			display: none;
+		}
+		.date-wrapper {
+			width: 45%;
+		}
+
+	</style>
+</head>
+
+<body>
+	<!-- <header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back icon icon-back mui-pull-left"></a>
+		<h1 class="mui-title">车辆轨迹</h1>
+		<a class="search mui-pull-right" id="search">
+			<i class="icon icon-search-white"></i>
+		</a>
+	</header> -->
+	<!-- 主页面内容容器 -->
+	<div class="mui-content">
+
+		<div class="mui-segmented-control">
+			<a class="mui-control-item mui-active" href="#item2">实时监控</a>
+			<a class="mui-control-item" href="#item1">车辆轨迹</a>
+		</div>
+		
+		<div class="mui-control-content mui-active" id="item2">
+			<div class="item2-mask"></div>
+			<div class="item2-map" id="item2-map"></div>
+		</div>
+		<div class="mui-control-content" id="item1">
+			<div class="item1-mask"></div>
+			<div class="item1-map" id="item1-map"></div>
+		</div>
+		
+
+		<!--车辆信息弹框-->
+		<div id="popover" class="mui-popover">
+			<div class="vehicle-info"> </div>
+		</div>
+
+		<!--底部搜索-->
+		<div class="bottom-search">
+			<div class="mui-btn mui-btn-block mui-btn-outlined">
+				<i class="icon icon-arrowdown" id="btn"></i>
 			</div>
- 			
- 			<!--底部搜索-->
- 			<div class="bottom-search">
- 				<div class="mui-btn mui-btn-block mui-btn-outlined">
- 					<i class="mui-icon mui-icon-arrowdown" id="btn"></i>
- 				</div>
- 				<div class="mui-input-row mui-search mui-right">
- 				    <input type="search" class="mui-input-clear" id="current_input"  placeholder="请输入车辆编号">
-				 </div>
-				 
- 			</div>
-    </div>
-		<!-- jquery -->
-		<script src="../js/lib/jquery.min.js"></script>
-		<!-- mui -->
-		<script src="../js/mui.min.js"></script>
-		<!-- config 配置项 -->
-		<script src="../js/app/config.js"></script>
-		<!-- app 数据获取 -->
-		<script src="../js/app/app.js"></script>
-		<!-- 百度地图api -->
-		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qIVEmOSVWxsby5OEWwm6UIbEfHKEDcZz"></script>
-		<!--多点聚合-->
-		<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
-		<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
-		<!-- 当前页面js -->
-    <script src="../js/app/home-map-search.js"></script>
-  </body>
+			<div class="date-container">
+				<div class="date-wrapper">
+					<!--<label>开始</label>-->
+					<div class="date-text">
+						<input type="text" readonly placeholder="请选择起始时间">
+						<div class="date-icon">
+							<i class="icon icon-date"></i>
+						</div>
+					</div>
+				</div>
+				<div class="date-wrapper">
+					<!--<label>结束</label>-->
+					<div class="date-text">
+						<input type="text" readonly placeholder="请选择终止时间">
+						<div class="date-icon">
+							<i class="icon icon-date"></i>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="search-wrapper">
+				<div class="search-text">
+					<input type="search" class="current-input" id="current_input" placeholder="请输入车辆编号">
+					<span class="clear-btn"></span>
+				</div>
+				<div class="search-btn">
+					<i class="icon icon-search"></i>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- jquery -->
+	<script src="../js/lib/jquery.min.js"></script>
+	<!-- mui -->
+	<script src="../js/mui.min.js"></script>
+	<!-- config 配置项 -->
+	<script src="../js/app/config.js"></script>
+	<!-- app 数据获取 -->
+	<script src="../js/app/app.js"></script>
+	<!-- 百度地图api -->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qIVEmOSVWxsby5OEWwm6UIbEfHKEDcZz"></script>
+	<!--多点聚合-->
+	<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+	<!-- 当前页面js -->
+	<script src="../js/app/home-map-search.js"></script>
+</body>
 
 </html>

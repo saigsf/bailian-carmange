@@ -56,6 +56,7 @@
     };
 
     doc.getElementById('account').value = state.account ? state.account : '';
+    doc.getElementById('password').value = state.token ? state.token : '';
     
 
     //					console.log(state.token)

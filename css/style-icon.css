@@ -83,7 +83,7 @@
 .icon-search {
   width: 24px;
   height: 24px;
-  background-image: url(../img/common/md/icon_search.png);
+  background-image: url(../img/common/md/icon_search@2x.png);
 }
 .icon-search-white {
   width: 20px;
@@ -91,15 +91,21 @@
   background-image: url(../img/other/md/icon_search_new.png);
 }
 
-.icon-arrow-down {
-  width: .6rem;
-  height: .6rem;
-  background-image: url(../img/common/md/icon_arrow_down.png);
+.icon-date {
+  width: 15px;
+  height: 15px;
+  background-image: url(../img/common/md/icon_date@2x.png);
 }
-.icon-arrow-up {
-  width: .6rem;
-  height: .6rem;
-  background-image: url(../img/common/md/icon_arrow_up.png);
+
+.icon-arrowdown {
+  width: 24px;
+  height: 24px;
+  background-image: url(../img/common/md/icon_arrow_down@2x.png);
+}
+.icon-arrowup {
+  width: 24px;
+  height: 24px;
+  background-image: url(../img/common/md/icon_arrow_up@2x.png);
 }
 .icon-arrow-right {
   width: .4rem;

@@ -89,7 +89,7 @@
 				data = JSON.parse(data);
 				if (data.ret) {
 					$.toast(data.msg);
-					owner.createState(data.data.username, data.data.password, callback);
+					owner.createState(data.data.username, loginInfo.password, callback);
 				} else {
 					$.toast(data.msg)
 				}

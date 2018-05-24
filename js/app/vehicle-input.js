@@ -1,29 +1,46 @@
-(function (mui, doc) {
+(function(mui, doc) {
   mui.init();
   mui('.mui-scroll-wrapper').scroll({
     deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
   });
 
-  mui.plusReady(function () {
-    if (plus.device.model === 'iPhoneX') {
-      //页面样式重置
+  var H = null;
+
+  mui.plusReady(function() {
+    handsetAdaption()
+
+    var self = plus.webview.currentWebview();
+    H = self.H;
+
+    //添加点击事件进入下一页
+    addEvents()
+  })
+
+  // 手机适配方法
+  function handsetAdaption() {
+    // 更改顶部导航栏高度
+    if(plus.device.model === 'iPhoneX') {
+      // 页面样式重置
       $('header').css({
         'height': '88px',
         'paddingTop': '40px'
+      });
+      $('.mui-bar-nav~.mui-content').css({
+        'paddingTop': '88px'
       })
     }
-    //更改状态栏颜色
+
+    // 更改状态栏颜色
     plus.navigator.setStatusBarStyle("light");
     // 弹出软键盘时自动改变webview的高度
     plus.webview.currentWebview().setStyle({
       softinputMode: "adjustResize"
     });
 
-    var self = plus.webview.currentWebview();
-    var H = self.H;
+  }
 
-    //添加点击事件进入下一页
-    doc.getElementById('next').addEventListener('tap', function () {
+  function addEvents() {
+    doc.getElementById('next').addEventListener('tap', function() {
       //打开接车点检页面
       var data = {};
 
@@ -48,7 +65,7 @@
       data.operator = $('#operator').val(); //填写人
 
       // data.gids = '123'; //车辆分组
-      app.addTcar(data, function () {
+      app.addTcar(data, function() {
 
         mui.openWindow({
           url: 'vehicle-check-up.html',
@@ -75,5 +92,6 @@
       })
     });
 
-  })
+  }
+
 })(mui, document)

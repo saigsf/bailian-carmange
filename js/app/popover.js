@@ -1,23 +1,24 @@
 ;(function () {
   mui.init();
   setTimeout(function() {
-    console.log(123445)
     $('.container').addClass('run');
-    // $('.mui-btn').css({
-    //   'animation': 'moveOne 1s 0s'
-    // })
-  }, 100)
+  }, 100);
+  
+  var H = null;
+  
   mui.plusReady(function () {
-    var ws = plus.webview.currentWebview();
-    var H = ws.H;
+    var self = plus.webview.currentWebview();
+    var view = plus.webview.getWebviewById('index');
+    H = self.H;
 
     document.addEventListener('tap', function () {
-      mui.back()
-    })
+      mui.back();
+      mui.fire(view, 'clearActiveTab', {});
+    }, false)
     
     $('#doorpost').on('tap', function () {
       var view = plus.webview.getWebviewById('html/doorpost.html');
-      view.show()
+      view.show();
     })
   })
 })();
