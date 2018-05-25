@@ -25,38 +25,49 @@
     .mui-table-view-cell:after {
       display: none;
     }
+
     .mui-scroll-wrapper {
       height: 100%;
       /* padding-top: 66px; */
     }
+
     .item-right-middle {
       flex-direction: column;
     }
+
     .item-right-middle p {
       font-size: 12px;
       width: 100%;
       line-height: 20px;
     }
+
     .item-right-middle p span {
       display: inline-block;
       line-height: 0;
       width: 18%;
       text-align: justify;
     }
-    .item-right-middle p span:not(:first-of-type){
+
+    .item-right-middle p span:not(:first-of-type) {
       margin-left: 20px;
-       width: 22%; 
+      width: 22%;
     }
+
     .item-right-middle p span:after {
       content: "";
       display: inline-block;
       width: 100%
     }
+
     .bottom-item {
       width: 50%;
       text-align: left;
     }
-    
+    .search-wrapper {
+      width: 80%;
+      margin: 20px auto
+    }
+
     body {
       font-size: 12px;
     }
@@ -66,6 +77,15 @@
 <body>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
+      <div class="search-wrapper">
+        <div class="search-text">
+          <input type="search" class="current-input" id="current_input" placeholder="请输入车辆编号">
+          <span class="clear-btn"></span>
+        </div>
+        <div class="search-btn">
+          <i class="icon icon-search"></i>
+        </div>
+      </div>
       <ul id="vehicle_input_list" class="mui-table-view">
         <li class="mui-table-view-cell">
           <div class="mui-slider-right mui-disabled">
@@ -115,7 +135,7 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-   <script src="../js/app/vehicle-input-list.js" type="text/javascript" charset="utf-8"></script> 
+  <script src="../js/app/vehicle-input-list.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
 </html>

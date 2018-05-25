@@ -64,9 +64,9 @@
 		if (loginInfo.password.length < 6) {
 			return callback('密码最短为 6 个字符');
 		}
-		if (!loginInfo.verifyCode) {
-			return callback('验证码不能为空')
-		}
+		// if (!loginInfo.verifyCode) {
+		// 	return callback('验证码不能为空')
+		// }
 
 		$.ajax({
 			type: 'post',//HTTP请求类型

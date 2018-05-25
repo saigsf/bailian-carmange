@@ -16,7 +16,7 @@
       oldBack();
     }
   };
-  
+
   //初始化单页的区域滚动
   mui('.mui-scroll-wrapper').scroll({
     deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
@@ -24,7 +24,10 @@
 
   // 定义全局变量
   var H = null; // 页面高度
-  var nextIdArr = ['vehicle-input']; // 下一页id
+  // 页面id zero 为默认页面
+  var pageIdArr = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven']; 
+  // 模块id vehicle-input-detail为默认模块id
+  var moduleIdArr = ['vehicle-input-detail', 'vehicle-input', 'vehicle-input-detail', 'vehicle-input-detail', 'vehicle-input-detail', 'vehicle-input-detail', 'vehicle-input-detail', ]
 
   mui.plusReady(function() {
     // plus准备好后执行H5
@@ -34,7 +37,7 @@
     // 获取传递参数
     H = self.H;
     // 添加点击事件进入下一页
-//  addEvents();
+    //  addEvents();
 
   });
 
@@ -70,7 +73,7 @@
       var id = nextIdArr[i];
       $('#' + id).on('tap', function() {
         var t = $(this).find('a').html();
-        mui.toast(t);
+        mui.toast(t);  
         mui.openWindow({
           url: id + '.html',
           id: id, //默认使用当前页面的url作为id

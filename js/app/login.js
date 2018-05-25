@@ -61,7 +61,10 @@
 
     //					console.log(state.token)
     if(settings.autoLogin && state.token && doc.getElementById('verifyCode').value) {
+      setTimeout(function(){
       toMain();
+      }, 1000)
+      
     }
 
     //状态检查结束
