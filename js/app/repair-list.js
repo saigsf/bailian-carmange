@@ -1,6 +1,7 @@
 (function () {
   var curPage = 0;  //当前页码初始化数0开始
   var totalPage = 1; //后台算出总页数
+  var H = null;
   // 下拉刷新
   var pulldownRwfresh = function () {
     getPageData(1)
@@ -34,6 +35,7 @@
       mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
     }, 1000);
   }
+
   mui.init({
     pullRefresh: {
       container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
@@ -46,16 +48,11 @@
       // }
     }
   });
-
-  if (mui.os.plus) {
-    mui.plusReady(function () {
-      addEvent();
-    });
-  } else {
-    mui.ready(function () {
-      addEvent();
-    });
-  }
+  mui.plusReady(function () {
+    var self = plus.webview.currentWebview();
+    H = self.H;
+    addEvent();
+  });
 
   /**
     * 获取数据
@@ -78,12 +75,12 @@
       console.log(res)
       data = JSON.parse(res);
       if (data.total) {
-        if(data.total == 0) {
+        if (data.total == 0) {
           mui.toast('没有数据')
         }
         totalPage = Math.ceil(data.total / 5)
         updateView(data.rows)
-      } 
+      }
     })
   }
 
@@ -145,8 +142,6 @@
 
   // 添加点击事件，维修员填写工作内容
   function addEvent() {
-    var self = plus.webview.currentWebview();
-    var H = self.H;
     // 维修
     $('#OA_task_1').on('tap', '.repairing', function () {
       var $li = $(this).parents('li');
@@ -262,19 +257,24 @@
       }
     })
 
-    $('#status').on('change', function () {
+    // 筛选
+    $('#popover').on('tap', 'a', function () {
       var status = null;
-      if ($(this).val() === '排队中') {
+      if ($(this).html() === '排队中') {
         status = '1'
-      } else if ($(this).val() === '维修中') {
+      } else if ($(this).html() === '维修中') {
         status = '2'
-      } else if ($(this).val() === '已维修') {
+      } else if ($(this).html() === '已维修') {
         status = '3'
-      } else if ($(this).val() === '已完成') {
+      } else if ($(this).html() === '已完成') {
         status = '4'
       }
+      mui('.mui-popover').popover('hide');
       getPageData(1, null, status)
+      
     })
+    
+    // mui('.mui-popover').popover('show', document.getElementById("openPopover"));
 
   }
 

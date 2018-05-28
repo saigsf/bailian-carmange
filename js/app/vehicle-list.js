@@ -1,6 +1,7 @@
 (function (mui, doc) {
-  var curPage = 0;  //当前页码初始化数0开始
+  var curPage = 1;  //当前页码初始化数0开始
   var totalPage = 7; //后台算出总页数
+  var H = null;
 
   mui.init({
     pullRefresh: {
@@ -25,6 +26,9 @@
       softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
     });
 
+    var self = plus.webview.currentWebview();
+    H = self.H;
+
     addEvent();
   })
 
@@ -41,11 +45,11 @@
   // 上拉加载业务
   function pullupRefresh() {
     // getData();
-    curPage++;
+    // curPage++;
     if (curPage > totalPage) {
       mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
     } else {
-      getData(curPage)
+      getData()
     }
     setTimeout(function () {
       mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
@@ -53,9 +57,11 @@
   }
   // 获取数据
   function getData(page) {
+    // console.log(curPage)
+    console.log(curPage, totalPage)
     var data = null;
     app.pageQuery({
-      page: page,
+      page: curPage,
       size: 5
     }, function (res) {
       // console.log(res)
@@ -63,6 +69,8 @@
       if (!res.totalCount || res.totalCount <= 0) {
         return;
       }
+      console.log(res.totalCount)
+      curPage++;
       totalPage = Math.ceil(res.totalCount / 5)
       var data = res.pageData;
 
@@ -117,8 +125,6 @@
 
   //添加事件
   function addEvent() {
-    var self = plus.webview.currentWebview();
-    var H = self.H;
     //查看车辆信息
     $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
       //打开接车点检页面
@@ -189,6 +195,14 @@
       });
     });
     var btnArray = ['确认', '取消'];
+
+    var view = plus.webview.getWebviewById('html/vehicle.html');
+    
+    $('#add_btn').on('tap', function() {
+      mui.fire(view, 'checkup', {
+      	domId: 'vehicle-check-up'
+      })
+    })
   }
 
 })(mui, document);

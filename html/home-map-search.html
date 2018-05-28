@@ -76,27 +76,24 @@
 		}
 
 		.mui-input-row.mui-search {
-			width: 80%;
+			width: 90%;
 			margin: 20px auto;
 			border: 1px solid #ccc;
-			border-radius: 34px;
+			border-radius: 40px;
 		}
 
 		.mui-input-row.mui-search input[type=search] {
-			height: 40px;
+			/* height: 34px; */
 			background-color: rgba(255, 255, 255, .7);
 			margin: 0;
 
 		}
 
-		.mui-search .mui-placeholder {
-			height: 40px;
-			line-height: 40px
-		}
-
 		.mui-search.mui-active:before {
 			margin: 0;
 			transform: translateY(-50%);
+			font-weight: bold;
+			color: #666
 		}
 
 		.mui-btn .mui-icon {
@@ -110,22 +107,23 @@
 		}
 
 		.search-wrapper {
-			width: 80%;
+			width: 90%;
 			margin: 20px auto;
 		}
+
 		.date-container {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			width: 80%;
+			width: 90%;
 			margin: auto;
 			margin-top: 20px;
 			display: none;
 		}
+
 		.date-wrapper {
 			width: 45%;
 		}
-
 	</style>
 </head>
 
@@ -144,7 +142,7 @@
 			<a class="mui-control-item mui-active" href="#item2">实时监控</a>
 			<a class="mui-control-item" href="#item1">车辆轨迹</a>
 		</div>
-		
+
 		<div class="mui-control-content mui-active" id="item2">
 			<div class="item2-mask"></div>
 			<div class="item2-map" id="item2-map"></div>
@@ -153,7 +151,7 @@
 			<div class="item1-mask"></div>
 			<div class="item1-map" id="item1-map"></div>
 		</div>
-		
+
 
 		<!--车辆信息弹框-->
 		<div id="popover" class="mui-popover">
@@ -168,8 +166,8 @@
 			<div class="date-container">
 				<div class="date-wrapper">
 					<!--<label>开始</label>-->
-					<div class="date-text">
-						<input type="text" readonly placeholder="请选择起始时间">
+					<div class="date-text" id="start_date_box">
+						<input type="text" id="start_date" readonly placeholder="请选择起始时间">
 						<div class="date-icon">
 							<i class="icon icon-date"></i>
 						</div>
@@ -177,8 +175,8 @@
 				</div>
 				<div class="date-wrapper">
 					<!--<label>结束</label>-->
-					<div class="date-text">
-						<input type="text" readonly placeholder="请选择终止时间">
+					<div class="date-text" id="end_date_box">
+						<input type="text" id="end_date" readonly placeholder="请选择终止时间">
 						<div class="date-icon">
 							<i class="icon icon-date"></i>
 						</div>
@@ -187,7 +185,7 @@
 
 			</div>
 
-			<div class="search-wrapper">
+			<!-- <div class="search-wrapper">
 				<div class="search-text">
 					<input type="search" class="current-input" id="current_input" placeholder="请输入车辆编号">
 					<span class="clear-btn"></span>
@@ -195,7 +193,13 @@
 				<div class="search-btn">
 					<i class="icon icon-search"></i>
 				</div>
-			</div>
+			</div> -->
+			<form>
+				<div class="mui-input-row mui-search">
+					<input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
+				</div>
+			</form>
+
 
 		</div>
 	</div>

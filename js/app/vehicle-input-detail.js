@@ -1,6 +1,11 @@
 ;
 (function(mui, doc) {
-  mui.init();
+  mui.init({
+    gestureConfig:{
+      doubletap: true, //默认为false
+      longtap: true, //默认为false
+     }
+  });
 
   //初始化单页view
   var viewApi = mui('#app').view({
@@ -25,9 +30,11 @@
   // 定义全局变量
   var H = null; // 页面高度
   // 页面id zero 为默认页面
-  var pageIdArr = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven']; 
+  var pageIdArr = ['zero', 'one', 'two', 'three', 'four', 'five', 'six']; 
   // 模块id vehicle-input-detail为默认模块id
-  var moduleIdArr = ['vehicle-input-detail', 'vehicle-input', 'vehicle-input-detail', 'vehicle-input-detail', 'vehicle-input-detail', 'vehicle-input-detail', 'vehicle-input-detail', ]
+  var moduleIdArr = ['vehicle-input-detail', 'vehicle-input', 'vehicle-input-detail', 'vehicle-input-detail', 'vehicle-input-detail', 'vehicle-input-detail']
+  // 保存按钮
+  var saveBtnArr = ['one_next','two_next','three_next','four_next','five_next','six_next']
 
   mui.plusReady(function() {
     // plus准备好后执行H5
@@ -37,7 +44,7 @@
     // 获取传递参数
     H = self.H;
     // 添加点击事件进入下一页
-    //  addEvents();
+     addEvents();
 
   });
 
@@ -68,35 +75,50 @@
 
   // 页面点击事件
   function addEvents() {
-    console.log(nextIdArr)
-    for(var i = 0; i < nextIdArr.length; i++) {
-      var id = nextIdArr[i];
-      $('#' + id).on('tap', function() {
-        var t = $(this).find('a').html();
-        mui.toast(t);  
-        mui.openWindow({
-          url: id + '.html',
-          id: id, //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            bottom: H
-          }, //窗口参数
-          extras: {
-            H: H
-          }, //自定义扩展参数
-          createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-          show: {
-            autoShow: true, //页面loaded事件发生后自动显示，默认为true
-          },
-          waiting: {
-            autoShow: true, //自动显示等待框，默认为true
-            title: '正在加载...', //等待对话框上显示的提示内容
-          }
-        })
-
+    // 查看详情
+    $('#detail').on('tap', function() {
+      mui.openWindow({
+        url: 'vehicle-detail.html',
+        id: 'vehicle-detail', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H
+        } //自定义扩展参数
       })
-    }
+    })
 
+    // 添加说明
+    $('#app').on('tap', '.add', function() {
+      mui.openWindow({
+        url: 'vehicle-check-add-explain.html',
+        id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H
+        } //自定义扩展参数
+      })
+    })
+
+    // 手势操作——长按
+    $('#one').on('longtap', '.tab-col input', function() {
+      mui.toast($(this).val())
+    })
+  }
+
+  // 数据交互
+  var fetchData = {
+
+  }
+
+  // 页面更新
+  var updateView = {
+    
   }
 
 })(mui, document)

@@ -130,11 +130,11 @@
 .icon-car-top {
   background-image: url(../img/other/md/icon_car_top.png);
 }
-.icon-triangle-down {
+/* .icon-triangle-down {
   width: .3rem;
   height: .3rem;
   background-image: url(../img/other/md/icon_triangle_down.png);
-}
+} */
 .icon-finished {
   width: .88rem;
   height: .88rem;
@@ -187,6 +187,46 @@
   width: 16px;
   height: 16px;
   background-image: url(../img/other/md/icon_woman.png);
+}
+
+.icon-triangle-down {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  border-width: 8px;
+  border-style: solid;
+  border-color: #2885cf transparent transparent transparent ;
+}
+
+.icon-vehicle-input {
+  width: 50px;
+  height: 50px;
+  background-image: url(../img/common/md/icon_vehicleinput@2x.png);
+}
+.icon-safe-check {
+  width: 50px;
+  height: 50px;
+  background-image: url(../img/common/md/icon_safecheck@2x.png);
+}
+.icon-wire-check {
+  width: 50px;
+  height: 50px;
+  background-image: url(../img/common/md/icon_wirecheck@2x.png);
+}
+.icon-bom-check {
+  width: 50px;
+  height: 50px;
+  background-image: url(../img/common/md/icon_bomcheck@2x.png);
+}
+.icon-vehicle-auditing {
+  width: 50px;
+  height: 50px;
+  background-image: url(../img/common/md/icon_vehicleauditing@2x.png);
+}
+.icon-tools {
+  width: 50px;
+  height: 50px;
+  background-image: url(../img/common/md/icon_tools@2x.png);
 }
 
 .unit {

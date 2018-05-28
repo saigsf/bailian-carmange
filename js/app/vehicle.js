@@ -74,7 +74,7 @@
     //若为iOS平台或非首次显示，则直接显示
     if (mui.os.ios || aniShow[targetTab]) {
       plus.webview.show(targetTab);
-      plus.webview.getWebviewById(targetTab).reload()
+      // plus.webview.getWebviewById(targetTab).reload()
     } else {
       //否则，使用fade-in动画，且保存变量
       var temp = {};
@@ -82,7 +82,7 @@
       temp[targetTab] = "true";
       mui.extend(aniShow, temp);
       plus.webview.show(targetTab, "slide-in-right", 300);
-      plus.webview.getWebviewById(targetTab).reload()
+      // plus.webview.getWebviewById(targetTab).reload()
     }
     //隐藏当前;
     plus.webview.hide(activeTab);
@@ -102,4 +102,21 @@
       defaultTab.classList.add('mui-active');
     }
   });
+  
+  // console.log(plus.webview.currentWebview().id)
+
+  //接车点检
+  document.addEventListener('checkup', function (e) {
+    var defaultTab = document.getElementById(e.detail.domId);
+    //模拟首页点击
+    mui.trigger(defaultTab, 'tap');
+    //切换选项卡高亮
+    var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
+    if (defaultTab !== current) {
+      current.classList.remove('mui-active');
+      defaultTab.classList.add('mui-active');
+    }
+  });
+
+
 })(mui, document)

@@ -19,8 +19,12 @@
     header.mui-navbar {
       background-color: #fff;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
+    }
+    header.mui-bar form,
+    header.mui-navbar form {
+      width: 90%
     }
 
     header.mui-bar *,
@@ -37,7 +41,7 @@
     }
 
     .mui-search {
-      width: 77%
+      /* width: 77% */
     }
 
     .noData,
@@ -96,11 +100,12 @@
 
 <body>
   <header class="mui-bar mui-bar-nav">
-    <a class="icon icon-back-black" id="back_btn"></a>
-    <div class="mui-input-row mui-search">
-      <input type="search" class="mui-input-clear" id="current_input" placeholder="">
-    </div>
-    <a class="search-btn" id="search_btn">搜索</a>
+    <form>
+      <div class="mui-input-row mui-search mui-active">
+        <input type="search" class="mui-input-clear" id="current_input" placeholder="">
+      </div>
+    </form>
+    <a class="mui-action-back mui-pull-right">取消</a>
   </header>
   <!-- 主页面内容容器 -->
   <div class="mui-content">
@@ -130,7 +135,13 @@
       swipeBack: true //启用右滑关闭功能
     });
     // 输入框获取焦点
-    app.focusAndOpenKeyboard(document.getElementById('current_input'))
+    app.focusAndOpenKeyboard(document.getElementById('current_input'));
+
+    var form = document.getElementsByTagName('form')[0];
+
+    form.onsubmit = function(e) {
+      e.preventDefault();// 取消默认事件
+    }
 
     mui.plusReady(function () {
       var self = plus.webview.currentWebview();

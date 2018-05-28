@@ -45,14 +45,21 @@
       display: none
     }
 
-    .repair-info {
-      width: 90%;
-      border-radius: 11px;
-      padding: 10px 20px;
-      margin: 20px auto;
-      border: 1px solid #f1f1f1;
-      background-color: #fff;
-      box-shadow: 0 0 15px #ccc;
+    .mui-segmented-control {
+      width: 80%;
+      margin: 15px auto;
+      border-radius: 40px;
+      border-color: #2885cf;
+    }
+
+    .mui-segmented-control .mui-control-item.mui-active {
+      background-color: #2885cf;
+    }
+
+    .mui-segmented-control .mui-control-item {
+      color: #2885cf;
+      border-color: #2885cf;
+      border-left: 1px solid #2885cf;
     }
   </style>
 </head>
@@ -62,94 +69,93 @@
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
     <h1 class="mui-title">维修信息</h1>
   </header>
-  <div class="mui-scroll-wrapper mui-content">
-    <div class="mui-scroll">
-      <div class="repair-info">
-        <div class="vehicle-title">
-          <span class="vehicle-title-left"></span>
-          <span class="vehicle-title-text">维修申请信息</span>
-          <span class="vehicle-title-right"></span>
+  <div class="mui-content">
+    <div class="mui-slider">
+      <div class="mui-slider-indicator mui-segmented-control">
+        <a class="mui-control-item mui-active" href="#item1">申请信息</a>
+        <a class="mui-control-item" href="#item2">维修员填写</a>
+      </div>
+      <!-- <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div> -->
+      <div class="mui-slider-group">
+        <div id="item1" class="mui-slider-item mui-control-content mui-active">
+          <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>车辆编号</label>
+                <input id="vSn" type="text" class="mui-input-clear" disabled placeholder="车辆编号,如：2017-211">
+                <!-- <span class="icon-red-star">*</span> -->
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>送车人</label>
+                <input id="sendPeople" type="text" class="mui-input-clear" disabled placeholder="送车人">
+                <!-- <span class="icon-red-star">*</span> -->
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>停放地点</label>
+                <input id="send_park" type="text" class="mui-input-clear" disabled placeholder="请输入停放地点">
+                <!-- <span class="icon-red-star">*</span> -->
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>工作内容</label>
+                <input id="reason" type="text" class="mui-input-clear" disabled placeholder="填写送修原因">
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row" id="send_time_box">
+                <label>送修时间</label>
+                <input id="send_time" type="text" class="mui-input-clear" disabled placeholder="约定完成时间">
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>备注</label>
+                <input id="remark" type="text" class="mui-input-clear" disabled placeholder="备注">
+              </div>
+            </li>
+          </ul>
         </div>
-        <ul class="mui-table-view">
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>车辆编号</label>
-              <input id="vSn" type="text" class="mui-input-clear" disabled placeholder="车辆编号,如：2017-211">
-              <!-- <span class="icon-red-star">*</span> -->
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>送车人</label>
-              <input id="sendPeople" type="text" class="mui-input-clear" disabled placeholder="送车人">
-              <!-- <span class="icon-red-star">*</span> -->
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>停放地点</label>
-              <input id="send_park" type="text" class="mui-input-clear" disabled placeholder="请输入停放地点">
-              <!-- <span class="icon-red-star">*</span> -->
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>工作内容</label>
-              <input id="reason" type="text" class="mui-input-clear" disabled placeholder="填写送修原因">
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row" id="send_time_box">
-              <label>送修时间</label>
-              <input id="send_time" type="text" class="mui-input-clear" disabled placeholder="约定完成时间">
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>备注</label>
-              <input id="remark" type="text" class="mui-input-clear" disabled placeholder="备注">
-            </div>
-          </li>
-        </ul>
-        <div class="vehicle-title">
-          <span class="vehicle-title-left"></span>
-          <span class="vehicle-title-text">维修人员填写信息</span>
-          <span class="vehicle-title-right"></span>
+        <div id="item2" class="mui-slider-item mui-control-content">
+          <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>维修人</label>
+                <input id="operator" type="text" class="mui-input-clear" disabled placeholder="如：2004">
+                <!-- <span class="icon-red-star">*</span> -->
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>停放地点</label>
+                <input id="finish_park" type="text" class="mui-input-clear" disabled placeholder="如：2004">
+                <!-- <span class="icon-red-star">*</span> -->
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>工作内容</label>
+                <input id="work" type="text" class="mui-input-clear" disabled placeholder="工作内容">
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row" id="finish_time_box">
+                <label>完成日期</label>
+                <input id="finish_time" type="text" class="mui-input-clear" disabled placeholder="约定完成时间">
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>备注</label>
+                <input id="remark_new" type="text" class="mui-input-clear" disabled placeholder="备注">
+              </div>
+            </li>
+          </ul>
         </div>
-        <ul class="mui-table-view">
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>维修人</label>
-              <input id="operator" type="text" class="mui-input-clear" disabled placeholder="如：2004">
-              <!-- <span class="icon-red-star">*</span> -->
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>停放地点</label>
-              <input id="finish_park" type="text" class="mui-input-clear" disabled placeholder="如：2004">
-              <!-- <span class="icon-red-star">*</span> -->
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>工作内容</label>
-              <input id="work" type="text" class="mui-input-clear" disabled placeholder="工作内容">
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row" id="finish_time_box">
-              <label>完成日期</label>
-              <input id="finish_time" type="text" class="mui-input-clear" disabled placeholder="约定完成时间">
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>备注</label>
-              <input id="remark_new" type="text" class="mui-input-clear" disabled placeholder="备注">
-            </div>
-          </li>
-        </ul>
       </div>
     </div>
   </div>

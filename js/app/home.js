@@ -135,7 +135,6 @@
 
   function getData() {
     app.allcar({}, function (res) {
-      console.log(138);
       updateView(res)
     })
   }
@@ -143,7 +142,7 @@
   function updateView(data) {
     map.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 14);
     map.clearOverlays();       //清除地图上所有覆盖物
-
+    
     if (!document.createElement('canvas').getContext) {
       alert('请在chrome、safari、IE8+以上浏览器查看');
       return;
@@ -160,7 +159,7 @@
 
     var options = {
       size: BMAP_POINT_SIZE_BIG,
-      shape: BMAP_POINT_SHAPE_STAR,
+      shape: BMAP_POINT_SHAPE_WATERDROP,
       color: '#d340c3'
     }
     console.log(JSON.stringify(points))

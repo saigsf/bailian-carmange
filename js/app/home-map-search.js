@@ -24,7 +24,7 @@
     }
     if($(this).html() == '车辆轨迹') {
     	$('.date-container').css('display', 'flex');
-    	bottom = '-120px';
+    	bottom = '-130px';
     }
     $('#btn').removeClass('icon-arrowdown').addClass('icon-arrowup')
       $('.bottom-search').css('bottom', bottom)
@@ -68,34 +68,56 @@
   }
 
   function addEvent() {
+    var dDate = new Date();
 
-    // 搜索
-    $('#search').on('tap', function() {
-      mui.openWindow({
-        url: 'search.html',
-        id: 'search', //默认使用当前页面的url作为id
-        styles: {
-          top: '0px',
-          bottom: H
-        }, //窗口参数
-        extras: {
-          H: H,
-          prevId: self.id
-        }, //自定义扩展参数
-        createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-        show: {
-          autoShow: true, //页面loaded事件发生后自动显示，默认为true
-        },
-        waiting: {
-          autoShow: true, //自动显示等待框，默认为true
-          title: '正在加载...', //等待对话框上显示的提示内容
-        }
-      })
-    })
+    $('#start_date_box').off().on('tap', function () {
+
+      plus.nativeUI.pickDate(function (e) {
+        var d = e.date;
+        $('#start_date').val(d.format('yyyy-MM-dd'));
+  
+        plus.nativeUI.pickTime( function(e){
+          var d=e.date;
+          $('#start_date').val($('#start_date').val()+d.format(' hh:mm:ss'));
+        },function(e){
+          $('#start_date').val( "未选择时间："+e.message );
+        });
+      }, function (e) {
+        $('#start_date').val('您没有选择日期');
+      }, {
+          title: '',
+          date: dDate,
+          maxDate: dDate
+        });
+    });
+
+    $('#end_date_box').off().on('tap', function () {
+
+      plus.nativeUI.pickDate(function (e) {
+        var d = e.date;
+        $('#end_date').val(d.format('yyyy-MM-dd'));
+
+        plus.nativeUI.pickTime( function(e){
+          var d=e.date;
+          $('#end_date').val($('#end_date').val()+d.format(' hh:mm:ss'));
+        },function(e){
+          $('#end_date').val( "未选择时间："+e.message );
+        });
+  
+      }, function (e) {
+        $('#end_date').val('您没有选择日期');
+      }, {
+          title: '',
+          date: dDate,
+          maxDate: dDate
+        });
+    });
 
   }
 
   // 百度地图API功能	
+  var map1 = null;
+  var map2 = null;
   var myIcon = new BMap.Icon("../../img/car@3x.png", new BMap.Size(30, 57));
 
   // 添加平移缩放控件
@@ -175,6 +197,10 @@
       //   return;
       // }
       updateView.carTrack(res)
+    })
+
+    app.allcar({}, function (res) {
+      updateView.allcar(res)
     })
   }
 
@@ -268,6 +294,37 @@
 
       playLine(i);
 
+    },
+    allcar: function (data) {
+      map2.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 14);
+      map2.clearOverlays();       //清除地图上所有覆盖物
+      
+      if (!document.createElement('canvas').getContext) {
+        alert('请在chrome、safari、IE8+以上浏览器查看');
+        return;
+      }
+  
+      var points = [];
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        var point = new BMap.Point(item.longitude, item.latitude)
+        // 添加信息
+        // ···
+        points.push(point);
+      }
+  
+      var options = {
+        size: BMAP_POINT_SIZE_BIG,
+        shape: BMAP_POINT_SHAPE_WATERDROP,
+        color: '#d340c3'
+      }
+      console.log(JSON.stringify(points))
+  
+      var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
+      pointCollection.addEventListener('click', function (e) {
+        alert('单击点的坐标为：' + e.point.lng + ',' + e.point.lat);  // 监听点击事件
+      });
+      map2.addOverlay(pointCollection);  // 添加Overlay
     }
   }
 

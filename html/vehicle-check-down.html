@@ -63,9 +63,25 @@
     <h1 class="mui-title">还车点检</h1>
   </header>-->
   <div class="mui-content mui-scroll-wrapper">
-
+ 
     <div class="mui-scroll">
       <ul class="mui-table-view">
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>车辆编号</label>
+            <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+            <span class="icon-red-star">*</span>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label>运输车号</label>
+            <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+            <span class="icon-red-star">*</span>
+          </div>
+        </li>
+
+
         <li class="mui-table-view-cell">
           <div class="mui-input-row">
             <label>工具回收</label>
@@ -79,7 +95,6 @@
                 <label for="#other">否</label>
               </div>
             </div>
-
           </div>
         </li>
         <li class="mui-table-view-cell">
@@ -102,13 +117,25 @@
         </li>
         <li class="mui-table-view-cell">
           <div class="mui-input-row">
-            <label>送车人</label>
+            <label>交车人</label>
             <input type="text" class="mui-input-clear" placeholder="请输入用户名">
           </div>
         </li>
         <li class="mui-table-view-cell">
           <div class="mui-input-row">
             <label>接车人</label>
+            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label class="padtb0">接车人电话</label>
+            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-input-row">
+            <label class="padtb0">接车人身份证</label>
             <input type="text" class="mui-input-clear" placeholder="请输入用户名">
           </div>
         </li>
@@ -148,7 +175,7 @@
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
-  <!-- 当前页面js --> 
+  <!-- 当前页面js -->
   <script src="../js/app/vehicle-check-down.js"></script>
 </body>
 
