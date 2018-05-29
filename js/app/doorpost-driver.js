@@ -1,6 +1,7 @@
 (function () {
-  var curPage = 0;  //当前页码初始化数0开始
+  var curPage = 1;  //当前页码初始化数0开始
   var totalPage = 1; //后台算出总页数
+  var H = null;
   mui.init({
     pullRefresh: {
       container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
@@ -13,23 +14,11 @@
       }
     }
   });
-  // 
-  if (mui.os.plus) {
-    mui.plusReady(function () {
-      // setTimeout(function () {
-      //   mui('#refreshContainer').pullRefresh().pullupLoading();
-      // }, 1000);
-      addEvent()
-    });
-  } else {
-    mui.ready(function () {
-      // mui('#refreshContainer').pullRefresh().pullupLoading();
-      addEvent()
-    });
-  }
+    
   // 下拉刷新业务
   function pulldownRwfresh() {
-    getData(1)
+    curPage = 1;
+    getData()
     setTimeout(function () {
       mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
       // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
@@ -38,20 +27,32 @@
 
   // 上拉加载业务
   function pullupRefresh() {
+    curPage++
+    if(curPage < totalPage) {
+      getData();
+    }
+
     setTimeout(function () {
       mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
     }, 1000)
   }
+  // 
+  mui.plusReady(function () {
+    var self = plus.webview.currentWebview();
+    H = self.H;
+    addEvent()
+  });
+
 
   // 获取数据
-  function getData(page) {
+  function getData() {
     var data = null;
     app.carDriverList({
-      page: page,
+      page: curPage,
       size: 5
     }, function (res) {
-      console.log(res)
-      res = JSON.parse(res);
+      console.log(JSON.stringify(res))
+      mui.toast(res.msg)
       if (res.total && res.total > 0) {
         totalPage = Math.ceil(res.total / 5)
         updateView(res.rows)
@@ -66,7 +67,7 @@
       const item = data[i];
       html += '<li class="mui-table-view-cell" data-id="' + item.id + '">'
         + '<div class="mui-slider-right mui-disabled">'
-        + '<a class="mui-btn mui-btn-gray authorize" data-isallow="' + item.isallow + '">' + (item.isallow == 1 ? '授权' : '禁止') + '</a>'
+        + '<a class="mui-btn mui-btn-gray authorize" data-isallow="' + item.isallow + '">' + (item.isallow == '禁止'? '授权' : '禁止') + '</a>'
         + '<a class="mui-btn mui-btn-red delete">删除</a>'
         + '</div>'
         + '<div class="mui-slider-handle">'
@@ -93,7 +94,7 @@
         + '</div>'
         + '</div>'
         + '<div class="item-right-middle">'
-        + '<p><span>授权状态</span>：' + (item.isallow == 1 ? '未授权' : '已授权') + '</p>'
+        + '<p><span>授权状态</span>：' + item.isallow + '</p>'
         + '<p><span>授权开始</span>：' + (item.allowStartTime ? item.allowStartTime : '') + '</p>'
         + '<p><span>授权截至</span>：' + (item.allowEndTime ? item.allowEndTime : '') + '</p>'
         + '</div>'
@@ -102,36 +103,35 @@
         + '</div>'
         + '</li>';
     }
-    $('#OA_task_1').html(html);
+    $('#OA_task_1').append($(html));
   }
 
   function addEvent() {
-    var self = plus.webview.currentWebview();
-    var H = self.H;
+
     // 授权/取消授权业务
     $('#OA_task_1').on('tap', '.authorize', function () {
       var $li = $(this).parents('li')
       // mui.toast('这里要添加授权业务');
-      if ($(this).attr('data-isallow') == 1) {
+      if ($(this).attr('data-isallow') == '禁止') {
         app.authorized({
-          id: $li.attr('data-id')
+          ids: $li.attr('data-id')
         }, function (res) {
           console.log(res)
-          res = JSON.parse(res);
+          res = JSON.parse(res)
           if(res.ret) {
-            getData(1)
+            plus.webview.currentWebview().reload()
           } else {
             mui.toast('授权失败')
           }
         })
-      } else if ($(this).attr('data-isallow') == 2) {
+      } else {
         app.cancelAuthorized({
           ids: $li.attr('data-id')
         }, function (res) {
-          // console.log(res)
-          res = JSON.parse(res);
+          console.log(res);
+          res = JSON.parse(res)
           if(res.ret) {
-            getData(1)
+            plus.webview.currentWebview().reload()
           } else {
             mui.toast('禁止失败')
           }
@@ -142,15 +142,16 @@
     // 删除业务
     $('#OA_task_1').on('tap', '.delete', function () {
       var $li = $(this).parents('li')
+      console.log($li.attr('data-id'))
       // mui.toast('这里要添加删除业务')
       app.carDriverDelete({
         ids: $li.attr('data-id')
       }, function(res) {
-        console.log(res)
-        res = JSON.parse(res);
+        console.log(JSON.stringify(res))
+        // res = JSON.parse(res);
           if(res.ret) {
             $li.remove();
-            mui.toast('删除失败')
+            mui.toast('删除成功')
           } else {
             mui.toast('删除失败')
           }

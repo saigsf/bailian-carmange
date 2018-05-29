@@ -51,8 +51,12 @@
       align-items: center;
     }
 
-    header {
+    /* header {
       z-index: 999;
+    } */
+
+    select {
+      background-color: transparent;
     }
   </style>
 </head>
@@ -66,86 +70,81 @@
     <div class="mui-scroll">
       <form id="driver">
         <ul class="mui-table-view">
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>姓名</label>
-            <input id="driver_name" name="driverName" type="text" class="mui-input-clear" placeholder="">
-            <span class="icon-red-star">*</span>
-          </div>
-        </li>     
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>员工卡号</label>
-            <input id="employee_card" name="employeeCard" type="text" class="mui-input-clear" placeholder="">
-            <span class="icon-red-star">*</span>
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>iccard</label>
-            <input id="iccard" name="iccard" type="text" class="mui-input-clear" placeholder="">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>所属分组</label>
-            <div class="mui-radio-box">
-              <div class="mui-radio">
-                <input name="group" id="group_a" type="radio" value="A" checked>
-                <label for="#group_a">A</label>
-              </div>
-              <div class="mui-radio">
-                <input name="group" id="group_b" value="B" type="radio">
-                <label for="#group_b">B</label>
-              </div>
-              <div class="mui-radio">
-                <input name="group" id="group_c" value="C" type="radio">
-                <label for="#group_c">C</label>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>姓名</label>
+              <input id="driver_name" name="name" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>员工卡号</label>
+              <input id="employee_card" name="employeeCard" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>电话</label>
+              <input id="telephone" name="telephone" type="tel" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>iccard</label>
+              <input id="iccard" name="iccard" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>所属分组</label>
+              <select name="gids" id="groups"></select>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>是否授权</label>
+              <div class="mui-radio-box">
+                <div class="mui-radio">
+                  <input name="isallow" id="yes" type="radio" value="授权" checked>
+                  <label for="#yes">是</label>
+                </div>
+                <div class="mui-radio">
+                  <input name="isallow" id="no" value="禁止" type="radio">
+                  <label for="#no">否</label>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>是否授权</label>
-            <div class="mui-radio-box">
-              <div class="mui-radio">
-                <input name="authorize" id="yes" type="radio" value="Y" checked>
-                <label for="#yes">是</label>
-              </div>
-              <div class="mui-radio">
-                <input name="authorize" id="no" value="N" type="radio">
-                <label for="#no">否</label>
-              </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>授权起始</label>
+              <input id="allow_start_time" name="allowStartTime" type="text" readonly class="mui-input-clear" placeholder="">
             </div>
-          </div>
-        </li>
-        <!-- <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>授权起始</label>
-            <input id="" type="text" class="mui-input-clear" placeholder="">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>授权终止</label>
-            <input id="" type="text" class="mui-input-clear" placeholder="">
-          </div>
-        </li> -->
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>备注</label>
-            <input id="remark" name="remark" type="text" class="mui-input-clear" placeholder="">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-button-row">
-            <button type="button" class="mui-btn mui-btn-blue" id="next">保存</button>
-          </div>
-        </li>
-      </ul>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>授权终止</label>
+              <input id="allow_end_time" name="allowEndTime" type="text" readonly class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备注</label>
+              <input id="remark" name="remark" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-button-row">
+              <button type="button" class="mui-btn mui-btn-blue" id="next">提交</button>
+            </div>
+          </li>
+        </ul>
       </form>
-      
+
     </div>
 
   </div>

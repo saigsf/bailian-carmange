@@ -287,6 +287,7 @@
 	 */
 	owner.HTTPRequestPost = function (type, url, data, callback) {
 		callback = callback || $.noop;
+		console.log(type)
 		$.ajax({
 			type: type,//HTTP请求类型
 			url: BASE_URL_1 + url,
@@ -884,10 +885,24 @@
 	owner.carDriverList = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
+		var url = 'car-management/driver/CarDriverList.action';
 
-		var url = 'car-management/carDriver/CarDriverList.action';
+		owner.HttpRequestNonCrossDomain('post', url, data, callback)
+	}
 
-		owner.HTTPRequest('GET', url, data, callback)
+	/**
+	 * 驾驶员添加
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carDriverAdd = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/driver/add.action';
+		console.log(data)
+
+		owner.HttpRequestNonCrossDomain('post', url, data, callback)
 	}
 
 	/**
@@ -900,7 +915,7 @@
 		data = data || {
 			ids: 1
 		};
-		var url = 'car-management/carDriver/cancelAuthorized.action';
+		var url = 'car-management/driver/cancelAuthorized.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
@@ -913,17 +928,15 @@
 	owner.authorized = function (data, callback) {
 		callback = callback || $.noop;
 
-		var url = 'car-management/carDriver/authorized.action?id=' + data.id;
+		var url = 'car-management/driver/authorized.action';
 		var startTime = new Date();
 		var startYear = startTime.getFullYear();
 		var endTime = new Date(+startYear + 1)
 
-		data = {
-			startTime: startTime.format('yyyy-MM-dd'),
-			endTime: endTime.format('yyyy-MM-dd')
-		};
+		data.startTime = startTime.format('yyyy-MM-dd hh:mm:ss');
+		data.endTime = endTime.format('yyyy-MM-dd hh:mm:ss');
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequest('get', url, data, callback)
 	}
 
 	/**
@@ -935,35 +948,9 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/carDriver/edit.action';
+		var url = 'car-management/driver/edit.action';
 
-		console.log(JSON.stringify(data))
-		$.ajax({
-			url: BASE_URL_1 + url,
-			type: "post",
-			data: data,
-			beforeSend: function () {
-				console.log('beforesend!')
-			},
-			success: function (res) {
-				//服务器返回响应，根据响应结果，分析是否登录成功；
-				callback(res);
-			},
-			error: function (xhr, type, errorThrown) {
-				//异常处理；
-				console.log(xhr.status);
-				if (type == 'timeout') {
-					$.toast("请求超时：请检查网络")
-				} else {
-					$.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
-				}
-			},
-			complete: function () {
-				console.log('complete')
-			}
-		})
-
-		// owner.HTTPRequestPost('POST', url, data, callback)
+		owner.HttpRequestNonCrossDomain('GET', url, data, callback)
 	}
 
 	/**
@@ -975,10 +962,38 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/carDriver/delete.action';
+		var url = 'car-management/driver/delete.action';
+
+		owner.HttpRequestNonCrossDomain('post', url, data, callback)
+	}
+
+	/**
+	 * 驾驶员更新
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carDriverUpdate = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/driver/update.action';
+
+		owner.HTTPRequest('post', url, data, callback)
+	}
+
+	/**
+	 * 驾驶员分组管理-获取分组
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carDriverGetGroup = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/driver/group/getGroup.action';
 
 		console.log(JSON.stringify(data))
-		owner.HTTPRequest('get', url, data, callback)
+		owner.HttpRequestNonCrossDomain('get', url, data, callback)
 	}
 
 	/* ================GPS地图数据获取================ */

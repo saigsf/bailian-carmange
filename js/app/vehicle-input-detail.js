@@ -87,11 +87,15 @@
         extras: {
           H: H
         } //自定义扩展参数
-      })
+      });
+
+      
     })
 
     // 添加说明
-    $('#app').on('tap', '.add', function() {
+    $('#app').on('tap', '.explain', function() {
+      var _this = this;
+      var explainText = $(_this).parents('tr').find('.explain-text').val();
       mui.openWindow({
         url: 'vehicle-check-add-explain.html',
         id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
@@ -100,11 +104,46 @@
           bottom: H
         }, //窗口参数
         extras: {
-          H: H
+          H: H,
+          status: 'explain',
+          explainText: explainText
         } //自定义扩展参数
       })
-    })
 
+      window.submitDataListener('updateExplain', (evt) => {
+        var explainText = evt.detail.explainText;
+        //do something
+        $(_this).parents('tr').find('.explain-text').val(explainText)
+      });
+    })
+    
+
+    // 添加解决方法
+    $('#app').on('tap', '.resolvent', function() {
+      var _this = this;
+      var explainText = $(_this).parents('tr').find('.explain-text').val();
+      var resolventText = $(_this).parents('tr').find('.resolvent-text').val();
+
+      mui.openWindow({
+        url: 'vehicle-check-add-explain.html',
+        id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H,
+          status: 'resolvent',
+          explainText: explainText,
+          resolventText: resolventText
+        } //自定义扩展参数
+      })
+      window.submitDataListener('updateResolvent', (evt) => {
+        var resolventText = evt.detail.resolventText;
+        //do something
+        $(_this).parents('tr').find('.resolvent-text').val(resolventText)
+      });
+    })
     // 手势操作——长按
     $('#one').on('longtap', '.tab-col input', function() {
       mui.toast($(this).val())

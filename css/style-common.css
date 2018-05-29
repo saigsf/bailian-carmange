@@ -227,6 +227,7 @@ header.mui-navbar .mui-bar-nav {
 
 .mui-input-row label~input[type=text],
 .mui-input-row label~input[type=password],
+.mui-input-row label~input[type=tel],
 .mui-input-row label~select,
 .mui-input-row label~textarea {
     padding: 10px;
@@ -323,6 +324,16 @@ table tr td {
     position: relative;
     padding: 2px 7px;
     border: none;
+}
+
+table tr td input[type=text] {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    font-size: 14px;
+    text-align: center;
 }
 
 table tr td span {
@@ -743,7 +754,7 @@ span.hide {
 
 .select-container i {
     position: absolute;
-    right: 0;
+    right: 8px;
     top: 50%;
     transform: translateY(-50%);
     color: #ccc;

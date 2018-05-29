@@ -193,7 +193,7 @@
   width: 0;
   height: 0;
   display: inline-block;
-  border-width: 8px;
+  border-width: 8px 6px;
   border-style: solid;
   border-color: #2885cf transparent transparent transparent ;
 }

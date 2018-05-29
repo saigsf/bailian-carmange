@@ -55,45 +55,48 @@
 </head>
 
 <body>
-  <div class="mui-content">
-    <ul class="mui-table-view">
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+        <!--这里放置真实显示的DOM内容-->
+        <form>
+        	<ul class="mui-table-view">
       <li class="mui-table-view-cell">
         <div class="mui-input-row">
           <label>车辆编号</label>
-          <input id="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+          <input id="vSn" name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
           <!-- <span class="icon-red-star">*</span> -->
         </div>
       </li>
       <li class="mui-table-view-cell">
         <div class="mui-input-row">
           <label>停放地点</label>
-          <input id="send_park" type="text" class="mui-input-clear" placeholder="请输入停放地点">
+          <input id="send_park" name="send_park" type="text" class="mui-input-clear" placeholder="请输入停放地点">
           <!-- <span class="icon-red-star">*</span> -->
         </div>
       </li>
       <li class="mui-table-view-cell">
         <div class="mui-input-row">
           <label>工作内容</label>
-          <input id="reason" type="text" class="mui-input-clear" placeholder="填写送修原因">
+          <input id="reason" name="reason" type="text" class="mui-input-clear" placeholder="填写送修原因">
         </div>
       </li>
       <li class="mui-table-view-cell">
         <div class="mui-input-row" id="send_time_box">
           <label>送修时间</label>
-          <input id="send_time" type="text" class="mui-input-clear" readonly placeholder="约定完成时间">
+          <input id="send_time" name="send_time" type="text" class="mui-input-clear" readonly placeholder="约定完成时间">
         </div>
       </li>
       <li class="mui-table-view-cell">
         <div class="mui-input-row" id="oppointedtime_box">
           <label>完成日期</label>
-          <input id="oppointedtime" type="text" class="mui-input-clear" readonly placeholder="约定完成时间">
+          <input id="oppointedtime" name="oppointedtime" type="text" class="mui-input-clear" readonly placeholder="约定完成时间">
         </div>
       </li>
 
       <li class="mui-table-view-cell">
         <div class="mui-input-row">
           <label>备注</label>
-          <input id="remark" type="text" class="mui-input-clear" placeholder="备注">
+          <input id="remark" name="remark" type="text" class="mui-input-clear" placeholder="备注">
         </div>
       </li>
       <li class="mui-table-view-cell">
@@ -102,6 +105,10 @@
         </div>
       </li>
     </ul>
+        </form>
+    </div>
+  	
+    
   </div>
 
   <!-- jquery -->

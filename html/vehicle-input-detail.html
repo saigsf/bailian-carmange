@@ -16,9 +16,11 @@
   <!--独立样式-->
   <style type="text/css">
     header.mui-navbar .mui-bar-nav,
-    header.mui-bar, header.mui-navbar {
+    header.mui-bar,
+    header.mui-navbar {
       box-shadow: 0 0 0 #fff;
     }
+
     /*框架样式开始*/
 
     .detail {
@@ -40,6 +42,7 @@
       position: relative;
       top: -2px;
     }
+
     .detail-content {
       width: 352px;
       height: 100%;
@@ -55,8 +58,9 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      
+
     }
+
     .detail-content-top h3 {
       color: #2885cf;
     }
@@ -72,11 +76,13 @@
     .detail-content-item {
       text-align: center
     }
+
     .detail-content-item h5 {
       font-weight: bold;
       color: #333;
       font-size: 16px;
     }
+
     .detail-content-mark {
       position: absolute;
       top: 20px;
@@ -118,6 +124,7 @@
       border: 2px solid #b1b1b1;
       color: #b1b1b1;
     }
+
     .input-operation-item[disabled="true"] i {
       background-image: url(../img/common/md/icon_tools_disabled@2x.png);
     }
@@ -334,7 +341,8 @@
       border: none;
     }
 
-    .add {
+    .explain,
+    .resolvent {
       font-size: 24px;
     }
 
@@ -461,10 +469,10 @@
             <i class="icon icon-vehicle-input"></i>
             <span>信息录入</span>
           </a>
-          <a class="input-operation-item" href="#two">
-              <i class="icon icon-safe-check"></i>
-              <span>安全检查</span>
-            </a>
+          <a class="input-operation-item" id="vehicle-safecheck" href="#two_explain">
+            <i class="icon icon-safe-check"></i>
+            <span>安全检查</span>
+          </a>
           <a class="input-operation-item" href="#three">
             <i class="icon icon-wire-check"></i>
             <span>线束检查</span>
@@ -675,182 +683,190 @@
           </ul>
         </form>
         <!-- 基本信息录入end -->
-        <!-- BOM零部件申请start -->
-        <div class="vehicle-title">
-          <span class="vehicle-title-left"></span>
-          <span class="vehicle-title-text">BOM零部件申请</span>
-          <span class="vehicle-title-right"></span>
+        <!-- 提交 -->
+        <div class="mui-button-row">
+          <button type="button" class="mui-btn mui-btn-blue reset">重置</button>
+          <a href="#one_bom" class="mui-btn mui-btn-blue">下一步</a>
         </div>
-        <form id="form_one_bom">
-          <div class="tab">
-            <div class="tab-head">
-              <div class="tab-row">
-                <div class="tab-col">零部件名称</div>
-                <div class="tab-col">零部件号</div>
-              </div>
-            </div>
-            <div class="tab-body">
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="ECM发动机电子控制模块">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="MAP/MAT sensor进气歧管压力温度传感器">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="Fron Oxygen Sensor前氧传感器">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="Rear Oxygen Sensor后氧传感器">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="Fuel Rail Assembly燃油导轨总成">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="Knock Sensor 爆震传感器">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="Crank Position sensor曲轴位置传感器">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="Purge Solenoid-ECP炭罐电磁">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="ETC电子节气阀体总成">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="coolant Sensor 冷却液温度传感器">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="Boot P/T sensor增压压力温度传感器">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-              <div class="tab-row">
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-                <div class="tab-col">
-                  <input type="text" value="">
-                </div>
-              </div>
-            </div>
 
-          </div>
+      </div>
+    </div>
+    <!--页面主内容区结束-->
+  </div>
+
+  <!-- bom零部件申请 -->
+  <div class="mui-page" id="one_bom">
+    <!--页面标题栏开始-->
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+      <a class="mui-action-back icon icon-back mui-pull-left"></a>
+      <h1 class="mui-center mui-title">BOM申请</h1>
+    </div>
+    <!--页面标题栏结束-->
+    <!--页面主内容区开始-->
+    <div class="mui-page-content mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <!-- BOM零部件申请start -->
+        <form id="form_one_bom">
+          <table>
+            <thead>
+              <tr>
+                <td width="75%">零部件名称</td>
+                <td>零部件编号</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input type="text" value="ECM发动机电子控制模块">
+                </td>
+                <td>
+                  <input type="text" value="213412">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="MAP/MAT sensor进气歧管压力温度传感器">
+                </td>
+                <td>
+                  <input type="text" value="213412">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="Fron Oxygen Sensor前氧传感器">
+                </td>
+                <td>
+                  <input type="text" value="213412">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="Rear Oxygen Sensor后氧传感器">
+                </td>
+                <td>
+                  <input type="text" value="213412">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="Knock Sensor 爆震传感器">
+                </td>
+                <td>
+                  <input type="text" value="213412">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="Crank Position sensor曲轴位置传感器">
+                </td>
+                <td>
+                  <input type="text" value="213412">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="Purge Solenoid-ECP炭罐电磁">
+                </td>
+                <td>
+                  <input type="text" value="213412">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="">
+                </td>
+                <td>
+                  <input type="text" value="">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="">
+                </td>
+                <td>
+                  <input type="text" value="">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
         </form>
         <!-- BOM零部件申请end -->
-        <!-- 研发工具申请start -->
-        <div class="vehicle-title">
-          <span class="vehicle-title-left"></span>
-          <span class="vehicle-title-text">研发工具申请</span>
-          <span class="vehicle-title-right"></span>
+        <!-- 提交 -->
+        <div class="mui-button-row">
+          <a href="#" class="mui-btn mui-btn-blue mui-btn reset">重置</a>
+          <a href="#one_tools" class="mui-btn mui-btn-blue">下一步</a>
+
         </div>
+
+      </div>
+    </div>
+    <!--页面主内容区结束-->
+  </div>
+
+  <!-- 研发工具申请 -->
+  <div class="mui-page" id="one_tools">
+    <!--页面标题栏开始-->
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+      <a class="mui-action-back icon icon-back mui-pull-left"></a>
+      <h1 class="mui-center mui-title">研发工具申请</h1>
+    </div>
+    <!--页面标题栏结束-->
+    <!--页面主内容区开始-->
+    <div class="mui-page-content mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <!-- 研发工具申请start -->
         <form id="form_one_tool_apply">
-          <div class="tab">
-            <div class="tab-title">工具或设备名称</div>
-            <div class="tab-row">
-              <div class="tab-col">
-                <input type="text" value="12V电池">
-              </div>
-              <div class="tab-col">
-                <input type="text" value="CAN1开发接头">
-              </div>
-              <!-- <div class="tab-col">
-                <input type="text" value="前催化器载体温度">
-              </div> -->
-            </div>
-            <div class="tab-row">
-              <div class="tab-col">
-                <input type="text" value="空气比传感器座">
-              </div>
-              <div class="tab-col">
-                <input type="text" value="排方前采样管">
-              </div>
-              <!-- <div class="tab-col">
-                <input type="text" value="CAN0开发接头">
-              </div> -->
-            </div>
-            <div class="tab-row">
-              <div class="tab-col">
-                <input type="text" value="">
-              </div>
-              <div class="tab-col">
-                <input type="text" value="">
-              </div>
-              <!-- <div class="tab-col">
-                <input type="text" value="">
-              </div> -->
-            </div>
-          </div>
+          <table>
+            <thead>
+              <tr>
+                <td>工具或设备名称</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input type="text" value="12V电源">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="CAN1开发接头">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="空气比传感器座">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="排放前采样管">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" value="">
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </form>
         <!-- 研发工具申请end -->
         <!-- 提交 -->
-        <div class="mui-input-row mui-checkbox mui-left">
-          <label>已知晓测试车辆注意事项</label>
-          <input name="checkbox1" type="checkbox" checked>
-        </div>
         <div class="mui-button-row">
-          <button type="button" class="mui-btn mui-btn-blue" id="one_next">保存</button>
+          <button type="button" class="mui-btn mui-btn-blue" id="one_reset">重置</button>
+          <button type="button" class="mui-btn mui-btn-blue" id="one_submit">提交</button>
         </div>
 
       </div>
@@ -1219,6 +1235,557 @@
               <td>
                 <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
                 <input class="explain" type="hidden">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mui-button-row">
+          <button type="button" class="mui-btn mui-btn-blue" id="two_next">保存</button>
+        </div>
+      </div>
+    </div>
+    <!--页面主内容区结束-->
+  </div>
+  <!--安全/附件检查-->
+  <div class="mui-page" id="two_explain">
+    <!--页面标题栏开始-->
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+      <a class="mui-action-back icon icon-back mui-pull-left"></a>
+      <h1 class="mui-center mui-title">安全/附件检查</h1>
+    </div>
+    <!--页面标题栏结束-->
+    <!--页面主内容区开始-->
+    <div class="mui-page-content mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <div class="pressure">
+          <div class="pressure-vat">
+            <div class="vat-left">
+              <p>缸压</p>
+              <p>(Bar)</p>
+            </div>
+            <div class="vat-right">
+              <div class="vat-right-item">
+                <label>1缸</label>
+                <select id="one_p" value="请选择">
+                  <option value="请选择">请选择</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                <i class="mui-icon mui-icon-arrowdown"></i>
+              </div>
+              <div class="vat-right-item">
+                <label>2缸</label>
+                <select id="two_p" value="请选择">
+                  <option value="请选择">请选择</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                <i class="mui-icon mui-icon-arrowdown"></i>
+              </div>
+              <div class="vat-right-item">
+                <label>3缸</label>
+                <select id="three_p" value="请选择">
+                  <option value="请选择">请选择</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                <i class="mui-icon mui-icon-arrowdown"></i>
+              </div>
+              <div class="vat-right-item">
+                <label>4缸</label>
+                <select id="four_p" value="请选择">
+                  <option value="请选择">请选择</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                <i class="mui-icon mui-icon-arrowdown"></i>
+              </div>
+            </div>
+          </div>
+          <div class="pressure-oil">
+            <div class="oil-left">
+              <label>燃油压力(kPa)</label>
+              <span id="fuel_p">4.0Bar</span>
+            </div>
+            <div class="mui-input-row oil-right">
+              <label>实测：</label>
+              <input id="actual_p" type="text" value="" placeholder="请输入实测数据" />
+              <span>/Bar</span>
+            </div>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <td width="40%">检查项目</td>
+              <td width="20%">要求</td>
+              <td width="20%">状态</td>
+              <td width="20%">说明</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>燃油箱进出接头</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>ECM发动机电子控制模块</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>MAP/MAT sensor进气歧管压力温度传感器</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Fron Oxygen Sensor前氧传感器</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Rear Oxygen Sensor后氧传感器</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Fuel Rail Assembly燃油导轨总成</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Knock Sensor 爆震传感器</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Crank Position sensor曲轴位置传感器</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Purge Solenoid-ECP炭罐电磁阀</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>ETC电子节气阀体总成</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>coolant Sensor 冷却液温度传感器</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Boot P/T sensor增压压力温度传感器</td>
+              <td>紧固无漏</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mui-button-row">
+          <button type="button" class="mui-btn mui-btn-blue" id="two_next">保存</button>
+        </div>
+      </div>
+    </div>
+    <!--页面主内容区结束-->
+  </div>
+  <!--安全/附件检查-->
+  <div class="mui-page" id="two_resolvent">
+    <!--页面标题栏开始-->
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+      <a class="mui-action-back icon icon-back mui-pull-left"></a>
+      <h1 class="mui-center mui-title">安全/附件检查</h1>
+    </div>
+    <!--页面标题栏结束-->
+    <!--页面主内容区开始-->
+    <div class="mui-page-content mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <div class="pressure">
+          <div class="pressure-vat">
+            <div class="vat-left">
+              <p>缸压</p>
+              <p>(Bar)</p>
+            </div>
+            <div class="vat-right">
+              <div class="vat-right-item">
+                <label>1缸</label>
+                <select id="one_p" value="请选择">
+                  <option value="请选择">请选择</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                <i class="mui-icon mui-icon-arrowdown"></i>
+              </div>
+              <div class="vat-right-item">
+                <label>2缸</label>
+                <select id="two_p" value="请选择">
+                  <option value="请选择">请选择</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                <i class="mui-icon mui-icon-arrowdown"></i>
+              </div>
+              <div class="vat-right-item">
+                <label>3缸</label>
+                <select id="three_p" value="请选择">
+                  <option value="请选择">请选择</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                <i class="mui-icon mui-icon-arrowdown"></i>
+              </div>
+              <div class="vat-right-item">
+                <label>4缸</label>
+                <select id="four_p" value="请选择">
+                  <option value="请选择">请选择</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                <i class="mui-icon mui-icon-arrowdown"></i>
+              </div>
+            </div>
+          </div>
+          <div class="pressure-oil">
+            <div class="oil-left">
+              <label>燃油压力(kPa)</label>
+              <span id="fuel_p">4.0Bar</span>
+            </div>
+            <div class="mui-input-row oil-right">
+              <label>实测：</label>
+              <input id="actual_p" type="text" value="" placeholder="请输入实测数据" />
+              <span>/Bar</span>
+            </div>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <td width="50%">检查项目</td>
+              <td width="25%">问题原因</td>
+              <td width="25%">解决方法</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>燃油箱进出接头</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>ECM发动机电子控制模块</td>
+
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>MAP/MAT sensor进气歧管压力温度传感器</td>
+
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Fron Oxygen Sensor前氧传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Rear Oxygen Sensor后氧传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Fuel Rail Assembly燃油导轨总成</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Knock Sensor 爆震传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Crank Position sensor曲轴位置传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Purge Solenoid-ECP炭罐电磁阀</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>ETC电子节气阀体总成</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>coolant Sensor 冷却液温度传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>Boot P/T sensor增压压力温度传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <input class="explain-text" type="hidden" value="我是问题原因">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
               </td>
             </tr>
           </tbody>
@@ -3211,29 +3778,6 @@
         </form>
         <div class="mui-button-row">
           <button type="button" class="mui-btn mui-btn-blue" id="six_next">保存</button>
-        </div>
-      </div>
-    </div>
-    <!--页面主内容区结束-->
-  </div>
-
-  <!--车辆详情-->
-  <div class="mui-page" id="seven">
-    <!--页面标题栏开始-->
-    <div class="mui-navbar-inner mui-bar mui-bar-nav">
-      <a class="mui-action-back icon icon-back mui-pull-left"></a>
-      <h1 class="mui-center mui-title">车辆详情</h1>
-    </div>
-    <!--页面标题栏结束-->
-    <!--页面主内容区开始-->
-    <div class="mui-page-content mui-scroll-wrapper">
-      <div class="mui-scroll">
-        <!-- <div class="mui-loading">
-          <div class="mui-spinner">
-          </div>
-        </div> -->
-        <div class="">
-        
         </div>
       </div>
     </div>
