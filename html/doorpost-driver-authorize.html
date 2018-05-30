@@ -27,6 +27,7 @@
       position: relative;
 
     }
+
     .driver-info:after {
       content: "";
       display: block;
@@ -56,43 +57,62 @@
       bottom: 10px;
     }
 
-    .mui-scroll {
-      padding-top: 64px
+    .mui-table-view {
+      width: 90%;
     }
+
+    .mui-table-view-cell:after {
+      display: none;
+    }
+
+    .date-wrapper .date-text {
+      width: 80%;
+    }
+
+    /* .mui-scroll {
+      padding-top: 64px
+    } */
   </style>
 </head>
 
 <body>
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
-    <h1 class="mui-title">驾驶员信息</h1>
+    <h1 class="mui-title">驾驶员授权</h1>
   </header>
   <div class="mui-content mui-scroll-wrapper">
-      <div class="mui-scroll">
-        <div class="driver-info">
-          <div>
-            <label>姓名：</label>张安</div>
-          <div>
-            <label>性别：</label>女</div>
-          <div>
-            <label>出生日期：</label>1993-12-16</div>
-          <div>
-            <label>授权状态：</label>已授权</div>
-          <div>
-            <label>授权开始：</label>2017-01-01</div>
-          <div>
-            <label>授权截至：</label>2018-01-01</div>
-          <div>
-            <label>联系方式：</label>187-9164-9956</div>
-          <div>
-            <label>iccord：</label>187-9164-9956</div>
-          <div>
-            <label>备注：</label>
-            <p>暂无数据</p>
+    <div class="mui-scroll">
+      <!-- <ul class="mui-table-view">
+        <li class="mui-table-view-cell">车辆编码：2017-123</li>
+      </ul> -->
+      <ul class="mui-table-view mui-table-inputview">
+        <li class="mui-table-view-cell">
+          <div class="date-wrapper">
+            <label>授权起始</label>
+            <div class="date-text" id="start_date_box">
+              <input type="text" id="start_date" readonly placeholder="请选择起始时间">
+              <div class="date-icon">
+                <i class="icon icon-date"></i>
+              </div>
+            </div>
           </div>
-          <div class="mui-btn mui-btn-blue mui-btn-outlined" id="edit">修改>>></div>
-        </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="date-wrapper">
+            <label>授权截至</label>
+            <div class="date-text" id="end_date_box">
+              <input type="text" id="end_date" readonly placeholder="请选择结束时间">
+              <div class="date-icon">
+                <i class="icon icon-date"></i>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-blue" id="next">提交</button>
       </div>
+    </div>
 
   </div>
   <!-- jquery -->
@@ -103,7 +123,8 @@
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
-  <!-- 当前页面js -->  
-  <script src="../js/app/doorpost-driver-info.js"></script>
+  <!-- 当前页面js -->
+  <script src="../js/app/doorpost-driver-authorize.js"></script>
 </body>
+
 </html>

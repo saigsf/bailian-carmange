@@ -58,7 +58,6 @@
   // 获取数据
   function getData(page) {
     // console.log(curPage)
-    console.log(curPage, totalPage)
     var data = null;
     app.pageQuery({
       page: curPage,
@@ -69,7 +68,7 @@
       if (!res.totalCount || res.totalCount <= 0) {
         return;
       }
-      console.log(res.totalCount)
+      // console.log(res.totalCount)
       curPage++;
       totalPage = Math.ceil(res.totalCount / 5)
       var data = res.pageData;

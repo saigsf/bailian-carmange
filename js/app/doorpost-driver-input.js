@@ -4,11 +4,12 @@
   mui('.mui-scroll-wrapper').scroll();
 
   var id = null;
+  var self = null;
 
   mui.plusReady(function () {
     handsetAdaption()
 
-    var self = plus.webview.currentWebview();
+    self = plus.webview.currentWebview();
     addEvent();
 
     if (self.ids) {
@@ -18,6 +19,8 @@
       getData.edit();
       $('#next').attr('id', 'update');
     }
+    getData.groups()
+    getData.update();
   });
 
 
@@ -45,11 +48,18 @@
 
   var getData = {
     update: function () {
+      var view = plus.webview.getWebviewById('doorpost-driver.html')
       // 提交数据
       $('#driver').on('tap', '#next', function () {
         var data = serialize($('#driver'));
+
         app.carDriverAdd(data, function (res) {
           console.log(JSON.stringify(res))
+
+          if (res.ret) {
+            mui.fire(view, 'update', {});
+            mui.back();
+          }
           mui.toast(res.msg)
         })
         // console.log(hasEmptyValue(data, requiredArr));
@@ -57,8 +67,15 @@
       $('#driver').on('tap', '#update', function () {
         var data = serialize($('#driver'));
         data.id = id;
+
         app.carDriverUpdate(data, function (res) {
-          console.log(JSON.stringify(res))
+          console.log(res)
+          res = JSON.parse(res);
+
+          if (res.ret) {
+            mui.fire(view, 'update', {});
+            mui.back();
+          }
           mui.toast(res.msg)
         })
         // console.log(hasEmptyValue(data, requiredArr));
@@ -72,18 +89,17 @@
       })
     },
     groups: function () {
-      app.carDriverGetGroup({}, function(res) {
+      app.carDriverGetGroup({}, function (res) {
         var html = '';
         for (let i = 0; i < res.length; i++) {
           const item = res[i];
-          html += '<option value="'+item.id+'">'+item.name+'</option>'
+          html += '<option value="' + item.id + '">' + item.name + '</option>'
         }
         $('#groups').html(html)
       })
     }
   }
-  getData.groups()
-  getData.update();
+
 
   function updateView(data) {
     $('#driver_name').val(data.name)

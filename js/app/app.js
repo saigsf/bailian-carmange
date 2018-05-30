@@ -933,8 +933,8 @@
 		var startYear = startTime.getFullYear();
 		var endTime = new Date(+startYear + 1)
 
-		data.startTime = startTime.format('yyyy-MM-dd hh:mm:ss');
-		data.endTime = endTime.format('yyyy-MM-dd hh:mm:ss');
+		data.startTime = startTime.format('yyyy-MM-dd');
+		data.endTime = endTime.format('yyyy-MM-dd');
 
 		owner.HTTPRequest('get', url, data, callback)
 	}

@@ -42,26 +42,121 @@
       height: 100%;
       /* padding-top: 66px; */
     }
+
     .item-right-middle {
       flex-direction: column;
     }
+
     .item-right-middle p {
       width: 100%;
       line-height: 20px;
     }
-    
+
     .bottom-item {
       width: 50%;
       text-align: left;
     }
+
     .item-right-top h4 {
       display: flex;
       align-items: center;
       justify-content: flex-start;
     }
+
     .item-right-top h4 .icon {
       margin-left: 20px;
     }
+
+    .top * {
+      transition: all .5s;
+    }
+    .top .btn {
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+    }
+
+    .top .allcheck,
+    .top .canclecheck {
+      width: 0;
+      line-height: 40px;
+      text-align: center;
+      color: #2885cf;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .batch .btn {
+      display: none;
+    }
+
+    .top .allcheck input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+    .allcheck input[type=checkbox] + label {
+      display: inline-block;
+      line-height: 40px;
+    }
+
+    .allcheck input[type=checkbox] + label:before {
+      content: "";
+      background-color: white;
+      border-radius: 50%;
+      border: 1px solid #d3d3d3;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 16px;
+      color: #fff;
+      margin: 0;
+      margin-right: 2px;
+    }
+
+    .allcheck input[type=checkbox]:checked+label:before {
+      background-color: #2885cf;
+      color: #fff;
+      border-color: #2885cf;
+    }
+
+    .allcheck input[type=checkbox]:checked+label:before {
+      content: "\2714";
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .batch .allcheck,
+    .batch .canclecheck {
+      width: 15%;
+    }
+
+    .top.batch .mui-input-row.mui-search {
+      width: 60%
+    }
+
+
+    .batch .item-checked {
+      width: 15%;
+    }
+
+    .btn-container {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 40px;
+      z-index: 999;
+      display: none;
+    }
+    .btn-container .btn {
+      width: 50%;
+      float: left;
+      text-align: center;
+    }
+
     /* body {
       font-size: 12px;
     } */
@@ -71,53 +166,70 @@
 <body>
   <!--下拉刷新容器-->
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-      <div class="mui-scroll">
-        <form class="top">
-          <div class="mui-input-row mui-search">
-            <input type="search" class="mui-input-clear" placeholder="请输入关键词">
+    <div class="mui-scroll">
+      <form class="top">
+        <div class="allcheck" id="allcheck">
+          <input type="checkbox" name="" id="all_check">
+          <label for="all_check">全选</label>
+        </div>
+        <div class="mui-input-row mui-search">
+          <input type="search" class="mui-input-clear" placeholder="请输入关键词">
+        </div>
+        <div class="btn" id="add">
+          <i class="icon icon-more"></i>
+        </div>
+        <div class="canclecheck" id="canclecheck">取消</div>
+      </form>
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview">
+        <!-- <li class="mui-table-view-cell">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-gray settop">取消授权</a>
+            <a class="mui-btn mui-btn-red delete">删除</a>
           </div>
-          <div class="btn" id="add">
-            <i class="icon icon-more"></i>
-          </div>
+          <div class="mui-slider-handle">
 
-        </form>
-        <ul id="OA_task_1" class="mui-table-view">
-          <!-- <li class="mui-table-view-cell">
-            <div class="mui-slider-right mui-disabled">
-              <a class="mui-btn mui-btn-gray settop">取消授权</a>
-              <a class="mui-btn mui-btn-red delete">删除</a>
-            </div>
-            <div class="mui-slider-handle">
-              <div class="list-item">
-                <div class="item-left">
-                  <img src="../img/common/icon_app.png" />
+            <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>
+                      <span>张女士</span>
+                      <i class="icon icon-woman"></i>
+                    </h4>
+                    <p>陕A6509B</p>
+                  </div>
+                  <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
                 </div>
-                <div class="item-right">
-                  <div class="item-right-top">
-                    <div class="number">
-                      <h4>
-                        <span>张女士</span>
-                        <i class="icon icon-woman"></i>
-                      </h4>
-                      <p>陕A6509B</p>
-                    </div>
-                    <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                      <i class="mui-icon mui-icon-arrowright"></i>
-                    </div>
-                  </div>
-                  <div class="item-right-middle">
-                    <p><span>授权状态</span>：已授权</p>
-                    <p><span>授权开始</span>：2018-01-01</p>
-                    <p><span>授权截至</span>：2019-01-01</p>
-                  </div>
+                <div class="item-right-middle">
+                  <p>
+                    <span>授权状态</span>：已授权</p>
+                  <p>
+                    <span>授权开始</span>：2018-01-01</p>
+                  <p>
+                    <span>授权截至</span>：2019-01-01</p>
                 </div>
               </div>
             </div>
-          </li> -->
-        </ul>
-      </div>
-
-
+          </div>
+          <div class="mui-slider-left mui-disabled">
+            <a class="mui-btn mui-btn-red delete">删除</a>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+  <div class="btn-container">
+    <div class="btn" id="authorize_batch">授权</div>
+    <div class="btn btn-blue" id="cancel_authorize_batch">禁止</div>
   </div>
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>

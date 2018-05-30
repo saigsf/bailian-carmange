@@ -50,6 +50,10 @@
       position: relative;
       padding: 12px 0;
     }
+    
+    .detail-content p {
+      color: #666;
+    }
 
     .detail-content-top {
       height: 58%;
@@ -88,7 +92,7 @@
       top: 20px;
       right: 5px;
       font-size: 12px;
-      color: #666
+      color: #8f8f94
     }
 
     .input-operation {
@@ -101,9 +105,10 @@
     }
 
     .input-operation-item {
-      width: 100px;
-      height: 100px;
-      border: 2px solid #2885cf;
+      width: 90px;
+      height: 90px;
+      /* border: 2px solid #2885cf; */
+      box-shadow: 0 0 10px rgba(0, 0, 0, .1);
       border-radius: 10px;
       background-color: #fff;
       margin-bottom: 20px;
@@ -118,17 +123,16 @@
     .input-operation-item span {
       display: block;
       text-align: center;
+      padding-top: 5px;
     }
 
     .input-operation-item[disabled="true"] {
-      border: 2px solid #b1b1b1;
       color: #b1b1b1;
     }
 
-    .input-operation-item[disabled="true"] i {
+    /* .input-operation-item[disabled="true"] i {
       background-image: url(../img/common/md/icon_tools_disabled@2x.png);
-    }
-
+    } */
 
     /*框架样式结束*/
 
@@ -171,8 +175,17 @@
     .mui-button-row {
       padding: 20px 0;
     }
+    
+
 
     /*样式修正结束*/
+
+    /* 车辆录入开始 */
+    /* .page-one .mui-table-view {
+      
+    } */
+    /* 车辆录入结束 */
+
 
     /* 安全/附件检查start */
 
@@ -351,7 +364,7 @@
     /* 线束检查start */
 
     .page-three table tbody td {
-      border: 1px solid #ccc;
+      border: 1px solid #eee;
     }
 
     .page-three table tbody td:after {
@@ -362,23 +375,9 @@
 
     /* BOM检查start */
 
-    .page-five input {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      background-color: transparent;
-      width: 100%;
-      height: 100%;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .page-five table tr td {
-      border: 1px solid #ccc;
-    }
-
-    .page-five table tr td:after {
-      display: none;
+    .page-five td,
+    .page-six td {
+      height: 40px;
     }
 
     /* BOM检查end */
@@ -399,11 +398,11 @@
     .mui-radio input[type=radio] {
       position: relative;
       left: 0;
-      top: 10px;
+      top: 7px;
     }
 
     .mui-radio input[type=radio]:before {
-      font-size: 20px;
+      font-size: 14px;
     }
 
     .mui-radio-box {
@@ -411,6 +410,44 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
+    }
+
+    .mui-input-row span {
+      float: left;
+      line-height: 40px;
+    }
+
+    .mui-input-row textarea {
+      width: 78%;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .page-six .mui-input-row {
+      padding: 0px 20px;
+      margin-top: 10px;
+    }
+
+    .auditing {
+      width: 90%;
+      margin: 10px auto;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      background-color: #fff;
+    }
+
+    .auditing-title {
+      color: #2885cf;
+      line-height: 40px;
+      padding-left: 20px;
+    }
+
+    .auditing-content p {
+      width: 49%;
+      display: inline-block;
+      color: #333;
+      text-align: center;
     }
 
     /* 车辆审核end */
@@ -443,7 +480,7 @@
         <div class="detail">
           <div class="detail-content" id="detail">
             <div class="detail-content-top">
-              <p>车辆名称</p>
+              <p>车辆编号</p>
               <h3>2017-123</h3>
             </div>
             <div class="detail-content-bottom">
@@ -460,7 +497,7 @@
                 <p>项目进度</p>
               </div>
             </div>
-            <div class="detail-content-mark">点击查看详情</div>
+            <div class="detail-content-mark">点击查看</div>
           </div>
         </div>
 
@@ -473,11 +510,11 @@
             <i class="icon icon-safe-check"></i>
             <span>安全检查</span>
           </a>
-          <a class="input-operation-item" href="#three">
+          <a class="input-operation-item" id="vehicle-wirecheck" href="#three_explain">
             <i class="icon icon-wire-check"></i>
             <span>线束检查</span>
           </a>
-          <a class="input-operation-item" href="#four">
+          <a class="input-operation-item" id="vehicle-bomcheck" href="#four_explain">
             <i class="icon icon-bom-check"></i>
             <span>bom检查</span>
           </a>
@@ -500,7 +537,7 @@
   </div>
 
   <!--信息录入-->
-  <div class="mui-page" id="one">
+  <div class="mui-page page-one" id="one">
     <!--页面标题栏开始-->
     <div class="mui-navbar-inner mui-bar mui-bar-nav">
       <a class="mui-action-back icon icon-back mui-pull-left"></a>
@@ -511,13 +548,8 @@
     <div class="mui-page-content mui-scroll-wrapper">
       <div class="mui-scroll">
         <!-- 基本信息录入start -->
-        <div class="vehicle-title">
-          <span class="vehicle-title-left"></span>
-          <span class="vehicle-title-text">车辆基本信息录入</span>
-          <span class="vehicle-title-right"></span>
-        </div>
         <form id="form_one_info">
-          <ul class="mui-table-view">
+          <ul class="mui-table-view mui-table-inputview">
             <li class="mui-table-view-cell">
               <div class="mui-input-row">
                 <label>项目编号</label>
@@ -3566,6 +3598,2370 @@
     </div>
     <!--页面主内容区结束-->
   </div>
+  <!--线束检查-->
+  <div class="mui-page page-three" id="three_explain">
+    <!--页面标题栏开始-->
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+      <a class="mui-action-back icon icon-back mui-pull-left"></a>
+      <h1 class="mui-center mui-title">线束检查</h1>
+    </div>
+    <!--页面标题栏结束-->
+    <!--页面主内容区开始-->
+    <div class="mui-page-content mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <table>
+          <thead>
+            <tr>
+              <td width="60%" colspan="2">检查项目</td>
+              <td width="20%">状态</td>
+              <td width="20%">说明</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2">点火线圈</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">EGR阀</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">电子防盗器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">巡航控制</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">前氧传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">后氧传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">曲轴位置传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">凸轮轴位置传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">水温传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">进气压力/温度传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="2">通讯</td>
+              <td>KW2000</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>CAN</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="5">E L O A D 信号</td>
+              <td>大灯负载信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>鼓风机负载信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>除雾负载信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>助力转向开关</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>其他电器负载信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="7">燃油供给系统</td>
+              <td>喷油器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>油泵继电器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>碳罐电磁阀</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>燃油箱油位传感器信号输出（输入ECM）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>高压油泵控制阀（GDI)</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>高压油轨压力传感器（GDI）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>喷嘴加热控制（Flex Fuel）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="5">制动系统</td>
+              <td>刹车开关</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>刹车灯</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>制动真空度传感器信号输入（Turbo建议安装）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>真空泵ECM控制（Turbo建议安装）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>制动真空泵继电器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="2">车速及轮速</td>
+              <td>轮速传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>车速传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="5">仪表显示</td>
+              <td>瞬时油耗数据输出功能</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>汽车仪表水温数据显示输出</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>汽车仪表转速显示输出</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>仪表电源输入</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>SVS灯/MIL灯</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="5">风扇控制</td>
+              <td>低速风扇继电器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>高速风扇继电器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>高低速中间继电器（五脚）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>PWM风扇控制</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>可变进气通道</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="5">增压发动机</td>
+              <td>旁通阀</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>泄压阀</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>增压压力、温度传感器（Turbo）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>大气压力、温度传感器（Turbo）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>中冷风扇继电器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="3">V V T</td>
+              <td>可变进气相位调节装置</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>进气油压控制阀</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>排气油压控制阀</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="2">水温电子控制</td>
+              <td>电子节温器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>电子水泵</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2">碰撞断油功能</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="4">发动机控制</td>
+              <td>发电机（LIN通讯）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>发电机负载反馈输入信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>ECM控制发电机输出信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>充电指示灯是否受ECM控制</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="14">启停控制</td>
+              <td>起动请求信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>起停系统主控制开关</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>起动电机继电器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>空挡位置传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>空挡开关输入信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>传动链状态输入信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>发动机舱开关状态输入信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>驾驶员侧车门开关信号输入起动机继电器控制（输出）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>起动机继电器控制（输出）信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>起停系统工作状态指示灯输出信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>起停系统警示灯输出信号</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>怠速停机状态输出信号（屏蔽仪表机油灯，电池灯）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>蓄电池状态传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>离合器信号（顶部开关，底部开关）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="2">机油温度/压力</td>
+              <td>机油温度传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>机油压力传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="4">进气流量控制</td>
+              <td>节气门位置传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>怠速步进电机</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>电子节气门（ETC）</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>电子油门踏板</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2">爆震传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">加速度传感器</td>
+              <td>
+                <div class="select-container">
+                  <!-- <i class="icon icon-more"></i> -->
+                  <select name="status" id="status">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mui-button-row">
+          <button type="button" class="mui-btn mui-btn-blue" id="three_next">保存</button>
+        </div>
+      </div>
+    </div>
+    <!--页面主内容区结束-->
+  </div>
+  <!--线束检查-->
+  <div class="mui-page page-three" id="three_resolvent">
+    <!--页面标题栏开始-->
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+      <a class="mui-action-back icon icon-back mui-pull-left"></a>
+      <h1 class="mui-center mui-title">线束检查</h1>
+    </div>
+    <!--页面标题栏结束-->
+    <!--页面主内容区开始-->
+    <div class="mui-page-content mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <table>
+          <thead>
+            <tr>
+              <td width="60%" colspan="2">检查项目</td>
+              <td width="20%">说明原因</td>
+              <td width="20%">解决方法</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2">点火线圈</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">EGR阀</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">电子防盗器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">巡航控制</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">前氧传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">后氧传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">曲轴位置传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">凸轮轴位置传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">水温传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">进气压力/温度传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="2">通讯</td>
+              <td>KW2000</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>CAN</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="5">E L O A D 信号</td>
+              <td>大灯负载信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>鼓风机负载信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>除雾负载信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>助力转向开关</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>其他电器负载信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="7">燃油供给系统</td>
+              <td>喷油器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>油泵继电器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>碳罐电磁阀</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>燃油箱油位传感器信号输出（输入ECM）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>高压油泵控制阀（GDI)</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>高压油轨压力传感器（GDI）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>喷嘴加热控制（Flex Fuel）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="5">制动系统</td>
+              <td>刹车开关</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>刹车灯</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>制动真空度传感器信号输入（Turbo建议安装）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>真空泵ECM控制（Turbo建议安装）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>制动真空泵继电器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="2">车速及轮速</td>
+              <td>轮速传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>车速传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="5">仪表显示</td>
+              <td>瞬时油耗数据输出功能</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>汽车仪表水温数据显示输出</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>汽车仪表转速显示输出</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>仪表电源输入</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>SVS灯/MIL灯</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="5">风扇控制</td>
+              <td>低速风扇继电器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>高速风扇继电器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>高低速中间继电器（五脚）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>PWM风扇控制</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>可变进气通道</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="5">增压发动机</td>
+              <td>旁通阀</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>泄压阀</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>增压压力、温度传感器（Turbo）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>大气压力、温度传感器（Turbo）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>中冷风扇继电器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="3">V V T</td>
+              <td>可变进气相位调节装置</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>进气油压控制阀</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>排气油压控制阀</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="2">水温电子控制</td>
+              <td>电子节温器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>电子水泵</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2">碰撞断油功能</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td width="10%" rowspan="4">发动机控制</td>
+              <td>发电机（LIN通讯）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>发电机负载反馈输入信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>ECM控制发电机输出信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>充电指示灯是否受ECM控制</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="14">启停控制</td>
+              <td>起动请求信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>起停系统主控制开关</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>起动电机继电器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>空挡位置传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>空挡开关输入信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>传动链状态输入信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>发动机舱开关状态输入信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>驾驶员侧车门开关信号输入起动机继电器控制（输出）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>起动机继电器控制（输出）信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>起停系统工作状态指示灯输出信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>起停系统警示灯输出信号</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>怠速停机状态输出信号（屏蔽仪表机油灯，电池灯）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>蓄电池状态传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>离合器信号（顶部开关，底部开关）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="2">机油温度/压力</td>
+              <td>机油温度传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>机油压力传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td width="10%" rowspan="4">进气流量控制</td>
+              <td>节气门位置传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>怠速步进电机</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>电子节气门（ETC）</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>电子油门踏板</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2">爆震传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">加速度传感器</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mui-button-row">
+          <button type="button" class="mui-btn mui-btn-blue" id="three_next">保存</button>
+        </div>
+      </div>
+    </div>
+    <!--页面主内容区结束-->
+  </div>
 
   <!--bom检查-->
   <div class="mui-page" id="four">
@@ -3603,12 +5999,102 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
-                <input class="explain" type="hidden">
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
-                <input class="explain" type="hidden">
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mui-button-row">
+          <button type="button" class="mui-btn mui-btn-blue" id="four_next">保存</button>
+        </div>
+      </div>
+    </div>
+    <!--页面主内容区结束-->
+  </div>
+  <!--bom检查-->
+  <div class="mui-page" id="four_explain">
+    <!--页面标题栏开始-->
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+      <a class="mui-action-back icon icon-back mui-pull-left"></a>
+      <h1 class="mui-center mui-title">bom检查</h1>
+    </div>
+    <!--页面标题栏结束-->
+    <!--页面主内容区开始-->
+    <div class="mui-page-content mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <table>
+          <thead>
+            <tr>
+              <td width="40%">零部件名称</td>
+              <td width="20%">零部件号</td>
+              <td width="20%">状态</td>
+              <td width="20%">说明</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ECM发动机电子控制模块</td>
+              <td>28452294</td>
+              <td>
+                <div class="select-container">
+                  <select name="" id="">
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <i class="mui-icon mui-icon-arrowdown"></i>
+                </div>
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mui-button-row">
+          <button type="button" class="mui-btn mui-btn-blue" id="four_next">保存</button>
+        </div>
+      </div>
+    </div>
+    <!--页面主内容区结束-->
+  </div>
+  <!--bom检查-->
+  <div class="mui-page" id="four_resolvent">
+    <!--页面标题栏开始-->
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+      <a class="mui-action-back icon icon-back mui-pull-left"></a>
+      <h1 class="mui-center mui-title">bom检查</h1>
+    </div>
+    <!--页面标题栏结束-->
+    <!--页面主内容区开始-->
+    <div class="mui-page-content mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <table>
+          <thead>
+            <tr>
+              <td width="40%">零部件名称</td>
+              <td width="20%">零部件号</td>
+              <td width="20%">说明</td>
+              <td width="20%">解决</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ECM发动机电子控制模块</td>
+              <td>28452294</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <input class="explain-text" type="hidden">
+              </td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <input class="resolvent-text" type="hidden">
               </td>
             </tr>
           </tbody>
@@ -3635,51 +6121,31 @@
         <table>
           <thead>
             <tr>
-              <td colspan="2">研发工具申请信息</td>
-              <td colspan="2">研发工具装备信息</td>
-            </tr>
-            <tr>
-              <td width="30%">工具或设备名称</td>
+              <td width="40%">工具或设备名称</td>
               <td width="20%">申请人</td>
               <td width="30%">装备日期</td>
-              <td width="20%">操作</td>
+              <td width="10%">操作</td>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>12V电源</td>
-              <td>ww</td>
+              <td>王先生</td>
+              <td>2018-12-12</td>
               <td>
-                <input type="text" readonly placeholder="请选择事件">
-              </td>
-              <td>
-                <span class="mui-btn mui-btn-blue mui-btn-outlined">提交</span>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined finished">已完成</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
             <tr>
-              <td>CAN1开发接头</td>
-              <td>ww</td>
+              <td>12V电源</td>
+              <td>王先生</td>
+              <td>2018-12-12</td>
               <td>
-                <input type="text" readonly placeholder="请选择事件">
-              </td>
-              <td>
-                <span class="mui-btn mui-btn-blue mui-btn-outlined">提交</span>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined toSubmit">提交</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
-            <tr>
-              <td>前催化器载体温度</td>
-              <td>ww</td>
-              <td>
-                <input type="text" readonly placeholder="请选择事件">
-              </td>
-              <td>
-                <a class="mui-btn mui-btn-blue mui-btn-outlined">提交</a>
-                <input class="explain" type="hidden">
-              </td>
-            </tr>
-
           </tbody>
         </table>
         <div class="mui-button-row">
@@ -3691,7 +6157,7 @@
   </div>
 
   <!--车辆审核-->
-  <div class="mui-page" id="six">
+  <div class="mui-page page-six" id="six">
     <!--页面标题栏开始-->
     <div class="mui-navbar-inner mui-bar mui-bar-nav">
       <a class="mui-action-back icon icon-back mui-pull-left"></a>
@@ -3701,80 +6167,74 @@
     <!--页面主内容区开始-->
     <div class="mui-page-content mui-scroll-wrapper">
       <div class="mui-scroll">
+        <div class="auditing">
+          <div class="auditing-title">车辆编号：2017-1234</div>
+          <div class="auditing-content">
+            <p>安全检查人：张三</p>
+            <p>安全核对人：张三</p>
+            <p>线束检查人：张三</p>
+            <p>线束核对人：张三</p>
+            <p>BOM检查人：张三</p>
+            <p>BOM检查人：张三</p>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <td width="40%">工具或设备名称</td>
+              <td width="20%">申请人</td>
+              <td width="30%">装备日期</td>
+              <td width="10%">操作</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>12V电源</td>
+              <td>王先生</td>
+              <td>2018-12-12</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined finished">已完成</i>
+                <input class="explain" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>12V电源</td>
+              <td>王先生</td>
+              <td>2018-12-12</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined finished">已完成</i>
+                <input class="explain" type="hidden">
+              </td>
+            </tr>
+            <tr>
+              <td>12V电源</td>
+              <td>王先生</td>
+              <td>2018-12-12</td>
+              <td>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined finished">已完成</i>
+                <input class="explain" type="hidden">
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <form>
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>车辆编号</label>
-                <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-                <span class="icon-red-star">*</span>
+          <div class="mui-input-row">
+            <span>审核是否通过：</span>
+            <div class="mui-radio-box">
+              <div class="mui-radio">
+                <input name="throught" id="yes" type="radio" checked>
+                <label for="#normal">是</label>
               </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>安全检查人</label>
-                <input name="safeCheck" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-                <span class="icon-red-star">*</span>
+              <div class="mui-radio">
+                <input name="throught" id="no" type="radio">
+                <label for="#other">否</label>
               </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>安全核对人</label>
-                <input name="safeVerify" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-                <span class="icon-red-star">*</span>
-              </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>线束检查人</label>
-                <input name="wCheck" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-                <span class="icon-red-star">*</span>
-              </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>线束核对人</label>
-                <input name="wVerify" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-                <span class="icon-red-star">*</span>
-              </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>BOM检查人</label>
-                <input name="bCheck" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-                <span class="icon-red-star">*</span>
-              </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>BOM核对人</label>
-                <input name="bVerify" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-                <span class="icon-red-star">*</span>
-              </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>是否通过</label>
-                <div class="mui-radio-box">
-                  <div class="mui-radio">
-                    <input name="throught" id="yes" type="radio" checked>
-                    <label for="#normal">是</label>
-                  </div>
-                  <div class="mui-radio">
-                    <input name="throught" id="no" type="radio">
-                    <label for="#other">否</label>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>审核备注</label>
-                <input name="remark" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-                <span class="icon-red-star">*</span>
-              </div>
-            </li>
-          </ul>
+            </div>
+          </div>
+          <div class="mui-input-row">
+            <span>审核说明：</span>
+            <textarea name="" id="" cols="4" rows="3" placeholder="添加说明"></textarea>
+          </div>
         </form>
         <div class="mui-button-row">
           <button type="button" class="mui-btn mui-btn-blue" id="six_next">保存</button>
