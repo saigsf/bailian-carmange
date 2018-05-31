@@ -927,14 +927,9 @@
 	 */
 	owner.authorized = function (data, callback) {
 		callback = callback || $.noop;
+		data = data || {};
 
 		var url = 'car-management/driver/authorized.action';
-		var startTime = new Date();
-		var startYear = startTime.getFullYear();
-		var endTime = new Date(+startYear + 1)
-
-		data.startTime = startTime.format('yyyy-MM-dd');
-		data.endTime = endTime.format('yyyy-MM-dd');
 
 		owner.HTTPRequest('get', url, data, callback)
 	}

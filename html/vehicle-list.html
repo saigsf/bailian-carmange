@@ -15,24 +15,7 @@
   <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
   <!--独立样式-->
   <style type="text/css">
-    .search-wrapper {
-      width: 80%;
-    }
-
-    .top .icon-more {
-      width: 30px;
-      height: 30px;
-    }
-
-    .mui-table-view-cell {
-      margin-bottom: 10px;
-      background-color: #fff;
-      box-shadow: 0 3px 3px rgba(0, 0, 0, .1)
-    }
-
-    .mui-table-view-cell:after {
-      display: none;
-    }
+    
 
     .mui-scroll-wrapper {
       height: 100%;
@@ -49,24 +32,14 @@
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <form class="top">
-        <!--<div class="search-wrapper">
-          <div class="search-text">
-            <input type="search" name="search" class="current-input" id="current_input" placeholder="请输入车辆编号">
-            <span class="clear-btn"></span>
-          </div>
-          <div class="search-btn">
-            <i class="icon icon-search"></i>
-          </div>
-        </div>-->
         <div class="mui-input-row mui-search">
-            <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
+          <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
         </div>
-        
-        <div class="btn" id="add_btn">
-          <i class="icon icon-more"></i>
+        <div class="filter" id="filter">
+          <i class="icon icon-filter">筛选</i>
         </div>
       </form>
-      <ul id="OA_task_1" class="mui-table-view">
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview">
         <li class="mui-table-view-cell">
             <div class="mui-slider-right mui-disabled">
               <a class="mui-btn mui-btn-red delete">删除</a>
@@ -80,26 +53,26 @@
                   <div class="item-right-top">
                     <div class="number">
                       <h4>2018-0591</h4>
-                      <p>陕A6509B</p>
+                      <p>车辆类型</p>
                     </div>
-                    <div class="mui-btn mui-btn-blue mui-btn-outlined goback">去还车
+                    <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">查看
                       <i class="mui-icon mui-icon-arrowright"></i>
                     </div>
                   </div>
                   <div class="item-right-bottom">
                     <div class="bottom-item">
-                      <span>安全检查：张三</span>
                       <span>2018-02-22</span>
+                      <span>项目编号</span>
                     </div>
                     <div class="bottom-item bottom-item-empty"></div>
                     <div class="bottom-item">
-                      <span>安全检查：张三</span>
-                      <span>2018-02-22</span>
+                      <span>active</span>
+                      <span>项目状态</span>
                     </div>
                     <div class="bottom-item bottom-item-empty"></div>
                     <div class="bottom-item">
-                      <span>审核：张三</span>
-                      <span>2018-02-22</span>
+                      <span>张三</span>
+                      <span>项目工程师</span>
                     </div>
                   </div>
                 </div>

@@ -1,0 +1,79 @@
+;(function (mui, doc) {
+  mui.init();
+  mui('.mui-scroll-wrapper').scroll({
+    deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+  });
+  
+  // 定义全局变量
+  var H = null; // 页面高度
+
+  mui.plusReady(function () {
+		// plus准备好后执行H5
+		handsetAdaption();
+		// 获取当前视图
+    var self = plus.webview.currentWebview();
+    // 获取传递参数
+    H = self.H;
+    // 添加点击事件进入下一页
+    addEvents();
+    
+  });
+  
+  // 手机适配方法
+  function handsetAdaption() {
+  	// 更改顶部导航栏高度
+  	if (plus.device.model === 'iPhoneX') {
+      // 页面样式重置
+      $('header').css({
+        'height': '88px',
+        'paddingTop': '40px'
+      });
+      $('.mui-bar-nav~.mui-content').css({
+        'paddingTop': '88px'
+      })
+    }
+  	
+  	// 更改状态栏颜色
+		// plus.navigator.setStatusBarStyle("light");
+    // 弹出软键盘时自动改变webview的高度
+    plus.webview.currentWebview().setStyle({
+      softinputMode: "adjustResize"
+    });
+    
+  }
+  
+  // 页面点击事件
+  function addEvents() {
+  	$('#add_btn').on('tap', function() {
+      mui.openWindow({
+        url: 'vehicle-insurance-apply.html',
+        id: 'vehicle-insurance-apply', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H
+        } //自定义扩展参数
+      })
+    })
+
+
+    $('#vehicle_insurance_list').on('tap', '.insurance-entry', function(e) {
+      e.stopPropagation();
+      mui.openWindow({
+        url: 'vehicle-insurance-input.html',
+        id: 'vehicle-insurance-input', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H
+        } //自定义扩展参数
+      })
+    })
+  }
+  
+  
+})(mui, document)

@@ -2,6 +2,11 @@
   var curPage = 1;  //当前页码初始化数0开始
   var totalPage = 7; //后台算出总页数
   var H = null;
+  var self = null;
+  var main = null;
+  var side = null;
+  var showMenu = false;
+  var isInTransition = false;
 
   mui.init({
     pullRefresh: {
@@ -16,9 +21,7 @@
     }
   });
 
-  mui('.mui-scroll-wrapper').scroll({
-    indicators: true //是否显示滚动条
-  });
+  mui('.mui-scroll-wrapper').scroll();
 
 
   mui.plusReady(function () {
@@ -26,17 +29,33 @@
       softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
     });
 
-    var self = plus.webview.currentWebview();
+    self = plus.webview.currentWebview();
+    console.log(self.id)
+    main = plus.webview.getWebviewById("index");
     H = self.H;
 
+    self.addEventListener('maskClick', closeMenu);
+    //处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
+    // setTimeout(function () {
+    //   side = mui.preload({
+    //     id: 'vehcle-filter',
+    //     url: 'vehcle-filter.html',
+    //     styles: {
+    //       left: 0,
+    //       width: '70%',
+    //       zindex: -1
+    //     }
+    //   });
+    // }, 200);
+
     addEvent();
-  })
+  });
 
   // 下拉刷新业务
   function pulldownRwfresh() {
     getData(1)
     setTimeout(function () {
-    	
+
       mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
       // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
     }, 1000)
@@ -196,12 +215,55 @@
     var btnArray = ['确认', '取消'];
 
     var view = plus.webview.getWebviewById('html/vehicle.html');
-    
-    $('#add_btn').on('tap', function() {
+
+    $('#add_btn').on('tap', function () {
       mui.fire(view, 'checkup', {
-      	domId: 'vehicle-check-up'
+        domId: 'vehicle-check-up'
       })
     })
   }
+
+  //打开侧滑窗口；
+  function openMenu() {
+    main.setStyle({
+      mask: 'rgba(0,0,0,0.5)'
+    }); //menu设置透明遮罩防止点击
+
+    mui.openWindow({
+      url: 'vehicle-filter.html',
+      id: 'vehicle-filter', //默认使用当前页面的url作为id
+      styles: {
+        left: '30%',
+        width: '70%',
+        zindex: 999
+      }, //窗口参数
+      extras: {
+        H: H
+      }, //自定义扩展参数
+      waiting: {
+        autoShow: false, //自动显示等待框，默认为true
+        title: '正在加载...', //等待对话框上显示的提示内容
+      }
+    })
+  };
+  //关闭侧滑窗口；
+  function closeMenu() {
+    //关闭遮罩；
+    main.setStyle({
+      mask: 'none'
+    })
+  };
+
+  //点击头部菜单小图标，打开侧滑菜单；
+  $('#filter').on('tap', function(e) {
+    e.stopPropagation();
+    openMenu()
+  });
+  //menu页面点击后关闭菜单；
+  // window.addEventListener("menu:tap", closeMenu);
+  window.addEventListener('closeMenu', closeMenu)
+  window.addEventListener('tap', closeMenu)
+
+
 
 })(mui, document);

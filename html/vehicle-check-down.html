@@ -34,15 +34,7 @@
       width: auto;
     }
 
-    .mui-radio input[type=radio] {
-      position: relative;
-      left: 0;
-      top: 10px;
-    }
 
-    .mui-radio input[type=radio]:before {
-      font-size: 20px;
-    }
 
     .mui-radio-box {
       padding-left: 15px;
@@ -63,106 +55,141 @@
     <h1 class="mui-title">还车点检</h1>
   </header>-->
   <div class="mui-content mui-scroll-wrapper">
- 
     <div class="mui-scroll">
-      <ul class="mui-table-view">
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>车辆编号</label>
-            <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-            <span class="icon-red-star">*</span>
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>运输车号</label>
-            <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-            <span class="icon-red-star">*</span>
-          </div>
-        </li>
-
-
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>工具回收</label>
-            <div class="mui-radio-box">
-              <div class="mui-radio">
-                <input name="radio" id="normal" type="radio" checked>
-                <label for="#normal">是</label>
-              </div>
-              <div class="mui-radio">
-                <input name="radio" id="other" type="radio">
-                <label for="#other">否</label>
+      <form>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆编号</label>
+              <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>运输车号</label>
+              <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>工具回收</label>
+              <div class="mui-radio-box">
+                <div class="mui-radio">
+                  <input name="radio" id="normal" type="radio" checked>
+                  <label for="#normal">是</label>
+                </div>
+                <div class="mui-radio">
+                  <input name="radio" id="other" type="radio">
+                  <label for="#other">否</label>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>随车工具</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label class="padtb0">紧急停车警示牌</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>钥匙数量</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>交车人</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>接车人</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label class="padtb0">接车人电话</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label class="padtb0">接车人身份证</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>车架号</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>备注信息</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label class="padtb0">随身物品或其他</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-button-row">
-            <button type="button" class="mui-btn mui-btn-blue" id="submit">提交</button>
-          </div>
-        </li>
-      </ul>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>随车工具</label>
+              <input name="tools" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/套</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备用轮胎</label>
+              <input name="sparetyre" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/只</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>千斤顶</label>
+              <input name="jack" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/只</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>警示牌</label>
+              <input name="warningboard" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/只</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>灭火器</label>
+              <input name="fire" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/只</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>钥匙数量</label>
+              <input name="keyy" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/把</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>里程表</label>
+              <input name="odometer" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/km</span>
+            </div>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label class="padtb0">还车申请人</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>交车人</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>接车人</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label class="padtb0">接车人电话</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label class="padtb0">接车人身份证</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备注信息</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label class="">日期</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+            </div>
+          </li>
+
+        </ul>
+      </form>
+
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="submit">提交</button>
+      </div>
+
     </div>
 
 

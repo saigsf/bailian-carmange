@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>保险录入</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -17,6 +17,10 @@
   <style type="text/css">
     .mui-table-view-cell {
       background-color: transparent;
+    }
+
+    .mui-table-view-cell:after {
+      display: none;
     }
 
     .mui-input-row label {
@@ -34,16 +38,6 @@
       width: auto;
     }
 
-    .mui-radio input[type=radio] {
-      position: relative;
-      left: 0;
-      top: 10px;
-    }
-
-    .mui-radio input[type=radio]:before {
-      font-size: 20px;
-    }
-
     .mui-radio-box {
       padding-left: 15px;
       display: flex;
@@ -51,91 +45,84 @@
       align-items: center;
     }
 
-    header {
-      z-index: 999;
+    .date-wrapper .date-text {
+      width: 70%
     }
   </style>
 </head>
 
 <body>
-  <!--<header class="mui-bar mui-bar-nav">
+  <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
-    <h1 class="mui-title">还车点检</h1>
-  </header>-->
+    <h1 class="mui-title">保险录入</h1>
+  </header>
   <div class="mui-content mui-scroll-wrapper">
-
     <div class="mui-scroll">
-      <ul class="mui-table-view">
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>工具回收</label>
-            <div class="mui-radio-box">
-              <div class="mui-radio">
-                <input name="radio" id="normal" type="radio" checked>
-                <label for="#normal">是</label>
-              </div>
-              <div class="mui-radio">
-                <input name="radio" id="other" type="radio">
-                <label for="#other">否</label>
+      <form>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>车辆编号</label>
+              <div class="date-text">
+                <input type="text" placeholder="车辆编号" disabled>
               </div>
             </div>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>保单号</label>
+              <div class="date-text">
+                <input type="text" placeholder="请填写保单号">
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>保险起始日</label>
+              <div class="date-text" id="start_date_box">
+                <input type="text" id="start_date" readonly placeholder="请选择起始时间">
+                <div class="date-icon">
+                  <i class="icon icon-date"></i>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>保险截至日</label>
+              <div class="date-text" id="end_date_box">
+                <input type="text" id="end_date" readonly placeholder="请选择结束时间">
+                <div class="date-icon">
+                  <i class="icon icon-date"></i>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>厂牌型号</label>
+              <div class="date-text">
+                <input type="text" placeholder="请填写厂牌型号">
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <!-- <input type="text" placeholder="请选择起始时间"> -->
+                <textarea name="" id="" cols="30" rows="4" placeholder="备注"></textarea>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="mui-button-row">
+          <button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="submit">提交</button>
+        </div>
+      </form>
 
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>随车工具</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label class="padtb0">紧急停车警示牌</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>钥匙数量</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>送车人</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>接车人</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>车架号</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label>备注信息</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-input-row">
-            <label class="padtb0">随身物品或其他</label>
-            <input type="text" class="mui-input-clear" placeholder="请输入用户名">
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-button-row">
-            <button type="button" class="mui-btn mui-btn-blue" id="submit">提交</button>
-          </div>
-        </li>
-      </ul>
     </div>
 
 
@@ -148,7 +135,7 @@
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
-  <!-- 当前页面js --> 
+  <!-- 当前页面js -->
   <script src="../js/app/vehicle-insurance-input.js"></script>
 </body>
 

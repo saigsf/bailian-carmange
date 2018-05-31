@@ -293,11 +293,11 @@
       var id = null;
       if ($inputs.prop('checked')) {
         id = $(this).parents('li').attr('data-id');
+        ids.push(id);
       }
-      ids.push(id);
     })
-    console.log(ids.join())
-    if (ids.length <= 0) {
+
+    if (ids.length == 0) {
       mui.toast('请至少选择一个驾驶员');
       return;
     }
@@ -313,8 +313,6 @@
         mui.toast('禁止失败')
       }
     })
-
-
   })
 
   $('#authorize_batch').on('tap', function () {
@@ -324,11 +322,12 @@
       var id = null;
       if ($inputs.prop('checked')) {
         id = $(this).parents('li').attr('data-id');
+        ids.push(id);
       }
-      ids.push(id);
+      
     })
 
-    if (ids.length <= 0) {
+    if (ids.length == 0) {
       mui.toast('请至少选择一个驾驶员');
       return;
     }

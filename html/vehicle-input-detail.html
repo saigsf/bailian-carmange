@@ -50,7 +50,7 @@
       position: relative;
       padding: 12px 0;
     }
-    
+
     .detail-content p {
       color: #666;
     }
@@ -175,17 +175,18 @@
     .mui-button-row {
       padding: 20px 0;
     }
-    
+
 
 
     /*样式修正结束*/
 
     /* 车辆录入开始 */
+
     /* .page-one .mui-table-view {
       
     } */
-    /* 车辆录入结束 */
 
+    /* 车辆录入结束 */
 
     /* 安全/附件检查start */
 
@@ -256,7 +257,7 @@
     }
 
     .vat-right-item select {
-      border: 1px solid #999!important;
+      border: 1px solid #999 !important;
       padding: 5px 10px;
       color: #999;
       font-size: 12px;
@@ -331,9 +332,9 @@
     }
 
     .oil-right input {
-      width: 78%!important;
-      border: 1px solid #999!important;
-      padding: 5px 10px!important;
+      width: 78% !important;
+      border: 1px solid #999 !important;
+      padding: 5px 10px !important;
       font-size: 12px;
     }
 
@@ -345,13 +346,9 @@
     }
 
     select {
-      margin: 0!important;
+      margin: 0 !important;
       /*font-size: 17px;*/
       background-color: transparent;
-    }
-
-    .mui-btn-outlined {
-      border: none;
     }
 
     .explain,
@@ -393,16 +390,6 @@
       padding-top: 10px;
       padding-bottom: 10px;
       width: auto;
-    }
-
-    .mui-radio input[type=radio] {
-      position: relative;
-      left: 0;
-      top: 7px;
-    }
-
-    .mui-radio input[type=radio]:before {
-      font-size: 14px;
     }
 
     .mui-radio-box {
@@ -541,7 +528,7 @@
     <!--页面标题栏开始-->
     <div class="mui-navbar-inner mui-bar mui-bar-nav">
       <a class="mui-action-back icon icon-back mui-pull-left"></a>
-      <h1 class="mui-center mui-title">信息录入</h1>
+      <h1 class="mui-center mui-title">车辆录入</h1>
     </div>
     <!--页面标题栏结束-->
     <!--页面主内容区开始-->
@@ -564,6 +551,20 @@
                 <span class="icon-red-star">*</span>
               </div>
             </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>项目工程师</label>
+                <input name="projectEngineer" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>联系电话</label>
+                <input name="contactNumber" type="text" class="mui-input-clear" placeholder="如：12345678901">
+              </div>
+            </li>
+          </ul>
+          <ul class="mui-table-view mui-table-inputview">
             <li class="mui-table-view-cell">
               <div class="mui-input-row">
                 <label>车辆编号</label>
@@ -599,6 +600,8 @@
                 <span class="icon-red-star">*</span>
               </div>
             </li>
+          </ul>
+          <ul class="mui-table-view mui-table-inputview">
             <li class="mui-table-view-cell">
               <div class="mui-input-row">
                 <label>客户</label>
@@ -611,18 +614,8 @@
                 <input name="vCarType" type="text" class="mui-input-clear" placeholder="">
               </div>
             </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>项目工程师</label>
-                <input name="projectEngineer" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
-              </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>联系电话</label>
-                <input name="contactNumber" type="text" class="mui-input-clear" placeholder="如：12345678901">
-              </div>
-            </li>
+          </ul>
+          <ul class="mui-table-view mui-table-inputview">
             <li class="mui-table-view-cell">
               <div class="mui-input-row">
                 <label>发动机型号</label>
@@ -678,6 +671,9 @@
                 <input name="frontTireP" type="text" class="mui-input-clear" placeholder="后轮胎压力">
               </div>
             </li>
+
+          </ul>
+          <ul class="mui-table-view mui-table-inputview">
             <li class="mui-table-view-cell">
               <div class="mui-input-row">
                 <label>车辆分组</label>
@@ -702,23 +698,13 @@
                 <input name="remark" type="text" class="mui-input-clear" placeholder="填写人姓名">
               </div>
             </li>
-
-            <!-- <li class="mui-table-view-cell">
-                <div class="mui-input-row mui-checkbox mui-left">
-                    <label>已知晓测试车辆注意事项</label>
-                    <input name="checkbox1" type="checkbox" checked>
-                  </div>
-                  <div class="mui-button-row">
-                    <button type="button" class="mui-btn mui-btn-blue" id="one_next">保存</button>
-                  </div>
-            </li> -->
           </ul>
         </form>
         <!-- 基本信息录入end -->
         <!-- 提交 -->
         <div class="mui-button-row">
-          <button type="button" class="mui-btn mui-btn-blue reset">重置</button>
-          <a href="#one_bom" class="mui-btn mui-btn-blue">下一步</a>
+          <button type="button" class="mui-btn mui-btn-block mui-btn-blue mui-btn-outlined reset">重置</button>
+          <a href="#one_bom" class="mui-btn mui-btn-block mui-btn-blue">下一步</a>
         </div>
 
       </div>
@@ -826,8 +812,8 @@
         <!-- BOM零部件申请end -->
         <!-- 提交 -->
         <div class="mui-button-row">
-          <a href="#" class="mui-btn mui-btn-blue mui-btn reset">重置</a>
-          <a href="#one_tools" class="mui-btn mui-btn-blue">下一步</a>
+          <a href="#" class="mui-btn mui-btn-blue mui-btn-block mui-btn-outlined reset">重置</a>
+          <a href="#one_tools" class="mui-btn mui-btn-blue mui-btn-block">下一步</a>
 
         </div>
 
@@ -897,8 +883,8 @@
         <!-- 研发工具申请end -->
         <!-- 提交 -->
         <div class="mui-button-row">
-          <button type="button" class="mui-btn mui-btn-blue" id="one_reset">重置</button>
-          <button type="button" class="mui-btn mui-btn-blue" id="one_submit">提交</button>
+          <button type="button" class="mui-btn mui-btn-blue mui-btn-block mui-btn-outlined" id="one_reset">重置</button>
+          <button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="one_submit">提交</button>
         </div>
 
       </div>
@@ -1008,11 +994,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1031,11 +1017,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1054,11 +1040,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1077,11 +1063,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1100,11 +1086,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1123,11 +1109,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1146,11 +1132,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1169,11 +1155,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1192,11 +1178,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1215,11 +1201,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1238,11 +1224,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1261,11 +1247,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1379,7 +1365,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1398,7 +1384,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1417,7 +1403,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1436,7 +1422,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1455,7 +1441,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1474,7 +1460,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1493,7 +1479,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1512,7 +1498,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1531,7 +1517,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1550,7 +1536,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1569,7 +1555,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1588,7 +1574,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -1689,11 +1675,11 @@
             <tr>
               <td>燃油箱进出接头</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -1701,11 +1687,11 @@
               <td>ECM发动机电子控制模块</td>
 
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -1713,110 +1699,110 @@
               <td>MAP/MAT sensor进气歧管压力温度传感器</td>
 
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>Fron Oxygen Sensor前氧传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>Rear Oxygen Sensor后氧传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>Fuel Rail Assembly燃油导轨总成</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>Knock Sensor 爆震传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>Crank Position sensor曲轴位置传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>Purge Solenoid-ECP炭罐电磁阀</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>ETC电子节气阀体总成</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>coolant Sensor 冷却液温度传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>Boot P/T sensor增压压力温度传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">查看原因</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">查看原因</i>
                 <input class="explain-text" type="hidden" value="我是问题原因">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -1865,11 +1851,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1887,11 +1873,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1909,11 +1895,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1931,11 +1917,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1953,11 +1939,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1975,11 +1961,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -1997,11 +1983,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2019,11 +2005,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2041,11 +2027,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2063,11 +2049,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2086,11 +2072,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2108,11 +2094,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2131,11 +2117,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2153,11 +2139,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2175,11 +2161,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2197,11 +2183,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2219,11 +2205,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2242,11 +2228,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2264,11 +2250,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2286,11 +2272,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2308,11 +2294,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2330,11 +2316,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2352,11 +2338,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2374,11 +2360,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2397,11 +2383,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2419,11 +2405,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2441,11 +2427,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2463,11 +2449,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2485,11 +2471,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2508,11 +2494,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2530,11 +2516,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2554,11 +2540,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2576,11 +2562,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2598,11 +2584,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2620,11 +2606,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2642,11 +2628,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2665,11 +2651,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2687,11 +2673,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2709,11 +2695,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2731,11 +2717,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2753,11 +2739,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2777,11 +2763,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2799,11 +2785,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2821,11 +2807,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2843,11 +2829,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2865,11 +2851,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2888,11 +2874,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2910,11 +2896,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2932,11 +2918,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2956,11 +2942,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -2978,11 +2964,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3001,11 +2987,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3024,11 +3010,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3046,11 +3032,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3068,11 +3054,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3090,11 +3076,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3114,11 +3100,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3136,11 +3122,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3158,11 +3144,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3180,11 +3166,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3202,11 +3188,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3224,11 +3210,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3246,11 +3232,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3268,11 +3254,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3290,11 +3276,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3312,11 +3298,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3334,11 +3320,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3356,11 +3342,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3378,11 +3364,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3400,11 +3386,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3424,11 +3410,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3446,11 +3432,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3470,11 +3456,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3492,11 +3478,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3514,11 +3500,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3536,11 +3522,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3559,11 +3545,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3581,11 +3567,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined add">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder add">+</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -3632,7 +3618,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3650,7 +3636,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3668,7 +3654,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3686,7 +3672,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3704,7 +3690,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3722,7 +3708,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3740,7 +3726,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3758,7 +3744,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3776,7 +3762,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3794,7 +3780,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3813,7 +3799,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3831,7 +3817,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3850,7 +3836,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3868,7 +3854,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3886,7 +3872,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3904,7 +3890,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3922,7 +3908,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3941,7 +3927,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3959,7 +3945,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3977,7 +3963,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -3995,7 +3981,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4013,7 +3999,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4031,7 +4017,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4049,7 +4035,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4068,7 +4054,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4086,7 +4072,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4104,7 +4090,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4122,7 +4108,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4140,7 +4126,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4159,7 +4145,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4177,7 +4163,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4197,7 +4183,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4215,7 +4201,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4233,7 +4219,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4251,7 +4237,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4269,7 +4255,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4288,7 +4274,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4306,7 +4292,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4324,7 +4310,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4342,7 +4328,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4360,7 +4346,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4380,7 +4366,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4398,7 +4384,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4416,7 +4402,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4434,7 +4420,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4452,7 +4438,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4471,7 +4457,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4489,7 +4475,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4507,7 +4493,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4527,7 +4513,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4545,7 +4531,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4564,7 +4550,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4583,7 +4569,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4601,7 +4587,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4619,7 +4605,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4637,7 +4623,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4657,7 +4643,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4675,7 +4661,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4693,7 +4679,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4711,7 +4697,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4729,7 +4715,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4747,7 +4733,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4765,7 +4751,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4783,7 +4769,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4801,7 +4787,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4819,7 +4805,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4837,7 +4823,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4855,7 +4841,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4873,7 +4859,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4891,7 +4877,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4911,7 +4897,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4929,7 +4915,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4949,7 +4935,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4967,7 +4953,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -4985,7 +4971,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -5003,7 +4989,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -5022,7 +5008,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -5040,7 +5026,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -5076,110 +5062,110 @@
             <tr>
               <td colspan="2">点火线圈</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td colspan="2">EGR阀</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td colspan="2">电子防盗器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td colspan="2">巡航控制</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td colspan="2">前氧传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td colspan="2">后氧传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td colspan="2">曲轴位置传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td colspan="2">凸轮轴位置传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td colspan="2">水温传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td colspan="2">进气压力/温度传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5187,22 +5173,22 @@
               <td width="10%" rowspan="2">通讯</td>
               <td>KW2000</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>CAN</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5210,55 +5196,55 @@
               <td width="10%" rowspan="5">E L O A D 信号</td>
               <td>大灯负载信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>鼓风机负载信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>除雾负载信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>助力转向开关</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>其他电器负载信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5266,77 +5252,77 @@
               <td width="10%" rowspan="7">燃油供给系统</td>
               <td>喷油器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>油泵继电器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>碳罐电磁阀</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>燃油箱油位传感器信号输出（输入ECM）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>高压油泵控制阀（GDI)</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>高压油轨压力传感器（GDI）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>喷嘴加热控制（Flex Fuel）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5344,55 +5330,55 @@
               <td width="10%" rowspan="5">制动系统</td>
               <td>刹车开关</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>刹车灯</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>制动真空度传感器信号输入（Turbo建议安装）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>真空泵ECM控制（Turbo建议安装）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>制动真空泵继电器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5400,22 +5386,22 @@
               <td width="10%" rowspan="2">车速及轮速</td>
               <td>轮速传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>车速传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5424,55 +5410,55 @@
               <td width="10%" rowspan="5">仪表显示</td>
               <td>瞬时油耗数据输出功能</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>汽车仪表水温数据显示输出</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>汽车仪表转速显示输出</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>仪表电源输入</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>SVS灯/MIL灯</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5480,55 +5466,55 @@
               <td width="10%" rowspan="5">风扇控制</td>
               <td>低速风扇继电器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>高速风扇继电器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>高低速中间继电器（五脚）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>PWM风扇控制</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>可变进气通道</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5537,55 +5523,55 @@
               <td width="10%" rowspan="5">增压发动机</td>
               <td>旁通阀</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>泄压阀</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>增压压力、温度传感器（Turbo）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>大气压力、温度传感器（Turbo）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>中冷风扇继电器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5593,33 +5579,33 @@
               <td width="10%" rowspan="3">V V T</td>
               <td>可变进气相位调节装置</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>进气油压控制阀</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>排气油压控制阀</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5628,22 +5614,22 @@
               <td width="10%" rowspan="2">水温电子控制</td>
               <td>电子节温器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>电子水泵</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5651,11 +5637,11 @@
             <tr>
               <td colspan="2">碰撞断油功能</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5663,44 +5649,44 @@
               <td width="10%" rowspan="4">发动机控制</td>
               <td>发电机（LIN通讯）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>发电机负载反馈输入信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>ECM控制发电机输出信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>充电指示灯是否受ECM控制</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5709,154 +5695,154 @@
               <td width="10%" rowspan="14">启停控制</td>
               <td>起动请求信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>起停系统主控制开关</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>起动电机继电器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>空挡位置传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>空挡开关输入信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>传动链状态输入信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>发动机舱开关状态输入信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>驾驶员侧车门开关信号输入起动机继电器控制（输出）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>起动机继电器控制（输出）信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>起停系统工作状态指示灯输出信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>起停系统警示灯输出信号</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>怠速停机状态输出信号（屏蔽仪表机油灯，电池灯）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>蓄电池状态传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>离合器信号（顶部开关，底部开关）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5865,22 +5851,22 @@
               <td width="10%" rowspan="2">机油温度/压力</td>
               <td>机油温度传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>机油压力传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5889,44 +5875,44 @@
               <td width="10%" rowspan="4">进气流量控制</td>
               <td>节气门位置传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>怠速步进电机</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>电子节气门（ETC）</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td>电子油门踏板</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5934,22 +5920,22 @@
             <tr>
               <td colspan="2">爆震传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
             <tr>
               <td colspan="2">加速度传感器</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -5999,11 +5985,11 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -6051,7 +6037,7 @@
                 </div>
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
             </tr>
@@ -6089,11 +6075,11 @@
               <td>ECM发动机电子控制模块</td>
               <td>28452294</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined explain">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
                 <input class="explain-text" type="hidden">
               </td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined resolvent">+</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
                 <input class="resolvent-text" type="hidden">
               </td>
             </tr>
@@ -6133,7 +6119,7 @@
               <td>王先生</td>
               <td>2018-12-12</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined finished">已完成</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder finished">已完成</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -6142,7 +6128,7 @@
               <td>王先生</td>
               <td>2018-12-12</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined toSubmit">提交</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder toSubmit">提交</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -6193,7 +6179,7 @@
               <td>王先生</td>
               <td>2018-12-12</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined finished">已完成</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder finished">已完成</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -6202,7 +6188,7 @@
               <td>王先生</td>
               <td>2018-12-12</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined finished">已完成</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder finished">已完成</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>
@@ -6211,7 +6197,7 @@
               <td>王先生</td>
               <td>2018-12-12</td>
               <td>
-                <i class="mui-btn mui-btn-blue mui-btn-outlined finished">已完成</i>
+                <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder finished">已完成</i>
                 <input class="explain" type="hidden">
               </td>
             </tr>

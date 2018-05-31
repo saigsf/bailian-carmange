@@ -15,9 +15,6 @@
   <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
   <!--独立样式-->
   <style type="text/css">
-    .mui-table-view-cell {
-      background-color: transparent;
-    }
 
     .mui-input-row label {
       width: 22%;
@@ -33,17 +30,6 @@
       padding-bottom: 10px;
       width: auto;
     }
-
-    .mui-radio input[type=radio] {
-      position: relative;
-      left: 0;
-      top: 10px;
-    }
-
-    .mui-radio input[type=radio]:before {
-      font-size: 20px;
-    }
-
     .mui-radio-box {
       padding-left: 15px;
       display: flex;
@@ -69,7 +55,7 @@
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <form id="driver">
-        <ul class="mui-table-view">
+        <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>姓名</label>
@@ -101,7 +87,9 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>所属分组</label>
-              <select name="gids" id="groups"></select>
+              <select name="gids" id="groups">
+                <option value="">没有分组</option>
+              </select>
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -137,12 +125,10 @@
               <input id="remark" name="remark" type="text" class="mui-input-clear" placeholder="">
             </div>
           </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-button-row">
-              <button type="button" class="mui-btn mui-btn-blue" id="next">提交</button>
-            </div>
-          </li>
         </ul>
+        <div class="mui-button-row">
+              <button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="next">提交</button>
+            </div>
       </form>
 
     </div>

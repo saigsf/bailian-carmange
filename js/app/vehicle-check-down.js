@@ -2,9 +2,7 @@
   //初始化
   mui.init();
 
-  mui('.mui-scroll-wrapper').scroll({
-    indicators: true //是否显示滚动条
-  });
+  mui('.mui-scroll-wrapper').scroll();
   
   mui.plusReady(function () {
     if (plus.device.model === 'iPhoneX') {

@@ -17,7 +17,7 @@
 
   mui.init();
   //子页面列表
-  var subpages = ['vehicle-list.html', 'vehicle-check-up.html', 'vehicle-input-list.html', 'vehicle-insurance-input.html', 'vehicle-check-down.html'];
+  var subpages = ['vehicle-list.html', 'vehicle-check-up.html', 'vehicle-input-list.html', 'vehicle-insurance-list.html', 'vehicle-temporary-licence-list.html', 'vehicle-check-down.html'];
   // 子页面切换样式
   var subpages_style = {
     top: '64px',
