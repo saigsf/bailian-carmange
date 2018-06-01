@@ -770,7 +770,7 @@ span.hide {
 }
 
 .date-wrapper label {
-    width: 25%;
+    width: 26%;
     font-size: 14px;
     text-align: right;
     padding-right: 5px;
@@ -784,6 +784,7 @@ span.hide {
     /* width: 80%; */
 }
 
+.date-text select,
 .date-text input[type=text],
 .date-text input[type=number]  {
     margin: 0;

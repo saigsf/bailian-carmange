@@ -10,9 +10,13 @@
     main = plus.webview.getWebviewById("vehicle-list.html");
     H = self.H;
   })
-  $(document).on('tap', function() {
-    mui.back();
-    mui.fire(main, 'closeMenu', {})
+  // $(document).on('tap', function() {
+    
+  //   mui.fire(main, 'closeMenu', {})
 
+  // })
+
+  document.addEventListener('close', function() {
+    mui.back();
   })
 })();

@@ -64,6 +64,9 @@
       width: 100%;
       line-height: 20px;
     }
+    .item-right-middle p:last-of-type {
+      text-align: right;
+    }
 
     .item-right-middle p span {
       display: inline-block;
@@ -99,6 +102,7 @@
     .mui-popover .mui-table-view-cell:after {
       display: block;
     }
+
     .top .mui-btn {
       padding-right: 30px;
     }
@@ -108,9 +112,11 @@
       top: 35%;
       right: 12px;
     }
+
     .top .mui-input-row.mui-search {
       width: 76%;
     }
+
     .top .mui-btn {
       border: none
     }
@@ -144,51 +150,12 @@
         </a>
 
       </form>
-      <ul id="OA_task_1" class="mui-table-view">
-        <li class="mui-table-view-cell">
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview">
+        <li class="mui-table-view-cell" data-vSn="">
           <div class="mui-slider-right mui-disabled">
             <a class="mui-btn mui-btn-gray settop">置顶</a>
-            <a class="mui-btn mui-btn-red delete">删除</a>
-
-          </div>
-          <div class="mui-slider-handle">
-            <div class="list-item">
-              <div class="item-left">
-                <img src="../img/common/icon_app.png" />
-              </div>
-              <div class="item-right">
-                <div class="item-right-top">
-                  <div class="number">
-                    <h4>2018-0591</h4>
-                    <p>陕A6509B</p>
-                  </div>
-                  <div class="mui-btn mui-btn-blue mui-btn-outlined finished">
-                    <span>查看详情</span>
-                    <i class="mui-icon mui-icon-arrowright"></i>
-                  </div>
-                </div>
-                <div class="item-right-middle">
-                  <p>
-                    <span>维修项目</span>：更换副驾驶皮带轮</p>
-                  <p>
-                    <span>停放地点</span>：维修车间</p>
-                  <p>
-                    <span>送修人</span>：张三</p>
-                  <p>
-                    <span>备注</span>：较急</p>
-                  <p>
-                    <span>送修日期</span>：2018-02-22
-                    <span>截止日期：</span>2018-02-22</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">置顶</a>
-            <a class="mui-btn mui-btn-red delete">删除</a>
-
+            <a class="mui-btn mui-btn-red allot">分配</a>
+            <a class="mui-btn mui-btn-blue maintain">保养</a>
           </div>
           <div class="mui-slider-handle">
             <div class="list-item">
@@ -212,22 +179,19 @@
                   <p>
                     <span>停放地点</span>：维修车间</p>
                   <p>
-                    <span>送修人</span>：张三</p>
+                    <span>申请人</span>：张三</p>
                   <p>
-                    <span>备注</span>：较急</p>
-                  <p>
-                    <span>送修日期</span>：2018-02-22
-                    <span>截止日期：</span>2018-02-22</p>
+                    <span>申请日期</span>：2018-02-22</p>
                 </div>
               </div>
             </div>
           </div>
         </li>
-        <li class="mui-table-view-cell">
+        <li class="mui-table-view-cell" data-vSn="">
           <div class="mui-slider-right mui-disabled">
             <a class="mui-btn mui-btn-gray settop">置顶</a>
-            <a class="mui-btn mui-btn-red delete">删除</a>
-
+            <a class="mui-btn mui-btn-red allot">分配</a>
+            <a class="mui-btn mui-btn-blue maintain">保养</a>
           </div>
           <div class="mui-slider-handle">
             <div class="list-item">
@@ -240,8 +204,8 @@
                     <h4>2018-0591</h4>
                     <p>陕A6509B</p>
                   </div>
-                  <div class="mui-btn mui-btn-blue mui-btn-outlined repairing">
-                    <span>维修中</span>
+                  <div class="mui-btn mui-btn-red mui-btn-outlined waiting">
+                    <span>等待中</span>
                     <i class="mui-icon mui-icon-arrowright"></i>
                   </div>
                 </div>
@@ -251,22 +215,19 @@
                   <p>
                     <span>停放地点</span>：维修车间</p>
                   <p>
-                    <span>送修人</span>：张三</p>
+                    <span>申请人</span>：张三</p>
                   <p>
-                    <span>备注</span>：较急</p>
-                  <p>
-                    <span>送修日期</span>：2018-02-22
-                    <span>截止日期：</span>2018-02-22</p>
+                    <span>申请日期</span>：2018-02-22</p>
                 </div>
               </div>
             </div>
           </div>
         </li>
-        <li class="mui-table-view-cell">
+        <li class="mui-table-view-cell" data-vSn="">
           <div class="mui-slider-right mui-disabled">
             <a class="mui-btn mui-btn-gray settop">置顶</a>
-            <a class="mui-btn mui-btn-red delete">删除</a>
-
+            <a class="mui-btn mui-btn-red allot">分配</a>
+            <a class="mui-btn mui-btn-blue maintain">保养</a>
           </div>
           <div class="mui-slider-handle">
             <div class="list-item">
@@ -279,8 +240,8 @@
                     <h4>2018-0591</h4>
                     <p>陕A6509B</p>
                   </div>
-                  <div class="mui-btn mui-btn-blue mui-btn-outlined repairing">
-                    <span>维修中</span>
+                  <div class="mui-btn mui-btn-outlined finished">
+                    <span>已完成</span>
                     <i class="mui-icon mui-icon-arrowright"></i>
                   </div>
                 </div>
@@ -290,51 +251,9 @@
                   <p>
                     <span>停放地点</span>：维修车间</p>
                   <p>
-                    <span>送修人</span>：张三</p>
+                    <span>申请人</span>：张三</p>
                   <p>
-                    <span>备注</span>：较急</p>
-                  <p>
-                    <span>送修日期</span>：2018-02-22
-                    <span>截止日期：</span>2018-02-22</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">置顶</a>
-            <a class="mui-btn mui-btn-red delete">删除</a>
-
-          </div>
-          <div class="mui-slider-handle">
-            <div class="list-item">
-              <div class="item-left">
-                <img src="../img/common/icon_app.png" />
-              </div>
-              <div class="item-right">
-                <div class="item-right-top">
-                  <div class="number">
-                    <h4>2018-0591</h4>
-                    <p>陕A6509B</p>
-                  </div>
-                  <div class="mui-btn mui-btn-blue mui-btn-outlined repairing">
-                    <span>维修中</span>
-                    <i class="mui-icon mui-icon-arrowright"></i>
-                  </div>
-                </div>
-                <div class="item-right-middle">
-                  <p>
-                    <span>维修项目</span>：更换副驾驶皮带轮</p>
-                  <p>
-                    <span>停放地点</span>：维修车间</p>
-                  <p>
-                    <span>送修人</span>：张三</p>
-                  <p>
-                    <span>备注</span>：较急</p>
-                  <p>
-                    <span>送修日期</span>：2018-02-22
-                    <span>截止日期：</span>2018-02-22</p>
+                    <span>申请日期</span>：2018-02-22</p>
                 </div>
               </div>
             </div>

@@ -1,8 +1,6 @@
 ;(function (mui, doc) {
   mui.init();
-  mui('.mui-scroll-wrapper').scroll({
-    deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-  });
+  mui('.mui-scroll-wrapper').scroll();
   
   // 定义全局变量
   var H = null; // 页面高度
@@ -41,6 +39,20 @@
     });
     
   }
+
+  function getData() {
+    app.insuranceQuery({
+      page: 1,
+      size: 5
+    }, function(res) {
+      console.log(res)
+    })
+  }
+  getData();
+
+  function updateView() {
+
+  }
   
   // 页面点击事件
   function addEvents() {
@@ -61,6 +73,8 @@
 
     $('#vehicle_insurance_list').on('tap', '.insurance-entry', function(e) {
       e.stopPropagation();
+      var $li = $(this).parents('li')
+
       mui.openWindow({
         url: 'vehicle-insurance-input.html',
         id: 'vehicle-insurance-input', //默认使用当前页面的url作为id
@@ -69,7 +83,8 @@
           bottom: H
         }, //窗口参数
         extras: {
-          H: H
+          H: H,
+          vSn: $li.attr('data-vSn')
         } //自定义扩展参数
       })
     })

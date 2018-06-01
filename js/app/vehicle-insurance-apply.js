@@ -157,7 +157,8 @@
         bottom: H
       }, //窗口参数
       extras: {
-        H: H
+        H: H,
+        vSns: ids.join()
       } //自定义扩展参数
     })
   })

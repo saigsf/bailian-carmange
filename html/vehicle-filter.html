@@ -11,13 +11,203 @@
 	<link href="../css/mui.min.css" rel="stylesheet" />
 	<!--自定义图标样式-->
 	<link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+	<!--自定义页面样式-->
+	<link rel="stylesheet" type="text/css" href="../css/style-common.css" />
 
+	<style>
+		header.mui-bar,
+		header.mui-navbar {
+			height: 44px;
+			padding-top: 0;
+			background-color: #f1f1f1;
+
+		}
+
+		header.mui-bar h5,
+		header.mui-navbar h5 {
+			color: #797979;
+			line-height: 44px;
+			margin: 0;
+		}
+
+		.mui-bar-nav~.mui-content {
+			padding-top: 44px;
+
+		}
+
+		.mui-scroll {
+			background-color: #fff;
+		}
+
+		.mui-table-view,
+		.mui-table-view-cell {
+			background-color: transparent;
+		}
+
+		.mui-table-view-cell {
+			padding: 5px 12px;
+		}
+
+		.mui-table-view-cell:after {
+			display: none;
+		}
+
+		.filter-wrapper,
+		.filter-input-box,
+		.filter-btn-box {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			/* flex-direction: column */
+			font-size: 12px;
+		}
+
+		.filter-input-box,
+		.filter-btn-box {
+			justify-content: space-between;
+		}
+		.filter-btn-box {
+			flex-wrap: wrap
+		}
+		.filter-btn-box .mui-btn {
+			font-size: 10px;
+			padding: 8px 16px;
+			margin-bottom: 10px;
+			border: none;
+			background-color: #f1f1f1;
+			color: #606060;
+			position: relative;
+		}
+
+		.filter-btn-box .mui-btn.mui-active {
+			background-color: #e6effd;
+		}
+		.filter-btn-box .mui-btn.mui-active:after {
+			content: "√";
+			position: absolute;
+		}
+
+		.filter-wrapper-column {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.filter-wrapper label {
+			min-width: 60px;
+			text-align: right;
+		}
+		.filter-wrapper-column label {
+			font-size: 12px;
+			margin-bottom: 2px;
+		}
+
+		.filter-wrapper input,
+		.filter-input-box input {
+			margin: 0;
+			background-color: #f1f1f1;
+			font-size: 10px;
+			height: 34px;
+			width: auto;
+			border: none;
+		}
+
+		.filter-input-box input {
+			width: 100px;
+		}
+	</style>
 </head>
 
 <body>
-	<div class="container">
-		<p>筛选</p>
+	<header class="mui-bar mui-bar-nav">
+		<h5 class="">筛选</h5>
+	</header>
+	<div class="mui-content mui-scroll-wrapper">
+		<div class="mui-scroll">
 
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper">
+						<label>厂牌型号：</label>
+						<input type="text" placeholder="请输入">
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper">
+						<label>发动机号：</label>
+						<input type="text" placeholder="请输入">
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper">
+						<label>车架号：</label>
+						<input type="text" placeholder="请输入">
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper">
+						<label>保单号：</label>
+						<input type="text" placeholder="请输入">
+					</div>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper-column">
+						<label>保险日期</label>
+						<div class="filter-input-box">
+							<input type="text" placeholder="请输入">
+							<label for="">——</label>
+							<input type="text" placeholder="请输入">
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper-column">
+						<label>牌照日期</label>
+						<div class="filter-input-box">
+							<input type="text" placeholder="请输入">
+							<label for="">——</label>
+							<input type="text" placeholder="请输入">
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper-column">
+						<label>接车日期</label>
+						<div class="filter-input-box">
+							<input type="text" placeholder="请输入">
+							<label for="">——</label>
+							<input type="text" placeholder="请输入">
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper-column">
+						<label>还车日期</label>
+						<div class="filter-input-box">
+							<input type="text" placeholder="请输入">
+							<label for="">——</label>
+							<input type="text" placeholder="请输入">
+						</div>
+					</div>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper-column">
+						<label>车辆计数</label>
+						<div class="filter-btn-box">
+							<div class="mui-btn mui-active">所有车辆</div>
+							<div class="mui-btn">所有车辆</div>
+							<div class="mui-btn">所有车辆</div>
+							<div class="mui-btn">所有车辆</div>
+						</div>
+					</div>
+				</li>
+
+			</ul>
+
+		</div>
 	</div>
 
 	<!--<div class="close">

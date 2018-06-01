@@ -58,13 +58,13 @@
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <form>
+      <form id="insurance_input">
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <div class="date-wrapper">
               <label>车辆编号</label>
               <div class="date-text">
-                <input type="text" placeholder="车辆编号" disabled>
+                <input name="vSn" id="vSn" type="text" value="2019-222" placeholder="车辆编号">
               </div>
             </div>
           </li>
@@ -74,7 +74,7 @@
             <div class="date-wrapper">
               <label>保单号</label>
               <div class="date-text">
-                <input type="text" placeholder="请填写保单号">
+                <input name="No" type="text" placeholder="请填写保单号">
               </div>
             </div>
           </li>
@@ -82,7 +82,7 @@
             <div class="date-wrapper">
               <label>保险起始日</label>
               <div class="date-text" id="start_date_box">
-                <input type="text" id="start_date" readonly placeholder="请选择起始时间">
+                <input type="text" name="startTime" id="start_date" readonly placeholder="请选择起始时间">
                 <div class="date-icon">
                   <i class="icon icon-date"></i>
                 </div>
@@ -93,7 +93,7 @@
             <div class="date-wrapper">
               <label>保险截至日</label>
               <div class="date-text" id="end_date_box">
-                <input type="text" id="end_date" readonly placeholder="请选择结束时间">
+                <input type="text" name="endTime" id="end_date" readonly placeholder="请选择结束时间">
                 <div class="date-icon">
                   <i class="icon icon-date"></i>
                 </div>
@@ -104,7 +104,7 @@
             <div class="date-wrapper">
               <label>厂牌型号</label>
               <div class="date-text">
-                <input type="text" placeholder="请填写厂牌型号">
+                <input type="text" name="brandModeltwo" placeholder="请填写厂牌型号">
               </div>
             </div>
           </li>
@@ -112,8 +112,7 @@
             <div class="date-wrapper">
               <label>备注</label>
               <div class="date-text">
-                <!-- <input type="text" placeholder="请选择起始时间"> -->
-                <textarea name="" id="" cols="30" rows="4" placeholder="备注"></textarea>
+                <textarea name="remark" id="" cols="30" rows="4" placeholder="备注"></textarea>
               </div>
             </div>
           </li>

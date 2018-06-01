@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>保险录入确定</title>
+  <title>维修内容</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -75,39 +75,36 @@
       left: 50%;
       transform: translateX(-50%)
     }
+    .vSn {
+      color: #2885cf;
+      font-weight: bold;
+    }
   </style>
 </head>
 
 <body>
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
-    <h1 class="mui-title">保险申请确定</h1>
+    <h1 class="mui-title">维修内容</h1>
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <form id="apply">
+      <form id="allot">
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
-            <div class="date-wrapper">
-              <label>车辆编号</label>
-              <div class="date-text">
-                <input type="text" name="vSns" id="vSns" placeholder="车辆编号">
-              </div>
-            </div>
+              <p class="vSn">车辆编号：<span id="vSn"></span></p>
           </li>
         </ul>
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <div class="date-wrapper">
-              <label>申请期限</label>
+              <label>停放地点</label>
               <div class="date-text">
-                <input type="number" name="numtime" id="numtime" placeholder="请输入数字">
-                <div class="date-icon">
-                  <i class="icon icon-font ">年</i>
-                </div>
+                <input type="text" name="fin_park">
               </div>
             </div>
           </li>
+
           <li class="mui-table-view-cell">
             <div class="date-wrapper">
               <label>备注</label>
@@ -133,7 +130,7 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script src="../js/app/vehicle-insurance-apply-input.js"></script>
+  <script src="../js/app/repair-content.js"></script>
 </body>
 
 </html>

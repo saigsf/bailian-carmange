@@ -407,12 +407,16 @@
 		owner.HTTPRequest('POST', url, data, callback)
 	}
 
-	/* 车辆分组加载 */
-	owner.groupFind = function (data, callback) {
+	/**
+	 * 车辆分组获取
+	 * @param data 请求参数
+	 * @param callback 回掉函数
+	 */
+	owner.getGroup = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/group/find.action';
+		var url = 'car-management/group/getGroup.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
@@ -449,10 +453,9 @@
 	}
 
 	/**
-	 * 
+	 * 接车点检
 	 * @param {json} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 接车点检
 	 */
 	owner.upcheck = function (data, callback) {
 		callback = callback || $.noop;
@@ -485,9 +488,9 @@
 	}
 
 	/**
+	 * 接车点检信息查看
 	 * @param {vSn} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 接车点检信息查看
 	 */
 	owner.findUpcheck = function (data, callback) {
 		callback = callback || $.noop;
@@ -499,10 +502,10 @@
 	}
 
 	/**
-	 * 
+	 * 安全检查
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 安全检查
+	 * 
 	 */
 	owner.addSafeCheck = function (data, callback) {
 		callback = callback || $.noop;
@@ -781,87 +784,123 @@
 		owner.HTTPRequest('POST', url, data, callback)
 	}
 
-	/* ===============车辆维修=============== */
-
+	/* ===============车辆 end=============== */
+	/* ===============保险 start=============== */
 	/**
-	 * 维修申请校验
-	 * @param {Object} data 请求参数
+	 * 保险申请
+	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
 	 */
-	owner.carMaintainCheck = function (data, callback) {
+	owner.insuranceApply = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
+		data.vSns = data.vSns.split(',');
 
-		var url = 'car-management/carMaintain/check/' + data.vSn + '.action';
+		var url = 'car-management/insurance/apply.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
+	/**
+	 * 保险录入
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.insuranceAdd = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/insurance/addInsurance.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+	/**
+	 * 续保
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.insuranceLast = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/insurance/lastInsurance.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+	/**
+	 * 保险查询
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.insuranceQuery = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/insurance/pageQuery.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+
+	/* ===============保险 end=============== */
+	/* ===============维修 start=============== */
 
 	/**
 	 * 维修申请
 	 * @param {Object} data 请求参数
 	 * @param {Function} callback 回掉函数
 	 */
-	owner.PutInCarMaintainApply = function (data, callback) {
+	owner.carMaintainApply = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
-
-		// 维修申请校验
-		owner.carMaintainCheck({ vSn: data.vSn }, function (res) {
-			res = JSON.parse(res);
-			if (res.ret) {
-				var url = 'car-management/carMaintain/PutInCarMaintainApply.action';
-				owner.HTTPRequest('POST', url, data, callback)
-			} else {
-				mui.toast(res.msg)
-			}
-		})
-	}
-
-	/**
-	 * 维修协调员填写
-	 * @param {Object} data 请求参数
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.coordination = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/carMaintain/coordination.action';
-
+		var url = 'car-management/carmaintain/apply.action';
 		owner.HTTPRequest('POST', url, data, callback)
 	}
 
 	/**
-	 * 维修列表-搜索
+	 * 任务分配
 	 * @param {Object} data 请求参数
 	 * @param {Function} callback 回掉函数
 	 */
-	owner.pageQueryCarMaintain = function (data, callback) {
+	owner.carMaintainAssign = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/carMaintain/pageQueryCarMaintain.action';
+		var url = 'car-management/carmaintain/assign.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequest('post', url, data, callback)
 	}
 
 	/**
-	 * 删除维修
+	 * 维修完成
 	 * @param {Object} data 请求参数
 	 * @param {Function} callback 回掉函数
 	 */
-	owner.carMaintainDelete = function (data, callback) {
+	owner.carMaintainComplete = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/carMaintain/delete.action';
+		var url = 'car-management/carmaintain/complete.action';
 
-		owner.HTTPRequest('get', url, data, callback)
+		owner.HTTPRequest('post', url, data, callback)
 	}
 
 	/**
-	 * 置顶
+	 * 维修列表-查询-搜索
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carMaintainQuery = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/carmaintain/query.action';
+
+		owner.HTTPRequest('post', url, data, callback)
+	}
+
+
+	/**
+	 * 维修列表置顶
 	 * @param {Object} data 请求参数
 	 * @param {Function} callback 回掉函数
 	 */
@@ -869,14 +908,30 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/carMaintain/top.action';
+		var url = 'car-management/carmaintain/top.action';
 
-		owner.HTTPRequest('get', url, data, callback)
+		owner.HTTPRequest('post', url, data, callback)
+	}
+
+	/**
+	 * 维修工查询
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carMaintainEmployee = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/carmaintain/employee.action';
+
+		owner.HTTPRequest('post', url, data, callback)
 	}
 
 
 
-	/* =================驾驶员====================== */
+
+	/* ===============维修 end=============== */
+	/* =================驾驶员 start====================== */
 	/**
 	 * 驾驶员列表
 	 * @param {Object} data 请求参数
@@ -987,10 +1042,39 @@
 
 		var url = 'car-management/driver/group/getGroup.action';
 
-		console.log(JSON.stringify(data))
 		owner.HttpRequestNonCrossDomain('get', url, data, callback)
 	}
 
+	/**
+	 * 车辆出入
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carInAndOutAll = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/inAndOut/all.action';
+
+		owner.HTTPRequest('post', url, data, callback)
+	}
+
+	/**
+	 * 车辆出入删除
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carInAndOutDelete = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/inAndOut/delete.action';
+
+		owner.HTTPRequest('post', url, data, callback)
+	}
+
+
+	/* =================驾驶员 end====================== */
 	/* ================GPS地图数据获取================ */
 
 	/**

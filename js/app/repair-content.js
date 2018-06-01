@@ -6,14 +6,15 @@
 
   var H = null;
   var vSn = null;
+  var view = null;
   
   mui.plusReady(function () {
     handsetAdaption()
     var self = plus.webview.currentWebview();
+    view = plus.webview.getWebviewById('html/repair-list.html')
     H = self.H;
     vSn = self.vSn;
-
-    $('#vSn').val(vSn)
+    $('#vSn').html(vSn)
   })
 
   function handsetAdaption() {
@@ -32,17 +33,26 @@
     });
   }
 
-  $('#submit').on('tap', function() {
-    var data = serialize($('#insurance_input'));
 
-    console.log(data);
-    app.insuranceAdd(data, function(res) {
+  // 提交
+  $('#next').on('tap', function() {
+    var data = serialize($('#allot'));
+    data.vSn = $('#vSn').html()
+
+    if(!data.fin_park) {
+      mui.toast('请填写停放地点')
+      return;
+    }
+
+    app.carMaintainComplete(data, function(res) {
       res = JSON.parse(res);
-      console.log(res)
+      console.log(res);
       mui.toast(res.msg);
       if(res.ret) {
+        mui.fire(view, 'update', {});
         mui.back();
       }
+      
     })
   })
 

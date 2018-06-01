@@ -30,23 +30,10 @@
     });
 
     self = plus.webview.currentWebview();
-    console.log(self.id)
-    main = plus.webview.getWebviewById("index");
+    main = plus.webview.getWebviewById("HBuilder");
     H = self.H;
 
-    self.addEventListener('maskClick', closeMenu);
-    //处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
-    // setTimeout(function () {
-    //   side = mui.preload({
-    //     id: 'vehcle-filter',
-    //     url: 'vehcle-filter.html',
-    //     styles: {
-    //       left: 0,
-    //       width: '70%',
-    //       zindex: -1
-    //     }
-    //   });
-    // }, 200);
+    main.addEventListener('maskClick', closeMenu);
 
     addEvent();
   });
@@ -225,6 +212,7 @@
 
   //打开侧滑窗口；
   function openMenu() {
+    
     main.setStyle({
       mask: 'rgba(0,0,0,0.5)'
     }); //menu设置透明遮罩防止点击
@@ -233,6 +221,7 @@
       url: 'vehicle-filter.html',
       id: 'vehicle-filter', //默认使用当前页面的url作为id
       styles: {
+        top: '34px',
         left: '30%',
         width: '70%',
         zindex: 999
@@ -249,20 +238,26 @@
   //关闭侧滑窗口；
   function closeMenu() {
     //关闭遮罩；
+    side = plus.webview.getWebviewById("vehicle-filter");
     main.setStyle({
       mask: 'none'
-    })
+    });
+    mui.fire(side, 'close', {})
+
   };
 
   //点击头部菜单小图标，打开侧滑菜单；
   $('#filter').on('tap', function(e) {
+    // main = plus.webview.getWebviewById("HBuilder");
+    // console.log(main.id)
     e.stopPropagation();
     openMenu()
+    // mui.fire(main, 'openSide', {})
+    // mui('.mui-off-canvas-wrap').offCanvas().show();
   });
   //menu页面点击后关闭菜单；
   // window.addEventListener("menu:tap", closeMenu);
   window.addEventListener('closeMenu', closeMenu)
-  window.addEventListener('tap', closeMenu)
 
 
 
