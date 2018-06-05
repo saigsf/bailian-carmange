@@ -44,7 +44,7 @@
     setTimeout(function () {
 
       mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
-      mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+      // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
     }, 1000)
   }
 

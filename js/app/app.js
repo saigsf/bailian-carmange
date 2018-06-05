@@ -422,34 +422,18 @@
 	}
 
 	/**
-	 * 检查类型字典
-	 * @param data 请求参数
-	 * @param callback 回掉函数
+	 * 获取车辆编号
+	 * @param {json} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 */
-	owner.findAllCheckName = function (data, callback) {
+	owner.getvSn = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/findAllCheckName.action';
+		var url = 'car-management/car/getvSn.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
-	}
 
-	/**
-	 * 获取某一检查的所有检查项
-	 * @param data 请求参数	
-	 * @param callback 回掉函数
-	 */
-	owner.findAllParentItem = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/findAllParentItem.action?CNID=' + data.CNID;
-
-		owner.HTTPRequest('POST', url, {
-			param: data.param,
-			type: data.type
-		}, callback)
 	}
 
 	/**
@@ -460,35 +444,88 @@
 	owner.upcheck = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
-		//输入校验
-		if (!data.vSn) {
-			return mui.toast('车辆编号未填写');
-		}
-		if (!data.engineNumber) {
-			return mui.toast('发动机编号未填写');
-		}
-		if (!data.vin) {
-			return mui.toast('车辆识别码未填写');
-		}
-		if (!data.send_p) {
-			return mui.toast('送车人未填写');
-		}
-		if (!data.pickone) {
-			return mui.toast('接车人未填写');
-		}
-		if (!data.telephone) {
-			return mui.toast('电话未填写');
+		var checkArr = ['vSn', 'brandModelone', 'vin', 'odometer', 'send_p', 'engineNumber', 'telephone']
+		var translateArr = [{
+			name: 'vSn',
+			value: '车辆编号不能为空'
+		}, {
+			name: 'brandModelone',
+			value: '厂牌型号不能为空'
+		}, {
+			name: 'vin',
+			value: '车架号不能为空'
+		}, {
+			name: 'odometer',
+			value: '里程表不能为空'
+		}, {
+			name: 'send_p',
+			value: '送车人不能为空'
+		}, {
+			name: 'engineNumber',
+			value: '发动机号不能为空'
+		}, {
+			name: 'telephone',
+			value: '送车人电话不能为空'
+		}];
+
+		var checkResult = hasEmptyValue(data, checkArr);
+		if (checkResult) {
+			mui.toast(translate(checkResult, translateArr));
+			return;
 		}
 
 		var url = 'car-management/car/upcheck.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
 
-		// callback()
 	}
 
 	/**
-	 * 接车点检信息查看
+	 * 接车点检更新
+	 * @param {json} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.updateUpcheck = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+		var checkArr = ['vSn', 'brandModelone', 'vin', 'odometer', 'send_p', 'engineNumber', 'telephone']
+		var translateArr = [{
+			name: 'vSn',
+			value: '车辆编号不能为空'
+		}, {
+			name: 'brandModelone',
+			value: '厂牌型号不能为空'
+		}, {
+			name: 'vin',
+			value: '车架号不能为空'
+		}, {
+			name: 'odometer',
+			value: '里程表不能为空'
+		}, {
+			name: 'send_p',
+			value: '送车人不能为空'
+		}, {
+			name: 'engineNumber',
+			value: '发动机号不能为空'
+		}, {
+			name: 'telephone',
+			value: '送车人电话不能为空'
+		}];
+
+		var checkResult = hasEmptyValue(data, checkArr);
+		if (checkResult) {
+			mui.toast(translate(checkResult, translateArr));
+			return;
+		}
+
+		var url = 'car-management/car/updateUpcheck.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+
+	}
+
+	/**
+	 * 接车点检信息查询
 	 * @param {vSn} data 请求参数	
 	 * @param {Function} callback 回掉函数
 	 */
@@ -496,9 +533,94 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/findUpcheck.action';
+		var url = 'car-management/car/findUpcheck/' + data.vSn + '.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequestPost('POST', url, {}, callback)
+	}
+
+	/**
+	 * BOM检查
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.addEmsAndBomCheck = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/addEmsAndBomCheck/' + data.vSn + '.action'
+
+		owner.HTTPRequestPost('POST', url, data.emsAndBomCheckResults, callback)
+	}
+
+	/**
+	 * BOM检查更新
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.updateEmsAndBomCheckByCar = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/updateEmsAndBomCheckByCar/' + data.vSn + '.action'
+
+		owner.HTTPRequestPost('POST', url, data.emsAndBomCheckResults, callback)
+	}
+
+	/**
+	 * BOM检查信息查看
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.findEmsAndBomCheckByvSn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/findEmsAndBomCheckByvSn/' + data.vSn + '.action';
+
+		owner.HTTPRequestPost('POST', url, {}, callback)
+	}
+
+	
+	/**
+	 * 线束检查
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.addHiCheck = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/addHiCheck/' + data.vSn + '.action';
+
+		owner.HTTPRequestPost('POST', url, data.HIResults, callback)
+	}
+	
+	/**
+	 * 线束检查更新
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.updateHiCheckByvSn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/updateHiCheckByvSn/' + data.vSn + '.action';
+
+		owner.HTTPRequestPost('POST', url, data.HIResults, callback)
+	}
+
+	/**
+	 * 线束检查查看
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.findHiCheckByvSn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/findHiCheckByvSn/' + data.vSn + '.action';
+
+		owner.HTTPRequestPost('POST', url, {}, callback)
 	}
 
 	/**
@@ -513,276 +635,208 @@
 
 		var url = 'car-management/car/addSafeCheck/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data.saftCheckResult, callback)
+		owner.HTTPRequestPost('POST', url, data.safeCheckResult, callback)
 	}
 
 	/**
-	 * 
+	 * 安全检查更新
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 安全检查查看
+	 * 
 	 */
-	owner.findSafeCheckByCar = function (data, callback) {
+	owner.updateSafeCheckByvSn = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/findSafeCheckByCar/' + data.vSn + '.action';
+		var url = 'car-management/car/updateSafeCheckByvSn/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data, callback)
+		owner.HTTPRequestPost('POST', url, data.safeCheckResult, callback)
 	}
 
 	/**
-	 * 
+	 * 安全检查查看
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 缸压检查
+	 */
+	owner.findSafeCheckByvSn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/findSafeCheckByvSn/' + data.vSn + '.action';
+
+		owner.HTTPRequestPost('POST', url, {}, callback)
+	}
+
+	/**
+	 * 缸压检查
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
 	 */
 	owner.saveClacyLindersss = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/saveClacyLindersss/' + data.vSn + '.action';
+		var url = 'car-management/car/saveClacyLindersss.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 缸压检查更新
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.updateCldCheckByvSn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/updateCldCheckByvSn.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 缸压检查查看
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.findCldCheckByvSn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/findCldCheckByvSn/' + data.vSn + '.action';
+
+		owner.HTTPRequestPost('POST', url, {}, callback)
+	}
+
+	/**
+	 * 还车点检
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.backCheck = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/backCheck.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 还车点检信息查询
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.findBackcheck = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/findBackcheck/'+data.vSn+'.action';
+
+		owner.HTTPRequest('POST', url, {}, callback)
+	}
+
+	/**
+	 * 审核
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.doReview = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/doReview.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 审核信息查看
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.findReview = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/findReview.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 获取审核视图
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.getReviewInfo = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/getReviewInfo/'+data.vSn+'.action';
 
 		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
-	 * 
+	 * 查看车辆研发记录
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 缸压检查查看
 	 */
-	owner.findCldCheckByCar = function (data, callback) {
+	owner.findDevelop = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/findCldCheckByCar/' + data.vSn + '.action';
+		var url = 'car-management/car/findDevelop.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 车辆录入
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.save = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/save.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * bom零部件查验
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.applybom = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/applybom.action';
 
 		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
-	 * 
+	 * 研发工具安装申请
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
-	 * @name 线束检查
 	 */
-	owner.addHiCheck = function (data, callback) {
+	owner.applytools = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/addHiCheck/' + data.vSn + '.action';
-
-		owner.HTTPRequestPost('POST', url, data.saftCheckResult, callback)
-	}
-
-	/**
-	 * 
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 * @name 线束检查查看
-	 */
-	owner.findHiCheckByCar = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/findHiCheckByCar/' + data.vSn + '.action';
+		var url = 'car-management/car/applytools.action';
 
 		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
-	/**
-	 * 
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 * @name BOM/EMS检查
-	 */
-	owner.addEmsAndBomCheck = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
 
-		var url = 'car-management/car/addEmsAndBomCheck/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data.saftCheckResult, callback)
-	}
-
-	/**
-	 * 
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 * @name BOM/EMS检查查看
-	 */
-	owner.findEmsAndBomCheckByCar = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/findEmsAndBomCheckByCar/' + data.vSn + '.action';
-
-		owner.HTTPRequestPost('POST', url, data, callback)
-	}
-
-	/**
-	 * 
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 * @name 车辆审核，审核通过
-	 */
-	owner.passReview = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/passReview.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-
-	/**
-	 * 
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 * @name 车辆审核，审核不通过
-	 */
-	owner.notPassReview = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/notPassReview.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-
-	/**
-	 * 待审核列表
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.findWaitReviewCar = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/findWaitReviewCar.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-
-	/**
-	 * 已经完成的审核列表
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.findPassReview = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/findPassReview.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-
-	/**
-	 * 审核失败列表
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.findNotPassReview = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/findNotPassReview.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-
-	/**
-	 * 删除审核记录
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.deleteReview = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/deleteReview/' + data.id + '.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-
-	/**
-	 * 
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 * @name 未完成车辆列表
-	 */
-	owner.vehicleQuery = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/tempcar/query.action';
-
-		data = JSON.stringify(data)
-
-		owner.HTTPRequestPost('POST', url, data, callback)
-	}
-
-	/**
-	 * 车辆搜索
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.vehicleSearch = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/tempcar/query.action';
-
-		data = JSON.stringify(data);
-		console.log(data)
-		owner.HTTPRequestPost('POST', url, data, callback)
-	}
-
-	/**
-	 * 车辆删除
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.vehicleDelete = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/tempcar/delete.action';
-
-		// data = JSON.stringify(data)
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-
-	/**
-	 * 
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 * @name 车辆列表
-	 */
-	owner.pageQuery = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/pageQuery.action';
-
-		owner.HTTPRequest('POST', url, data, callback, true)
-	}
-
-	/**
-	 * 车辆列表删除
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.delete = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/car/delete.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
 
 	/* ===============车辆 end=============== */
 	/* ===============保险 start=============== */
@@ -848,7 +902,7 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/insurance/findByvSn/'+data.vSn+'.action';
+		var url = 'car-management/insurance/findByvSn/' + data.vSn + '.action';
 
 		owner.HTTPRequest('POST', url, {}, callback)
 	}
@@ -1012,7 +1066,7 @@
 		data = data || {};
 		var startDate = (new Date()).format('yyyy-MM-dd');
 		var year = new Date().getFullYear()
-		var endDate = (new Date()).setFullYear(year+1);
+		var endDate = (new Date()).setFullYear(year + 1);
 
 		var url = 'car-management/driver/add.action';
 

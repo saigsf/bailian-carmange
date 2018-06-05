@@ -251,6 +251,7 @@ header.mui-navbar .mui-bar-nav {
 .mui-input-row label~input[type=text],
 .mui-input-row label~input[type=password],
 .mui-input-row label~input[type=tel],
+.mui-input-row label~input[type=number],
 .mui-input-row label~select,
 .mui-input-row label~textarea {
     padding: 10px;
@@ -918,18 +919,55 @@ span.hide {
 
 /* 自定义按钮 */
 
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    overflow: hidden;
+    width: 80%;
+    margin: 40px auto;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    box-shadow: 0 5px 13px rgba(40, 133, 207, .4)
+}
+
+.btn-wrapper .btn {
+    width: 50%;
+    height: 100%;
+    border-radius: 0;
+}
+
+.btn-wrapper .btn:only-child {
+    width: 100%
+}
+
+
 .btn {
     font-size: 14px;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #eee;
+    color: #a3a3a3;
+    background-color: #e5e5e5;
 }
 
 .btn-blue {
-    background-color: #2885cf;
+    background-color: rgba(40, 133, 207, 1);
     color: #fff;
-    border: 1px solid #2885cf;
 }
+
+.btn-orange {
+    background-color: #e9b85a;
+    color: #fff;
+}
+
+button {
+    border: none;
+    outline: none;
+}
+
+/* button:focus {
+    background-color: rgba(40, 133, 207, .7);;
+} */
 
 /* 自定义复选框样式 */
 

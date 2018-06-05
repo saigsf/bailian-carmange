@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>车辆详情</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -54,12 +54,63 @@
     }
 
     .info-content-top {
-      height: 20%;
-      border-bottom: 1px solid #e5e9ee
+      height: 15%;
+      padding: 0 12px;
+      align-items: flex-start;
     }
+
     .info-content-bottom {
-      height: 80%;
-      background-color: #fff;
+      height: 85%;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 10px;
+    }
+
+    .info-content-bottom a {
+      font-size: 12px;
+      color: #333;
+      width: 60px;
+      text-align: center
+    }
+
+    .info-item:first-of-type {
+      background-image: url(../img/common/md/vehicle_info_bg@2x.png);
+    }
+
+    .icon-vehicle-input {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/vehicle_input@2x.png);
+    }
+
+    .icon-safe-check {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/safe_check@2x.png);
+    }
+
+    .icon-wire-check {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/wire_check@2x.png);
+    }
+
+    .icon-bom-check {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/bom_check@2x.png);
+    }
+
+    .icon-vehicle-auditing {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/vehicle_auditing@2x.png);
+    }
+
+    .icon-tools {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/tools@2x.png);
     }
   </style>
 </head>
@@ -71,89 +122,128 @@
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-        <div class="info-top"></div>
-        <div class="info-wrapper">
-          <div class="info-item">
-            <div class="info-content">
-              <div class="info-content-top">
-                  <h5 >分类</h5>
-              </div>
-              <div class="info-content-bottom">
-
-              </div>
+      <div class="info-top"></div>
+      <div class="info-wrapper">
+        <div class="info-item">
+          <div class="info-content">
+            <div class="info-content-top">
+              <h5>分类</h5>
+            </div>
+            <div class="info-content-bottom" id="info_link_box">
+              <a href="#" class="info-link">
+                <i class="icon icon-up-check"></i>
+                <span>接车点检</span>
+              </a>
+              <a href="#" class="info-link" data-id="one">
+                <i class="icon icon-vehicle-input"></i>
+                <span>车辆录入</span>
+              </a>
+              <a href="#" class="info-link" data-id="two">
+                <i class="icon icon-safe-check"></i>
+                <span>安全检查</span>
+              </a>
+              <a href="#" class="info-link" data-id="three">
+                <i class="icon icon-wire-check"></i>
+                <span>线束检查</span>
+              </a>
+              <a href="#" class="info-link" data-id="four">
+                <i class="icon icon-bom-check"></i>
+                <span>bom检查</span>
+              </a>
+              <a href="#" class="info-link" data-id="five">
+                <i class="icon icon-tools" ></i>
+                <span>研发工具</span>
+              </a>
+              <a href="#" class="info-link" data-id="sex">
+                <i class="icon icon-vehicle-auditing"></i>
+                <span>车辆审核</span>
+              </a>
+              <a href="#" class="info-link">
+                <i class="icon icon-down-check"></i>
+                <span>换车点检</span>
+              </a>
+              <a href="#" class="info-link">
+                <i class="icon icon-insurance-info"></i>
+                <span>保险信息</span>
+              </a>
+              <a href="#" class="info-link">
+                <i class="icon icon-license-info"></i>
+                <span>临牌信息</span>
+              </a>
             </div>
           </div>
-          <div class="info-middle"></div>
-          <div class="info-item">
-            <div class="info-title">
-              <h4>接车点检</h4>
-            </div>
-            <div class="info-content">
-              <div class="date-wrapper">
-                <label>维修项目</label>
-                <div class="date-text">
-                  <input type="text" id="item" placeholder="" readonly>
-                </div>
-              </div>
-              <div class="date-wrapper">
-                <label>停放地点</label>
-                <div class="date-text">
-                  <input type="text" name="" id="send_park" placeholder="" readonly>
-                </div>
-              </div>
-              <div class="date-wrapper">
-                <label>申请日期</label>
-                <div class="date-text">
-                  <input type="text" name="" id="applytime" placeholder="" readonly>
-                </div>
-              </div>
-              <div class="date-wrapper">
-                <label>维修备注</label>
-                <div class="date-text">
-                  <input type="text" name="" id="applyRemark" placeholder="" readonly>
-                </div>
-              </div>
-            </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>接车点检</h4>
           </div>
-          <div class="info-middle"></div>
-          <div class="info-item">
-            <div class="info-title">
-              <h4>车辆录入</h4>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>维修项目</label>
+              <div class="date-text">
+                <input type="text" id="item" placeholder="" readonly>
+              </div>
             </div>
-            <div class="info-content">
-              <div class="date-wrapper">
-                <label>操作员</label>
-                <div class="date-text">
-                  <input type="text" name="" id="operator" placeholder="" readonly>
-                </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" id="send_park" placeholder="" readonly>
               </div>
-              <div class="date-wrapper">
-                  <label>完成日期</label>
-                  <div class="date-text">
-                    <input type="text" name="" id="forecastTime" placeholder="" readonly>
-                  </div>
-                </div>
-              <div class="date-wrapper">
-                <label>停放地点</label>
-                <div class="date-text">
-                  <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
-                </div>
+            </div>
+            <div class="date-wrapper">
+              <label>申请日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="applytime" placeholder="" readonly>
               </div>
-              <div class="date-wrapper">
-                <label>工作内容</label>
-                <div class="date-text">
-                  <input type="text" name="" id="workContent" placeholder="" readonly>
-                </div>
-              </div>
-              <div class="date-wrapper">
-                <label>备注</label>
-                <div class="date-text">
-                  <input type="text" name="" id="remark" placeholder="" readonly>
-                </div>
+            </div>
+            <div class="date-wrapper">
+              <label>维修备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="applyRemark" placeholder="" readonly>
               </div>
             </div>
           </div>
         </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>车辆录入</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>操作员</label>
+              <div class="date-text">
+                <input type="text" name="" id="operator" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>完成日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>工作内容</label>
+              <div class="date-text">
+                <input type="text" name="" id="workContent" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="remark" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- jquery -->

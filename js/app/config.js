@@ -49,7 +49,7 @@ var serialize = function ($form, deep) {
   var str = null;
   var obj = {};
 
-  if(!deep) {
+  if (!deep) {
     str = $form.serializeArray();
     for (let i = 0; i < str.length; i++) {
       const item = str[i];
@@ -66,7 +66,7 @@ var serialize = function ($form, deep) {
  * 对象是否为空
  * @param {Object} object 
  */
-var isEmpty = function(object) {
+var isEmpty = function (object) {
   for (const key in object) {
     return false;
   }
@@ -76,15 +76,19 @@ var isEmpty = function(object) {
 /**
  * 对象是否含有空值,检查指定值是否为空
  * @param {Object} object 
+ * @param {Array} arr 指定值，数组形式传入 
  */
-var hasEmptyValue = function(object, arr) {
+var hasEmptyValue = function (object, arr) {
   var flag = 0;
-  if(arr && arr.length>0) {
+  var emptyArr = [];
+
+  if (arr && arr.length > 0) {
     for (const key in object) {
       if (object.hasOwnProperty(key) && arr.contains(key)) {
         const element = object[key];
-        if(!element) {
-          flag = 1
+        if (!element) {
+          flag = 1;
+          emptyArr.push(key);
         }
       }
     }
@@ -92,14 +96,15 @@ var hasEmptyValue = function(object, arr) {
     for (const key in object) {
       if (object.hasOwnProperty(key)) {
         const element = object[key];
-        if(!element) {
-          flag = 1
+        if (!element) {
+          flag = 1;
+          emptyArr.push(key);
         }
       }
     }
   }
-  
-  return !!flag;
+
+  return !!flag && emptyArr;
 }
 
 /**
@@ -114,4 +119,19 @@ Array.prototype.contains = function (obj) {
     }
   }
   return false;
+}
+
+// 翻译
+function translate(before, standard) {
+
+  for (let i = 0; i < before.length; i++) {
+    const item = before[i];
+
+    for (let j = 0; j < standard.length; j++) {
+      const element = standard[j];
+      if (element.name == item) {
+        return element.value;
+      }
+    }
+  }
 }

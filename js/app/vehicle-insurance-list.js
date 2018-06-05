@@ -71,7 +71,7 @@
       })
     })
 
-
+    // 保险录入
     $('#vehicle_insurance_list').on('tap', '.insurance-entry', function(e) {
       e.stopPropagation();
       var $li = $(this).parents('li')
@@ -89,6 +89,25 @@
         } //自定义扩展参数
       })
     })
+
+    // 保险详情
+    $('#vehicle_insurance_list').on('tap', '.mui-slider-handle', function() {
+      var $li = $(this).parents('li')
+      
+      mui.openWindow({
+        url: 'vehicle-insurance-info.html',
+        id: 'vehicle-insurance-info', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H,
+          vSn: $li.attr('data-vSn')
+        } //自定义扩展参数
+      })
+    })
+
   }
   
   

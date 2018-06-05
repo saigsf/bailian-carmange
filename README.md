@@ -160,3 +160,169 @@
 #### 查询分组
 #### 更新分组
 
+### 车辆相关
+#### 生成车辆编码
+#### 接车点检
+#### 接车点检更新
+#### 接车点检信息查询
+#### 车辆录入
+#### 车辆录入更新
+#### 车辆录入信息查询
+#### 安全检查
+```javascript
+[
+  {
+    "checkExplanation": "string",
+    "checkingExplanation": "string",
+    "item": "string",
+    "request": "string",
+    "status": "string",
+    "uuid": "string",
+    "vSn": "string"
+  }
+]
+```
+#### 安全检查更新
+#### 安全检查信息查询
+#### 车辆缸压检查
+```javascript
+{
+  "actual_p": 0,
+  "cylinder_p": 0,
+  "four_p": 0,
+  "fuel_p": 0,
+  "id": 0,
+  "one_p": 0,
+  "three_p": 0,
+  "two_p": 0,
+  "vSn": "string"
+}
+```
+#### 车辆缸压检查更新
+#### 车辆缸压检查信息查询
+#### bom检查
+```javascript
+[
+  {
+    "uuid": "string",
+    "vSn": "string",
+    "bomName": "string",
+    "bomNum": "string",
+    "status": "string",
+    "applyPerson": "string",
+    "checkExplanation": "string",
+    "checkingExplanation": "string",
+    "applyTime": "2018-06-05T06:26:16.746Z"
+  }
+]
+```
+#### bom检查更新
+#### bom检查信息查询
+#### 线束检查
+```javascript
+[
+  {
+    "checkExplanation": "string",
+    "checkPerson": "string",
+    "checkTime": "2018-06-05T06:26:16.748Z",
+    "checkingPerson": "string",
+    "checkingTime": "string",
+    "item": "string",
+    "status": "string",
+    "uuid": "string",
+    "vSn": "string"
+  }
+]
+```
+#### 线束检查更新
+#### 线束检查信息查询
+#### 还车点检
+```javascript
+{
+  "fire": 0,
+  "forpeople": "string",
+  "id": 0,
+  "jack": 0,
+  "keyy": 0,
+  "odometer": 0,
+  "operate_time": "2018-06-05T06:26:16.754Z",
+  "operator": "string",
+  "pick_card": "string",
+  "pick_tel": "string",
+  "pickone": "string",
+  "proposer": "string",
+  "sparetyre": 0,
+  "time": "2018-06-05T06:26:16.754Z",
+  "toolisrecycled": "string",
+  "tools": 0,
+  "trans_sn": "string",
+  "vSn": "string",
+  "warningboard": 0
+}
+```
+#### 车辆审核
+```javascript
+{
+  "vSn": "string",
+  "status": "string",
+  "explanation": "string"
+}
+```
+#### 车辆审核更新
+#### 车辆审核信息查看
+#### 获取审核视图
+#### 研发记录查询
+#### 车辆录入
+```javascript
+{
+  "vSn": "车辆编号",
+  "project_sn": "项目编号",
+  "project_name": "项目名称",
+  "projectEngineer": "项目工程师",
+  "vin": "车架号",
+  "engineNumber": "发动机编号",
+  "engineType": "发动机型号",
+  "carName": "车辆名称",
+  "groupName": "分组名称",
+  "vCarType": "车辆类型",
+  "engineCapacity": "发动机排量",
+  "pictureUrl": "照片路径",
+  "GBTS": "变速箱规格",
+  "FuelType": "燃油规格",
+  "oilspecification": "机油规格",
+  "tyresize": "轮胎规格",
+  "reaTireP": "后轮胎压力",
+  "customer": "客户",
+  "vehicleQuality": "重量",
+  "seats": "座位数",
+  "adminName": "车管",
+  "price": "价值",
+  "remark": "备注",
+}
+```
+#### bom零部件查验
+```javascript
+[
+  {
+    "bomName": "string",
+    "bomnum": "string",
+    "ApplyPerson": "string",
+    "vSn": "string"
+  }
+]
+```
+#### 研发工具安装申请 
+```javascript
+[
+  {
+    "toolName": "string",
+    "applicant": "string",
+    "vSn": "string"
+  }
+]
+```
+
+
+
+
+

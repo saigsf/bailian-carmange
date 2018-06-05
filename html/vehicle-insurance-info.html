@@ -69,6 +69,22 @@
     .tab-row:nth-child(2n) {
       background-color: #f6fbff;
     }
+
+    .no-data {
+      background-image: url(../img/common/md/no_data@2x.png);
+      background-repeat: no-repeat;
+      background-position: center 30%;
+      background-size: 60px;
+      height: 200px;
+      position: relative;
+      display: none;
+    }
+    .no-data p {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 60%;
+    }
   </style>
 </head>
 
@@ -130,15 +146,22 @@
                 <div class="tab-col">2222222</div>
               </div>
             </div>
-            <div class="noData"></div>
+            <div class="no-data">
+              <p>暂时没有保险数据</p>
+            </div>
           </div>
         </div>
 
       </div>
 
-      <div class="mui-button-row">
-          <button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="next">保险录入</button>
-        </div>
+      <div class="btn-wrapper ">
+        <button class="btn btn-blue" id="next">保险录入</button>
+      </div>
+      <div class="btn-wrapper ">
+        <button class="btn btn-orange" id="next">续保申请</button>
+        <button class="btn btn-blue" id="next">临牌申请</button>
+      </div>
+
     </div>
   </div>
 

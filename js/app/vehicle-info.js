@@ -1,31 +1,14 @@
 
-(function(mui) {
+(function (mui) {
   mui.init({
     swipeBack: false
   });
-  mui('.mui-scroll-wrapper').scroll({
-    indicators: true //是否显示滚动条
-  });
-  var html2 = '';
-  var item2 = document.getElementById('item2mobile');
+  mui('.mui-scroll-wrapper').scroll();
 
-  setTimeout(function() {
-    item2.querySelector('.mui-loading').style.display = 'none';
-    item2.querySelector('.vehicle-info').style.display = 'block';
-  }, 500);
+  var H = null;
 
-  // document.getElementById('slider').addEventListener('slide', function(e) {
-  //   if(e.detail.slideNumber === 1) {
-  //     if(item2.querySelector('.mui-loading')) {
-  //       setTimeout(function() {
-  //         item2.querySelector('.mui-loading').style.display = 'none';
-  //         item2.querySelector('.vehicle-info').style.display = 'block';
-  //       }, 500);
-  //     }
-  //   }
-  // });
 
-  mui.plusReady(function() {
+  mui.plusReady(function () {
     if (plus.device.model === 'iPhoneX') {
       //页面样式重置
       $('header').css({
@@ -37,7 +20,8 @@
       })
     }
     var self = plus.webview.currentWebview();
-    if(!self.vSn) {
+    H = self.H;
+    if (!self.vSn) {
       return
     }
     getData(self.vSn)
@@ -47,14 +31,14 @@
   function getData(vSn) {
     app.vehicleSearch({
       vSn: vSn,
-      status: '', 
+      status: '',
       carName: '',
       cGroup: {
-          id: 0,
-          name: '',
-          remark: ''
+        id: 0,
+        name: '',
+        remark: ''
       }
-  }, function(res) {
+    }, function (res) {
       console.log(JSON.stringify(res))
       // updateView(res)
     })
@@ -64,7 +48,29 @@
   function updateView(data) {
 
   }
+  addEvent()
+  function addEvent() {
+    var $link = $('#info_link_box .info-link');
+    console.log($link)
+    $link.on('tap', function() {
+      console.log($(this).attr('data-id'))
+      if($(this).attr('data-id')) {
+        mui.openWindow({
+          url: 'vehicle-input-detail.html',
+          id: 'vehicle-input-detail', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            viewId: $(this).attr('data-id')
+          } //自定义扩展参数
+        })
+      }
+    })
+  }
 
-  // 去还车
+
 
 })(mui);

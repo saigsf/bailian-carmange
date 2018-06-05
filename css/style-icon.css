@@ -282,6 +282,30 @@
     background-image: url(../img/common/md/icon_tools@2x.png);
 }
 
+.icon-up-check {
+    width: 35px;
+    height: 35px;
+    background-image: url(../img/common/md/up_check@2x.png);
+}
+
+.icon-down-check {
+    width: 35px;
+    height: 35px;
+    background-image: url(../img/common/md/down_check@2x.png);
+}
+
+.icon-insurance-info {
+    width: 35px;
+    height: 35px;
+    background-image: url(../img/common/md/insurance_info@2x.png);
+}
+.icon-license-info {
+    width: 35px;
+    height: 35px;
+    background-image: url(../img/common/md/license_info@2x.png);
+}
+
+
 .icon-filter {
     line-height: 44px;
     font-size: 14px;
