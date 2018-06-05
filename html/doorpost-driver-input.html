@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>驾驶员录入</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -15,7 +15,6 @@
   <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
   <!--独立样式-->
   <style type="text/css">
-
     .mui-input-row label {
       width: 22%;
     }
@@ -30,6 +29,7 @@
       padding-bottom: 10px;
       width: auto;
     }
+
     .mui-radio-box {
       padding-left: 15px;
       display: flex;
@@ -63,6 +63,8 @@
               <span class="icon-red-star">*</span>
             </div>
           </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>员工卡号</label>
@@ -72,16 +74,18 @@
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
+              <label>IC card</label>
+              <input id="iccard" name="iccard" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+        </ul>
+
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
               <label>电话</label>
               <input id="telephone" name="telephone" type="tel" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
-            </div>
-          </li>
-
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>iccard</label>
-              <input id="iccard" name="iccard" type="text" class="mui-input-clear" placeholder="">
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -107,7 +111,7 @@
               </div>
             </div>
           </li>
-          <li class="mui-table-view-cell">
+          <!-- <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>授权起始</label>
               <input id="allow_start_time" name="allowStartTime" type="text" readonly class="mui-input-clear" placeholder="">
@@ -118,7 +122,7 @@
               <label>授权终止</label>
               <input id="allow_end_time" name="allowEndTime" type="text" readonly class="mui-input-clear" placeholder="">
             </div>
-          </li>
+          </li> -->
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>备注</label>
@@ -127,8 +131,8 @@
           </li>
         </ul>
         <div class="mui-button-row">
-              <button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="next">提交</button>
-            </div>
+          <button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="next">提交</button>
+        </div>
       </form>
 
     </div>

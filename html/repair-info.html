@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>车辆审核</title>
+  <title>维修详情</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -15,51 +15,42 @@
   <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
   <!--独立样式-->
   <style type="text/css">
-    .mui-table-view-cell {
-      background-color: transparent;
+    header.mui-navbar .mui-bar-nav,
+    header.mui-bar,
+    header.mui-navbar {
+      box-shadow: 0 0 0 #fff;
     }
 
-    .mui-content>.mui-table-view:first-child {
-      margin-top: 0
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .mui-input-row label {
-      width: 28%
+    .info-row>label {
+      margin-right: 10px;
     }
 
-    .mui-input-row label~input,
-    .mui-input-row label~select,
-    .mui-input-row label~textarea {
-      border-bottom: 1px solid #ccc;
-
+    .date-wrapper {
+      align-items: center;
     }
 
-    .mui-input-row label~input[type=text],
-    .mui-input-row label~input[type=password],
-    .mui-input-row label~select,
-    .mui-input-row label~textarea {
-      width: 68%
+    .date-wrapper:not(:last-of-type) {
+      margin-bottom: 12px;
     }
 
-    .mui-table-view-cell:after {
-      display: none
+    .date-text select,
+    .date-text input[type=text],
+    .date-text input[type=number] {
+      height: 34px;
     }
 
-    .mui-segmented-control {
-      width: 80%;
-      margin: 15px auto;
-      border-radius: 40px;
-      border-color: #2885cf;
+    .date-wrapper .date-text {
+      width: 70%;
     }
 
-    .mui-segmented-control .mui-control-item.mui-active {
-      background-color: #2885cf;
-    }
-
-    .mui-segmented-control .mui-control-item {
-      color: #2885cf;
-      border-color: #2885cf;
-      border-left: 1px solid #2885cf;
+    .mui-scroll {
+      padding-bottom: 24px;
     }
   </style>
 </head>
@@ -67,98 +58,110 @@
 <body>
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
-    <h1 class="mui-title">维修信息</h1>
+    <h1 class="mui-title">维修详情</h1>
   </header>
-  <div class="mui-content">
-    <div class="mui-slider">
-      <div class="mui-slider-indicator mui-segmented-control">
-        <a class="mui-control-item mui-active" href="#item1">申请信息</a>
-        <a class="mui-control-item" href="#item2">维修员填写</a>
-      </div>
-      <!-- <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div> -->
-      <div class="mui-slider-group">
-        <div id="item1" class="mui-slider-item mui-control-content mui-active">
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>车辆编号</label>
-                <input id="vSn" type="text" class="mui-input-clear" disabled placeholder="车辆编号,如：2017-211">
-                <!-- <span class="icon-red-star">*</span> -->
+
+
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <div class="info-top"></div>
+      <div class="info-wrapper">
+        <div class="info-item">
+          <div class="info-content">
+            <div class="info-content-top">
+              <p>车辆编号</p>
+              <h3 id="vSn">2017-123</h3>
+            </div>
+            <div class="info-content-bottom">
+              <div class="info-content-item">
+                <h5 id="item_0">32156A</h5>
+                <p>维修项目</p>
               </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>送车人</label>
-                <input id="sendPeople" type="text" class="mui-input-clear" disabled placeholder="送车人">
-                <!-- <span class="icon-red-star">*</span> -->
+              <div class="info-content-item">
+                <h5 id="applyPeople">张三</h5>
+                <p>申请人</p>
               </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>停放地点</label>
-                <input id="send_park" type="text" class="mui-input-clear" disabled placeholder="请输入停放地点">
-                <!-- <span class="icon-red-star">*</span> -->
+              <div class="info-content-item">
+                <h5 id="status">排队中</h5>
+                <p>维修状态</p>
               </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>工作内容</label>
-                <input id="reason" type="text" class="mui-input-clear" disabled placeholder="填写送修原因">
-              </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row" id="send_time_box">
-                <label>送修时间</label>
-                <input id="send_time" type="text" class="mui-input-clear" disabled placeholder="约定完成时间">
-              </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>备注</label>
-                <input id="remark" type="text" class="mui-input-clear" disabled placeholder="备注">
-              </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
-        <div id="item2" class="mui-slider-item mui-control-content">
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>维修人</label>
-                <input id="operator" type="text" class="mui-input-clear" disabled placeholder="如：2004">
-                <!-- <span class="icon-red-star">*</span> -->
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>送修申请信息</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>维修项目</label>
+              <div class="date-text">
+                <input type="text" id="item" placeholder="" readonly>
               </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>停放地点</label>
-                <input id="finish_park" type="text" class="mui-input-clear" disabled placeholder="如：2004">
-                <!-- <span class="icon-red-star">*</span> -->
+            </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" id="send_park" placeholder="" readonly>
               </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>工作内容</label>
-                <input id="work" type="text" class="mui-input-clear" disabled placeholder="工作内容">
+            </div>
+            <div class="date-wrapper">
+              <label>申请日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="applytime" placeholder="" readonly>
               </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row" id="finish_time_box">
+            </div>
+            <div class="date-wrapper">
+              <label>维修备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="applyRemark" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>维修信息</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>操作员</label>
+              <div class="date-text">
+                <input type="text" name="" id="operator" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
                 <label>完成日期</label>
-                <input id="finish_time" type="text" class="mui-input-clear" disabled placeholder="约定完成时间">
+                <div class="date-text">
+                  <input type="text" name="" id="forecastTime" placeholder="" readonly>
+                </div>
               </div>
-            </li>
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>备注</label>
-                <input id="remark_new" type="text" class="mui-input-clear" disabled placeholder="备注">
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
               </div>
-            </li>
-          </ul>
+            </div>
+            <div class="date-wrapper">
+              <label>工作内容</label>
+              <div class="date-text">
+                <input type="text" name="" id="workContent" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="remark" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
 
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>

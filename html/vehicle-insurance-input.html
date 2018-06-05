@@ -48,6 +48,10 @@
     .date-wrapper .date-text {
       width: 70%
     }
+    .vSn {
+      color: #2885cf;
+      font-weight: bold;
+    }
   </style>
 </head>
 
@@ -59,16 +63,13 @@
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <form id="insurance_input">
-        <ul class="mui-table-view mui-table-inputview">
-          <li class="mui-table-view-cell">
-            <div class="date-wrapper">
-              <label>车辆编号</label>
-              <div class="date-text">
-                <input name="vSn" id="vSn" type="text" value="2019-222" placeholder="车辆编号">
-              </div>
-            </div>
-          </li>
-        </ul>
+          <ul class="mui-table-view mui-table-inputview">
+              <li class="mui-table-view-cell">
+                <p class="vSn">车辆编号：
+                  <span id="vSn"></span>
+                </p>
+              </li>
+            </ul>
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <div class="date-wrapper">

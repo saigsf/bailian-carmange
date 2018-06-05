@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>车辆审核</title>
+  <title>维修列表</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -103,9 +103,6 @@
       display: block;
     }
 
-    .top .mui-btn {
-      padding-right: 30px;
-    }
 
     .icon-triangle-down {
       position: absolute;
@@ -133,20 +130,19 @@
     <div class="mui-scroll">
       <form class="top">
         <div class="mui-input-row mui-search">
-          <input type="search" class="mui-input-clear" id="current_input" placeholder="请输入关键词">
+          <input type="search" class="mui-input-clear" id="current_input" placeholder="请输入车辆编号">
         </div>
         <!-- <div class="select-container">
           <select name="status" id="status">
             <option value="全部">全部</option>
             <option value="排队中">排队中</option>
             <option value="维修中">维修中</option>
-            <option value="已维修">已维修</option>
             <option value="已完成">已完成</option>
           </select>
           <i class="mui-icon mui-icon-arrowdown"></i>
         </div> -->
-        <a href="#popover" id="openPopover" class="mui-btn mui-btn-blue mui-btn-outlined">筛选
-          <i class="icon-triangle-down"></i>
+        <a href="#popover" id="openPopover" class="mui-btn mui-btn-outlined">
+            <i class="icon icon-filter">筛选</i>
         </a>
 
       </form>
@@ -274,9 +270,6 @@
       </li>
       <li class="mui-table-view-cell">
         <a href="#">维修中</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a href="#">已维修</a>
       </li>
       <li class="mui-table-view-cell">
         <a href="#">已完成</a>

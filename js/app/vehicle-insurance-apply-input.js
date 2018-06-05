@@ -2,7 +2,7 @@
   //初始化
   mui.init();
 
-  mui('.mui-scroll-wrapper').scroll();
+  // mui('.mui-scroll-wrapper').scroll();
 
   var H = null;
   var vSns = null;
@@ -12,6 +12,7 @@
     var self = plus.webview.currentWebview();
     H = self.H;
     vSns = self.vSns;
+    $('#vSn').html(vSns)
   })
 
   function handsetAdaption() {
@@ -39,7 +40,7 @@
       mui.toast('请正确填写申请年限')
       return;
     }
-
+    data.vSns = vSns;
     app.insuranceApply(data, function(res) {
       res = JSON.parse(res);
       if(res.ret) {

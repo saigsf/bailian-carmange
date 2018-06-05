@@ -58,7 +58,7 @@
       page: curPage,
       size: 5
     }, function (res) {
-      console.log(JSON.stringify(res))
+      console.log(res)
 
       if (!res.total || res.total <= 0) {
         return;
@@ -236,13 +236,14 @@
   });
 
   // 取消
-  $('.top').on('tap', '#canclecheck', function () {
+  $('.top').on('tap', '#canclecheck', canceLongtap);
+  function canceLongtap() {
     $('#OA_task_1').removeClass('batch');
     $('.top').removeClass('batch');
     $('#OA_task_1').find('input').prop('checked', false);
     $('.top').find('#all_check').prop('checked', false);
     $('.btn-container').fadeOut()
-  })
+  }
 
   // 全选
   $('.top').on('tap', '#allcheck', function () {
@@ -291,7 +292,7 @@
     var $inputs = $('#OA_task_1').find('input');
     $inputs.each(function (i) {
       var id = null;
-      if ($inputs.prop('checked')) {
+      if ($(this).prop('checked')) {
         id = $(this).parents('li').attr('data-id');
         ids.push(id);
       }
@@ -301,6 +302,7 @@
       mui.toast('请至少选择一个驾驶员');
       return;
     }
+    canceLongtap()
 
     app.cancelAuthorized({
       ids: ids.join()
@@ -308,7 +310,10 @@
       console.log(res);
       res = JSON.parse(res)
       if (res.ret) {
-        plus.webview.currentWebview().reload()
+        // plus.webview.currentWebview().reload()
+        curPage = 1;
+    $('#OA_task_1').html('')
+    getData();
       } else {
         mui.toast('禁止失败')
       }
@@ -318,20 +323,20 @@
   $('#authorize_batch').on('tap', function () {
     var ids = [];
     var $inputs = $('#OA_task_1').find('input');
+
     $inputs.each(function (i) {
       var id = null;
-      if ($inputs.prop('checked')) {
+      if ($(this).prop('checked')) {
         id = $(this).parents('li').attr('data-id');
         ids.push(id);
       }
-      
     })
-
     if (ids.length == 0) {
       mui.toast('请至少选择一个驾驶员');
       return;
     }
 
+    canceLongtap()
     mui.openWindow({
       url: 'doorpost-driver-authorize.html',
       id: 'doorpost-driver-authorize', //默认使用当前页面的url作为id
@@ -349,6 +354,9 @@
 
   // 刷新页面
   document.addEventListener('update', function (e) {
-    plus.webview.currentWebview().reload()
+    // plus.webview.currentWebview().reload()
+    curPage = 1;
+    $('#OA_task_1').html('')
+    getData();
   })
 })()

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>驾驶员详情</title>
+  <title>保险详情</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -52,14 +52,33 @@
     .mui-scroll {
       padding-bottom: 24px;
     }
+
+    .tab {
+      width: 90%;
+      margin: 20px auto;
+    }
+
+    .tab-col {
+      border: 0;
+    }
+
+    .tab-row:nth-child(2n+1) {
+      background-color: #ebf6ff;
+    }
+
+    .tab-row:nth-child(2n) {
+      background-color: #f6fbff;
+    }
   </style>
 </head>
 
 <body>
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
-    <h1 class="mui-title">驾驶员信息</h1>
+    <h1 class="mui-title">保险详情</h1>
   </header>
+
+
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <div class="info-top"></div>
@@ -67,88 +86,63 @@
         <div class="info-item">
           <div class="info-content">
             <div class="info-content-top">
-              <p>驾驶员姓名</p>
-              <h3 id="name">张三</h3>
+              <p>车辆编号</p>
+              <h3 id="vSn">2017-123</h3>
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="allowStartTime_0">32156A</h5>
-                <p>授权起始日</p>
+                <h5 id="item_0">32156A</h5>
+                <p>车架号</p>
               </div>
               <div class="info-content-item">
-                <h5 id="allowEndTime_0">777</h5>
-                <p>授权终止日</p>
+                <h5 id="applyPeople">32156A</h5>
+                <p>发动机号</p>
               </div>
               <div class="info-content-item">
-                <h5 id="isallow">已授权</h5>
-                <p>授权状态</p>
+                <h5 id="status">32156A</h5>
+                <p>厂牌型号</p>
               </div>
             </div>
           </div>
         </div>
         <div class="info-middle"></div>
         <div class="info-item">
-          <div class="info-title">
-            <h4>基本信息</h4>
-          </div>
           <div class="info-content">
-            <div class="date-wrapper">
-              <label>员工卡号</label>
-              <div class="date-text">
-                <input type="text" id="employeeCard" placeholder="" readonly>
+            <div class="tab">
+              <div class="tab-row">
+                <div class="tab-col">名称</div>
+                <div class="tab-col">参数</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">德尔福编号</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">德尔福编号</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">德尔福编号</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">德尔福编号</div>
+                <div class="tab-col">2222222</div>
               </div>
             </div>
-            <div class="date-wrapper">
-              <label>IC card</label>
-              <div class="date-text">
-                <input type="text" name="" id="iccard" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>电话</label>
-              <div class="date-text">
-                <input type="text" name="" id="telephone" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>所属分组</label>
-              <div class="date-text">
-                <input type="text" name="" id="groups" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>备注</label>
-              <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
-              </div>
-            </div>
+            <div class="noData"></div>
           </div>
         </div>
-        <div class="info-middle"></div>
-        <div class="info-item">
-          <div class="info-title">
-            <h4>授权信息</h4>
-          </div>
-          <div class="info-content">
-            <div class="date-wrapper">
-              <label>授权起始日</label>
-              <div class="date-text">
-                <input type="text" name="" id="allowStartTime" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>授权终止日</label>
-              <div class="date-text">
-                <input type="text" name="" id="allowEndTime" placeholder="" readonly>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </div>
 
+      <div class="mui-button-row">
+          <button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="next">保险录入</button>
+        </div>
     </div>
-
   </div>
+
+
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
@@ -158,7 +152,7 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script src="../js/app/doorpost-driver-info.js"></script>
+  <script src="../js/app/vehicle-insurance-info.js"></script>
 </body>
 
 </html>

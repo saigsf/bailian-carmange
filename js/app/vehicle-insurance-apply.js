@@ -139,7 +139,7 @@
     $li.each(function (i) {
       var id = null;
       if ($(this).prop('checked')) {
-        id = $(this).parents('li').attr('data-id');
+        id = $(this).parents('li').attr('data-vSn');
         ids.push(id); 
       }
     });

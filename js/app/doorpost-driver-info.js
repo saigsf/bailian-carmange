@@ -1,5 +1,7 @@
 (function () {
   mui.init();
+  //初始化单页的区域滚动
+  mui('.mui-scroll-wrapper').scroll();
 
   var H = null;
   var id = null;
@@ -35,7 +37,6 @@
     // });
 
   }
-
   function getData(id) {
     app.carDriverEdit({ id: id }, function (res) {
       console.log(res)
@@ -44,18 +45,21 @@
   }
 
   function updateView(data) {
-    var html = '<div class="driver-info">'
-      + '<div><label>姓名：</label>' + data.name + '</div>'
-      + '<div><label>iccard：</label>' + data.iccard + '</div>'
-      + '<div><label>授权状态：</label>' + data.isallow + '</div>'
-      + '<div><label>授权开始：</label>' + data.allowStartTime + '</div>'
-      + '<div><label>授权截至：</label>' + data.allowEndTime + '</div>'
-      + '<div><label>联系方式：</label>' + data.telephone + '</div>'
-      + '<div><label>备注：</label><p>' + (data.remark ? data.remark : '无') + '</p>'
-      + '</div><div class="mui-btn mui-btn-blue mui-btn-outlined" data-id="' + data.id + '" id="edit">修改>>></div></div>';
-  
-    $('.mui-scroll').html(html);
-    }
+console.log(data.groups.length)
+
+    $('#name').html(data.name);
+    $('#allowStartTime_0').html(data.allowStartTime ? data.allowStartTime : '——');
+    $('#allowEndTime_0').html(data.allowEndTime ? data.allowEndTime : '——');
+    $('#groups').val((data.groups.length>0) ? data.groups[0].name : '未分组');
+    $('#isallow').html(data.isallow);
+    $('#employeeCard').val(data.employeeCard);
+    $('#iccard').val(data.iccard);
+    $('#telephone').val(data.telephone ? data.telephone : '未填写');
+    $('#remark').val(data.remark ? data.remark : '无');
+    $('#allowStartTime').val(data.allowStartTime ? data.allowStartTime : '——');
+    $('#allowEndTime').val(data.allowEndTime ? data.allowEndTime : '——');
+
+  }
 
   function addEvent() {
     $('.mui-scroll').on('tap', '#edit', function () {

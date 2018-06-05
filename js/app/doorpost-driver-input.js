@@ -5,12 +5,11 @@
 
   var id = null;
   var self = null;
+  var view = null;
 
   mui.plusReady(function () {
     handsetAdaption()
-
     self = plus.webview.currentWebview();
-    addEvent();
 
     if (self.ids) {
       // 驾驶员数据回显
@@ -48,13 +47,13 @@
 
   var getData = {
     update: function () {
-      var view = plus.webview.getWebviewById('doorpost-driver.html')
+      // view = plus.webview.getWebviewById('doorpost-driver.html')
       // 提交数据
       $('#driver').on('tap', '#next', function () {
         var data = serialize($('#driver'));
 
         app.carDriverAdd(data, function (res) {
-          console.log(JSON.stringify(res))
+          console.log(res)
 
           if (res.ret) {
             mui.fire(view, 'update', {});
@@ -101,51 +100,10 @@
   }
 
 
-  function updateView(data) {
-    $('#driver_name').val(data.name)
-    $('#employee_card').val(data.employeeCard)
-    $('#telephone').val(data.telephone)
-    $('#iccard').val(data.iccard)
-    $('input[name=isallow]').val(data.isallow)
-    $('#allow_start_time').val(data.allowStartTime)
-    $('#allow_end_time').val(data.allowEndTime)
-    $('#remark').val(data.remark)
-
-  }
 
 
-  function addEvent() {
-    var dDate = new Date();
 
-    $('#allow_start_time').off().on('tap', function () {
-      var _this = this;
 
-      plus.nativeUI.pickDate(function (e) {
-        var d = e.date;
-        $(_this).val(d.format('yyyy-MM-dd'));
-      }, function (e) {
-        $(_this).val('您没有选择日期');
-      }, {
-          title: '',
-          date: dDate,
-          maxDate: dDate
-        });
-    });
-
-    $('#allow_end_time').off().on('tap', function () {
-      var _this = this;
-      plus.nativeUI.pickDate(function (e) {
-        var d = e.date;
-        $(_this).val(d.format('yyyy-MM-dd'));
-      }, function (e) {
-        $(_this).val('您没有选择日期');
-      }, {
-          title: '',
-          date: dDate,
-          maxDate: dDate
-        });
-    });
-  }
 
 
 

@@ -45,6 +45,7 @@
       page: 1,
       size: 5
     }, function(res) {
+      res = JSON.parse(res)
       console.log(res)
     })
   }

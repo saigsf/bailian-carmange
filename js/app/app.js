@@ -827,7 +827,7 @@
 		owner.HTTPRequest('POST', url, data, callback)
 	}
 	/**
-	 * 保险查询
+	 * 保险列表
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
 	 */
@@ -838,6 +838,19 @@
 		var url = 'car-management/insurance/pageQuery.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
+	}
+	/**
+	 * 保险查询
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.insuranceFindByvSn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/insurance/findByvSn/'+data.vSn+'.action';
+
+		owner.HTTPRequest('POST', url, {}, callback)
 	}
 
 
@@ -927,6 +940,50 @@
 		owner.HTTPRequest('post', url, data, callback)
 	}
 
+	/**
+	 * 保养查询
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.getMaintenance = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/maintenance/getMaintenance.action';
+
+		owner.HTTPRequest('post', url, data, callback)
+	}
+
+	/**
+	 * 保养删除
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.deleteMaintenance = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/maintenance/delete.action';
+
+		owner.HTTPRequest('post', url, data, callback)
+	}
+
+	/**
+	 * 保存保养记录
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.saveMaintenance = function (data, callback) {
+		var newData = {};
+
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/maintenance/save/' + data.vSn + '/' + data.mm + '/' + data.nt + '.action';
+
+		owner.HTTPRequestPost('post', url, data.maintenanceItems, callback)
+	}
+
 
 
 
@@ -953,9 +1010,17 @@
 	owner.carDriverAdd = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
+		var startDate = (new Date()).format('yyyy-MM-dd');
+		var year = new Date().getFullYear()
+		var endDate = (new Date()).setFullYear(year+1);
 
 		var url = 'car-management/driver/add.action';
-		console.log(data)
+
+
+		if (data.isallow == '授权') {
+			data.allowStartTime = startDate
+			data.allowEndTime = (new Date(endDate)).format('yyyy-MM-dd')
+		}
 
 		owner.HttpRequestNonCrossDomain('post', url, data, callback)
 	}
@@ -1026,9 +1091,11 @@
 		callback = callback || $.noop;
 		data = data || {};
 
+		console.log(data)
+
 		var url = 'car-management/driver/update.action';
 
-		owner.HTTPRequest('post', url, data, callback)
+		// owner.HTTPRequest('post', url, data, callback)
 	}
 
 	/**

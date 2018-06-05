@@ -13,7 +13,7 @@
     H = self.H;
     vSn = self.vSn;
 
-    $('#vSn').val(vSn)
+    $('#vSn').html(vSn)
   })
 
   function handsetAdaption() {
