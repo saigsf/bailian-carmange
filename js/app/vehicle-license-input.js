@@ -1,16 +1,19 @@
 (function() {
-  var H = null;
-  var self = null;
-  var vSn = null;
-
   //初始化
   mui.init();
+
   mui('.mui-scroll-wrapper').scroll();
+
+  var H = null;
+  var vSn = null;
+  
   mui.plusReady(function () {
     handsetAdaption()
-    self = plus.webview.currentWebview();
+    var self = plus.webview.currentWebview();
     H = self.H;
+    vSn = self.vSn;
 
+    $('#vSn').html(vSn)
   })
 
   function handsetAdaption() {
@@ -29,14 +32,18 @@
     });
   }
 
-  addEvent()
-  function addEvent() {
-    $('#submit').on('tap', function () {
-      var data = serialize($('form'));
-      console.log(data)
+  $('#submit').on('tap', function() {
+    var data = serialize($('#insurance_input'));
+
+    console.log(data);
+    app.insuranceAdd(data, function(res) {
+      res = JSON.parse(res);
+      console.log(res)
+      mui.toast(res.msg);
+      if(res.ret) {
+        mui.back();
+      }
     })
-  }
-
-
+  })
 
 })();

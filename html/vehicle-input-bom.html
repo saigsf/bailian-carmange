@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>BOM零部件查验</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+    td {
+      height: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">BOM零部件查验</h1>
+  </header>
+<!--页面主内容区开始-->
+<div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!-- BOM零部件申请start -->
+      <form id="form_one_bom">
+        <table>
+          <thead>
+            <tr>
+              <td width="75%">零部件名称</td>
+              <td>零部件编号</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="ECM发动机电子控制模块">
+              </td>
+              <td>
+                <input type="text" name="bomnum" value="213412">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="MAP/MAT sensor进气歧管压力温度传感器">
+              </td>
+              <td>
+                <input type="text" name="bomnum" value="213412">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="Fron Oxygen Sensor前氧传感器">
+              </td>
+              <td>
+                <input type="text" name="bomnum" value="213412">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="Rear Oxygen Sensor后氧传感器">
+              </td>
+              <td>
+                <input type="text" name="bomnum" value="213412">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="Knock Sensor 爆震传感器">
+              </td>
+              <td>
+                <input type="text" name="bomnum" value="213412">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="Crank Position sensor曲轴位置传感器">
+              </td>
+              <td>
+                <input type="text" name="bomnum" value="213412">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="Purge Solenoid-ECP炭罐电磁">
+              </td>
+              <td>
+                <input type="text" name="bomnum" value="213412">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="">
+              </td>
+              <td>
+                <input type="text" name="bomnum" value="">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="">
+              </td>
+              <td>
+                <input type="text" name="bomnum" value="">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </form>
+      <!-- BOM零部件申请end -->
+      <!-- 提交 -->
+      <div class="btn-wrapper ">
+        <a href="#" class="btn btn-blue" id="vehicle-input-tools">下一步</a>
+      </div>
+
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    var H = null;
+    var self = null; // 当前页面
+    var view = null; // 上页面
+    var vSn = null; // 车辆编码
+    var oneInfo = null; //基本信息
+    
+
+    mui.init();
+    mui.plusReady(function () {
+      handsetAdaption();
+      self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById('vehicle-input')
+      H = self.H;
+      vSn = self.vSn;
+      oneInfo = self.oneInfo;
+    })
+
+    function handsetAdaption() {
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      // plus.webview.currentWebview().setStyle({
+      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      // });
+    }
+
+    function addEvent() {
+      $('#vehicle-input-tools').on('tap', function() {
+        var oneBom = [];
+        var $bomTr = $('#form_one_bom tr');
+
+        $bomTr.each(function (i) {
+          var $bomName = $(this).find('input[name=bomName]');
+          var $bomnum = $(this).find('input[name=bomnum]');
+
+          if ($bomName.val()) {
+            oneBom.push({
+              bomName: $bomName.val(),
+              bomnum: $bomnum.val(),
+              ApplyPerson: '',
+              vSn: ''
+            })
+          }
+        })
+
+        var id = $(this).attr('id');
+        mui.openWindow({
+          url: id + '.html',
+          id: id, //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn,
+            oneBom: oneBom,
+            oneInfo: oneInfo
+          } //自定义扩展参数
+        })
+      })
+    }
+    addEvent();
+
+    // 返回事件
+    document.addEventListener('goback', function() {
+      mui.back();
+      mui.fire(view, 'goback', {});
+    })
+  </script>
+</body>
+
+</html>

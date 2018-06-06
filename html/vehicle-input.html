@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>基本信息录入</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <!--页面标题栏开始-->
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">基本信息录入</h1>
+  </header>
+  <!--页面标题栏结束-->
+  <!--页面主内容区开始-->
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!-- 基本信息录入start -->
+      <form id="form_one_info">
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>项目编号</label>
+              <input name="product_sn" type="text" class="mui-input-clear" placeholder="如：2004">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>项目名称</label>
+              <input name="product_name" type="text" class="mui-input-clear" placeholder="项目名称">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>项目工程师</label>
+              <input name="projectEngineer" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+            </div>
+          </li>
+          <!-- <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>联系电话</label>
+              <input name="contactNumber" type="text" class="mui-input-clear" placeholder="如：12345678901">
+            </div>
+          </li> -->
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆编号</label>
+              <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆名称</label>
+              <input name="carName" type="text" class="mui-input-clear" placeholder="车辆名称">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆类型</label>
+              <input name="vCarType" type="text" class="mui-input-clear" placeholder="如：轿车，货车">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>发动机编号</label>
+              <input name="engineNumber" type="text" class="mui-input-clear" placeholder="如：F3000065D">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车架号</label>
+              <input name="vin" type="text" class="mui-input-clear" placeholder="如：F3000065D">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>客户</label>
+              <input name="customer" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆类型</label>
+              <input name="vCarType" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>发动机型号</label>
+              <input name="engineType" type="text" class="mui-input-clear" placeholder="如：4G3A">
+            </div>
+          </li>
+
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>发动机排量</label>
+              <input name="engineCapacity" type="text" class="mui-input-clear" placeholder="发动机排量">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>座位容纳</label>
+              <input name="seats" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>燃油规格</label>
+              <input name="FuelType" type="text" class="mui-input-clear" placeholder="如：93号">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>机油规格</label>
+              <input name="oilspecification" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>变速箱油规格</label>
+              <input name="GBTS" type="text" class="mui-input-clear" placeholder="变速箱油规格">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>轮胎规格</label>
+              <input name="tyresize" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>前轮胎压力</label>
+              <input name="reaTireP" type="text" class="mui-input-clear" placeholder="前轮胎压力">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>后轮胎压力</label>
+              <input name="frontTireP" type="text" class="mui-input-clear" placeholder="后轮胎压力">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆吨位</label>
+              <input name="vehicleQuality" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆颜色</label>
+              <input name="color" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆分组</label>
+              <select name="groupName" id="">
+                <option value="小龙">小龙</option>
+              </select>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车管</label>
+              <input name="adminName" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>价值</label>
+              <input name="price" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆图片</label>
+              <input name="pictureUrl" type="text" class="mui-input-clear" placeholder="选择图片">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>制作日期</label>
+              <input name="makeTime" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备注</label>
+              <input name="remark" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+        </ul>
+      </form>
+      <!-- 基本信息录入end -->
+      <!-- 提交 -->
+      <div class="btn-wrapper ">
+        <a href="#" class="btn btn-blue" id="vehicle-input-bom">下一步</a>
+      </div>
+
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    var H = null;
+    var vSn = null;
+    var self = null;
+    // 初始化
+    mui.init();
+    // 初始化区域滚动
+    mui('.mui-scroll-wrapper').scroll();
+    
+    mui.plusReady(function () {
+      handsetAdaption();
+      self = plus.webview.currentWebview();
+      H = self.H;
+      vSn = self.vSn;
+    })
+
+    function handsetAdaption() {
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      // plus.webview.currentWebview().setStyle({
+      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      // });
+    }
+
+    function addEvent() {
+      $('#vehicle-input-bom').on('tap', function() {
+        var oneInfo = serialize($('#form_one_info'));
+
+        var id = $(this).attr('id');
+        mui.openWindow({
+          url: id + '.html',
+          id: id, //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn,
+            oneInfo: oneInfo
+          } //自定义扩展参数
+        })
+      })
+      
+    }
+    addEvent();
+
+    // 返回事件
+    document.addEventListener('goback', function() {
+      mui.back()
+    })
+  </script>
+</body>
+
+</html>

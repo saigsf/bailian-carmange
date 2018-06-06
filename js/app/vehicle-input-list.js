@@ -1,11 +1,12 @@
 ;(function (mui, doc) {
-  mui.init();
-  mui('.mui-scroll-wrapper').scroll({
-    deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-  });
-  
+    
   // 定义全局变量
   var H = null; // 页面高度
+  var vSn = null;
+
+  mui.init();
+  mui('.mui-scroll-wrapper').scroll();
+
 
   mui.plusReady(function () {
 		// plus准备好后执行H5
@@ -47,14 +48,15 @@
   	// 跳转执行下一步
   	$('#vehicle_input_list').on('tap', '.mui-slider-handle', function() {
   		mui.openWindow({
-        url: 'vehicle-input-detail.html',
-        id: 'vehicle-input-detail', //默认使用当前页面的url作为id
+        url: 'vehicle-input-info.html',
+        id: 'vehicle-input-info', //默认使用当前页面的url作为id
         styles: {
           top: '0px',
           bottom: H
         }, //窗口参数
         extras: {
-          H: H
+          H: H,
+          vSn: vSn
         }, //自定义扩展参数
         createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
         show: {

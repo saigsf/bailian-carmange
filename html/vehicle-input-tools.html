@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>研发工具安装申请</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+    td {
+      height: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">研发工具安装申请</h1>
+  </header>
+  <!--页面主内容区开始-->
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!-- 研发工具申请start -->
+      <form id="form_one_tool_apply">
+        <table>
+          <thead>
+            <tr>
+              <td>工具或设备名称</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="12V电源">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="CAN1开发接头">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="空气比传感器座">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="排放前采样管">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      <!-- 研发工具申请end -->
+      <!-- 提交 -->
+      <div class="btn-wrapper ">
+        <button type="button" class="btn btn-blue" id="submit">提交</button>
+      </div>
+
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    var H = null;
+    var self = null;
+    var oneInfo = null;
+    var oneBom = null;
+    var view = null;
+
+    mui.init();
+    mui.plusReady(function () {
+      handsetAdaption();
+      self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById('vehicle-input-bom')
+      oneInfo = self.oneInfo
+      oneBom = self.oneBom
+    })
+
+    function handsetAdaption() {
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      // plus.webview.currentWebview().setStyle({
+      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      // });
+    }
+
+    function addEvent() {
+      // 车辆录入,包含三部分的数据提交
+      $('#submit').on('tap', function () {
+        var oneToolApply = [];
+        var $toolTr = $('#form_one_tool_apply tr');
+
+        $toolTr.each(function (i) {
+          var $toolName = $(this).find('input[name=toolName]');
+
+          if ($toolName.val()) {
+            oneToolApply.push({
+              toolName: $toolName.val(),
+              applicant: '',
+              vSn: ''
+            })
+          }
+        })
+        console.log(JSON.stringify(oneInfo) )
+        console.log(JSON.stringify(oneBom))
+        console.log(JSON.stringify(oneToolApply))
+
+        // app.save(oneInfo, function(res) {
+        //   console.log(res)
+        // })
+        // app.applybom(oneBom, function(res) {
+        //   console.log(res)
+        // })
+        // app.applytools(oneToolApply, function(res) {
+        //   console.log(res)
+        // })
+
+        mui.back()
+        mui.fire(view, 'goback', {});
+        // 页面返回
+
+      })
+    }
+    addEvent()
+  </script>
+</body>
+
+</html>

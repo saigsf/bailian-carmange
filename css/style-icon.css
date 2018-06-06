@@ -11,7 +11,7 @@
 }
 
 .icon-home {
-    background-image: url(../img/common/md/icon_home.png);
+    background-image: url(../img/common/md/icon_gps@2x.png);
 }
 
 .icon-vehicle {
@@ -276,6 +276,12 @@
     background-image: url(../img/common/md/icon_vehicleauditing@2x.png);
 }
 
+.icon-vehicle-check-down {
+    width: 40px;
+    height: 30px;
+    background-image: url(../img/common/md/icon_vehicledown@2x.png);
+}
+
 .icon-tools {
     width: 40px;
     height: 35px;
@@ -304,6 +310,13 @@
     height: 35px;
     background-image: url(../img/common/md/license_info@2x.png);
 }
+.icon-subscript {
+    width: 35px;
+    height: 35px;
+    background-image: url(../img/common/md/icon_subscript@3x.png);
+}
+
+
 
 
 .icon-filter {

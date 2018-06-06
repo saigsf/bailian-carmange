@@ -1,14 +1,24 @@
 
 (function (mui) {
-  mui.init({
-    swipeBack: false
-  });
-  mui('.mui-scroll-wrapper').scroll();
-
+  var self = null;
   var H = null;
+  var vSn = null;
 
-
+  mui.init();
+  mui('.mui-scroll-wrapper').scroll();
   mui.plusReady(function () {
+    handsetAdaption();
+    self = plus.webview.currentWebview();
+    H = self.H;
+    if (!self.vSn) {
+      return
+    }
+    vSn = self.vSn;
+    getData(self.vSn)
+    mui.toast(self.vSn);
+  })
+
+  function handsetAdaption() {
     if (plus.device.model === 'iPhoneX') {
       //页面样式重置
       $('header').css({
@@ -19,14 +29,10 @@
         'paddingTop': '88px'
       })
     }
-    var self = plus.webview.currentWebview();
-    H = self.H;
-    if (!self.vSn) {
-      return
-    }
-    getData(self.vSn)
-    mui.toast(self.vSn);
-  })
+    // plus.webview.currentWebview().setStyle({
+    //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+    // });
+  }
 
   function getData(vSn) {
     app.vehicleSearch({
@@ -45,26 +51,26 @@
   }
 
   // 更新视图
-  function updateView(data) {
+  function updateView(data) {}
 
-  }
   addEvent()
   function addEvent() {
     var $link = $('#info_link_box .info-link');
     console.log($link)
     $link.on('tap', function() {
-      console.log($(this).attr('data-id'))
-      if($(this).attr('data-id')) {
+      var id = $(this).attr('id')
+      console.log(id)
+      if(id) {
         mui.openWindow({
-          url: 'vehicle-input-detail.html',
-          id: 'vehicle-input-detail', //默认使用当前页面的url作为id
+          url: id + '.html',
+          id: id, //默认使用当前页面的url作为id
           styles: {
             top: '0px',
             bottom: H
           }, //窗口参数
           extras: {
             H: H,
-            viewId: $(this).attr('data-id')
+            vSn: vSn
           } //自定义扩展参数
         })
       }

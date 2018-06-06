@@ -1,18 +1,22 @@
-(function() {
-  var H = null;
-  var self = null;
-  var vSn = null;
-
-  //初始化
+; (function () {
   mui.init();
-  mui('.mui-scroll-wrapper').scroll();
+
+  var H = null;
+  var vSn = null;
+  var self = null;
+
+  //初始化单页的区域滚动
+  // mui('.mui-scroll-wrapper').scroll();
+
   mui.plusReady(function () {
     handsetAdaption()
     self = plus.webview.currentWebview();
     H = self.H;
+    vSn = self.vSn;
+    getData();
+  });
 
-  })
-
+  
   function handsetAdaption() {
     if (plus.device.model === 'iPhoneX') {
       //页面样式重置
@@ -24,19 +28,25 @@
         'paddingTop': '88px'
       })
     }
-    plus.webview.currentWebview().setStyle({
-      softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-    });
+    // plus.webview.currentWebview().setStyle({
+    //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+    // });
   }
 
-  addEvent()
+
+
+  function getData() {
+
+  }
+
+  function updateView(data) {
+
+
+  }
+
   function addEvent() {
-    $('#submit').on('tap', function () {
-      var data = serialize($('form'));
-      console.log(data)
-    })
+    
   }
-
-
+  addEvent()
 
 })();

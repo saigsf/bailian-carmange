@@ -14,48 +14,447 @@
   <!--自定义页面样式-->
   <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
   <!--独立样式-->
+
   <style type="text/css">
-    .chart {
-      height: 200px;
-      margin: 0px;
-      padding: 0px;
+    header.mui-navbar .mui-bar-nav,
+    header.mui-bar,
+    header.mui-navbar {
+      box-shadow: 0 0 0 #fff;
     }
 
-    .mui-row {
+    .mui-radio label {
+      padding: 0;
+      padding-left: 5px;
+      padding-right: 24px;
+      line-height: 20px;
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: auto;
+    }
+
+    .mui-radio-box {
+      padding-left: 15px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
     }
 
-    .mui-row .chart {
-      height: 100px;
-      width: 100px;
-      margin: 80px 0
+    .mui-input-row span {
+      float: left;
+      line-height: 40px;
     }
-    .mui-scroll {
-      height: 100%
+
+    .mui-input-row textarea {
+      width: 78%;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .page-six .mui-input-row {
+      padding: 0px 20px;
+      margin-top: 10px;
+    }
+
+    .auditing {
+      width: 90%;
+      margin: 10px auto;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      background-color: #fff;
+    }
+
+    .auditing-title {
+      color: #2885cf;
+      line-height: 40px;
+      padding-left: 20px;
+    }
+
+    .auditing-content p {
+      width: 49%;
+      display: inline-block;
+      color: #333;
+      text-align: center;
+    }
+
+    table {
+      margin-top: 0;
+    }
+    
+    .date-wrapper {
+      align-items: center;
+    }
+
+    .date-wrapper:not(:last-of-type) {
+      margin-bottom: 12px;
+    }
+
+    .date-text select,
+    .date-text input[type=text],
+    .date-text input[type=number] {
+      height: 34px;
+    }
+
+    .date-wrapper .date-text {
+      width: 70%;
     }
   </style>
 </head>
 
 <body>
-  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">车辆审核</h1>
+  </header>
+  <!--页面主内容区开始-->
+  <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <!--这里放置真实显示的DOM内容-->
-      <div class="chart" id="pieChart"></div>
-      <div class="mui-row">
-        <div class="chart" id="one"></div>
-        <div class="chart" id="two"></div>
-        <div class="chart" id="three"></div>
+      <div class="info-top"></div>
+      <div class="info-wrapper">
+        <div class="info-item">
+          <div class="info-content" id="vehicle-info">
+            <div class="info-content-top">
+              <p>车辆编号</p>
+              <h3 id="vSn">2017-123</h3>
+            </div>
+            <div class="info-content-bottom">
+              <div class="info-content-item">
+                <h5 id="vin">32156A</h5>
+                <p>车架号</p>
+              </div>
+              <div class="info-content-item">
+                <h5 id="applyPeople">张三</h5>
+                <p>项目工程师</p>
+              </div>
+              <div class="info-content-item">
+                <h5 id="status">安全检查</h5>
+                <p>项目进度</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>接车点检</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>维修项目</label>
+              <div class="date-text">
+                <input type="text" id="item" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" id="send_park" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>申请日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="applytime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>维修备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="applyRemark" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>车辆录入</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>操作员</label>
+              <div class="date-text">
+                <input type="text" name="" id="operator" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>完成日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>工作内容</label>
+              <div class="date-text">
+                <input type="text" name="" id="workContent" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="remark" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>安全检查</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>操作员</label>
+              <div class="date-text">
+                <input type="text" name="" id="operator" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>完成日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>工作内容</label>
+              <div class="date-text">
+                <input type="text" name="" id="workContent" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="remark" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>线束检查</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>操作员</label>
+              <div class="date-text">
+                <input type="text" name="" id="operator" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>完成日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>工作内容</label>
+              <div class="date-text">
+                <input type="text" name="" id="workContent" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="remark" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>bom检查</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>操作员</label>
+              <div class="date-text">
+                <input type="text" name="" id="operator" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>完成日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>工作内容</label>
+              <div class="date-text">
+                <input type="text" name="" id="workContent" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="remark" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>研发工具</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>操作员</label>
+              <div class="date-text">
+                <input type="text" name="" id="operator" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>完成日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>工作内容</label>
+              <div class="date-text">
+                <input type="text" name="" id="workContent" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="remark" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>工具信息</h4>
+          </div>
+          <div class="info-content">
+            <table>
+              <thead>
+                <tr>
+                  <td width="40%">工具或设备名称</td>
+                  <td width="20%">申请人</td>
+                  <td width="30%">装备日期</td>
+                  <td width="10%">操作</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>12V电源</td>
+                  <td>王先生</td>
+                  <td>2018-12-12</td>
+                  <td>
+                    <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder finished">已完成</i>
+                    <input class="explain" type="hidden">
+                  </td>
+                </tr>
+                <tr>
+                  <td>12V电源</td>
+                  <td>王先生</td>
+                  <td>2018-12-12</td>
+                  <td>
+                    <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder finished">已完成</i>
+                    <input class="explain" type="hidden">
+                  </td>
+                </tr>
+                <tr>
+                  <td>12V电源</td>
+                  <td>王先生</td>
+                  <td>2018-12-12</td>
+                  <td>
+                    <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder finished">已完成</i>
+                    <input class="explain" type="hidden">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>车辆审核</h4>
+          </div>
+          <div class="info-content">
+            <form>
+              <div class="mui-input-row">
+                <span>审核是否通过：</span>
+                <div class="mui-radio-box">
+                  <div class="mui-radio">
+                    <input name="throught" id="yes" type="radio" checked>
+                    <label for="#normal">是</label>
+                  </div>
+                  <div class="mui-radio">
+                    <input name="throught" id="no" type="radio">
+                    <label for="#other">否</label>
+                  </div>
+                </div>
+              </div>
+              <div class="mui-input-row">
+                <span>审核说明：</span>
+                <textarea name="" id="" cols="4" rows="3" placeholder="添加说明"></textarea>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="mui-button-row">
-        <button type="button" class="mui-btn mui-btn-blue" id="look_auditing">查看审核</button>
+
+
+
+      <!-- <div class="auditing">
+        <div class="auditing-title">车辆编号：2017-1234</div>
+        <div class="auditing-content">
+          <p>安全检查人：张三</p>
+          <p>安全核对人：张三</p>
+          <p>线束检查人：张三</p>
+          <p>线束核对人：张三</p>
+          <p>BOM检查人：张三</p>
+          <p>BOM检查人：张三</p>
+        </div>
+      </div> -->
+
+
+
+
+      <div class="btn-wrapper ">
+        <button class="btn btn-blue" id="six_next">提交</button>
       </div>
     </div>
-
   </div>
-
-</body>
+  <!--页面主内容区结束-->
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
@@ -64,9 +463,35 @@
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
-  <!-- echart -->
-  <script src="../js/lib/echarts-all.js"></script>
-  <!-- 当前页面js --> 
-  <script src="../js/app/vehicle-auditing.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    var H = null;
+    var self = null;
+
+    mui.init();
+    // 初始化区域滚动
+    mui('.mui-scroll-wrapper').scroll();
+    mui.plusReady(function () {
+      handsetAdaption();
+      self = plus.webview.currentWebview();
+    })
+
+    function handsetAdaption() {
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      // plus.webview.currentWebview().setStyle({
+      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      // });
+    }
+  </script>
+</body>
 
 </html>

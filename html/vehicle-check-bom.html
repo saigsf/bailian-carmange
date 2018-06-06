@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>bom零部件检查</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .explain,
+    .resolvent {
+      font-size: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">bom零部件检查</h1>
+  </header>
+  <!--页面主内容区开始-->
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <table>
+        <thead>
+          <tr>
+            <td width="30%">零部件名称</td>
+            <td width="20%">零部件号</td>
+            <td width="20%">状态</td>
+            <td width="15%">说明</td>
+            <td width="15%">解决</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bomName">ECM发动机电子控制模块</td>
+            <td class="bomNum">28452294</td>
+            <td>
+              <div class="select-container">
+                <select name="status" class="status">
+                  <option value="是">是</option>
+                  <option value="否">否</option>
+                  <option value="NA">NA</option>
+                </select>
+                <i class="mui-icon mui-icon-arrowdown"></i>
+              </div>
+            </td>
+            <td>
+              <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
+              <input class="explain-text" type="hidden">
+            </td>
+            <td>
+              <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
+              <input class="resolvent-text" type="hidden">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="btn-wrapper ">
+        <button class="btn btn-blue" id="four_next">提交</button>
+      </div>
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    var H = null;
+    var self = null;
+
+    mui.init();
+    //初始化单页的区域滚动
+    mui('.mui-scroll-wrapper').scroll();
+    mui.plusReady(function () {
+      handsetAdaption();
+      self = plus.webview.currentWebview();
+    })
+
+    function handsetAdaption() {
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      // plus.webview.currentWebview().setStyle({
+      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      // });
+    }
+
+    addEvent()
+    function addEvent() {
+      // bom检查
+      $('#four_next').on('tap', function () {
+        var $bomTr = $('table tbody tr');
+        console.log($bomTr);
+
+        var emsAndBomCheckResults = [];
+        var data = {};
+
+        $bomTr.each(function (i) {
+          emsAndBomCheckResults.push({
+            'vSn': 'string',
+            'bomName': $(this).find('.bomName').html(),
+            'bomNum': $(this).find('.bomNum').html(),
+            'status': $(this).find('.status').val(),
+            'applyPerson': 'string',
+            'checkExplanation': $(this).find('.explain-text').val(),
+            'checkingExplanation': 'string',
+            'applyTime': '2018-06-05T06:26:16.746Z'
+          })
+        });
+
+        data = {
+          vSn: '',
+          emsAndBomCheckResults: emsAndBomCheckResults
+        }
+        console.log(data)
+      })
+    }
+  </script>
+</body>
+
+</html>

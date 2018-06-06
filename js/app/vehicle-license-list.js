@@ -3,10 +3,6 @@
   var totalPage = 7; //后台算出总页数
   var H = null;
   var self = null;
-  var main = null;
-  var side = null;
-  var showMenu = false;
-  var isInTransition = false;
 
   mui.init({
     pullRefresh: {
@@ -25,18 +21,12 @@
 
 
   mui.plusReady(function () {
-    plus.webview.currentWebview().setStyle({
-      softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-    });
-
     self = plus.webview.currentWebview();
-    main = plus.webview.getWebviewById("HBuilder");
     H = self.H;
-
-    main.addEventListener('maskClick', closeMenu);
-
-    addEvent();
+    // addEvent();
   });
+
+
 
   // 下拉刷新业务
   function pulldownRwfresh() {
@@ -130,12 +120,12 @@
 
   //添加事件
   function addEvent() {
-    //查看车辆信息
+    //查看临牌信息
     $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
       //打开接车点检页面
       mui.openWindow({
-        url: 'vehicle-info.html',
-        id: 'vehicle-info', //默认使用当前页面的url作为id
+        url: 'vehicle-license-info.html',
+        id: 'vehicle-license-info', //默认使用当前页面的url作为id
         styles: {
           top: '0px',
           bottom: H
@@ -143,122 +133,28 @@
         extras: {
           H: H,
           vSn: $(this).attr('data-vSn')
-        }, //自定义扩展参数
-        createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-        show: {
-          autoShow: true, //页面loaded事件发生后自动显示，默认为true
-        },
-        waiting: {
-          autoShow: true, //自动显示等待框，默认为true
-          title: '正在加载...', //等待对话框上显示的提示内容
-        }
+        } //自定义扩展参数
       })
     });
-    //去还车
-    $('#OA_task_1').on('tap', '.goback', function (e) {
-      e.stopPropagation();
 
-      //打开页面
+    // 临牌录入
+    $('#license-input').on('tap', function() {
+      //打开接车点检页面
       mui.openWindow({
-        url: 'vehicle-check-down.html',
-        id: 'vehicle-check-down', //默认使用当前页面的url作为id
+        url: 'vehicle-license-input.html',
+        id: 'vehicle-license-input', //默认使用当前页面的url作为id
         styles: {
           top: '0px',
           bottom: H
         }, //窗口参数
         extras: {
-          H
-        }, //自定义扩展参数
-        createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-        show: {
-          autoShow: true, //页面loaded事件发生后自动显示，默认为true
-        },
-        waiting: {
-          autoShow: true, //自动显示等待框，默认为true
-          title: '正在加载...', //等待对话框上显示的提示内容
-        }
-      })
-    });
-
-    // 车辆删除
-    $('#OA_task_1').on('tap', '.delete', function (event) {
-      var elem = this;
-      var $li = $(this).parents('li');
-      mui.confirm('确认删除该条记录？', '提示', btnArray, function (e) {
-        if (e.index == 0) {
-          $li.remove();
-          app.delete({
-            ids: $li.attr('data-id')
-          }, function (res) {
-            console.log(res)
-          })
-        } else {
-          setTimeout(function () {
-            mui.swipeoutClose(li);
-          }, 0);
-        }
-      });
-    });
-    var btnArray = ['确认', '取消'];
-
-    var view = plus.webview.getWebviewById('html/vehicle.html');
-
-    $('#add_btn').on('tap', function () {
-      mui.fire(view, 'checkup', {
-        domId: 'vehicle-check-up'
+          H: H,
+          vSn: $(this).attr('data-vSn')
+        } //自定义扩展参数
       })
     })
   }
-
-  //打开侧滑窗口；
-  function openMenu() {
-    
-    main.setStyle({
-      mask: 'rgba(0,0,0,0.5)'
-    }); //menu设置透明遮罩防止点击
-
-    mui.openWindow({
-      url: 'vehicle-filter.html',
-      id: 'vehicle-filter', //默认使用当前页面的url作为id
-      styles: {
-        top: '34px',
-        left: '30%',
-        width: '70%',
-        zindex: 999
-      }, //窗口参数
-      extras: {
-        H: H
-      }, //自定义扩展参数
-      waiting: {
-        autoShow: false, //自动显示等待框，默认为true
-        title: '正在加载...', //等待对话框上显示的提示内容
-      }
-    })
-  };
-  //关闭侧滑窗口；
-  function closeMenu() {
-    //关闭遮罩；
-    side = plus.webview.getWebviewById("vehicle-filter");
-    main.setStyle({
-      mask: 'none'
-    });
-    mui.fire(side, 'close', {})
-
-  };
-
-  //点击头部菜单小图标，打开侧滑菜单；
-  $('#filter').on('tap', function(e) {
-    // main = plus.webview.getWebviewById("HBuilder");
-    // console.log(main.id)
-    e.stopPropagation();
-    openMenu()
-    // mui.fire(main, 'openSide', {})
-    // mui('.mui-off-canvas-wrap').offCanvas().show();
-  });
-  //menu页面点击后关闭菜单；
-  // window.addEventListener("menu:tap", closeMenu);
-  window.addEventListener('closeMenu', closeMenu)
-
+  addEvent();
 
 
 })(mui, document);

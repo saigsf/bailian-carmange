@@ -134,8 +134,8 @@
     $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
       //打开接车点检页面
       mui.openWindow({
-        url: 'vehicle-info.html',
-        id: 'vehicle-info', //默认使用当前页面的url作为id
+        url: 'vehicle-list-info.html',
+        id: 'vehicle-list-info', //默认使用当前页面的url作为id
         styles: {
           top: '0px',
           bottom: H
@@ -143,15 +143,7 @@
         extras: {
           H: H,
           vSn: $(this).attr('data-vSn')
-        }, //自定义扩展参数
-        createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-        show: {
-          autoShow: true, //页面loaded事件发生后自动显示，默认为true
-        },
-        waiting: {
-          autoShow: true, //自动显示等待框，默认为true
-          title: '正在加载...', //等待对话框上显示的提示内容
-        }
+        } //自定义扩展参数
       })
     });
     //去还车

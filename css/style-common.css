@@ -945,7 +945,7 @@ span.hide {
 
 
 .btn {
-    font-size: 14px;
+    font-size: 18px;
     color: #a3a3a3;
     background-color: #e5e5e5;
 }
@@ -1036,7 +1036,7 @@ button {
     width: 94%;
     margin: auto;
     background-color: #fff;
-    border-radius: 9px;
+    border-radius: 5px;
     box-shadow: 0 0px 13px rgba(24, 75, 116, .4);
     padding: 12px;
 }

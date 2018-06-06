@@ -66,9 +66,11 @@
 		.filter-btn-box {
 			justify-content: space-between;
 		}
+
 		.filter-btn-box {
 			flex-wrap: wrap
 		}
+
 		.filter-btn-box .mui-btn {
 			font-size: 10px;
 			padding: 8px 16px;
@@ -77,14 +79,25 @@
 			background-color: #f1f1f1;
 			color: #606060;
 			position: relative;
+			overflow: hidden;
 		}
 
 		.filter-btn-box .mui-btn.mui-active {
 			background-color: #e6effd;
 		}
+
 		.filter-btn-box .mui-btn.mui-active:after {
-			content: "√";
+			content: "";
+			display: block;
 			position: absolute;
+			right: -14px;
+			bottom: -14px;
+			width: 30px;
+			height: 30px;
+			background-image: url(../img/common/md/icon_subscript@3x.png);
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: center center;
 		}
 
 		.filter-wrapper-column {
@@ -96,6 +109,7 @@
 			min-width: 60px;
 			text-align: right;
 		}
+
 		.filter-wrapper-column label {
 			font-size: 12px;
 			margin-bottom: 2px;
@@ -109,10 +123,27 @@
 			height: 34px;
 			width: auto;
 			border: none;
+			padding: 5px 10px;
 		}
 
 		.filter-input-box input {
 			width: 100px;
+			
+		}
+		nav.mui-bar {
+			box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+		}
+		.btn-wrapper {
+			margin: 20px auto;
+			width: 60%;
+			height: 40px;
+		}
+		.btn-wrapper .btn {
+			font-size: 14px;
+		}
+		.date-box input {
+			border-radius: 20px;
+			
 		}
 	</style>
 </head>
@@ -150,7 +181,7 @@
 					</div>
 				</li>
 			</ul>
-			<ul class="mui-table-view">
+			<ul class="mui-table-view date-box">
 				<li class="mui-table-view-cell">
 					<div class="filter-wrapper-column">
 						<label>保险日期</label>
@@ -201,14 +232,26 @@
 							<div class="mui-btn">所有车辆</div>
 							<div class="mui-btn">所有车辆</div>
 							<div class="mui-btn">所有车辆</div>
+							<div class="mui-btn">所有车辆</div>
+							<div class="mui-btn">所有车辆</div>
+							<div class="mui-btn">所有车辆</div>
+							<div class="mui-btn">所有车辆</div>
+							<div class="mui-btn">所有车辆</div>
 						</div>
 					</div>
 				</li>
 
 			</ul>
 
+
 		</div>
 	</div>
+	<nav class="mui-bar mui-bar-tab">
+		<div class="btn-wrapper ">
+			<button class="btn" id="reset">重置</button>
+			<button class="btn btn-blue" id="submit">确认</button>
+		</div>
+	</nav>
 
 	<!--<div class="close">
 		<i class="icon icon-add"></i>

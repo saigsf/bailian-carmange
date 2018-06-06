@@ -1,0 +1,316 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>车辆操作</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    header.mui-navbar .mui-bar-nav,
+    header.mui-bar,
+    header.mui-navbar {
+      box-shadow: 0 0 0 #fff;
+    }
+
+    .info-wrapper {
+      position: relative;
+      top: 0;
+      z-index: 1233;
+    }
+
+    .input-operation {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      width: 90%;
+      /* margin: 40px auto; */
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .input-operation-item {
+      width: 86px;
+      height: 86px;
+      /* border: 2px solid #2885cf; */
+      box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+      border-radius: 10px;
+      background-color: #fff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #333;
+      font-weight: bold
+    }
+
+    .input-operation-item span {
+      display: block;
+      text-align: center;
+      padding-top: 5px;
+    }
+
+    .input-operation-item[disabled="true"] {
+      color: #b1b1b1;
+    }
+
+    .tab {
+      width: 90%;
+      margin: 20px auto;
+    }
+
+    .tab-col {
+      border: 0;
+    }
+
+    .tab-row:nth-child(2n+1) {
+      background-color: #ebf6ff;
+    }
+
+    .tab-row:nth-child(2n) {
+      background-color: #f6fbff;
+    }
+
+    .take-up {
+      text-align: center;
+      padding: 2px 0;
+    }
+
+    .hide {
+      display: none;
+    }
+    .hide.info-item {
+      height: 0;
+      padding: 0 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">车辆操作</h1>
+  </header>
+  <!--页面主内容区开始-->
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <div class="info-top"></div>
+      <div class="info-wrapper">
+        <div class="info-item" id="vehicle-info">
+          <div class="info-content">
+            <div class="info-content-top">
+              <p>车辆编号</p>
+              <h3 id="vSn">2017-123</h3>
+            </div>
+            <div class="info-content-bottom">
+              <div class="info-content-item">
+                <h5 id="vin">32156A</h5>
+                <p>车架号</p>
+              </div>
+              <div class="info-content-item">
+                <h5 id="applyPeople">张三</h5>
+                <p>项目工程师</p>
+              </div>
+              <div class="info-content-item">
+                <h5 id="status">安全检查</h5>
+                <p>项目进度</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle hide"></div>
+        <div class="info-item hide">
+          <div class="info-content">
+            <div class="tab">
+              <div class="tab-row">
+                <div class="tab-col">名称</div>
+                <div class="tab-col">参数</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车辆名称</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车辆编号</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车架号</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">项目工程师</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">所属分组</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">检查进度</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">创建时间</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">备注</div>
+                <div class="tab-col">2222222</div>
+              </div>
+            </div>
+            <div class="take-up" id="take-up">收起</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-operation" id="input_operation">
+        <a class="input-operation-item" id="vehicle-input" href="#">
+          <i class="icon icon-vehicle-input"></i>
+          <span>信息录入</span>
+        </a>
+        <a class="input-operation-item" id="vehicle-check-safe" href="#">
+          <i class="icon icon-safe-check"></i>
+          <span>安全检查</span>
+        </a>
+        <a class="input-operation-item" id="vehicle-check-wire" href="#">
+          <i class="icon icon-wire-check"></i>
+          <span>线束检查</span>
+        </a>
+        <a class="input-operation-item" id="vehicle-check-bom" href="#">
+          <i class="icon icon-bom-check"></i>
+          <span>bom检查</span>
+        </a>
+        <a class="input-operation-item" id="vehicle-RD-tools" href="#">
+          <i class="icon icon-tools"></i>
+          <span>研发工具</span>
+        </a>
+        <a class="input-operation-item" id="vehicle-auditing" href="#">
+          <i class="icon icon-vehicle-auditing"></i>
+          <span>车辆审核</span>
+        </a>
+        <a class="input-operation-item" id="vehicle-check-down" href="#">
+          <i class="icon icon-vehicle-check-down"></i>
+          <span>还车点检</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    var H = null;
+    var self = null;
+    var vSn = null;
+
+    mui.init();
+    //初始化单页的区域滚动
+    // mui('.mui-scroll-wrapper').scroll();
+    mui.plusReady(function () {
+      handsetAdaption();
+      self = plus.webview.currentWebview();
+      H = self.H;
+      vSn = self.vSn;
+    })
+
+    function handsetAdaption() {
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      // plus.webview.currentWebview().setStyle({
+      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      // });
+    }
+
+    function addEvent() {
+      var $link = $('#input_operation a');
+
+      $link.on('tap', function () {
+        var id = $(this).attr('id');
+        mui.openWindow({
+          url: id + '.html',
+          id: id, //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn
+          } //自定义扩展参数
+        })
+      });
+      // 查看详情
+      $('#vehicle-info').on('tap', function () {
+        var id = $(this).attr('id');
+        mui.openWindow({
+          url: id + '.html',
+          id: id, //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn
+          } //自定义扩展参数
+        })
+      });
+
+      $('#vehicle-info').on('tap', '.info-content-bottom', function (e) {
+        e.stopPropagation();
+        $('#vehicle-info').next()
+          .slideDown()
+          .next().css({
+            'display': 'block',
+            'height': '0px',
+            'padding': '0px 12px'
+          }).animate({
+            'height': '380px',
+            'padding': '12px'
+          });
+      });
+      $('#take-up').on('tap', function () {
+        $('#vehicle-info').next().next()
+          .slideUp()
+          .prev()
+          .delay(500).animate({
+            'height': '0px',
+            'padding': '0px 12px'
+          }).css({
+            'display': 'none'
+          });
+      })
+    }
+    addEvent()
+  </script>
+</body>
+
+</html>

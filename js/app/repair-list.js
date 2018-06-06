@@ -27,7 +27,7 @@
   // 下拉刷新
   function pulldownRwfresh() {
     curPage = 1;
-    $('#OA_task_1').html('')
+    // $('#OA_task_1').html('')
     getPageData();
     setTimeout(function () {
       mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
