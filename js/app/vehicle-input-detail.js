@@ -258,11 +258,6 @@
         $(_this).parents('tr').find('.explain-text').val(explainText)
       });
     })
-
-    // 研发工具
-
-
-
     // 添加解决方法
     $('#app').on('tap', '.resolvent', function () {
       var _this = this;

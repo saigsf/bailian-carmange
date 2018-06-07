@@ -2,6 +2,7 @@
   var curPage = 1;  //当前页码初始化数0开始
   var totalPage = 0; //后台算出总页数
   var H = null;
+  var filter = '20px';
   var self = null;
   var main = null;
   var side = null;
@@ -31,9 +32,7 @@
 
 
   mui.plusReady(function () {
-    plus.webview.currentWebview().setStyle({
-      softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-    });
+    handsetAdaption()
 
     self = plus.webview.currentWebview();
     main = plus.webview.getWebviewById("HBuilder");
@@ -44,6 +43,16 @@
 
     addEvent();
   });
+
+  function handsetAdaption() {
+    if (plus.device.model === 'iPhoneX') {
+      //页面样式重置
+      filter = '34px'
+    }
+    plus.webview.currentWebview().setStyle({
+      softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+    });
+  }
 
   // 下拉刷新业务
   function pulldownRwfresh() {
@@ -255,7 +264,8 @@
       url: 'vehicle-filter.html',
       id: 'vehicle-filter', //默认使用当前页面的url作为id
       styles: {
-        top: '34px',
+        top: filter,
+        bottom: '0',
         left: '30%',
         width: '70%',
         zindex: 999

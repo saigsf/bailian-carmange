@@ -32,7 +32,7 @@
     fetchData._init()
 
     //添加说明
-    mui('.mui-fullscreen').on('tap', '.add', function () {
+    mui('#app').on('tap', '.add', function () {
       mui.openWindow({
         url: 'vehicle-check-add-explain.html',
         id: 'vehicle-check-add-explains', //默认使用当前页面的url作为id

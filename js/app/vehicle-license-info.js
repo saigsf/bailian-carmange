@@ -57,6 +57,20 @@
         } //自定义扩展参数
       })
     })
+    $('#license_input').on('tap', function() {
+      mui.openWindow({
+        url: 'vehicle-license-input.html',
+        id: 'vehicle-license-input', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H,
+          vSn: vSn
+        } //自定义扩展参数
+      })
+    })
   }
   addEvent()
 

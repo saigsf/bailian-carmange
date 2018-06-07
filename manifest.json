@@ -4,8 +4,8 @@
     "iPhone",
     "iPad"
   ],
-  "id": "H54F76A3F",/*应用的标识，创建应用时自动生成，勿手动修改*/
-  "name": "work_m_car_msg3",/*应用名称，程序桌面图标名称*/
+  "id": "com.app.delphi",/*应用的标识，创建应用时自动生成，勿手动修改*/
+  "name": "车辆管理系统",/*应用名称，程序桌面图标名称*/
   "version": {
     "name": "0.0.8",/*应用版本名称*/
     "code": "83"
@@ -4746,6 +4746,10 @@
 	  "screen-snapshot/5.8/1.png",
 	  "screen-snapshot/5.8/2.png",
 	  "screen-snapshot/5.8/3.png",
-	  "screen-snapshot/icon.png"
+	  "screen-snapshot/icon.png",
+	  "html/search-result.html",
+	  "img/common/md/no_net.png",
+	  "img/common/md/no_result.png",
+	  "img/car@3x.png"
 	]
 }

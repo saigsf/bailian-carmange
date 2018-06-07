@@ -27,8 +27,8 @@
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
     <h1 class="mui-title">BOM零部件查验</h1>
   </header>
-<!--页面主内容区开始-->
-<div class="mui-content mui-scroll-wrapper">
+  <!--页面主内容区开始-->
+  <div class="mui-content mui-scroll-wrapper" id="app">
     <div class="mui-scroll">
       <!-- BOM零部件申请start -->
       <form id="form_one_bom">
@@ -140,7 +140,7 @@
     var view = null; // 上页面
     var vSn = null; // 车辆编码
     var oneInfo = null; //基本信息
-    
+
 
     mui.init();
     mui.plusReady(function () {
@@ -169,7 +169,7 @@
     }
 
     function addEvent() {
-      $('#vehicle-input-tools').on('tap', function() {
+      $('#vehicle-input-tools').on('tap', function () {
         var oneBom = [];
         var $bomTr = $('#form_one_bom tr');
 
@@ -203,11 +203,62 @@
           } //自定义扩展参数
         })
       })
+
+      // 添加说明
+      $('#app').on('tap', '.explain', function () {
+        var _this = this;
+        var explainText = $(_this).parents('tr').find('.explain-text').val();
+        mui.openWindow({
+          url: 'vehicle-check-add-explain.html',
+          id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            status: 'explain',
+            explainText: explainText
+          } //自定义扩展参数
+        })
+
+        window.submitDataListener('updateExplain', (evt) => {
+          var explainText = evt.detail.explainText;
+          //do something
+          $(_this).parents('tr').find('.explain-text').val(explainText)
+        });
+      })
+      // 添加解决方法
+      $('#app').on('tap', '.resolvent', function () {
+        var _this = this;
+        var explainText = $(_this).parents('tr').find('.explain-text').val();
+        var resolventText = $(_this).parents('tr').find('.resolvent-text').val();
+
+        mui.openWindow({
+          url: 'vehicle-check-add-explain.html',
+          id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            status: 'resolvent',
+            explainText: explainText,
+            resolventText: resolventText
+          } //自定义扩展参数
+        })
+        window.submitDataListener('updateResolvent', (evt) => {
+          var resolventText = evt.detail.resolventText;
+          //do something
+          $(_this).parents('tr').find('.resolvent-text').val(resolventText)
+        });
+      })
     }
     addEvent();
 
     // 返回事件
-    document.addEventListener('goback', function() {
+    document.addEventListener('goback', function () {
       mui.back();
       mui.fire(view, 'goback', {});
     })
