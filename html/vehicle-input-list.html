@@ -36,15 +36,14 @@
     }
 
     .item-right-middle p {
-      font-size: 12px;
+      /* font-size: 12px; */
       width: 100%;
-      line-height: 20px;
     }
 
     .item-right-middle p span {
       display: inline-block;
       line-height: 0;
-      width: 18%;
+      width: 64px;
       text-align: justify;
     }
 
@@ -63,35 +62,38 @@
       width: 50%;
       text-align: left;
     }
+
     .search-wrapper {
       width: 80%;
       margin: 20px auto
     }
 
-    body {
-      font-size: 12px;
+
+
+    .top .btn {
+      background-color: transparent;
+      border: 0;
+      padding: 0;
     }
+
+    /* body {
+      font-size: 12px;
+    } */
   </style>
 </head>
 
 <body>
-  <div class="mui-content mui-scroll-wrapper">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <!-- <div class="search-wrapper">
-        <div class="search-text">
-          <input type="search" class="current-input" id="current_input" placeholder="请输入车辆编号">
-          <span class="clear-btn"></span>
-        </div>
-        <div class="search-btn">
-          <i class="icon icon-search"></i>
-        </div>
-      </div> -->
       <form class="top">
-          <div class="mui-input-row mui-search">
-              <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
-          </div>
+        <div class="mui-input-row mui-search">
+          <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
+        </div>
+        <!-- <div class="btn" id="add_btn">
+          <i class="icon icon-more"></i>
+        </div> -->
       </form>
-      <ul id="vehicle_input_list" class="mui-table-view">
+      <ul id="vehicle_input_list" class="mui-table-view mui-table-listview">
         <li class="mui-table-view-cell">
           <div class="mui-slider-right mui-disabled">
             <a class="mui-btn mui-btn-gray settop">置顶</a>
@@ -107,25 +109,56 @@
                 <div class="item-right-top">
                   <div class="number">
                     <h4>2018-0591</h4>
-                    <p>陕A6509B</p>
-                  </div>
-                  <div class="mui-btn mui-btn-blue mui-btn-outlined repairing">
-                    <!--<span>维修中</span>-->
-                    <i class="mui-icon mui-icon-arrowright"></i>
+                    <p>车辆名称</p>
                   </div>
                 </div>
                 <div class="item-right-middle">
                   <p>
-                    <span>送车人</span>：高世飞</p>
+                    <span>车架号</span>：1231214335</p>
                   <p>
-                    <span>接车人</span>：高世飞</p>
+                    <span>检查进度</span>：安全检查</p>
                   <p>
-                    <span>电话</span>：12314234</p>
-                  <p>
-                    <span>备注</span>：较急</p>
+                    <span>保险状态</span>：未申请</p>
                 </div>
               </div>
+
             </div>
+          </div>
+          <div class="item-mark">
+            <div class="icon icon-corner-mark-red"></div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-gray settop">置顶</a>
+            <a class="mui-btn mui-btn-red delete">删除</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="list-item">
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>2018-0591</h4>
+                    <p>车辆名称</p>
+                  </div>
+                </div>
+                <div class="item-right-middle">
+                  <p>
+                    <span>车架号</span>：1231214335</p>
+                  <p>
+                    <span>检查进度</span>：安全检查</p>
+                  <p>
+                    <span>保险状态</span>：未申请</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="item-mark">
+            <div class="icon icon-corner-mark-green"></div>
           </div>
         </li>
       </ul>

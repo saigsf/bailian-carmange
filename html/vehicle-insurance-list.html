@@ -26,15 +26,14 @@
     }
 
     .item-right-middle p {
-      font-size: 12px;
+      font-size: 14px;
       width: 100%;
-      line-height: 20px;
     }
 
     .item-right-middle p span {
       display: inline-block;
       line-height: 0;
-      width: 18%;
+      width: 64px;
       text-align: justify;
     }
 
@@ -59,22 +58,77 @@
       margin: 20px auto
     }
 
-    body {
-      font-size: 12px;
+    .top * {
+      transition: all .5s;
     }
+
+    .top .btn {
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+    }
+
+    .top .canclecheck {
+      width: 0;
+      line-height: 40px;
+      text-align: center;
+      color: #2885cf;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .batch .btn {
+      display: none;
+    }
+
+    .batch .canclecheck {
+      width: 15%;
+    }
+
+    .batch .item-checked {
+      width: 15%;
+    }
+
+    .btn-container {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 50px;
+      z-index: 999;
+      display: none;
+    }
+
+    .btn-container .btn {
+      width: 50%;
+      height: 100%;
+      float: left;
+      text-align: center;
+      border-radius: 0;
+    }
+
+    .btn-container .btn:not(.btn-blue) {
+      background-color: #fff;
+    }
+
+    /* body {
+      font-size: 12px;
+    } */
   </style>
 </head>
 
 <body>
-  <div class="mui-content mui-scroll-wrapper">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <form class="top">
         <div class="mui-input-row mui-search">
           <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
         </div>
-        <div class="" id="add_btn">
+        <div class="btn" id="add_btn">
           <i class="icon icon-more"></i>
         </div>
+        <div class="canclecheck" id="canclecheck">取消</div>
       </form>
       <ul id="vehicle_insurance_list" class="mui-table-view mui-table-listview">
         <li class="mui-table-view-cell" data-vSn="2019-222">
@@ -84,6 +138,10 @@
           </div>
           <div class="mui-slider-handle">
             <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
               <div class="item-left">
                 <img src="../img/common/icon_app.png" />
               </div>
@@ -99,9 +157,12 @@
                   </div>
                 </div>
                 <div class="item-right-middle">
-                  <p><span>保单号</span>：2017-132</p>
-                  <p><span>保险起始</span>：2018-12-12</p>
-                  <p><span>保险终止</span>：2018-12-12</p>
+                  <p>
+                    <span>临牌状态</span>：2017-132</p>
+                  <p>
+                    <span>保险起始</span>：2018-12-12</p>
+                  <p>
+                    <span>保险终止</span>：2018-12-12</p>
                 </div>
               </div>
             </div>
@@ -114,6 +175,10 @@
           </div>
           <div class="mui-slider-handle">
             <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
               <div class="item-left">
                 <img src="../img/common/icon_app.png" />
               </div>
@@ -129,9 +194,12 @@
                   </div>
                 </div>
                 <div class="item-right-middle">
-                  <p><span>保单号</span>：2017-132</p>
-                  <p><span>保险起始</span>：2018-12-12</p>
-                  <p><span>保险终止</span>：2018-12-12</p>
+                  <p>
+                    <span>临牌状态</span>：2017-132</p>
+                  <p>
+                    <span>保险起始</span>：2018-12-12</p>
+                  <p>
+                    <span>保险终止</span>：2018-12-12</p>
                 </div>
               </div>
             </div>
@@ -144,6 +212,10 @@
           </div>
           <div class="mui-slider-handle">
             <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
               <div class="item-left">
                 <img src="../img/common/icon_app.png" />
               </div>
@@ -159,9 +231,12 @@
                   </div>
                 </div>
                 <div class="item-right-middle">
-                  <p><span>保单号</span>：2017-132</p>
-                  <p><span>保险起始</span>：2018-12-12</p>
-                  <p><span>保险终止</span>：2018-12-12</p>
+                  <p>
+                    <span>临牌状态</span>：2017-132</p>
+                  <p>
+                    <span>保险起始</span>：2018-12-12</p>
+                  <p>
+                    <span>保险终止</span>：2018-12-12</p>
                 </div>
               </div>
             </div>
@@ -169,6 +244,15 @@
         </li>
       </ul>
     </div>
+  </div>
+  <div class="btn-container">
+    <button class="btn" id="authorize_batch">
+      <div class="checkbox-wrapper">
+        <input type="checkbox" name="" id="allcheck">
+        <label for="allcheck">全选</label>
+      </div>
+    </button>
+    <button class="btn btn-blue" id="cancel_authorize_batch">验车</button>
   </div>
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>

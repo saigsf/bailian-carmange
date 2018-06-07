@@ -1,8 +1,9 @@
 (function (mui, doc) {
   var curPage = 1;  //当前页码初始化数0开始
-  var totalPage = 7; //后台算出总页数
+  var totalPage = 0; //后台算出总页数
   var H = null;
   var self = null;
+  var vSn = null;
 
   mui.init({
     pullRefresh: {
@@ -12,6 +13,7 @@
         callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
       },
       up: {
+        auto: true,
         callback: pullupRefresh
       }
     }
@@ -30,11 +32,11 @@
 
   // 下拉刷新业务
   function pulldownRwfresh() {
-    // getData(1)
+    // getData()
     setTimeout(function () {
 
       mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
-      // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+      mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
     }, 1000)
   }
 
@@ -141,15 +143,15 @@
     $('#license-input').on('tap', function() {
       //打开接车点检页面
       mui.openWindow({
-        url: 'vehicle-license-input.html',
-        id: 'vehicle-license-input', //默认使用当前页面的url作为id
+        url: 'vehicle-license-apply.html',
+        id: 'vehicle-license-apply', //默认使用当前页面的url作为id
         styles: {
           top: '0px',
           bottom: H
         }, //窗口参数
         extras: {
           H: H,
-          vSn: $(this).attr('data-vSn')
+          vSn: vSn
         } //自定义扩展参数
       })
     })

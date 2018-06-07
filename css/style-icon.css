@@ -316,6 +316,24 @@
     background-image: url(../img/common/md/icon_subscript@3x.png);
 }
 
+.icon-take-down {
+    width: 14px;
+    height: 14px;
+    background-image: url(../img/common/md/icon_take_down.gif);
+}
+
+.icon-corner-mark-green {
+    width: 14px;
+    height: 14px;
+    background-image: url(../img/common/md/icon_corner_mark_green@2x.png);
+}
+
+.icon-corner-mark-red {
+    width: 14px;
+    height: 14px;
+    background-image: url(../img/common/md/icon_corner_mark_red@2x.png);
+}
+
 
 
 

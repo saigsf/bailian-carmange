@@ -35,19 +35,19 @@
   }
 
   function getData(vSn) {
-    app.vehicleSearch({
-      vSn: vSn,
-      status: '',
-      carName: '',
-      cGroup: {
-        id: 0,
-        name: '',
-        remark: ''
-      }
-    }, function (res) {
-      console.log(JSON.stringify(res))
-      // updateView(res)
-    })
+    // app.vehicleSearch({
+    //   vSn: vSn,
+    //   status: '',
+    //   carName: '',
+    //   cGroup: {
+    //     id: 0,
+    //     name: '',
+    //     remark: ''
+    //   }
+    // }, function (res) {
+    //   console.log(JSON.stringify(res))
+    //   // updateView(res)
+    // })
   }
 
   // 更新视图

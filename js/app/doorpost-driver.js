@@ -24,7 +24,7 @@
   // 下拉刷新业务
   function pulldownRwfresh() {
     curPage = 1;
-    $('#OA_task_1').html('')
+    // $('#OA_task_1').html('')
     getData();
     setTimeout(function () {
       mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed

@@ -162,7 +162,7 @@
         map1.centerAndZoom(data.points[i], zoom);
         map2.centerAndZoom(data.points[i], zoom);
         // 添加marker
-        map1.addOverlay(new BMap.Marker(data.points[i]));
+        map1.addOverlay(new BMap.Marker(data.points[i], {icon: myIcon}));
         map2.addOverlay(new BMap.Marker(data.points[i]));
       }
     }

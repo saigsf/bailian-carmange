@@ -82,10 +82,23 @@
     .tab-row:nth-child(2n) {
       background-color: #f6fbff;
     }
+    .info-content-bottom {
+      position: relative;
+    }
+    .take-down {
+      position: absolute;
+      bottom: 2px;
+      width: 100%;
+      text-align: center;
+    }
 
     .take-up {
       text-align: center;
       padding: 2px 0;
+    }
+
+    .take-up .icon-take-down {
+      transform: rotate(180deg)
     }
 
     .hide {
@@ -126,6 +139,9 @@
               <div class="info-content-item">
                 <h5 id="status">安全检查</h5>
                 <p>项目进度</p>
+              </div>
+              <div class="take-down" id="take-down">
+                <i class="icon icon-take-down"></i>
               </div>
             </div>
           </div>
@@ -171,7 +187,10 @@
                 <div class="tab-col">2222222</div>
               </div>
             </div>
-            <div class="take-up" id="take-up">收起</div>
+            <div class="take-up" id="take-up">
+                <i class="icon icon-take-down"></i>
+                <span>收起</span>
+            </div>
           </div>
         </div>
       </div>
@@ -284,8 +303,14 @@
         })
       });
 
+      var flag = false;
+
       $('#vehicle-info').on('tap', '.info-content-bottom', function (e) {
         e.stopPropagation();
+        if(flag) {
+          return;
+        }
+        flag = true;
         $('#vehicle-info').next()
           .slideDown()
           .next().css({
@@ -296,8 +321,10 @@
             'height': '380px',
             'padding': '12px'
           });
+        $('#take-down').hide()
       });
       $('#take-up').on('tap', function () {
+        flag = false;
         $('#vehicle-info').next().next()
           .slideUp()
           .prev()
@@ -307,6 +334,7 @@
           }).css({
             'display': 'none'
           });
+          $('#take-down').show()
       })
     }
     addEvent()

@@ -1,12 +1,14 @@
 (function (mui, doc) {
   var curPage = 1;  //当前页码初始化数0开始
-  var totalPage = 7; //后台算出总页数
+  var totalPage = 0; //后台算出总页数
   var H = null;
   var self = null;
   var main = null;
   var side = null;
+  var view = null;
   var showMenu = false;
   var isInTransition = false;
+
 
   mui.init({
     pullRefresh: {
@@ -18,6 +20,10 @@
       up: {
         callback: pullupRefresh
       }
+    },
+    gestureConfig: {
+      // doubletap: true, //默认为false
+      longtap: true, //默认为false
     }
   });
 
@@ -31,6 +37,7 @@
 
     self = plus.webview.currentWebview();
     main = plus.webview.getWebviewById("HBuilder");
+    view = plus.webview.getWebviewById('html/vehicle.html')
     H = self.H;
 
     main.addEventListener('maskClick', closeMenu);
@@ -40,7 +47,9 @@
 
   // 下拉刷新业务
   function pulldownRwfresh() {
-    // getData(1)
+    curPage = 1;
+    // $('#OA_task_1').html('')
+    getData()
     setTimeout(function () {
 
       mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
@@ -62,26 +71,26 @@
     }, 1000)
   }
   // 获取数据
-  function getData(page) {
+  function getData() {
     // console.log(curPage)
     var data = null;
-    app.pageQuery({
-      page: curPage,
-      size: 5
-    }, function (res) {
-      // console.log(res)
-      res = JSON.parse(res);
-      if (!res.totalCount || res.totalCount <= 0) {
-        return;
-      }
-      // console.log(res.totalCount)
-      curPage++;
-      totalPage = Math.ceil(res.totalCount / 5)
-      var data = res.pageData;
+    // app.pageQuery({
+    //   page: curPage,
+    //   size: 5
+    // }, function (res) {
+    //   // console.log(res)
+    //   res = JSON.parse(res);
+    //   if (!res.totalCount || res.totalCount <= 0) {
+    //     return;
+    //   }
+    //   // console.log(res.totalCount)
+    //   curPage++;
+    //   totalPage = Math.ceil(res.totalCount / 5)
+    //   var data = res.pageData;
 
-      updateView(data);
+    //   updateView(data);
 
-    });
+    // });
   }
 
   function updateView(data) {
@@ -146,31 +155,6 @@
         } //自定义扩展参数
       })
     });
-    //去还车
-    $('#OA_task_1').on('tap', '.goback', function (e) {
-      e.stopPropagation();
-
-      //打开页面
-      mui.openWindow({
-        url: 'vehicle-check-down.html',
-        id: 'vehicle-check-down', //默认使用当前页面的url作为id
-        styles: {
-          top: '0px',
-          bottom: H
-        }, //窗口参数
-        extras: {
-          H
-        }, //自定义扩展参数
-        createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-        show: {
-          autoShow: true, //页面loaded事件发生后自动显示，默认为true
-        },
-        waiting: {
-          autoShow: true, //自动显示等待框，默认为true
-          title: '正在加载...', //等待对话框上显示的提示内容
-        }
-      })
-    });
 
     // 车辆删除
     $('#OA_task_1').on('tap', '.delete', function (event) {
@@ -193,18 +177,76 @@
     });
     var btnArray = ['确认', '取消'];
 
-    var view = plus.webview.getWebviewById('html/vehicle.html');
-
     $('#add_btn').on('tap', function () {
       mui.fire(view, 'checkup', {
         domId: 'vehicle-check-up'
       })
     })
+
+    // 长按操作
+    // 长按
+    document.addEventListener("longtap", function () {
+      console.log("长按操作");
+      $('#OA_task_1').addClass('batch');
+      $('.top').addClass('batch')
+      $('.btn-container').fadeIn()
+    });
+
+    // 取消
+    $('.top').on('tap', '#canclecheck', canceLongtap);
+    function canceLongtap() {
+      $('#OA_task_1').removeClass('batch');
+      $('.top').removeClass('batch');
+      $('#OA_task_1').find('input').prop('checked', false);
+      $('#allcheck').prop('checked', false);
+      $('.btn-container').fadeOut()
+    }
+
+    // 全选
+    $('#allcheck').on('change', function () {
+      var $li = $('#OA_task_1').find('input');
+      var _this = this;
+
+      if ($(this).prop('checked')) {
+        $li.prop('checked', true);
+      } else {
+        $li.prop('checked', false);
+      }
+    })
+
+    // 单选
+    $('#OA_task_1').on('tap', '.item-checked', function (e) {
+      e.stopPropagation();
+
+      var $li = $('#OA_task_1').find('input');
+      var flag = $(this).find('input').prop('checked');
+
+      flag = !flag;
+      $(this).find('input').prop('checked', flag);
+
+      if (!flag) {
+        $('#allcheck').prop('checked', false);
+      } else {
+        $li.each(function (i) {
+          if (!$(this).prop('checked')) {
+            allCheckFlag = true;
+          }
+        });
+        if (allCheckFlag) {
+          allCheckFlag = false;
+          $('#allcheck').prop('checked', false);
+        } else {
+          allCheckFlag = true;
+          $('#allcheck').prop('checked', true);
+        }
+      }
+    })
   }
+  addEvent()
 
   //打开侧滑窗口；
   function openMenu() {
-    
+
     main.setStyle({
       mask: 'rgba(0,0,0,0.5)'
     }); //menu设置透明遮罩防止点击
@@ -239,17 +281,14 @@
   };
 
   //点击头部菜单小图标，打开侧滑菜单；
-  $('#filter').on('tap', function(e) {
-    // main = plus.webview.getWebviewById("HBuilder");
-    // console.log(main.id)
+  $('#filter').on('tap', function (e) {
     e.stopPropagation();
     openMenu()
-    // mui.fire(main, 'openSide', {})
-    // mui('.mui-off-canvas-wrap').offCanvas().show();
   });
   //menu页面点击后关闭菜单；
-  // window.addEventListener("menu:tap", closeMenu);
   window.addEventListener('closeMenu', closeMenu)
+
+
 
 
 

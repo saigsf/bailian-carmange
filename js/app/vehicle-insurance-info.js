@@ -2,7 +2,8 @@
   mui.init();
 
   var vSn = null;
-
+  var self = null;
+  var H = null;
   //初始化单页的区域滚动
   mui('.mui-scroll-wrapper').scroll();
 
@@ -17,9 +18,11 @@
         'paddingTop': '88px'
       })
     }
-    var self = plus.webview.currentWebview();
+    self = plus.webview.currentWebview();
     vSn = self.vSn;
+    H = self.H;
     getData();
+    addEvent();
   });
 
 
@@ -49,6 +52,71 @@
     $('#workContent').val(data.workContent)
     $('#remark').val(data.remark)
 
+  }
+
+  function addEvent() {
+
+    // 保险录入
+    $('#insurance_input').on('tap', function (e) {
+      e.stopPropagation();
+      var $li = $(this).parents('li')
+
+      mui.openWindow({
+        url: 'vehicle-insurance-input.html',
+        id: 'vehicle-insurance-input', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H,
+          vSn: vSn
+        } //自定义扩展参数
+      })
+    })
+
+    // 续保
+    $('#renew_insurance').on('tap', function (e) {
+      e.stopPropagation();
+      var $li = $(this).parents('li')
+
+      mui.openWindow({
+        url: 'vehicle-insurance-apply-input.html',
+        id: 'vehicle-insurance-apply-input', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H,
+          vSn: vSn
+        } //自定义扩展参数
+      })
+    })
+
+    // 临牌申请
+    $('#car_checking').on('tap', function (e) {
+      e.stopPropagation();
+      var $li = $(this).parents('li')
+
+      mui.toast('验车成功')
+    })
+
+    // 详情
+    $('#info').on('tap', function() {
+      mui.openWindow({
+        url: 'vehicle-info.html',
+        id: 'vehicle-info', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H,
+          vSn: vSn
+        } //自定义扩展参数
+      })
+    })
   }
 
 })();

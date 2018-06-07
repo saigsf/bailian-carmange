@@ -52,6 +52,10 @@
       line-height: 20px;
     }
 
+    .item-right-middle p span {
+      width: 64px;
+    }
+
     .bottom-item {
       width: 50%;
       text-align: left;
@@ -70,6 +74,7 @@
     .top * {
       transition: all .5s;
     }
+
     .top .btn {
       background-color: transparent;
       border: 0;
@@ -94,12 +99,13 @@
       position: absolute;
       clip: rect(0, 0, 0, 0);
     }
-    .allcheck input[type=checkbox] + label {
+
+    .allcheck input[type=checkbox]+label {
       display: inline-block;
       line-height: 40px;
     }
 
-    .allcheck input[type=checkbox] + label:before {
+    .allcheck input[type=checkbox]+label:before {
       content: "";
       background-color: white;
       border-radius: 50%;
@@ -116,15 +122,13 @@
     }
 
     .allcheck input[type=checkbox]:checked+label:before {
-      background-color: #2885cf;
+      /* background-color: #2885cf; */
       color: #fff;
       border-color: #2885cf;
-    }
-
-    .allcheck input[type=checkbox]:checked+label:before {
-      content: "\2714";
-      color: #fff;
-      font-size: 12px;
+      background-image: url(../img/common/md/icon_checked@2x.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 18px 18px;
     }
 
     .batch .allcheck,
@@ -151,11 +155,13 @@
       z-index: 999;
       display: none;
     }
+
     .btn-container .btn {
       width: 50%;
       height: 100%;
       float: left;
       text-align: center;
+      border-radius: 0;
     }
 
     /* body {
@@ -182,7 +188,7 @@
         <div class="canclecheck" id="canclecheck">取消</div>
       </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <!-- <li class="mui-table-view-cell">
+        <li class="mui-table-view-cell">
           <div class="mui-slider-right mui-disabled">
             <a class="mui-btn mui-btn-gray settop">取消授权</a>
             <a class="mui-btn mui-btn-red delete">删除</a>
@@ -202,7 +208,6 @@
                   <div class="number">
                     <h4>
                       <span>张女士</span>
-                      <i class="icon icon-woman"></i>
                     </h4>
                     <p>陕A6509B</p>
                   </div>
@@ -224,13 +229,13 @@
           <div class="mui-slider-left mui-disabled">
             <a class="mui-btn mui-btn-red delete">删除</a>
           </div>
-        </li> -->
+        </li>
       </ul>
     </div>
   </div>
   <div class="btn-container">
     <button class="btn" id="authorize_batch">授权</buttons>
-    <button class="btn btn-blue" id="cancel_authorize_batch">禁止</button>
+      <button class="btn btn-blue" id="cancel_authorize_batch">禁止</button>
   </div>
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>

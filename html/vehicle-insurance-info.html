@@ -85,6 +85,12 @@
       transform: translateX(-50%);
       top: 60%;
     }
+    .tab-col.red {
+      color: red
+    }
+    .insurance-input {
+      display: none;
+    }
   </style>
 </head>
 
@@ -99,7 +105,7 @@
     <div class="mui-scroll">
       <div class="info-top"></div>
       <div class="info-wrapper">
-        <div class="info-item">
+        <div class="info-item" id="info">
           <div class="info-content">
             <div class="info-content-top">
               <p>车辆编号</p>
@@ -115,8 +121,8 @@
                 <p>发动机号</p>
               </div>
               <div class="info-content-item">
-                <h5 id="status">32156A</h5>
-                <p>厂牌型号</p>
+                <h5 id="status">未申请</h5>
+                <p>临牌状态</p>
               </div>
             </div>
           </div>
@@ -190,6 +196,10 @@
                 <div class="tab-col">2222222</div>
               </div>
               <div class="tab-row">
+                <div class="tab-col">保险剩余天数</div>
+                <div class="tab-col red">90</div>
+              </div>
+              <div class="tab-row">
                 <div class="tab-col">厂牌型号</div>
                 <div class="tab-col">2222222</div>
               </div>
@@ -222,12 +232,12 @@
 
       </div>
 
-      <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="next">保险录入</button>
+      <div class="btn-wrapper insurance-input" id="insurance_input">
+        <button class="btn btn-blue">保险录入</button>
       </div>
       <div class="btn-wrapper ">
-        <button class="btn btn-orange" id="next">续保申请</button>
-        <button class="btn btn-blue" id="next">临牌申请</button>
+        <button class="btn btn-orange" id="renew_insurance">续保</button>
+        <button class="btn btn-blue" id="car_checking">验车</button>
       </div>
 
     </div>
