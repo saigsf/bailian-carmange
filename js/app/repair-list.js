@@ -172,7 +172,8 @@
         }, //窗口参数
         extras: {
           H: H,
-          vSn: $li.attr('data-vSn')
+          vSn: $li.attr('data-vSn'),
+          hasData: $li.attr('data-status')
         }, //自定义扩展参数
         createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
         show: {

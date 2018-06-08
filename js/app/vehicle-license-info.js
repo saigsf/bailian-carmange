@@ -4,15 +4,18 @@
   var H = null;
   var vSn = null;
   var self = null;
+  var hasData = false;
 
   //初始化单页的区域滚动
-  // mui('.mui-scroll-wrapper').scroll();
+  mui('.mui-scroll-wrapper').scroll();
 
   mui.plusReady(function () {
     handsetAdaption()
     self = plus.webview.currentWebview();
     H = self.H;
     vSn = self.vSn;
+    hasData = self.hasData;
+    console.log(hasData);
     getData();
   });
 
@@ -34,11 +37,17 @@
   }
 
   function getData() {
-
+    updateView() 
   }
 
   function updateView(data) {
-
+    if(hasData == 'true') {
+      $('#no_data').hide().prev().show();
+      $('#license_input').hide();
+    } else {
+      $('#no_data').show().prev().hide();
+      $('#license_input').show();
+    }
 
   }
 

@@ -124,6 +124,7 @@
   function addEvent() {
     //查看临牌信息
     $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
+      var $li = $(this).parents('li');
       //打开接车点检页面
       mui.openWindow({
         url: 'vehicle-license-info.html',
@@ -134,7 +135,8 @@
         }, //窗口参数
         extras: {
           H: H,
-          vSn: $(this).attr('data-vSn')
+          vSn: $li.attr('data-vSn'),
+          hasData: $li.attr('data-status')
         } //自定义扩展参数
       })
     });

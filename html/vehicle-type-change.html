@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>保险申请</title>
+  <title>检测站车型修改</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -15,71 +15,43 @@
   <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
   <!--独立样式-->
   <style type="text/css">
-    .driver-info {
-      width: 80%;
-      padding: 20px 30px;
-      margin: 40px auto;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, .3);
-      border-radius: 11px;
-      line-height: 30px;
-      padding-bottom: 60px;
-      position: relative;
-
-    }
-
-    .driver-info:after {
-      content: "";
-      display: block;
-      clear: both;
-    }
-
-    .driver-info label {
-      font-weight: bold;
-      float: left;
-    }
-
-    .driver-info p {
-      padding: 5px 10px;
-      border: 1px solid #ccc;
-      width: 80%;
-      float: left;
-      border-radius: 5px;
-      margin: 0;
-      height: auto;
-      min-height: 60px;
-    }
-
-    .mui-btn-outlined {
-      border: 0;
-      position: absolute;
-      right: 30px;
-      bottom: 10px;
-    }
-
-    .mui-table-view {
-      width: 90%;
+    .mui-table-view-cell {
+      background-color: transparent;
     }
 
     .mui-table-view-cell:after {
       display: none;
     }
 
-    .date-wrapper .date-text {
-      width: 80%;
+    .mui-input-row label {
+      width: 22%;
     }
 
-    .mui-button-row {
-      margin-top: 100px;
+    .mui-radio label {
+      padding: 0;
+      padding-left: 5px;
+      padding-right: 24px;
+      line-height: 20px;
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: auto;
+    }
+
+    .mui-radio-box {
+      padding-left: 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .date-wrapper .date-text {
+      width: 70%
     }
 
     .vSn {
       color: #2885cf;
       font-weight: bold;
-    }
-
-    .btn-wrapper {
-      margin-top: 150px;
     }
   </style>
 </head>
@@ -87,11 +59,11 @@
 <body>
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
-    <h1 class="mui-title">保险申请</h1>
+    <h1 class="mui-title">检测站车型修改</h1>
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <form id="apply">
+      <form id="insurance_input">
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <p class="vSn">车辆编号：
@@ -102,12 +74,9 @@
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <div class="date-wrapper">
-              <label>申请期限</label>
+              <label>检测站车型</label>
               <div class="date-text">
-                <input type="number" name="numtime" id="numtime" placeholder="请输入数字">
-                <div class="date-icon">
-                  <i class="icon icon-font ">年</i>
-                </div>
+                <input name="carType" type="text" placeholder="">
               </div>
             </div>
           </li>
@@ -120,11 +89,13 @@
             </div>
           </li> -->
         </ul>
+        <div class="btn-wrapper ">
+          <button class="btn btn-blue" id="submit">提交</button>
+        </div>
       </form>
-      <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="next">提交</button>
-      </div>
+
     </div>
+
 
   </div>
   <!-- jquery -->
@@ -136,7 +107,50 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script src="../js/app/vehicle-insurance-apply-input.js"></script>
+  <script>
+    (function () {
+      //初始化
+      mui.init();
+
+      mui('.mui-scroll-wrapper').scroll();
+
+      var H = null;
+      var vSn = null;
+
+      mui.plusReady(function () {
+        handsetAdaption()
+        var self = plus.webview.currentWebview();
+        H = self.H;
+        vSn = self.vSn;
+
+        $('#vSn').html(vSn)
+      })
+
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
+      }
+
+      $('#submit').on('tap', function () {
+        var data = serialize($('#insurance_input'));
+
+        console.log(data);
+
+      })
+
+    })();
+  </script>
 </body>
 
 </html>

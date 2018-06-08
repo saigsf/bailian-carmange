@@ -132,8 +132,11 @@
     }
   })
 
+  console.log(12332423)
+
   // 申请
   $('#apply').on('tap', function () {
+
     var $li = $('#OA_task_1').find('input');
     var ids = [];
     $li.each(function (i) {
@@ -148,6 +151,8 @@
       mui.toast('请至少选择一辆车')
       return;
     }
+    mui.toast('验车成功')
+    mui.back()
 
     // mui.openWindow({
     //   url: 'vehicle-insurance-apply-input.html',

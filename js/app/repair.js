@@ -3,7 +3,7 @@
   mui.init();
   
   //子页面列表
-  var subpages = ['repair-list.html', 'repair-apply.html'];
+  var subpages = ['repair-apply.html', 'repair-list.html'];
 
   // 子页面切换样式
   var subpages_style = {

@@ -73,6 +73,9 @@
     .btn-container .btn:not(.btn-blue) {
       background-color: #fff;
     }
+    .top .mui-input-row.mui-search {
+      width: 65%
+    }
   </style>
 </head>
 
@@ -81,6 +84,9 @@
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <form class="top">
+        <div class="program-status" id="program_status">
+          <i class="icon icon-status-change">状态</i>
+        </div>
         <div class="mui-input-row mui-search">
           <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
         </div>
@@ -92,7 +98,7 @@
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
         <li class="mui-table-view-cell">
           <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-red delete">删除</a>
+            <a class="mui-btn mui-btn-red car-type-change">车型修改</a>
           </div>
           <div class="mui-slider-handle">
             <div class="list-item">
@@ -133,12 +139,96 @@
             </div>
           </div>
         </li>
-
-
+        <li class="mui-table-view-cell">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-red car-type-change">车型修改</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>2018-0591</h4>
+                    <p>车辆类型</p>
+                  </div>
+                  <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-bottom">
+                  <div class="bottom-item">
+                    <h4>2018-02-22</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="bottom-item bottom-item-empty"></div>
+                  <div class="bottom-item">
+                    <h4>active</h4>
+                    <p>项目状态</p>
+                  </div>
+                  <div class="bottom-item bottom-item-empty"></div>
+                  <div class="bottom-item">
+                    <h4>张三</h4>
+                    <p>项目工程师</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-red car-type-change">车型修改</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>2018-0591</h4>
+                    <p>车辆类型</p>
+                  </div>
+                  <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-bottom">
+                  <div class="bottom-item">
+                    <h4>2018-02-22</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="bottom-item bottom-item-empty"></div>
+                  <div class="bottom-item">
+                    <h4>active</h4>
+                    <p>项目状态</p>
+                  </div>
+                  <div class="bottom-item bottom-item-empty"></div>
+                  <div class="bottom-item">
+                    <h4>张三</h4>
+                    <p>项目工程师</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
-  <div class="btn-container">
+  <!-- <div class="btn-container">
     <button class="btn" id="">
       <div class="checkbox-wrapper">
         <input type="checkbox" name="" id="allcheck">
@@ -146,7 +236,7 @@
       </div>
     </button>
     <button class="btn btn-blue" id="changeStatus">更改状态</button>
-  </div>
+  </div> -->
 
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>

@@ -150,6 +150,7 @@
   function addEvent() {
     //查看车辆信息
     $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
+      var $li = $('this').parents('li')
       //打开接车点检页面
       mui.openWindow({
         url: 'vehicle-list-info.html',
@@ -164,6 +165,40 @@
         } //自定义扩展参数
       })
     });
+
+    // 更改车型
+    $('#OA_task_1').on('tap', '.car-type-change', function () {
+      var $li = $('this').parents('li')
+      //
+      mui.openWindow({
+        url: 'vehicle-type-change.html',
+        id: 'vehicle-type-change', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H,
+          vSn: $(this).attr('data-vSn')
+        } //自定义扩展参数
+      })
+    })
+
+    // 更改项目状态
+    $('#program_status').on('tap', function () {
+      //
+      mui.openWindow({
+        url: 'vehicle-program-status.html',
+        id: 'vehicle-program-status', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H
+        } //自定义扩展参数
+      })
+    })
 
     // 车辆删除
     $('#OA_task_1').on('tap', '.delete', function (event) {
@@ -192,14 +227,14 @@
       })
     })
 
-    // 长按操作
-    // 长按
-    document.addEventListener("longtap", function () {
-      console.log("长按操作");
-      $('#OA_task_1').addClass('batch');
-      $('.top').addClass('batch')
-      $('.btn-container').fadeIn()
-    });
+    // // 长按操作
+    // // 长按
+    // document.addEventListener("longtap", function () {
+    //   console.log("长按操作");
+    //   $('#OA_task_1').addClass('batch');
+    //   $('.top').addClass('batch')
+    //   $('.btn-container').fadeIn()
+    // });
 
     // 取消
     $('.top').on('tap', '#canclecheck', canceLongtap);

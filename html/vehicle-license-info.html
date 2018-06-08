@@ -70,21 +70,7 @@
       background-color: #f6fbff;
     }
 
-    .no-data {
-      background-image: url(../img/common/md/no_data@2x.png);
-      background-repeat: no-repeat;
-      background-position: center 30%;
-      background-size: 60px;
-      height: 200px;
-      position: relative;
-      display: none;
-    }
-    .no-data p {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 60%;
-    }
+
   </style>
 </head>
 
@@ -138,36 +124,60 @@
                 <div class="tab-col">2222222</div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">车辆名称</div>
+                <div class="tab-col">项目状态</div>
                 <div class="tab-col">2222222</div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">车辆型号</div>
+                <div class="tab-col">厂牌型号</div>
                 <div class="tab-col">2222222</div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">拍照到期日</div>
+                <div class="tab-col">吨位</div>
                 <div class="tab-col">2222222</div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">牌照</div>
+                <div class="tab-col">发动机号</div>
                 <div class="tab-col">2222222</div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">备注</div>
+                <div class="tab-col">车架号</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">保险终止日</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车牌到期日</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车牌号</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">验车申请日</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">验车状态</div>
+                <div class="tab-col">2222222</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">临牌备注</div>
                 <div class="tab-col">2222222</div>
               </div>
             </div>
-            <div class="no-data">
-              <p>暂时没有保险数据</p>
+            <div class="no-data" id="no_data">
+              <p>暂时没有临牌数据</p>
             </div>
           </div>
         </div>
 
       </div>
       <div class="btn-wrapper license-input" id="license_input">
-          <button class="btn btn-blue">临牌录入</button>
-        </div>
+        <button class="btn btn-blue">临牌录入</button>
+      </div>
     </div>
   </div>
 

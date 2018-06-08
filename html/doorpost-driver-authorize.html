@@ -69,6 +69,34 @@
       width: 80%;
     }
 
+    .vSn {
+      color: #2885cf;
+      font-weight: bold;
+    }
+
+    .mui-radio label {
+      padding: 0;
+      padding-left: 5px;
+      padding-right: 24px;
+      line-height: 20px;
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: auto;
+    }
+
+    .mui-radio-box {
+      padding-left: 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+
+    select option {
+      text-align: center;
+    }
+
     /* .mui-scroll {
       padding-top: 64px
     } */
@@ -82,10 +110,42 @@
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <!-- <ul class="mui-table-view">
-        <li class="mui-table-view-cell">车辆编码：2017-123</li>
-      </ul> -->
       <ul class="mui-table-view mui-table-inputview">
+        <li class="mui-table-view-cell">
+          <p class="vSn">车辆编号：
+            <span id="vSn"></span>
+          </p>
+        </li>
+      </ul>
+      <ul class="mui-table-view mui-table-inputview">
+        <li class="mui-table-view-cell">
+          <div class="date-wrapper">
+            <label>所属分组</label>
+            <div class="date-text">
+              <select name="gids" id="groups" multiple="multiple">
+                <option value="王五">王五</option>
+                <option value="张三">张三</option>
+                <option value="李四">李四</option>
+                <option value="宋六">宋六</option>
+              </select>
+            </div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="date-wrapper">
+            <label>是否授权</label>
+            <div class="mui-radio-box">
+              <div class="mui-radio">
+                <input name="isallow" id="yes" type="radio" value="授权" checked>
+                <label for="#yes">是</label>
+              </div>
+              <div class="mui-radio">
+                <input name="isallow" id="no" value="禁止" type="radio">
+                <label for="#no">否</label>
+              </div>
+            </div>
+          </div>
+        </li>
         <li class="mui-table-view-cell">
           <div class="date-wrapper">
             <label>授权起始</label>
@@ -109,8 +169,8 @@
           </div>
         </li>
       </ul>
-      <div class="mui-button-row">
-        <button type="button" class="mui-btn mui-btn-blue" id="next">提交</button>
+      <div class="btn-wrapper ">
+        <button class="btn btn-blue" id="next">提交</button>
       </div>
     </div>
 

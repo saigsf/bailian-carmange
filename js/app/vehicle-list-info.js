@@ -82,6 +82,20 @@
         } //自定义扩展参数
       })
     })
+    $('#info').on('tap', function() {
+      mui.openWindow({
+        url: 'vehicle-info.html',
+        id: 'vehicle-info', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H
+        }, //窗口参数
+        extras: {
+          H: H,
+          vSn: vSn
+        } //自定义扩展参数
+      })
+    })
   }
   addEvent()
 

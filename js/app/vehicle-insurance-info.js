@@ -4,6 +4,7 @@
   var vSn = null;
   var self = null;
   var H = null;
+  var hasData = false;
   //初始化单页的区域滚动
   mui('.mui-scroll-wrapper').scroll();
 
@@ -21,37 +22,34 @@
     self = plus.webview.currentWebview();
     vSn = self.vSn;
     H = self.H;
+    hasData = self.hasData;
     getData();
     addEvent();
   });
 
 
   function getData() {
-    app.carMaintainQuery({
-      vSn: vSn
-    }, function(res) {
-      res = JSON.parse(res);
-      console.log(res)
-      updateView(res.rows[0])
-    })
+    // app.carMaintainQuery({
+    //   vSn: vSn
+    // }, function(res) {
+    //   res = JSON.parse(res);
+    //   console.log(res)
+    //   updateView(res.rows[0])
+    // })
+    updateView()
   }
 
   function updateView(data) {
-
-    $('#vSn').html(data.vSn)
-    $('#item_0').html(data.item)
-    $('#applyPeople').html(data.applyPeople)
-    $('#status').html(data.status)
-    $('#item').val(data.item)
-    $('#send_park').val(data.send_park)
-    $('#applytime').val(data.applytime)
-    $('#applyRemark').val(data.applyRemark)
-    $('#operator').val(data.operator)
-    $('#forecastTime').val(data.forecastTime)
-    $('#fin_park').val(data.fin_park)
-    $('#workContent').val(data.workContent)
-    $('#remark').val(data.remark)
-
+    if(hasData == '1') {
+      $('#no_data').hide().prev().show();
+      $('#insurance_input').hide().next().show().find('#renew_insurance').addClass('btn-orange');
+    } else if(hasData == '2') {
+      $('#no_data').hide().prev().show();
+      $('#insurance_input').hide().next().show().find('#renew_insurance').removeClass('btn-orange') ;
+    } else {
+      $('#no_data').show().prev().hide();
+      $('#insurance_input').show().next().hide();
+    }
   }
 
   function addEvent() {

@@ -130,7 +130,8 @@
         }, //窗口参数
         extras: {
           H: H,
-          vSn: $li.attr('data-vSn')
+          vSn: $li.attr('data-vSn'),
+          hasData: $li.attr('data-status')
         } //自定义扩展参数
       })
     })
