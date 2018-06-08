@@ -345,8 +345,9 @@
 .icon-filter:before {
     content: "";
     display: inline-block;
-    width: 14px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
     background: url(../img/common/md/icon_filter@2x.png) no-repeat center;
     background-size: contain;
 }
@@ -360,6 +361,7 @@
     display: inline-block;
     width: 16px;
     height: 16px;
+    vertical-align: middle;
     background: url(../img/common/md/icon_status_change.png) no-repeat center;
     background-size: contain;
 }

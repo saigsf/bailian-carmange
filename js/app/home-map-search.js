@@ -1,40 +1,16 @@
-(function() {
+(function () {
   mui.init({
     swipeBack: true //启用右滑关闭功能
   });
 
   var flag = true;
   var bottom = '-70px';
-  $('#btn').on('tap', function() {
-    if(!flag) {
-      $(this).removeClass('icon-arrowup').addClass('icon-arrowdown')
-      $('.bottom-search').css('bottom', '0px')
-    } else {
-      $(this).removeClass('icon-arrowdown').addClass('icon-arrowup')
-      $('.bottom-search').css('bottom', bottom)
-    }
-    flag = !flag
-  })
-  // 更改标题
-  $('.mui-segmented-control').on('tap', '.mui-control-item', function() {
-    $('.mui-title').html($(this).html())
-    if($(this).html() == '实时监控') {
-    	$('.date-container').hide();
-    	bottom = '-70px';
-    }
-    if($(this).html() == '车辆轨迹') {
-    	$('.date-container').css('display', 'flex');
-    	bottom = '-130px';
-    }
-    $('#btn').removeClass('icon-arrowdown').addClass('icon-arrowup')
-      $('.bottom-search').css('bottom', bottom)
-    flag = false;
-  })
+
 
   // 全局变量
   var H = null;
 
-  mui.plusReady(function() {
+  mui.plusReady(function () {
     // plus准备好后执行H5
     handsetAdaption()
     // 获取当前视图
@@ -47,7 +23,7 @@
   // 手机适配方法
   function handsetAdaption() {
     // 更改顶部导航栏高度
-    if(plus.device.model === 'iPhoneX') {
+    if (plus.device.model === 'iPhoneX') {
       // 页面样式重置
       $('header').css({
         'height': '88px',
@@ -70,17 +46,18 @@
   function addEvent() {
     var dDate = new Date();
 
+    // 开始时间
     $('#start_date_box').off().on('tap', function () {
 
       plus.nativeUI.pickDate(function (e) {
         var d = e.date;
         $('#start_date').val(d.format('yyyy-MM-dd'));
-  
-        plus.nativeUI.pickTime( function(e){
-          var d=e.date;
-          $('#start_date').val($('#start_date').val()+d.format(' hh:mm:ss'));
-        },function(e){
-          $('#start_date').val( "未选择时间："+e.message );
+
+        plus.nativeUI.pickTime(function (e) {
+          var d = e.date;
+          $('#start_date').val($('#start_date').val() + d.format(' hh:mm:ss'));
+        }, function (e) {
+          $('#start_date').val("未选择时间：" + e.message);
         });
       }, function (e) {
         $('#start_date').val('您没有选择日期');
@@ -91,19 +68,20 @@
         });
     });
 
+    // 结束时间
     $('#end_date_box').off().on('tap', function () {
 
       plus.nativeUI.pickDate(function (e) {
         var d = e.date;
         $('#end_date').val(d.format('yyyy-MM-dd'));
 
-        plus.nativeUI.pickTime( function(e){
-          var d=e.date;
-          $('#end_date').val($('#end_date').val()+d.format(' hh:mm:ss'));
-        },function(e){
-          $('#end_date').val( "未选择时间："+e.message );
+        plus.nativeUI.pickTime(function (e) {
+          var d = e.date;
+          $('#end_date').val($('#end_date').val() + d.format(' hh:mm:ss'));
+        }, function (e) {
+          $('#end_date').val("未选择时间：" + e.message);
         });
-  
+
       }, function (e) {
         $('#end_date').val('您没有选择日期');
       }, {
@@ -113,64 +91,43 @@
         });
     });
 
+    // 
+    $('#btn').on('tap', function () {
+      if (!flag) {
+        $(this).removeClass('icon-arrowup').addClass('icon-arrowdown')
+        $('.bottom-search').css('bottom', '0px')
+      } else {
+        $(this).removeClass('icon-arrowdown').addClass('icon-arrowup')
+        $('.bottom-search').css('bottom', bottom)
+      }
+      flag = !flag
+    })
+    // 更改标题
+    $('.mui-segmented-control').on('tap', '.mui-control-item', function () {
+      $('.mui-title').html($(this).html())
+      if ($(this).html() == '实时监控') {
+        $('.date-container').hide();
+        bottom = '-70px';
+      }
+      if ($(this).html() == '车辆轨迹') {
+        $('.date-container').css('display', 'flex');
+        bottom = '-130px';
+      }
+      $('#btn').removeClass('icon-arrowdown').addClass('icon-arrowup')
+      $('.bottom-search').css('bottom', bottom)
+      flag = false;
+    })
+
   }
 
   // 百度地图API功能	
-  var map1 = null;
-  var map2 = null;
-  var myIcon = new BMap.Icon("../../img/car@3x.png", new BMap.Size(30, 57));
+  var map1 = new BMap.Map("item1-map");
+  var map2 = new BMap.Map("item2-map");
+  var myIcon = new BMap.Icon("../img/2222@3x.png", new BMap.Size(28, 64));
 
-  // 添加平移缩放控件
-  // map1.addControl(new BMap.NavigationControl());
-  // map2.addControl(new BMap.NavigationControl()); 
-
-  //启用滚轮放大缩小，默认禁用
-  // map1.enableScrollWheelZoom(); 
-  // map2.enableScrollWheelZoom(); 
-
-  navigator.geolocation.getCurrentPosition(translatePoint); //定位
-
-  function translatePoint(position) {
-    // console.log(JSON.stringify(position))
-    var currentLat = position.coords.latitude;
-    var currentLon = position.coords.longitude;
-    var gpsPoint = [new BMap.Point(currentLon, currentLat)];
-    var convertor = new BMap.Convertor();
-    convertor.translate(gpsPoint, 1, 5, initMap); //转换坐标 
-  }
-
-  function initMap(data) {
-    console.log(JSON.stringify(data))
-    // 放缩比
-    var zoom = 11;
-
-    // 地图初始化
-    map1 = new BMap.Map("item1-map"); // 轨迹查询
-    map2 = new BMap.Map("item2-map"); // 实时监控
-
-    // 控件
-    // map1.addControl(new BMap.NavigationControl());
-    // map2.addControl(new BMap.NavigationControl());
-    // map1.addControl(new BMap.ScaleControl());
-    // map2.addControl(new BMap.ScaleControl());
-    // map1.addControl(new BMap.OverviewMapControl());
-    // map2.addControl(new BMap.OverviewMapControl());
-
-    if(data.status === 0) {
-      for(var i = 0; i < data.points.length; i++) {
-        // 中心点及放缩比设置
-        map1.centerAndZoom(data.points[i], zoom);
-        map2.centerAndZoom(data.points[i], zoom);
-        // 添加marker
-        map1.addOverlay(new BMap.Marker(data.points[i], {icon: myIcon}));
-        map2.addOverlay(new BMap.Marker(data.points[i]));
-      }
-    }
-
-  }
 
   // 状态栏颜色更改
-  document.addEventListener('statusBar', function(e) {
+  document.addEventListener('statusBar', function (e) {
     plus.navigator.setStatusBarStyle('light');
     mui.toast(e.detail.vSn);
     getData(e.detail.vSn)
@@ -180,7 +137,7 @@
     // 实时数据查询
     app.carData({
       vSn: vSn
-    }, function(res) {
+    }, function (res) {
       // console.log(JSON.stringify(res));
       updateView.carData(res)
     });
@@ -189,7 +146,7 @@
       vSn: vSn,
       startDate: (new Date()).format('yyyy-MM-dd hh:mm:ss'),
       endDate: (new Date()).format('yyyy-MM-dd hh:mm:ss')
-    }, function(res) {
+    }, function (res) {
       // console.log(res)
       res = JSON.parse(res)
       // if (res.length <= 0) {
@@ -205,19 +162,19 @@
   }
 
   var updateView = {
-    carData: function(data) {
+    carData: function (data) {
       var points = [];
-      for(let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         const item = data[i];
         var point = new BMap.Point(item.longitude, item.latitude)
         points.push(point);
       }
 
       //坐标转换完之后的回调函数
-      var translateCallback = function(data) {
-        if(data.status === 0) {
+      var translateCallback = function (data) {
+        if (data.status === 0) {
           // console.log(myIcon)
-          for(var i = 0; i < data.points.length; i++) {
+          for (var i = 0; i < data.points.length; i++) {
             var marker = new BMap.Marker(data.points[i]); // 在指定坐标创建marker对象
             marker.setLabel('工作地点'); // 设置marker的标注文字
             map2.addOverlay(marker);
@@ -225,12 +182,12 @@
           }
         }
       }
-      setTimeout(function() {
+      setTimeout(function () {
         var convertor = new BMap.Convertor();
         convertor.translate(points, 1, 5, translateCallback)
       }, 1000);
     },
-    carTrack: function(data) {
+    carTrack: function (data) {
 
       // 获取车辆位置点集，这里使用假数据
       var pts = [
@@ -243,8 +200,8 @@
       var polyline;
       // 轨迹配置项
       var options = {
-        onSearchComplete: function(results) {
-          if(driving.getStatus() == BMAP_STATUS_SUCCESS) {
+        onSearchComplete: function (results) {
+          if (driving.getStatus() == BMAP_STATUS_SUCCESS) {
             // 获取第一条方案
             var plan = results.getPlan(0);
             // 获取方案的驾车线路
@@ -265,17 +222,17 @@
 
       // 轨迹实现方法
       function playLine(i) {
-        if(i == 0) { //第一个点 直接添加
+        if (i == 0) { //第一个点 直接添加
           var marker = new BMap.Marker(pts[i]); // 创建标注
           map1.addOverlay(marker);
           // marker.setLabel(new BMap.Label("我是第" + (i + 1) + "个点", { offset: new BMap.Size(20, -10) }));
           map1.panTo(pts[i]);
           i++;
-          setTimeout(function() {
+          setTimeout(function () {
             playLine(i);
           }, 2000)
         } else { //获取PolyLine并添加 添加点
-          if(i < pts.length) {
+          if (i < pts.length) {
             driving.search(pts[i - 1], pts[i]);
             map1.addOverlay(polyline);
             var marker = new BMap.Marker(pts[i]); // 创建标注
@@ -283,7 +240,7 @@
             // marker.setLabel(new BMap.Label("我是第" + (i + 1) + "个点", { offset: new BMap.Size(20, -10) }));
             map1.panTo(pts[i]);
             i++;
-            setTimeout(function() {
+            setTimeout(function () {
               playLine(i);
             }, 10)
           }
@@ -298,12 +255,12 @@
     allcar: function (data) {
       map2.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 14);
       map2.clearOverlays();       //清除地图上所有覆盖物
-      
+
       if (!document.createElement('canvas').getContext) {
         alert('请在chrome、safari、IE8+以上浏览器查看');
         return;
       }
-  
+
       var points = [];
       for (let i = 0; i < data.length; i++) {
         const item = data[i];
@@ -312,14 +269,14 @@
         // ···
         points.push(point);
       }
-  
+
       var options = {
         size: BMAP_POINT_SIZE_BIG,
         shape: BMAP_POINT_SHAPE_WATERDROP,
         color: '#d340c3'
       }
       console.log(JSON.stringify(points))
-  
+
       var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
       pointCollection.addEventListener('click', function (e) {
         alert('单击点的坐标为：' + e.point.lng + ',' + e.point.lat);  // 监听点击事件
@@ -327,5 +284,55 @@
       map2.addOverlay(pointCollection);  // 添加Overlay
     }
   }
+
+  // 获取位置信息
+  getLocation()
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      alert("浏览器不支持地理定位。");
+    }
+  }
+
+  // 位置获取失败
+  function showError(error) {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        alert("定位失败,用户拒绝请求地理定位");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("定位失败,位置信息是不可用");
+        break;
+      case error.TIMEOUT:
+        alert("定位失败,请求获取用户位置超时");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("定位失败,定位系统失效");
+        break;
+    }
+  }
+
+  // 位置获取成功
+  function showPosition(position) {
+    var lat = position.coords.latitude; //纬度 
+    var lag = position.coords.longitude; //经度 
+    var point = new BMap.Point(lag, lat);
+    translatePoint(point, function(res) {
+      var point = res.points[0];
+      var marker1 = new BMap.Marker(point);
+      var marker2 = new BMap.Marker(point);
+      
+      map1.centerAndZoom(point, 11);
+      map1.addOverlay(marker1);
+      map2.centerAndZoom(point, 11);
+      map2.addOverlay(marker2);
+      // addMarker(point, map1)
+      // addMarker(point, map2)
+    })
+    
+  }
+
+
 
 })()

@@ -29,10 +29,10 @@
 		.mui-btn {
 			position: absolute;
 			overflow: hidden;
-			transform: translateX(-50%);
-			top: 90.25%;
+			transform: translateX(-22px);
+			bottom: 0;
 			left: 50%;
-			transition: all 1s;
+			transition: all .7s;
 		}
 
 		.mui-btn {
@@ -49,233 +49,87 @@
 		}
 
 		.mui-btn .icon {
-			width: 30px;
-			height: 30px;
+			width: 20px;
+			height: 20px;
+		}
+		.mui-btn span {
+			font-size: 12px;
 		}
 
 		.run .mui-btn:nth-child(1) {
-			animation: moveOne 1s 0s forwards; 
-			-webkit-animation: moveOne 1s 0s forwards
+			animation: moveOne .7s 0s forwards;
+			-webkit-animation: moveOne .7s 0s forwards
 		}
+
 		.run .mui-btn:nth-child(2) {
-			animation: moveTwo 1s 0s forwards;
-			-webkit-animation: moveTwo 1s 0s forwards
+			animation: moveTwo .7s 0s forwards;
+			-webkit-animation: moveTwo .7s 0s forwards
 		}
+
 		.run .mui-btn:nth-child(3) {
-			animation: moveThree 1s 0s forwards;
-			-webkit-animation: moveThree 1s 0s forwards
+			animation: moveThree .7s 0s forwards;
+			-webkit-animation: moveThree .7s 0s forwards
 		}
+
 		.run .mui-btn:nth-child(4) {
-			animation: moveFour 1s 0s forwards;
-			-webkit-animation: moveFour 1s 0s forwards
+			animation: moveFour .7s 0s forwards;
+			-webkit-animation: moveFour .7s 0s forwards
 		}
 
 		/* popover动画 */
 
-		@-webkit-keyframes moveOne {
-			0% {
-				opacity: 0;
-				top: 90.25%;
-				left: 50%;
-				width: 44px;
-				height: 44px;
-			}
-			80% {
-				opacity: 1;
-				/* top: 68%;
-				left: 17%; */
-				top: 70%;
-				left: 20%;
-				width: 60px;
-				height: 60px;
-			}
-			100% {
-				opacity: 1;
-				top: 70%;
-				left: 20%;
-				width: 60px;
-				height: 60px;
-			}
-		}
-
 		@keyframes moveOne {
 			0% {
-				opacity: 0;
-				top: 90.25%;
-				left: 50%;
-				width: 44px;
-				height: 44px;
+				transform: translateX(-22px);
 			}
-			80% {
-				opacity: 1;
-				/* top: 68%;
-				left: 17%; */
-				top: 70%;
-				left: 20%;
-				width: 60px;
-				height: 60px;
+			70% {
+				transform: translate(-140px, -58px) rotate(-90deg);
 			}
 			100% {
-				opacity: 1;
-				top: 70%;
-				left: 20%;
-				width: 60px;
-				height: 60px;
-			}
-		}
-
-		@-webkit-keyframes moveTwo {
-			0% {
-				opacity: 0;
-				top: 90.25%;
-				left: 50%;
-				width: 44px;
-				height: 44px;
-			}
-			80% {
-				opacity: 1;
-				/* top: 60%;
-				left: 37.2%; */
-				top: 62%;
-				left: 38%;
-				width: 60px;
-				height: 60px;
-			}
-			100% {
-				opacity: 1;
-				top: 62%;
-				left: 38%;
-				width: 60px;
-				height: 60px;
+				transform: translate(-120px, -49px) rotate(0deg);
 			}
 		}
 
 		@keyframes moveTwo {
 			0% {
-				opacity: 0;
-				top: 90.25%;
-				left: 50%;
-				width: 44px;
-				height: 44px;
+				transform: translateX(-22px);
 			}
-			80% {
-				opacity: 1;
-				/* top: 60%;
-				left: 37.2%; */
-				top: 62%;
-				left: 38%;
-				width: 60px;
-				height: 60px;
+			70% {
+				transform: translate(-70px, -117px) rotate(-90deg);
 			}
 			100% {
-				opacity: 1;
-				top: 62%;
-				left: 38%;
-				width: 60px;
-				height: 60px;
-			}
-		}
-
-		@-webkit-keyframes moveThree {
-			0% {
-				opacity: 0;
-				top: 90.25%;
-				left: 50%;
-				width: 44px;
-				height: 44px;
-			}
-			80% {
-				opacity: 1;
-				top: 62%;
-				left: 62%;
-				width: 60px;
-				height: 60px;
-			}
-			100% {
-				opacity: 1;
-				top: 62%;
-				left: 62%;
-				width: 60px;
-				height: 60px;
+				transform: translate(-59px, -97px) rotate(0deg);
 			}
 		}
 
 		@keyframes moveThree {
 			0% {
-				opacity: 0;
-				top: 90.25%;
-				left: 50%;
-				width: 44px;
-				height: 44px;
+				transform: translateX(-22px);
 			}
-			80% {
-				opacity: 1;
-				top: 62%;
-				left: 62%;
-				width: 60px;
-				height: 60px;
+			70% {
+				transform: translate(26px, -117px) rotate(-90deg);
 			}
 			100% {
-				opacity: 1;
-				top: 62%;
-				left: 62%;
-				width: 60px;
-				height: 60px;
-			}
-		}
-
-		@-webkit-keyframes moveFour {
-			0% {
-				opacity: 0;
-				top: 90.25%;
-				left: 50%;
-				width: 44px;
-				height: 44px;
-			}
-			80% {
-				opacity: 1;
-				top: 70%;
-				left: 80%;
-				width: 60px;
-				height: 60px;
-			}
-			100% {
-				opacity: 1;
-				top: 70%;
-				left: 80%;
-				width: 60px;
-				height: 60px;
+				transform: translate(15px, -97px) rotate(0deg);
 			}
 		}
 
 		@keyframes moveFour {
 			0% {
-				opacity: 0;
-				top: 90.25%;
-				left: 50%;
-				width: 44px;
-				height: 44px;
+				transform: translateX(-22px);
 			}
-			80% {
-				opacity: 1;
-				top: 70%;
-				left: 80%;
-				width: 60px;
-				height: 60px;
+			70% {
+				transform: translate(96px, -60px) rotate(-90deg);
 			}
 			100% {
-				opacity: 1;
-				top: 70%;
-				left: 80%;
-				width: 60px;
-				height: 60px;
+				transform: translate(76px, -49px) rotate(0deg);
 			}
 		}
 
 
 		.close {
 			position: absolute;
-			top: 90.25%;
+			bottom: 0;
 			left: 50%;
 			transform: translateX(-50%);
 			width: 44px;
@@ -286,12 +140,10 @@
 		}
 
 		.close .icon {
-			background-size: 24px 24px
+			background-size: 24px 24px;
+			transition: all .7s
 		}
 
-		.icon-add {
-			background-image: url(../img/common/md/icon_add_active.png);
-		}
 	</style>
 </head>
 
@@ -313,12 +165,10 @@
 			<i class="icon icon-power"></i>
 			<span>系统</span>
 		</div>
-
+		<div class="close" id="close">
+			<i class="icon icon-add"></i>
+		</div>
 	</div>
-
-	<!--<div class="close">
-		<i class="icon icon-add"></i>
-	</div>-->
 	<!-- jquery -->
 	<script src="../js/lib/jquery.min.js"></script>
 	<!-- mui -->

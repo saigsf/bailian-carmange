@@ -135,3 +135,28 @@ function translate(before, standard) {
     }
   }
 }
+
+/**
+ * 坐标转换
+ * @param {坐标点或坐标数组} points 
+ * @param {Function} callback 回掉函数
+ */
+function translatePoint(points, callback) {
+  var convertor = new BMap.Convertor();
+  var gpsPoints = [];
+
+  if (points instanceof Array) {
+    gpsPoints = points;
+  } else {
+    gpsPoints.push(points)
+  }
+
+  convertor.translate(gpsPoints, 1, 5, callback); //转换坐标 
+}
+
+// 添加marker
+function addMarker(point, map) {
+  var myIcon = new BMap.Icon("../img/2222@3x.png", new BMap.Size(28, 64));
+  var marker = new BMap.Marker(point, { icon: myIcon });
+  map.addOverlay(marker);
+}
