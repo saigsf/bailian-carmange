@@ -101,19 +101,19 @@
   // 页面点击事件
   function addEvents() {
     // 保险申请
-    $('#add_btn').on('tap', function () {
-      mui.openWindow({
-        url: 'vehicle-insurance-apply.html',
-        id: 'vehicle-insurance-apply', //默认使用当前页面的url作为id
-        styles: {
-          top: '0px',
-          bottom: H
-        }, //窗口参数
-        extras: {
-          H: H
-        } //自定义扩展参数
-      })
-    })
+    // $('#add_btn').on('tap', function () {
+    //   mui.openWindow({
+    //     url: 'vehicle-insurance-apply.html',
+    //     id: 'vehicle-insurance-apply', //默认使用当前页面的url作为id
+    //     styles: {
+    //       top: '0px',
+    //       bottom: H
+    //     }, //窗口参数
+    //     extras: {
+    //       H: H
+    //     } //自定义扩展参数
+    //   })
+    // })
 
 
 
@@ -138,62 +138,62 @@
 
     // 长按操作
     // 长按
-    document.addEventListener("longtap", function () {
-      console.log("长按操作");
-      $('#vehicle_insurance_list').addClass('batch');
-      $('.top').addClass('batch')
-      $('.btn-container').fadeIn()
-    });
+    // document.addEventListener("longtap", function () {
+    //   console.log("长按操作");
+    //   $('#vehicle_insurance_list').addClass('batch');
+    //   $('.top').addClass('batch')
+    //   $('.btn-container').fadeIn()
+    // });
 
     // 取消
-    $('.top').on('tap', '#canclecheck', canceLongtap);
-    function canceLongtap() {
-      $('#vehicle_insurance_list').removeClass('batch');
-      $('.top').removeClass('batch');
-      $('#vehicle_insurance_list').find('input').prop('checked', false);
-      $('#allcheck').prop('checked', false);
-      $('.btn-container').fadeOut()
-    }
+    // $('.top').on('tap', '#canclecheck', canceLongtap);
+    // function canceLongtap() {
+    //   $('#vehicle_insurance_list').removeClass('batch');
+    //   $('.top').removeClass('batch');
+    //   $('#vehicle_insurance_list').find('input').prop('checked', false);
+    //   $('#allcheck').prop('checked', false);
+    //   $('.btn-container').fadeOut()
+    // }
 
     // 全选
-    $('#allcheck').on('change', function () {
-      var $li = $('#vehicle_insurance_list').find('input');
-      var _this = this;
+    // $('#allcheck').on('change', function () {
+    //   var $li = $('#vehicle_insurance_list').find('input');
+    //   var _this = this;
 
-      if ($(this).prop('checked')) {
-        $li.prop('checked', true);
-      } else {
-        $li.prop('checked', false);
-      }
-    })
+    //   if ($(this).prop('checked')) {
+    //     $li.prop('checked', true);
+    //   } else {
+    //     $li.prop('checked', false);
+    //   }
+    // })
 
     // 单选
-    $('#vehicle_insurance_list').on('tap', '.item-checked', function (e) {
-      e.stopPropagation();
+    // $('#vehicle_insurance_list').on('tap', '.item-checked', function (e) {
+    //   e.stopPropagation();
 
-      var $li = $('#vehicle_insurance_list').find('input');
-      var flag = $(this).find('input').prop('checked');
+    //   var $li = $('#vehicle_insurance_list').find('input');
+    //   var flag = $(this).find('input').prop('checked');
 
-      flag = !flag;
-      $(this).find('input').prop('checked', flag);
+    //   flag = !flag;
+    //   $(this).find('input').prop('checked', flag);
 
-      if (!flag) {
-        $('#allcheck').prop('checked', false);
-      } else {
-        $li.each(function (i) {
-          if (!$(this).prop('checked')) {
-            allCheckFlag = true;
-          }
-        });
-        if (allCheckFlag) {
-          allCheckFlag = false;
-          $('#allcheck').prop('checked', false);
-        } else {
-          allCheckFlag = true;
-          $('#allcheck').prop('checked', true);
-        }
-      }
-    })
+    //   if (!flag) {
+    //     $('#allcheck').prop('checked', false);
+    //   } else {
+    //     $li.each(function (i) {
+    //       if (!$(this).prop('checked')) {
+    //         allCheckFlag = true;
+    //       }
+    //     });
+    //     if (allCheckFlag) {
+    //       allCheckFlag = false;
+    //       $('#allcheck').prop('checked', false);
+    //     } else {
+    //       allCheckFlag = true;
+    //       $('#allcheck').prop('checked', true);
+    //     }
+    //   }
+    // })
 
   }
   // addEvents()

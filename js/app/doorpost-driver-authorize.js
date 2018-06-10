@@ -30,9 +30,9 @@
     // 更改状态栏颜色
     // plus.navigator.setStatusBarStyle("light");
     // 弹出软键盘时自动改变webview的高度
-    // plus.webview.currentWebview().setStyle({
-    //   softinputMode: "adjustResize"
-    // });
+    plus.webview.currentWebview().setStyle({
+      softinputMode: "adjustResize"
+    });
 
   }
 

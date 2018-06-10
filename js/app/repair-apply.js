@@ -1,6 +1,6 @@
 ; (function () {
   mui.init();
-
+  mui('.mui-scroll-wrapper').scroll();
   // 维修申请
   $('#next').on('tap', function () {
     var data = null;

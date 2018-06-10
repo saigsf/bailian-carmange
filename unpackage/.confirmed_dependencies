@@ -15,7 +15,8 @@
       "img/common/md/icon_home_active.png",
       "img/common/md/icon_car_active.png",
       "img/common/md/icon_repair_active.png",
-      "img/common/md/icon_user_active.png"
+      "img/common/md/icon_user_active.png",
+      "img/common/md/icon_gps_active@2x.png"
     ],
     "refer": [
       "html/repair.html",
@@ -36,7 +37,8 @@
       "html/vehicle-input-list.html",
       "html/vehicle-check-down.html",
       "html/vehicle-check-up.html",
-      "html/vehicle-insurance-list.html"
+      "html/vehicle-insurance-list.html",
+      "html/vehicle-license-list.html"
     ],
     "resources": [
       "css/mui.min.css",
@@ -211,7 +213,14 @@
       "js/mui.min.js",
       "js/app/config.js",
       "js/app/app.js",
-      "js/app/vehicle-info.js"
+      "js/app/vehicle-info.js",
+      "img/common/md/vehicle_info_bg@2x.png",
+      "img/common/md/vehicle_input@2x.png",
+      "img/common/md/safe_check@2x.png",
+      "img/common/md/wire_check@2x.png",
+      "img/common/md/bom_check@2x.png",
+      "img/common/md/vehicle_auditing@2x.png",
+      "img/common/md/tools@2x.png"
     ],
     "refer": [],
     "priority": 0
@@ -263,7 +272,10 @@
     "refer": [
       "html/vehicle-info.html",
       "html/vehicle-check-down.html",
-      "html/vehicle-filter.html"
+      "html/vehicle-filter.html",
+      "html/vehicle-type-change.html",
+      "html/vehicle-list-info.html",
+      "html/vehicle-program-status.html"
     ],
     "priority": 0
   },
@@ -507,7 +519,8 @@
       "js/app/config.js",
       "js/app/app.js",
       "js/app/doorpost-driver.js",
-      "img/common/icon_app.png"
+      "img/common/icon_app.png",
+      "img/common/md/icon_checked@2x.png"
     ],
     "refer": [
       "html/doorpost-driver-input.html",
@@ -584,7 +597,9 @@
       "img/common/icon_app.png"
     ],
     "refer": [
-      "html/vehicle-input-detail.html"
+      "html/vehicle-input-detail.html",
+      "html/vehicle-insurance-apply.html",
+      "html/vehicle-input-info.html"
     ],
     "priority": 0
   },
@@ -598,7 +613,8 @@
       "js/mui.min.js",
       "js/app/config.js",
       "js/app/app.js",
-      "js/app/vehicle-filter.js"
+      "js/app/vehicle-filter.js",
+      "img/common/md/icon_subscript@3x.png"
     ],
     "refer": [
       "html/vehicle-list.html"
@@ -667,7 +683,8 @@
     ],
     "refer": [
       "html/vehicle-insurance-apply.html",
-      "html/vehicle-insurance-input.html"
+      "html/vehicle-insurance-input.html",
+      "html/vehicle-insurance-info.html"
     ],
     "priority": 0
   },
@@ -745,6 +762,158 @@
     ],
     "refer": [
       "html/doorpost-driver.html"
+    ],
+    "priority": 0
+  },
+  "html/vehicle-input-info.html": {
+    "href": "html/vehicle-input-info.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js"
+    ],
+    "refer": [
+      "html/vehicle-input.html",
+      "html/vehicle-info.html",
+      "html/vehicle-RD-tools.html",
+      "html/vehicle-auditing.html"
+    ],
+    "priority": 0
+  },
+  "html/vehicle-type-change.html": {
+    "href": "html/vehicle-type-change.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/vehicle-list-info.html": {
+    "href": "html/vehicle-list-info.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "img/common/md/no_data@2x.png",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js",
+      "js/app/vehicle-list-info.js"
+    ],
+    "refer": [
+      "html/vehicle-info.html"
+    ],
+    "priority": 0
+  },
+  "html/vehicle-program-status.html": {
+    "href": "html/vehicle-program-status.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/vehicle-license-input.html": {
+    "href": "html/vehicle-license-input.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js",
+      "js/app/vehicle-license-input.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/vehicle-license-info.html": {
+    "href": "html/vehicle-license-info.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js",
+      "js/app/vehicle-license-info.js"
+    ],
+    "refer": [
+      "html/vehicle-info.html",
+      "html/vehicle-license-input.html"
+    ],
+    "priority": 0
+  },
+  "html/vehicle-license-apply.html": {
+    "href": "html/vehicle-license-apply.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js",
+      "js/app/vehicle-license-apply.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/vehicle-license-list.html": {
+    "href": "html/vehicle-license-list.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js",
+      "js/app/vehicle-license-list.js",
+      "img/common/icon_app.png"
+    ],
+    "refer": [
+      "html/vehicle-license-info.html",
+      "html/vehicle-license-apply.html"
+    ],
+    "priority": 0
+  },
+  "html/vehicle-insurance-info.html": {
+    "href": "html/vehicle-insurance-info.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "img/common/md/no_data@2x.png",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js",
+      "js/app/vehicle-insurance-info.js"
+    ],
+    "refer": [
+      "html/vehicle-info.html",
+      "html/vehicle-insurance-apply-input.html",
+      "html/vehicle-insurance-input.html"
     ],
     "priority": 0
   }
