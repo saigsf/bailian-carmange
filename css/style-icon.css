@@ -345,11 +345,12 @@
 .icon-filter:before {
     content: "";
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 13px;
+    height: 13px;
     vertical-align: middle;
     background: url(../img/common/md/icon_filter@2x.png) no-repeat center;
     background-size: contain;
+    margin-right: 3px;
 }
 .icon-status-change {
     line-height: 44px;
