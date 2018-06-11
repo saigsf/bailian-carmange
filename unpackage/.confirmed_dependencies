@@ -328,7 +328,8 @@
       "js/app/app.js",
       "js/app/login.js",
       "img/login/md_background.png",
-      "img/login/md/background.png"
+      "img/login/md/background.png",
+      "img/common/md/icon_checked@2x.png"
     ],
     "refer": [
       "index.html"
@@ -453,7 +454,9 @@
       "js/mui.min.js",
       "js/app/config.js",
       "js/app/app.js",
-      "js/app/home.js"
+      "js/app/home.js",
+      "img/common/background_ellipse.png",
+      "img/2222@3x.png"
     ],
     "refer": [
       "html/home-map-search.html"

@@ -83,6 +83,8 @@
   <script type="text/javascript">
     var H = null;
     var self = null;
+    var vSn = null;
+    var viewId = null;
 
     mui.init();
     //初始化单页的区域滚动
@@ -90,6 +92,10 @@
     mui.plusReady(function () {
       handsetAdaption();
       self = plus.webview.currentWebview();
+      viewId = self.id;
+      H = self.H;
+      vSn = self.vSn;
+      addEvent();
     })
 
     function handsetAdaption() {
@@ -103,13 +109,14 @@
           'paddingTop': '88px'
         })
       }
-      // plus.webview.currentWebview().setStyle({
-      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-      // });
+      plus.webview.currentWebview().setStyle({
+        softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      });
     }
 
-    addEvent()
-    function addEvent() {
+    // 提交数据
+    submitData()
+    function submitData() {
       // bom检查
       $('#four_next').on('tap', function () {
         var $bomTr = $('table tbody tr');
@@ -136,6 +143,73 @@
           emsAndBomCheckResults: emsAndBomCheckResults
         }
         console.log(data)
+      })
+    }
+
+    // 获取数据
+    function fetchData() {
+
+    }
+
+    // 视图更新
+    function updateView() {
+
+    }
+
+    function addEvent() {
+      // 添加说明
+      $('#app').on('tap', '.explain', function () {
+        var _this = this;
+        var explainText = $(_this).parents('tr').find('.explain-text').val();
+        mui.openWindow({
+          url: 'vehicle-check-add-explain.html',
+          id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            viewId: viewId,
+            status: 'explain',
+            explainText: explainText
+          } //自定义扩展参数
+        })
+
+        window.addEventListener('updateExplain', (evt) => {
+          var explainText = evt.detail.explainText;
+          //do something
+          $(_this).parents('tr').find('.explain-text').val(explainText);
+          $(_this).html('···')
+        });
+      })
+      // 添加解决方法
+      $('#app').on('tap', '.resolvent', function () {
+        var _this = this;
+        var explainText = $(_this).parents('tr').find('.explain-text').val();
+        var resolventText = $(_this).parents('tr').find('.resolvent-text').val();
+
+        mui.openWindow({
+          url: 'vehicle-check-add-explain.html',
+          id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            viewId: viewId,
+            status: 'resolvent',
+            explainText: explainText,
+            resolventText: resolventText
+          } //自定义扩展参数
+        })
+        window.addEventListener('updateResolvent', (evt) => {
+          var resolventText = evt.detail.resolventText;
+          //do something
+          $(_this).parents('tr').find('.resolvent-text').val(resolventText);
+          $(_this).html('···')
+        });
       })
     }
   </script>

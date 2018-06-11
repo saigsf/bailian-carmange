@@ -63,13 +63,13 @@
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <form id="insurance_input">
+      <form id="program_status">
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <div class="date-wrapper">
               <label>项目号</label>
               <div class="date-text">
-                <input name="carType" type="text" placeholder="">
+                <input name="product_sn" type="text" placeholder="">
               </div>
             </div>
           </li>
@@ -77,7 +77,7 @@
             <div class="date-wrapper">
               <label>当前状态</label>
               <div class="date-text">
-                <input name="carType" type="text" placeholder="">
+                <input name="currentStatus" type="text" placeholder="">
               </div>
             </div>
           </li>
@@ -85,21 +85,13 @@
             <div class="date-wrapper">
               <label>更新后状态</label>
               <div class="date-text">
-                <select name="" id="">
+                <select name="status" id="">
                   <option value="active">active</option>
                   <option value="close">close</option>
                 </select>
               </div>
             </div>
           </li>
-          <!-- <li class="mui-table-view-cell">
-            <div class="date-wrapper">
-              <label>备注</label>
-              <div class="date-text">
-                <textarea name="remark" id="" cols="30" rows="4" placeholder="备注"></textarea>
-              </div>
-            </div>
-          </li> -->
         </ul>
         <div class="btn-wrapper ">
           <button class="btn btn-blue" id="submit">提交</button>
@@ -124,16 +116,20 @@
       //初始化
       mui.init();
 
+      // 页面滚动
       mui('.mui-scroll-wrapper').scroll();
 
+      var self =null;
       var H = null;
 
+      // plus Ready
       mui.plusReady(function () {
         handsetAdaption()
-        var self = plus.webview.currentWebview();
+        self = plus.webview.currentWebview();
         H = self.H;
       })
 
+      // 手机适配
       function handsetAdaption() {
         if (plus.device.model === 'iPhoneX') {
           //页面样式重置
@@ -150,13 +146,23 @@
         });
       }
 
-      $('#submit').on('tap', function () {
-        var data = serialize($('#insurance_input'));
+      // 获取数据
+      function fetchData() {
 
-        console.log(data);
+      }
 
-      })
+      // 视图更新
+      function updateView() {
 
+      }
+
+      // 提交数据
+      function submitData() {
+        $('#submit').on('tap', function () {
+          var data = serialize($('#program_status'));
+          console.log(data);
+        })
+      }
     })();
   </script>
 </body>

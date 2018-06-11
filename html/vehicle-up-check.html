@@ -56,10 +56,6 @@
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <!-- {
-          "id": 0,
-          "item": "string",
-        } -->
       <form>
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
@@ -225,7 +221,82 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script src="../js/app/vehicle-check-up.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+    (function () {
+      // 初始化
+      mui.init();
+      // 页面滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      var H = null;
+      var vSn = null;
+
+      // plusReady
+      mui.plusReady(function () {
+        handsetAdaption()
+        var self = plus.webview.currentWebview();
+        H = self.H;
+      })
+
+      // 手机适配方法
+      function handsetAdaption() {
+        // 更改顶部导航栏高度
+        if (plus.device.model === 'iPhoneX') {
+          // 页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+          $('.mui-pages').css('top', '88px')
+        }
+
+        // 更改状态栏颜色
+        // plus.navigator.setStatusBarStyle("light");
+        // 弹出软键盘时自动改变webview的高度
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize"
+        });
+
+      }
+
+      // 更新数据
+      function updateData() {
+        //提交
+        $('#next').on('tap', function () {
+          //打开接车点检页面
+          var data = serialize($('form'));
+
+          app.upcheck(data, function (res) {
+            res = JSON.parse(res);
+            console.log(res);
+          })
+        })
+      }
+
+      // 获取数据
+      function fetchData() {
+        // 获取车辆编号
+        // app.getvSn({}, function(res) {
+        //   console.log(res);
+        //   $('#vSn').val(res);
+        // })
+        updateView()
+      }
+
+      // 视图更新
+      function updateView() {
+
+      }
+
+    })();
+  </script>
 </body>
 
 </html>

@@ -75,6 +75,7 @@
       left: 50%;
       transform: translateX(-50%)
     }
+
     .vSn {
       color: #2885cf;
       font-weight: bold;
@@ -92,7 +93,9 @@
       <form id="allot">
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
-              <p class="vSn">车辆编号：<span id="vSn"></span></p>
+            <p class="vSn">车辆编号：
+              <span id="vSn"></span>
+            </p>
           </li>
         </ul>
         <ul class="mui-table-view mui-table-inputview">
@@ -132,8 +135,8 @@
         </ul>
       </form>
       <div class="btn-wrapper ">
-          <button class="btn btn-blue" id="next">提交</button>
-        </div>
+        <button class="btn btn-blue" id="next">提交</button>
+      </div>
     </div>
 
   </div>
@@ -146,7 +149,69 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script src="../js/app/repair-content.js"></script>
+  <script>
+    (function () {
+      //初始化
+      mui.init();
+
+      mui('.mui-scroll-wrapper').scroll();
+
+      var H = null;
+      var vSn = null;
+      var view = null;
+
+      mui.plusReady(function () {
+        handsetAdaption()
+        var self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById('html/repair-list.html')
+        H = self.H;
+        vSn = self.vSn;
+        $('#vSn').html(vSn)
+      })
+
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
+      }
+
+      // 提交数据
+      submitData();
+      function submitData() {
+        $('#next').on('tap', function () {
+          var data = serialize($('#allot'));
+          data.vSn = $('#vSn').html()
+
+          if (!data.fin_park) {
+            mui.toast('请填写停放地点')
+            return;
+          }
+
+          app.carMaintainComplete(data, function (res) {
+            res = JSON.parse(res);
+            console.log(res);
+            mui.toast(res.msg);
+            if (res.ret) {
+              mui.fire(view, 'update', {});
+              mui.back();
+            }
+
+          })
+        })
+      }
+
+    })();
+  </script>
 </body>
 
 </html>

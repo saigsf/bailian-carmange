@@ -32,7 +32,7 @@
 			transform: translateX(-22px);
 			bottom: 0;
 			left: 50%;
-			transition: all .7s;
+			transition: all .6s;
 		}
 
 		.mui-btn {
@@ -52,28 +52,29 @@
 			width: 20px;
 			height: 20px;
 		}
+
 		.mui-btn span {
 			font-size: 12px;
 		}
 
 		.run .mui-btn:nth-child(1) {
-			animation: moveOne .7s 0s ease-in-out forwards;
-			-webkit-animation: moveOne .7s 0s ease-in-out forwards
+			animation: moveOne .6s 0s ease-out forwards;
+			-webkit-animation: moveOne .6s 0s ease-out forwards
 		}
 
 		.run .mui-btn:nth-child(2) {
-			animation: moveTwo .7s 0s ease-in-out forwards;
-			-webkit-animation: moveTwo .7s 0s ease-in-out forwards
+			animation: moveTwo .6s 0s ease-out forwards;
+			-webkit-animation: moveTwo .6s 0s ease-out forwards
 		}
 
 		.run .mui-btn:nth-child(3) {
-			animation: moveThree .7s 0s ease-in-out forwards;
-			-webkit-animation: moveThree .7s 0s ease-in-out forwards
+			animation: moveThree .6s 0s ease-out forwards;
+			-webkit-animation: moveThree .6s 0s ease-out forwards
 		}
 
 		.run .mui-btn:nth-child(4) {
-			animation: moveFour .7s 0s ease-in-out forwards;
-			-webkit-animation: moveFour .7s 0s ease-in-out forwards
+			animation: moveFour .6s 0s ease-out forwards;
+			-webkit-animation: moveFour .6s 0s ease-out forwards
 		}
 
 		/* popover动画 */
@@ -83,7 +84,7 @@
 				transform: translateX(-22px);
 			}
 			70% {
-				transform: translate(-140px, -58px) rotate(-90deg);
+				transform: translate(-150px, -63px) rotate(-90deg);
 			}
 			100% {
 				transform: translate(-120px, -49px) rotate(0deg);
@@ -95,7 +96,7 @@
 				transform: translateX(-22px);
 			}
 			70% {
-				transform: translate(-70px, -117px) rotate(-90deg);
+				transform: translate(-75px, -127px) rotate(-90deg);
 			}
 			100% {
 				transform: translate(-59px, -97px) rotate(0deg);
@@ -107,7 +108,7 @@
 				transform: translateX(-22px);
 			}
 			70% {
-				transform: translate(26px, -117px) rotate(-90deg);
+				transform: translate(31px, -127px) rotate(-90deg);
 			}
 			100% {
 				transform: translate(15px, -97px) rotate(0deg);
@@ -119,7 +120,7 @@
 				transform: translateX(-22px);
 			}
 			70% {
-				transform: translate(96px, -60px) rotate(-90deg);
+				transform: translate(106px, -65px) rotate(-90deg);
 			}
 			100% {
 				transform: translate(76px, -49px) rotate(0deg);
@@ -136,14 +137,13 @@
 			height: 44px;
 			border-radius: 50%;
 			background-color: #2885cf;
-			transition: all .5s ease 0;
+			transition: all .6s ease 0;
 		}
 
 		.close .icon {
 			background-size: 24px 24px;
-			transition: all .7s
+			transition: all .6s
 		}
-
 	</style>
 </head>
 
@@ -178,7 +178,56 @@
 	<!-- app 数据获取 -->
 	<script src="../js/app/app.js"></script>
 	<!-- 当前页面js -->
-	<script src="../js/app/popover.js"></script>
+	<script>
+		; (function () {
+			mui.init();
+			setTimeout(function () {
+				$('.container').addClass('run');
+				$('#close .icon').css({
+					'transform': 'rotate(-135deg)'
+				})
+			}, 100);
+
+			var H = null;
+			var self = null;
+			var view = null;
+
+
+			mui.plusReady(function () {
+				handsetAdaption()
+				self = plus.webview.currentWebview();
+				view = plus.webview.getWebviewById('HBuilder');
+				H = self.H;
+
+				$(document).on('tap', function () {
+					mui.fire(view, 'clearActiveTab', {});
+					$('.container').removeClass('run');
+					$('#close .icon').css({
+						'transform': 'rotate(135deg)'
+					});
+
+					setTimeout(function () {
+						mui.back();
+					}, 100)
+				})
+
+				$('#doorpost').on('tap', function () {
+					var view = plus.webview.getWebviewById('html/doorpost.html');
+					view.show();
+				})
+			})
+
+			function handsetAdaption() {
+				// 更改顶部导航栏高度
+				if (plus.device.model === 'iPhoneX') {
+					//页面样式重置
+					$('body').css({
+						'paddingBottom': '35px'
+					});
+				}
+			}
+		})();
+	</script>
 </body>
 
 </html>

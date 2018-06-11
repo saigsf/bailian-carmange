@@ -16,8 +16,15 @@
   <!--独立样式-->
 
   <style type="text/css">
+    table thead {
+      line-height: normal;
+    }
+
     td {
       height: 40px;
+    }
+    table thead span:last-of-type {
+      font-size: 12px;
     }
   </style>
 </head>
@@ -35,7 +42,10 @@
         <table>
           <thead>
             <tr>
-              <td>工具或设备名称</td>
+              <td>
+                <span>工具或设备名称</span>
+                <span>(请在下方空格内填写需要安装的工具或设备名称)</span>
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -122,9 +132,9 @@
           'paddingTop': '88px'
         })
       }
-      // plus.webview.currentWebview().setStyle({
-      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-      // });
+      plus.webview.currentWebview().setStyle({
+        softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      });
     }
 
     function addEvent() {
@@ -144,7 +154,7 @@
             })
           }
         })
-        console.log(JSON.stringify(oneInfo) )
+        console.log(JSON.stringify(oneInfo))
         console.log(JSON.stringify(oneBom))
         console.log(JSON.stringify(oneToolApply))
 

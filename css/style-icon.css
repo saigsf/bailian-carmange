@@ -57,26 +57,39 @@
 }
 
 .icon-set {
+    width: 20px;
+    height: 20px;
     background-image: url(../img/user/md/icon_set.png);
 }
 
 .icon-self {
+    width: 20px;
+    height: 20px;
     background-image: url(../img/user/md/icon_self.png);
 }
 
 .icon-news {
+    width: 20px;
+    height: 20px;
     background-image: url(../img/user/md/icon_news.png);
 }
 
 .icon-logout {
+    width: 16px;
+    height: 16px;
+    margin: 0 2px;
     background-image: url(../img/user/md/icon_logout.png);
 }
 
 .icon-clear-cache {
+    width: 20px;
+    height: 20px;
     background-image: url(../img/user/md/icon_clear_cache.png);
 }
 
 .icon-update {
+    width: 20px;
+    height: 20px;
     background-image: url(../img/user/md/icon_update.png);
 }
 

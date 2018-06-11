@@ -199,7 +199,7 @@ header.mui-navbar .mui-bar-nav {
 }
 
 .mui-table-view-cell {
-  padding: 10px 12px;
+  padding: 12px 12px;
   background-color: #fff;
 }
 
@@ -219,7 +219,7 @@ header.mui-navbar .mui-bar-nav {
 
 /*输入框样式*/
 
-.mui-input-row label {
+.mui-input-row>label {
   height: 40px;
   width: 26%;
   color: #333;
@@ -229,13 +229,13 @@ header.mui-navbar .mui-bar-nav {
   position: relative;
 }
 
-.mui-input-row label:after {
+.mui-input-row>label:after {
   content: "";
   display: inline-block;
   width: 100%;
 }
 
-.mui-input-row label:before {
+.mui-input-row>label:before {
   content: "";
   position: absolute;
   right: 0;
@@ -248,12 +248,12 @@ header.mui-navbar .mui-bar-nav {
   background-color: #999;
 }
 
-.mui-input-row label~input[type=text],
-.mui-input-row label~input[type=password],
-.mui-input-row label~input[type=tel],
-.mui-input-row label~input[type=number],
-.mui-input-row label~select,
-.mui-input-row label~textarea {
+.mui-input-row>label~input[type=text],
+.mui-input-row>label~input[type=password],
+.mui-input-row>label~input[type=tel],
+.mui-input-row>label~input[type=number],
+.mui-input-row>label~select,
+.mui-input-row>label~textarea {
   padding: 10px;
   float: left;
   width: 60%;

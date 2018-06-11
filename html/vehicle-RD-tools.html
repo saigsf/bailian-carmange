@@ -46,7 +46,6 @@
             <td>2018-12-12</td>
             <td>
               <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder finished">已完成</i>
-              <input class="explain" type="hidden">
             </td>
           </tr>
           <tr>
@@ -54,8 +53,7 @@
             <td>王先生</td>
             <td>2018-12-12</td>
             <td>
-              <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder toSubmit">提交</i>
-              <input class="explain" type="hidden">
+              <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder to-submit">提交</i>
             </td>
           </tr>
         </tbody>
@@ -73,30 +71,60 @@
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
   <script type="text/javascript">
-    var H = null;
-    var self = null;
+    (function () {
+      var H = null;
+      var self = null;
+      var vSn = null;
 
-    mui.init();
-    mui.plusReady(function () {
-      handsetAdaption();
-      self = plus.webview.currentWebview();
-    })
+      // 初始化
+      mui.init();
 
-    function handsetAdaption() {
-      if (plus.device.model === 'iPhoneX') {
-        //页面样式重置
-        $('header').css({
-          'height': '88px',
-          'paddingTop': '40px'
-        });
-        $('.mui-bar-nav~.mui-content').css({
-          'paddingTop': '88px'
+      // 页面滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      // plusReady
+      mui.plusReady(function () {
+        handsetAdaption();
+        self = plus.webview.currentWebview();
+      })
+
+      // 手机适配
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        // plus.webview.currentWebview().setStyle({
+        //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        // });
+      }
+
+      // 获取数据
+      function fetchData() {
+
+      }
+
+      // 视图更新
+      function updateView() {
+
+      }
+
+      // 数据提交
+      function submitData() {
+        $('table').on('tap', '.to-submit', function() {
+          // 接口调用
+          $(this).removeClass('to-submit').addClass('finished').html('已完成');
         })
       }
-      // plus.webview.currentWebview().setStyle({
-      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-      // });
-    }
+      submitData()
+    })()
+
   </script>
 </body>
 

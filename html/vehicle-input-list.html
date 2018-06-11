@@ -89,36 +89,28 @@
         <div class="mui-input-row mui-search">
           <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
         </div>
-        <!-- <div class="btn" id="add_btn">
-          <i class="icon icon-more"></i>
-        </div> -->
       </form>
       <ul id="vehicle_input_list" class="mui-table-view mui-table-listview">
         <li class="mui-table-view-cell">
-          <!-- <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">置顶</a>
-            <a class="mui-btn mui-btn-red delete">删除</a>
-          </div> -->
-          <div class="mui-slider-handle">
-            <div class="list-item">
-              <div class="item-left">
-                <img src="../img/common/icon_app.png" />
+
+          <div class="list-item">
+            <div class="item-left">
+              <img src="../img/common/icon_app.png" />
+            </div>
+            <div class="item-right">
+              <div class="item-right-top">
+                <div class="number">
+                  <h4>2018-0591</h4>
+                  <p>项目编号</p>
+                </div>
               </div>
-              <div class="item-right">
-                <div class="item-right-top">
-                  <div class="number">
-                    <h4>2018-0591</h4>
-                    <p>项目编号</p>
-                  </div>
-                </div>
-                <div class="item-right-middle">
-                  <p>
-                    <span>车架号</span>：1231214335</p>
-                  <p>
-                    <span>检查进度</span>：安全检查</p>
-                  <p>
-                    <span>保险状态</span>：未申请</p>
-                </div>
+              <div class="item-right-middle">
+                <p>
+                  <span>车架号</span>：1231214335</p>
+                <p>
+                  <span>检查进度</span>：安全检查</p>
+                <p>
+                  <span>保险状态</span>：未申请</p>
               </div>
             </div>
           </div>
@@ -127,61 +119,54 @@
           </div>
         </li>
         <li class="mui-table-view-cell">
-          <div class="mui-slider-handle">
-            <div class="list-item">
-              <div class="item-left">
-                <img src="../img/common/icon_app.png" />
-              </div>
-              <div class="item-right">
-                <div class="item-right-top">
-                  <div class="number">
-                    <h4>2018-0591</h4>
-                    <p>项目编号</p>
-                  </div>
-                </div>
-                <div class="item-right-middle">
-                  <p>
-                    <span>车架号</span>：1231214335</p>
-                  <p>
-                    <span>检查进度</span>：安全检查</p>
-                  <p>
-                    <span>保险状态</span>：未申请</p>
-                </div>
-              </div>
-
+          <div class="list-item">
+            <div class="item-left">
+              <img src="../img/common/icon_app.png" />
             </div>
+            <div class="item-right">
+              <div class="item-right-top">
+                <div class="number">
+                  <h4>2018-0591</h4>
+                  <p>项目编号</p>
+                </div>
+              </div>
+              <div class="item-right-middle">
+                <p>
+                  <span>车架号</span>：1231214335</p>
+                <p>
+                  <span>检查进度</span>：安全检查</p>
+                <p>
+                  <span>保险状态</span>：未申请</p>
+              </div>
+            </div>
+
           </div>
           <div class="item-mark">
             <div class="icon icon-corner-mark-green"></div>
           </div>
         </li>
         <li class="mui-table-view-cell">
-          <div class="mui-slider-handle">
-            <div class="list-item">
-              <div class="item-left">
-                <img src="../img/common/icon_app.png" />
+          <div class="list-item">
+            <div class="item-left">
+              <img src="../img/common/icon_app.png" />
+            </div>
+            <div class="item-right">
+              <div class="item-right-top">
+                <div class="number">
+                  <h4>2018-0591</h4>
+                  <p>项目编号</p>
+                </div>
               </div>
-              <div class="item-right">
-                <div class="item-right-top">
-                  <div class="number">
-                    <h4>2018-0591</h4>
-                    <p>项目编号</p>
-                  </div>
-                </div>
-                <div class="item-right-middle">
-                  <p>
-                    <span>车架号</span>：1231214335</p>
-                  <p>
-                    <span>检查进度</span>：安全检查</p>
-                  <p>
-                    <span>保险状态</span>：未申请</p>
-                </div>
+              <div class="item-right-middle">
+                <p>
+                  <span>车架号</span>：1231214335</p>
+                <p>
+                  <span>检查进度</span>：安全检查</p>
+                <p>
+                  <span>保险状态</span>：未申请</p>
               </div>
             </div>
           </div>
-          <!-- <div class="item-mark">
-            <div class="icon icon-corner-mark-green"></div>
-          </div> -->
         </li>
       </ul>
     </div>
@@ -195,7 +180,112 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script src="../js/app/vehicle-input-list.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+    ; (function () {
+      // 定义全局变量
+      var curPage = 1;  //当前页码初始化数0开始
+      var totalPage = 0; //后台算出总页数
+      var self = null;
+      var H = null; // 页面高度
+      var vSn = null;
+
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          down: {
+            auto: true,//可选,默认false.首次加载自动下拉刷新一次
+            callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          },
+          up: {
+            auto: true,
+            callback: pullupRefresh
+          }
+        }
+      });
+      mui('.mui-scroll-wrapper').scroll();
+      // 下拉刷新业务
+      function pulldownRwfresh() {
+        // fetchData()
+        setTimeout(function () {
+
+          mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+        }, 1000)
+      }
+
+      // 上拉加载业务
+      function pullupRefresh() {
+        // fetchData();
+        if (curPage > totalPage) {
+          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+        } else {
+          // fetchData()
+        }
+        setTimeout(function () {
+          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+        }, 1000)
+      }
+
+
+      mui.plusReady(function () {
+        // plus准备好后执行H5
+        handsetAdaption();
+        // 获取当前视图
+        self = plus.webview.currentWebview();
+        // 获取传递参数
+        H = self.H;
+        // 添加点击事件进入下一页
+        addEvents();
+
+      });
+
+      // 手机适配方法
+      function handsetAdaption() {
+        // 更改顶部导航栏高度
+        if (plus.device.model === 'iPhoneX') {
+          // 页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+
+        // 更改状态栏颜色
+        // plus.navigator.setStatusBarStyle("light");
+        // 弹出软键盘时自动改变webview的高度
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize"
+        });
+
+      }
+
+      // 页面点击事件
+      function addEvents() {
+        // 跳转执行下一步
+        $('#vehicle_input_list').on('tap', 'li', function () {
+          var $li = $(this);
+          mui.openWindow({
+            url: 'vehicle-input-info.html',
+            id: 'vehicle-input-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: vSn
+            } //自定义扩展参数
+          })
+        })
+
+      }
+
+    })()
+
+  </script>
 </body>
 
 </html>

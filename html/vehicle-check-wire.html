@@ -1808,6 +1808,8 @@
   <script type="text/javascript">
     var H = null;
     var self = null;
+    var vSn = null;
+    var viewId = null;
 
     mui.init();
     //初始化单页的区域滚动
@@ -1815,6 +1817,9 @@
     mui.plusReady(function () {
       handsetAdaption();
       self = plus.webview.currentWebview();
+      viewId = self.id;
+      H = self.H;
+      vSn = self.vSn;
     })
 
     function handsetAdaption() {
@@ -1832,8 +1837,20 @@
       //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
       // });
     }
-    addEvent()
-    function addEvent() {
+    
+    // 获取数据
+    function fetchData() {
+
+    }
+
+    // 更新视图 
+    function updateView() {
+
+    }
+
+    // 提交数据
+    submitData()
+    function submitData() {
       // 线束检查
       $('#three_next').on('tap', function () {
         var $wireTr = $('table tbody tr');
@@ -1860,6 +1877,10 @@
         }
         console.log(data)
       });
+    }
+
+    addEvent()
+    function addEvent() {
       // 添加说明
       $('#app').on('tap', '.explain', function () {
         var _this = this;
@@ -1873,15 +1894,17 @@
           }, //窗口参数
           extras: {
             H: H,
+            viewId: viewId,
             status: 'explain',
             explainText: explainText
           } //自定义扩展参数
         })
 
-        window.submitDataListener('updateExplain', (evt) => {
+        window.addEventListener('updateExplain', (evt) => {
           var explainText = evt.detail.explainText;
           //do something
-          $(_this).parents('tr').find('.explain-text').val(explainText)
+          $(_this).parents('tr').find('.explain-text').val(explainText);
+          $(_this).html('···')
         });
       })
       // 添加解决方法
@@ -1899,15 +1922,17 @@
           }, //窗口参数
           extras: {
             H: H,
+            viewId: viewId,
             status: 'resolvent',
             explainText: explainText,
             resolventText: resolventText
           } //自定义扩展参数
         })
-        window.submitDataListener('updateResolvent', (evt) => {
+        window.addEventListener('updateResolvent', (evt) => {
           var resolventText = evt.detail.resolventText;
           //do something
-          $(_this).parents('tr').find('.resolvent-text').val(resolventText)
+          $(_this).parents('tr').find('.resolvent-text').val(resolventText);
+          $(_this).html('···')
         });
       })
     }

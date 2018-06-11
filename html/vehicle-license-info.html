@@ -69,8 +69,6 @@
     .tab-row:nth-child(2n) {
       background-color: #f6fbff;
     }
-
-
   </style>
 </head>
 
@@ -79,8 +77,6 @@
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
     <h1 class="mui-title">临牌信息</h1>
   </header>
-
-
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <div class="info-top"></div>
@@ -173,10 +169,6 @@
             </div>
           </div>
         </div>
-
-      </div>
-      <div class="btn-wrapper license-input" id="license_input">
-        <button class="btn btn-blue">临牌录入</button>
       </div>
     </div>
   </div>
@@ -191,7 +183,84 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script src="../js/app/vehicle-license-info.js"></script>
+  <script>
+    ; (function () {
+      // 全局变量
+      var H = null;
+      var vSn = null;
+      var self = null;
+      var hasData = false;
+
+      // 初始化
+      mui.init();
+
+      // 初始化单页的区域滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      // plusReady
+      mui.plusReady(function () {
+        handsetAdaption()
+        self = plus.webview.currentWebview();
+        H = self.H;
+        vSn = self.vSn;
+        hasData = self.hasData;
+        console.log(hasData);
+        fetchData();
+      });
+
+      // 手机适配
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        // plus.webview.currentWebview().setStyle({
+        //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        // });
+      }
+
+      // 获取数据
+      function fetchData() {
+        updateView()
+      }
+
+      // 数据回显
+      function updateView(data) {
+        if (hasData == 'true') {
+          $('#no_data').hide().prev().show();
+        } else {
+          $('#no_data').show().prev().hide();
+        }
+
+      }
+
+      function addEvent() {
+        // 详情页
+        $('#info').on('tap', function () {
+          mui.openWindow({
+            url: 'vehicle-info.html',
+            id: 'vehicle-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: vSn
+            } //自定义扩展参数
+          })
+        })
+      }
+      addEvent()
+
+    })();
+  </script>
 </body>
 
 </html>

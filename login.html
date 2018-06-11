@@ -38,7 +38,7 @@
       display: block;
     }
 
-    .mui-input-row label {
+    .mui-input-row>label {
       text-align: right;
       width: 20%;
     }
@@ -94,37 +94,55 @@
       content: ' ';
     }
 
-    .mui-input-row.code img {
-      float: left;
+    .mui-input-row .allcheck label {
+      float: right;
+      font-size: 12px;
+      padding: 0;
     }
 
-    .code {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      padding-left: 40px
-    }
-
-    .code label {
+    .allcheck {
+      width: 100%;
+      line-height: 40px;
       text-align: center;
-      color: #666;
-      line-height: 20px;
-      padding: 10px 0;
-      width: 16%;
-      font-size: 16px;
-      font-weight: bold
+      color: #2885cf;
+      white-space: nowrap;
+      overflow: hidden;
     }
 
-    .code label:before,
-    .code label:after {
-      display: none;
+    .allcheck input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
     }
 
-    .mui-input-row.code label~input {
-      border: 1px solid #2885cf;
-      border-radius: 5px;
-      width: 35%;
-      margin: 0 15px 0 10px
+    .allcheck input[type=checkbox]+label {
+      display: inline-block;
+      line-height: 40px;
+    }
+
+    .allcheck input[type=checkbox]+label:before {
+      content: "";
+      background-color: white;
+      border-radius: 50%;
+      border: 1px solid #d3d3d3;
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 16px;
+      color: #fff;
+      margin: 0;
+      margin-right: 2px;
+    }
+
+    .allcheck input[type=checkbox]:checked+label:before {
+      /* background-color: #2885cf; */
+      color: #fff;
+      border-color: #2885cf;
+      background-image: url(./img/common/md/icon_checked@2x.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 18px 18px;
     }
   </style>
 </head>
@@ -146,10 +164,11 @@
         </label>
         <input type="password" id="password" class="mui-input-clear" placeholder="请输入密码">
       </div>
-      <div class="mui-input-row code">
-        <label>验证码</label>
-        <input type="text" id="verifyCode" class="mui-input-clear" placeholder="请输入验证码">
-        <img id="img" src="http://47.98.182.165/car-management/user/code.action" alt="刷新" />
+      <div class="mui-input-row">
+        <div class="allcheck" id="">
+          <input type="checkbox" name="" id="autologin">
+          <label for="autologin">是否自动登陆</label>
+        </div>
       </div>
     </form>
     <div class="mui-button-row">

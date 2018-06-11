@@ -129,7 +129,30 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script src="../js/app/repair-apply.js"></script>
+  <script>
+    ; (function () {
+      mui.init();
+      mui('.mui-scroll-wrapper').scroll();
+
+      // 提交数据
+      function submitData() {
+        // 维修申请
+        $('#next').on('tap', function () {
+          var data = null;
+          data = serialize($('#repair_apply'))
+          // 维修申请
+          app.carMaintainApply(data, function (res) {
+            res = JSON.parse(res);
+            if (res.ret) {
+
+            }
+            console.log(res)
+            mui.toast(res.msg);
+          })
+        })
+      }
+    })();
+  </script>
 </body>
 
 </html>

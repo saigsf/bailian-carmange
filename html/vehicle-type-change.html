@@ -112,20 +112,23 @@
       //初始化
       mui.init();
 
+      // 页面滚动
       mui('.mui-scroll-wrapper').scroll();
 
+      var self = null;
       var H = null;
       var vSn = null;
-
+      
+      // plusReady
       mui.plusReady(function () {
         handsetAdaption()
-        var self = plus.webview.currentWebview();
+        self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;
-
         $('#vSn').html(vSn)
       })
-
+      
+      // 手机适配
       function handsetAdaption() {
         if (plus.device.model === 'iPhoneX') {
           //页面样式重置
@@ -142,13 +145,14 @@
         });
       }
 
-      $('#submit').on('tap', function () {
-        var data = serialize($('#insurance_input'));
-
-        console.log(data);
-
-      })
-
+      // 提交数据
+      function submitData() {
+        $('#submit').on('tap', function () {
+          var data = serialize($('#insurance_input'));
+          console.log(data);
+          // 接口调用
+        })
+      }
     })();
   </script>
 </body>

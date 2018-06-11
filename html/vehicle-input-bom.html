@@ -141,8 +141,8 @@
     var vSn = null; // 车辆编码
     var oneInfo = null; //基本信息
 
-
     mui.init();
+    mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
       self = plus.webview.currentWebview();
@@ -163,9 +163,9 @@
           'paddingTop': '88px'
         })
       }
-      // plus.webview.currentWebview().setStyle({
-      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-      // });
+      plus.webview.currentWebview().setStyle({
+        softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      });
     }
 
     function addEvent() {
@@ -204,56 +204,6 @@
         })
       })
 
-      // 添加说明
-      $('#app').on('tap', '.explain', function () {
-        var _this = this;
-        var explainText = $(_this).parents('tr').find('.explain-text').val();
-        mui.openWindow({
-          url: 'vehicle-check-add-explain.html',
-          id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            bottom: H
-          }, //窗口参数
-          extras: {
-            H: H,
-            status: 'explain',
-            explainText: explainText
-          } //自定义扩展参数
-        })
-
-        window.submitDataListener('updateExplain', (evt) => {
-          var explainText = evt.detail.explainText;
-          //do something
-          $(_this).parents('tr').find('.explain-text').val(explainText)
-        });
-      })
-      // 添加解决方法
-      $('#app').on('tap', '.resolvent', function () {
-        var _this = this;
-        var explainText = $(_this).parents('tr').find('.explain-text').val();
-        var resolventText = $(_this).parents('tr').find('.resolvent-text').val();
-
-        mui.openWindow({
-          url: 'vehicle-check-add-explain.html',
-          id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            bottom: H
-          }, //窗口参数
-          extras: {
-            H: H,
-            status: 'resolvent',
-            explainText: explainText,
-            resolventText: resolventText
-          } //自定义扩展参数
-        })
-        window.submitDataListener('updateResolvent', (evt) => {
-          var resolventText = evt.detail.resolventText;
-          //do something
-          $(_this).parents('tr').find('.resolvent-text').val(resolventText)
-        });
-      })
     }
     addEvent();
 

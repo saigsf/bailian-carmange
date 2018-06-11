@@ -79,15 +79,18 @@
       position: relative;
       display: none;
     }
+
     .no-data p {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
       top: 60%;
     }
+
     .tab-col.red {
       color: red
     }
+
     .insurance-input {
       display: none;
     }
@@ -229,20 +232,10 @@
             </div>
           </div>
         </div>
-
-      </div>
-
-      <div class="btn-wrapper insurance-input" id="insurance_input">
-        <button class="btn btn-blue">保险录入</button>
-      </div>
-      <div class="btn-wrapper" id="renew_box">
-        <button class="btn btn-orange" id="renew_insurance">续保</button>
-        <button class="btn btn-blue" id="car_checking">验车</button>
       </div>
 
     </div>
   </div>
-
 
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>
@@ -253,7 +246,88 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script src="../js/app/vehicle-insurance-info.js"></script>
+  <script>
+    ; (function () {
+      // 全局
+      var vSn = null;
+      var self = null;
+      var H = null;
+      var hasData = false;
+
+      // 初始化
+      mui.init();
+
+      //初始化单页的区域滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      mui.plusReady(function () {
+        handsetAdaption()
+        self = plus.webview.currentWebview();
+        vSn = self.vSn;
+        H = self.H;
+        hasData = self.hasData;
+        fetchData();
+        addEvent();
+      });
+
+      // 手机适配
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+      }
+
+      // 获取数据
+      function fetchData() {
+        // app.carMaintainQuery({
+        //   vSn: vSn
+        // }, function(res) {
+        //   res = JSON.parse(res);
+        //   console.log(res)
+        //   updateView(res.rows[0])
+        // })
+        updateView()
+      }
+
+      // 页面更新
+      function updateView(data) {
+        if (hasData == '1') {
+          $('#no_data').hide().prev().show();
+        } else if (hasData == '2') {
+          $('#no_data').hide().prev().show();
+        } else {
+          $('#no_data').show().prev().hide();
+        }
+      }
+
+      // 添加事件
+      function addEvent() {
+        // 详情
+        $('#info').on('tap', function () {
+          mui.openWindow({
+            url: 'vehicle-info.html',
+            id: 'vehicle-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: vSn
+            } //自定义扩展参数
+          })
+        })
+      }
+
+    })();
+  </script>
 </body>
 
 </html>
