@@ -298,7 +298,7 @@
       // 下拉刷新业务
       function pulldownRwfresh() {
         curPage = 1;
-        // $('#OA_task_1').html('')
+        $('#OA_task_1').html('')
         fetchData()
         setTimeout(function () {
 
@@ -313,7 +313,7 @@
         if (curPage > totalPage) {
           mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
         } else {
-          // fetchData()
+          fetchData()
         }
         setTimeout(function () {
           mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
@@ -321,24 +321,23 @@
       }
       // 获取数据
       function fetchData() {
-        // console.log(curPage)
-        // app.pageQuery({
-        //   page: curPage,
-        //   size: 5
-        // }, function (res) {
-        //   // console.log(res)
-        //   res = JSON.parse(res);
-        //   if (!res.totalCount || res.totalCount <= 0) {
-        //     return;
-        //   }
-        //   // console.log(res.totalCount)
-        //   curPage++;
-        //   totalPage = Math.ceil(res.totalCount / 5)
-        //   var data = res.pageData;
+        console.log(curPage)
+        app.carQuery({
+          page: curPage,
+          size: 5
+        }, function (res) {
+          // console.log(res)
+          // res = JSON.parse(res);
+          if (!res.total || res.total <= 0) {
+            return;
+          }
+          // console.log(res.totalCount)
+          curPage++;
+          totalPage = Math.ceil(res.total / 5)
 
-        //   updateView(data);
+          updateView(res.rows);
 
-        // });
+        });
       }
 
       // 更新视图
@@ -347,11 +346,11 @@
 
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<li class="mui-table-view-cell" data-id="' + item.id + '">'
+          html += '<li class="mui-table-view-cell" data-vsn="'+item.vSn+'">'
             + '<div class="mui-slider-right mui-disabled">'
-            + '<a class="mui-btn mui-btn-red delete" >删除</a>'
+            + '<a class="mui-btn mui-btn-red car-type-change">车型修改</a>'
             + '</div>'
-            + '<div class="mui-slider-handle" data-vSn="' + item.vSn + '">'
+            + '<div class="mui-slider-handle">'
             + '<div class="list-item">'
             + '<div class="item-left">'
             + '<img src="../img/common/icon_app.png" />'
@@ -359,28 +358,33 @@
             + '<div class="item-right">'
             + '<div class="item-right-top">'
             + '<div class="number">'
-            + '<h4>' + item.vSn + '</h4>'
-            + '<p>' + (item.vCarSn ? item.vCarSn : '未填写') + '</p>'
+            + '<h4>'+item.vSn+'</h4>'
+            + '<p>项目编号</p>'
             + '</div>'
-            + '<div class="mui-btn mui-btn-blue mui-btn-outlined goback">去还车'
+            + '<div class="mui-btn mui-btn-blue mui-btn-outlined tolook">'
             + '<i class="mui-icon mui-icon-arrowright"></i>'
             + '</div>'
             + '</div>'
             + '<div class="item-right-bottom">'
             + '<div class="bottom-item">'
-            + '<span>安全检查：张三</span>'
-            + '<span>2018-02-22</span>'
+            + '<h4>'+item.car_status+'</h4>'
+            + '<p>车辆状态</p>'
             + '</div>'
             + '<div class="bottom-item bottom-item-empty"></div>'
             + '<div class="bottom-item">'
-            + '<span>安全检查：张三</span>'
-            + '<span>2018-02-22</span>'
+            + '<h4>active</h4>'
+            + '<p>项目状态</p>'
             + '</div>'
             + '<div class="bottom-item bottom-item-empty"></div>'
             + '<div class="bottom-item">'
-            + '<span>审核：张三</span>'
-            + '<span>2018-02-22</span>'
-            + '</div></div></div></div></div></li>';
+            + '<h4>'+item.projectEngineer+'</h4>'
+            + '<p>项目工程师</p>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            + '</li>';
         }
 
         $('#OA_task_1').append($(html))

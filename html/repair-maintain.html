@@ -107,7 +107,7 @@
             <div class="date-wrapper">
               <label>保养日期</label>
               <div class="date-text">
-                <input type="text" name="" id="maintenance_date" placeholder="2018-01-01">
+                <input type="text" name="" id="maintenance_date" placeholder="2018-01-01" readonly>
                 <div class="date-icon">
                   <i class="icon icon-date"></i>
                 </div>
@@ -129,7 +129,7 @@
             <div class="date-wrapper">
               <label>下次保养</label>
               <div class="date-text">
-                <input type="text" name="nt" id="" placeholder="2018-01-01 00:00:00">
+                <input type="text" name="nt" id="nt" placeholder="2018-01-01 00:00:00" readonly>
                 <div class="date-icon">
                   <i class="icon icon-date"></i>
                 </div>
@@ -237,11 +237,12 @@
       var H = null;
       var vSn = null;
       var view = null;
+      var dDate = new Date();
 
       mui.plusReady(function () {
         handsetAdaption()
         var self = plus.webview.currentWebview();
-        view = plus.webview.getWebviewById('html/repair-list.html')
+        view = plus.webview.getWebviewById('repair-list.html')
         H = self.H;
         vSn = self.vSn;
         $('#vSn').html(vSn)
@@ -263,6 +264,25 @@
         });
       }
 
+      addEvent();
+      function addEvent() {
+        $('#maintenance_date').val(dDate.format('yyyy-MM-dd'))
+        // 开始时间
+        $('#nt').off().on('tap', function () {
+          var _this = this;
+          plus.nativeUI.pickDate(function (e) {
+            var d = e.date;
+            $(_this).val(d.format('yyyy-MM-dd'));
+
+          }, function (e) {
+            $(_this).val('您没有选择日期');
+          }, {
+              title: '',
+              date: dDate,
+              minDate: dDate
+            });
+        });
+      }
       function fetchData() {
 
       }
@@ -272,6 +292,7 @@
 
       }
 
+      submitData()
       function submitData() {
         // 提交
         $('#next').on('tap', function () {
@@ -293,6 +314,7 @@
           })
 
           data.maintenanceItems = maintenanceItems;
+          console.log(data)
 
           app.saveMaintenance(data, function (res) {
             console.log(res)

@@ -317,7 +317,7 @@
       // 下拉刷新
       function pulldownRwfresh() {
         curPage = 1;
-        // $('#OA_task_1').html('')
+        $('#OA_task_1').html('')
         fetchData();
         setTimeout(function () {
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
@@ -378,7 +378,7 @@
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
           // console.log(item.status) 正在维修   已完成   排队中
-          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-id="' + item.id + '">'
+          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="' + item.status + '" data-id="' + item.id + '">'
             + '<div class="mui-slider-right mui-disabled">'
           if (item.status == '已完成') {
             html += '<a class="mui-btn mui-btn-gray settop">置顶</a>'
@@ -602,7 +602,7 @@
 
       // 返回刷新
       document.addEventListener('update', function (e) {
-        plus.webview.currentWebview().reload();
+        mui('#pullrefresh').pullRefresh().pulldownLoading(); 
       })
 
     })()

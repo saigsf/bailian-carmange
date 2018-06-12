@@ -104,7 +104,7 @@
               <label>操作人员</label>
               <div class="date-text">
                 <select name="operator" id="operator">
-                  <option value=""></option>
+                  <option value="">请选择维修员</option>
                 </select>
               </div>
             </div>
@@ -113,7 +113,7 @@
             <div class="date-wrapper">
               <label>操作员电话</label>
               <div class="date-text">
-                <input type="tel">
+                <input type="tel" name="telephone" id="telephone" readonly>
               </div>
             </div>
           </li>
@@ -153,7 +153,115 @@
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
-  <script></script>
+  <script>
+    (function () {
+      //初始化
+      mui.init();
+
+      mui('.mui-scroll-wrapper').scroll();
+
+      var H = null;
+      var vSn = null;
+      var view = null;
+      var dDate = new Date();
+      var operatorArr = []
+
+      mui.plusReady(function () {
+        handsetAdaption()
+        var self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById('repair-list.html')
+        H = self.H;
+        vSn = self.vSn;
+        $('#vSn').html(vSn)
+      })
+
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
+      }
+
+      addEvent();
+      function addEvent() {
+        // 开始时间
+        $('#forecastTime').off().on('tap', function () {
+          var _this = this;
+          plus.nativeUI.pickDate(function (e) {
+            var d = e.date;
+            $(_this).val(d.format('yyyy-MM-dd'));
+
+          }, function (e) {
+            $(_this).val('您没有选择日期');
+          }, {
+              title: '',
+              date: dDate,
+              minDate: dDate
+            });
+        });
+
+        // 电话随人名联动
+        $('select').on('change', function() {
+          var _this = this;
+          operatorArr.forEach(item => {
+            if(item.name = $(_this).val()) {
+              $('#telephone').val(item.tel)
+            }
+          });
+        })
+      }
+
+
+      function fetchData() {
+
+        app.carMaintainEmployee({}, function (res) {
+          res = JSON.parse(res);
+          console.log(res)
+          operatorArr = res;
+          updateView(res);
+        })
+      }
+      fetchData();
+
+      function updateView(data) {
+        var html = '';
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          html += '<option value="' + item.name + '">' + item.name + '</option>'
+        }
+        $('#operator').append(html)
+      }
+
+      submitData();
+      function submitData() {
+        // 提交
+        $('#next').on('tap', function () {
+          var data = serialize($('#allot'));
+          data.vSn = $('#vSn').html()
+
+          app.carMaintainAssign(data, function (res) {
+            console.log(res);
+            res = JSON.parse(res);
+            if (res.ret) {
+              mui.fire(view, 'update', {});
+              mui.back();
+            }
+            mui.toast(res.msg)
+          })
+        })
+      }
+
+    })();
+  </script>
 </body>
 
 </html>

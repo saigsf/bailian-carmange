@@ -205,7 +205,9 @@
       mui('.mui-scroll-wrapper').scroll();
       // 下拉刷新业务
       function pulldownRwfresh() {
-        // fetchData()
+        curPage = 1;
+        $('#vehicle_input_list').html('')
+        fetchData()
         setTimeout(function () {
 
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
@@ -215,11 +217,10 @@
 
       // 上拉加载业务
       function pullupRefresh() {
-        // fetchData();
         if (curPage > totalPage) {
           mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
         } else {
-          // fetchData()
+          fetchData()
         }
         setTimeout(function () {
           mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
@@ -276,11 +277,51 @@
             }, //窗口参数
             extras: {
               H: H,
-              vSn: vSn
+              vSn: $li.attr('data-vsn')
             } //自定义扩展参数
           })
         })
+      }
 
+      // 获取数据
+      function fetchData() {
+        app.carQuery({
+          page: curPage,
+          size: 5
+        }, function (res) {
+          console.log(res);
+          curPage++;
+          totalPage = Math.ceil(res.total / 5);
+          updateView(res.rows);
+        })
+      }
+
+      function updateView(data) {
+        var html = '';
+        data.forEach(item => {
+          html += '<li class="mui-table-view-cell" data-vsn="'+item.vSn+'">'
+            + '<div class="list-item">'
+            + '<div class="item-left">'
+            + '<img src="../img/common/icon_app.png" />'
+            + '</div>'
+            + '<div class="item-right">'
+            + '<div class="item-right-top">'
+            + '<div class="number">'
+            + '<h4>'+item.vSn+'</h4>'
+            + '<p>项目编号</p>'
+            + '</div>'
+            + '</div>'
+            + '<div class="item-right-middle">'
+            + '<p><span>车架号</span>：'+item.vin+'</p>'
+            + '<p><span>检查进度</span>：'+item.checks_status+'</p>'
+            + '<p><span>保险状态</span>：'+item.istatus+'</p>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            + '</li>'
+        });
+        
+        $('#vehicle_input_list').append(html)
       }
 
     })()

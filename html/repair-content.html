@@ -101,22 +101,6 @@
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <div class="date-wrapper">
-              <label>操作人</label>
-              <div class="date-text">
-                <input type="text" name="fin_park">
-              </div>
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="date-wrapper">
-              <label>操作人电话</label>
-              <div class="date-text">
-                <input type="text" name="fin_park">
-              </div>
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="date-wrapper">
               <label>停放地点</label>
               <div class="date-text">
                 <input type="text" name="fin_park">
@@ -163,7 +147,7 @@
       mui.plusReady(function () {
         handsetAdaption()
         var self = plus.webview.currentWebview();
-        view = plus.webview.getWebviewById('html/repair-list.html')
+        view = plus.webview.getWebviewById('repair-list.html')
         H = self.H;
         vSn = self.vSn;
         $('#vSn').html(vSn)
@@ -191,11 +175,6 @@
         $('#next').on('tap', function () {
           var data = serialize($('#allot'));
           data.vSn = $('#vSn').html()
-
-          if (!data.fin_park) {
-            mui.toast('请填写停放地点')
-            return;
-          }
 
           app.carMaintainComplete(data, function (res) {
             res = JSON.parse(res);

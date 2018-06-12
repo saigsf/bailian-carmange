@@ -263,27 +263,27 @@
       }
 
       // 更新数据
-      function updateData() {
+      function submitData() {
         //提交
         $('#next').on('tap', function () {
-          //打开接车点检页面
           var data = serialize($('form'));
-
+          console.log(data)
           app.upcheck(data, function (res) {
             res = JSON.parse(res);
             console.log(res);
+            mui.toast(res.msg)
           })
         })
       }
-      updateData()
+      submitData()
 
       // 获取数据
       function fetchData() {
         // 获取车辆编号
-        // app.getvSn({}, function(res) {
-        //   console.log(res);
-        //   $('#vSn').val(res);
-        // })
+        app.getvSn({}, function(res) {
+          console.log(res);
+          $('#vSn').val(res);
+        })
       }
       fetchData()
 

@@ -71,12 +71,12 @@
     var loginButton = doc.getElementById('login');
     var accountBox = doc.getElementById('account');
     var passwordBox = doc.getElementById('password');
-    var verifyCodeBox = doc.getElementById('verifyCode')
+    // var verifyCodeBox = doc.getElementById('verifyCode')
     loginButton.addEventListener('tap', function(event) {
       var loginInfo = {
         username: accountBox.value,
         password: passwordBox.value,
-        verifyCode: verifyCodeBox.value
+        // verifyCode: verifyCodeBox.value
       };
       app.login(loginInfo, function(err) {
         if(err) {
@@ -87,7 +87,7 @@
       });
     });
   });
-  doc.getElementById('img').addEventListener('tap', function () {
-    document.getElementById("img").src= BASE_URL_1 + 'car-management/user/code.action?'+ Math.random();
-  })
+  // doc.getElementById('img').addEventListener('tap', function () {
+  //   document.getElementById("img").src= BASE_URL_1 + 'car-management/user/code.action?'+ Math.random();
+  // })
 })(mui, document);

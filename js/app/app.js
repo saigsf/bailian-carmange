@@ -468,11 +468,14 @@
 			value: '送车人电话不能为空'
 		}];
 
+		
 		var checkResult = hasEmptyValue(data, checkArr);
 		if (checkResult) {
+			console.log(translate(checkResult, translateArr))
 			mui.toast(translate(checkResult, translateArr));
 			return;
 		}
+		console.log(data)
 
 		var url = 'car-management/car/upcheck.action';
 
@@ -835,6 +838,22 @@
 		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
+	/**
+	 * 车辆列表
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.carQuery = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/pageQuery.action';
+
+		owner.HTTPRequestPost('POST', url, data, callback)
+	}
+
+
+
 
 
 
@@ -919,6 +938,23 @@
 	owner.carMaintainApply = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
+		var checkArr = ['vSn', 'item', 'send_park'];
+		var translateArr = [{
+			name: 'vSn',
+			value: '车辆编号不能为空'
+		}, {
+			name: 'item',
+			value: '维修项目不能为空'
+		}, {
+			name: 'send_park',
+			value: '停放地地点不能为空'
+		}]
+
+		var checkResult = hasEmptyValue(data, checkArr);
+		if (checkResult) {
+			mui.toast(translate(checkResult, translateArr));
+			return;
+		}
 		var url = 'car-management/carmaintain/apply.action';
 		owner.HTTPRequest('POST', url, data, callback)
 	}
@@ -931,6 +967,24 @@
 	owner.carMaintainAssign = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
+
+		var checkArr = ['vSn', 'workContent', 'operator'];
+		var translateArr = [{
+			name: 'vSn',
+			value: '车辆编号不能为空'
+		}, {
+			name: 'operator',
+			value: '操作人不能为空'
+		}, {
+			name: 'workContent',
+			value: '工作内容不能为空'
+		}]
+
+		var checkResult = hasEmptyValue(data, checkArr);
+		if (checkResult) {
+			mui.toast(translate(checkResult, translateArr));
+			return;
+		}
 
 		var url = 'car-management/carmaintain/assign.action';
 
@@ -945,6 +999,12 @@
 	owner.carMaintainComplete = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
+
+		console.log(data)
+		if (!data.fin_park) {
+			mui.toast('请填写停放地点')
+			return;
+		}
 
 		var url = 'car-management/carmaintain/complete.action';
 

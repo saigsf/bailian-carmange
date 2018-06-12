@@ -120,8 +120,8 @@
             </div>
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>送修申请人：张三问</span>
-                <span>2018-12-12</span>
+                <span id="applyPeople_0" ></span>
+                <span id="applytime_0"></span>
               </div>
             </div>
           </div>
@@ -165,8 +165,8 @@
             </div>
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>维修人：张三问</span>
-                <span>2018-12-12</span>
+                <span id="operator_0"></span>
+                <span id="forecastTime_0"></span>
               </div>
             </div>
           </div>
@@ -217,35 +217,40 @@
 
 
       function fetchData() {
-        // app.carMaintainQuery({
-        //   vSn: vSn
-        // }, function(res) {
-        //   res = JSON.parse(res);
-        //   console.log(res)
-        //   updateView(res.rows[0])
-        // })
+        app.carMaintainQuery({
+          vSn: vSn
+        }, function(res) {
+          res = JSON.parse(res);
+          console.log(res)
+          updateView(res.rows[0])
+        })
         updateView()
       }
 
       function updateView(data) {
-        if (hasData == 'true') {
+        hasData = data.status;
+        if (hasData == '已完成') {
           $('#no_data').hide().prev().show();
         } else {
           $('#no_data').show().prev().hide();
         }
-        // $('#vSn').html(data.vSn)
-        // $('#item_0').html(data.item)
-        // $('#applyPeople').html(data.applyPeople)
-        // $('#status').html(data.status)
-        // $('#item').val(data.item)
-        // $('#send_park').val(data.send_park)
-        // $('#applytime').val(data.applytime)
-        // $('#applyRemark').val(data.applyRemark)
-        // $('#operator').val(data.operator)
-        // $('#forecastTime').val(data.forecastTime)
-        // $('#fin_park').val(data.fin_park)
-        // $('#workContent').val(data.workContent)
-        // $('#remark').val(data.remark)
+        $('#vSn').html(data.vSn)
+        $('#item_0').html(data.item)
+        $('#applyPeople').html(data.applyPeople)
+        $('#applyPeople_0').html('送修申请人：'+data.applyPeople)
+        $('#status').html(data.status)
+        $('#item').val(data.item)
+        $('#send_park').val(data.send_park)
+        $('#applytime').val(data.applytime)
+        $('#applytime_0').html(data.applytime)
+        $('#applyRemark').val(data.applyRemark)
+        $('#operator').val(data.operator)
+        $('#operator_0').html('维修人：'+data.operator)
+        $('#forecastTime').val(data.forecastTime)
+        $('#forecastTime_0').html(data.forecastTime)
+        $('#fin_park').val(data.fin_park)
+        $('#workContent').val(data.workContent)
+        $('#remark').val(data.remark)
 
       }
 

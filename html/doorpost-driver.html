@@ -348,7 +348,7 @@
       // 下拉刷新业务
       function pulldownRwfresh() {
         curPage = 1;
-        // $('#OA_task_1').html('')
+        $('#OA_task_1').html('')
         fetchData();
         setTimeout(function () {
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
@@ -383,11 +383,9 @@
           size: 5
         }, function (res) {
           console.log(res)
-
           if (!res.total || res.total <= 0) {
             return;
           }
-
           curPage++;
           totalPage = Math.ceil(res.total / 5)
           var data = res.rows;

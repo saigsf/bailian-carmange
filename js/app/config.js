@@ -1,6 +1,6 @@
-var BASE_URL_1 = 'http://192.168.0.222:8080/';
+// var BASE_URL_1 = 'http://192.168.0.222:8080/';
 // var BASE_URL_1 = 'http://36.110.56.189:8848/';
-// var BASE_URL_1 = 'http://47.98.182.165/';
+var BASE_URL_1 = 'http://47.98.182.165/';
 
 
 /**
@@ -159,4 +159,19 @@ function addMarker(point, map) {
   var myIcon = new BMap.Icon("../img/2222@3x.png", new BMap.Size(28, 64));
   var marker = new BMap.Marker(point, { icon: myIcon });
   map.addOverlay(marker);
+}
+
+
+// 对象数据格式化
+
+function format(obj) {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const item = obj[key];
+      if(typeof item == 'Number') {
+        obj[key] = Math.floor(item);
+      }
+    }
+  }
+  return obj;
 }

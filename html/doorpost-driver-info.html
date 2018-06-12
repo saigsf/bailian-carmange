@@ -171,7 +171,7 @@
         var self = plus.webview.currentWebview();
         H = self.H;
         id = self.ids;
-        fetchData(id);
+        fetchData();
         addEvent();
       })
 
@@ -197,7 +197,7 @@
 
       }
 
-      function fetchData(id) {
+      function fetchData() {
         app.carDriverEdit({ id: id }, function (res) {
           console.log(res)
           updateView(res)
@@ -206,11 +206,12 @@
 
       function updateView(data) {
         console.log(data.groups.length);
+        var group = '';
 
         $('#name').html(data.name);
         $('#allowStartTime_0').html(data.allowStartTime ? data.allowStartTime : '——');
         $('#allowEndTime_0').html(data.allowEndTime ? data.allowEndTime : '——');
-        $('#groups').val((data.groups.length > 0) ? data.groups[0].name : '未分组');
+        // $('#groups').val((data.groups.length > 0) ? data.groups[0].name : '未分组');
         $('#isallow').html(data.isallow);
         $('#employeeCard').val(data.employeeCard);
         $('#iccard').val(data.iccard);
@@ -219,31 +220,14 @@
         $('#allowStartTime').val(data.allowStartTime ? data.allowStartTime : '——');
         $('#allowEndTime').val(data.allowEndTime ? data.allowEndTime : '——');
 
+        data.groups.forEach(item => {
+          group += item.name + ','
+        });
+        $('#groups').val(group)
       }
 
       function addEvent() {
-        $('.mui-scroll').on('tap', '#edit', function () {
-          mui.openWindow({
-            url: 'doorpost-driver-input.html',
-            id: 'doorpost-driver-input', //默认使用当前页面的url作为id
-            styles: {
-              top: '0px',
-              bottom: H
-            }, //窗口参数
-            extras: {
-              H: H,
-              ids: id
-            }, //自定义扩展参数
-            createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-            show: {
-              autoShow: true, //页面loaded事件发生后自动显示，默认为true
-            },
-            waiting: {
-              autoShow: true, //自动显示等待框，默认为true
-              title: '正在加载...', //等待对话框上显示的提示内容
-            }
-          })
-        })
+
       }
 
 

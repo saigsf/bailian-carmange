@@ -75,12 +75,11 @@
               <input id="item" name="item" type="text" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
-          </li>
+          </li>          
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
-              <label>申请人</label>
-              <input id="telephone" name="telephone" type="tel" class="mui-input-clear" placeholder="">
-              <span class="icon-red-star">*</span>
+              <label>停放地点</label>
+              <input id="send_park" name="send_park" type="text" class="mui-input-clear" placeholder="">
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -90,19 +89,7 @@
               <span class="icon-red-star">*</span>
             </div>
           </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>申请日期</label>
-              <input id="telephone" name="telephone" type="tel" class="mui-input-clear" placeholder="">
-              <span class="icon-red-star">*</span>
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>停放地点</label>
-              <input id="send_park" name="send_park" type="text" class="mui-input-clear" placeholder="">
-            </div>
-          </li>
+
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>备注</label>
@@ -111,7 +98,7 @@
           </li>
         </ul>
         <div class="btn-wrapper ">
-          <button class="btn btn-blue" id="next">提交</button>
+          <button class="btn btn-blue" id="submit">提交</button>
         </div>
       </form>
 
@@ -134,17 +121,26 @@
       mui.init();
       mui('.mui-scroll-wrapper').scroll();
 
+      var view = null;
+
+      mui.plusReady(function() {
+        view = plus.webview.getWebviewById('html/repair.html')
+      })
+
       // 提交数据
+      submitData()
       function submitData() {
         // 维修申请
-        $('#next').on('tap', function () {
-          var data = null;
-          data = serialize($('#repair_apply'))
+        $('#submit').on('tap', function () {
+          var data = serialize($('#repair_apply'));
+          console.log(data)
           // 维修申请
           app.carMaintainApply(data, function (res) {
             res = JSON.parse(res);
             if (res.ret) {
-
+              mui.fire(view, 'repair', {
+                domId: 'repair-list'
+              })
             }
             console.log(res)
             mui.toast(res.msg);
