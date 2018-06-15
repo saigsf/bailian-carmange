@@ -150,6 +150,7 @@
       H = self.H;
       vSn = self.vSn;
       oneInfo = self.oneInfo;
+      
     })
 
     function handsetAdaption() {
@@ -167,8 +168,9 @@
         softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
       });
     }
-
-    function addEvent() {
+    submitData();
+    function submitData() {
+      // vSn = '2018ICECTC001'
       $('#vehicle-input-tools').on('tap', function () {
         var oneBom = [];
         var $bomTr = $('#form_one_bom tr');
@@ -181,11 +183,17 @@
             oneBom.push({
               bomName: $bomName.val(),
               bomnum: $bomnum.val(),
-              ApplyPerson: '',
-              vSn: ''
+              vSn: vSn
             })
           }
         })
+        // console.log(oneBom)
+
+        // app.applybom(oneBom, function(res) {
+        //   // res = JSON.parse(res)
+        //   console.log(res);
+        //   mui.toast(res.msg)
+        // })
 
         var id = $(this).attr('id');
         mui.openWindow({
@@ -205,7 +213,7 @@
       })
 
     }
-    addEvent();
+    
 
     // 返回事件
     document.addEventListener('goback', function () {

@@ -192,23 +192,21 @@
 
       // 下拉刷新业务
       function pulldownRwfresh() {
-        // curPage = 1;
-        // $('#OA_task_1').html('');
-        // fetchData();
+        curPage = 1;
+        $('#OA_task_1').html('');
+        fetchData();
         setTimeout(function () {
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
-          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+          // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
         }, 1000)
       }
 
       // 上拉加载业务
       function pullupRefresh() {
-        // fetchData();
-        // curPage++;
         if (curPage > totalPage) {
           mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
         } else {
-          // fetchData()
+          fetchData()
         }
         setTimeout(function () {
           mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
@@ -219,11 +217,11 @@
       function fetchData(page) {
         // console.log(curPage)
         var data = null;
-        app.pageQuery({
+        app.insuranceQuery({
           page: curPage,
           size: 5
         }, function (res) {
-          // console.log(res)
+          console.log(res)
           res = JSON.parse(res);
           if (!res.totalCount || res.totalCount <= 0) {
             return;

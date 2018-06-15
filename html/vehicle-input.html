@@ -35,27 +35,29 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>项目编号</label>
-              <input name="product_sn" type="text" class="mui-input-clear" placeholder="如：2004">
+              <input name="product_sn" type="text" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>项目名称</label>
-              <input name="product_name" type="text" class="mui-input-clear" placeholder="项目名称">
+              <input name="product_name" type="text" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>项目工程师</label>
-              <input name="projectEngineer" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <input name="projectEngineer" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>联系电话</label>
-              <input name="contactNumber" type="text" class="mui-input-clear" placeholder="如：12345678901">
+              <input name="contactNumber" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
         </ul>
@@ -84,37 +86,31 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>发动机编号</label>
-              <input name="engineNumber" type="text" class="mui-input-clear" placeholder="如：F3000065D">
+              <input name="engineNumber" type="text" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车架号</label>
-              <input name="vin" type="text" class="mui-input-clear" placeholder="如：F3000065D">
+              <input name="vin" type="text" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
-        </ul>
-        <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>客户</label>
               <input name="customer" type="text" class="mui-input-clear" placeholder="">
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>车辆类型</label>
-              <input name="vCarType" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
         </ul>
+
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>发动机型号</label>
-              <input name="engineType" type="text" class="mui-input-clear" placeholder="如：4G3A">
+              <input name="engineType" type="text" class="mui-input-clear" placeholder="">
             </div>
           </li>
 
@@ -128,6 +124,7 @@
             <div class="mui-input-row">
               <label>座位容纳</label>
               <input name="seats" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -145,7 +142,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>变速箱油规格</label>
-              <input name="GBTS" type="text" class="mui-input-clear" placeholder="变速箱油规格">
+              <input name="gbts" type="text" class="mui-input-clear" placeholder="变速箱油规格">
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -170,12 +167,14 @@
             <div class="mui-input-row">
               <label>车辆吨位</label>
               <input name="vehicleQuality" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆颜色</label>
               <input name="color" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
 
@@ -184,8 +183,8 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆分组</label>
-              <select name="groupName" id="">
-                <option value="小龙">小龙</option>
+              <select name="groupName" id="groupName">
+                <option value="">选择分组</option>
               </select>
             </div>
           </li>
@@ -193,12 +192,14 @@
             <div class="mui-input-row">
               <label>车管</label>
               <input name="adminName" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>价值</label>
               <input name="price" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -271,10 +272,39 @@
       });
     }
 
-    function addEvent() {
+    // 获取数据
+    function fetchData() {
+      app.getGroup({}, function(res) {
+        res = JSON.parse(res)
+        console.log(res)
+        if(res && (res instanceof Array)) {
+          updateView(res)
+        }
+        
+      })
+    }
+    fetchData();
+
+    // 视图更新
+    function updateView(data) {
+      var html = '';
+      data.forEach(item => {
+        html += '<option value="'+item.name+'">'+item.name+'</option>';
+      });
+      
+      $('#groupName').append(html)
+    }
+
+    // 提交
+    function submitData() {
       $('#vehicle-input-bom').on('tap', function() {
         var oneInfo = serialize($('#form_one_info'));
-
+        // console.log(oneInfo)
+        // app.save(oneInfo, function(res) {
+        //   res = JSON.parse(res)
+        //   console.log(res)
+        // })
+        
         var id = $(this).attr('id');
         mui.openWindow({
           url: id + '.html',
@@ -292,7 +322,7 @@
       })
       
     }
-    addEvent();
+    submitData();
 
     // 返回事件
     document.addEventListener('goback', function() {

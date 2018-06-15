@@ -25,7 +25,7 @@
 <body>
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
-    <h1 class="mui-title">bom零部件检查</h1>
+    <h1 class="mui-title">bom零部件查验</h1>
   </header>
   <!--页面主内容区开始-->
   <div class="mui-content mui-scroll-wrapper">
@@ -83,8 +83,12 @@
   <script type="text/javascript">
     var H = null;
     var self = null;
-    var vSn = null;
+    var vSn = '2018ICECTC006';
     var viewId = null;
+    var state = 'submitArr';
+    var stateArr = [];
+    var submitArr = ['addEmsAndBomCheck'];
+    var updateArr = ['updateEmsAndBomCheckByCar'];
 
     mui.init();
     //初始化单页的区域滚动
@@ -95,7 +99,7 @@
       viewId = self.id;
       H = self.H;
       vSn = self.vSn;
-      addEvent();
+      state = self.state;
     })
 
     function handsetAdaption() {
@@ -117,6 +121,11 @@
     // 提交数据
     submitData()
     function submitData() {
+      if (state == 'submitArr') {
+        stateArr = submitArr;
+      } else if (state == 'updateArr') {
+        stateArr = updateArr;
+      }
       // bom检查
       $('#four_next').on('tap', function () {
         var $bomTr = $('table tbody tr');
@@ -127,7 +136,7 @@
 
         $bomTr.each(function (i) {
           emsAndBomCheckResults.push({
-            'vSn': 'string',
+            'vSn': vSn,
             'bomName': $(this).find('.bomName').html(),
             'bomNum': $(this).find('.bomNum').html(),
             'status': $(this).find('.status').val(),
@@ -139,26 +148,63 @@
         });
 
         data = {
-          vSn: '',
+          vSn: vSn,
           emsAndBomCheckResults: emsAndBomCheckResults
         }
         console.log(data)
+        app[stateArr[0]](data, function (res) {
+          console.log(res)
+        })
       })
     }
 
     // 获取数据
+    fetchData()
     function fetchData() {
-
+      app.findEmsAndBomCheckByvSn({
+        vSn: vSn
+      }, function (res) {
+        console.log(res)
+        updateView(res.checkResults)
+      })
     }
 
     // 视图更新
-    function updateView() {
+    function updateView(data) {
+      var html = '';
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        html += '<tr data-uuid="'+ item.uuid+'">'
+          + '<td class="bomName">'+ item.bomName+'</td>'
+          + '<td class="bomNum">'+ item.bomNum+'</td>'
+          + '<td>'
+          + '<div class="select-container">'
+          + '<select name="status" class="status">'
+          + '<option value="Y">是</option>'
+          + '<option value="N">否</option>'
+          + '<option value="NA">NA</option>'
+          + '</select>'
+          + '<i class="mui-icon mui-icon-arrowdown"></i>'
+          + '</div>'
+          + '</td>'
+          + '<td>'
+          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">'+ (item.checkExplanation? '···':'+') +'</i>'
+          + '<input class="explain-text" type="hidden" value="'+ item.checkExplanation+'">'
+          + '</td>'
+          + '<td>'
+          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">'+ (item.checkingExplanation? '···':'+') +'</i>'
+          + '<input class="resolvent-text" type="hidden" value="'+ item.checkingExplanation+'">'
+          + '</td>'
+          + '</tr>'
+      }
 
+      $('tbody').html(html)
     }
 
+    addEvent();
     function addEvent() {
       // 添加说明
-      $('#app').on('tap', '.explain', function () {
+      $('table').on('tap', '.explain', function () {
         var _this = this;
         var explainText = $(_this).parents('tr').find('.explain-text').val();
         mui.openWindow({
@@ -184,7 +230,7 @@
         });
       })
       // 添加解决方法
-      $('#app').on('tap', '.resolvent', function () {
+      $('table').on('tap', '.resolvent', function () {
         var _this = this;
         var explainText = $(_this).parents('tr').find('.explain-text').val();
         var resolventText = $(_this).parents('tr').find('.resolvent-text').val();

@@ -112,7 +112,7 @@
     <div class="mui-scroll">
       <ul class="mui-table-view mui-table-inputview">
         <li class="mui-table-view-cell">
-          <p class="vSn">车辆编号：
+          <p class="vSn">驾驶员：
             <span id="vSn"></span>
           </p>
         </li>
@@ -160,11 +160,8 @@
           <div class="date-wrapper">
             <label>所属分组</label>
             <div class="date-text">
-              <select name="gids" id="groups" multiple="multiple">
-                <option value="王五">王五</option>
-                <option value="张三">张三</option>
-                <option value="李四">李四</option>
-                <option value="宋六">宋六</option>
+              <select name="gids" id="groups" multiple="multiple" size="1">
+                <!-- <option value="王五">王五</option> -->
               </select>
             </div>
           </div>
@@ -193,6 +190,7 @@
       var view = null;
       var H = null;
       var ids = null;
+      var names = null;
 
       mui.plusReady(function () {
         handsetAdaption()
@@ -201,6 +199,8 @@
         view = plus.webview.getWebviewById('doorpost-driver.html');
         H = self.H;
         ids = self.ids;
+        names = self.names;
+        $('#vSn').html(names)
         addEvent();
       })
 
@@ -226,26 +226,64 @@
 
       }
 
+      // 获取分组
+      fetchData()
+      function fetchData() {
+        app.getGroup({}, function(res) {
+          res = JSON.parse(res)
+          console.log(res);
+          updateView(res)
+        })
+      }
+
+      // 视图更新
+      function updateView(data) {
+        var html = '';
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          html += '<option value="'+item.name+'">'+item.name+'</option>'
+        }
+        $('#groups').append(html);
+      }
       // 提交数据
       submitData()
       function submitData() {
         $('#next').on('tap', function () {
           var startTime = $('#start_date').val();
           var endTime = $('#end_date').val();
-          app.authorized({
-            ids,
-            startTime,
-            endTime
-          }, function (res) {
-            console.log(res)
-            res = JSON.parse(res)
-            if (res.ret) {
-              mui.fire(view, 'update', {});
-              mui.back();
-            } else {
-              mui.toast('授权失败')
-            }
-          })
+          var gids = $('#groups').val()
+
+          if ($('input[name=isallow]').val() == '授权') {
+            app.authorized({
+              ids,
+              startTime,
+              endTime,
+              gids
+            }, function (res) {
+              console.log(res)
+              res = JSON.parse(res)
+              if (res.ret) {
+                mui.fire(view, 'update', {});
+                mui.back();
+              } else {
+                mui.toast('授权失败')
+              }
+            })
+          } else {
+            app.cancelAuthorized({
+              ids: ids
+            }, function (res) {
+              console.log(res);
+              res = JSON.parse(res)
+              if (res.ret) {
+                mui.fire(view, 'update', {});
+                mui.back();
+              } else {
+                mui.toast('禁止失败')
+              }
+            })
+          }
+
         })
       }
       function addEvent() {

@@ -815,10 +815,8 @@
       addEvent()
       function addEvent() {
         var $link = $('#info_link_box .info-link');
-        console.log($link)
         $link.on('tap', function () {
           var id = $(this).attr('id')
-          console.log(id)
           if (id) {
             mui.openWindow({
               url: id + '.html',
@@ -829,7 +827,8 @@
               }, //窗口参数
               extras: {
                 H: H,
-                vSn: vSn
+                vSn: vSn,
+                state: 'updateArr'
               } //自定义扩展参数
             })
           }

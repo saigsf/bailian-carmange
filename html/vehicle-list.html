@@ -303,13 +303,12 @@
         setTimeout(function () {
 
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
-          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+          // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
         }, 1000)
       }
 
       // 上拉加载业务
       function pullupRefresh() {
-        // fetchData();
         if (curPage > totalPage) {
           mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
         } else {
@@ -327,7 +326,7 @@
           size: 5
         }, function (res) {
           // console.log(res)
-          // res = JSON.parse(res);
+          res = JSON.parse(res);
           if (!res.total || res.total <= 0) {
             return;
           }

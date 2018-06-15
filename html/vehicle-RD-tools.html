@@ -74,7 +74,7 @@
     (function () {
       var H = null;
       var self = null;
-      var vSn = null;
+      var vSn = '2018ICECTC001';
 
       // 初始化
       mui.init();
@@ -86,6 +86,7 @@
       mui.plusReady(function () {
         handsetAdaption();
         self = plus.webview.currentWebview();
+        vSn = self.vSn
       })
 
       // 手机适配
@@ -106,20 +107,51 @@
       }
 
       // 获取数据
+      fetchData()
       function fetchData() {
-
+        app.findDevelopTools({
+          vSn: vSn
+        }, function (res) {
+          console.log(res)
+          updateView(res);
+        })
       }
 
       // 视图更新
-      function updateView() {
+      function updateView(data) {
+        var html = '';
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          html += '<tr data-id="' + item.id +'">\
+                    <td>12V'+ item.toolName +'</td>\
+                    <td>'+item.applicant+'</td>\
+                    <td>'+item.applyTime+'</td>\
+                    <td>\
+                      <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder to-submit">提交</i>\
+                    </td>\
+                  </tr>'
+        }
 
+        $('tbody').html(html)
       }
 
       // 数据提交
       function submitData() {
-        $('table').on('tap', '.to-submit', function() {
+        $('table').on('tap', '.to-submit', function () {
+          var _this = this;
           // 接口调用
-          $(this).removeClass('to-submit').addClass('finished').html('已完成');
+          // 
+          
+          app.developEquipment({
+            vSn: vSn,
+            did: $(_this).parents('tr').attr('data-id')
+          }, function(res) {
+            console.log(res.msg);
+            mui.toast(res.msg)
+            if(res.ret) {
+              $(_this).removeClass('to-submit').addClass('finished').html('已完成');
+            }
+          })
         })
       }
       submitData()

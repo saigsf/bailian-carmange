@@ -229,13 +229,15 @@
       mui('.mui-scroll-wrapper').scroll();
 
       var H = null;
-      var vSn = null;
+      var vSn = '2018ICECTC006';
+      var id = null;
 
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
         var self = plus.webview.currentWebview();
         H = self.H;
+        vSn = self.vSn;
       })
 
       // 手机适配方法
@@ -267,32 +269,43 @@
       }
 
       // 更新数据
+      updateData()
       function updateData() {
         //提交
         $('#next').on('tap', function () {
           //打开接车点检页面
           var data = serialize($('form'));
-
-          app.upcheck(data, function (res) {
+          data.id = id;
+          console.log(data);
+          app.updateUpcheck(data, function (res) {
             res = JSON.parse(res);
-            console.log(res);
+            console.log(res.msg);
+            mui.toast(res.msg)
           })
         })
       }
 
       // 获取数据
+      fetchData()
       function fetchData() {
-        // 获取车辆编号
-        // app.getvSn({}, function(res) {
-        //   console.log(res);
-        //   $('#vSn').val(res);
-        // })
-        updateView()
+        app.findUpcheck({
+          vSn: vSn
+        }, function(res) {
+          console.log(res)
+          updateView(res)
+        })
+        
       }
 
       // 视图更新
-      function updateView() {
-
+      function updateView(data) {
+        id = data.id;
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const item = data[key];
+            $('input[name='+key+']').val(item)
+          }
+        }
       }
 
     })();

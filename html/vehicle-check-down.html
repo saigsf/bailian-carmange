@@ -141,43 +141,47 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label class="padtb0">还车申请人</label>
-              <input name="proposer" type="text" class="mui-input-clear" placeholder="请输入用户名">
+              <input name="proposer" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>交车人</label>
-              <input name="forpeople" type="text" class="mui-input-clear" placeholder="请输入用户名">
+              <input name="forpeople" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>接车人</label>
-              <input name="pickone" type="text" class="mui-input-clear" placeholder="请输入用户名">
+              <input name="pickone" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label class="padtb0">接车人电话</label>
-              <input name="pick_tel" type="text" class="mui-input-clear" placeholder="请输入用户名">
+              <input name="pick_tel" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label class="padtb0">接车人身份证</label>
-              <input name="pick_card" type="text" class="mui-input-clear" placeholder="请输入用户名">
+              <input name="pick_card" type="text" class="mui-input-clear" placeholder="">
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>备注信息</label>
-              <input name="remark" type="text" class="mui-input-clear" placeholder="请输入用户名">
+              <input name="remark" type="text" class="mui-input-clear" placeholder="">
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label class="">日期</label>
-              <input name="time" type="text" class="mui-input-clear" placeholder="请输入用户名">
+              <input name="time" type="text" class="mui-input-clear" placeholder="">
             </div>
           </li>
 
@@ -202,7 +206,8 @@
     (function () {
       var H = null;
       var self = null;
-      var vSn = null;
+      var vSn = '2018ICECTC001';
+      var id = null;
 
       //初始化
       mui.init();
@@ -211,7 +216,7 @@
         handsetAdaption()
         self = plus.webview.currentWebview();
         H = self.H;
-
+        vSn = self.vSn;
       })
 
       function handsetAdaption() {
@@ -229,13 +234,49 @@
           softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
         });
       }
+      // 获取数据
+      fetchData()
+      function fetchData() {
+        app.findBackcheck({
+          vSn: vSn
+        }, function (res) {
+          res = JSON.parse(res)
+          console.log(res)
+          if (!res) {
+            return;
+          }
+          updateView(res)
+        })
+      }
+
+      function updateView(data) {
+        id = data.id;
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const item = data[key];
+            $('input[name=' + key + ']').val(item)
+          }
+        }
+      }
 
       submitData()
       function submitData() {
+
+        $('input[name=vSn]').val(vSn)
         $('#submit').on('tap', function () {
+          if (id) {
+            mui.toast('该车已归还')
+            return;
+          }
           var data = serialize($('form'));
           console.log(data)
-          mui.back();
+          app.backCheck(data, function (res) {
+            console.log(res.msg)
+            if (res.ret) {
+              mui.back();
+            }
+          })
+
         })
       }
     })();

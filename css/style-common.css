@@ -358,6 +358,9 @@ table tbody {
 table tbody tr:nth-child(2n+1) {
   background-color: #fff;
 }
+table tbody tr:nth-child(2n) {
+  background-color: #f5f5f5;
+}
 
 table tr td {
   position: relative;
@@ -1157,7 +1160,8 @@ button {
 }
 
 .info-content-item {
-  text-align: center
+  text-align: center;
+  width: 33%
 }
 
 .info-content-item h5 {

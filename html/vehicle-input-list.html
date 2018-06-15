@@ -235,8 +235,7 @@
         self = plus.webview.currentWebview();
         // 获取传递参数
         H = self.H;
-        // 添加点击事件进入下一页
-        addEvents();
+
 
       });
 
@@ -282,6 +281,8 @@
           })
         })
       }
+      // 添加点击事件进入下一页
+      addEvents();
 
       // 获取数据
       function fetchData() {
@@ -289,17 +290,20 @@
           page: curPage,
           size: 5
         }, function (res) {
+          res = JSON.parse(res);
           console.log(res);
           curPage++;
           totalPage = Math.ceil(res.total / 5);
-          updateView(res.rows);
+          if (res.rows) {
+            updateView(res.rows);
+          }
         })
       }
 
       function updateView(data) {
         var html = '';
         data.forEach(item => {
-          html += '<li class="mui-table-view-cell" data-vsn="'+item.vSn+'">'
+          html += '<li class="mui-table-view-cell" data-vsn="' + item.vSn + '">'
             + '<div class="list-item">'
             + '<div class="item-left">'
             + '<img src="../img/common/icon_app.png" />'
@@ -307,20 +311,20 @@
             + '<div class="item-right">'
             + '<div class="item-right-top">'
             + '<div class="number">'
-            + '<h4>'+item.vSn+'</h4>'
+            + '<h4>' + item.vSn + '</h4>'
             + '<p>项目编号</p>'
             + '</div>'
             + '</div>'
             + '<div class="item-right-middle">'
-            + '<p><span>车架号</span>：'+item.vin+'</p>'
-            + '<p><span>检查进度</span>：'+item.checks_status+'</p>'
-            + '<p><span>保险状态</span>：'+item.istatus+'</p>'
+            + '<p><span>车架号</span>：' + item.vin + '</p>'
+            + '<p><span>检查进度</span>：' + item.checks_status + '</p>'
+            + '<p><span>保险状态</span>：' + item.istatus + '</p>'
             + '</div>'
             + '</div>'
             + '</div>'
             + '</li>'
         });
-        
+
         $('#vehicle_input_list').append(html)
       }
 

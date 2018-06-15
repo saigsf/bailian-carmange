@@ -287,7 +287,6 @@
 	 */
 	owner.HTTPRequestPost = function (type, url, data, callback) {
 		callback = callback || $.noop;
-		console.log(type)
 		$.ajax({
 			type: type,//HTTP请求类型
 			url: BASE_URL_1 + url,
@@ -468,7 +467,7 @@
 			value: '送车人电话不能为空'
 		}];
 
-		
+
 		var checkResult = hasEmptyValue(data, checkArr);
 		if (checkResult) {
 			console.log(translate(checkResult, translateArr))
@@ -583,7 +582,7 @@
 		owner.HTTPRequestPost('POST', url, {}, callback)
 	}
 
-	
+
 	/**
 	 * 线束检查
 	 * @param {JSON} data 请求参数	
@@ -597,7 +596,7 @@
 
 		owner.HTTPRequestPost('POST', url, data.HIResults, callback)
 	}
-	
+
 	/**
 	 * 线束检查更新
 	 * @param {JSON} data 请求参数	
@@ -678,10 +677,9 @@
 	owner.saveClacyLindersss = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
-
 		var url = 'car-management/car/saveClacyLindersss.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
@@ -695,7 +693,7 @@
 
 		var url = 'car-management/car/updateCldCheckByvSn.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
@@ -721,9 +719,34 @@
 		callback = callback || $.noop;
 		data = data || {};
 
+
+		var checkArr = ['forpeople', 'trans_sn', 'pick_tel', 'proposer', 'pickone']
+		var translateArr = [{
+			name: 'forpeople',
+			value: '交车人不能为空'
+		}, {
+			name: 'trans_sn',
+			value: '运输号不能为空'
+		}, {
+			name: 'pick_tel',
+			value: '接车人电话'
+		}, {
+			name: 'proposer',
+			value: '还车申请人不能为空'
+		}, {
+			name: 'pickone',
+			value: '接车人不能为空'
+		}];
+
+		var checkResult = hasEmptyValue(data, checkArr);
+		if (checkResult) {
+			mui.toast(translate(checkResult, translateArr));
+			return;
+		}
+
 		var url = 'car-management/car/backCheck.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
@@ -735,7 +758,7 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/findBackcheck/'+data.vSn+'.action';
+		var url = 'car-management/car/findBackcheck/' + data.vSn + '.action';
 
 		owner.HTTPRequest('POST', url, {}, callback)
 	}
@@ -777,7 +800,7 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/getReviewInfo/'+data.vSn+'.action';
+		var url = 'car-management/car/getReviewInfo/' + data.vSn + '.action';
 
 		owner.HTTPRequestPost('POST', url, data, callback)
 	}
@@ -805,10 +828,96 @@
 		callback = callback || $.noop;
 		data = data || {};
 
+		var checkArr = [
+			'carName',
+			'vSn',
+			'adminName',
+			'seats',
+			'vin',
+			'color',
+			'vCarType',
+			'project_name',
+			'price',
+			'vehicleQuality',
+			'projectEngineer',
+			'engineNumber',
+			'customer',
+			'project_sn',
+			'contactNumber',
+		]
+		var translateArr = [{
+			name: 'carName',
+			value: '车辆名称不能为空'
+		}, {
+			name: 'vSn',
+			value: '车辆编号不能为空'
+		}, {
+			name: 'adminName',
+			value: '车管不能为空'
+		}, {
+			name: 'seats',
+			value: '座位数不可以为空'
+		}, {
+			name: 'vin',
+			value: '车架号不能为空'
+		}, {
+			name: 'color',
+			value: '车辆颜色不能为空'
+		}, {
+			name: 'vCarType',
+			value: '车辆类型不能为空'
+		}, {
+			name: 'project_name',
+			value: '项目名称不能为空'
+		}, {
+			name: 'price',
+			value: '价值不能为空'
+		}, {
+			name: 'vehicleQuality',
+			value: '吨位不能为空'
+		}, {
+			name: 'projectEngineer',
+			value: '项目工程师不能为空'
+		}, {
+			name: 'engineNumber',
+			value: '发动机编号不能为空'
+		}, {
+			name: 'customer',
+			value: '客户不能不能为空'
+		}, {
+			name: 'project_sn',
+			value: '项目号不能为空'
+		}, {
+			name: 'contactNumber',
+			value: '联系电话不能为空'
+		}];
+		console.log(translateArr)
+
+		var checkResult = hasEmptyValue(data, checkArr);
+		if (checkResult) {
+			mui.toast(translate(checkResult, translateArr));
+			console.log(translate(checkResult, translateArr));
+			return;
+		}
 		var url = 'car-management/car/save.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
+
+	/**
+	 * 车辆录入查看
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.findAddCar = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/findAddCar.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
 
 	/**
 	 * bom零部件查验
@@ -839,6 +948,36 @@
 	}
 
 	/**
+	 * 研发工具安装查看
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.findDevelopTools = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/develop/find/'+ data.vSn +'.action';
+
+		owner.HTTPRequestPost('POST', url, {}, callback)
+	}
+
+	/**
+	 * 研发工具安装
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.developEquipment = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/develop/developEquipment.action';
+
+		owner.HTTPRequestPost('POST', url, {}, callback)
+	}
+
+
+
+	/**
 	 * 车辆列表
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
@@ -849,13 +988,8 @@
 
 		var url = 'car-management/car/pageQuery.action';
 
-		owner.HTTPRequestPost('POST', url, data, callback)
+		owner.HTTPRequest('POST', url, data, callback)
 	}
-
-
-
-
-
 
 	/* ===============车辆 end=============== */
 	/* ===============保险 start=============== */

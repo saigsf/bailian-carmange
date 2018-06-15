@@ -23,6 +23,7 @@
     td {
       height: 40px;
     }
+
     table thead span:last-of-type {
       font-size: 12px;
     }
@@ -112,6 +113,10 @@
     var oneBom = null;
     var view = null;
 
+    var flagInfo = false;
+    var flagBom = false;
+    var flagTools = false;
+
     mui.init();
     mui.plusReady(function () {
       handsetAdaption();
@@ -154,23 +159,42 @@
             })
           }
         })
-        console.log(JSON.stringify(oneInfo))
-        console.log(JSON.stringify(oneBom))
-        console.log(JSON.stringify(oneToolApply))
 
-        // app.save(oneInfo, function(res) {
-        //   console.log(res)
-        // })
-        // app.applybom(oneBom, function(res) {
-        //   console.log(res)
-        // })
-        // app.applytools(oneToolApply, function(res) {
-        //   console.log(res)
-        // })
+        app.save(oneInfo, function (res) {
+          res = JSON.parse(res)
+          // console.log(res)
+          mui.toast(res.msg);
+          if (res.ret) {
+            flagInfo = true;
+          }
+        })
+        
+        app.applybom(oneBom, function (res) {
+          // res = JSON.parse(res)
+          // console.log(res);
+          mui.toast(res.msg);
+          if (res.ret) {
+            flagBom = true;
+          }
+        })
 
-        mui.back()
-        mui.fire(view, 'goback', {});
+        app.applytools(oneToolApply, function (res) {
+          // res = JSON.parse(res)
+          // console.log(res);
+          mui.toast(res.msg);
+          if (res.ret) {
+            flagTools = true;
+          }
+        })
+
         // 页面返回
+        setTimeout(function () {
+          if (flagInfo && flagBom && flagTools) {
+            mui.back()
+            mui.fire(view, 'goback', {});
+          }
+        }, 100)
+
 
       })
     }

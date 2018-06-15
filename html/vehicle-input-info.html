@@ -125,20 +125,20 @@
           <div class="info-content">
             <div class="info-content-top">
               <p>车辆编号</p>
-              <h3 id="vSn">2017-123</h3>
+              <h3 id="vSn_0">2017PTCTC049</h3>
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="vin">32156A</h5>
-                <p>项目号</p>
+                <h5 id="engineNumber_0">CE16-0002384</h5>
+                <p>发动机号</p>
               </div>
               <div class="info-content-item">
-                <h5 id="applyPeople">张三</h5>
+                <h5 id="projectEngineer_0">张三</h5>
                 <p>项目工程师</p>
               </div>
               <div class="info-content-item">
-                <h5 id="status">安全检查</h5>
-                <p>项目进度</p>
+                <h5 id="checks_status_0">安全检查</h5>
+                <p>检查进度</p>
               </div>
               <div class="take-down" id="take-down">
                 <i class="icon icon-take-down"></i>
@@ -156,35 +156,35 @@
               </div>
               <div class="tab-row">
                 <div class="tab-col">车辆名称</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="carName"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">车辆编号</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="vSn"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">车架号</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="vin"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">项目工程师</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="projectEngineer"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">所属分组</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="groupName"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">检查进度</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="checks_status"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">创建时间</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="makeTime"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">备注</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="remark"></div>
               </div>
             </div>
             <div class="take-up" id="take-up">
@@ -341,13 +341,31 @@
 
     // 获取数据
     function fetchData() {
-
+      app.carQuery({
+        vSn: vSn
+      }, function(res) {
+        res = JSON.parse(res)
+        console.log(res)
+        updateView(res.rows[0])
+      })
     }
     fetchData()
 
     // 视图更新
-    function updateView() {
-
+    function updateView(data) {
+      $('#vSn_0').html(data.vSn);
+      $('#engineNumber_0').html(data.engineNumber);
+      $('#projectEngineer_0').html(data.projectEngineer);
+      $('#checks_status_0').html(data.checks_status);
+      $('#carName').html(data.carName);
+      $('#vSn').html(data.vSn);
+      $('#vin').html(data.vin);
+      $('#engineNumber').html(data.engineNumber);
+      $('#projectEngineer').html(data.projectEngineer);
+      $('#checks_status').html(data.checks_status);
+      $('#groupName').html(data.groupName);
+      $('#makeTime').html(data.makeTime);
+      $('#remark').html(data.remark);
     }
   </script>
 </body>

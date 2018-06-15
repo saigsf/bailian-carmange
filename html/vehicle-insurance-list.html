@@ -245,6 +245,7 @@
       var H = null; // 页面高度
       var curPage = 1; //当前页码初始化数0开始
       var totalPage = 0; //后台算出总页数
+      var data = []
 
       // 初始化
       mui.init({
@@ -266,7 +267,7 @@
       // 下拉刷新业务
       function pulldownRwfresh() {
         curPage = 1;
-        // $('#vehicle_insurance_list').html('')
+        $('#vehicle_insurance_list').html('')
         fetchData();
         setTimeout(function () {
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
@@ -325,19 +326,60 @@
 
       // 获取数据
       function fetchData() {
-        // app.insuranceQuery({
-        //   page: 1,
-        //   size: 5
-        // }, function (res) {
-        //   res = JSON.parse(res)
-        //   console.log(res)
-        // })
+        app.insuranceQuery({
+          page: 1,
+          size: 5
+        }, function (res) {
+          res = JSON.parse(res)
+          console.log(res)
+          if (!res.total || res.total <= 0) {
+            return;
+          }
+          // console.log(res.total)
+          curPage++;
+          totalPage = Math.ceil(res.total / 5)
+          
+          data = res.rows;
+          updateView(res.rows);
+        })
       }
-      fetchData();
 
       // 视图更新
-      function updateView() {
-
+      function updateView(data) {
+        var html = '';
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          html += '<li class="mui-table-view-cell" data-vSn="'+item.vSn+'" data-status="2">'
+            + '<div class="list-item">'
+            + '<div class="item-checked">'
+            + '<input type="checkbox" name="" id="myCheck">'
+            + '<label for="myCheck"></label>'
+            + '</div>'
+            + '<div class="item-left">'
+            + '<img src="../img/common/icon_app.png" />'
+            + '</div>'
+            + '<div class="item-right">'
+            + '<div class="item-right-top">'
+            + '<div class="number">'
+            + '<h4>'+item.vSn+'</h4>'
+            + '<p>'+item.project.project_sn+'</p>'
+            + '</div>'
+            + '<div class="mui-btn  mui-btn-outlined no-renew-insurance">'
+            + '<span>续保</span>'
+            + '<i class="mui-icon mui-icon-arrowright"></i>'
+            + '</div>'
+            + '</div>'
+            + '<div class="item-right-middle">'
+            + '<p><span>验车状态</span>：'+item.vehicleInspection+'</p>'
+            + '<p><span>保单号</span>：2017-132</p>'
+            + '<p><span>保险起始</span>：'+item.startTime+'</p>'
+            + '<p><span>保险终止</span>：'+item.endTime+'</p>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            + '</li>'
+        }
+        $('#vehicle_insurance_list').append(html)
       }
 
       // 页面点击事件
