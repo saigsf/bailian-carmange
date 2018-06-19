@@ -164,6 +164,7 @@
       var H = null; 
       var self = null;
       var vSn = null;
+      var data = []
 
       // 初始化mui
       mui.init({
@@ -217,19 +218,19 @@
       function fetchData(page) {
         // console.log(curPage)
         var data = null;
-        app.insuranceQuery({
+        app.licenseQuery({
           page: curPage,
           size: 5
         }, function (res) {
           console.log(res)
           res = JSON.parse(res);
-          if (!res.totalCount || res.totalCount <= 0) {
+          if (!res.total || res.total <= 0) {
             return;
           }
           // console.log(res.totalCount)
           curPage++;
-          totalPage = Math.ceil(res.totalCount / 5)
-          var data = res.pageData;
+          totalPage = Math.ceil(res.total / 5)
+          data = res.rows
 
           updateView(data);
 
@@ -293,7 +294,8 @@
             extras: {
               H: H,
               vSn: $li.attr('data-vSn'),
-              hasData: $li.attr('data-status')
+              hasData: $li.attr('data-status'),
+              data: data[$li.index()]
             } //自定义扩展参数
           })
         });

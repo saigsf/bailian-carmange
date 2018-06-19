@@ -112,6 +112,22 @@
       height: 35px;
       background-image: url(../img/common/md/tools@2x.png);
     }
+    table tbody tr td {
+      line-height: 34px;
+
+    }
+
+    table tbody tr td span {
+      display: block;
+      margin: 0 auto;
+      width: 94px;
+      height: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      /* color: #000; */
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -175,39 +191,135 @@
         </div>
         <!-- 接车点检开始 -->
         <div class="info-middle"></div>
-        <div class="info-item">
+        <div class="info-item" id="checkUp">
           <div class="info-title">
             <h4>接车点检</h4>
           </div>
           <div class="info-content">
             <div class="date-wrapper">
-              <label>维修项目</label>
+              <label>车辆编号</label>
               <div class="date-text">
-                <input type="text" id="item" placeholder="" readonly>
+                <input name="vSn" type="text" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>停放地点</label>
+              <label>厂牌型号</label>
               <div class="date-text">
-                <input type="text" name="" id="send_park" placeholder="" readonly>
+                <input type="text" name="brandModelone" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>申请日期</label>
+              <label>发动机号</label>
               <div class="date-text">
-                <input type="text" name="" id="applytime" placeholder="" readonly>
+                <input type="text" name="engineNumber" id="" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>维修备注</label>
+              <label>车架号</label>
               <div class="date-text">
-                <input type="text" name="" id="applyRemark" placeholder="" readonly>
+                <input type="text" name="vin" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车架号</label>
+              <div class="date-text">
+                <input type="text" name="vin" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车辆外观</label>
+              <div class="date-text">
+                <input type="text" name="facade" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>外观说明</label>
+              <div class="date-text">
+                <input type="text" name="explanation" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>送车人</label>
+              <div class="date-text">
+                <input type="text" name="send_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>送车人电话</label>
+              <div class="date-text">
+                <input type="text" name="telephone" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>接车人</label>
+              <div class="date-text">
+                <input type="text" name="pickone" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>接车日期</label>
+              <div class="date-text">
+                <input type="text" name="time" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>随车物品</label>
+              <div class="date-text">
+                <input type="text" name="item" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>随车工具</label>
+              <div class="date-text">
+                <input type="text" name="tools" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备用轮胎</label>
+              <div class="date-text">
+                <input type="text" name="sparetyre" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>千斤顶</label>
+              <div class="date-text">
+                <input type="text" name="jack" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>警示牌</label>
+              <div class="date-text">
+                <input type="text" name="warningboard" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>灭火器</label>
+              <div class="date-text">
+                <input type="text" name="fire" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>钥匙数量</label>
+              <div class="date-text">
+                <input type="text" name="keyy" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>里程表</label>
+              <div class="date-text">
+                <input type="text" name="odometer" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="remark" id="" placeholder="" readonly>
               </div>
             </div>
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>接车人：张三问</span>
-                <span>2018-12-12</span>
+                <span class="pickone">接车人：张三问</span>
+                <span class="time">2018-12-12</span>
               </div>
             </div>
           </div>
@@ -215,177 +327,302 @@
         <!-- 接车点检结束 -->
         <!-- 车辆录入开始 -->
         <div class="info-middle"></div>
-        <div class="info-item">
+        <div class="info-item" id="vehicle_input">
           <div class="info-title">
             <h4>车辆录入</h4>
           </div>
           <div class="info-content">
             <div class="date-wrapper">
-              <label>操作员</label>
+              <label>项目编号</label>
               <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
+                <input type="text" name="product_sn" id="" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>完成日期</label>
+              <label>项目名称</label>
               <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+                <input type="text" name="product_name" id="" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>停放地点</label>
+              <label>项目工程师</label>
               <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+                <input type="text" name="projectEngineer" value="" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>工作内容</label>
+              <label>联系电话</label>
               <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
+                <input type="text" name="contactNumber" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>备注</label>
+              <label>车辆编号</label>
               <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="info-operator">
-              <div class="info-operator-item">
-                <span>录入人：张三问</span>
-                <span>2018-12-12</span>
-              </div>
-            </div>
-          </div>
-          <div class="info-title">
-            <h4>bom零部件查验</h4>
-          </div>
-          <div class="info-content">
-            <div class="date-wrapper">
-              <label>操作员</label>
-              <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>完成日期</label>
-              <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>停放地点</label>
-              <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>工作内容</label>
-              <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
+                <input type="text" name="vSn" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
               <label>备注</label>
               <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="info-operator">
-              <div class="info-operator-item">
-                <span>申请人：张三问</span>
-                <span>2018-12-12</span>
-              </div>
-            </div>
-          </div>
-          <div class="info-title">
-            <h4>研发工具安装申请</h4>
-          </div>
-          <div class="info-content">
-            <div class="date-wrapper">
-              <label>操作员</label>
-              <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
+                <input type="text" name="" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>完成日期</label>
+              <label>车辆名称</label>
               <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+                <input type="text" name="carName" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>停放地点</label>
+              <label>车辆类型</label>
               <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+                <input type="text" name="vCarType" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>工作内容</label>
+              <label>发动机编号</label>
               <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
+                <input type="text" name="engineNumber" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车架号</label>
+              <div class="date-text">
+                <input type="text" name="vin" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>客户</label>
+              <div class="date-text">
+                <input type="text" name="customer" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>发动机型号</label>
+              <div class="date-text">
+                <input type="text" name="engineType" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>发动机排量</label>
+              <div class="date-text">
+                <input type="text" name="engineCapacity" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>座位容纳</label>
+              <div class="date-text">
+                <input type="text" name="seats" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>燃油规格</label>
+              <div class="date-text">
+                <input type="text" name="FuelType" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>机油规格</label>
+              <div class="date-text">
+                <input type="text" name="oilspecification" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>变速箱油规格</label>
+              <div class="date-text">
+                <input type="text" name="gbts" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>轮胎规格</label>
+              <div class="date-text">
+                <input type="text" name="tyresize" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>前轮胎压力</label>
+              <div class="date-text">
+                <input type="text" name="reaTireP" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>后轮胎压力</label>
+              <div class="date-text">
+                <input type="text" name="frontTireP" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车辆吨位</label>
+              <div class="date-text">
+                <input type="text" name="vehicleQuality" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车辆颜色</label>
+              <div class="date-text">
+                <input type="text" name="color" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车辆分组</label>
+              <div class="date-text">
+                <input type="text" name="groupName" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车管</label>
+              <div class="date-text">
+                <input type="text" name="adminName" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>价值</label>
+              <div class="date-text">
+                <input type="text" name="price" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>制作日期</label>
+              <div class="date-text">
+                <input type="text" name="makeTime" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
               <label>备注</label>
               <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
+                <input type="text" name="remark" placeholder="" readonly>
               </div>
             </div>
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>申请人：张三问</span>
-                <span>2018-12-12</span>
+                <span class="operator">录入人：张三问</span>
+                <span class="makeTime">2018-12-12</span>
               </div>
             </div>
           </div>
+          <!-- <div class="info-title">
+    <h4>bom零部件查验</h4>
+  </div>
+  <div class="info-content">
+    <div class="date-wrapper">
+      <label>操作员</label>
+      <div class="date-text">
+        <input type="text" name="" id="operator" placeholder="" readonly>
+      </div>
+    </div>
+    <div class="date-wrapper">
+      <label>完成日期</label>
+      <div class="date-text">
+        <input type="text" name="" id="forecastTime" placeholder="" readonly>
+      </div>
+    </div>
+    <div class="date-wrapper">
+      <label>停放地点</label>
+      <div class="date-text">
+        <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+      </div>
+    </div>
+    <div class="date-wrapper">
+      <label>工作内容</label>
+      <div class="date-text">
+        <input type="text" name="" id="workContent" placeholder="" readonly>
+      </div>
+    </div>
+    <div class="date-wrapper">
+      <label>备注</label>
+      <div class="date-text">
+        <input type="text" name="" id="remark" placeholder="" readonly>
+      </div>
+    </div>
+    <div class="info-operator">
+      <div class="info-operator-item">
+        <span>申请人：张三问</span>
+        <span>2018-12-12</span>
+      </div>
+    </div>
+  </div>
+  <div class="info-title">
+    <h4>研发工具安装申请</h4>
+  </div>
+  <div class="info-content">
+    <div class="date-wrapper">
+      <label>操作员</label>
+      <div class="date-text">
+        <input type="text" name="" id="operator" placeholder="" readonly>
+      </div>
+    </div>
+    <div class="date-wrapper">
+      <label>完成日期</label>
+      <div class="date-text">
+        <input type="text" name="" id="forecastTime" placeholder="" readonly>
+      </div>
+    </div>
+    <div class="date-wrapper">
+      <label>停放地点</label>
+      <div class="date-text">
+        <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+      </div>
+    </div>
+    <div class="date-wrapper">
+      <label>工作内容</label>
+      <div class="date-text">
+        <input type="text" name="" id="workContent" placeholder="" readonly>
+      </div>
+    </div>
+    <div class="date-wrapper">
+      <label>备注</label>
+      <div class="date-text">
+        <input type="text" name="" id="remark" placeholder="" readonly>
+      </div>
+    </div>
+    <div class="info-operator">
+      <div class="info-operator-item">
+        <span>申请人：张三问</span>
+        <span>2018-12-12</span>
+      </div>
+    </div>
+  </div> -->
         </div>
         <!-- 车辆录入结束 -->
         <!-- 安全检查开始 -->
         <div class="info-middle"></div>
-        <div class="info-item">
+        <div class="info-item" id="safeCheck">
           <div class="info-title">
             <h4>安全检查</h4>
           </div>
           <div class="info-content">
-            <div class="date-wrapper">
-              <label>操作员</label>
-              <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>完成日期</label>
-              <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>停放地点</label>
-              <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>工作内容</label>
-              <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>备注</label>
-              <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
-              </div>
-            </div>
+            <table>
+              <thead>
+                <tr>
+                  <td width="33%">检查项目</td>
+                  <td width="34%">问题原因</td>
+                  <td width="33%">解决方法</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span>检查项目</span>
+                  </td>
+                  <td>
+                    <span>解决方法检查项目检查项目</span>
+                  </td>
+                  <td>
+                    <span>解决方法检查项目检查项目</span>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>检查人：张三问</span>
-                <span>2018-12-12</span>
+                <span class="checkPerson">检查人：张三问</span>
+                <span class="checkTime">2018-12-12</span>
               </div>
               <div class="info-operator-item">
-                <span>核对人：张三问</span>
-                <span>2018-12-12</span>
+                <span class="checkingPerson">核对人：张三问</span>
+                <span class="checkingTime">2018-12-12</span>
               </div>
             </div>
           </div>
@@ -398,36 +635,63 @@
             <h4>线束检查</h4>
           </div>
           <div class="info-content">
-            <div class="date-wrapper">
-              <label>操作员</label>
-              <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>完成日期</label>
-              <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>停放地点</label>
-              <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>工作内容</label>
-              <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>备注</label>
-              <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
-              </div>
-            </div>
+            <table>
+              <thead>
+                <tr>
+                  <td width="33%">检查项目</td>
+                  <td width="34%">问题原因</td>
+                  <td width="33%">解决方法</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="item">检查项目</span>
+                  </td>
+                  <td>
+                    <span class="checkExplanation">解决方法检查项目检查项目</span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation">解决方法检查项目检查项目</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>检查项目</span>
+                  </td>
+                  <td>
+                    <span>解决方法检查项目检查项目</span>
+                  </td>
+                  <td>
+                    <span>解决方法检查项目检查项目</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>检查项目</span>
+                  </td>
+                  <td>
+                    <span>解决方法检查项目检查项目</span>
+                  </td>
+                  <td>
+                    <span>解决方法检查项目检查项目</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>检查项目</span>
+                  </td>
+                  <td>
+                    <span>解决方法检查项目检查项目</span>
+                  </td>
+                  <td>
+                    <span>解决方法检查项目检查项目</span>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+
             <div class="info-operator">
               <div class="info-operator-item">
                 <span>检查人：张三问</span>
@@ -443,56 +707,37 @@
         <!-- 线束检查结束 -->
         <!-- bom检查开始 -->
         <div class="info-middle"></div>
-        <div class="info-item">
+        <div class="info-item" id="bomCheck">
           <div class="info-title">
             <h4>bom检查</h4>
           </div>
           <div class="info-content">
-            <div class="date-wrapper">
-              <label>操作员</label>
-              <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>完成日期</label>
-              <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>停放地点</label>
-              <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>工作内容</label>
-              <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>备注</label>
-              <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
-              </div>
-            </div>
+            <table>
+              <thead>
+                <tr>
+                  <td width="33%">检查项目</td>
+                  <td width="34%">问题原因</td>
+                  <td width="33%">解决方法</td>
+                </tr>
+              </thead>
+              <tbody></tbody>
+
+            </table>
             <div class="info-operator">
               <div class="info-operator-item">
                 <span>申请人</span>
-                <span>张三问</span>
-                <span>2018-12-12</span>
+                <span class="applyPerson"></span>
+                <span class="applyTime"></span>
               </div>
               <div class="info-operator-item">
                 <span>检查人</span>
-                <span>张三问</span>
-                <span>2018-12-12</span>
+                <span class="checkPerson"></span>
+                <span class="checkTime"></span>
               </div>
               <div class="info-operator-item">
                 <span>核对人</span>
-                <span>张三问</span>
-                <span>2018-12-12</span>
+                <span class="checkingPerson"></span>
+                <span class="checkingTime"></span>
               </div>
             </div>
           </div>
@@ -500,45 +745,34 @@
         <!-- bom检查结束 -->
         <!-- 研发工具开始 -->
         <div class="info-middle"></div>
-        <div class="info-item">
+        <div class="info-item" id="tools">
           <div class="info-title">
             <h4>研发工具</h4>
           </div>
           <div class="info-content">
-            <div class="date-wrapper">
-              <label>操作员</label>
-              <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>完成日期</label>
-              <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>停放地点</label>
-              <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>工作内容</label>
-              <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>备注</label>
-              <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
-              </div>
-            </div>
+            <table>
+              <thead>
+                <tr>
+                  <!-- 工具或设备 -->
+                  <td width="30%">名称</td>
+                  <td width="20%">申请人</td>
+                  <td width="30%">装备日期</td>
+                  <td width="20%">操作人</td>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr>
+          <td>12V电源</td>
+          <td>王先生</td>
+          <td>2018-12-12</td>
+          <td>张三丰</td>
+        </tr> -->
+              </tbody>
+            </table>
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>申请人：张三问</span>
-                <span>2018-12-12</span>
+                <span class="applyPerson">申请人：</span>
+                <span class="applyTime"></span>
               </div>
             </div>
           </div>
@@ -546,45 +780,64 @@
         <!-- 研发工具结束 -->
         <!-- 车辆审核开始 -->
         <div class="info-middle"></div>
-        <div class="info-item">
+        <div class="info-item" id="review">
           <div class="info-title">
             <h4>车辆审核</h4>
           </div>
           <div class="info-content">
             <div class="date-wrapper">
-              <label>操作员</label>
+              <label>安全检查人</label>
               <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
+                <input type="text" name="safeCheckPerson" id="safeCheckPerson" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>完成日期</label>
+              <label>安全核对人</label>
               <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+                <input type="text" name="safeCheckingPerson" id="safeCheckingPerson" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>停放地点</label>
+              <label>线束检查人</label>
               <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+                <input type="text" name="hiCheckPerson" id="hiCheckPerson" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>工作内容</label>
+              <label>线束核对人</label>
               <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
+                <input type="text" name="hiCheckingPerson" id="hiCheckingPerson" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>备注</label>
+              <label>BOM检查人</label>
               <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
+                <input type="text" name="bomCheckPerson" id="bomCheckPerson" placeholder="" readonly>
               </div>
             </div>
+            <div class="date-wrapper">
+              <label>BOM核对人</label>
+              <div class="date-text">
+                <input type="text" name="bomCheckingPerson" id="bomCheckingPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>审核结果</label>
+              <div class="date-text">
+                <input type="text" name="status" id="status" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>说明</label>
+              <div class="date-text">
+                <input type="text" name="explanation" id="explanation" placeholder="" readonly>
+              </div>
+            </div>
+
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>审核人：张三问</span>
-                <span>2018-12-12</span>
+                <span id="reviewerPerson">审核人：张三问</span>
+                <span id="reviewerTime">2018-12-12</span>
               </div>
             </div>
           </div>
@@ -592,44 +845,123 @@
         <!-- 车辆审核结束 -->
         <!-- 还车点检开始 -->
         <div class="info-middle"></div>
-        <div class="info-item">
+        <div class="info-item" id="check_down">
           <div class="info-title">
             <h4>还车点检</h4>
           </div>
           <div class="info-content">
             <div class="date-wrapper">
-              <label>操作员</label>
+              <label>车辆编号</label>
               <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
+                <input type="text" name="vSn" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>完成日期</label>
+              <label>车辆编号</label>
               <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+                <input type="text" name="vSn" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>停放地点</label>
+              <label>运输车号</label>
               <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+                <input type="text" name="trans_sn" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>工作内容</label>
+              <label>还车申请人</label>
               <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
+                <input type="text" name="proposer" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>备注</label>
+              <label>交车人</label>
               <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
+                <input type="text" name="forpeople" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>接车人</label>
+              <div class="date-text">
+                <input type="text" name="pickone" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>接车人电话</label>
+              <div class="date-text">
+                <input type="text" name="pick_tel" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>接车人身份证</label>
+              <div class="date-text">
+                <input type="text" name="pick_card" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>实际还车日期</label>
+              <div class="date-text">
+                <input type="text" name="time" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>研发工具是否回收</label>
+              <div class="date-text">
+                <input type="text" name="toolisrecycled" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>随车工具</label>
+              <div class="date-text">
+                <input type="text" name="tools" placeholder="" readonly>
+                <div class="date-icon">套</div>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>停车警示牌</label>
+              <div class="date-text">
+                <input type="text" name="warningboard" placeholder="" readonly>
+                <div class="date-icon">只</div>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备用轮胎</label>
+              <div class="date-text">
+                <input type="text" name="sparetyre" placeholder="" readonly>
+                <div class="date-icon">只</div>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>里程表</label>
+              <div class="date-text">
+                <input type="text" name="odometer" placeholder="" readonly>
+                <div class="date-icon">km</div>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>千斤顶</label>
+              <div class="date-text">
+                <input type="text" name="jack" placeholder="" readonly>
+                <div class="date-icon">只</div>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车用灭火器</label>
+              <div class="date-text">
+                <input type="text" name="fire" placeholder="" readonly>
+                <div class="date-icon">只</div>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>钥匙数量</label>
+              <div class="date-text">
+                <input type="text" name="keyy" placeholder="" readonly>
+                <div class="date-icon">把</div>
               </div>
             </div>
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>换车人：张三问</span>
+                <span >还车人：张三问</span>
                 <span>2018-12-12</span>
               </div>
             </div>
@@ -638,55 +970,63 @@
         <!-- 还车点检结束 -->
         <!-- 保险信息开始 -->
         <div class="info-middle"></div>
-        <div class="info-item">
+        <div class="info-item" id="insurance">
           <div class="info-title">
             <h4>保险信息</h4>
           </div>
           <div class="info-content">
             <div class="date-wrapper">
-              <label>操作员</label>
+              <label>车辆编号</label>
               <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
+                <input type="text" name="vSn" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>完成日期</label>
+              <label>保单号</label>
               <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+                <input type="text" name="insNo" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>停放地点</label>
+              <label>起始日</label>
               <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+                <input type="text" name="startTime" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>工作内容</label>
+              <label>终止日</label>
               <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
+                <input type="text" name="endTime" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>备注</label>
+              <label>厂牌型号</label>
               <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
+                <input type="text" name="brandModeltwo" placeholder="" readonly>
               </div>
             </div>
+            <div class="date-wrapper">
+              <label>保险备注</label>
+              <div class="date-text">
+                <input type="text" name="remark" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>申请人</label>
+              <div class="date-text">
+                <input type="text" name="applyPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>申请日期</label>
+              <div class="date-text">
+                <input type="text" name="applyTime" id="vSn" placeholder="" readonly>
+              </div>
+            </div>
+
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>申请人</span>
-                <span>张三问</span>
-                <span>2018-12-12</span>
-              </div>
-              <div class="info-operator-item">
-                <span>录入人</span>
-                <span>张三问</span>
-                <span>2018-12-12</span>
-              </div>
-              <div class="info-operator-item">
-                <span>续保人</span>
-                <span>张三问</span>
+                <span>录入人：</span>
                 <span>2018-12-12</span>
               </div>
             </div>
@@ -695,42 +1035,54 @@
         <!-- 保险信息结束 -->
         <!-- 临牌信息开始 -->
         <div class="info-middle"></div>
-        <div class="info-item">
+        <div class="info-item" id="license">
           <div class="info-title">
             <h4>临牌信息</h4>
           </div>
           <div class="info-content">
             <div class="date-wrapper">
-              <label>操作员</label>
+              <label>车辆编号</label>
               <div class="date-text">
-                <input type="text" name="" id="operator" placeholder="" readonly>
+                <input type="text" name="vSn" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>完成日期</label>
+              <label>临牌号</label>
               <div class="date-text">
-                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+                <input type="text" name="licenseNo" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>停放地点</label>
+              <label>临牌终止日</label>
               <div class="date-text">
-                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+                <input type="text" name="licenseEndTime" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>工作内容</label>
+              <label>验车申请日</label>
               <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
+                <input type="text" name="applytime" readonly>
               </div>
             </div>
             <div class="date-wrapper">
-              <label>备注</label>
+              <label>临牌备注</label>
               <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
+                <input type="text" name="remark" readonly>
               </div>
             </div>
-            <div class="info-operator">
+            <div class="date-wrapper">
+              <label>录入人</label>
+              <div class="date-text">
+                <input type="text" name="addPerson" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>录入日期</label>
+              <div class="date-text">
+                <input type="text" name="maketime" readonly>
+              </div>
+            </div>
+            <!-- <div class="info-operator">
               <div class="info-operator-item">
                 <span>录入人：张三问</span>
                 <span>2018-12-12</span>
@@ -739,7 +1091,7 @@
                 <span>验车人：张三问</span>
                 <span>2018-12-12</span>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- 临牌结束 -->
@@ -759,7 +1111,8 @@
     (function () {
       var self = null;
       var H = null;
-      var vSn = null;
+      var vSn = '2018ICECTC001';
+      var insuranceData = [];
 
       mui.init();
 
@@ -792,25 +1145,202 @@
         //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
         // });
       }
-
+      fetchData()
       function fetchData() {
-        // app.vehicleSearch({
-        //   vSn: vSn,
-        //   status: '',
-        //   carName: '',
-        //   cGroup: {
-        //     id: 0,
-        //     name: '',
-        //     remark: ''
-        //   }
-        // }, function (res) {
-        //   console.log(JSON.stringify(res))
-        //   // updateView(res)
-        // })
+        // 接车点检查看
+        app.findUpcheck({ vSn }, function (res) {
+          console.log('接车点检查看')
+          console.log(res)
+          updateView.checkUp(res)
+        })
+        // 车辆录入查看
+        app.findAddCar({ vSn }, function (res) {
+          res = JSON.parse(res);
+          console.log('车辆录入查看')
+          console.log(res);
+          updateView.input(res);
+
+        })
+        // 安全检查查看
+        app.findSafeCheckByvSn({ vSn }, function (res) {
+          // res = JSON.parse(res);
+          console.log('安全检查查看')
+          console.log(res);
+          updateView.safeCheck(res)
+        })
+        // 缸压检查查看
+        app.findCldCheckByvSn({ vSn }, function (res) {
+          console.log('缸压检查查看')
+          console.log(res);
+        })
+        // bom检查查看
+
+        app.findEmsAndBomCheckByvSn({ vSn }, function (res) {
+          console.log('bom检查查看')
+          console.log(res);
+          updateView.bomCheck(res)
+        })
+        // 线束检查查看
+
+        app.findHiCheckByvSn({ vSn }, function (res) {
+          console.log('线束检查查看')
+          console.log(res);
+        })
+        // 研发工具查看
+        app.findDevelopTools({ vSn }, function (res) {
+          console.log('研发工具查看')
+          console.log(res)
+          updateView.tools(res);
+        })
+        // 审核
+        app.findReview({vSn}, function(res) {
+          console.log('审核')
+          res = JSON.parse(res)
+          console.log(res)
+          updateView.review(res)
+        })
+
+        // 还车
+        app.findBackcheck({vSn}, function(res) {
+          console.log('还车')
+          if(res != 'null') {
+            console.log(res)
+            updateView.backcheck(res)
+          }
+        })
+
+        // 保险信息
+        app.insuranceFindByvSn({vSn}, function(res) {
+          console.log('保险信息')
+          res = JSON.parse(res)
+          console.log(res);
+          insuranceData = res;
+          updateView.insurance(res[0]);
+        })
+
+        // 临牌信息
+        app.historyLicenseByvSn({vSn}, function(res) {
+          console.log('临牌信息');
+          res = JSON.parse(res)
+          console.log(res);
+          updateView.license(res[0])
+        })
       }
 
       // 更新视图
-      function updateView(data) { }
+      var updateView = {
+        checkUp: function (data) {
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = data[key];
+              $('#checkUp input[name=' + key + ']').val(item)
+            }
+          }
+
+          $('#checkUp').find('.pickone').html('接车人：' + data.pickone)
+          $('#checkUp').find('.time').html(data.time)
+        },
+        input: function (data) {
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = data[key];
+              $('#vehicle_input input[name=' + key + ']').val(item)
+            }
+          }
+          $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
+          $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
+
+          $('#vSn').html(data.vSn)
+          $('#vin').html(data.vin)
+          $('#projectEngineer').html(data.projectEngineer)
+          $('#status').html(data.status)
+        },
+        safeCheck: function (res) {
+          var data = res.checkResults;
+          var html = '';
+          for (let i = 0; i < 41; i++) {
+            const item = data[i];
+            html += '<tr>\
+                      <td><span class="item">'+ item.item + '</span></td>\
+                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '无') + '</span></td>\
+                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '无') + '</span></td>\
+                    </tr>'
+          }
+          $('#safeCheck table tbody').html(html);
+          $('#safeCheck').find('.checkPerson').html('检查人：' + res.check.checkPerson)
+          $('#safeCheck').find('.checkTime').html(res.check.checkTime)
+          $('#safeCheck').find('.checkingPerson').html('核对人：' + res.check.checkingPerson)
+          $('#safeCheck').find('.checkingTime').html(res.check.checkingTime)
+
+        },
+
+        bomCheck: function (res) {
+          var data = res.checkResults;
+          var html = '';
+          for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            html += '<tr>\
+                      <td><span class="item">'+ item.bomName + '</span></td>\
+                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '无') + '</span></td>\
+                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '无') + '</span></td>\
+                    </tr>'
+          }
+          $('#bomCheck table tbody').html(html);
+
+          $('#bomCheck').find('.checkPerson').html(res.check.checkPerson?res.check.checkPerson: '无')
+          $('#bomCheck').find('.checkTime').html(res.check.checkTime?res.check.checkTime: '无')
+          $('#bomCheck').find('.checkingPerson').html(res.check.checkingPerson?res.check.checkingPerson : '无')
+          $('#bomCheck').find('.checkingTime').html(res.check.checkingTime?res.check.checkingTime: '无')
+          $('#bomCheck').find('.applyPerson').html(res.check.applyPerson)
+          $('#bomCheck').find('.applyTime').html(res.check.applyTime)
+
+
+        },
+        tools: function (data) {
+          var html = '';
+          for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            html += '<tr>\
+                  <td><span>'+ item.toolName + '</span></td>\
+                  <td>'+ item.applicant + '</td>\
+                  <td>'+ item.equippedDate + '</td>\
+                  <td>'+ item.operator + '</td>\
+                </tr>'
+          }
+          $('#tools table tbody').html(html);
+          $('#tools').find('.applyPerson').html('申请人：' + data[0].applicant)
+          $('#tools').find('.applyTime').html(data[0].applyTime)
+        },
+        review: function(data) {
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = data[key];
+              $('#review input[name=' + key + ']').val(item)
+            }
+          }
+          $('#review').find('#reviewerPerson').html('审核人：' + data.reviewerPerson)
+          $('#review').find('#reviewerTime').html(data.reviewerTime)
+        },
+        backcheck: function(data) {
+          
+        },
+        insurance: function(data) {
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = data[key];
+              $('#insurance input[name=' + key + ']').val(item)
+            }
+          }
+        },
+        license: function(data) {
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = (typeof data[key] == 'number') ? (new Date(data[key])).format('yyyy-MM-dd'): data[key] ;
+              $('#license input[name=' + key + ']').val(item)
+            }
+          }
+        }
+      }
 
       addEvent()
       function addEvent() {

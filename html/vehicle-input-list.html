@@ -188,6 +188,7 @@
       var self = null;
       var H = null; // 页面高度
       var vSn = null;
+      var data = [];
 
       mui.init({
         pullRefresh: {
@@ -276,7 +277,8 @@
             }, //窗口参数
             extras: {
               H: H,
-              vSn: $li.attr('data-vsn')
+              vSn: $li.attr('data-vsn'),
+              data: data[$li.index()]
             } //自定义扩展参数
           })
         })
@@ -295,6 +297,7 @@
           curPage++;
           totalPage = Math.ceil(res.total / 5);
           if (res.rows) {
+            data = res.rows;
             updateView(res.rows);
           }
         })
@@ -312,7 +315,7 @@
             + '<div class="item-right-top">'
             + '<div class="number">'
             + '<h4>' + item.vSn + '</h4>'
-            + '<p>项目编号</p>'
+            + '<p>' + item.carName + '</p>'
             + '</div>'
             + '</div>'
             + '<div class="item-right-middle">'

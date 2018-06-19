@@ -250,6 +250,7 @@
       var view = null;
       var showMenu = false;
       var isInTransition = false;
+      var data = [];
 
 
       mui.init({
@@ -325,15 +326,16 @@
           page: curPage,
           size: 5
         }, function (res) {
-          // console.log(res)
+          
           res = JSON.parse(res);
+          console.log(res)
           if (!res.total || res.total <= 0) {
             return;
           }
           // console.log(res.totalCount)
           curPage++;
           totalPage = Math.ceil(res.total / 5)
-
+          data = data.concat(res.rows);
           updateView(res.rows);
 
         });
@@ -392,8 +394,8 @@
       //添加事件
       function addEvent() {
         //查看车辆信息
-        $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
-          var $li = $('this').parents('li')
+        $('#OA_task_1').on('tap', 'li', function () {
+          var $li = $(this)
 
           mui.openWindow({
             url: 'vehicle-list-info.html',
@@ -404,7 +406,8 @@
             }, //窗口参数
             extras: {
               H: H,
-              vSn: $(this).attr('data-vSn')
+              vSn: $li.attr('data-vSn'),
+              data: data[$li.index()]
             } //自定义扩展参数
           })
         });

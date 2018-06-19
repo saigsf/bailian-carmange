@@ -1,37 +1,7 @@
 {
   "html/home.html": {
     "href": "html/home.html",
-    "resources": [
-      "img/common/md/icon_gps@2x.png",
-      "img/common/md/icon_back_black.png",
-      "img/common/md/icon_search@2x.png",
-      "img/common/md/icon_date@2x.png",
-      "img/common/md/icon_arrow_down@2x.png",
-      "img/common/md/icon_arrow_up@2x.png",
-      "img/common/md/icon_vehicleinput@2x.png",
-      "img/common/md/icon_safecheck@2x.png",
-      "img/common/md/icon_wirecheck@2x.png",
-      "img/common/md/icon_bomcheck@2x.png",
-      "img/common/md/icon_vehicleauditing@2x.png",
-      "img/common/md/icon_vehicledown@2x.png",
-      "img/common/md/icon_tools@2x.png",
-      "img/common/md/up_check@2x.png",
-      "img/common/md/down_check@2x.png",
-      "img/common/md/insurance_info@2x.png",
-      "img/common/md/license_info@2x.png",
-      "img/common/md/icon_subscript@3x.png",
-      "img/common/md/icon_take_down.gif",
-      "img/common/md/icon_corner_mark_green@2x.png",
-      "img/common/md/icon_corner_mark_red@2x.png",
-      "img/common/md/icon_filter@2x.png",
-      "img/common/md/icon_status_change.png",
-      "img/common/md/icon_checked@2x.png",
-      "img/common/md/hook.png",
-      "img/common/md/info_bg@2x.png",
-      "img/common/md/no_data@2x.png",
-      "img/common/background_ellipse.png",
-      "img/2222@3x.png"
-    ],
+    "resources": [],
     "priority": 4
   }
 }
