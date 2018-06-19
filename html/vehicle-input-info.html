@@ -240,7 +240,8 @@
   <script type="text/javascript">
     var H = null;
     var self = null;
-    var vSn = null;
+    var vSn = '2018ICECTC006';
+    var data = {}
 
     mui.init();
     //初始化单页的区域滚动
@@ -250,6 +251,8 @@
       self = plus.webview.currentWebview();
       H = self.H;
       vSn = self.vSn;
+      data = self.data;
+      dataRetrieval(data)
     })
 
     function handsetAdaption() {
@@ -340,33 +343,18 @@
     addEvent()
 
     // 获取数据
-    function fetchData() {
-      app.carQuery({
-        vSn: vSn
-      }, function(res) {
-        res = JSON.parse(res)
-        console.log(res)
-        updateView(res.rows[0])
-      })
-    }
-    fetchData()
+    // function fetchData() {
+    //   app.carQuery({
+    //     vSn: vSn
+    //   }, function(res) {
+    //     res = JSON.parse(res)
+    //     console.log(res)
+    //     updateView(res.rows[0])
+    //   })
+    // }
+    // fetchData()
 
-    // 视图更新
-    function updateView(data) {
-      $('#vSn_0').html(data.vSn);
-      $('#engineNumber_0').html(data.engineNumber);
-      $('#projectEngineer_0').html(data.projectEngineer);
-      $('#checks_status_0').html(data.checks_status);
-      $('#carName').html(data.carName);
-      $('#vSn').html(data.vSn);
-      $('#vin').html(data.vin);
-      $('#engineNumber').html(data.engineNumber);
-      $('#projectEngineer').html(data.projectEngineer);
-      $('#checks_status').html(data.checks_status);
-      $('#groupName').html(data.groupName);
-      $('#makeTime').html(data.makeTime);
-      $('#remark').html(data.remark);
-    }
+    
   </script>
 </body>
 

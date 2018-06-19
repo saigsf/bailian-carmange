@@ -993,6 +993,7 @@
 
 	/* ===============车辆 end=============== */
 	/* ===============保险 start=============== */
+
 	/**
 	 * 保险列表
 	 * @param {JSON} data 请求参数	
@@ -1022,9 +1023,10 @@
 
 
 	/* ===============保险 end=============== */
-	/* ===============车牌 start=============== */
+	/* ===============临牌 start=============== */
+
 	/**
-	 * 车牌列表
+	 * 临牌列表
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
 	 */
@@ -1032,12 +1034,27 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/license/query.action';
+		var url = 'car-management/license/pageQuery.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
 
-	/* ===============车牌 end=============== */
+	/**
+	 * 临牌信息查询
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.historyLicenseByvSn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/license/historyLicenseByvSn.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/* ===============临牌 end=============== */
+
 	/* ===============维修 start=============== */
 
 	/**
@@ -1379,7 +1396,7 @@
 
 		var url = 'car-management/car/allcar.action';
 
-		owner.HttpRequestNonCrossDomain('get', url, data, callback)
+		owner.HTTPRequest('post', url, data, callback)
 	}
 
 	/**
@@ -1391,9 +1408,9 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/carData.action';
+		var url = 'car-management/car/carDataByvSn.action';
 
-		owner.HttpRequestNonCrossDomain('get', url, data, callback)
+		owner.HTTPRequest('post', url, data, callback)
 	}
 
 	/**
@@ -1407,7 +1424,7 @@
 
 		var url = 'car-management/car/carTrack.action';
 
-		owner.HTTPRequest('get', url, data, callback)
+		owner.HTTPRequest('post', url, data, callback)
 	}
 
 	/**

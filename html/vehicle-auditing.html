@@ -896,6 +896,10 @@
           $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
           $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
 
+          $('#vSn').html(data.vSn)
+          $('#vin').html(data.vin)
+          $('#projectEngineer').html(data.projectEngineer)
+          $('#status').html(data.status)
         },
         safeCheck: function (res) {
           var data = res.checkResults;
@@ -967,6 +971,7 @@
           })
         })
       }
+
 
     })();
   </script>

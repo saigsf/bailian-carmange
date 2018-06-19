@@ -221,6 +221,7 @@
 			var bottom = '-70px';
 			var H = null;
 			var self = null;
+			var vSn = '2018ICECTC006'
 
 			mui.plusReady(function () {
 				// plus准备好后执行H5
@@ -342,24 +343,26 @@
 			document.addEventListener('statusBar', function (e) {
 				plus.navigator.setStatusBarStyle('light');
 				mui.toast(e.detail.vSn);
-				getData(e.detail.vSn)
+				fetchData(e.detail.vSn)
 			})
 
-			function getData(vSn) {
+			fetchData()
+			function fetchData() {
 				// 实时数据查询
 				app.carData({
 					vSn: vSn
 				}, function (res) {
-					// console.log(JSON.stringify(res));
+					res = JSON.parse(res);
+					console.log(res);
 					updateView.carData(res)
 				});
 
 				app.carTrack({
 					vSn: vSn,
-					startDate: (new Date()).format('yyyy-MM-dd hh:mm:ss'),
-					endDate: (new Date()).format('yyyy-MM-dd hh:mm:ss')
+					startDate: $('#start_date').val() ,
+					endDate: $('#end_date').val()
 				}, function (res) {
-					// console.log(res)
+					console.log(res)
 					res = JSON.parse(res)
 					// if (res.length <= 0) {
 					//   mui.toast('没有数据');
@@ -369,38 +372,33 @@
 				})
 
 				app.allcar({}, function (res) {
+					res = JSON.parse(res);
+					// if(res.length<=0) {
+					// 	return;
+					// }
 					updateView.allcar(res)
 				})
 			}
 
 			var updateView = {
 				carData: function (data) {
-					var points = [];
-					for (let i = 0; i < data.length; i++) {
-						const item = data[i];
-						var point = new BMap.Point(item.longitude, item.latitude)
-						points.push(point);
-					}
-
+					data.longitude = 116.404844;
+					data.latitude = 39.915378;
+					data.name = '奥迪'
+					console.log(JSON.stringify(data))
+					var point = new BMap.Point(data.longitude, data.latitude)
+					// points.push(point);
 					//坐标转换完之后的回调函数
-					var translateCallback = function (data) {
-						if (data.status === 0) {
-							// console.log(myIcon)
-							for (var i = 0; i < data.points.length; i++) {
-								var marker = new BMap.Marker(data.points[i]); // 在指定坐标创建marker对象
-								marker.setLabel('工作地点'); // 设置marker的标注文字
-								map2.addOverlay(marker);
-								map2.setCenter(data.points[i]);
-							}
-						}
-					}
-					setTimeout(function () {
-						var convertor = new BMap.Convertor();
-						convertor.translate(points, 1, 5, translateCallback)
-					}, 1000);
+					translatePoint(point, function (res) {
+						var point = res.points[0];
+						console.log(JSON.stringify(point))
+						map2.centerAndZoom(point, 11);
+						addMarker(point, map2, data)
+					})
+
 				},
 				carTrack: function (data) {
-
+					map1.setZoom(11)
 					// 获取车辆位置点集，这里使用假数据
 					var pts = [
 						new BMap.Point(108.929346, 34.303791),
@@ -435,9 +433,10 @@
 					// 轨迹实现方法
 					function playLine(i) {
 						if (i == 0) { //第一个点 直接添加
-							var marker = new BMap.Marker(pts[i]); // 创建标注
-							map1.addOverlay(marker);
+							// var marker = new BMap.Marker(pts[i]); // 创建标注
+							// map1.addOverlay(marker);
 							// marker.setLabel(new BMap.Label("我是第" + (i + 1) + "个点", { offset: new BMap.Size(20, -10) }));
+							map1.centerAndZoom(pts[i], 11);
 							map1.panTo(pts[i]);
 							i++;
 							setTimeout(function () {
@@ -447,8 +446,11 @@
 							if (i < pts.length) {
 								driving.search(pts[i - 1], pts[i]);
 								map1.addOverlay(polyline);
-								var marker = new BMap.Marker(pts[i]); // 创建标注
-								map1.addOverlay(marker);
+								// var marker = new BMap.Marker(pts[i]); // 创建标注
+								// map1.addOverlay(marker);
+								addMarker(pts[0], map1)
+								addMarker(pts[pts.length-1], map1)
+								
 								// marker.setLabel(new BMap.Label("我是第" + (i + 1) + "个点", { offset: new BMap.Size(20, -10) }));
 								map1.panTo(pts[i]);
 								i++;
@@ -465,6 +467,29 @@
 
 				},
 				allcar: function (data) {
+					data = [
+						{
+							longitude: 108.929346,
+							latitude:  34.303791,
+							name: '奥迪'
+						},
+						{
+							longitude: 108.929202, 
+							latitude:  34.283391,
+							name: '奥迪'
+						},
+						{
+							longitude: 108.929202, 
+							latitude:  34.276471,
+							name: '奥迪'
+						},
+						{
+							longitude: 108.928771, 
+							latitude:  34.275397,
+							name: '奥迪'
+						}
+					]
+
 					map2.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 14);
 					map2.clearOverlays();       //清除地图上所有覆盖物
 
@@ -482,18 +507,30 @@
 						points.push(point);
 					}
 
-					var options = {
-						size: BMAP_POINT_SIZE_BIG,
-						shape: BMAP_POINT_SHAPE_WATERDROP,
-						color: '#d340c3'
-					}
-					console.log(JSON.stringify(points))
 
-					var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
-					pointCollection.addEventListener('click', function (e) {
-						alert('单击点的坐标为：' + e.point.lng + ',' + e.point.lat);  // 监听点击事件
-					});
-					map2.addOverlay(pointCollection);  // 添加Overlay
+					translatePoint(points, function (res) {
+						var point = res.points[0];
+						map2.centerAndZoom(point, 11);
+
+						for (let i = 0; i < res.points.length; i++) {
+							const item = res.points[i];
+							addMarker(item, map2, data[i])
+						}
+						
+					})
+
+					// var options = {
+					// 	size: BMAP_POINT_SIZE_BIG,
+					// 	shape: BMAP_POINT_SHAPE_WATERDROP,
+					// 	color: '#d340c3'
+					// }
+					// console.log(JSON.stringify(points))
+
+					// var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
+					// pointCollection.addEventListener('click', function (e) {
+					// 	alert('单击点的坐标为：' + e.point.lng + ',' + e.point.lat);  // 监听点击事件
+					// });
+					// map2.addOverlay(pointCollection);  // 添加Overlay
 				}
 			}
 
@@ -535,9 +572,9 @@
 					var marker1 = new BMap.Marker(point);
 					var marker2 = new BMap.Marker(point);
 
-					map1.centerAndZoom(point, 11);
+					map1.centerAndZoom(point, 16);
 					map1.addOverlay(marker1);
-					map2.centerAndZoom(point, 11);
+					map2.centerAndZoom(point, 16);
 					map2.addOverlay(marker2);
 					// addMarker(point, map1)
 					// addMarker(point, map2)

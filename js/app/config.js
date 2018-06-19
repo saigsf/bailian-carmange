@@ -155,11 +155,27 @@ function translatePoint(points, callback) {
 }
 
 // 添加marker
-function addMarker(point, map) {
-  var myIcon = new BMap.Icon("../img/2222@3x.png", new BMap.Size(28, 64));
+
+function addMarker(point, map, data) {
+  console.log(JSON.stringify(point))
+
+  var myIcon = new BMap.Icon("../img/car21.png", new BMap.Size(26, 15));
   var marker = new BMap.Marker(point, { icon: myIcon });
   map.addOverlay(marker);
+
+  if (!data) {
+    return
+  }
+
+  var label = new BMap.Label(data.name, { offset: new BMap.Size(-10, 25) });
+  marker.setLabel(label);
+  marker.addEventListener("click", function (e) {
+    mui.toast(data.name)
+  });
 }
+
+//获取指定标记的详细信息     
+
 
 
 // 对象数据格式化
@@ -168,10 +184,31 @@ function format(obj) {
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
       const item = obj[key];
-      if(typeof item == 'Number') {
+      if (typeof item == 'Number') {
         obj[key] = Math.floor(item);
       }
     }
   }
   return obj;
+}
+
+// 数据回显
+function dataRetrieval(data) {
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      const item = data[key];
+      if (typeof item == 'Object') {
+        for (const keys in item) {
+          if (item.hasOwnProperty(keys)) {
+            const element = item[keys];
+            $('#' + keys + '_0').html(element);
+            $('#' + keys).html(element);
+          }
+        }
+      } else {
+        $('#' + key + '_0').html(item);
+        $('#' + key).html(item);
+      }
+    }
+  }
 }
