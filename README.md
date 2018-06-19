@@ -339,3 +339,15 @@
 #### bom查验列表请求
 #### 线束检查
 #### 车辆查询-vSn
+
+
+<!-- 问题 -->
+1. 车牌列表请求错误
+http://47.98.182.165/car-management/license/query.action
+```javascript
+{
+  "ret": false,
+  "msg": "System error",
+  "data": null
+}
+```

@@ -112,20 +112,20 @@
           <div class="info-content">
             <div class="info-content-top">
               <p>车辆编号</p>
-              <h3 id="vSn">2017-123</h3>
+              <h3 id="vSn_0">2017-123</h3>
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="item_0">32156A</h5>
+                <h5 id="project_sn_0">32156A</h5>
                 <p>项目号</p>
               </div>
               <div class="info-content-item">
-                <h5 id="applyPeople">32156A</h5>
+                <h5 id="engineNumber_0">32156A</h5>
                 <p>发动机号</p>
               </div>
               <div class="info-content-item">
-                <h5 id="status">未申请</h5>
-                <p>验车状态</p>
+                <h5 id="projectEngineer_0"></h5>
+                <p>项目工程师</p>
               </div>
             </div>
           </div>
@@ -140,83 +140,83 @@
               </div>
               <div class="tab-row">
                 <div class="tab-col">车辆编号</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="vSn">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">项目编号</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="project_sn">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">车辆名称</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="vCarType">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">保险期限</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="numtime">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">发动机号</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="engineNumber">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">车架号</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="vin">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">车辆类型</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="vCarType">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">座纳</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="seats">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">价值</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="price">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">排量</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="engineCapacity">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">吨位</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="vehicleQuality">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">负责工程师</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="projectEngineer">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">申请人</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="applyPerson">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">申请日期</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="applyTime">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">保单号</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="vehicleInspection">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">保险剩余天数</div>
-                <div class="tab-col red">90</div>
+                <div class="tab-col">90</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">厂牌型号</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="brandModelone">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">起始日</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="startTime">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">终止日</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="endTime">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">备注</div>
-                <div class="tab-col">2222222</div>
+                <div class="tab-col" id="remark">2222222</div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">更新日期</div>
@@ -249,10 +249,11 @@
   <script>
     ; (function () {
       // 全局
-      var vSn = null;
+      var vSn = '2018ICECTC001';
       var self = null;
       var H = null;
       var hasData = false;
+      var data = {};
 
       // 初始化
       mui.init();
@@ -266,8 +267,8 @@
         vSn = self.vSn;
         H = self.H;
         hasData = self.hasData;
-        fetchData();
-        addEvent();
+        data = self.data;
+        updateView(data);
       });
 
       // 手机适配
@@ -285,29 +286,44 @@
       }
 
       // 获取数据
-      function fetchData() {
-        // app.carMaintainQuery({
-        //   vSn: vSn
-        // }, function(res) {
-        //   res = JSON.parse(res);
-        //   console.log(res)
-        //   updateView(res.rows[0])
-        // })
-        updateView()
-      }
+      // fetchData()
+      // function fetchData() {
+      //   app.insuranceFindByvSn({
+      //     vSn: vSn
+      //   }, function(res) {
+      //     res = JSON.parse(res);
+      //     console.log(res)
+      //     updateView(res.rows[0])
+      //   })
+      //   // updateView()
+      // }
 
       // 页面更新
       function updateView(data) {
-        if (hasData == '1') {
-          $('#no_data').hide().prev().show();
-        } else if (hasData == '2') {
-          $('#no_data').hide().prev().show();
-        } else {
-          $('#no_data').show().prev().hide();
+        $('#vSn_0').html(data.vSn)
+        $('#project_sn_0').html(data.project.project_sn)
+        $('#engineNumber_0').html(data.engineNumber)
+        $('#projectEngineer_0').html(data.projectEngineer);
+
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const item = data[key];
+            if (typeof item == 'Object') {
+              for (const keys in item) {
+                if (item.hasOwnProperty(keys)) {
+                  const element = item[keys];
+                  $('#'+keys).html(element)
+                }
+              }
+            } else {
+              $('#'+key).html(item)
+            }
+          }
         }
       }
 
       // 添加事件
+      addEvent();
       function addEvent() {
         // 详情
         $('#info').on('tap', function () {

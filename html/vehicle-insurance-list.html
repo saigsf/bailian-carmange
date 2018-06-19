@@ -297,8 +297,6 @@
         // 获取传递参数
         H = self.H;
         // 添加点击事件进入下一页
-        addEvents();
-
       });
 
       // 手机适配方法
@@ -383,10 +381,12 @@
       }
 
       // 页面点击事件
+      addEvents();
       function addEvents() {
         // 保险详情
         $('#vehicle_insurance_list').on('tap', 'li', function () {
           var $li = $(this)
+          console.log($li.index())
           mui.openWindow({
             url: 'vehicle-insurance-info.html',
             id: 'vehicle-insurance-info', //默认使用当前页面的url作为id
@@ -397,7 +397,8 @@
             extras: {
               H: H,
               vSn: $li.attr('data-vSn'),
-              hasData: $li.attr('data-status')
+              hasData: $li.attr('data-status'),
+              data: data[$li.index()]
             } //自定义扩展参数
           })
         });

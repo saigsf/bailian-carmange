@@ -994,46 +994,6 @@
 	/* ===============车辆 end=============== */
 	/* ===============保险 start=============== */
 	/**
-	 * 保险申请
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.insuranceApply = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-		data.vSns = data.vSns.split(',');
-
-		var url = 'car-management/insurance/apply.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-	/**
-	 * 保险录入
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.insuranceAdd = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/insurance/addInsurance.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-	/**
-	 * 续保
-	 * @param {JSON} data 请求参数	
-	 * @param {Function} callback 回掉函数
-	 */
-	owner.insuranceLast = function (data, callback) {
-		callback = callback || $.noop;
-		data = data || {};
-
-		var url = 'car-management/insurance/lastInsurance.action';
-
-		owner.HTTPRequest('POST', url, data, callback)
-	}
-	/**
 	 * 保险列表
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} callback 回掉函数
@@ -1062,6 +1022,22 @@
 
 
 	/* ===============保险 end=============== */
+	/* ===============车牌 start=============== */
+	/**
+	 * 车牌列表
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.licenseQuery = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/license/query.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/* ===============车牌 end=============== */
 	/* ===============维修 start=============== */
 
 	/**

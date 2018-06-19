@@ -75,7 +75,6 @@
           </div>
         </li>
         <li class="mui-table-view-cell" data-vSn="" data-status="false">
-
           <div class="list-item">
             <div class="item-left">
               <img src="../img/common/icon_app.png" />
@@ -164,6 +163,7 @@
       var H = null; 
       var self = null;
       var vSn = null;
+      var data = []
 
       // 初始化mui
       mui.init({
@@ -217,21 +217,22 @@
       function fetchData(page) {
         // console.log(curPage)
         var data = null;
-        app.insuranceQuery({
+        app.licenseQuery({
           page: curPage,
           size: 5
         }, function (res) {
-          console.log(res)
+          
           res = JSON.parse(res);
-          if (!res.totalCount || res.totalCount <= 0) {
+          console.log(res)
+          if (!res.total || res.total <= 0) {
             return;
           }
           // console.log(res.totalCount)
           curPage++;
-          totalPage = Math.ceil(res.totalCount / 5)
-          var data = res.pageData;
+          totalPage = Math.ceil(res.total / 5)
 
-          updateView(data);
+          data = res.rows;
+          updateView(res.rows);
 
         });
       }
@@ -242,36 +243,40 @@
 
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<li class="mui-table-view-cell" data-id="' + item.id + '">'
-            + '<div class="list-item">'
-            + '<div class="item-left">'
-            + '<img src="../img/common/icon_app.png" />'
-            + '</div>'
-            + '<div class="item-right">'
-            + '<div class="item-right-top">'
-            + '<div class="number">'
-            + '<h4>' + item.vSn + '</h4>'
-            + '<p>' + (item.vCarSn ? item.vCarSn : '未填写') + '</p>'
-            + '</div>'
-            + '<div class="mui-btn mui-btn-blue mui-btn-outlined goback">去还车'
-            + '<i class="mui-icon mui-icon-arrowright"></i>'
-            + '</div>'
-            + '</div>'
-            + '<div class="item-right-bottom">'
-            + '<div class="bottom-item">'
-            + '<span>安全检查：张三</span>'
-            + '<span>2018-02-22</span>'
-            + '</div>'
-            + '<div class="bottom-item bottom-item-empty"></div>'
-            + '<div class="bottom-item">'
-            + '<span>安全检查：张三</span>'
-            + '<span>2018-02-22</span>'
-            + '</div>'
-            + '<div class="bottom-item bottom-item-empty"></div>'
-            + '<div class="bottom-item">'
-            + '<span>审核：张三</span>'
-            + '<span>2018-02-22</span>'
-            + '</div></div></div></div></li>';
+          html += '<li class="mui-table-view-cell" data-vSn="'+item.vSn+'" data-status="false">\
+          <div class="list-item">\
+            <div class="item-left">\
+              <img src="../img/common/icon_app.png" />\
+            </div>\
+            <div class="item-right">\
+              <div class="item-right-top">\
+                <div class="number">\
+                  <h4>'+item.vSn+'</h4>\
+                  <p>'+item.project.project_sn+'</p>\
+                </div>\
+                <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">\
+                  <i class="mui-icon mui-icon-arrowright"></i>\
+                </div>\
+              </div>\
+              <div class="item-right-bottom">\
+                <div class="bottom-item">\
+                  <h4>'+item.brandModelone+'</h4>\
+                  <p>临牌号</p>\
+                </div>\
+                <div class="bottom-item bottom-item-empty"></div>\
+                <div class="bottom-item">\
+                  <h4>'+item.vSn+'</h4>\
+                  <p>终止日</p>\
+                </div>\
+                <div class="bottom-item bottom-item-empty"></div>\
+                <div class="bottom-item">\
+                  <h4>'+item.vSn+'</h4>\
+                  <p>验车状态</p>\
+                </div>\
+              </div>\
+            </div>\
+          </div>\
+        </li>';
         }
 
         $('#OA_task_1').append($(html))
@@ -293,7 +298,8 @@
             extras: {
               H: H,
               vSn: $li.attr('data-vSn'),
-              hasData: $li.attr('data-status')
+              hasData: $li.attr('data-status'),
+              data: data[$li.index()]
             } //自定义扩展参数
           })
         });
