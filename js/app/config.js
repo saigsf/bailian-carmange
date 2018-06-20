@@ -212,3 +212,18 @@ function dataRetrieval(data) {
     }
   }
 }
+
+
+// 数组中对象的值等于当前值的个数
+var findNum = function(arr, value) {
+  var flag = 0;
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i];
+    // console.log(item.pitem == value)
+    if(item.pitem.replace(/\s/g, "") == value) {
+      flag++
+    }
+  }
+
+  return flag;
+}

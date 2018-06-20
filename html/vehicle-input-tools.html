@@ -160,23 +160,28 @@
           }
         })
 
-        app.save(oneInfo, function (res) {
-          res = JSON.parse(res)
-          // console.log(res)
-          mui.toast(res.msg);
-          if (res.ret) {
-            flagInfo = true;
-          }
-        })
-        
-        app.applybom(oneBom, function (res) {
-          // res = JSON.parse(res)
-          // console.log(res);
-          mui.toast(res.msg);
-          if (res.ret) {
-            flagBom = true;
-          }
-        })
+        if (oneInfo != null && oneInfo) {
+          app.save(oneInfo, function (res) {
+            res = JSON.parse(res)
+            // console.log(res)
+            mui.toast(res.msg);
+            if (res.ret) {
+              flagInfo = true;
+            }
+          })
+        }
+
+        if (oneBom != null && oneBom) {
+          app.applybom(oneBom, function (res) {
+            // res = JSON.parse(res)
+            // console.log(res);
+            mui.toast(res.msg);
+            if (res.ret) {
+              flagBom = true;
+            }
+          })
+        }
+
 
         app.applytools(oneToolApply, function (res) {
           // res = JSON.parse(res)
@@ -189,10 +194,18 @@
 
         // 页面返回
         setTimeout(function () {
-          if (flagInfo && flagBom && flagTools) {
-            mui.back()
-            mui.fire(view, 'goback', {});
+          if (!oneBom) {
+            if (flagTools) {
+              mui.back()
+              mui.fire(view, 'goback', {});
+            }
+          } else {
+            if (flagInfo && flagBom && flagTools) {
+              mui.back()
+              mui.fire(view, 'goback', {});
+            }
           }
+
         }, 100)
 
 

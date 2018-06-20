@@ -244,7 +244,6 @@
 #### 车辆查询-vSn
 
 
-<<<<<<< HEAD
 <!-- 问题 -->
 1. 车牌列表请求错误
 http://47.98.182.165/car-management/license/query.action
@@ -255,9 +254,7 @@ http://47.98.182.165/car-management/license/query.action
   "data": null
 }
 ```
-=======
 1. 获取当前设备的网络类型
 2. 获取当前网络类型
 3. 判断当前网络是否可以联网
 4. 更改当前网络类型为4G
->>>>>>> 7a711fda571866d2d1771e492b1425363c152a58
