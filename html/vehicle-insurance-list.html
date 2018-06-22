@@ -122,8 +122,8 @@
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <form class="top">
-        <div class="mui-input-row mui-search">
-          <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
+        <div class="mui-input-row mui-search" id="search">
+          <input readonly type="search" class="mui-input-clear" placeholder="请输入车辆编号">
         </div>
       </form>
       <ul id="vehicle_insurance_list" class="mui-table-view mui-table-listview">
@@ -245,7 +245,8 @@
       var H = null; // 页面高度
       var curPage = 1; //当前页码初始化数0开始
       var totalPage = 0; //后台算出总页数
-      var data = []
+      var data = [];
+      var dataArr = {}
 
       // 初始化
       mui.init({
@@ -324,10 +325,12 @@
 
       // 获取数据
       function fetchData() {
-        app.insuranceQuery({
-          page: 1,
+        var opt = $.extend({
+          page: curPage,
           size: 5
-        }, function (res) {
+        }, dataArr);
+
+        app.insuranceQuery(opt, function (res) {
           res = JSON.parse(res)
           console.log(res)
           if (!res.total || res.total <= 0) {
@@ -336,7 +339,7 @@
           // console.log(res.total)
           curPage++;
           totalPage = Math.ceil(res.total / 5)
-          
+
           data = res.rows;
           updateView(res.rows);
         })
@@ -347,7 +350,7 @@
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<li class="mui-table-view-cell" data-vSn="'+item.vSn+'" data-status="2">'
+          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="2">'
             + '<div class="list-item">'
             + '<div class="item-checked">'
             + '<input type="checkbox" name="" id="myCheck">'
@@ -359,8 +362,8 @@
             + '<div class="item-right">'
             + '<div class="item-right-top">'
             + '<div class="number">'
-            + '<h4>'+item.vSn+'</h4>'
-            + '<p>'+item.project.project_sn+'</p>'
+            + '<h4>' + item.vSn + '</h4>'
+            + '<p>' + item.project.project_sn + '</p>'
             + '</div>'
             + '<div class="mui-btn  mui-btn-outlined no-renew-insurance">'
             + '<span>续保</span>'
@@ -368,10 +371,10 @@
             + '</div>'
             + '</div>'
             + '<div class="item-right-middle">'
-            + '<p><span>验车状态</span>：'+item.vehicleInspection+'</p>'
+            + '<p><span>验车状态</span>：' + item.vehicleInspection + '</p>'
             + '<p><span>保单号</span>：2017-132</p>'
-            + '<p><span>保险起始</span>：'+item.startTime+'</p>'
-            + '<p><span>保险终止</span>：'+item.endTime+'</p>'
+            + '<p><span>保险起始</span>：' + item.startTime + '</p>'
+            + '<p><span>保险终止</span>：' + item.endTime + '</p>'
             + '</div>'
             + '</div>'
             + '</div>'
@@ -403,8 +406,32 @@
           })
         });
 
+        // 搜索
+        $('#search').on('tap', function () {
+          // 修改车型
+          mui.openWindow({
+            url: 'search.html',
+            id: 'search', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              prevId: self.id
+            } //自定义扩展参数
+          })
+        })
       }
       // addEvents()
+
+      document.addEventListener('statusBar', function (e) {
+        plus.navigator.setStatusBarStyle('light');
+        dataArr = e.detail.data;
+        curPage = 1;
+        $('#vehicle_insurance_list').html('')
+        fetchData();
+      })
     })()
 
   </script>

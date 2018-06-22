@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    header.mui-bar,
+    header.mui-navbar {
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header.mui-bar form,
+    header.mui-navbar form {
+      width: 90%
+    }
+
+    header.mui-bar *,
+    header.mui-navbar * {
+      color: #333;
+    }
+
+    .search-btn {
+      width: 44px;
+      height: 44px;
+      line-height: 44px;
+      text-align: center;
+      display: block;
+    }
+
+    .mui-search {
+      /* width: 77% */
+    }
+
+    .noData,
+    .noNet,
+    .result {
+      height: 100%;
+      position: relative;
+    }
+
+    .noData {
+      background-image: url(../img/common/md/no_result.png);
+      background-position: center 25%;
+      background-repeat: no-repeat;
+      background-size: 100px;
+      display: none
+    }
+
+    .noData h4 {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      top: 45%;
+      color: #ccc;
+    }
+
+    .noNet {
+      background-image: url(../img/common/md/no_net.png);
+      background-position: center 25%;
+      background-repeat: no-repeat;
+      background-size: 100px;
+      display: none;
+    }
+
+    .noNet h4 {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      top: 45%;
+      color: #ccc;
+    }
+
+    .result {
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-content: flex-start;
+    }
+
+    .result .mui-btn {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <form>
+      <div class="mui-input-row mui-search mui-active">
+        <input type="search" class="mui-input-clear" id="current_input" placeholder="">
+      </div>
+    </form>
+    <a class="mui-action-back mui-pull-right">取消</a>
+  </header>
+  <!-- 主页面内容容器 -->
+  <div class="mui-content">
+    <!-- 主界面具体展示内容 -->
+    <div class="noData" id="no_data">
+      <h4>未搜索到结果！</h4>
+    </div>
+    <div class="noNet" id="no_net">
+      <h4>服务器打盹了，请重试！</h4>
+    </div>
+    <div class="result" id="result">
+    </div>
+  </div>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- 键盘事件 -->
+  <script src="../js/lib/mui.enterfocus.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    mui.init({
+      swipeBack: true //启用右滑关闭功能
+    });
+    // 输入框获取焦点
+    app.focusAndOpenKeyboard(document.getElementById('current_input'));
+
+    var form = document.getElementsByTagName('form')[0];
+
+    form.onsubmit = function (e) {
+      e.preventDefault();// 取消默认事件
+    }
+
+    var oldBack = mui.back;
+    mui.back = function () {
+      plus.navigator.setStatusBarStyle('light');
+      oldBack();
+    };
+
+    var self = null;
+    var view = null;
+
+    mui.plusReady(function () {
+      handsetAdaption()
+      self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById(self.prevId);
+
+
+      // plus.navigator.setStatusBarStyle('light');
+      // 返回事件
+
+    })
+
+    // 手机适配
+    function handsetAdaption() {
+      //更改状态栏颜色
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      plus.navigator.setStatusBarStyle('dark');
+    }
+
+    addEvent()
+    function addEvent() {
+      $('#back_btn').on('tap', function () {
+        mui.fire(view, 'statusBar', {});
+        mui.back()
+      });
+
+      $('#result').on('tap', '.mui-btn', function () {
+        var $btn = $(this);
+        console.log($btn.attr('data-vSn'))
+        var data = {
+          vSn: $btn.attr('data-vSn')
+        }
+        mui.fire(view, 'statusBar', { data });
+        mui.back()
+      })
+    }
+
+    var searchArr = [];
+    searchArr.push(function () {
+      app.likevSn({
+        vSn: $('#current_input').val()
+      }, function (res) {
+        console.log(typeof res)
+        // res = JSON.parse(res)
+        console.log(res)
+
+        if (res && res.length > 0) {
+          console.log(res.length);
+          var html = ''
+          for (let i = 0; i < res.length; i++) {
+            const item = res[i];
+            html += '<div class="mui-btn" data-vSn="' + item + '">' + item + '</div>'
+          }
+          $('#no_data').hide();
+          $('#result').show().html(html);
+        } else {
+          $('#no_data').show();
+          $('#result').hide()
+        }
+      })
+    })
+
+    search()
+    function search() {
+      $('#current_input').on('keyup', function (e) {
+        // console.log(e.keyCode)
+        searchArr[0]()
+      })
+    }
+
+
+  </script>
+</body>
+
+</html>

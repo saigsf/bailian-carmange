@@ -86,8 +86,8 @@
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <form class="top">
-        <div class="mui-input-row mui-search">
-          <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
+        <div class="mui-input-row mui-search" id="search">
+          <input readonly type="search" class="mui-input-clear" placeholder="请输入车辆编号">
         </div>
       </form>
       <ul id="vehicle_input_list" class="mui-table-view mui-table-listview">
@@ -189,6 +189,7 @@
       var H = null; // 页面高度
       var vSn = null;
       var data = [];
+      var dataArr = {};
 
       mui.init({
         pullRefresh: {
@@ -282,16 +283,35 @@
             } //自定义扩展参数
           })
         })
+
+        // 搜索
+        $('#search').on('tap', function() {
+          // 修改车型
+          mui.openWindow({
+            url: 'search.html',
+            id: 'search', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              prevId: self.id
+            } //自定义扩展参数
+          })
+        })
       }
       // 添加点击事件进入下一页
       addEvents();
 
       // 获取数据
       function fetchData() {
-        app.carQuery({
+        var opt = $.extend({
           page: curPage,
           size: 5
-        }, function (res) {
+        }, dataArr);
+        
+        app.carQuery(opt, function (res) {
           res = JSON.parse(res);
           console.log(res);
           curPage++;
@@ -330,6 +350,15 @@
 
         $('#vehicle_input_list').append(html)
       }
+
+
+      document.addEventListener('statusBar', function(e) {
+        plus.navigator.setStatusBarStyle('light');
+        dataArr = e.detail.data;
+        curPage = 1;
+        $('#vehicle_input_list').html('')
+        fetchData();
+      })
 
     })()
 

@@ -158,88 +158,87 @@
 	</header>
 	<div class="mui-content mui-scroll-wrapper">
 		<div class="mui-scroll">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<div class="filter-wrapper">
-						<label>厂牌型号：</label>
-						<input type="text" placeholder="请输入">
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="filter-wrapper">
-						<label>发动机号：</label>
-						<input type="text" placeholder="请输入">
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="filter-wrapper">
-						<label>车架号：</label>
-						<input type="text" placeholder="请输入">
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="filter-wrapper">
-						<label>保单号：</label>
-						<input type="text" placeholder="请输入">
-					</div>
-				</li>
-			</ul>
-			<ul class="mui-table-view date-box" id="date-box">
-				<li class="mui-table-view-cell">
-					<div class="filter-wrapper-column">
-						<label>保险日期</label>
-						<div class="filter-input-box">
-							<input type="text" placeholder="2018-12-12" id="" readonly>
-							<label for="">——</label>
-							<input type="text" placeholder="2018-12-12" id="" readonly>
+			<form>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>厂牌型号：</label>
+							<input name="brandModeltwo" type="text" placeholder="请输入">
 						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="filter-wrapper-column">
-						<label>牌照日期</label>
-						<div class="filter-input-box">
-							<input type="text" placeholder="2018-12-12" id="" readonly>
-							<label for="">——</label>
-							<input type="text" placeholder="2018-12-12" id="" readonly>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>发动机号：</label>
+							<input name="engineNumber" type="text" placeholder="请输入">
 						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="filter-wrapper-column">
-						<label>接车日期</label>
-						<div class="filter-input-box">
-							<input type="text" placeholder="2018-12-12" id="" readonly>
-							<label for="">——</label>
-							<input type="text" placeholder="2018-12-12" id="" readonly>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车架号：</label>
+							<input name="vin" type="text" placeholder="请输入">
 						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="filter-wrapper-column">
-						<label>还车日期</label>
-						<div class="filter-input-box">
-							<input type="text" placeholder="2018-12-12" id="" readonly>
-							<label for="">——</label>
-							<input type="text" placeholder="2018-12-12" id="" readonly>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>保单号：</label>
+							<input name="NO" type="text" placeholder="请输入">
 						</div>
-					</div>
-				</li>
-			</ul>
+					</li>
+				</ul>
+				<ul class="mui-table-view date-box" id="date-box">
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper-column">
+							<label>保险日期</label>
+							<div class="filter-input-box">
+								<input name="bstart" type="text" placeholder="2018-12-12" id="" readonly>
+								<label for="">——</label>
+								<input name="bend" type="text" placeholder="2018-12-12" id="" readonly>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper-column">
+							<label>牌照日期</label>
+							<div class="filter-input-box">
+								<input name="pstart" type="text" placeholder="2018-12-12" id="" readonly>
+								<label for="">——</label>
+								<input name="pend" type="text" placeholder="2018-12-12" id="" readonly>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper-column">
+							<label>接车日期</label>
+							<div class="filter-input-box">
+								<input name="ustart" type="text" placeholder="2018-12-12" id="" readonly>
+								<label for="">——</label>
+								<input name="uend" type="text" placeholder="2018-12-12" id="" readonly>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper-column">
+							<label>还车日期</label>
+							<div class="filter-input-box">
+								<input name="backstart" type="text" placeholder="2018-12-12" id="" readonly>
+								<label for="">——</label>
+								<input name="backend" type="text" placeholder="2018-12-12" id="" readonly>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</form>
+
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
 					<div class="filter-wrapper-column">
 						<label>车辆计数</label>
 						<div class="filter-btn-box">
-							<div class="mui-btn mui-active">所有车辆</div>
-							<div class="mui-btn">所有车辆</div>
-							<div class="mui-btn">所有车辆</div>
-							<div class="mui-btn">所有车辆</div>
-							<div class="mui-btn">所有车辆</div>
-							<div class="mui-btn">所有车辆</div>
-							<div class="mui-btn">所有车辆</div>
-							<div class="mui-btn">所有车辆</div>
-							<div class="mui-btn">所有车辆</div>
+							<div class="mui-btn mui-active">停止车辆</div>
+							<div class="mui-btn">当前归还</div>
+							<div class="mui-btn">当月归还</div>
+							<div class="mui-btn">当月新入</div>
+							<div class="mui-btn">先前接车</div>
 						</div>
 					</div>
 				</li>
@@ -316,6 +315,18 @@
 								minDate: dDate
 							});
 					});
+				})
+
+				$('#submit').on('tap', function() {
+					var data = serialize($('form'))
+					console.log(data)
+					// app.carQuery(data, function(res) {
+					// 	res = JSON.parse(res)
+					// 	console.log(res)
+					// })
+					mui.fire(main, 'closeMenu', {
+						data: data
+					})
 				})
 			}
 			addEvent()

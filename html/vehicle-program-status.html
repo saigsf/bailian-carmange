@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>检测站车型修改</title>
+  <title>更改项目状态</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -59,7 +59,7 @@
 <body>
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
-    <h1 class="mui-title">检测站车型修改</h1>
+    <h1 class="mui-title">更改项目状态</h1>
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
@@ -69,7 +69,7 @@
             <div class="date-wrapper">
               <label>项目号</label>
               <div class="date-text">
-                <input name="product_sn" type="text" placeholder="">
+                <input name="product_sn" type="text" id="product_sn" placeholder="">
               </div>
             </div>
           </li>
@@ -77,7 +77,7 @@
             <div class="date-wrapper">
               <label>当前状态</label>
               <div class="date-text">
-                <input name="currentStatus" type="text" placeholder="">
+                <input id="currentStatus" name="currentStatus" type="text" placeholder="">
               </div>
             </div>
           </li>
@@ -85,16 +85,23 @@
             <div class="date-wrapper">
               <label>更新后状态</label>
               <div class="date-text">
-                <select name="status" id="">
-                  <option value="active">active</option>
-                  <option value="close">close</option>
+                <select name="status" id="status">
+                    <option value="Active" name="Active" class="Active">Active</option>
+                    <option value="Closed" name="Closed" class="Closed">Closed</option>
+                    <option value="pending" name="pending" class="pending">pending</option>
+                    <option value="Cancelled" name="Cancelled" class="Cancelled">Cancelled</option>
+                    <option value="To do" name="To do" class="To do">To do</option>
+                    <option value="Lost" name="Lost" class="Lost">Lost</option>
+                    <option value="ADP" name="ADP" class="ADP">ADP</option>
+                    <option value="C-cal" name="C-cal" class="C-cal">C-cal</option>
+                    <option value="BN-cal" name="BN-cal" class="BN-cal">BN-cal</option>
                 </select>
               </div>
             </div>
           </li>
         </ul>
         <div class="btn-wrapper ">
-          <button class="btn btn-blue" id="submit">提交</button>
+          <div class="btn btn-blue" id="submit">提交</div>
         </div>
       </form>
 
@@ -119,7 +126,7 @@
       // 页面滚动
       mui('.mui-scroll-wrapper').scroll();
 
-      var self =null;
+      var self = null;
       var H = null;
 
       // plus Ready
@@ -147,20 +154,48 @@
       }
 
       // 获取数据
+      fetchData()
       function fetchData() {
-
+        $('#product_sn').on('change', function() {
+          var sn = $(this).val();
+          if(!sn) {
+            mui.toast('请填写项目号');
+            return;
+          }
+          app.loadStatusBySn({sn}, function(res) {
+            console.log(res)
+            updateView(res)
+          })
+        })
+        
       }
 
       // 视图更新
-      function updateView() {
-
+      function updateView(data) {
+        if(!data) {
+          mui.toast('项目不存在！');
+          return;
+        }
+        $('#currentStatus').val(data)
       }
 
       // 提交数据
+      submitData();
       function submitData() {
         $('#submit').on('tap', function () {
-          var data = serialize($('#program_status'));
+          var data = {
+            projectSn: $('#product_sn').val(),
+            status: $('#status').val()
+          };
           console.log(data);
+          app.updateStatus(data, function(res) {
+            res = JSON.parse(res)
+            console.log(res)
+            mui.toast(res.msg)
+            if(res.ret) {
+              mui.back()
+            }
+          })
         })
       }
     })();

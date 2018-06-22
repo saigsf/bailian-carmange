@@ -221,7 +221,12 @@
 			var bottom = '-70px';
 			var H = null;
 			var self = null;
-			var vSn = '2018ICECTC006'
+			var vSn = '2018ICECTC006';
+			
+			// 百度地图API功能	
+			var map1 = new BMap.Map("item1-map");
+			var map2 = new BMap.Map("item2-map");
+			var myIcon = new BMap.Icon("../img/2222@3x.png", new BMap.Size(28, 64));
 
 			mui.plusReady(function () {
 				// plus准备好后执行H5
@@ -230,6 +235,8 @@
 				self = plus.webview.currentWebview();
 				// 获取传递参数
 				H = self.H;
+
+				getLocation();
 				addEvent()
 			})
 
@@ -333,19 +340,6 @@
 
 			}
 
-			// 百度地图API功能	
-			var map1 = new BMap.Map("item1-map");
-			var map2 = new BMap.Map("item2-map");
-			var myIcon = new BMap.Icon("../img/2222@3x.png", new BMap.Size(28, 64));
-
-
-			// 状态栏颜色更改
-			document.addEventListener('statusBar', function (e) {
-				plus.navigator.setStatusBarStyle('light');
-				mui.toast(e.detail.vSn);
-				fetchData(e.detail.vSn)
-			})
-
 			fetchData()
 			function fetchData() {
 				// 实时数据查询
@@ -354,12 +348,12 @@
 				}, function (res) {
 					res = JSON.parse(res);
 					console.log(res);
-					updateView.carData(res)
+					// updateView.carData(res)
 				});
 
 				app.carTrack({
 					vSn: vSn,
-					startDate: $('#start_date').val() ,
+					startDate: $('#start_date').val(),
 					endDate: $('#end_date').val()
 				}, function (res) {
 					console.log(res)
@@ -368,7 +362,7 @@
 					//   mui.toast('没有数据');
 					//   return;
 					// }
-					updateView.carTrack(res)
+					// updateView.carTrack(res)
 				})
 
 				app.allcar({}, function (res) {
@@ -376,7 +370,7 @@
 					// if(res.length<=0) {
 					// 	return;
 					// }
-					updateView.allcar(res)
+					// updateView.allcar(res)
 				})
 			}
 
@@ -399,12 +393,19 @@
 				},
 				carTrack: function (data) {
 					map1.setZoom(11)
+
 					// 获取车辆位置点集，这里使用假数据
 					var pts = [
-						new BMap.Point(108.929346, 34.303791),
-						new BMap.Point(108.929202, 34.283391),
-						new BMap.Point(108.929202, 34.276471),
-						new BMap.Point(108.928771, 34.275397)
+						new BMap.Point(121.601, 31.3274),
+						new BMap.Point(121.616, 31.1610),
+						new BMap.Point(121.501, 30.1610),
+						new BMap.Point(120.501, 30.1610),
+						new BMap.Point(119.501, 30.1610),
+						new BMap.Point(118.501, 30.1610),
+						new BMap.Point(117.501, 30.1610),
+						new BMap.Point(116.501, 30.1610),
+						new BMap.Point(115.501, 30.1610),
+						new BMap.Point(114.501, 30.1610)
 					];
 					//展示线条
 					var polyline;
@@ -449,8 +450,8 @@
 								// var marker = new BMap.Marker(pts[i]); // 创建标注
 								// map1.addOverlay(marker);
 								addMarker(pts[0], map1)
-								addMarker(pts[pts.length-1], map1)
-								
+								addMarker(pts[pts.length - 1], map1)
+
 								// marker.setLabel(new BMap.Label("我是第" + (i + 1) + "个点", { offset: new BMap.Size(20, -10) }));
 								map1.panTo(pts[i]);
 								i++;
@@ -470,22 +471,22 @@
 					data = [
 						{
 							longitude: 108.929346,
-							latitude:  34.303791,
+							latitude: 34.303791,
 							name: '奥迪'
 						},
 						{
-							longitude: 108.929202, 
-							latitude:  34.283391,
+							longitude: 108.929202,
+							latitude: 34.283391,
 							name: '奥迪'
 						},
 						{
-							longitude: 108.929202, 
-							latitude:  34.276471,
+							longitude: 108.929202,
+							latitude: 34.276471,
 							name: '奥迪'
 						},
 						{
-							longitude: 108.928771, 
-							latitude:  34.275397,
+							longitude: 108.928771,
+							latitude: 34.275397,
 							name: '奥迪'
 						}
 					]
@@ -516,7 +517,7 @@
 							const item = res.points[i];
 							addMarker(item, map2, data[i])
 						}
-						
+
 					})
 
 					// var options = {
@@ -535,7 +536,7 @@
 			}
 
 			// 获取位置信息
-			getLocation()
+			
 			function getLocation() {
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -580,6 +581,14 @@
 					// addMarker(point, map2)
 				})
 			}
+
+			
+			// 状态栏颜色更改
+			document.addEventListener('statusBar', function (e) {
+				plus.navigator.setStatusBarStyle('light');
+				mui.toast(e.detail.vSn);
+				fetchData(e.detail.vSn)
+			})
 		})()
 
 	</script>

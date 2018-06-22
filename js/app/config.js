@@ -208,6 +208,7 @@ function dataRetrieval(data) {
       } else {
         $('#' + key + '_0').html(item);
         $('#' + key).html(item);
+        $('#' + key).val(item);
       }
     }
   }

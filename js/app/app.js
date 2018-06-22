@@ -1054,6 +1054,53 @@
 	}
 
 	/* ===============临牌 end=============== */
+	/* ===============项目相关 start=============== */
+	
+	/**
+	 * 加载所有的项目名称
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.loadprojectName = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/project/loadprojectName.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+	
+	/**
+	 * 通过项目号查询项目状态
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.loadStatusBySn = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/project/loadStatusBySn.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+	
+	/**
+	 * 更新项目状态
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.updateStatus = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {
+			projectSn: '',
+			status: ''
+		};
+
+		var url = 'car-management/project/updateStatus.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+	/* ===============项目相关 end=============== */
 
 	/* ===============维修 start=============== */
 

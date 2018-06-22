@@ -88,8 +88,8 @@
         <div class="program-status" id="program_status">
           <i class="icon icon-status-change">状态</i>
         </div>
-        <div class="mui-input-row mui-search">
-          <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
+        <div class="mui-input-row mui-search" id="search">
+          <input readonly type="search" class="mui-input-clear" placeholder="">
         </div>
         <div class="filter" id="filter">
           <i class="icon icon-filter">筛选</i>
@@ -251,6 +251,7 @@
       var showMenu = false;
       var isInTransition = false;
       var data = [];
+      var dataArr = {}
 
 
       mui.init({
@@ -322,10 +323,13 @@
       // 获取数据
       function fetchData() {
         console.log(curPage)
-        app.carQuery({
+        var opt = {
           page: curPage,
           size: 5
-        }, function (res) {
+        }
+
+        opt = $.extend(opt, dataArr);
+        app.carQuery(opt, function (res) {
           
           res = JSON.parse(res);
           console.log(res)
@@ -394,8 +398,8 @@
       //添加事件
       function addEvent() {
         //查看车辆信息
-        $('#OA_task_1').on('tap', 'li', function () {
-          var $li = $(this)
+        $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
+          var $li = $(this).parents('li')
 
           mui.openWindow({
             url: 'vehicle-list-info.html',
@@ -414,7 +418,7 @@
 
         // 更改车型
         $('#OA_task_1').on('tap', '.car-type-change', function () {
-          var $li = $('this').parents('li')
+          var $li = $(this).parents('li')
           // 修改车型
           mui.openWindow({
             url: 'vehicle-type-change.html',
@@ -425,7 +429,7 @@
             }, //窗口参数
             extras: {
               H: H,
-              vSn: $(this).attr('data-vSn')
+              vSn: $li.attr('data-vSn')
             } //自定义扩展参数
           })
         })
@@ -446,6 +450,22 @@
           })
         })
 
+        // 搜索
+        $('#search').on('tap', function() {
+          // 修改车型
+          mui.openWindow({
+            url: 'search.html',
+            id: 'search', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              prevId: self.id
+            } //自定义扩展参数
+          })
+        })
       }
       addEvent()
 
@@ -476,7 +496,11 @@
         })
       };
       //关闭侧滑窗口；
-      function closeMenu() {
+      function closeMenu(e) {
+        dataArr = e.detail.data;
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
         //关闭遮罩；
         side = plus.webview.getWebviewById("vehicle-filter");
         main.setStyle({
@@ -493,6 +517,14 @@
       });
       //menu页面点击后关闭菜单；
       window.addEventListener('closeMenu', closeMenu);
+
+      document.addEventListener('statusBar', function(e) {
+        plus.navigator.setStatusBarStyle('light');
+        dataArr = e.detail.data;
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
     })();
   </script>
 </body>

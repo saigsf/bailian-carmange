@@ -31,15 +31,15 @@
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <form class="top">
-        <div class="mui-input-row mui-search">
-          <input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
+        <div class="mui-input-row mui-search" id="search">
+          <input readonly type="search" class="mui-input-clear" placeholder="请输入车辆编号">
         </div>
         <!-- <div class="license-input" id="license-input">
           <i class="icon icon-more"></i>
         </div> -->
       </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <li class="mui-table-view-cell" data-vSn="" data-status="true">
+        <!-- <li class="mui-table-view-cell" data-vSn="" data-status="true">
 
           <div class="list-item">
             <div class="item-left">
@@ -142,7 +142,7 @@
               </div>
             </div>
           </div>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -163,7 +163,8 @@
       var H = null; 
       var self = null;
       var vSn = null;
-      var data = []
+      var data = [];
+      var dataArr = {};
 
       // 初始化mui
       mui.init({
@@ -214,13 +215,14 @@
       }
       
       // 获取数据
-      function fetchData(page) {
+      function fetchData() {
         // console.log(curPage)
-        var data = null;
-        app.licenseQuery({
+        // var data = null;
+        var opt = $.extend({
           page: curPage,
           size: 5
-        }, function (res) {
+        }, dataArr);
+        app.licenseQuery(opt, function (res) {
           
           res = JSON.parse(res);
           console.log(res)
@@ -303,9 +305,32 @@
             } //自定义扩展参数
           })
         });
+      
+        // 搜索
+        $('#search').on('tap', function () {
+          // 修改车型
+          mui.openWindow({
+            url: 'search.html',
+            id: 'search', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              prevId: self.id
+            } //自定义扩展参数
+          })
+        })
       }
       addEvent();
-
+      document.addEventListener('statusBar', function (e) {
+        plus.navigator.setStatusBarStyle('light');
+        dataArr = e.detail.data;
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
     })();
   </script>
 </body>

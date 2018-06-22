@@ -179,7 +179,7 @@
           <input type="checkbox" name="" id="all_check">
           <label for="all_check">全选</label>
         </div>
-        <div class="mui-input-row mui-search">
+        <div class="mui-input-row mui-search" id="search">
           <input type="search" class="mui-input-clear" placeholder="请输入关键词">
         </div>
         <div class="btn" id="add">
@@ -327,6 +327,7 @@
       var totalPage = 1; //后台算出总页数
       var H = null;
       var allCheckFlag = false;
+      var dataArr = {}
 
       mui.init({
         pullRefresh: {
@@ -530,6 +531,22 @@
           })
         })
 
+        // 搜索
+        // $('#search').on('tap', function () {
+        //   // 修改车型
+        //   mui.openWindow({
+        //     url: 'search.html',
+        //     id: 'search', //默认使用当前页面的url作为id
+        //     styles: {
+        //       top: '0px',
+        //       bottom: H
+        //     }, //窗口参数
+        //     extras: {
+        //       H: H,
+        //       prevId: self.id
+        //     } //自定义扩展参数
+        //   })
+        // })
 
 
       }
@@ -667,6 +684,14 @@
       // 刷新页面
       document.addEventListener('update', function (e) {
         // plus.webview.currentWebview().reload()
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
+
+      document.addEventListener('statusBar', function (e) {
+        plus.navigator.setStatusBarStyle('light');
+        dataArr = e.detail.data;
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();
