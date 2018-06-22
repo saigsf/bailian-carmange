@@ -77,7 +77,7 @@
         </div>
       </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <li class="mui-table-view-cell">
+        <!-- <li class="mui-table-view-cell">
           <div class="mui-slider-right mui-disabled">
             <a class="mui-btn mui-btn-gray settop">通过</a>
             <a class="mui-btn mui-btn-red delete">拒绝</a>
@@ -175,7 +175,7 @@
               </div>
             </div>
           </div>
-        </li>
+        </li> -->
 
       </ul>
     </div>
@@ -194,6 +194,7 @@
     (function () {
       var curPage = 0;  //当前页码初始化数0开始
       var totalPage = 1; //后台算出总页数
+      var dataArr = {}
       mui.init({
         pullRefresh: {
           container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
@@ -214,34 +215,42 @@
 
       // 下拉刷新业务
       function pulldownRwfresh() {
-
-        if (curPage > totalPage) {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-        } else {
-          fetchData()
-        }
+        curPage = 1;
         setTimeout(function () {
+          $('#OA_task_1').html('');
+          fetchData()
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
-          // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+
         }, 1000)
       }
 
       // 上拉加载业务
       function pullupRefresh() {
+
         setTimeout(function () {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
         }, 1000)
       }
 
       // 获取数据
       function fetchData() {
-        app.carInAndOutAll({}, function (res) {
+        var opt = $.extend({
+          page: curPage,
+          size: 3,
+        }, dataArr);
+        app.carInAndOutAll(opt, function (res) {
           res = JSON.parse(res)
           console.log(res)
-          if (!res.total) {
+          if (!res.total || res.total <= 0) {
             return;
           }
-          totalPage = Math.ceil(res.total / 5)
+          curPage++;
+          totalPage = Math.ceil(res.total / 3)
           updateView(res.rows);
         })
       }
@@ -264,18 +273,18 @@
             + '<div class="item-right">'
             + '<div class="item-right-top">'
             + '<div class="number">'
-            + '<h4>' + item.vSn + '</h4>'
-            + '<p>' + item.licenseNo + '</p>'
+            + '<h4>' + item.licenseNo + '</h4>'
+            + '<p>' + item.updateTime + '</p>'
             + '</div>'
             + '<div class="mui-btn mui-btn-blue mui-btn-outlined goback">'
-            + '<span>未处理</span>'
-            + '<!-- <i class="mui-icon mui-icon-arrowright"></i> -->'
+            // + '<span>未处理</span>'
+            + '<i class="mui-icon mui-icon-arrowright"></i>'
             + '</div>'
             + '</div>'
             + '<div class="item-right-middle">'
             + '<p><span>驾驶员</span>：' + item.driverName + '</p>'
             + '<p><span>牌照有效期</span>：' + item.licenseEndTime + '</p>'
-            + '<p><span>处理状态</span>：未处理</p>'
+            + '<p><span>处理状态</span>：' + item.isallow + '</p>'
             + '</div>'
             + '</div>'
             + '</div>'

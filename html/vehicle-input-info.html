@@ -240,7 +240,7 @@
   <script type="text/javascript">
     var H = null;
     var self = null;
-    var vSn = '2018ICECTC006';
+    var vSn = '2018ICECTC001';
     var data = {}
 
     mui.init();
@@ -251,8 +251,8 @@
       self = plus.webview.currentWebview();
       H = self.H;
       vSn = self.vSn;
-      data = self.data;
-      dataRetrieval(data)
+      fetchData();
+      // data = self.data;
       addEvent()
     })
 
@@ -344,16 +344,18 @@
     // addEvent()
 
     // 获取数据
-    // function fetchData() {
-    //   app.carQuery({
-    //     vSn: vSn
-    //   }, function(res) {
-    //     res = JSON.parse(res)
-    //     console.log(res)
-    //     updateView(res.rows[0])
-    //   })
-    // }
-    // fetchData()
+    function fetchData() {
+      app.carQuery({
+        vSn: vSn
+      }, function(res) {
+        res = JSON.parse(res)
+        console.log(res)
+        updateView(res.rows[0])
+      })
+    }
+    function updateView(data) {
+      dataRetrieval(data)
+    }
 
     
   </script>

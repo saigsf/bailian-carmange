@@ -127,7 +127,7 @@
         </div>
       </form>
       <ul id="vehicle_insurance_list" class="mui-table-view mui-table-listview">
-        <li class="mui-table-view-cell" data-vSn="2019-222" data-status="0">
+        <!-- <li class="mui-table-view-cell" data-vSn="2019-222" data-status="0">
           <div class="list-item">
             <div class="item-checked">
               <input type="checkbox" name="" id="myCheck">
@@ -225,7 +225,7 @@
               </div>
             </div>
           </div>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -268,6 +268,7 @@
       // 下拉刷新业务
       function pulldownRwfresh() {
         curPage = 1;
+        dataArr = {}
         $('#vehicle_insurance_list').html('')
         fetchData();
         setTimeout(function () {
@@ -278,14 +279,14 @@
 
       // 上拉加载业务
       function pullupRefresh() {
-        if (curPage > totalPage) {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-        } else {
-          fetchData()
-        }
 
         setTimeout(function () {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
         }, 1000)
       }
 
@@ -327,7 +328,7 @@
       function fetchData() {
         var opt = $.extend({
           page: curPage,
-          size: 5
+          size: 3
         }, dataArr);
 
         app.insuranceQuery(opt, function (res) {
@@ -338,7 +339,7 @@
           }
           // console.log(res.total)
           curPage++;
-          totalPage = Math.ceil(res.total / 5)
+          totalPage = Math.ceil(res.total / 3)
 
           data = res.rows;
           updateView(res.rows);
@@ -400,8 +401,8 @@
             extras: {
               H: H,
               vSn: $li.attr('data-vSn'),
-              hasData: $li.attr('data-status'),
-              data: data[$li.index()]
+              // hasData: $li.attr('data-status'),
+              // data: data[$li.index()]
             } //自定义扩展参数
           })
         });

@@ -300,37 +300,40 @@
       // 下拉刷新业务
       function pulldownRwfresh() {
         curPage = 1;
+        dataArr = {};
         $('#OA_task_1').html('')
         fetchData()
         setTimeout(function () {
 
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
-          // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
         }, 1000)
       }
 
       // 上拉加载业务
       function pullupRefresh() {
-        if (curPage > totalPage) {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-        } else {
-          fetchData()
-        }
+        console.log(totalPage, curPage)
+
         setTimeout(function () {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData()
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
         }, 1000)
       }
       // 获取数据
       function fetchData() {
-        console.log(curPage)
+
         var opt = {
           page: curPage,
-          size: 5
+          size: 3
         }
 
         opt = $.extend(opt, dataArr);
         app.carQuery(opt, function (res) {
-          
+
           res = JSON.parse(res);
           console.log(res)
           if (!res.total || res.total <= 0) {
@@ -338,8 +341,9 @@
           }
           // console.log(res.totalCount)
           curPage++;
-          totalPage = Math.ceil(res.total / 5)
-          data = data.concat(res.rows);
+          totalPage = Math.ceil(res.total / 3);
+
+          // data = data.concat(res.rows);
           updateView(res.rows);
 
         });
@@ -351,7 +355,7 @@
 
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<li class="mui-table-view-cell" data-vsn="'+item.vSn+'">'
+          html += '<li class="mui-table-view-cell" data-vsn="' + item.vSn + '">'
             + '<div class="mui-slider-right mui-disabled">'
             + '<a class="mui-btn mui-btn-red car-type-change">车型修改</a>'
             + '</div>'
@@ -363,7 +367,7 @@
             + '<div class="item-right">'
             + '<div class="item-right-top">'
             + '<div class="number">'
-            + '<h4>'+item.vSn+'</h4>'
+            + '<h4>' + item.vSn + '</h4>'
             + '<p>项目编号</p>'
             + '</div>'
             + '<div class="mui-btn mui-btn-blue mui-btn-outlined tolook">'
@@ -372,7 +376,7 @@
             + '</div>'
             + '<div class="item-right-bottom">'
             + '<div class="bottom-item">'
-            + '<h4>'+item.car_status+'</h4>'
+            + '<h4>' + item.car_status + '</h4>'
             + '<p>车辆状态</p>'
             + '</div>'
             + '<div class="bottom-item bottom-item-empty"></div>'
@@ -382,7 +386,7 @@
             + '</div>'
             + '<div class="bottom-item bottom-item-empty"></div>'
             + '<div class="bottom-item">'
-            + '<h4>'+item.projectEngineer+'</h4>'
+            + '<h4>' + item.projectEngineer + '</h4>'
             + '<p>项目工程师</p>'
             + '</div>'
             + '</div>'
@@ -392,7 +396,7 @@
             + '</li>';
         }
 
-        $('#OA_task_1').append($(html))
+        $('#OA_task_1').append(html)
       }
 
       //添加事件
@@ -451,7 +455,7 @@
         })
 
         // 搜索
-        $('#search').on('tap', function() {
+        $('#search').on('tap', function () {
           // 修改车型
           mui.openWindow({
             url: 'search.html',
@@ -518,7 +522,7 @@
       //menu页面点击后关闭菜单；
       window.addEventListener('closeMenu', closeMenu);
 
-      document.addEventListener('statusBar', function(e) {
+      document.addEventListener('statusBar', function (e) {
         plus.navigator.setStatusBarStyle('light');
         dataArr = e.detail.data;
         curPage = 1;

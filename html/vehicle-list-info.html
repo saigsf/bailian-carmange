@@ -246,8 +246,9 @@
         self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;
-        data = self.data;
-        updateView(data);
+        // data = self.data;
+        // updateView(data);
+        fetchData();
       });
 
       // 手机适配
@@ -274,39 +275,19 @@
 
       // fetchData();
       // 获取数据
-      // function fetchData() {
-      //   console.log(vSn)
-      //   app.carQuery({vSn}, function (res) {
-      //     res = JSON.parse(res);
-      //     console.log(res)
-      //     updateView(res.rows[0])
-      //   })
-      // }
+      function fetchData() {
+        console.log(vSn)
+        app.carQuery({vSn}, function (res) {
+          res = JSON.parse(res);
+          console.log(res)
+          updateView(res.rows[0])
+        })
+      }
 
       // 更新视图
       function updateView(data) {
-        console.log(data)
-        $('#vSn_0').html(data.vSn)
-        $('#project_sn_0').html(data.project.project_sn)
-        $('#engineNumber_0').html(data.engineNumber)
-        $('#brandModelone_0').html(data.brandModelone)
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const item = data[key];
-            if(typeof item == 'Object') {
-              for (const keys in item) {
-                if (item.hasOwnProperty(keys)) {
-                  const element = item[keys];
-                  $('#'+ keys).html(element)
-                }
-              }
-            } else {
-              $('#'+ key).html(item)
-            }
-
-            
-          }
-        }
+        // console.log(data)
+        dataRetrieval(data)
       }
 
       // 添加事件

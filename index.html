@@ -181,6 +181,7 @@
           }
 
           if(targetTab === 'html/popover.html') {
+            extras.targetTab = activeTab
             mui.openWindow({
               url: "html/popover.html",
               id: "popover",
@@ -236,8 +237,20 @@
 
         });
         
-        document.addEventListener('clearActiveTab', function() {
-        	activeTab = '';
+        document.addEventListener('clearActiveTab', function(e) {
+          console.log(!!e.detail.targetTab)
+          if(e.detail.targetTab) {
+            activeTab = e.detail.targetTab;
+            $('a').each(function (i) {
+              if($(this).attr('href') == activeTab) {
+                $(this).addClass('mui-active').siblings().removeClass('mui-active')
+              }
+            })
+            
+          } else {
+            activeTab = '';
+          }
+        	
         })
 
       })()

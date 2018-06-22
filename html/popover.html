@@ -191,6 +191,7 @@
 			var H = null;
 			var self = null;
 			var view = null;
+			var targetTab = null;
 
 
 			mui.plusReady(function () {
@@ -198,9 +199,10 @@
 				self = plus.webview.currentWebview();
 				view = plus.webview.getWebviewById('HBuilder');
 				H = self.H;
-
+				targetTab = self.targetTab;
+				console.log(targetTab)
 				$(document).on('tap', function () {
-					mui.fire(view, 'clearActiveTab', {});
+					mui.fire(view, 'clearActiveTab', {targetTab});
 					$('.container').removeClass('run');
 					$('#close .icon').css({
 						'transform': 'rotate(135deg)'
@@ -211,8 +213,19 @@
 					}, 100)
 				})
 
-				$('#doorpost').on('tap', function () {
-					var view = plus.webview.getWebviewById('html/doorpost.html');
+				$('#doorpost').on('tap', function (e) {
+					e.stopPropagation()
+					
+					mui.fire(view, 'clearActiveTab', {});
+					$('.container').removeClass('run');
+					$('#close .icon').css({
+						'transform': 'rotate(135deg)'
+					});
+					setTimeout(function () {
+						mui.back();
+					}, 100)
+
+					view = plus.webview.getWebviewById('html/doorpost.html');
 					view.show();
 				})
 			})

@@ -139,7 +139,7 @@
 
       </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <li class="mui-table-view-cell" data-vSn="" data-status="false">
+        <!-- <li class="mui-table-view-cell" data-vSn="" data-status="false">
           <div class="mui-slider-right mui-disabled">
             <a class="mui-btn mui-btn-gray settop">置顶</a>
             <a class="mui-btn mui-btn-red repaired">完成</a>
@@ -245,7 +245,7 @@
               </div>
             </div>
           </div>
-        </li>
+        </li> -->
 
       </ul>
     </div>
@@ -279,8 +279,8 @@
   <!-- 当前页面js -->
   <script>
     (function () {
-      var curPage = 0;  //当前页码初始化数0开始
-      var totalPage = 1; //后台算出总页数
+      var curPage = 1;  //当前页码初始化数0开始
+      var totalPage = 0; //后台算出总页数
       var self = null;
       var H = null;
       var vSn = null;
@@ -305,67 +305,59 @@
         H = self.H;
 
       });
-      addEvent();
+      
       // 下拉刷新
       function pulldownRwfresh() {
         curPage = 1;
-        $('#OA_task_1').html('')
-        fetchData();
-        setTimeout(function () {
+        dataArr = {}
+       
+        setTimeout(function () { 
+          $('#OA_task_1').html('')
+          fetchData();
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
-          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+          // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
         }, 1000);
       }
       // 上拉加载
       function pullupRefresh() {
-
-        if (curPage > totalPage) {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-        } else {
-          fetchData({
-            status: status
-          })
-        }
-        // 
+        console.log(curPage, totalPage)
         setTimeout(function () {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
         }, 1000);
       }
 
       // 获取数据
       function fetchData(opt) {
         var data = $.extend({
-          page: curPage,
-          size: 5,
+          // page: curPage,
+          // size: 3,
         }, dataArr);
 
-        // if (opt && opt.status) {
-        //   data.status = opt.status
-        // }
-
-        // if (opt && opt.vSn) {
-        //   data = {
-        //     vSn: opt.vSn
-        //   }
-        // }
+        console.log(JSON.stringify(data))
         app.carMaintainQuery(data, function (res) {
 
           res = JSON.parse(res);
           console.log(res)
-          if (res.total) {
-            if (res.total == 0) {
-              mui.toast('没有数据');
-              return;
-            }
-            curPage++;
-            totalPage = Math.ceil(res.total / 5)
-            updateView(res.rows)
+          if (!res.total || res.total <= 0) {
+            return;
           }
+          // console.log(res.totalCount)
+          // curPage++;
+          // totalPage = Math.ceil(res.total / 3);
+
+          // data = data.concat(res.rows);
+          updateView(res.rows);
         })
       }
 
       // 更新视图
       function updateView(data) {
+        console.log(data.length)
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
@@ -437,6 +429,7 @@
       }
 
       // 添加点击事件
+      addEvent();
       function addEvent() {
         // 查看详情 
         $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
@@ -611,7 +604,7 @@
 
       // 返回刷新
       document.addEventListener('update', function (e) {
-        mui('#pullrefresh').pullRefresh().pulldownLoading(); 
+        mui('#pullrefresh').pullRefresh().pulldownLoading();
       })
 
       document.addEventListener('statusBar', function (e) {

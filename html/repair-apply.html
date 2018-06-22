@@ -136,7 +136,8 @@
           console.log(data)
           // 维修申请
           app.carMaintainApply(data, function (res) {
-            res = JSON.parse(res);
+            console.log(res)
+            // res = JSON.parse(res);
             if (res.ret) {
               mui.fire(view, 'repair', {
                 domId: 'repair-list'

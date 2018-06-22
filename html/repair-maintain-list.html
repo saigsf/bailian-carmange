@@ -279,8 +279,8 @@
   <!-- 当前页面js -->
   <script>
     (function () {
-      var curPage = 0;  //当前页码初始化数0开始
-      var totalPage = 1; //后台算出总页数
+      var curPage = 1;  //当前页码初始化数0开始
+      var totalPage = 0; //后台算出总页数
       var self = null;
       var H = null;
       var vSn = null;
@@ -309,9 +309,11 @@
       // 下拉刷新
       function pulldownRwfresh() {
         curPage = 1;
-        $('#OA_task_1').html('')
-        fetchData();
+        dataArr = {}
+        
         setTimeout(function () {
+          $('#OA_task_1').html('')
+          fetchData();
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
           mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
         }, 1000);
@@ -319,35 +321,23 @@
       // 上拉加载
       function pullupRefresh() {
 
-        if (curPage > totalPage) {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-        } else {
-          fetchData({
-            status: status
-          })
-        }
-        // 
         setTimeout(function () {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
         }, 1000);
       }
 
       // 获取数据
-      function fetchData(opt) {
+      function fetchData() {
         var data = $.extend({
-          page: curPage,
-          size: 5,
+          // page: curPage,
+          // size: 3,
         }, dataArr);
 
-        // if (opt && opt.status) {
-        //   data.status = opt.status
-        // }
-
-        // if (opt && opt.vSn) {
-        //   data = {
-        //     vSn: opt.vSn
-        //   }
-        // }
         app.carMaintainQuery(data, function (res) {
 
           res = JSON.parse(res);
@@ -357,8 +347,8 @@
               mui.toast('没有数据');
               return;
             }
-            curPage++;
-            totalPage = Math.ceil(res.total / 5)
+            // curPage++;
+            // totalPage = Math.ceil(res.total / 3)
             updateView(res.rows)
           }
         })
@@ -374,20 +364,6 @@
             + '<div class="mui-slider-right mui-disabled">'
             + '<a class="mui-btn mui-btn-blue maintain">保养</a>';
 
-          // if (item.status == '已完成') {
-          //   html += '<a class="mui-btn mui-btn-gray settop">置顶</a>'
-          //     + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-
-          // } else if (item.status == '排队中') {
-          //   html += '<a class="mui-btn mui-btn-gray settop">置顶</a>'
-          //     + '<a class="mui-btn mui-btn-red allot">分配</a>'
-          //     + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-          // } else if (item.status == '维修中') {
-          //   html += '<a class="mui-btn mui-btn-gray settop">置顶</a>'
-          //     + '<a class="mui-btn mui-btn-red repaired">完成</a>'
-          //     + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-          // }
-
           html += '</div>'
             + '<div class="mui-slider-handle">'
             + '<div class="list-item">'
@@ -399,24 +375,6 @@
             + '<div class="number">'
             + '<h4>' + item.vSn + '</h4>'
             + '</div>';
-
-          // if (item.status == '已完成') {
-          //   html += '<div class="mui-btn mui-btn-outlined finished">'
-          //     + '<span>' + item.status + '</span>'
-          //     + '<i class="mui-icon mui-icon-arrowright"></i>'
-          //     + '</div>'
-
-          // } else if (item.status == '排队中') {
-          //   html += '<div class="mui-btn mui-btn-red mui-btn-outlined waiting">'
-          //     + '<span>' + item.status + '</span>'
-          //     + '<i class="mui-icon mui-icon-arrowright"></i>'
-          //     + '</div>'
-          // } else if (item.status == '维修中') {
-          //   html += '<div class="mui-btn mui-btn-blue mui-btn-outlined repairing">'
-          //     + '<span>' + item.status + '</span>'
-          //     + '<i class="mui-icon mui-icon-arrowright"></i>'
-          //     + '</div>'
-          // }
 
           html += '</div>'
             + '<div class="item-right-middle">'
@@ -452,8 +410,7 @@
             }, //窗口参数
             extras: {
               H: H,
-              vSn: $li.attr('data-vSn'),
-              hasData: $li.attr('data-status')
+              vSn: $li.attr('data-vSn')
             }, //自定义扩展参数
             createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
             show: {
@@ -511,7 +468,7 @@
 
       // 返回刷新
       document.addEventListener('update', function (e) {
-        mui('#pullrefresh').pullRefresh().pulldownLoading(); 
+        mui('#pullrefresh').pullRefresh().pulldownLoading();
       })
 
       document.addEventListener('statusBar', function (e) {

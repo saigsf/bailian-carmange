@@ -160,7 +160,7 @@
     (function () {
       var curPage = 1;  //当前页码初始化数0开始
       var totalPage = 0; //后台算出总页数
-      var H = null; 
+      var H = null;
       var self = null;
       var vSn = null;
       var data = [];
@@ -194,36 +194,39 @@
       // 下拉刷新业务
       function pulldownRwfresh() {
         curPage = 1;
-        $('#OA_task_1').html('');
-        fetchData();
+        dataArr = {}
+
         setTimeout(function () {
+          $('#OA_task_1').html('');
+          fetchData();
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
-          // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
         }, 1000)
       }
 
       // 上拉加载业务
       function pullupRefresh() {
-        if (curPage > totalPage) {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-        } else {
-          fetchData()
-        }
+
         setTimeout(function () {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
         }, 1000)
       }
-      
+
       // 获取数据
       function fetchData() {
         // console.log(curPage)
         // var data = null;
         var opt = $.extend({
           page: curPage,
-          size: 5
+          size: 3
         }, dataArr);
         app.licenseQuery(opt, function (res) {
-          
+
           res = JSON.parse(res);
           console.log(res)
           if (!res.total || res.total <= 0) {
@@ -231,9 +234,9 @@
           }
           // console.log(res.totalCount)
           curPage++;
-          totalPage = Math.ceil(res.total / 5)
+          totalPage = Math.ceil(res.total / 3)
 
-          data = res.rows;
+          // data = res.rows;
           updateView(res.rows);
 
         });
@@ -245,7 +248,7 @@
 
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<li class="mui-table-view-cell" data-vSn="'+item.vSn+'" data-status="false">\
+          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="false">\
           <div class="list-item">\
             <div class="item-left">\
               <img src="../img/common/icon_app.png" />\
@@ -253,8 +256,8 @@
             <div class="item-right">\
               <div class="item-right-top">\
                 <div class="number">\
-                  <h4>'+item.vSn+'</h4>\
-                  <p>'+item.project.project_sn+'</p>\
+                  <h4>'+ item.vSn + '</h4>\
+                  <p>'+ item.project.project_sn + '</p>\
                 </div>\
                 <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">\
                   <i class="mui-icon mui-icon-arrowright"></i>\
@@ -262,17 +265,17 @@
               </div>\
               <div class="item-right-bottom">\
                 <div class="bottom-item">\
-                  <h4>'+item.brandModelone+'</h4>\
-                  <p>临牌号</p>\
+                  <h4>'+ item.licenseNo + '</h4>\
+                  <p>车牌号</p>\
                 </div>\
                 <div class="bottom-item bottom-item-empty"></div>\
                 <div class="bottom-item">\
-                  <h4>'+item.vSn+'</h4>\
+                  <h4>'+ item.endTime + '</h4>\
                   <p>终止日</p>\
                 </div>\
                 <div class="bottom-item bottom-item-empty"></div>\
                 <div class="bottom-item">\
-                  <h4>'+item.vSn+'</h4>\
+                  <h4>'+ item.vehicleInspection + '</h4>\
                   <p>验车状态</p>\
                 </div>\
               </div>\
@@ -300,12 +303,12 @@
             extras: {
               H: H,
               vSn: $li.attr('data-vSn'),
-              hasData: $li.attr('data-status'),
-              data: data[$li.index()]
+              // hasData: $li.attr('data-status'),
+              // data: data[$li.index()]
             } //自定义扩展参数
           })
         });
-      
+
         // 搜索
         $('#search').on('tap', function () {
           // 修改车型

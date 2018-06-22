@@ -208,6 +208,7 @@
       // 下拉刷新业务
       function pulldownRwfresh() {
         curPage = 1;
+        dataArr = {};
         $('#vehicle_input_list').html('')
         fetchData()
         setTimeout(function () {
@@ -219,13 +220,14 @@
 
       // 上拉加载业务
       function pullupRefresh() {
-        if (curPage > totalPage) {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-        } else {
-          fetchData()
-        }
+
         setTimeout(function () {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+            fetchData()
+          }
         }, 1000)
       }
 
@@ -285,7 +287,7 @@
         })
 
         // 搜索
-        $('#search').on('tap', function() {
+        $('#search').on('tap', function () {
           // 修改车型
           mui.openWindow({
             url: 'search.html',
@@ -308,14 +310,14 @@
       function fetchData() {
         var opt = $.extend({
           page: curPage,
-          size: 5
+          size: 3
         }, dataArr);
-        
+
         app.carQuery(opt, function (res) {
           res = JSON.parse(res);
           console.log(res);
           curPage++;
-          totalPage = Math.ceil(res.total / 5);
+          totalPage = Math.ceil(res.total / 3);
           if (res.rows) {
             data = res.rows;
             updateView(res.rows);
@@ -352,12 +354,13 @@
       }
 
 
-      document.addEventListener('statusBar', function(e) {
+      document.addEventListener('statusBar', function (e) {
         plus.navigator.setStatusBarStyle('light');
         dataArr = e.detail.data;
         curPage = 1;
         $('#vehicle_input_list').html('')
         fetchData();
+        // mui('#pullrefresh').pullRefresh().pulldownLoading();
       })
 
     })()

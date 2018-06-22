@@ -349,9 +349,11 @@
       // 下拉刷新业务
       function pulldownRwfresh() {
         curPage = 1;
-        $('#OA_task_1').html('')
-        fetchData();
+        dataArr = {}
+        
         setTimeout(function () {
+          $('#OA_task_1').html('')
+          fetchData();
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
           mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
         }, 1000)
@@ -359,14 +361,13 @@
 
       // 上拉加载业务
       function pullupRefresh() {
-        if (curPage > totalPage) {
+        setTimeout(function () {
+          if (curPage > totalPage) {
           mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
         } else {
-          fetchData()
+          fetchData();
+          mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
         }
-
-        setTimeout(function () {
-          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
         }, 1000)
       }
       // 
@@ -381,14 +382,14 @@
         console.log(curPage);
         app.carDriverList({
           page: curPage,
-          size: 5
+          size: 3
         }, function (res) {
           console.log(res)
           if (!res.total || res.total <= 0) {
             return;
           }
           curPage++;
-          totalPage = Math.ceil(res.total / 5)
+          totalPage = Math.ceil(res.total / 3)
           var data = res.rows;
 
           updateView(data);

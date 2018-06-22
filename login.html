@@ -57,7 +57,9 @@
     }
 
     .mui-input-group .mui-input-row:after {
-      display: none;
+      /* display: none; */
+      width: 66%;
+      margin: auto
     }
 
     .mui-btn-block {
@@ -67,7 +69,12 @@
     }
 
     .mui-input-row {
-      margin: 20px 0;
+      margin: 40px 0 0 0;
+    }
+
+    .mui-input-row>label~input[type=text],
+    .mui-input-row>label~input[type=password] {
+      font-size: 16px;
     }
 
     .three {
@@ -144,6 +151,20 @@
       background-position: center center;
       background-size: 18px 18px;
     }
+
+    .btn-wrapper {
+      margin-top: 20px;
+      height: auto;
+    }
+    .loginType {
+      display: block;
+      width: 100%;
+      padding: 20px 50px;
+      color: #2885cf;
+      text-align: right;
+      text-decoration: underline
+    }
+
   </style>
 </head>
 
@@ -152,27 +173,24 @@
   <div class="mui-content">
     <img class="background" src="img/login/md/background.png" alt="">
     <form class="mui-input-group">
-      <div class="mui-input-row">
-        <label>
-          <i class="icon icon-username"></i>
-        </label>
-        <input type="text" id="account" class="mui-input-clear" placeholder="请输入账号">
-      </div>
-      <div class="mui-input-row">
-        <label>
-          <i class="icon icon-psd"></i>
-        </label>
-        <input type="password" id="password" class="mui-input-clear" placeholder="请输入密码">
-      </div>
-      <div class="mui-input-row">
-        <div class="allcheck" id="">
-          <input type="checkbox" name="" id="autologin">
-          <label for="autologin">是否自动登陆</label>
-        </div>
-      </div>
+    <div class="mui-input-row">
+      <label>
+        <i class="icon icon-username"></i>
+      </label>
+      <input type="text" id="NETID" class="mui-input-clear" placeholder="请输入员工NET  ID号">
+    </div>
+    <div class="mui-input-row">
+      <label>
+        <i class="icon icon-psd"></i>
+      </label>
+      <input type="password" id="password" class="mui-input-clear" placeholder="请输入密码">
+    </div>
+
     </form>
-    <div class="mui-button-row">
-      <button id="login" type="button" class="mui-btn mui-btn-blue mui-btn-block">登陆</button>
+    <a href="#" class="loginType" id="loginType">用员工卡号登陆</a>
+
+    <div class="btn-wrapper ">
+      <div id="login" type="button" class="btn btn-blue">登陆</div>
     </div>
     <!--<div class="three">
         <h4>第三方登陆</h4>

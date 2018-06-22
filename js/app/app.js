@@ -54,11 +54,11 @@
 	owner.login = function (loginInfo, callback) {
 		callback = callback || $.noop;
 		loginInfo = loginInfo || {};
-		loginInfo.username = loginInfo.username || '';
+		loginInfo.NETID = loginInfo.NETID || '';
 		loginInfo.password = loginInfo.password || '';
 		loginInfo.verifyCode = loginInfo.verifyCode || '';
 
-		if (loginInfo.username.length < 5) {
+		if (loginInfo.NETID.length < 5) {
 			return callback('账号最短为 5 个字符');
 		}
 		if (loginInfo.password.length < 6) {
@@ -72,9 +72,9 @@
 			type: 'post',//HTTP请求类型
 			url: BASE_URL_1 + 'car-management/user/login.action',
 			data: {
-				username: loginInfo.username,
+				NETID: loginInfo.NETID,
 				password: loginInfo.password,
-				verifyCode: loginInfo.verifyCode
+				autologin: loginInfo.autologin
 			},
 			dataType: 'jsonp',//服务器返回json格式数据
 			jsonp: "jsonCallback",
@@ -89,7 +89,7 @@
 				data = JSON.parse(data);
 				if (data.ret) {
 					$.toast(data.msg);
-					owner.createState(data.data.username, loginInfo.password, callback);
+					owner.createState(data.data.NETID, loginInfo.password, callback);
 				} else {
 					$.toast(data.msg)
 				}
@@ -109,21 +109,11 @@
 			}
 		});
 
-
-		// var users = JSON.parse(localStorage.getItem('$users') || '[]');
-		// var authed = users.some(function (user) {
-		// 	return loginInfo.account == user.account && loginInfo.password == user.password;
-		// });
-		// if (authed) {
-		// 	return owner.createState(loginInfo.account, callback);
-		// } else {
-		// 	return callback('用户名或密码错误');
-		// }
 	};
 
 	owner.createState = function (name, token, callback) {
 		var state = owner.getState();
-		state.account = name;
+		state.NETID = name;
 		state.token = token;
 		owner.setState(state);
 		return callback();
@@ -135,9 +125,9 @@
 	owner.reg = function (regInfo, callback) {
 		callback = callback || $.noop;
 		regInfo = regInfo || {};
-		regInfo.account = regInfo.account || '';
+		regInfo.NETID = regInfo.NETID || '';
 		regInfo.password = regInfo.password || '';
-		if (regInfo.account.length < 5) {
+		if (regInfo.NETID.length < 5) {
 			return callback('用户名最短需要 5 个字符');
 		}
 		if (regInfo.password.length < 6) {
@@ -1034,7 +1024,7 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/license/pageQuery.action';
+		var url = 'car-management/license/query.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
@@ -1055,6 +1045,20 @@
 
 	/* ===============临牌 end=============== */
 	/* ===============项目相关 start=============== */
+	
+	/**
+	 * 加载所有项目
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.projectQuery = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/project/pageQuery.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
 	
 	/**
 	 * 加载所有的项目名称
@@ -1130,7 +1134,7 @@
 			return;
 		}
 		var url = 'car-management/carmaintain/apply.action';
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
