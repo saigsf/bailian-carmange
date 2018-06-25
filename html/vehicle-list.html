@@ -278,7 +278,7 @@
         handsetAdaption()
 
         self = plus.webview.currentWebview();
-        main = plus.webview.getWebviewById("HBuilder");
+        main = plus.webview.getWebviewById("index");
         view = plus.webview.getWebviewById('html/vehicle.html')
         H = self.H;
 
@@ -368,7 +368,7 @@
             + '<div class="item-right-top">'
             + '<div class="number">'
             + '<h4>' + item.vSn + '</h4>'
-            + '<p>项目编号</p>'
+            + '<p>' + (item.project? item.project.project_sn : '——') + '</p>'
             + '</div>'
             + '<div class="mui-btn mui-btn-blue mui-btn-outlined tolook">'
             + '<i class="mui-icon mui-icon-arrowright"></i>'
@@ -376,17 +376,17 @@
             + '</div>'
             + '<div class="item-right-bottom">'
             + '<div class="bottom-item">'
-            + '<h4>' + item.car_status + '</h4>'
+            + '<h4>' + (item.car_status? item.car_status: '——') + '</h4>'
             + '<p>车辆状态</p>'
             + '</div>'
             + '<div class="bottom-item bottom-item-empty"></div>'
             + '<div class="bottom-item">'
-            + '<h4>active</h4>'
+            + '<h4>'+(item.project? item.project.project_status : '——')+'</h4>'
             + '<p>项目状态</p>'
             + '</div>'
             + '<div class="bottom-item bottom-item-empty"></div>'
             + '<div class="bottom-item">'
-            + '<h4>' + item.projectEngineer + '</h4>'
+            + '<h4>' + (item.projectEngineer? item.projectEngineer : '——') + '</h4>'
             + '<p>项目工程师</p>'
             + '</div>'
             + '</div>'
@@ -435,7 +435,8 @@
               H: H,
               vSn: $li.attr('data-vSn')
             } //自定义扩展参数
-          })
+          });
+          mui.swipeoutClose($li[0])
         })
 
         // 更改项目状态
@@ -487,8 +488,7 @@
             top: filter,
             bottom: '0',
             left: '30%',
-            width: '70%',
-            zindex: 999
+            width: '70%'
           }, //窗口参数
           extras: {
             H: H
@@ -501,10 +501,12 @@
       };
       //关闭侧滑窗口；
       function closeMenu(e) {
-        dataArr = e.detail.data;
-        curPage = 1;
-        $('#OA_task_1').html('')
-        fetchData();
+        if(e) {
+          dataArr = e.detail.data;
+          curPage = 1;
+          $('#OA_task_1').html('')
+          fetchData();
+        }
         //关闭遮罩；
         side = plus.webview.getWebviewById("vehicle-filter");
         main.setStyle({

@@ -16,34 +16,37 @@
   <!--独立样式-->
 
   <style type="text/css">
-  .imgList {
-    width: 73%;
-    min-height: 40px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .imgItem {
-    width: 60px;
-    height: 60px;
-    margin-right: 5px;
-    margin-left: 5px;
-    margin-bottom: 5px;
-    position: relative;
-  }
-  .imgItem img {
-    width: 100%;
-    height: 100%;
-  }
-  .imgItem .imgDelete {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 11;
-  }
+    .imgList {
+      width: 73%;
+      min-height: 40px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .imgItem {
+      width: 60px;
+      height: 60px;
+      margin-right: 5px;
+      margin-left: 5px;
+      margin-bottom: 5px;
+      position: relative;
+    }
+
+    .imgItem img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .imgItem .imgDelete {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 11;
+    }
   </style>
 </head>
 
@@ -65,7 +68,7 @@
               <label>项目编号</label>
               <!-- <input name="product_sn" type="text" class="mui-input-clear" placeholder=""> -->
               <select name="project_sn" id="project_sn">
-
+                <option value=""></option>
               </select>
               <span class="icon-red-star">*</span>
             </div>
@@ -87,7 +90,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>联系电话</label>
-              <input name="contactNumber" type="text" class="mui-input-clear" placeholder="">
+              <input name="contactNumber" type="tel" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -96,14 +99,14 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆编号</label>
-              <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <input name="vSn" type="text" readonly class="mui-input-clear" placeholder="车辆编号,如：2017-211">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆名称</label>
-              <input name="carName" type="text" readonly class="mui-input-clear" placeholder="车辆名称">
+              <input name="carName" type="text" class="mui-input-clear" placeholder="车辆名称">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -208,6 +211,13 @@
               <span class="icon-red-star">*</span>
             </div>
           </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆颜色</label>
+              <input name="brandModelone" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
 
         </ul>
         <ul class="mui-table-view mui-table-inputview">
@@ -248,7 +258,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>制作日期</label>
-              <input name="makeTime" type="text" class="mui-input-clear" placeholder="">
+              <input id="makeTime" name="makeTime" type="text" class="mui-input-clear" placeholder="" readonly>
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -279,11 +289,13 @@
   <!-- 当前页面js -->
   <script type="text/javascript">
     var H = null;
-    var vSn = null;
+    var vSn = '2018ICECTC022';
     var self = null;
+    var dDate = new Date()
     var productArr = []
     // 初始化
     mui.init();
+
     // 初始化区域滚动
     mui('.mui-scroll-wrapper').scroll();
 
@@ -292,6 +304,8 @@
       self = plus.webview.currentWebview();
       H = self.H;
       vSn = self.vSn;
+      fetchData();
+      submitData();
     })
 
     function handsetAdaption() {
@@ -310,9 +324,27 @@
       });
     }
 
+    addEvent()
+    function addEvent() {
+      $('#makeTime').off().on('tap', function () {
+
+        plus.nativeUI.pickDate(function (e) {
+          var d = e.date;
+          $('#makeTime').val(d.format('yyyy-MM-dd'));
+
+        }, function (e) {
+          $('#makeTime').val('您没有选择日期');
+        }, {
+            title: '',
+            date: dDate
+          });
+      });
+    }
+
     // 获取数据
-    fetchData();
+    // fetchData();
     function fetchData() {
+      // 获取车辆分组
       app.getGroup({}, function (res) {
         res = JSON.parse(res)
         console.log(res)
@@ -321,12 +353,27 @@
         }
       })
 
+      // 获取项目信息
       app.projectQuery({}, function (res) {
         res = JSON.parse(res)
         console.log(res);
         productArr = res.rows;
         updateView.project(res.rows)
       })
+
+      // 查看录入信息
+      app.findAddCar({ vSn }, function (res) {
+        console.log(res);
+        res = JSON.parse(res)
+
+        if (res == null) {
+          $('input[name=vSn]').val(vSn)
+          mui.toast('该车没有录入信息');
+          return;
+        }
+        updateView.addCar(res)
+      })
+
     }
 
 
@@ -350,18 +397,130 @@
         }
         $('#project_sn').html(html);
         $('#project_name').val(data[0].projectName);
+      },
+      addCar: function (data) {
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const item = data[key];
+            $('input[name=' + key + ']').val(item)
+          }
+        }
       }
     }
 
     // 提交
+    submitData()
     function submitData() {
       $('#vehicle-input-bom').on('tap', function () {
         var oneInfo = serialize($('#form_one_info'));
+        console.log(oneInfo)
+        // oneInfo = {
+        //   FuelType : "",
+        //   adminName : "奥迪a6",
+        //   carName : "奥迪a6",
+        //   color : "奥迪a6",
+        //   contactNumber : "18659131413",
+        //   customer : "奥迪a6",
+        //   engineCapacity : "",
+        //   engineNumber : "奥迪a6",
+        //   engineType : "",
+        //   frontTireP : "",
+        //   gbts : "",
+        //   groupName : "",
+        //   makeTime : "",
+        //   oilspecification : "",
+        //   price : "2",
+        //   projectEngineer : "奥迪a6",
+        //   project_name : "奥迪a6",
+        //   project_sn : "奥迪a6",
+        //   reaTireP : "",
+        //   remark : "",
+        //   seats : "2",
+        //   tyresize : "奥迪a6",
+        //   vCarType : "奥迪a6",
+        //   vSn : "2018ICECTC022",
+        //   vehicleQuality : "奥迪a6",
+        //   vin : "1232"
+        // }
         // console.log(oneInfo)
-        // app.save(oneInfo, function(res) {
+        // // oneInfo = JSON.stringify(oneInfo)
+        // app.save(oneInfo, function (res) {
         //   res = JSON.parse(res)
         //   console.log(res)
         // })
+
+        // return;
+
+        var checkArr = [
+          'carName',
+          'vSn',
+          'adminName',
+          'seats',
+          'vin',
+          'color',
+          'vCarType',
+          'project_name',
+          'price',
+          'vehicleQuality',
+          'projectEngineer',
+          'engineNumber',
+          'customer',
+          'project_sn',
+          'contactNumber',
+        ]
+        var translateArr = [{
+          name: 'carName',
+          value: '车辆名称不能为空'
+        }, {
+          name: 'vSn',
+          value: '车辆编号不能为空'
+        }, {
+          name: 'adminName',
+          value: '车管不能为空'
+        }, {
+          name: 'seats',
+          value: '座位数不可以为空'
+        }, {
+          name: 'vin',
+          value: '车架号不能为空'
+        }, {
+          name: 'color',
+          value: '车辆颜色不能为空'
+        }, {
+          name: 'vCarType',
+          value: '车辆类型不能为空'
+        }, {
+          name: 'project_name',
+          value: '项目名称不能为空'
+        }, {
+          name: 'price',
+          value: '价值不能为空'
+        }, {
+          name: 'vehicleQuality',
+          value: '吨位不能为空'
+        }, {
+          name: 'projectEngineer',
+          value: '项目工程师不能为空'
+        }, {
+          name: 'engineNumber',
+          value: '发动机编号不能为空'
+        }, {
+          name: 'customer',
+          value: '客户不能不能为空'
+        }, {
+          name: 'project_sn',
+          value: '项目号不能为空'
+        }, {
+          name: 'contactNumber',
+          value: '联系电话不能为空'
+        }];
+
+        var checkResult = hasEmptyValue(oneInfo, checkArr);
+        if (checkResult) {
+          mui.toast(translate(checkResult, translateArr));
+          console.log(translate(checkResult, translateArr));
+          return;
+        }
 
         var id = $(this).attr('id');
         mui.openWindow({
@@ -380,7 +539,7 @@
       })
 
     }
-    submitData();
+    // submitData();
 
     $('#project_sn').on('change', function () {
       for (let i = 0; i < productArr.length; i++) {
@@ -460,15 +619,15 @@
           }
         });
     }
-    
+
     // 
     function setHtml(path) {
       // console.log(typeof path)
-      if(typeof path == 'function') {
+      if (typeof path == 'function') {
         return;
       }
       var html = '<div class="imgItem">\
-                  <img class="img" src="'+path+'" alt="">\
+                  <img class="img" src="'+ path + '" alt="">\
                   <div class="imgDelete"></div>\
                 </div>'
       $('#pictureUrl').append(html)
@@ -476,8 +635,8 @@
 
 
     // 删除图片
-    $('#pictureUrl').on('tap', '.imgDelete', function(e) {
-      console.log(124153)
+    $('#pictureUrl').on('tap', '.imgDelete', function (e) {
+      // console.log(124153)
       e.stopPropagation();
       $(this).parent().remove()
     })

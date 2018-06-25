@@ -1,6 +1,6 @@
 // var BASE_URL_1 = 'http://192.168.0.222:8080/';
-// var BASE_URL_1 = 'http://36.110.56.189:8848/';
-var BASE_URL_1 = 'http://47.98.182.165/';
+var BASE_URL_1 = 'http://36.110.56.189:8848/';
+// var BASE_URL_1 = 'http://47.98.182.165/';
 
 
 /**
@@ -197,7 +197,7 @@ function dataRetrieval(data) {
   for (const key in data) {
     if (data.hasOwnProperty(key)) {
       const item = data[key];
-      if (typeof item == 'Object') {
+      if (typeof item == 'object') {
         for (const keys in item) {
           if (item.hasOwnProperty(keys)) {
             const element = item[keys];
@@ -228,3 +228,11 @@ var findNum = function(arr, value) {
 
   return flag;
 }
+
+
+
+// if (navigator.onLine) {
+//   alert('online')
+// } else {
+//   alert('offline');
+// }

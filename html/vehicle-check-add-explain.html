@@ -105,6 +105,9 @@
           $('.mui-title').html('添加解决方法');
           $('#explain').show().find('.explainText').html(explainText);
           $('#issue_text').attr('placeholder', '说明解决问题的方法')
+          $('#issue_text').val(resolventText)
+        } else {
+          $('#issue_text').val(explainText)
         }
 
         addEvent();

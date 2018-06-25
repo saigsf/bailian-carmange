@@ -63,6 +63,13 @@
               <span class="icon-red-star">*</span>
             </div>
           </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>准驾车型</label>
+              <input id="allowcartype" name="allowcartype" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
         </ul>
         <ul class="mui-table-view mui-table-inputview">
           <li class="mui-table-view-cell">
@@ -88,41 +95,6 @@
               <span class="icon-red-star">*</span>
             </div>
           </li>
-          <!-- <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>所属分组</label>
-              <select name="gids" id="groups">
-                <option value="">没有分组</option>
-              </select>
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>是否授权</label>
-              <div class="mui-radio-box">
-                <div class="mui-radio">
-                  <input name="isallow" id="yes" type="radio" value="授权" checked>
-                  <label for="#yes">是</label>
-                </div>
-                <div class="mui-radio">
-                  <input name="isallow" id="no" value="禁止" type="radio">
-                  <label for="#no">否</label>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>授权起始</label>
-              <input id="allow_start_time" name="allowStartTime" type="text" readonly class="mui-input-clear" placeholder="">
-            </div>
-          </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label>授权终止</label>
-              <input id="allow_end_time" name="allowEndTime" type="text" readonly class="mui-input-clear" placeholder="">
-            </div>
-          </li> -->
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>备注</label>
@@ -131,8 +103,8 @@
           </li>
         </ul>
         <div class="btn-wrapper ">
-            <button class="btn btn-blue" id="next">提交</button>
-          </div>
+          <div class="btn btn-blue" id="next">提交</div>
+        </div>
       </form>
     </div>
   </div>
@@ -146,111 +118,125 @@
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
   <script>
-  (function () {
-  mui.init();
-  //初始化单页的区域滚动
-  mui('.mui-scroll-wrapper').scroll();
+    (function () {
+      mui.init();
+      //初始化单页的区域滚动
+      mui('.mui-scroll-wrapper').scroll();
 
-  var id = null;
-  var self = null;
-  var view = null;
+      var id = null;
+      var self = null;
+      var view = null;
 
-  mui.plusReady(function () {
-    handsetAdaption()
-    self = plus.webview.currentWebview();
+      mui.plusReady(function () {
+        handsetAdaption()
+        self = plus.webview.currentWebview();
 
-    if (self.ids) {
-      // 驾驶员数据回显
-      $('.mui-title').html('驾驶员编辑');
-      id = self.ids;
-      fetchData.edit();
-      $('#next').attr('id', 'update');
-    }
-    fetchData.groups()
-    fetchData.update();
-  });
-
-
-  function handsetAdaption() {
-    // 更改顶部导航栏高度
-    if (plus.device.model === 'iPhoneX') {
-      //页面样式重置
-      $('header').css({
-        'height': '88px',
-        'paddingTop': '40px'
-      });
-      $('.mui-bar-nav~.mui-content').css({
-        'paddingTop': '88px'
-      })
-    }
-
-    // 更改状态栏颜色
-    // plus.navigator.setStatusBarStyle("light");
-    // 弹出软键盘时自动改变webview的高度
-    plus.webview.currentWebview().setStyle({
-      softinputMode: "adjustResize"
-    });
-
-  }
-
-  function submitData() {
-    
-  }
-
-  var fetchData = {
-    update: function () {
-      // view = plus.webview.getWebviewById('doorpost-driver.html')
-      // 提交数据
-      $('#driver').on('tap', '#next', function () {
-        var data = serialize($('#driver'));
-
-        app.carDriverAdd(data, function (res) {
-          console.log(res)
-
-          if (res.ret) {
-            mui.fire(view, 'update', {});
-            mui.back();
-          }
-          mui.toast(res.msg)
-        })
-        // console.log(hasEmptyValue(data, requiredArr));
-      })
-      $('#driver').on('tap', '#update', function () {
-        var data = serialize($('#driver'));
-        data.id = id;
-
-        app.carDriverUpdate(data, function (res) {
-          console.log(res)
-          res = JSON.parse(res);
-
-          if (res.ret) {
-            mui.fire(view, 'update', {});
-            mui.back();
-          }
-          mui.toast(res.msg)
-        })
-        // console.log(hasEmptyValue(data, requiredArr));
-      })
-
-    },
-    edit: function () {
-      app.carDriverEdit({ id: id }, function (res) {
-        console.log(res)
-        updateView(res)
-      })
-    },
-    groups: function () {
-      app.carDriverGetGroup({}, function (res) {
-        var html = '';
-        for (let i = 0; i < res.length; i++) {
-          const item = res[i];
-          html += '<option value="' + item.id + '">' + item.name + '</option>'
+        if (self.driverId) {
+          // 驾驶员数据回显
+          $('.mui-title').html('驾驶员编辑');
+          id = self.driverId;
+          fetchData.edit();
+          $('#next').attr('id', 'update');
         }
-        $('#groups').html(html)
-      })
-    }
-  }
-})()
+        fetchData.groups()
+        fetchData.update();
+      });
+
+
+      function handsetAdaption() {
+        // 更改顶部导航栏高度
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+
+        // 更改状态栏颜色
+        // plus.navigator.setStatusBarStyle("light");
+        // 弹出软键盘时自动改变webview的高度
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize"
+        });
+
+      }
+
+      function updateView(data) {
+        if (data == null) {
+          mui.toast('没有驾驶员数据')
+          return;
+        }
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const item = data[key];
+            $('input[name='+key+']').val(item)
+          }
+        }
+      }
+
+      var fetchData = {
+        update: function () {
+          // view = plus.webview.getWebviewById('doorpost-driver.html')
+          // 提交数据
+          $('#driver').on('tap', '#next', function () {
+            var data = serialize($('#driver'));
+            // console.log(data)
+            app.carDriverAdd(data, function (res) {
+              res = JSON.parse(res);
+              console.log(res.msg)
+              mui.toast(res.msg)
+              if (res.ret) {
+                setTimeout(() => {
+                  mui.fire(view, 'update', {});
+                  mui.back();
+                }, 500);
+              }
+            })
+            // console.log(hasEmptyValue(data, requiredArr));
+          })
+          $('#driver').on('tap', '#update', function () {
+            var data = serialize($('#driver'));
+            data.id = id;
+
+            app.carDriverUpdate(data, function (res) {
+              console.log(res)
+              res = JSON.parse(res);
+              mui.toast(res.msg)
+              if (res.ret) {
+                setTimeout(() => {
+                  mui.fire(view, 'update', {});
+                  mui.back();
+                }, 500);
+              }
+
+            })
+            // console.log(hasEmptyValue(data, requiredArr));
+          })
+
+        },
+        edit: function () {
+          app.carDriverEdit({ id: id }, function (res) {
+            console.log(res)
+            updateView(res)
+          })
+        },
+        groups: function () {
+          app.carDriverGetGroup({}, function (res) {
+            var html = '';
+            for (let i = 0; i < res.length; i++) {
+              const item = res[i];
+              html += '<option value="' + item.id + '">' + item.name + '</option>'
+            }
+            $('#groups').html(html)
+          })
+        }
+      }
+      // fetchData.update();
+    })()
   </script>
 </body>
 

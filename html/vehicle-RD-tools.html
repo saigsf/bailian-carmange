@@ -17,7 +17,7 @@
 
   <style type="text/css">
     td {
-      height: 40px;
+      min-height: 40px;
     }
   </style>
 </head>
@@ -33,14 +33,14 @@
       <table>
         <thead>
           <tr>
-            <td width="40%">工具或设备名称</td>
+            <td width="30%">工具或设备名称</td>
             <td width="20%">申请人</td>
             <td width="30%">装备日期</td>
-            <td width="10%">操作</td>
+            <td width="20%">操作</td>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <!-- <tr>
             <td>12V电源</td>
             <td>王先生</td>
             <td>2018-12-12</td>
@@ -55,7 +55,7 @@
             <td>
               <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder to-submit">提交</i>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
@@ -74,7 +74,7 @@
     (function () {
       var H = null;
       var self = null;
-      var vSn = '2018ICECTC001';
+      var vSn = '2018ICECTC020';
 
       // 初始化
       mui.init();
@@ -86,7 +86,8 @@
       mui.plusReady(function () {
         handsetAdaption();
         self = plus.webview.currentWebview();
-        vSn = self.vSn
+        vSn = self.vSn;
+        fetchData()
       })
 
       // 手机适配
@@ -113,6 +114,13 @@
           vSn: vSn
         }, function (res) {
           console.log(res)
+          if(res.length <= 0) {
+            mui.toast('研发工具未申请，请先申请');
+            setTimeout(() => {
+              mui.back();
+              return;
+            }, 500);
+          }
           updateView(res);
         })
       }
@@ -132,7 +140,7 @@
                   </tr>'
         }
 
-        $('tbody').html(html)
+        $('table tbody').append(html)
       }
 
       // 数据提交

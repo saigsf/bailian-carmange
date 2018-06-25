@@ -229,9 +229,9 @@
       // 获取分组
       fetchData()
       function fetchData() {
-        app.getGroup({}, function(res) {
+        app.getGroup({}, function (res) {
           res = JSON.parse(res)
-          console.log(res);
+          // console.log(res);
           updateView(res)
         })
       }
@@ -241,7 +241,7 @@
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<option value="'+item.name+'">'+item.name+'</option>'
+          html += '<option value="' + item.name + '">' + item.name + '</option>'
         }
         $('#groups').append(html);
       }
@@ -251,20 +251,25 @@
         $('#next').on('tap', function () {
           var startTime = $('#start_date').val();
           var endTime = $('#end_date').val();
-          var gids = $('#groups').val()
+          var gid = $('#groups').val()
 
           if ($('input[name=isallow]').val() == '授权') {
             app.authorized({
               ids,
               startTime,
               endTime,
-              gids
+              gid
             }, function (res) {
               console.log(res)
               res = JSON.parse(res)
+              // mui.toast(res.msg)
               if (res.ret) {
-                mui.fire(view, 'update', {});
-                mui.back();
+                mui.toast('授权成功')
+                setTimeout(() => {
+                  mui.fire(view, 'update', {});
+                  mui.back();
+                }, 500);
+
               } else {
                 mui.toast('授权失败')
               }
@@ -275,9 +280,14 @@
             }, function (res) {
               console.log(res);
               res = JSON.parse(res)
+              mui.toast(res.msg)
               if (res.ret) {
-                mui.fire(view, 'update', {});
-                mui.back();
+
+                mui.toast('禁止成功')
+                setTimeout(() => {
+                  mui.fire(view, 'update', {});
+                  mui.back();
+                }, 500);
               } else {
                 mui.toast('禁止失败')
               }

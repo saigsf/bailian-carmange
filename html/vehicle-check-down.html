@@ -217,6 +217,8 @@
         self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;
+        fetchData()
+        submitData()
       })
 
       function handsetAdaption() {
@@ -235,7 +237,7 @@
         });
       }
       // 获取数据
-      fetchData()
+      
       function fetchData() {
         app.findBackcheck({
           vSn: vSn
@@ -259,7 +261,7 @@
         }
       }
 
-      submitData()
+      
       function submitData() {
 
         $('input[name=vSn]').val(vSn)

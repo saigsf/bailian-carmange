@@ -318,11 +318,12 @@
 
           app.saveMaintenance(data, function (res) {
             console.log(res)
+            mui.toast(res.msg)
             if (res.ret) {
               mui.back();
               mui.fire(view, 'update', {});
             }
-            mui.toast(res.msg)
+            
           })
 
         })

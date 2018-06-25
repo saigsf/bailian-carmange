@@ -63,7 +63,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆编号</label>
-              <input id="vSn" name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <input id="vSn" name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -75,17 +75,18 @@
               <input id="item" name="item" type="text" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
-          </li>          
+          </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>停放地点</label>
               <input id="send_park" name="send_park" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>申请人电话</label>
-              <input id="telephone" name="telephone" type="tel" class="mui-input-clear" placeholder="">
+              <input id="applyTEL" name="applyTEL" type="tel" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -98,7 +99,7 @@
           </li>
         </ul>
         <div class="btn-wrapper ">
-          <button class="btn btn-blue" id="submit">提交</button>
+          <div class="btn btn-blue" id="submit">提交</div>
         </div>
       </form>
 
@@ -123,7 +124,7 @@
 
       var view = null;
 
-      mui.plusReady(function() {
+      mui.plusReady(function () {
         view = plus.webview.getWebviewById('html/repair.html')
       })
 
@@ -136,15 +137,18 @@
           console.log(data)
           // 维修申请
           app.carMaintainApply(data, function (res) {
-            console.log(res)
+            // console.log(res)
             // res = JSON.parse(res);
-            if (res.ret) {
-              mui.fire(view, 'repair', {
-                domId: 'repair-list'
-              })
-            }
-            console.log(res)
             mui.toast(res.msg);
+            
+            if (res.ret) {
+              setTimeout(function () {
+                mui.fire(view, 'repair', {
+                  domId: 'repair-list'
+                })
+              }, 500)
+            }
+
           })
         })
       }

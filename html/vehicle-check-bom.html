@@ -41,7 +41,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <!-- <tr>
             <td class="bomName">ECM发动机电子控制模块</td>
             <td class="bomNum">28452294</td>
             <td>
@@ -62,7 +62,7 @@
               <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
               <input class="resolvent-text" type="hidden">
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
       <div class="btn-wrapper ">
@@ -99,7 +99,9 @@
       viewId = self.id;
       H = self.H;
       vSn = self.vSn;
-      state = self.state;
+      state = self.state ? self.state : 'submitArr';
+      fetchData();
+      submitData();
     })
 
     function handsetAdaption() {
@@ -119,7 +121,7 @@
     }
 
     // 提交数据
-    submitData()
+    
     function submitData() {
       if (state == 'submitArr') {
         stateArr = submitArr;
@@ -137,13 +139,12 @@
         $bomTr.each(function (i) {
           emsAndBomCheckResults.push({
             'vSn': vSn,
+            'uuid': $(this).attr('data-uuid'),
             'bomName': $(this).find('.bomName').html(),
             'bomNum': $(this).find('.bomNum').html(),
             'status': $(this).find('.status').val(),
-            'applyPerson': 'string',
             'checkExplanation': $(this).find('.explain-text').val(),
-            'checkingExplanation': 'string',
-            'applyTime': '2018-06-05T06:26:16.746Z'
+            'checkingExplanation': $(this).find('.resolvent-text').val(),
           })
         });
 
@@ -151,20 +152,36 @@
           vSn: vSn,
           emsAndBomCheckResults: emsAndBomCheckResults
         }
-        console.log(data)
+        console.log(stateArr[0])
         app[stateArr[0]](data, function (res) {
-          console.log(res)
+          console.log(res.msg)
+          
+          if(res.ret) {
+            mui.toast(res.msg);
+            setTimeout(() => {
+              mui.back();
+            }, 500);
+          } else {
+            mui.toast('BOM零部件检查失败');
+          }
         })
       })
     }
 
     // 获取数据
-    fetchData()
+    
     function fetchData() {
       app.findEmsAndBomCheckByvSn({
         vSn: vSn
       }, function (res) {
         console.log(res)
+        if(res.checkResults<=0) {
+          mui.toast('尚未申请bom,请去申请');
+          setTimeout(() => {
+            mui.back();
+            return;
+          }, 500);
+        }
         updateView(res.checkResults)
       })
     }

@@ -141,7 +141,7 @@
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
         <!-- <li class="mui-table-view-cell" data-vSn="" data-status="false">
           <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">置顶</a>
+            <a class="mui-btn mui-btn-gray settop">优先</a>
             <a class="mui-btn mui-btn-red repaired">完成</a>
             <a class="mui-btn mui-btn-blue maintain">保养</a>
           </div>
@@ -177,7 +177,7 @@
         </li>
         <li class="mui-table-view-cell" data-vSn="" data-status="false">
           <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">置顶</a>
+            <a class="mui-btn mui-btn-gray settop">优先</a>
             <a class="mui-btn mui-btn-red allot">分配</a>
             <a class="mui-btn mui-btn-blue maintain">保养</a>
           </div>
@@ -213,7 +213,7 @@
         </li>
         <li class="mui-table-view-cell" data-vSn="" data-status="true">
           <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">置顶</a>
+            <a class="mui-btn mui-btn-gray settop">优先</a>
             <a class="mui-btn mui-btn-blue maintain">保养</a>
           </div>
           <div class="mui-slider-handle">
@@ -365,15 +365,15 @@
           html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="' + item.status + '" data-id="' + item.id + '">'
             + '<div class="mui-slider-right mui-disabled">'
           if (item.status == '已完成') {
-            html += '<a class="mui-btn mui-btn-gray settop">置顶</a>'
+            html += '<a class="mui-btn mui-btn-gray settop">优先</a>'
               + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
 
           } else if (item.status == '排队中') {
-            html += '<a class="mui-btn mui-btn-gray settop">置顶</a>'
+            html += '<a class="mui-btn mui-btn-gray settop">优先</a>'
               + '<a class="mui-btn mui-btn-red allot">分配</a>'
               + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
           } else if (item.status == '维修中') {
-            html += '<a class="mui-btn mui-btn-gray settop">置顶</a>'
+            html += '<a class="mui-btn mui-btn-gray settop">优先</a>'
               + '<a class="mui-btn mui-btn-red repaired">完成</a>'
               + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
           }
@@ -474,7 +474,7 @@
 
         })
 
-        // 置顶
+        // 优先
         $('#OA_task_1').on('tap', '.settop', function () {
           var elem = this;
           var $li = $(this).parents('li');
@@ -604,7 +604,9 @@
 
       // 返回刷新
       document.addEventListener('update', function (e) {
-        mui('#pullrefresh').pullRefresh().pulldownLoading();
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
       })
 
       document.addEventListener('statusBar', function (e) {

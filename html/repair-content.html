@@ -177,12 +177,15 @@
           data.vSn = $('#vSn').html()
 
           app.carMaintainComplete(data, function (res) {
-            res = JSON.parse(res);
-            console.log(res);
+            // res = JSON.parse(res);
+            console.log(res.msg);
             mui.toast(res.msg);
             if (res.ret) {
-              mui.fire(view, 'update', {});
-              mui.back();
+              setTimeout(() => {
+                mui.fire(view, 'update', {});
+                mui.back();
+              }, 500);
+              
             }
 
           })

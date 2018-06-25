@@ -1024,7 +1024,7 @@
               <input class="resolvent-text" type="hidden">
             </td>
           </tr>
-          
+
           <tr>
             <td class="pitem" width="10%" rowspan="5">风扇控制</td>
             <td class="item">低速风扇继电器</td>
@@ -1991,6 +1991,7 @@
     var stateArr = [];
     var submitArr = ['addHiCheck'];
     var updateArr = ['updateHiCheckByvSn'];
+    var isChecked = false;
 
     mui.init();
     //初始化单页的区域滚动
@@ -2002,7 +2003,7 @@
       H = self.H;
       vSn = self.vSn;
       state = self.state;
-      if(state == 'updateArr') fetchData();
+      fetchData();
       submitData();
     })
 
@@ -2021,14 +2022,19 @@
       //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
       // });
     }
-    
+
     // 获取数据
-    fetchData()
+    // fetchData()
     function fetchData() {
       app.findHiCheckByvSn({
         vSn: vSn
-      }, function(res) {
+      }, function (res) {
         console.log(res)
+        if (res.checkResults <= 0) {
+          mui.toast('线束检查未完成');
+          return;
+        }
+        isChecked = true;
         updateView(res.checkResults)
       })
     }
@@ -2037,34 +2043,42 @@
     function updateView(data) {
       var $wireTr = $('table tbody tr');
 
-      $wireTr.each(function(i) {
-          $(this).attr('data-uuid', data[i].uuid)
-          $(this).find('select.status').val(data[i].status);
+      $wireTr.each(function (i) {
+        $(this).attr('data-uuid', data[i].uuid)
+        $(this).find('select.status').val(data[i].status);
 
-          if(data[i].checkExplanation) {
-            $(this).find('.explain').html('···')
-            $(this).find('.explain-text').val(data[i].checkExplanation)
-          }
+        if (data[i].checkExplanation) {
+          $(this).find('.explain').html('···')
+          $(this).find('.explain-text').val(data[i].checkExplanation)
+        }
 
-          if(data[i].checkingExplanation) {
-            $(this).find('.resolvent').html('···')
-            $(this).find('.resolvent-text').val(data[i].checkExplanation)
-          }
+        if (data[i].checkingExplanation) {
+          $(this).find('.resolvent').html('···')
+          $(this).find('.resolvent-text').val(data[i].checkExplanation)
+        }
 
-        })
+      })
 
     }
 
     // 提交数据
     // submitData()
     function submitData() {
-      if(state == 'submitArr') {
-        stateArr = submitArr;
-      } else if(state == 'updateArr') {
-        stateArr = updateArr;
-      } 
+      // if(state == 'submitArr') {
+      //   stateArr = submitArr;
+      // } else if(state == 'updateArr') {
+      //   stateArr = updateArr;
+      // } 
       // 线束检查
       $('#three_next').on('tap', function () {
+
+        console.log(isChecked)
+        if (isChecked) {
+          stateArr = updateArr;
+        } else {
+          stateArr = submitArr;
+        }
+        // return;
         var $wireTr = $('table tbody tr');
 
         var HIResults = [];
@@ -2073,7 +2087,7 @@
 
         for (let i = 0; i < $wireTr.length; i++) {
           const element = $wireTr[i];
-          if($(element).find('.pitem').length>0) {
+          if ($(element).find('.pitem').length > 0) {
             pitem = $(element).find('.pitem').html()
           }
 
@@ -2081,10 +2095,10 @@
             'checkExplanation': $(element).find('.explain-text').val(),
             'checkingExplanation': $(element).find('.resolvent-text').val(),
             'pitem': pitem,
-            'item': $(element).find('.item').length>0 ? $(element).find('.item').html() : '',
+            'item': $(element).find('.item').length > 0 ? $(element).find('.item').html() : '',
             'status': $(element).find('.status').val(),
             'vSn': vSn,
-            'uuid': $(this).attr('data-uuid')
+            'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : ''
           })
         }
 
@@ -2093,8 +2107,17 @@
           HIResults: HIResults
         }
         console.log(data);
-        app[stateArr[0]](data, function(res) {
-          console.log(res)
+        app[stateArr[0]](data, function (res) {
+          console.log(res);
+          if (res.ret) {
+            mui.toast(res.msg);
+            setTimeout(() => {
+              mui.back()
+            }, 500);
+
+          } else {
+            mui.toast('线束检查失败')
+          }
         })
       });
     }
@@ -2133,6 +2156,10 @@
         var explainText = $(_this).parents('tr').find('.explain-text').val();
         var resolventText = $(_this).parents('tr').find('.resolvent-text').val();
 
+        if (!explainText) {
+          mui.alert('您不能这样操作~', '提示');
+          return;
+        }
         mui.openWindow({
           url: 'vehicle-check-add-explain.html',
           id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id

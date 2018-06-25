@@ -258,3 +258,14 @@ http://47.98.182.165/car-management/license/query.action
 2. 获取当前网络类型
 3. 判断当前网络是否可以联网
 4. 更改当前网络类型为4G
+
+
+#### 保养记录提交 
+```javascript
+{
+    "ret": false,
+    "msg": "系统开小差了",
+    "data": null
+}
+```
+

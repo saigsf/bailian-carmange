@@ -156,6 +156,7 @@
       margin-top: 20px;
       height: auto;
     }
+
     .loginType {
       display: block;
       width: 100%;
@@ -164,7 +165,9 @@
       text-align: right;
       text-decoration: underline
     }
-
+    #employeeCard {
+      display: none;
+    }
   </style>
 </head>
 
@@ -173,18 +176,19 @@
   <div class="mui-content">
     <img class="background" src="img/login/md/background.png" alt="">
     <form class="mui-input-group">
-    <div class="mui-input-row">
-      <label>
-        <i class="icon icon-username"></i>
-      </label>
-      <input type="text" id="NETID" class="mui-input-clear" placeholder="请输入员工NET  ID号">
-    </div>
-    <div class="mui-input-row">
-      <label>
-        <i class="icon icon-psd"></i>
-      </label>
-      <input type="password" id="password" class="mui-input-clear" placeholder="请输入密码">
-    </div>
+      <div class="mui-input-row">
+        <label>
+          <i class="icon icon-username"></i>
+        </label>
+        <input type="text" name="NETID" id="NETID" class="mui-input-clear" placeholder="请输入员工NET ID号">
+        <input type="text" name="employeeCard" id="employeeCard" class="mui-input-clear" placeholder="请输入员工卡号" disabled>
+      </div>
+      <div class="mui-input-row">
+        <label>
+          <i class="icon icon-psd"></i>
+        </label>
+        <input type="password" name="password" id="password" class="mui-input-clear" placeholder="请输入密码">
+      </div>
 
     </form>
     <a href="#" class="loginType" id="loginType">用员工卡号登陆</a>

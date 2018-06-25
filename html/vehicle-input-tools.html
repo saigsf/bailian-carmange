@@ -108,6 +108,7 @@
   <!-- 当前页面js -->
   <script type="text/javascript">
     var H = null;
+    var vSn = null;
     var self = null;
     var oneInfo = null;
     var oneBom = null;
@@ -124,6 +125,9 @@
       view = plus.webview.getWebviewById('vehicle-input-bom')
       oneInfo = self.oneInfo
       oneBom = self.oneBom
+      vSn = self.vSn;
+      fetchData();
+      submitData()
     })
 
     function handsetAdaption() {
@@ -142,7 +146,31 @@
       });
     }
 
-    function addEvent() {
+    function fetchData() {
+      app.findDevelop({ vSn }, function (res) {
+        res = JSON.parse(res)
+        console.log(res);
+        if (res.length <= 0) {
+          mui.toast('研发工具未申请');
+          return;
+        }
+        updateView(res);
+      })
+    }
+
+
+    function updateView(data) {
+      var html = '';
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        html += '<tr data-id="' + item.id + '"><td><input type="text" name="toolName" value="' + item.toolName + '"></td></tr>'
+      }
+      html += '<tr><td><input type="text" name="toolName" value=""></td></tr>';
+      html += '<tr><td><input type="text" name="toolName" value=""></td></tr>';
+      $('table tbody').html(html)
+    }
+
+    function submitData() {
       // 车辆录入,包含三部分的数据提交
       $('#submit').on('tap', function () {
         var oneToolApply = [];
@@ -154,8 +182,7 @@
           if ($toolName.val()) {
             oneToolApply.push({
               toolName: $toolName.val(),
-              applicant: '',
-              vSn: ''
+              vSn: vSn
             })
           }
         })
@@ -163,7 +190,7 @@
         if (oneInfo != null && oneInfo) {
           app.save(oneInfo, function (res) {
             res = JSON.parse(res)
-            // console.log(res)
+            console.log(res.msg)
             mui.toast(res.msg);
             if (res.ret) {
               flagInfo = true;
@@ -205,13 +232,10 @@
               mui.fire(view, 'goback', {});
             }
           }
-
         }, 100)
-
-
       })
     }
-    addEvent()
+    
   </script>
 </body>
 

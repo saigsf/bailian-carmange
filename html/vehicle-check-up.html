@@ -131,7 +131,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>接车日期</label>
-              <input name="time" type="text" class="mui-input-clear" placeholder="">
+              <input name="time" id="time" type="text" class="mui-input-clear" readonly placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -225,12 +225,14 @@
       mui('.mui-scroll-wrapper').scroll();
 
       var H = null;
+      var self = null;
       var vSn = null;
+      var dDate = new Date();
 
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
-        var self = plus.webview.currentWebview();
+        self = plus.webview.currentWebview();
         H = self.H;
       })
 
@@ -262,6 +264,24 @@
 
       }
 
+      addEvent()
+      function addEvent() {
+        $('#time').off().on('tap', function () {
+
+          plus.nativeUI.pickDate(function (e) {
+            var d = e.date;
+            $('#time').val(d.format('yyyy-MM-dd'));
+
+          }, function (e) {
+            $('#time').val('您没有选择日期');
+          }, {
+              title: '',
+              date: dDate
+            });
+        });
+      }
+
+
       // 更新数据
       function submitData() {
         //提交
@@ -269,9 +289,17 @@
           var data = serialize($('form'));
           console.log(data)
           app.upcheck(data, function (res) {
-            res = JSON.parse(res);
-            console.log(res);
+            // console.log(res);
             mui.toast(res.msg)
+            if (res.ret) {
+              for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                  const item = data[key];
+                  $('input[name='+key+']').val('')
+                }
+              }
+              fetchData()
+            }
           })
         })
       }
@@ -280,8 +308,8 @@
       // 获取数据
       function fetchData() {
         // 获取车辆编号
-        app.getvSn({}, function(res) {
-          console.log(res);
+        app.getvSn({}, function (res) {
+          // console.log(res);
           $('#vSn').val(res);
         })
       }

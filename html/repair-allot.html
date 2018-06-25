@@ -113,7 +113,7 @@
             <div class="date-wrapper">
               <label>操作员电话</label>
               <div class="date-text">
-                <input type="tel" name="telephone" id="telephone" readonly>
+                <input type="tel" name="operatorTEL" id="operatorTEL" readonly>
               </div>
             </div>
           </li>
@@ -121,7 +121,7 @@
             <div class="date-wrapper">
               <label>预计完成日</label>
               <div class="date-text">
-                <input type="text" name="forecastTime" id="forecastTime" placeholder="2018-01-01">
+                <input type="text" name="forecastTime" id="forecastTime" placeholder="2018-01-01" readonly>
                 <div class="date-icon">
                   <i class="icon icon-date"></i>
                 </div>
@@ -214,7 +214,7 @@
           var _this = this;
           operatorArr.forEach(item => {
             if(item.name = $(_this).val()) {
-              $('#telephone').val(item.tel)
+              $('#operatorTEL').val(item.tel)
             }
           });
         })
@@ -250,12 +250,15 @@
 
           app.carMaintainAssign(data, function (res) {
             console.log(res);
-            res = JSON.parse(res);
-            if (res.ret) {
-              mui.fire(view, 'update', {});
-              mui.back();
-            }
+            // res = JSON.parse(res);
             mui.toast(res.msg)
+            if (res.ret) {
+              setTimeout(() => {
+                mui.fire(view, 'update', {});
+                mui.back();
+              }, 100);
+            }
+            
           })
         })
       }

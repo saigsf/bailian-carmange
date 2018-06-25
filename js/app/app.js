@@ -49,33 +49,25 @@
 	//***** 强制打开软键盘  End******  
 
 	/**
-	 * 用户登录
+	 * 用户登录 netid
 	 **/
-	owner.login = function (loginInfo, callback) {
+	owner.loginNetId = function (loginInfo, callback) {
 		callback = callback || $.noop;
 		loginInfo = loginInfo || {};
 		loginInfo.NETID = loginInfo.NETID || '';
 		loginInfo.password = loginInfo.password || '';
-		loginInfo.verifyCode = loginInfo.verifyCode || '';
 
-		if (loginInfo.NETID.length < 5) {
-			return callback('账号最短为 5 个字符');
+		if (loginInfo.NETID.length < 0) {
+			return callback('请输入员工netid号');
 		}
 		if (loginInfo.password.length < 6) {
 			return callback('密码最短为 6 个字符');
 		}
-		// if (!loginInfo.verifyCode) {
-		// 	return callback('验证码不能为空')
-		// }
 
 		$.ajax({
 			type: 'post',//HTTP请求类型
 			url: BASE_URL_1 + 'car-management/user/login.action',
-			data: {
-				NETID: loginInfo.NETID,
-				password: loginInfo.password,
-				autologin: loginInfo.autologin
-			},
+			data: loginInfo,
 			dataType: 'jsonp',//服务器返回json格式数据
 			jsonp: "jsonCallback",
 			// timeout: 10000,//超时时间设置为10秒；
@@ -83,15 +75,15 @@
 				console.log('beforesend!' + JSON.stringify(loginInfo))
 				plus.nativeUI.showWaiting();
 			},
-			success: function (data) {
+			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
-				console.log(data)
-				data = JSON.parse(data);
-				if (data.ret) {
-					$.toast(data.msg);
-					owner.createState(data.data.NETID, loginInfo.password, callback);
+				console.log(res)
+				res = JSON.parse(res);
+				if (res.ret) {
+					$.toast(res.msg);
+					owner.createState(res.data, callback);
 				} else {
-					$.toast(data.msg)
+					$.toast(res.msg)
 				}
 			},
 			error: function (xhr, type, errorThrown) {
@@ -111,10 +103,67 @@
 
 	};
 
-	owner.createState = function (name, token, callback) {
+	/**
+	 * 用户登录 员工卡号
+	 **/
+	owner.loginCard = function (loginInfo, callback) {
+		callback = callback || $.noop;
+		loginInfo = loginInfo || {};
+		loginInfo.employeeCard = loginInfo.employeeCard || '';
+		loginInfo.password = loginInfo.password || '';
+
+		if (loginInfo.employeeCard.length < 0) {
+			return callback('请输入员工卡号');
+		}
+		if (loginInfo.password.length < 6) {
+			return callback('密码最短为 6 个字符');
+		}
+		// if (!loginInfo.verifyCode) {
+		// 	return callback('验证码不能为空')
+		// }
+
+		$.ajax({
+			type: 'post',//HTTP请求类型
+			url: BASE_URL_1 + 'car-management/user/logintwo.action',
+			data: loginInfo,
+			dataType: 'jsonp',//服务器返回json格式数据
+			jsonp: "jsonCallback",
+			// timeout: 10000,//超时时间设置为10秒；
+			beforeSend: function () {
+				console.log('beforesend!' + JSON.stringify(loginInfo))
+				plus.nativeUI.showWaiting();
+			},
+			success: function (res) {
+				//服务器返回响应，根据响应结果，分析是否登录成功；
+				console.log(res)
+				res = JSON.parse(res);
+				if (res.ret) {
+					$.toast(res.msg);
+					owner.createState(res.data, callback);
+				} else {
+					$.toast(res.msg)
+				}
+			},
+			error: function (xhr, type, errorThrown) {
+				//异常处理；
+				console.log(type);
+				if (type == 'timeout') {
+					$.toast("请求超时：请检查网络")
+				} else {
+					$.toast('请求失败：' + type + '\n err:' + errorThrown);
+				}
+			},
+			complete: function () {
+				console.log('userLogin:关闭转圈')
+				plus.nativeUI.closeWaiting();
+			}
+		});
+
+	};
+
+	owner.createState = function (data, callback) {
 		var state = owner.getState();
-		state.NETID = name;
-		state.token = token;
+		state.data = data;
 		owner.setState(state);
 		return callback();
 	};
@@ -158,6 +207,7 @@
 		localStorage.setItem('$state', JSON.stringify(state));
 		var settings = owner.getSettings();
 		settings.gestures = '';
+		settings.autoLogin = true;
 		owner.setSettings(settings);
 	};
 
@@ -284,7 +334,8 @@
 			contentType: 'application/json;charset=UTF-8', //contentType很重要 
 			crossDomain: true,
 			beforeSend: function () {
-				console.log('beforesend!')
+				console.log('beforesend!');
+				// plus.nativeUI.showWaiting();
 			},
 			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
@@ -293,14 +344,31 @@
 			error: function (xhr, type, errorThrown) {
 				//异常处理；
 				console.log(xhr.status);
-				if (type == 'timeout') {
-					$.toast("请求超时：请检查网络")
-				} else {
-					$.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+				// if (type == 'timeout') {
+				// 	$.toast("请求超时：请检查网络")
+				// } else {
+				// 	$.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+					
+				// }
+				switch (parseInt(xhr.status/100)) {
+					case 0:
+						$.toast('请求无法连接，检查网络是否正常')
+						break;
+					case 4:
+						$.toast('请求错误，请联系程序员')
+						break;
+					case 5:
+						$.toast('服务器请求错误')
+						break;
+				
+					default:
+						break;
 				}
+
 			},
 			complete: function () {
-				console.log('complete')
+				console.log('complete');
+				// plus.nativeUI.closeWaiting();
 			}
 		});
 	}
@@ -468,7 +536,7 @@
 
 		var url = 'car-management/car/upcheck.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequestPost('POST', url, data, callback)
 
 	}
 
@@ -540,8 +608,8 @@
 		data = data || {};
 
 		var url = 'car-management/car/addEmsAndBomCheck/' + data.vSn + '.action'
-
-		owner.HTTPRequestPost('POST', url, data.emsAndBomCheckResults, callback)
+		// data = JSON.stringify(data.emsAndBomCheckResults)
+		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
@@ -555,6 +623,7 @@
 
 		var url = 'car-management/car/updateEmsAndBomCheckByCar/' + data.vSn + '.action'
 
+		// console.log(JSON.stringify(data.emsAndBomCheckResults))
 		owner.HTTPRequestPost('POST', url, data.emsAndBomCheckResults, callback)
 	}
 
@@ -818,78 +887,8 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var checkArr = [
-			'carName',
-			'vSn',
-			'adminName',
-			'seats',
-			'vin',
-			'color',
-			'vCarType',
-			'project_name',
-			'price',
-			'vehicleQuality',
-			'projectEngineer',
-			'engineNumber',
-			'customer',
-			'project_sn',
-			'contactNumber',
-		]
-		var translateArr = [{
-			name: 'carName',
-			value: '车辆名称不能为空'
-		}, {
-			name: 'vSn',
-			value: '车辆编号不能为空'
-		}, {
-			name: 'adminName',
-			value: '车管不能为空'
-		}, {
-			name: 'seats',
-			value: '座位数不可以为空'
-		}, {
-			name: 'vin',
-			value: '车架号不能为空'
-		}, {
-			name: 'color',
-			value: '车辆颜色不能为空'
-		}, {
-			name: 'vCarType',
-			value: '车辆类型不能为空'
-		}, {
-			name: 'project_name',
-			value: '项目名称不能为空'
-		}, {
-			name: 'price',
-			value: '价值不能为空'
-		}, {
-			name: 'vehicleQuality',
-			value: '吨位不能为空'
-		}, {
-			name: 'projectEngineer',
-			value: '项目工程师不能为空'
-		}, {
-			name: 'engineNumber',
-			value: '发动机编号不能为空'
-		}, {
-			name: 'customer',
-			value: '客户不能不能为空'
-		}, {
-			name: 'project_sn',
-			value: '项目号不能为空'
-		}, {
-			name: 'contactNumber',
-			value: '联系电话不能为空'
-		}];
-		console.log(translateArr)
-
-		var checkResult = hasEmptyValue(data, checkArr);
-		if (checkResult) {
-			mui.toast(translate(checkResult, translateArr));
-			console.log(translate(checkResult, translateArr));
-			return;
-		}
 		var url = 'car-management/car/save.action';
+		// data = JSON.stringify(data);
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
@@ -919,7 +918,7 @@
 		data = data || {};
 
 		var url = 'car-management/car/applybom.action';
-
+		data = JSON.stringify(data);
 		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
@@ -933,7 +932,7 @@
 		data = data || {};
 
 		var url = 'car-management/car/applytools.action';
-
+		data = JSON.stringify(data);
 		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
@@ -980,6 +979,24 @@
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
+
+	/**
+	 * 监测站车型更改
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.updateVehicleType = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {
+			vSn: '',
+			type: ''
+		};
+
+		var url = 'car-management/car/updateVehicleTestingStationType.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
 
 	/* ===============车辆 end=============== */
 	/* ===============保险 start=============== */
@@ -1116,7 +1133,7 @@
 	owner.carMaintainApply = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
-		var checkArr = ['vSn', 'item', 'send_park'];
+		var checkArr = ['vSn', 'item', 'send_park', 'applyTEL'];
 		var translateArr = [{
 			name: 'vSn',
 			value: '车辆编号不能为空'
@@ -1126,6 +1143,9 @@
 		}, {
 			name: 'send_park',
 			value: '停放地地点不能为空'
+		}, {
+			name: 'applyTEL',
+			value: '申请人电话不能为空'
 		}]
 
 		var checkResult = hasEmptyValue(data, checkArr);
@@ -1166,7 +1186,7 @@
 
 		var url = 'car-management/carmaintain/assign.action';
 
-		owner.HTTPRequest('post', url, data, callback)
+		owner.HTTPRequestPost('post', url, data, callback)
 	}
 
 	/**
@@ -1186,7 +1206,7 @@
 
 		var url = 'car-management/carmaintain/complete.action';
 
-		owner.HTTPRequest('post', url, data, callback)
+		owner.HTTPRequestPost('post', url, data, callback)
 	}
 
 	/**
@@ -1273,7 +1293,9 @@
 
 		var url = 'car-management/car/maintenance/save/' + data.vSn + '/' + data.mm + '/' + data.nt + '.action';
 
-		owner.HTTPRequestPost('post', url, data.maintenanceItems, callback)
+		// url = decodeURI(url)
+		// console.log(url)
+		owner.HTTPRequestPost('post', url, JSON.stringify(data.maintenanceItems), callback)
 	}
 
 
@@ -1302,19 +1324,10 @@
 	owner.carDriverAdd = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
-		var startDate = (new Date()).format('yyyy-MM-dd');
-		var year = new Date().getFullYear()
-		var endDate = (new Date()).setFullYear(year + 1);
 
 		var url = 'car-management/driver/add.action';
 
-
-		if (data.isallow == '授权') {
-			data.allowStartTime = startDate
-			data.allowEndTime = (new Date(endDate)).format('yyyy-MM-dd')
-		}
-
-		owner.HttpRequestNonCrossDomain('post', url, data, callback)
+		owner.HTTPRequest('post', url, data, callback)
 	}
 
 	/**
@@ -1343,7 +1356,7 @@
 
 		var url = 'car-management/driver/authorized.action';
 
-		owner.HTTPRequest('get', url, data, callback)
+		owner.HTTPRequest('post', url, data, callback)
 	}
 
 	/**
@@ -1387,7 +1400,7 @@
 
 		var url = 'car-management/driver/update.action';
 
-		// owner.HTTPRequest('post', url, data, callback)
+		owner.HTTPRequest('post', url, data, callback)
 	}
 
 	/**

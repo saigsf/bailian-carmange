@@ -76,7 +76,7 @@
             <div class="date-wrapper">
               <label>检测站车型</label>
               <div class="date-text">
-                <input name="carType" type="text" placeholder="">
+                <input name="type" type="text" placeholder="">
               </div>
             </div>
           </li>
@@ -90,7 +90,7 @@
           </li> -->
         </ul>
         <div class="btn-wrapper ">
-          <button class="btn btn-blue" id="submit">提交</button>
+          <div class="btn btn-blue" id="submit">提交</div>
         </div>
       </form>
 
@@ -125,7 +125,8 @@
         self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;
-        $('#vSn').html(vSn)
+        $('#vSn').html(vSn);
+        submitData()
       })
       
       // 手机适配
@@ -149,8 +150,20 @@
       function submitData() {
         $('#submit').on('tap', function () {
           var data = serialize($('#insurance_input'));
+          data.vSn = vSn;
           console.log(data);
           // 接口调用
+          app.updateVehicleType(data, function(res) {
+            res = JSON.parse(res)
+            console.log(res.msg)
+            mui.toast(res.msg);
+            if(res.ret) {
+              setTimeout(() => {
+                mui.back()
+              }, 500);
+              
+            }
+          })
         })
       }
     })();
