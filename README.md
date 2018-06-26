@@ -260,12 +260,33 @@ http://47.98.182.165/car-management/license/query.action
 4. 更改当前网络类型为4G
 
 
-#### 保养记录提交 
-```javascript
-{
-    "ret": false,
-    "msg": "系统开小差了",
-    "data": null
-}
-```
+1. 搜索
+2. 筛选
+3. 地图
+4. 权限
 
+
+vSn: 
+project_sn: 
+vin: 
+engineNumber: 
+projectEngineer: 
+brandModeltwo: 
+NO: 
+bstart: 
+bend: 
+pstart: 
+pend: 
+ustart: 
+uend: 
+backstart: 
+backend: 
+ing: 
+all: 
+beforup: 
+haveLi: 
+HaveIn: 
+thismonthback: true
+thismonnew: 
+beforBack: 
+stop: 

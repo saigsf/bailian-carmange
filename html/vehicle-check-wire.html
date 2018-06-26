@@ -1985,6 +1985,7 @@
   <script type="text/javascript">
     var H = null;
     var self = null;
+    var view = null;
     var vSn = '2018ICECTC006';
     var viewId = null;
     var state = 'submitArr';
@@ -1999,6 +2000,7 @@
     mui.plusReady(function () {
       handsetAdaption();
       self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;
       H = self.H;
       vSn = self.vSn;
@@ -2034,7 +2036,10 @@
           mui.toast('线束检查未完成');
           return;
         }
-        isChecked = true;
+        
+        if(res.check.checkingPerson) {
+          isChecked = true;
+        }
         updateView(res.checkResults)
       })
     }
@@ -2113,6 +2118,7 @@
             mui.toast(res.msg);
             setTimeout(() => {
               mui.back()
+              mui.fire(view, 'update', null)
             }, 500);
 
           } else {

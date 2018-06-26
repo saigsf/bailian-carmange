@@ -1232,6 +1232,7 @@
   <script type="text/javascript">
     var H = null;
     var self = null;
+    var view = null;
     var viewId = null;
     var vSn = '2018ICECTC006';
     var state = 'submitArr';
@@ -1249,6 +1250,7 @@
     mui.plusReady(function () {
       handsetAdaption();
       self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;
       H = self.H;
       vSn = self.vSn;
@@ -1280,10 +1282,11 @@
       // 缸压查看
       app.findCldCheckByvSn({ vSn: vSn }, function (res) {
         console.log(res);
-        if(!res) {
+        if (!res) {
           mui.toast('缸压检查未完成')
           return;
         }
+
         updateView.cldCheck(res);
       })
 
@@ -1294,7 +1297,11 @@
           mui.toast('安全检查未完成');
           return;
         }
-        isChecked = true;
+        
+
+        if(res.check.checkingPerson) {
+          isChecked = true;
+        }
         updateView.safeCheck(res.checkResults);
 
       })
@@ -1332,7 +1339,7 @@
     }
 
     // 提交数据
-
+    // submitData()
     function submitData() {
 
       // if (state == 'submitArr') {
@@ -1343,7 +1350,7 @@
       // console.log(stateArr)
       // 安全检查&缸压检查
       $('#two_next').on('tap', function () {
-        console.log(isChecked)
+        // console.log(isChecked)
         if (isChecked) {
           stateArr = updateArr;
         } else {
@@ -1358,16 +1365,16 @@
         pressure.id = $('#pressure').attr('data-id')
         console.log(pressure);
 
-        app[stateArr[0]](pressure, function (res) {
-          console.log(res.msg);
+        // app[stateArr[0]](pressure, function (res) {
+        //   console.log(res.msg);
 
-          if (res.ret) {
-            mui.toast(res.msg);
-            flag1 = true;
-          } else {
-            mui.toast('缸压检查失败');
-          }
-        })
+        //   if (res.ret) {
+        //     mui.toast(res.msg);
+        //     flag1 = true;
+        //   } else {
+        //     mui.toast('缸压检查失败');
+        //   }
+        // })
 
         // 安全检查
         var $safeTr = $('table tbody tr');
@@ -1391,23 +1398,70 @@
         }
         console.log(data);
 
-        app[stateArr[1]](data, function (res) {
-          console.log(res.msg);
+        // app[stateArr[1]](data, function (res) {
+        //   console.log(res.msg);
 
-          if (res.ret) {
-            mui.toast(res.msg);
-            flag2 = true
-          } else {
-            mui.toast('安全检查失败')
+        //   if (res.ret) {
+        //     mui.toast(res.msg);
+        //     flag2 = true
+        //   } else {
+        //     mui.toast('安全检查失败')
+        //   }
+        // })
+
+
+        $.when(mui.ajax({
+          type: 'post',//HTTP请求类型
+          url: BASE_URL_1 + 'car-management/car/addSafeCheck/' + data.vSn + '.action',
+          data: data.safeCheckResult,
+          contentType: 'application/json;charset=UTF-8', //contentType很重要 
+          crossDomain: true,
+          success: function (res) {
+            //服务器返回响应，根据响应结果，分析是否登录成功；
+            console.log(1414, res.msg);
+            // mui.toast(res.msg)
+          },
+          error: function (xhr, type, errorThrown) {
+            //异常处理；
+            console.log(xhr.status);
+            if (type == 'timeout') {
+              mui.toast("请求超时：请检查网络")
+            } else {
+              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+            }
+          },
+        }), mui.ajax({
+          type: 'post',//HTTP请求类型
+          url: BASE_URL_1 + 'car-management/car/updateCldCheckByvSn.action',
+          data: pressure,
+          contentType: 'application/json;charset=UTF-8', //contentType很重要 
+          crossDomain: true,
+          success: function (res) {
+            //服务器返回响应，根据响应结果，分析是否登录成功；
+            console.log(1428, res.msg);
+            // mui.toast(res.msg)
+          },
+          error: function (xhr, type, errorThrown) {
+            //异常处理；
+            console.log(xhr.status);
+            if (type == 'timeout') {
+              mui.toast("请求超时：请检查网络")
+            } else {
+              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+            }
           }
-        })
-
-        setTimeout(() => {
-          if (flag1 && flag2) {
+        })).then(function (res) {
+          console.log(1435, res.msg);
+          mui.toast('安全检查、缸压检测成功');
+          setTimeout(() => {
             mui.back();
-          }
-        }, 500);
+            mui.fire(view, 'update', null)
+          }, 500);
 
+        }, function (err) {
+          console.log(1437, err);
+          mui.toast('安全检查、缸压检测失败');
+        })
 
       })
     }

@@ -83,6 +83,7 @@
   <script type="text/javascript">
     var H = null;
     var self = null;
+    var view = null;
     var vSn = '2018ICECTC006';
     var viewId = null;
     var state = 'submitArr';
@@ -96,6 +97,7 @@
     mui.plusReady(function () {
       handsetAdaption();
       self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;
       H = self.H;
       vSn = self.vSn;

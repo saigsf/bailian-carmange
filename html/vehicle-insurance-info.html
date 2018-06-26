@@ -90,6 +90,9 @@
     .tab-col.red {
       color: red
     }
+    .tab-col.green {
+      color: green
+    }
 
     .insurance-input {
       display: none;
@@ -148,7 +151,11 @@
               </div>
               <div class="tab-row">
                 <div class="tab-col">车辆名称</div>
-                <div class="tab-col" id="vCarType"></div>
+                <div class="tab-col" id="carName"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车辆型号</div>
+                <div class="tab-col" id="brandModelone"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">保险期限</div>
@@ -196,15 +203,15 @@
               </div>
               <div class="tab-row">
                 <div class="tab-col">保单号</div>
-                <div class="tab-col" id="vehicleInspection"></div>
+                <div class="tab-col" id="insNo"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">保险剩余天数</div>
-                <div class="tab-col"></div>
+                <div class="tab-col" id="lave"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">厂牌型号</div>
-                <div class="tab-col" id="brandModelone"></div>
+                <div class="tab-col" id="brandModeltwo"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">起始日</div>
@@ -220,11 +227,11 @@
               </div>
               <div class="tab-row">
                 <div class="tab-col">更新日期</div>
-                <div class="tab-col"></div>
+                <div class="tab-col" id="makeTime"></div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">验车状态</div>
-                <div class="tab-col"></div>
+                <div class="tab-col">保险状态</div>
+                <div class="tab-col" id="istatus"></div>
               </div>
             </div>
             <div class="no-data" id="no_data">
@@ -287,7 +294,7 @@
       }
 
       // 获取数据
-      fetchData()
+      // fetchData()
       function fetchData() {
         app.insuranceQuery({vSn}, function(res) {
           res = JSON.parse(res);
@@ -300,6 +307,17 @@
       // 页面更新
       function updateView(data) {
         dataRetrieval(data)
+        if(data.istatus == '未申请') {
+          $('#istatus').addClass('red')
+        } else {
+          $('#istatus').addClass('green')
+        }
+        if(data.lave > 90) {
+          $('#lave').addClass('green')
+        } else {
+          $('#lave').addClass('red')
+        }
+
       }
 
       // 添加事件

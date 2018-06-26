@@ -120,14 +120,14 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>发动机编号</label>
-              <input name="engineNumber" type="text" class="mui-input-clear" placeholder="">
+              <input name="engineNumber" id="engineNumber" type="text" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车架号</label>
-              <input name="vin" type="text" class="mui-input-clear" placeholder="">
+              <input name="vin" id="vin" type="text" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -213,8 +213,8 @@
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
-              <label>车辆颜色</label>
-              <input name="brandModelone" type="text" class="mui-input-clear" placeholder="">
+              <label>车辆型号</label>
+              <input name="brandModelone" id="brandModelone" type="text" class="mui-input-clear" placeholder="" value="ETC">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -291,6 +291,7 @@
     var H = null;
     var vSn = '2018ICECTC022';
     var self = null;
+    var view = null;
     var dDate = new Date()
     var productArr = []
     // 初始化
@@ -302,6 +303,7 @@
     mui.plusReady(function () {
       handsetAdaption();
       self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById('vehicle-input-info');
       H = self.H;
       vSn = self.vSn;
       fetchData();
@@ -361,6 +363,14 @@
         updateView.project(res.rows)
       })
 
+      // 获取接车点检信息
+      app.findUpcheck({vSn}, function(res) {
+        console.log(res);
+        $('#vin').val(res.vin)
+        $('#brandModelone').val(res.brandModelone)
+        $('#engineNumber').val(res.engineNumber)
+      })
+
       // 查看录入信息
       app.findAddCar({ vSn }, function (res) {
         console.log(res);
@@ -409,44 +419,46 @@
     }
 
     // 提交
-    submitData()
+    // submitData()
     function submitData() {
       $('#vehicle-input-bom').on('tap', function () {
         var oneInfo = serialize($('#form_one_info'));
         console.log(oneInfo)
         // oneInfo = {
-        //   FuelType : "",
-        //   adminName : "奥迪a6",
+        //   FuelType : "93",
+        //   adminName : "张总",
         //   carName : "奥迪a6",
-        //   color : "奥迪a6",
+        //   color : "红色",
         //   contactNumber : "18659131413",
-        //   customer : "奥迪a6",
+        //   customer : "张总",
         //   engineCapacity : "",
-        //   engineNumber : "奥迪a6",
-        //   engineType : "",
+        //   engineNumber : "111",
+        //   engineType : "12321",
         //   frontTireP : "",
         //   gbts : "",
         //   groupName : "",
         //   makeTime : "",
         //   oilspecification : "",
         //   price : "2",
-        //   projectEngineer : "奥迪a6",
-        //   project_name : "奥迪a6",
-        //   project_sn : "奥迪a6",
+        //   projectEngineer : "张娟",
+        //   project_name : "2335项目",
+        //   project_sn : "2335",
         //   reaTireP : "",
         //   remark : "",
-        //   seats : "2",
-        //   tyresize : "奥迪a6",
-        //   vCarType : "奥迪a6",
+        //   seats : "4",
+        //   tyresize : "111",
+        //   vCarType : "跑车",
         //   vSn : "2018ICECTC022",
-        //   vehicleQuality : "奥迪a6",
-        //   vin : "1232"
+        //   vehicleQuality : "2",
+        //   vin : "111",
+        //   brandModelone: '111'
         // }
-        // console.log(oneInfo)
-        // // oneInfo = JSON.stringify(oneInfo)
+        // // console.log(oneInfo)
+        // oneInfo = JSON.stringify(oneInfo)
         // app.save(oneInfo, function (res) {
         //   res = JSON.parse(res)
-        //   console.log(res)
+        //   console.log(res.msg)
+        //   mui.toast(res.msg)
         // })
 
         // return;
@@ -467,6 +479,7 @@
           'customer',
           'project_sn',
           'contactNumber',
+          'brandModelone'
         ]
         var translateArr = [{
           name: 'carName',
@@ -513,6 +526,9 @@
         }, {
           name: 'contactNumber',
           value: '联系电话不能为空'
+        }, {
+          name: 'brandModelone',
+          value: '车辆型号不能为空'
         }];
 
         var checkResult = hasEmptyValue(oneInfo, checkArr);
@@ -677,7 +693,8 @@
 
     // 返回事件
     document.addEventListener('goback', function () {
-      mui.back()
+      mui.back();
+      mui.fire(view, 'update', null)
     })
   </script>
 </body>

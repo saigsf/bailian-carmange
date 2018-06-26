@@ -37,13 +37,13 @@
     // 
     doc.getElementById('NETID').value = state.data ? state.data.netid : '';
     doc.getElementById('employeeCard').value = state.data ? state.data.employeeCard : '';
-    // doc.getElementById('password').value = state.password ? state.password : '';
+    doc.getElementById('password').value = state.loginInfo ? state.loginInfo.password : '';
 
 
     //					console.log(state.token)
     if (settings.autoLogin && state.data) {
       setTimeout(function () {
-        toMain();
+        login();
       }, 1000)
 
     }
@@ -99,30 +99,30 @@
 
   submitData()
   function submitData() {
-    $('#login').on('tap', function () {
+    $('#login').on('tap', login);
+  }
 
-      var loginInfo = serialize($('form'))
-      loginInfo.autoLogin = '是';
-      console.log(loginInfo)
-      if (loginType == 'netid') {
-        app.loginNetId(loginInfo, function (err) {
-          if (err) {
-            mui.toast(err);
-            return;
-          }
-          toMain();
-        });
-      } else {
-        app.loginCard(loginInfo, function (err) {
-          if (err) {
-            plus.nativeUI.toast(err);
-            return;
-          }
-          toMain();
-        });
-      }
-
-    });
+  function login() {
+    var loginInfo = serialize($('form'))
+    loginInfo.autoLogin = '是';
+    console.log(loginInfo)
+    if (loginType == 'netid') {
+      app.loginNetId(loginInfo, function (err) {
+        if (err) {
+          mui.toast(err);
+          return;
+        }
+        toMain();
+      });
+    } else {
+      app.loginCard(loginInfo, function (err) {
+        if (err) {
+          plus.nativeUI.toast(err);
+          return;
+        }
+        toMain();
+      });
+    }
   }
 
 })(mui, document);

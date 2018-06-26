@@ -226,6 +226,9 @@
           </div>
         </li>
       </ul>
+      <div class="no-data" id="no-data">
+        <p>没有找到想要的数据，下拉加载所有数据</p>
+      </div>
     </div>
   </div>
 
@@ -251,7 +254,8 @@
       var showMenu = false;
       var isInTransition = false;
       var data = [];
-      var dataArr = {}
+      var dataArr = {};
+      var queryType = 'carQuery'
 
 
       mui.init({
@@ -301,10 +305,12 @@
       function pulldownRwfresh() {
         curPage = 1;
         dataArr = {};
-        $('#OA_task_1').html('')
-        fetchData()
+        queryType = 'carQuery';
+        $('#no-data').hide().prev().show()
+        
         setTimeout(function () {
-
+          $('#OA_task_1').html('')
+          fetchData()
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
           mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
         }, 1000)
@@ -332,11 +338,18 @@
         }
 
         opt = $.extend(opt, dataArr);
-        app.carQuery(opt, function (res) {
+        console.log(JSON.stringify(opt))
+
+        if(!isEmpty(dataArr)) {
+          queryType = 'orderQuery'
+        }
+        app[queryType](opt, function (res) {
 
           res = JSON.parse(res);
           console.log(res)
           if (!res.total || res.total <= 0) {
+            $('#no-data').show().prev().hide()
+            mui.toast('没有找到想要的数据，下拉加载所有数据')
             return;
           }
           // console.log(res.totalCount)
@@ -491,7 +504,8 @@
             width: '70%'
           }, //窗口参数
           extras: {
-            H: H
+            H: H,
+            prevId: self.id
           }, //自定义扩展参数
           waiting: {
             autoShow: false, //自动显示等待框，默认为true
@@ -526,6 +540,7 @@
 
       document.addEventListener('statusBar', function (e) {
         plus.navigator.setStatusBarStyle('light');
+        
         dataArr = e.detail.data;
         curPage = 1;
         $('#OA_task_1').html('')

@@ -81,7 +81,7 @@
 				res = JSON.parse(res);
 				if (res.ret) {
 					$.toast(res.msg);
-					owner.createState(res.data, callback);
+					owner.createState(res.data, loginInfo, callback);
 				} else {
 					$.toast(res.msg)
 				}
@@ -139,7 +139,7 @@
 				res = JSON.parse(res);
 				if (res.ret) {
 					$.toast(res.msg);
-					owner.createState(res.data, callback);
+					owner.createState(res.data, loginInfo, callback);
 				} else {
 					$.toast(res.msg)
 				}
@@ -161,9 +161,10 @@
 
 	};
 
-	owner.createState = function (data, callback) {
+	owner.createState = function (data, loginInfo, callback) {
 		var state = owner.getState();
 		state.data = data;
+		state.loginInfo = loginInfo;
 		owner.setState(state);
 		return callback();
 	};
@@ -608,7 +609,7 @@
 		data = data || {};
 
 		var url = 'car-management/car/addEmsAndBomCheck/' + data.vSn + '.action'
-		// data = JSON.stringify(data.emsAndBomCheckResults)
+		data = JSON.stringify(data.emsAndBomCheckResults)
 		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
@@ -961,7 +962,7 @@
 
 		var url = 'car-management/car/develop/developEquipment.action';
 
-		owner.HTTPRequestPost('POST', url, {}, callback)
+		owner.HTTPRequest('POST', url, data, callback)
 	}
 
 
@@ -976,6 +977,20 @@
 		data = data || {};
 
 		var url = 'car-management/car/pageQuery.action';
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+
+	/**
+	 * 车辆列表条件查询
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.orderQuery = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/orderQuery.action';
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}

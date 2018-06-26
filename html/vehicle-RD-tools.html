@@ -56,6 +56,7 @@
               <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder to-submit">提交</i>
             </td>
           </tr> -->
+          
         </tbody>
       </table>
     </div>
@@ -88,6 +89,8 @@
         self = plus.webview.currentWebview();
         vSn = self.vSn;
         fetchData()
+        addEvent()
+        submitData()
       })
 
       // 手机适配
@@ -107,8 +110,32 @@
         // });
       }
 
+      function addEvent() {
+        var dDate = new Date()
+        $('table tbody').on('tap', '.equippedDate', function() {
+          var _this = this;
+          plus.nativeUI.pickDate(function (e) {
+						var d = e.date;
+						$(_this).html(d.format('yyyy-MM-dd'));
+
+						plus.nativeUI.pickTime(function (e) {
+							var d = e.date;
+							$(_this).html($(_this).html() + d.format(' hh:mm:ss'));
+						}, function (e) {
+							$(_this).html("未选择时间：" + e.message);
+						});
+
+					}, function (e) {
+						$(_this).html('您没有选择日期');
+					}, {
+							title: '',
+							date: dDate,
+						});
+        })
+      }
+
       // 获取数据
-      fetchData()
+      // fetchData()
       function fetchData() {
         app.findDevelopTools({
           vSn: vSn
@@ -125,7 +152,7 @@
         })
       }
 
-      // 视图更新
+      // 视图更新<input type="text" readonly placeholder="2018-12-12 00:00:00">
       function updateView(data) {
         var html = '';
         for (let i = 0; i < data.length; i++) {
@@ -133,7 +160,7 @@
           html += '<tr data-id="' + item.id +'">\
                     <td>12V'+ item.toolName +'</td>\
                     <td>'+item.applicant+'</td>\
-                    <td>'+item.applyTime+'</td>\
+                    <td><span class="equippedDate">请选择日期</span></td>\
                     <td>\
                       <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder to-submit">提交</i>\
                     </td>\
@@ -149,11 +176,15 @@
           var _this = this;
           // 接口调用
           // 
-          
-          app.developEquipment({
+          var data = {
             vSn: vSn,
-            did: $(_this).parents('tr').attr('data-id')
-          }, function(res) {
+            did: $(_this).parents('tr').attr('data-id'),
+            equippedDate: $(_this).parents('tr').find('.equippedDate').html(),
+            remark: ''
+          }
+
+          app.developEquipment(data, function(res) {
+            res = JSON.parse(res)
             console.log(res.msg);
             mui.toast(res.msg)
             if(res.ret) {
@@ -162,7 +193,7 @@
           })
         })
       }
-      submitData()
+      
     })()
 
   </script>

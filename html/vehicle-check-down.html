@@ -206,6 +206,7 @@
     (function () {
       var H = null;
       var self = null;
+      var view = null;
       var vSn = '2018ICECTC001';
       var id = null;
 
@@ -215,6 +216,7 @@
       mui.plusReady(function () {
         handsetAdaption()
         self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById(self.prevId)
         H = self.H;
         vSn = self.vSn;
         fetchData()
@@ -271,11 +273,16 @@
             return;
           }
           var data = serialize($('form'));
-          console.log(data)
+          // console.log(data)
           app.backCheck(data, function (res) {
             console.log(res.msg)
+            mui.toast(res.msg)
             if (res.ret) {
-              mui.back();
+              setTimeout(() => {
+                mui.back();
+                mui.fire(view, 'update', null)
+              }, 500);
+              
             }
           })
 

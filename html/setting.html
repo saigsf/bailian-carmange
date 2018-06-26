@@ -1012,20 +1012,20 @@
 
     //退出操作******************
     document.getElementById('exit').addEventListener('tap', function () {
-      if (mui.os.ios) {
-        app.setState({});
-        mui.openWindow({
-          url: '../login.html',
-          id: 'login',
-          show: {
-            aniShow: 'pop-in'
-          },
-          waiting: {
-            autoShow: false
-          }
-        });
-        return;
-      }
+      // if (mui.os.ios) {
+      //   app.setState({});
+      //   mui.openWindow({
+      //     url: '../login.html',
+      //     id: 'login',
+      //     show: {
+      //       aniShow: 'pop-in'
+      //     },
+      //     waiting: {
+      //       autoShow: false
+      //     }
+      //   });
+      //   return;
+      // }
       var btnArray = [{
         title: "注销当前账号"
       }, {

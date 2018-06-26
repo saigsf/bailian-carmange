@@ -69,13 +69,23 @@
     .tab-row:nth-child(2n) {
       background-color: #f6fbff;
     }
+
+    .tab-col.red {
+      color: red
+    }
+    .tab-col.green {
+      color: green
+    }
+    .tab-col.blue {
+      color: #2885cf
+    }
   </style>
 </head>
 
 <body>
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
-    <h1 class="mui-title">临牌信息</h1>
+    <h1 class="mui-title">车牌信息</h1>
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
@@ -124,7 +134,27 @@
                 <div class="tab-col" id="project_status"></div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">厂牌型号</div>
+                <div class="tab-col">主管工程师</div>
+                <div class="tab-col" id="projectEngineer"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车辆状态</div>
+                <div class="tab-col" id="car_status"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">接车日期</div>
+                <div class="tab-col" id="upcheckTime"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">还车日期</div>
+                <div class="tab-col" id="backchecktime"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">厂牌型号（车）</div>
+                <div class="tab-col" id="brandModelone"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">厂牌型号（保）</div>
                 <div class="tab-col" id="brandModeltwo"></div>
               </div>
               <div class="tab-row">
@@ -152,6 +182,14 @@
                 <div class="tab-col" id="licenseNo"></div>
               </div>
               <div class="tab-row">
+                <div class="tab-col">车牌剩余日期</div>
+                <div class="tab-col" id="llave"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">监测站车型</div>
+                <div class="tab-col" id="checkStaionType"></div>
+              </div>
+              <div class="tab-row">
                 <div class="tab-col">验车申请日</div>
                 <div class="tab-col" id="applytime"></div>
               </div>
@@ -160,8 +198,12 @@
                 <div class="tab-col" id="vehicleInspection"></div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">临牌备注</div>
+                <div class="tab-col">车牌备注</div>
                 <div class="tab-col" id="remark"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车管</div>
+                <div class="tab-col" id="adminName"></div>
               </div>
             </div>
             <div class="no-data" id="no_data">
@@ -237,7 +279,17 @@
 
       // 数据回显
       function updateView(data) {
-        dataRetrieval(data)
+        dataRetrieval(data);
+        if(data.vehicleInspection == '未申请') {
+          $('#vehicleInspection').addClass('red')
+        } else {
+          $('#vehicleInspection').addClass('green')
+        }
+        if(data.llave > 90) {
+          $('#llave').addClass('green')
+        } else {
+          $('#llave').addClass('blue')
+        }
       }
  
       function addEvent() {

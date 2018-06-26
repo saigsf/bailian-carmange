@@ -141,6 +141,11 @@
     .wire-check table tr td {
       padding: 0px;
     }
+
+    .icon-arrowdown {
+      width: 16px;
+      height: 16px;
+    }
   </style>
 </head>
 
@@ -527,6 +532,36 @@
             <h4>安全检查</h4>
           </div>
           <div class="info-content">
+              <div class="date-wrapper">
+                  <label>缸压/1缸</label>
+                  <div class="date-text">
+                    <input type="text" name="one_p" id="" placeholder="" readonly>
+                  </div>
+                </div>
+                <div class="date-wrapper">
+                  <label>缸压/2缸</label>
+                  <div class="date-text">
+                    <input type="text" name="two_p" id="" placeholder="" readonly>
+                  </div>
+                </div>
+                <div class="date-wrapper">
+                  <label>缸压/3缸</label>
+                  <div class="date-text">
+                    <input type="text" name="three_p" id="" placeholder="" readonly>
+                  </div>
+                </div>
+                <div class="date-wrapper">
+                  <label>缸压/4缸</label>
+                  <div class="date-text">
+                    <input type="text" name="four_p" id="" placeholder="" readonly>
+                  </div>
+                </div>
+                <div class="date-wrapper">
+                  <label>燃油压力/实测</label>
+                  <div class="date-text">
+                    <input type="text" name="actual_p" id="" placeholder="" readonly>
+                  </div>
+                </div>
             <table>
               <thead>
                 <tr>
@@ -1803,7 +1838,13 @@
             <div class="date-wrapper">
               <label>保单号</label>
               <div class="date-text">
-                <input type="text" name="insNo" placeholder="" readonly>
+                <!-- <input type="text" name="insNo" placeholder="" readonly> -->
+                <select name="" id="insNo">
+                  <option value=""></option>
+                </select>
+                <div class="date-icon">
+                  <i class="icon icon-arrowdown"></i>
+                </div>
               </div>
             </div>
             <div class="date-wrapper">
@@ -1845,8 +1886,8 @@
 
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>录入人：</span>
-                <span>2018-12-12</span>
+                <span class="addPerson">录入人：</span>
+                <span class="addtime"></span>
               </div>
             </div>
           </div>
@@ -1859,7 +1900,7 @@
         <div class="info-middle"></div>
         <div class="info-item" id="license">
           <div class="info-title">
-            <h4>临牌信息</h4>
+            <h4>车牌信息</h4>
           </div>
           <div class="info-content">
             <div class="date-wrapper">
@@ -1871,7 +1912,13 @@
             <div class="date-wrapper">
               <label>临牌号</label>
               <div class="date-text">
-                <input type="text" name="licenseNo" readonly>
+                <!-- <input type="text" name="licenseNo" readonly> -->
+                <select name="" id="licenseNo">
+                  <option value=""></option>
+                </select>
+                <div class="date-icon">
+                  <i class="icon icon-arrowdown"></i>
+                </div>
               </div>
             </div>
             <div class="date-wrapper">
@@ -1887,7 +1934,7 @@
               </div>
             </div>
             <div class="date-wrapper">
-              <label>临牌备注</label>
+              <label>车牌备注</label>
               <div class="date-text">
                 <input type="text" name="remark" readonly>
               </div>
@@ -1943,6 +1990,7 @@
       var wireCheckData = [];
       var safeCheckData = [];
       var bomCheckData = [];
+      var licenseData = []
 
       mui.init();
 
@@ -1957,7 +2005,7 @@
         }
         vSn = self.vSn;
         fetchData()
-        mui.toast(vSn);
+        // mui.toast(vSn);
       })
 
       function handsetAdaption() {
@@ -1971,11 +2019,11 @@
             'paddingTop': '88px'
           })
         }
-        // plus.webview.currentWebview().setStyle({
-        //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-        // });
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
       }
-      fetchData()
+      // fetchData()
       function fetchData() {
         // 接车点检查看
         app.findUpcheck({ vSn }, function (res) {
@@ -2002,6 +2050,11 @@
         app.findCldCheckByvSn({ vSn }, function (res) {
           console.log('缸压检查查看')
           console.log(res);
+          if(!res) {
+            return;
+          }
+
+          updateView.cldCheck(res);
         })
         // bom检查查看
 
@@ -2037,7 +2090,7 @@
           res = JSON.parse(res)
           console.log(res)
           updateView.backcheck(res)
-          
+
         })
 
         // 保险信息
@@ -2116,6 +2169,14 @@
           $('#safeCheck').find('.checkingTime').html(res.check.checkingTime)
 
         },
+        cldCheck: function(data) {
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = data[key];
+              $('input[name='+key+']').val(item)
+            }
+          }
+        },
         bomCheck: function (res) {
           var data = res.checkResults;
           if (data.length == 0) {
@@ -2157,8 +2218,8 @@
               $(this).find('.item').html('<span>' + data[i].item + '</span>')
             }
 
-            $(this).find('.checkExplanation').html()
-            $(this).find('.checkingExplanation').html()
+            $(this).find('.checkExplanation').html(data[i].checkExplanation ? data[i].checkExplanation : '无')
+            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation : '无')
           })
 
         },
@@ -2205,28 +2266,49 @@
           }
         },
         insurance: function (data) {
-          if(data.length == 0) {
+          if (data.length == 0) {
             $('#insurance .no-data').show().prev().hide()
             return;
           }
+          insuranceData = data;
           for (const key in data[0]) {
             if (data[0].hasOwnProperty(key)) {
               const item = data[0][key];
               $('#insurance input[name=' + key + ']').val(item)
             }
           }
+          $('#insurance').find('.addPerson').html('录入人：' + data[0].addPerson)
+          $('#insurance').find('.addtime').html(data[0].addtime)
+          // insNo
+          var html = ''
+
+          for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            html += '<option value="' + i + '">' + item.insNo + '</option>'
+          }
+
+          $('#insNo').html(html)
         },
         license: function (data) {
-          if(data.length == 0) {
+          if (data.length == 0) {
             $('#license .no-data').show().prev().hide()
             return;
           }
+          licenseData = data;
           for (const key in data[0]) {
             if (data[0].hasOwnProperty(key)) {
               const item = (typeof data[0][key] == 'number') ? (new Date(data[0][key])).format('yyyy-MM-dd') : data[0][key];
               $('#license input[name=' + key + ']').val(item)
             }
           }
+          var html = ''
+
+          for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            html += '<option value="' + i + '">' + item.licenseNo + '</option>'
+          }
+
+          $('#licenseNo').html(html)
         }
       }
 
@@ -2246,7 +2328,8 @@
               extras: {
                 H: H,
                 vSn: vSn,
-                state: 'updateArr'
+                state: 'updateArr',
+                prevId: self.id
               } //自定义扩展参数
             })
           }
@@ -2270,7 +2353,30 @@
           })
         }
 
+
+        $('#licenseNo').on('change', function () {
+          for (const key in licenseData[$(this).val()]) {
+            if (licenseData[$(this).val()].hasOwnProperty(key)) {
+              const item = (typeof licenseData[$(this).val()][key] == 'number') ? (new Date(licenseData[$(this).val()][key])).format('yyyy-MM-dd') : licenseData[$(this).val()][key];
+              $('#license input[name=' + key + ']').val(item)
+            }
+          }
+        })
+        $('#insNo').on('change', function () {
+          for (const key in insuranceData[$(this).val()]) {
+            if (insuranceData[$(this).val()].hasOwnProperty(key)) {
+              const item = (typeof insuranceData[$(this).val()][key] == 'number') ? (new Date(insuranceData[$(this).val()][key])).format('yyyy-MM-dd') : insuranceData[$(this).val()][key];
+              $('#license input[name=' + key + ']').val(item)
+            }
+          }
+          $('#insurance').find('.addPerson').html('录入人：' + insuranceData[$(this).val()].addPerson)
+          $('#insurance').find('.addtime').html(insuranceData[$(this).val()].addtime)
+        })
       }
+
+      document.addEventListener('update', function () {
+        fetchData();
+      })
 
     })();
   </script>

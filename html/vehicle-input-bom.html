@@ -17,7 +17,7 @@
 
   <style type="text/css">
     td {
-      height: 40px;
+      min-height: 40px;
     }
   </style>
 </head>
@@ -45,7 +45,7 @@
                 <input type="text" name="bomName" value="ECM发动机电子控制模块">
               </td>
               <td>
-                <input type="text" name="bomnum" value="">
+                <input type="text" name="bomNum" value="">
               </td>
             </tr>
             <tr>
@@ -53,7 +53,7 @@
                 <input type="text" name="bomName" value="MAP/MAT sensor进气歧管压力温度传感器">
               </td>
               <td>
-                <input type="text" name="bomnum" value="">
+                <input type="text" name="bomNum" value="">
               </td>
             </tr>
             <tr>
@@ -61,7 +61,7 @@
                 <input type="text" name="bomName" value="Fron Oxygen Sensor前氧传感器">
               </td>
               <td>
-                <input type="text" name="bomnum" value="">
+                <input type="text" name="bomNum" value="">
               </td>
             </tr>
             <tr>
@@ -69,7 +69,7 @@
                 <input type="text" name="bomName" value="Rear Oxygen Sensor后氧传感器">
               </td>
               <td>
-                <input type="text" name="bomnum" value="">
+                <input type="text" name="bomNum" value="">
               </td>
             </tr>
             <tr>
@@ -77,7 +77,7 @@
                 <input type="text" name="bomName" value="Knock Sensor 爆震传感器">
               </td>
               <td>
-                <input type="text" name="bomnum" value="">
+                <input type="text" name="bomNum" value="">
               </td>
             </tr>
             <tr>
@@ -85,7 +85,7 @@
                 <input type="text" name="bomName" value="Crank Position sensor曲轴位置传感器">
               </td>
               <td>
-                <input type="text" name="bomnum" value="">
+                <input type="text" name="bomNum" value="">
               </td>
             </tr>
             <tr>
@@ -93,7 +93,7 @@
                 <input type="text" name="bomName" value="Purge Solenoid-ECP炭罐电磁">
               </td>
               <td>
-                <input type="text" name="bomnum" value="">
+                <input type="text" name="bomNum" value="">
               </td>
             </tr>
             <tr>
@@ -101,7 +101,7 @@
                 <input type="text" name="bomName" value="">
               </td>
               <td>
-                <input type="text" name="bomnum" value="">
+                <input type="text" name="bomNum" value="">
               </td>
             </tr>
             <tr>
@@ -109,7 +109,7 @@
                 <input type="text" name="bomName" value="">
               </td>
               <td>
-                <input type="text" name="bomnum" value="">
+                <input type="text" name="bomNum" value="">
               </td>
             </tr>
           </tbody>
@@ -192,7 +192,7 @@
                 <input type="text" name="bomName" value="'+ item.bomName + '">\
               </td>\
               <td>\
-                <input type="text" name="bomnum" value="'+ item.bomNum + '">\
+                <input type="text" name="bomNum" value="'+ item.bomNum + '">\
               </td>\
             </tr>'
       }
@@ -203,7 +203,7 @@
                 <input type="text" name="bomName" value="">\
               </td>\
               <td>\
-                <input type="text" name="bomnum" value="">\
+                <input type="text" name="bomNum" value="">\
               </td>\
             </tr>\
             <tr>\
@@ -211,7 +211,7 @@
                 <input type="text" name="bomName" value="">\
               </td>\
               <td>\
-                <input type="text" name="bomnum" value="">\
+                <input type="text" name="bomNum" value="">\
               </td>\
             </tr>'
 
@@ -228,21 +228,20 @@
 
         $bomTr.each(function (i) {
           var $bomName = $(this).find('input[name=bomName]');
-          var $bomnum = $(this).find('input[name=bomnum]');
-
+          var $bomNum = $(this).find('input[name=bomNum]');
+          console.log($bomNum.val())
           if ($bomName.val()) {
             oneBom.push({
-              ApplyPerson: 'test',
               bomName: $bomName.val(),
-              bomnum: $bomnum.val(),
-              // uuid: $(this).attr('data-uuid') ? $(this).attr('data-uuid') : '',
+              bomNum: $bomNum.val(),
+              uuid: $(this).attr('data-uuid') ? $(this).attr('data-uuid') : '',
               vSn: vSn
             })
           }
         })
         
-        oneBom = JSON.stringify(oneBom)
-        console.log(oneBom)
+        // oneBom = JSON.stringify(oneBom)
+        // console.log(oneBom)
         // app.applybom(oneBom, function(res) {
         //   // res = JSON.parse(res)
         //   console.log(res);

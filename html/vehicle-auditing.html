@@ -116,6 +116,7 @@
       /* color: #000; */
       text-align: center;
     }
+
     .wire-check table tbody td {
       border: 1px solid #eee;
     }
@@ -487,6 +488,37 @@
             <h4>安全检查</h4>
           </div>
           <div class="info-content">
+            <div class="date-wrapper">
+              <label>缸压/1缸</label>
+              <div class="date-text">
+                <input type="text" name="one_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>缸压/2缸</label>
+              <div class="date-text">
+                <input type="text" name="two_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>缸压/3缸</label>
+              <div class="date-text">
+                <input type="text" name="three_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>缸压/4缸</label>
+              <div class="date-text">
+                <input type="text" name="four_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>燃油压力/实测</label>
+              <div class="date-text">
+                <input type="text" name="actual_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+
             <table>
               <thead>
                 <tr>
@@ -512,12 +544,12 @@
             </table>
             <div class="info-operator">
               <div class="info-operator-item">
-                <span class="checkPerson">检查人：张三问</span>
-                <span class="checkTime">2018-12-12</span>
+                <span class="checkPerson">检查人：</span>
+                <span class="checkTime"></span>
               </div>
               <div class="info-operator-item">
-                <span class="checkingPerson">核对人：张三问</span>
-                <span class="checkingTime">2018-12-12</span>
+                <span class="checkingPerson">核对人：</span>
+                <span class="checkingTime"></span>
               </div>
             </div>
           </div>
@@ -1553,7 +1585,7 @@
         <!-- 研发工具结束 -->
         <!-- 审核开始 -->
         <div class="info-middle"></div>
-        <div class="info-item">
+        <div class="info-item" id="review">
           <div class="info-title">
             <h4>车辆审核</h4>
           </div>
@@ -1574,7 +1606,7 @@
               </div>
               <div class="mui-input-row">
                 <span>审核说明：</span>
-                <textarea name="explanation" id="" cols="4" rows="3" placeholder="添加说明"></textarea>
+                <textarea name="explanation" id="explanation" cols="4" rows="3" placeholder="添加说明"></textarea>
               </div>
             </form>
           </div>
@@ -1600,6 +1632,7 @@
     ; (function () {
       var H = null;
       var self = null;
+      var view = null;
       var vSn = '2018ICECTC006';
 
       mui.init();
@@ -1608,6 +1641,7 @@
       mui.plusReady(function () {
         handsetAdaption();
         self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById(self.prevId)
         H = self.H;
         vSn = self.vSn;
         fetchData()
@@ -1632,12 +1666,13 @@
       // 获取数据
       // fetchData()
       function fetchData() {
-        // app.findReview({
-        //   vSn: vSn
-        // }, function(res) {
-        //   res = JSON.parse(res)
-        //   console.log(res)
-        // })
+        app.findReview({
+          vSn: vSn
+        }, function (res) {
+          console.log(res)
+          res = JSON.parse(res)
+          updateView.review(res)
+        })
         // 接车点检查看
         app.findUpcheck({ vSn }, function (res) {
           console.log('接车点检查看')
@@ -1663,6 +1698,11 @@
         app.findCldCheckByvSn({ vSn }, function (res) {
           console.log('缸压检查查看')
           console.log(res);
+          if(!res) {
+            return;
+          }
+
+          updateView.cldCheck(res);
         })
         // bom检查查看
 
@@ -1785,9 +1825,11 @@
               $(this).find('.item').html('<span>' + data[i].item + '</span>')
             }
 
-            $(this).find('.checkExplanation').html()
-            $(this).find('.checkingExplanation').html()
+            $(this).find('.checkExplanation').html(data[i].checkExplanation ? data[i].checkExplanation : '无')
+            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation : '无')
           })
+
+
 
         },
         tools: function (data) {
@@ -1802,13 +1844,25 @@
             html += '<tr>\
                   <td><span>'+ item.toolName + '</span></td>\
                   <td>'+ item.applicant + '</td>\
-                  <td>'+ item.equippedDate + '</td>\
+                  <td>'+ (item.equippedDate ? item.equippedDate : '无') + '</td>\
                   <td>'+ item.operator + '</td>\
                 </tr>'
           }
           $('#tools table tbody').html(html);
           $('#tools').find('.applyPerson').html('申请人：' + data[0].applicant)
           $('#tools').find('.applyTime').html(data[0].applyTime)
+        },
+        review: function (data) {
+          $('#review').find('input[name=status]').val(data.status)
+          $('#review').find('#explanation').val(data.explanation)
+        },
+        cldCheck: function(data) {
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = data[key];
+              $('input[name='+key+']').val(item)
+            }
+          }
         }
       }
 
@@ -1820,7 +1874,16 @@
           data.vSn = vSn;
           console.log(data)
           app.doReview(data, function (res) {
-            console.log(res)
+            console.log(res);
+            res = JSON.parse(res)
+            mui.toast(res.msg);
+            if (res.ret) {
+              setTimeout(() => {
+                mui.back()
+                mui.fire(view, 'update', null)
+              }, 500);
+
+            }
           })
         })
       }

@@ -32,7 +32,7 @@
 
 		.mui-bar-nav~.mui-content {
 			padding-top: 44px;
-
+			padding-bottom: 80px
 		}
 
 		.mui-scroll {
@@ -62,8 +62,8 @@
 			font-size: 12px;
 		}
 
-		.filter-input-box,
-		.filter-btn-box {
+		.filter-input-box
+		{
 			justify-content: space-between;
 		}
 
@@ -80,6 +80,7 @@
 			color: #606060;
 			position: relative;
 			overflow: hidden;
+			margin-right: 5px
 		}
 
 		.filter-btn-box .mui-btn.mui-active {
@@ -106,7 +107,7 @@
 		}
 
 		.filter-wrapper label {
-			min-width: 60px;
+			min-width: 80px;
 			text-align: right;
 		}
 
@@ -162,6 +163,24 @@
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
+							<label>项目编号：</label>
+							<input name="project_sn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车辆编号：</label>
+							<input name="vSn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车架号：</label>
+							<input name="brandModeltwo" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
 							<label>厂牌型号：</label>
 							<input name="brandModeltwo" type="text" placeholder="请输入">
 						</div>
@@ -174,8 +193,8 @@
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
-							<label>车架号：</label>
-							<input name="vin" type="text" placeholder="请输入">
+							<label>项目工程师：</label>
+							<input name="projectEngineer" type="text" placeholder="请输入">
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
@@ -233,12 +252,16 @@
 				<li class="mui-table-view-cell">
 					<div class="filter-wrapper-column">
 						<label>车辆计数</label>
-						<div class="filter-btn-box">
-							<div class="mui-btn mui-active">停止车辆</div>
-							<div class="mui-btn">当前归还</div>
-							<div class="mui-btn">当月归还</div>
-							<div class="mui-btn">当月新入</div>
-							<div class="mui-btn">先前接车</div>
+						<div class="filter-btn-box" id="filter-btn-box">
+							<div class="mui-btn mui-active" data-key="all">所有车辆</div>
+							<div class="mui-btn" data-key="ing">在用车辆</div>
+							<div class="mui-btn" data-key="stop">停用车辆</div>
+							<div class="mui-btn" data-key="beforBack">先前归还</div>
+							<div class="mui-btn" data-key="thismonthback">当月归还</div>
+							<div class="mui-btn" data-key="thismonnew">当月新入</div>
+							<div class="mui-btn" data-key="beforup">先前接车</div>
+							<div class="mui-btn" data-key="HaveIn">有保险无牌照</div>
+							<div class="mui-btn" data-key="haveLi">有牌照无保险</div>
 						</div>
 					</div>
 				</li>
@@ -287,9 +310,9 @@
 			function handsetAdaption() {
 				if (plus.device.model === 'iPhoneX') {
 					//页面样式重置
-					$('nav.mui-bar-tab').css({
-						'paddingBottom': '34px'
-					})
+					// $('nav.mui-bar-tab').css({
+					// 	'paddingBottom': '34px'
+					// })
 				}
 				plus.webview.currentWebview().setStyle({
 					softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
@@ -311,12 +334,16 @@
 							$(_this).val('您没有选择日期');
 						}, {
 								title: '',
-								date: dDate,
-								minDate: dDate
+								date: dDate
 							});
 					});
+				});
+
+				$('#filter-btn-box').on('tap', '.mui-btn', function() {
+					$(this).addClass('mui-active').siblings().removeClass('mui-active');
 				})
 
+				// 提交
 				$('#submit').on('tap', function() {
 					var data = serialize($('form'))
 					console.log(data)
@@ -324,6 +351,9 @@
 					// 	res = JSON.parse(res)
 					// 	console.log(res)
 					// })
+					
+					data[$('#filter-btn-box').find('.mui-active').attr('data-key')] = true;
+					
 					mui.fire(main, 'closeMenu', {
 						data: data
 					})

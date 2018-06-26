@@ -286,7 +286,8 @@
           }, //窗口参数
           extras: {
             H: H,
-            vSn: vSn
+            vSn: vSn,
+            prevId: self.id
           } //自定义扩展参数
         })
       });
@@ -356,6 +357,12 @@
     function updateView(data) {
       dataRetrieval(data)
     }
+
+    document.addEventListener('update', function() {
+      fetchData();
+    })
+
+
 
     
   </script>
