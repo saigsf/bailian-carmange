@@ -160,7 +160,7 @@
           html += '<tr data-id="' + item.id +'">\
                     <td>12V'+ item.toolName +'</td>\
                     <td>'+item.applicant+'</td>\
-                    <td><span class="equippedDate">请选择日期</span></td>\
+                    <td><span class="equippedDate">'+ (new Date()).format('yyyy-MM-dd hh:mm:ss') +'</span></td>\
                     <td>\
                       <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder to-submit">提交</i>\
                     </td>\

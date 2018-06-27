@@ -297,7 +297,7 @@
 			jsonp: "jsonCallback",
 			beforeSend: function () {
 				console.log('beforesend!');
-				// loading && plus.nativeUI.showWaiting();
+				// plus.nativeUI.showWaiting();
 			},
 			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
@@ -314,7 +314,7 @@
 			},
 			complete: function () {
 				console.log('complete');
-				// loading && plus.nativeUI.closeWaiting();
+				// plus.nativeUI.closeWaiting();
 			}
 		});
 	}
@@ -581,7 +581,7 @@
 
 		var url = 'car-management/car/updateUpcheck.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequestPost('POST', url, data, callback)
 
 	}
 
@@ -625,7 +625,8 @@
 		var url = 'car-management/car/updateEmsAndBomCheckByCar/' + data.vSn + '.action'
 
 		// console.log(JSON.stringify(data.emsAndBomCheckResults))
-		owner.HTTPRequestPost('POST', url, data.emsAndBomCheckResults, callback)
+		data = JSON.stringify(data.emsAndBomCheckResults)
+		owner.HTTPRequestPost('POST', url, data, callback)
 	}
 
 	/**
@@ -1371,7 +1372,7 @@
 
 		var url = 'car-management/driver/authorized.action';
 
-		owner.HTTPRequest('post', url, data, callback)
+		owner.HTTPRequestPost('GET', url, data, callback)
 	}
 
 	/**

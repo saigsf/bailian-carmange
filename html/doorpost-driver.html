@@ -179,8 +179,8 @@
           <input type="checkbox" name="" id="all_check">
           <label for="all_check">全选</label>
         </div>
-        <div class="mui-input-row mui-search" id="search">
-          <input type="search" class="mui-input-clear" placeholder="请输入关键词">
+        <div class="mui-input-row mui-search">
+          <input type="search" id="search" class="mui-input-clear" placeholder="请输入驾驶员姓名">
         </div>
         <div class="btn" id="add">
           <i class="icon icon-more"></i>
@@ -188,7 +188,7 @@
         <div class="canclecheck" id="canclecheck">取消</div>
       </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <li class="mui-table-view-cell">
+        <!-- <li class="mui-table-view-cell">
           <div class="mui-slider-right mui-disabled">
             <a class="mui-btn mui-btn-gray settop">取消授权</a>
             <a class="mui-btn mui-btn-red delete">删除</a>
@@ -304,8 +304,11 @@
               </div>
             </div>
           </div>
-        </li>
+        </li> -->
       </ul>
+      <div class="no-data" id="no-data">
+        <p>没有找到想要的数据，下拉加载所有数据</p>
+      </div>
     </div>
   </div>
   <div class="btn-container">
@@ -329,6 +332,12 @@
       var allCheckFlag = false;
       var dataArr = {}
 
+      var form = document.getElementsByTagName('form')[0];
+
+      form.onsubmit = function (e) {
+        e.preventDefault();// 取消默认事件
+      }
+
       mui.init({
         pullRefresh: {
           container: "#refreshContainer", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
@@ -350,7 +359,7 @@
       function pulldownRwfresh() {
         curPage = 1;
         dataArr = {}
-
+        $('#no-data').hide().prev().show()
         setTimeout(function () {
           $('#OA_task_1').html('')
           fetchData();
@@ -380,12 +389,15 @@
       // 获取数据
       function fetchData() {
         console.log(curPage);
-        app.carDriverList({
+        var opt = $.extend({
           page: curPage,
           size: 3
-        }, function (res) {
+        }, dataArr)
+        app.carDriverList(opt, function (res) {
           console.log(res)
           if (!res.total || res.total <= 0) {
+            $('#no-data').show().prev().hide()
+            mui.toast('没有找到想要的数据，下拉加载所有数据')
             return;
           }
           curPage++;
@@ -479,6 +491,7 @@
         // 驾驶员信息修改
         $('#OA_task_1').on('tap', '.update', function () {
           var $li = $(this).parents('li');
+          mui.swipeoutClose($li[0]);
           mui.openWindow({
             url: 'doorpost-driver-input.html',
             id: 'doorpost-driver-input', //默认使用当前页面的url作为id
@@ -496,7 +509,7 @@
         // 删除业务
         $('#OA_task_1').on('tap', '.delete', function () {
           var $li = $(this).parents('li')
-          console.log($li.attr('data-id'))
+          // console.log($li.attr('data-id'))
           // mui.toast('这里要添加删除业务')
           app.carDriverDelete({
             ids: $li.attr('data-id')
@@ -561,6 +574,16 @@
         //   })
         // })
 
+        $('#search').on('keyup', function (e) {
+          if (e.keyCode == 13) {
+            dataArr = {
+              driverName: $(this).val()
+            }
+            curPage = 1;
+            $('#OA_task_1').html('')
+            fetchData();
+          }
+        })
 
       }
 

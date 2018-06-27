@@ -1990,8 +1990,8 @@
     var viewId = null;
     var state = 'submitArr';
     var stateArr = [];
-    var submitArr = ['addHiCheck'];
-    var updateArr = ['updateHiCheckByvSn'];
+    var submitArr = ['addHiCheck']; // 检查接口
+    var updateArr = ['updateHiCheckByvSn']; // 核对接口
     var isChecked = false;
 
     mui.init();
@@ -2032,20 +2032,24 @@
         vSn: vSn
       }, function (res) {
         console.log(res)
+        // console.log(res.check)
+        // console.log(isChecked)
         if (res.checkResults <= 0) {
           mui.toast('线束检查未完成');
           return;
         }
         
-        if(res.check.checkingPerson) {
+        if(res.check && res.check.checkPerson) {
           isChecked = true;
         }
-        updateView(res.checkResults)
+        
+        updateView(res)
       })
     }
 
     // 更新视图 
-    function updateView(data) {
+    function updateView(res) {
+      var data = res.checkResults;
       var $wireTr = $('table tbody tr');
 
       $wireTr.each(function (i) {

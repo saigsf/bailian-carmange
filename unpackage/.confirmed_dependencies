@@ -222,7 +222,9 @@
       "img/common/md/vehicle_auditing@2x.png",
       "img/common/md/tools@2x.png"
     ],
-    "refer": [],
+    "refer": [
+      "html/vehicle-info-detail.html"
+    ],
     "priority": 0
   },
   "html/vehicle-success.html": {
@@ -275,7 +277,8 @@
       "html/vehicle-filter.html",
       "html/vehicle-type-change.html",
       "html/vehicle-list-info.html",
-      "html/vehicle-program-status.html"
+      "html/vehicle-program-status.html",
+      "html/search.html"
     ],
     "priority": 0
   },
@@ -404,7 +407,8 @@
       "html/repair-info.html",
       "html/repair-content.html",
       "html/repair-allot.html",
-      "html/repair-maintain.html"
+      "html/repair-maintain.html",
+      "html/search.html"
     ],
     "priority": 0
   },
@@ -422,7 +426,8 @@
     ],
     "refer": [
       "html/repair-apply.html",
-      "html/repair-list.html"
+      "html/repair-list.html",
+      "html/repair-maintain-list.html"
     ],
     "priority": 0
   },
@@ -560,7 +565,9 @@
       "js/mui.min.js",
       "js/lib/mui.enterfocus.js",
       "js/app/config.js",
-      "js/app/app.js"
+      "js/app/app.js",
+      "img/common/md/no_result.png",
+      "img/common/md/no_net.png"
     ],
     "refer": [],
     "priority": 0
@@ -602,7 +609,8 @@
     "refer": [
       "html/vehicle-input-detail.html",
       "html/vehicle-insurance-apply.html",
-      "html/vehicle-input-info.html"
+      "html/vehicle-input-info.html",
+      "html/search.html"
     ],
     "priority": 0
   },
@@ -620,7 +628,9 @@
       "img/common/md/icon_subscript@3x.png"
     ],
     "refer": [
-      "html/vehicle-list.html"
+      "html/vehicle-list.html",
+      "html/vehicle-insurance-list.html",
+      "html/vehicle-license-list.html"
     ],
     "priority": 0
   },
@@ -687,7 +697,9 @@
     "refer": [
       "html/vehicle-insurance-apply.html",
       "html/vehicle-insurance-input.html",
-      "html/vehicle-insurance-info.html"
+      "html/vehicle-insurance-info.html",
+      "html/vehicle-filter.html",
+      "html/search.html"
     ],
     "priority": 0
   },
@@ -718,7 +730,9 @@
       "js/app/app.js",
       "js/app/repair-content.js"
     ],
-    "refer": [],
+    "refer": [
+      "html/repair-list.html"
+    ],
     "priority": 0
   },
   "html/repair-allot.html": {
@@ -733,7 +747,9 @@
       "js/app/app.js",
       "js/app/repair-allot.js"
     ],
-    "refer": [],
+    "refer": [
+      "html/repair-list.html"
+    ],
     "priority": 0
   },
   "html/repair-maintain.html": {
@@ -748,7 +764,9 @@
       "js/app/app.js",
       "js/app/repair-maintain.js"
     ],
-    "refer": [],
+    "refer": [
+      "html/repair-list.html"
+    ],
     "priority": 0
   },
   "html/doorpost-driver-authorize.html": {
@@ -896,7 +914,9 @@
     ],
     "refer": [
       "html/vehicle-license-info.html",
-      "html/vehicle-license-apply.html"
+      "html/vehicle-license-apply.html",
+      "html/search.html",
+      "html/vehicle-filter.html"
     ],
     "priority": 0
   },
@@ -917,6 +937,53 @@
       "html/vehicle-info.html",
       "html/vehicle-insurance-apply-input.html",
       "html/vehicle-insurance-input.html"
+    ],
+    "priority": 0
+  },
+  "html/vehicle-info-detail.html": {
+    "href": "html/vehicle-info-detail.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/repair-maintain-info.html": {
+    "href": "html/repair-maintain-info.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/repair-maintain-list.html": {
+    "href": "html/repair-maintain-list.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js",
+      "img/common/icon_app.png"
+    ],
+    "refer": [
+      "html/repair-maintain-info.html",
+      "html/repair-maintain.html",
+      "html/search.html"
     ],
     "priority": 0
   }

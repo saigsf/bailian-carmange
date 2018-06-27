@@ -355,7 +355,7 @@
     font-size: 14px;
 }
 
-.icon-filter:before {
+.icon-filter:after {
     content: "";
     display: inline-block;
     width: 13px;
@@ -370,7 +370,7 @@
     font-size: 14px;
 }
 
-.icon-status-change:before {
+.icon-status-change:after {
     content: "";
     display: inline-block;
     width: 16px;

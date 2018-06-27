@@ -276,11 +276,16 @@
           //打开接车点检页面
           var data = serialize($('form'));
           data.id = id;
-          console.log(data);
+          // console.log(data);
           app.updateUpcheck(data, function (res) {
-            res = JSON.parse(res);
+            // res = JSON.parse(res);
             console.log(res.msg);
             mui.toast(res.msg)
+            if(res.ret) {
+              setTimeout(() => {
+                mui.back()
+              }, 500);
+            }
           })
         })
       }

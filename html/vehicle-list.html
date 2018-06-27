@@ -307,7 +307,7 @@
         dataArr = {};
         queryType = 'carQuery';
         $('#no-data').hide().prev().show()
-        
+
         setTimeout(function () {
           $('#OA_task_1').html('')
           fetchData()
@@ -340,7 +340,7 @@
         opt = $.extend(opt, dataArr);
         console.log(JSON.stringify(opt))
 
-        if(!isEmpty(dataArr)) {
+        if (!isEmpty(dataArr)) {
           queryType = 'orderQuery'
         }
         app[queryType](opt, function (res) {
@@ -381,7 +381,7 @@
             + '<div class="item-right-top">'
             + '<div class="number">'
             + '<h4>' + item.vSn + '</h4>'
-            + '<p>' + (item.project? item.project.project_sn : '——') + '</p>'
+            + '<p>' + (item.project ? item.project.project_sn : '——') + '</p>'
             + '</div>'
             + '<div class="mui-btn mui-btn-blue mui-btn-outlined tolook">'
             + '<i class="mui-icon mui-icon-arrowright"></i>'
@@ -389,17 +389,17 @@
             + '</div>'
             + '<div class="item-right-bottom">'
             + '<div class="bottom-item">'
-            + '<h4>' + (item.car_status? item.car_status: '——') + '</h4>'
+            + '<h4>' + (item.car_status ? item.car_status : '——') + '</h4>'
             + '<p>车辆状态</p>'
             + '</div>'
             + '<div class="bottom-item bottom-item-empty"></div>'
             + '<div class="bottom-item">'
-            + '<h4>'+(item.project? item.project.project_status : '——')+'</h4>'
+            + '<h4>' + (item.project ? item.project.project_status : '——') + '</h4>'
             + '<p>项目状态</p>'
             + '</div>'
             + '<div class="bottom-item bottom-item-empty"></div>'
             + '<div class="bottom-item">'
-            + '<h4>' + (item.projectEngineer? item.projectEngineer : '——') + '</h4>'
+            + '<h4>' + (item.projectEngineer ? item.projectEngineer : '——') + '</h4>'
             + '<p>项目工程师</p>'
             + '</div>'
             + '</div>'
@@ -463,7 +463,8 @@
               bottom: H
             }, //窗口参数
             extras: {
-              H: H
+              H: H,
+              prevId: self.id
             } //自定义扩展参数
           })
         })
@@ -515,7 +516,7 @@
       };
       //关闭侧滑窗口；
       function closeMenu(e) {
-        if(e) {
+        if (e) {
           dataArr = e.detail.data;
           curPage = 1;
           $('#OA_task_1').html('')
@@ -540,8 +541,14 @@
 
       document.addEventListener('statusBar', function (e) {
         plus.navigator.setStatusBarStyle('light');
-        
+
         dataArr = e.detail.data;
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
+
+      document.addEventListener('update', function () {
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();

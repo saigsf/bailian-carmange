@@ -62,8 +62,7 @@
 			font-size: 12px;
 		}
 
-		.filter-input-box
-		{
+		.filter-input-box {
 			justify-content: space-between;
 		}
 
@@ -150,6 +149,10 @@
 			border-radius: 20px;
 
 		}
+
+		.mui-scroll {
+			display: none;
+		}
 	</style>
 </head>
 
@@ -158,7 +161,7 @@
 		<h5 class="">筛选</h5>
 	</header>
 	<div class="mui-content mui-scroll-wrapper">
-		<div class="mui-scroll">
+		<div class="mui-scroll" id="vehicle-list.html">
 			<form>
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
@@ -270,6 +273,58 @@
 
 
 		</div>
+		<div class="mui-scroll" id="vehicle-insurance-list.html">
+			<form>
+				<ul class="mui-table-view">
+
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车辆编号：</label>
+							<input name="vSn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>更新日期：</label>
+							<input name="updateTime" id="updateTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>保险终止日：</label>
+							<input name="iendTime" id="iendTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div class="mui-scroll" id="vehicle-license-list.html">
+			<form>
+				<ul class="mui-table-view">
+
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车牌号：</label>
+							<input name="lNo" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>验车申请日：</label>
+							<input name="applyTime" id="applyTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车牌到期日：</label>
+							<input name="lEndTime" id="lEndTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+				</ul>
+			</form>
+		</div>
+
+
 	</div>
 	<nav class="mui-bar mui-bar-tab">
 		<div class="btn-wrapper ">
@@ -295,6 +350,7 @@
 			var H = null;
 			var self = null;
 			var main = null;
+			var prevId = null;
 			var dDate = new Date();
 
 			mui.init();
@@ -303,7 +359,14 @@
 			mui.plusReady(function () {
 				handsetAdaption()
 				self = plus.webview.currentWebview();
-				main = plus.webview.getWebviewById("vehicle-list.html");
+				mui.toast(self.prevId)
+				$('.mui-scroll').each(function (i) {
+					if ($(this).attr('id') == self.prevId) {
+						$(this).show()
+					}
+				})
+				// console.log($('.mui-scroll').length)
+				main = plus.webview.getWebviewById(self.prevId);
 				H = self.H;
 			})
 
@@ -314,9 +377,9 @@
 					// 	'paddingBottom': '34px'
 					// })
 				}
-				plus.webview.currentWebview().setStyle({
-					softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-				});
+				// plus.webview.currentWebview().setStyle({
+				// 	softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+				// });
 			}
 
 			function addEvent() {
@@ -339,21 +402,63 @@
 					});
 				});
 
-				$('#filter-btn-box').on('tap', '.mui-btn', function() {
+				$('#iendTime').on('tap', function() {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+								title: '',
+								date: dDate
+							});
+					});
+				})
+				$('#updateTime').on('tap', function() {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+								title: '',
+								date: dDate
+							});
+					});
+				})
+
+
+
+				$('#filter-btn-box').on('tap', '.mui-btn', function () {
 					$(this).addClass('mui-active').siblings().removeClass('mui-active');
 				})
 
 				// 提交
-				$('#submit').on('tap', function() {
-					var data = serialize($('form'))
-					console.log(data)
+				$('#submit').on('tap', function () {
+					var data = {}
+					
+					$('.mui-scroll').each(function (i) {
+						if ($(this).attr('id') == self.prevId) {
+							data = serialize($(this).find('form'));
+							if ($(this).find('#filter-btn-box').length > 0)
+								data[$('#filter-btn-box').find('.mui-active').attr('data-key')] = true;
+						}
+					})
 					// app.carQuery(data, function(res) {
 					// 	res = JSON.parse(res)
 					// 	console.log(res)
 					// })
-					
-					data[$('#filter-btn-box').find('.mui-active').attr('data-key')] = true;
-					
+					// console.log(JSON.stringify(data))
+
+
 					mui.fire(main, 'closeMenu', {
 						data: data
 					})

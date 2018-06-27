@@ -334,8 +334,8 @@
       // 获取数据
       function fetchData(opt) {
         var data = $.extend({
-          // page: curPage,
-          // size: 3,
+          page: curPage,
+          size: 3,
         }, dataArr);
 
         console.log(JSON.stringify(data))
@@ -347,8 +347,8 @@
             return;
           }
           // console.log(res.totalCount)
-          // curPage++;
-          // totalPage = Math.ceil(res.total / 3);
+          curPage++;
+          totalPage = Math.ceil(res.total / 3);
 
           // data = data.concat(res.rows);
           updateView(res.rows);

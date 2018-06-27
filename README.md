@@ -266,27 +266,24 @@ http://47.98.182.165/car-management/license/query.action
 4. 权限
 
 
-vSn: 
-project_sn: 
-vin: 
-engineNumber: 
-projectEngineer: 
-brandModeltwo: 
-NO: 
-bstart: 
-bend: 
-pstart: 
-pend: 
-ustart: 
-uend: 
-backstart: 
-backend: 
-ing: 
-all: 
-beforup: 
-haveLi: 
-HaveIn: 
-thismonthback: true
-thismonnew: 
-beforBack: 
-stop: 
+#### maintain/维修技师
+1. 安全检查
+2. 线束检查
+3. bom检查
+4. 项目状态更改
+5. 总表浏览
+#### admin/超级管理员
+#### engineer/工程师
+1. 维修申请
+2. 接车点检
+3. 车辆录入
+4. 研发工具安装
+5. 还车
+6. 保险管理 
+#### maintenanceManager/维修管理员
+1. 维修列表浏览
+2. 维修大屏查看
+#### assistant/助理
+#### driverManager/驾驶员管理员
+#### uppeople/接车员
+#### plateHandle/试验车牌办理人员

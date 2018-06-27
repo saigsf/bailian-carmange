@@ -189,7 +189,7 @@
 
       $('#result').on('tap', '.mui-btn', function () {
         var $btn = $(this);
-        console.log($btn.attr('data-vSn'))
+        // console.log($btn.attr('data-vSn'))
         var data = {
           vSn: $btn.attr('data-vSn')
         }
@@ -203,9 +203,9 @@
       app.likevSn({
         vSn: $('#current_input').val()
       }, function (res) {
-        console.log(typeof res)
+        // console.log(typeof res)
         // res = JSON.parse(res)
-        console.log(res)
+        // console.log(res)
 
         if (res && res.length > 0) {
           console.log(res.length);

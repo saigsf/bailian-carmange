@@ -1297,7 +1297,9 @@
 	        "img/common/md/tools@2x.png"
 	      ],
 	      "priority": 2,
-	      "refer": []
+	      "refer": [
+	        "html/vehicle-info-detail.html"
+	      ]
 	    },
 	    "html/vehicle-success.html": {
 	      "href": "html/vehicle-success.html",
@@ -1681,7 +1683,8 @@
 	        "html/vehicle-filter.html",
 	        "html/vehicle-type-change.html",
 	        "html/vehicle-list-info.html",
-	        "html/vehicle-program-status.html"
+	        "html/vehicle-program-status.html",
+	        "html/search.html"
 	      ],
 	      "priority": 2
 	    },
@@ -2698,7 +2701,8 @@
 	        "html/repair-info.html",
 	        "html/repair-content.html",
 	        "html/repair-allot.html",
-	        "html/repair-maintain.html"
+	        "html/repair-maintain.html",
+	        "html/search.html"
 	      ],
 	      "priority": 4
 	    },
@@ -2833,7 +2837,8 @@
 	      ],
 	      "refer": [
 	        "html/repair-apply.html",
-	        "html/repair-list.html"
+	        "html/repair-list.html",
+	        "html/repair-maintain-list.html"
 	      ],
 	      "priority": 3
 	    },
@@ -3963,7 +3968,36 @@
 	        "js/mui.min.js",
 	        "js/lib/mui.enterfocus.js",
 	        "js/app/config.js",
-	        "js/app/app.js"
+	        "js/app/app.js",
+	        "img/common/md/icon_gps@2x.png",
+	        "img/common/md/icon_back_black.png",
+	        "img/common/md/icon_search@2x.png",
+	        "img/common/md/icon_date@2x.png",
+	        "img/common/md/icon_arrow_down@2x.png",
+	        "img/common/md/icon_arrow_up@2x.png",
+	        "img/common/md/icon_vehicleinput@2x.png",
+	        "img/common/md/icon_safecheck@2x.png",
+	        "img/common/md/icon_wirecheck@2x.png",
+	        "img/common/md/icon_bomcheck@2x.png",
+	        "img/common/md/icon_vehicleauditing@2x.png",
+	        "img/common/md/icon_vehicledown@2x.png",
+	        "img/common/md/icon_tools@2x.png",
+	        "img/common/md/up_check@2x.png",
+	        "img/common/md/down_check@2x.png",
+	        "img/common/md/insurance_info@2x.png",
+	        "img/common/md/license_info@2x.png",
+	        "img/common/md/icon_subscript@3x.png",
+	        "img/common/md/icon_take_down.gif",
+	        "img/common/md/icon_corner_mark_green@2x.png",
+	        "img/common/md/icon_corner_mark_red@2x.png",
+	        "img/common/md/icon_filter@2x.png",
+	        "img/common/md/icon_status_change.png",
+	        "img/common/md/icon_checked@2x.png",
+	        "img/common/md/hook.png",
+	        "img/common/md/info_bg@2x.png",
+	        "img/common/md/no_data@2x.png",
+	        "img/common/md/no_result.png",
+	        "img/common/md/no_net.png"
 	      ],
 	      "priority": 4,
 	      "refer": []
@@ -4130,7 +4164,8 @@
 	      "refer": [
 	        "html/vehicle-input-detail.html",
 	        "html/vehicle-insurance-apply.html",
-	        "html/vehicle-input-info.html"
+	        "html/vehicle-input-info.html",
+	        "html/search.html"
 	      ],
 	      "priority": 0
 	    },
@@ -4216,7 +4251,9 @@
 	        "img/common/md/no_data@2x.png"
 	      ],
 	      "refer": [
-	        "html/vehicle-list.html"
+	        "html/vehicle-list.html",
+	        "html/vehicle-insurance-list.html",
+	        "html/vehicle-license-list.html"
 	      ],
 	      "priority": 2
 	    },
@@ -4559,7 +4596,9 @@
 	      "refer": [
 	        "html/vehicle-insurance-apply.html",
 	        "html/vehicle-insurance-input.html",
-	        "html/vehicle-insurance-info.html"
+	        "html/vehicle-insurance-info.html",
+	        "html/vehicle-filter.html",
+	        "html/search.html"
 	      ],
 	      "priority": 4
 	    },
@@ -4729,7 +4768,9 @@
 	        "img/common/md/no_data@2x.png"
 	      ],
 	      "priority": 5,
-	      "refer": []
+	      "refer": [
+	        "html/repair-list.html"
+	      ]
 	    },
 	    "html/repair-allot.html": {
 	      "href": "html/repair-allot.html",
@@ -4813,7 +4854,9 @@
 	        "img/common/md/no_data@2x.png"
 	      ],
 	      "priority": 6,
-	      "refer": []
+	      "refer": [
+	        "html/repair-list.html"
+	      ]
 	    },
 	    "html/repair-maintain.html": {
 	      "href": "html/repair-maintain.html",
@@ -4897,7 +4940,9 @@
 	        "img/common/md/no_data@2x.png"
 	      ],
 	      "priority": 7,
-	      "refer": []
+	      "refer": [
+	        "html/repair-list.html"
+	      ]
 	    },
 	    "html/doorpost-driver-authorize.html": {
 	      "href": "html/doorpost-driver-authorize.html",
@@ -5655,7 +5700,9 @@
 	      ],
 	      "refer": [
 	        "html/vehicle-license-info.html",
-	        "html/vehicle-license-apply.html"
+	        "html/vehicle-license-apply.html",
+	        "html/search.html",
+	        "html/vehicle-filter.html"
 	      ],
 	      "priority": 3
 	    },
@@ -5746,12 +5793,263 @@
 	        "html/vehicle-insurance-input.html"
 	      ],
 	      "priority": 6
+	    },
+	    "html/vehicle-info-detail.html": {
+	      "href": "html/vehicle-info-detail.html",
+	      "resources": [
+	        "css/mui.min.css",
+	        "fonts/mui.ttf",
+	        "css/style-icon.css",
+	        "img/common/md/icon_gps@2x.png",
+	        "img/common/md/icon_car.png",
+	        "img/common/md/icon_repair.png",
+	        "img/common/md/icon_user.png",
+	        "img/common/md/icon_door.png",
+	        "img/common/md/icon_log.png",
+	        "img/common/md/icon_data.png",
+	        "img/common/md/icon_power.png",
+	        "img/common/md/icon_back.png",
+	        "img/common/md/icon_back_black.png",
+	        "img/common/md/icon_add.png",
+	        "img/user/md/icon_set.png",
+	        "img/user/md/icon_self.png",
+	        "img/user/md/icon_news.png",
+	        "img/user/md/icon_logout.png",
+	        "img/user/md/icon_clear_cache.png",
+	        "img/user/md/icon_update.png",
+	        "img/login/md/icon_weixin.png",
+	        "img/login/md/icon_weibo.png",
+	        "img/login/md/icon_qq.png",
+	        "img/login/md/icon_username.png",
+	        "img/login/md/icon_psd.png",
+	        "img/common/md/icon_search@2x.png",
+	        "img/other/md/icon_search_new.png",
+	        "img/common/md/icon_date@2x.png",
+	        "img/common/md/icon_arrow_down@2x.png",
+	        "img/common/md/icon_arrow_up@2x.png",
+	        "img/user/md/icon_arrow_right.png",
+	        "img/common/md/icon_list.png",
+	        "img/common/md/icon_more.png",
+	        "img/other/md/icon_look.png",
+	        "img/other/md/icon_enclosure.png",
+	        "img/other/md/icon_car_top.png",
+	        "img/other/md/icon_triangle_down.png",
+	        "img/other/md/icon_finished.png",
+	        "img/other/md/icon_underway.png",
+	        "img/other/md/icon_unfinished.png",
+	        "img/other/md/icon_sit_alone.png",
+	        "img/other/md/num_1.png",
+	        "img/other/md/num_2.png",
+	        "img/other/md/num_3.png",
+	        "img/other/md/num_4.png",
+	        "img/other/md/num_5.png",
+	        "img/common/md/icon_safe.png",
+	        "img/other/md/icon_man.png",
+	        "img/other/md/icon_woman.png",
+	        "img/common/md/icon_vehicleinput@2x.png",
+	        "img/common/md/icon_safecheck@2x.png",
+	        "img/common/md/icon_wirecheck@2x.png",
+	        "img/common/md/icon_bomcheck@2x.png",
+	        "img/common/md/icon_vehicleauditing@2x.png",
+	        "img/common/md/icon_vehicledown@2x.png",
+	        "img/common/md/icon_tools@2x.png",
+	        "img/common/md/up_check@2x.png",
+	        "img/common/md/down_check@2x.png",
+	        "img/common/md/insurance_info@2x.png",
+	        "img/common/md/license_info@2x.png",
+	        "img/common/md/icon_subscript@3x.png",
+	        "img/common/md/icon_take_down.gif",
+	        "img/common/md/icon_corner_mark_green@2x.png",
+	        "img/common/md/icon_corner_mark_red@2x.png",
+	        "img/common/md/icon_filter@2x.png",
+	        "img/common/md/icon_status_change.png",
+	        "css/style-common.css",
+	        "img/common/md/icon_checked@2x.png",
+	        "img/common/md/hook.png",
+	        "img/common/md/info_bg@2x.png",
+	        "img/common/md/no_data@2x.png",
+	        "js/lib/jquery.min.js",
+	        "js/mui.min.js",
+	        "js/app/config.js",
+	        "js/app/app.js"
+	      ],
+	      "priority": 4
+	    },
+	    "html/repair-maintain-info.html": {
+	      "href": "html/repair-maintain-info.html",
+	      "resources": [
+	        "css/mui.min.css",
+	        "fonts/mui.ttf",
+	        "css/style-icon.css",
+	        "img/common/md/icon_gps@2x.png",
+	        "img/common/md/icon_car.png",
+	        "img/common/md/icon_repair.png",
+	        "img/common/md/icon_user.png",
+	        "img/common/md/icon_door.png",
+	        "img/common/md/icon_log.png",
+	        "img/common/md/icon_data.png",
+	        "img/common/md/icon_power.png",
+	        "img/common/md/icon_back.png",
+	        "img/common/md/icon_back_black.png",
+	        "img/common/md/icon_add.png",
+	        "img/user/md/icon_set.png",
+	        "img/user/md/icon_self.png",
+	        "img/user/md/icon_news.png",
+	        "img/user/md/icon_logout.png",
+	        "img/user/md/icon_clear_cache.png",
+	        "img/user/md/icon_update.png",
+	        "img/login/md/icon_weixin.png",
+	        "img/login/md/icon_weibo.png",
+	        "img/login/md/icon_qq.png",
+	        "img/login/md/icon_username.png",
+	        "img/login/md/icon_psd.png",
+	        "img/common/md/icon_search@2x.png",
+	        "img/other/md/icon_search_new.png",
+	        "img/common/md/icon_date@2x.png",
+	        "img/common/md/icon_arrow_down@2x.png",
+	        "img/common/md/icon_arrow_up@2x.png",
+	        "img/user/md/icon_arrow_right.png",
+	        "img/common/md/icon_list.png",
+	        "img/common/md/icon_more.png",
+	        "img/other/md/icon_look.png",
+	        "img/other/md/icon_enclosure.png",
+	        "img/other/md/icon_car_top.png",
+	        "img/other/md/icon_triangle_down.png",
+	        "img/other/md/icon_finished.png",
+	        "img/other/md/icon_underway.png",
+	        "img/other/md/icon_unfinished.png",
+	        "img/other/md/icon_sit_alone.png",
+	        "img/other/md/num_1.png",
+	        "img/other/md/num_2.png",
+	        "img/other/md/num_3.png",
+	        "img/other/md/num_4.png",
+	        "img/other/md/num_5.png",
+	        "img/common/md/icon_safe.png",
+	        "img/other/md/icon_man.png",
+	        "img/other/md/icon_woman.png",
+	        "img/common/md/icon_vehicleinput@2x.png",
+	        "img/common/md/icon_safecheck@2x.png",
+	        "img/common/md/icon_wirecheck@2x.png",
+	        "img/common/md/icon_bomcheck@2x.png",
+	        "img/common/md/icon_vehicleauditing@2x.png",
+	        "img/common/md/icon_vehicledown@2x.png",
+	        "img/common/md/icon_tools@2x.png",
+	        "img/common/md/up_check@2x.png",
+	        "img/common/md/down_check@2x.png",
+	        "img/common/md/insurance_info@2x.png",
+	        "img/common/md/license_info@2x.png",
+	        "img/common/md/icon_subscript@3x.png",
+	        "img/common/md/icon_take_down.gif",
+	        "img/common/md/icon_corner_mark_green@2x.png",
+	        "img/common/md/icon_corner_mark_red@2x.png",
+	        "img/common/md/icon_filter@2x.png",
+	        "img/common/md/icon_status_change.png",
+	        "css/style-common.css",
+	        "img/common/md/icon_checked@2x.png",
+	        "img/common/md/hook.png",
+	        "img/common/md/info_bg@2x.png",
+	        "img/common/md/no_data@2x.png",
+	        "js/lib/jquery.min.js",
+	        "js/mui.min.js",
+	        "js/app/config.js",
+	        "js/app/app.js"
+	      ],
+	      "priority": 3
+	    },
+	    "html/repair-maintain-list.html": {
+	      "href": "html/repair-maintain-list.html",
+	      "resources": [
+	        "css/mui.min.css",
+	        "fonts/mui.ttf",
+	        "css/style-icon.css",
+	        "img/common/md/icon_gps@2x.png",
+	        "img/common/md/icon_car.png",
+	        "img/common/md/icon_repair.png",
+	        "img/common/md/icon_user.png",
+	        "img/common/md/icon_door.png",
+	        "img/common/md/icon_log.png",
+	        "img/common/md/icon_data.png",
+	        "img/common/md/icon_power.png",
+	        "img/common/md/icon_back.png",
+	        "img/common/md/icon_back_black.png",
+	        "img/common/md/icon_add.png",
+	        "img/user/md/icon_set.png",
+	        "img/user/md/icon_self.png",
+	        "img/user/md/icon_news.png",
+	        "img/user/md/icon_logout.png",
+	        "img/user/md/icon_clear_cache.png",
+	        "img/user/md/icon_update.png",
+	        "img/login/md/icon_weixin.png",
+	        "img/login/md/icon_weibo.png",
+	        "img/login/md/icon_qq.png",
+	        "img/login/md/icon_username.png",
+	        "img/login/md/icon_psd.png",
+	        "img/common/md/icon_search@2x.png",
+	        "img/other/md/icon_search_new.png",
+	        "img/common/md/icon_date@2x.png",
+	        "img/common/md/icon_arrow_down@2x.png",
+	        "img/common/md/icon_arrow_up@2x.png",
+	        "img/user/md/icon_arrow_right.png",
+	        "img/common/md/icon_list.png",
+	        "img/common/md/icon_more.png",
+	        "img/other/md/icon_look.png",
+	        "img/other/md/icon_enclosure.png",
+	        "img/other/md/icon_car_top.png",
+	        "img/other/md/icon_triangle_down.png",
+	        "img/other/md/icon_finished.png",
+	        "img/other/md/icon_underway.png",
+	        "img/other/md/icon_unfinished.png",
+	        "img/other/md/icon_sit_alone.png",
+	        "img/other/md/num_1.png",
+	        "img/other/md/num_2.png",
+	        "img/other/md/num_3.png",
+	        "img/other/md/num_4.png",
+	        "img/other/md/num_5.png",
+	        "img/common/md/icon_safe.png",
+	        "img/other/md/icon_man.png",
+	        "img/other/md/icon_woman.png",
+	        "img/common/md/icon_vehicleinput@2x.png",
+	        "img/common/md/icon_safecheck@2x.png",
+	        "img/common/md/icon_wirecheck@2x.png",
+	        "img/common/md/icon_bomcheck@2x.png",
+	        "img/common/md/icon_vehicleauditing@2x.png",
+	        "img/common/md/icon_vehicledown@2x.png",
+	        "img/common/md/icon_tools@2x.png",
+	        "img/common/md/up_check@2x.png",
+	        "img/common/md/down_check@2x.png",
+	        "img/common/md/insurance_info@2x.png",
+	        "img/common/md/license_info@2x.png",
+	        "img/common/md/icon_subscript@3x.png",
+	        "img/common/md/icon_take_down.gif",
+	        "img/common/md/icon_corner_mark_green@2x.png",
+	        "img/common/md/icon_corner_mark_red@2x.png",
+	        "img/common/md/icon_filter@2x.png",
+	        "img/common/md/icon_status_change.png",
+	        "css/style-common.css",
+	        "img/common/md/icon_checked@2x.png",
+	        "img/common/md/hook.png",
+	        "img/common/md/info_bg@2x.png",
+	        "img/common/md/no_data@2x.png",
+	        "js/lib/jquery.min.js",
+	        "js/mui.min.js",
+	        "js/app/config.js",
+	        "js/app/app.js",
+	        "img/common/icon_app.png"
+	      ],
+	      "refer": [
+	        "html/repair-maintain-info.html",
+	        "html/repair-maintain.html",
+	        "html/search.html"
+	      ],
+	      "priority": 3
 	    }
 	  },
 	  "idle": {
 	    "resources": [
 	      "1536-2048.png",
 	      "img/login/md/icon_arrow_right.png",
+	      "img/car.png",
+	      "img/car3.png",
 	      "html/vehicle-input-bom.html",
 	      "640-1136.png",
 	      "1536-2008.png",
@@ -5768,7 +6066,6 @@
 	      "768-1104.png",
 	      "img/common/icon_app_1.png",
 	      "img/common/md/icon_backtop.png",
-	      "img/common/md/no_result.png",
 	      "750-1334.png",
 	      "css/mui.css",
 	      "img/common/md/ping.png",
@@ -5776,12 +6073,13 @@
 	      "1125-2436.png",
 	      "html/vehicle-up-check.html",
 	      "html/vehicle-check-wire.html",
-	      "img/common/md/no_net.png",
 	      "img/user/user_logo.png",
 	      "html/vehicle-check-safe.html",
 	      "js/lib/zepto.min.js",
 	      "640-960.png",
-	      "img/common/box_dialog.png"
+	      "img/common/box_dialog.png",
+	      "img/car21.png",
+	      "img/car1.png"
 	    ]
 	  }
 	},

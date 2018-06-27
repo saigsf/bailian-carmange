@@ -1242,6 +1242,8 @@
     var flag1 = false;
     var flag2 = false;
     var isChecked = false;
+    var urlSafeCheck = null;
+    var urlCldCheck = null;
 
 
     mui.init();
@@ -1297,9 +1299,9 @@
           mui.toast('安全检查未完成');
           return;
         }
-        
 
-        if(res.check.checkingPerson) {
+
+        if (res.check.checkPerson) {
           isChecked = true;
         }
         updateView.safeCheck(res.checkResults);
@@ -1350,14 +1352,18 @@
       // console.log(stateArr)
       // 安全检查&缸压检查
       $('#two_next').on('tap', function () {
-        // console.log(isChecked)
+        console.log(isChecked)
         if (isChecked) {
           stateArr = updateArr;
+          urlSafeCheck = BASE_URL_1 + 'car-management/car/updateSafeCheckByvSn/' + vSn + '.action';
+          urlCldCheck = BASE_URL_1 + 'car-management/car/updateCldCheckByvSn.action'
         } else {
           stateArr = submitArr;
+          urlSafeCheck = BASE_URL_1 + 'car-management/car/addSafeCheck/' + vSn + '.action'
+          urlCldCheck = BASE_URL_1 + 'car-management/car/saveClacyLindersss.action'
         }
         // console.log(stateArr)
-        // return;
+        return;
         // 缸压检查
         var pressure = serialize($('#pressure'));
         pressure.fuel_p = $('#fuel_p').html()
@@ -1389,7 +1395,7 @@
             'request': $(this).find('.request').html(),
             'status': $(this).find('.status').val(),
             'vSn': vSn,
-            'uuid': $(this).attr('data-uuid')
+            'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : ''
           })
         })
         data = {
@@ -1412,7 +1418,7 @@
 
         $.when(mui.ajax({
           type: 'post',//HTTP请求类型
-          url: BASE_URL_1 + 'car-management/car/addSafeCheck/' + data.vSn + '.action',
+          url: urlSafeCheck,
           data: data.safeCheckResult,
           contentType: 'application/json;charset=UTF-8', //contentType很重要 
           crossDomain: true,
@@ -1432,7 +1438,7 @@
           },
         }), mui.ajax({
           type: 'post',//HTTP请求类型
-          url: BASE_URL_1 + 'car-management/car/updateCldCheckByvSn.action',
+          url: urlCldCheck,
           data: pressure,
           contentType: 'application/json;charset=UTF-8', //contentType很重要 
           crossDomain: true,

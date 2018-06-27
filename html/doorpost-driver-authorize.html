@@ -199,6 +199,7 @@
         view = plus.webview.getWebviewById('doorpost-driver.html');
         H = self.H;
         ids = self.ids;
+        console.log(ids)
         names = self.names;
         $('#vSn').html(names)
         addEvent();
@@ -241,7 +242,7 @@
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<option value="' + item.name + '">' + item.name + '</option>'
+          html += '<option value="' + item.id + '">' + item.name + '</option>'
         }
         $('#groups').append(html);
       }
@@ -251,30 +252,33 @@
         $('#next').on('tap', function () {
           var startTime = $('#start_date').val();
           var endTime = $('#end_date').val();
-          var gid = $('#groups').val()
-
+          var gid = $('#groups').val();
+          var isallow = '是'
+          console.log(gid)
+          
           if ($('input[name=isallow]').val() == '授权') {
             app.authorized({
+              isallow,
               ids,
               startTime,
               endTime,
               gid
             }, function (res) {
-              console.log(res)
-              res = JSON.parse(res)
-              // mui.toast(res.msg)
+              
+              // res = JSON.parse(res)
+              console.log(res.msg)
+              mui.toast(res.msg)
               if (res.ret) {
-                mui.toast('授权成功')
+                // mui.toast('授权成功')
                 setTimeout(() => {
                   mui.fire(view, 'update', {});
                   mui.back();
                 }, 500);
 
-              } else {
-                mui.toast('授权失败')
               }
             })
           } else {
+
             app.cancelAuthorized({
               ids: ids
             }, function (res) {
@@ -309,8 +313,7 @@
             $('#start_date').val('您没有选择日期');
           }, {
               title: '',
-              date: dDate,
-              minDate: dDate
+              date: dDate
             });
         });
 
@@ -323,8 +326,7 @@
             $('#end_date').val('您没有选择日期');
           }, {
               title: '',
-              date: dDate,
-              minDate: dDate
+              date: new Date('2018/12/31')
             });
         });
       }

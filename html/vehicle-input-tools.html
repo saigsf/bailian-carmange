@@ -245,7 +245,7 @@
           success: function (res) {
             //服务器返回响应，根据响应结果，分析是否登录成功；
             console.log(1414, res.msg);
-            mui.toast(res.msg)
+            // mui.toast(res.msg)
           },
           error: function (xhr, type, errorThrown) {
             //异常处理；
@@ -265,7 +265,7 @@
           success: function (res) {
             //服务器返回响应，根据响应结果，分析是否登录成功；
             console.log(1428, res.msg);
-            mui.toast(res.msg)
+            // mui.toast(res.msg)
           },
           error: function (xhr, type, errorThrown) {
             //异常处理；
@@ -285,7 +285,7 @@
           success: function (res) {
             //服务器返回响应，根据响应结果，分析是否登录成功；
             console.log(1428, res.msg);
-            mui.toast(res.msg)
+            // mui.toast(res.msg)
           },
           error: function (xhr, type, errorThrown) {
             //异常处理；
@@ -298,7 +298,7 @@
           }
         })).then(function (res) {
           console.log(1435, res.msg);
-          mui.toast('安全检查、缸压检测成功');
+          mui.toast('车辆录入成功');
           setTimeout(() => {
             mui.back();
             mui.fire(view, 'goback', {});
@@ -306,7 +306,7 @@
 
         }, function (err) {
           console.log(1437, err);
-          mui.toast('安全检查、缸压检测失败');
+          mui.toast('车辆录入失败');
         })
       })
     }

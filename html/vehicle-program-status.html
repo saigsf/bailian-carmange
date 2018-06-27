@@ -127,12 +127,14 @@
       mui('.mui-scroll-wrapper').scroll();
 
       var self = null;
+      var view = null;
       var H = null;
 
       // plus Ready
       mui.plusReady(function () {
         handsetAdaption()
         self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById(self.prevId)
         H = self.H;
       })
 
@@ -193,7 +195,11 @@
             console.log(res)
             mui.toast(res.msg)
             if(res.ret) {
-              mui.back()
+              setTimeout(() => {
+                mui.back();
+                mui.fire(view, 'update', null)
+              }, 500);
+              
             }
           })
         })

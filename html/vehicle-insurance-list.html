@@ -125,6 +125,9 @@
         <div class="mui-input-row mui-search" id="search">
           <input readonly type="search" class="mui-input-clear" placeholder="请输入车辆编号">
         </div>
+        <div class="filter" id="filter">
+          <i class="icon icon-filter">筛选</i>
+        </div>
       </form>
       <ul id="vehicle_insurance_list" class="mui-table-view mui-table-listview">
         <!-- <li class="mui-table-view-cell" data-vSn="2019-222" data-status="0">
@@ -227,6 +230,9 @@
           </div>
         </li> -->
       </ul>
+      <div class="no-data" id="no-data">
+        <p>没有找到想要的数据，下拉加载所有数据</p>
+      </div>
     </div>
   </div>
 
@@ -242,11 +248,14 @@
   <script>
     ; (function () {
       // 定义全局变量
+      var self = null;
+      var main = null;
       var H = null; // 页面高度
       var curPage = 1; //当前页码初始化数0开始
       var totalPage = 0; //后台算出总页数
       var data = [];
-      var dataArr = {}
+      var dataArr = {};
+      var filter = '20px';
 
       // 初始化
       mui.init({
@@ -269,9 +278,10 @@
       function pulldownRwfresh() {
         curPage = 1;
         dataArr = {}
-        $('#vehicle_insurance_list').html('')
-        fetchData();
+        $('#no-data').hide().prev().show()
         setTimeout(function () {
+          $('#vehicle_insurance_list').html('')
+          fetchData();
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
           mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
         }, 1000)
@@ -295,7 +305,9 @@
         // plus准备好后执行H5
         handsetAdaption();
         // 获取当前视图
-        var self = plus.webview.currentWebview();
+        self = plus.webview.currentWebview();
+        main = plus.webview.getWebviewById("index");
+        main.addEventListener('maskClick', closeMenu);
         // 获取传递参数
         H = self.H;
         // 添加点击事件进入下一页
@@ -313,6 +325,8 @@
           $('.mui-bar-nav~.mui-content').css({
             'paddingTop': '88px'
           })
+
+          filter = '34px';
         }
 
         // 更改状态栏颜色
@@ -331,10 +345,14 @@
           size: 3
         }, dataArr);
 
+        console.log(334, JSON.stringify(opt))
+
         app.insuranceQuery(opt, function (res) {
           res = JSON.parse(res)
-          console.log(res)
-          if (!res.total || res.total <= 0) {
+          console.log(res.total)
+          if (!res.total || res.total <= 0 || res.rows.length <= 0) {
+            $('#no-data').show().prev().hide()
+            mui.toast('没有找到想要的数据，下拉加载所有数据')
             return;
           }
           // console.log(res.total)
@@ -425,6 +443,59 @@
         })
       }
       // addEvents()
+
+
+
+      //打开侧滑窗口；
+      function openMenu() {
+
+        main.setStyle({
+          mask: 'rgba(0,0,0,0.5)'
+        }); //menu设置透明遮罩防止点击
+
+        mui.openWindow({
+          url: 'vehicle-filter.html',
+          id: 'vehicle-filter', //默认使用当前页面的url作为id
+          styles: {
+            top: filter,
+            bottom: '0',
+            left: '30%',
+            width: '70%'
+          }, //窗口参数
+          extras: {
+            H: H,
+            prevId: self.id
+          }, //自定义扩展参数
+          waiting: {
+            autoShow: false, //自动显示等待框，默认为true
+            title: '正在加载...', //等待对话框上显示的提示内容
+          }
+        })
+      };
+      //关闭侧滑窗口；
+      function closeMenu(e) {
+        if (e) {
+          dataArr = e.detail.data;
+          curPage = 1;
+          $('#vehicle_insurance_list').html('')
+          fetchData();
+        }
+        //关闭遮罩；
+        side = plus.webview.getWebviewById("vehicle-filter");
+        main.setStyle({
+          mask: 'none'
+        });
+        mui.fire(side, 'close', {})
+
+      };
+
+      //点击头部菜单小图标，打开侧滑菜单；
+      $('#filter').on('tap', function (e) {
+        e.stopPropagation();
+        openMenu()
+      });
+      //menu页面点击后关闭菜单；
+      window.addEventListener('closeMenu', closeMenu);
 
       document.addEventListener('statusBar', function (e) {
         plus.navigator.setStatusBarStyle('light');
