@@ -1992,7 +1992,10 @@
     var stateArr = [];
     var submitArr = ['addHiCheck']; // 检查接口
     var updateArr = ['updateHiCheckByvSn']; // 核对接口
-    var isChecked = false;
+    var isChecked = false; // 核对
+    var isInspect = false; // 检查
+    var submitLock = false; // 提交保护
+    var hasCheck = false;
 
     mui.init();
     //初始化单页的区域滚动
@@ -2006,7 +2009,7 @@
       vSn = self.vSn;
       state = self.state;
       fetchData();
-      submitData();
+      // submitData();
     })
 
     function handsetAdaption() {
@@ -2038,11 +2041,11 @@
           mui.toast('线束检查未完成');
           return;
         }
-        
-        if(res.check && res.check.checkPerson) {
-          isChecked = true;
+
+        if (res.check && res.check.checkPerson) {
+          hasCheck = true;
         }
-        
+
         updateView(res)
       })
     }
@@ -2071,65 +2074,87 @@
     }
 
     // 提交数据
-    // submitData()
+    $('#three_next').on('tap', function () {
+      if(submitLock) {
+        mui.toast('请不要重复操作，以免数据重复提交')
+        return;
+      }
+      submitLock = true;
+      console.log(isChecked, isInspect)
+      if (isChecked && !isInspect) {
+        stateArr = updateArr;
+        // 执行检查操作;
+        submitData();
+        console.log(stateArr)
+      } else if(!isChecked && isInspect) {
+        stateArr = submitArr;
+        // 执行核对操作
+        submitData()
+        console.log(stateArr)
+      } else if (isChecked && isInspect) {
+        stateArr = submitArr;
+        // 执行检查操作;
+        submitData()
+        console.log(stateArr);
+        stateArr = updateArr;
+        // 执行核对操作
+        submitData()
+        console.log(stateArr);
+      } else {
+        stateArr = submitArr;
+        submitData();
+        console.log(stateArr);
+        
+      }
+      return;
+      
+    })
+
     function submitData() {
-      // if(state == 'submitArr') {
-      //   stateArr = submitArr;
-      // } else if(state == 'updateArr') {
-      //   stateArr = updateArr;
-      // } 
-      // 线束检查
-      $('#three_next').on('tap', function () {
+      var $wireTr = $('table tbody tr');
+      var HIResults = [];
+      var data = {};
+      var pitem = '';
 
-        console.log(isChecked)
-        if (isChecked) {
-          stateArr = updateArr;
-        } else {
-          stateArr = submitArr;
+      for (let i = 0; i < $wireTr.length; i++) {
+        const element = $wireTr[i];
+        if ($(element).find('.pitem').length > 0) {
+          pitem = $(element).find('.pitem').html()
         }
-        // return;
-        var $wireTr = $('table tbody tr');
-
-        var HIResults = [];
-        var data = {};
-        var pitem = '';
-
-        for (let i = 0; i < $wireTr.length; i++) {
-          const element = $wireTr[i];
-          if ($(element).find('.pitem').length > 0) {
-            pitem = $(element).find('.pitem').html()
-          }
-
-          HIResults.push({
-            'checkExplanation': $(element).find('.explain-text').val(),
-            'checkingExplanation': $(element).find('.resolvent-text').val(),
-            'pitem': pitem,
-            'item': $(element).find('.item').length > 0 ? $(element).find('.item').html() : '',
-            'status': $(element).find('.status').val(),
-            'vSn': vSn,
-            'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : ''
-          })
-        }
-
-        data = {
-          vSn: vSn,
-          HIResults: HIResults
-        }
-        console.log(data);
-        app[stateArr[0]](data, function (res) {
-          console.log(res);
-          if (res.ret) {
-            mui.toast(res.msg);
-            setTimeout(() => {
-              mui.back()
-              mui.fire(view, 'update', null)
-            }, 500);
-
-          } else {
-            mui.toast('线束检查失败')
-          }
+        console.log($(element).attr('data-uuid') ? $(element).attr('data-uuid') : '无')
+        HIResults.push({
+          'checkExplanation': $(element).find('.explain-text').val(),
+          'checkingExplanation': $(element).find('.resolvent-text').val(),
+          'pitem': pitem,
+          'item': $(element).find('.item').length > 0 ? $(element).find('.item').html() : '',
+          'status': $(element).find('.status').val(),
+          'vSn': vSn,
+          'uuid': $(element).attr('data-uuid') ? $(element).attr('data-uuid') : ''
         })
-      });
+      }
+
+      data = {
+        vSn: vSn,
+        HIResults: HIResults
+      }
+      // console.log(data);
+      // return;
+      app[stateArr[0]](data, function (res) {
+        console.log(res);
+        mui.toast(res.msg);
+        if (res.ret) {
+          // mui.toast(res.msg);
+          setTimeout(() => {
+            mui.back()
+            mui.fire(view, 'update', null)
+          }, 500);
+
+        } else {
+          // mui.toast('线束检查失败')
+          submitLock = false;
+        }
+      })
+
     }
 
     addEvent()
@@ -2157,11 +2182,17 @@
           var explainText = evt.detail.explainText;
           //do something
           $(_this).parents('tr').find('.explain-text').val(explainText);
-          $(_this).html('···')
+          $(_this).html('···');
+          isInspect = true;
         });
       })
       // 添加解决方法
       $('#app').on('tap', '.resolvent', function () {
+        if(!hasCheck) {
+          submitLock = false;
+          mui.alert('请先进行检查操作', '提示')
+          return;
+        }
         var _this = this;
         var explainText = $(_this).parents('tr').find('.explain-text').val();
         var resolventText = $(_this).parents('tr').find('.resolvent-text').val();
@@ -2189,7 +2220,8 @@
           var resolventText = evt.detail.resolventText;
           //do something
           $(_this).parents('tr').find('.resolvent-text').val(resolventText);
-          $(_this).html('···')
+          $(_this).html('···');
+          isChecked = true
         });
       })
     }

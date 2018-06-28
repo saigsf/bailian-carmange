@@ -1,990 +1,994 @@
 {
-  "index.html": {
-    "resources": [
-      "html/setting.html",
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "img/common/icon_md_home_active.png",
-      "img/common/icon_md_car_active.png",
-      "img/common/icon_md_repair_active.png",
-      "img/common/icon_md_user_active.png",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "img/common/md/icon_home_active.png",
-      "img/common/md/icon_car_active.png",
-      "img/common/md/icon_repair_active.png",
-      "img/common/md/icon_user_active.png",
-      "img/common/md/icon_gps_active@2x.png"
-    ],
-    "refer": [
-      "html/repair.html",
-      "html/setting.html",
-      "html/vehicle.html",
-      "html/home.html",
-      "html/popover.html",
-      "html/doorpost.html",
-      "html/home-map-search.html"
-    ]
-  },
-  "html/vehicle.html": {
-    "refer": [
-      "html/vehicle-list.html",
-      "html/vehicle-input.html",
-      "html/vehicle-auditing.html",
-      "html/vehicle-input-unfinished.html",
-      "html/vehicle-input-list.html",
-      "html/vehicle-check-down.html",
-      "html/vehicle-check-up.html",
-      "html/vehicle-insurance-list.html",
-      "html/vehicle-license-list.html"
-    ],
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle.js",
-      "css/reset.css"
-    ]
-  },
-  "html/vehicle-check-add-explain.html": {
-    "href": "html/vehicle-check-add-explain.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-check-add-explain.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-check-safety.html": {
-    "href": "html/vehicle-check-safety.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-check-safety.js",
-      "js/lib/mui.view.js"
-    ],
-    "refer": [
-      "html/vehicle-check-add-explain.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-check-up.html": {
-    "href": "html/vehicle-check-up.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-check-up.js"
-    ],
-    "refer": [
-      "html/vehicle-check-safety.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-input.html": {
-    "href": "html/vehicle-input.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-input.js"
-    ],
-    "refer": [
-      "html/vehicle-check-up.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-auditing-add-explain.html": {
-    "href": "html/vehicle-auditing-add-explain.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-auditing-add-explain.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-detail.html": {
-    "href": "html/vehicle-detail.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-detail.js"
-    ],
-    "refer": [
-      "html/vehicle-auditing-add-explain.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-auditing-reason.html": {
-    "href": "html/vehicle-auditing-reason.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-auditing-reason.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-auditing-list.html": {
-    "href": "html/vehicle-auditing-list.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-auditing-list.js",
-      "img/common/icon_app.png"
-    ],
-    "refer": [
-      "html/vehicle-detail.html",
-      "html/vehicle-auditing-reason.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-auditing.html": {
-    "href": "html/vehicle-auditing.html",
-    "resources": [
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-auditing.js",
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/echarts-all.js"
-    ],
-    "refer": [
-      "html/vehicle-auditing-list.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-info.html": {
-    "href": "html/vehicle-info.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-info.js",
-      "img/common/md/vehicle_info_bg@2x.png",
-      "img/common/md/vehicle_input@2x.png",
-      "img/common/md/safe_check@2x.png",
-      "img/common/md/wire_check@2x.png",
-      "img/common/md/bom_check@2x.png",
-      "img/common/md/vehicle_auditing@2x.png",
-      "img/common/md/tools@2x.png"
-    ],
-    "refer": [
-      "html/vehicle-info-detail.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-success.html": {
-    "href": "html/vehicle-success.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-check-down.html": {
-    "href": "html/vehicle-check-down.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-check-down.js"
-    ],
-    "refer": [
-      "html/vehicle-success.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-list.html": {
-    "href": "html/vehicle-list.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-list.js",
-      "img/common/icon_app.png"
-    ],
-    "refer": [
-      "html/vehicle-info.html",
-      "html/vehicle-check-down.html",
-      "html/vehicle-filter.html",
-      "html/vehicle-type-change.html",
-      "html/vehicle-list-info.html",
-      "html/vehicle-program-status.html",
-      "html/search.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-input-unfinished.html": {
-    "href": "html/vehicle-input-unfinished.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-input-unfinished.js",
-      "img/common/icon_app.png"
-    ],
-    "refer": [
-      "html/vehicle-info.html",
-      "html/vehicle-check-safety.html",
-      "html/vehicle-check-up.html",
-      "html/vehicle-check-down.html"
-    ],
-    "priority": 0
-  },
-  "html/popover.html": {
-    "href": "html/popover.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "img/common/icon_md_add_active.png",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/popover.js",
-      "img/common/md/icon_add_active.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "login.html": {
-    "href": "login.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/login.js",
-      "img/login/md_background.png",
-      "img/login/md/background.png",
-      "img/common/md/icon_checked@2x.png"
-    ],
-    "refer": [
-      "index.html"
-    ],
-    "priority": 0
-  },
-  "html/setting.html": {
-    "href": "html/setting.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "css/feedback.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/setting.js",
-      "img/login/user_logo.png",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/lib/mui.view.js"
-    ],
-    "refer": [
-      "login.html"
-    ],
-    "priority": 0
-  },
-  "html/repair-apply.html": {
-    "href": "html/repair-apply.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/repair-apply.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/repair-repairman.html": {
-    "href": "html/repair-repairman.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/repair-repairman.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/repair-list.html": {
-    "href": "html/repair-list.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/repair-list.js",
-      "img/common/icon_app.png"
-    ],
-    "refer": [
-      "html/repair-repairman.html",
-      "html/repair-info.html",
-      "html/repair-content.html",
-      "html/repair-allot.html",
-      "html/repair-maintain.html",
-      "html/search.html"
-    ],
-    "priority": 0
-  },
-  "html/repair.html": {
-    "href": "html/repair.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/repair.js"
-    ],
-    "refer": [
-      "html/repair-apply.html",
-      "html/repair-list.html",
-      "html/repair-maintain-list.html"
-    ],
-    "priority": 0
-  },
-  "html/home-map-search.html": {
-    "href": "html/home-map-search.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "img/common/background_ellipse.png",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/home-map-search.js"
-    ],
-    "refer": [
-      "html/search.html"
-    ],
-    "priority": 0
-  },
-  "html/home.html": {
-    "href": "html/home.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/home.js",
-      "img/common/background_ellipse.png",
-      "img/2222@3x.png"
-    ],
-    "refer": [
-      "html/home-map-search.html"
-    ],
-    "priority": 0
-  },
-  "html/doorpost-car-entrance.html": {
-    "href": "html/doorpost-car-entrance.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/doorpost-car-entrance.js",
-      "img/common/icon_app.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/doorpost-driver-input.html": {
-    "href": "html/doorpost-driver-input.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/doorpost-driver-input.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/doorpost-driver-info.html": {
-    "href": "html/doorpost-driver-info.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/doorpost-driver-info.js"
-    ],
-    "refer": [
-      "html/doorpost-driver-input.html"
-    ],
-    "priority": 0
-  },
-  "html/doorpost-driver.html": {
-    "href": "html/doorpost-driver.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/doorpost-driver.js",
-      "img/common/icon_app.png",
-      "img/common/md/icon_checked@2x.png"
-    ],
-    "refer": [
-      "html/doorpost-driver-input.html",
-      "html/doorpost-driver-info.html",
-      "html/doorpost-driver-authorize.html"
-    ],
-    "priority": 0
-  },
-  "html/doorpost.html": {
-    "href": "html/doorpost.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/doorpost.js"
-    ],
-    "refer": [
-      "html/doorpost-car-entrance.html",
-      "html/doorpost-driver.html"
-    ],
-    "priority": 0
-  },
-  "html/search.html": {
-    "href": "html/search.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/lib/mui.enterfocus.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "img/common/md/no_result.png",
-      "img/common/md/no_net.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-input-detail.html": {
-    "href": "html/vehicle-input-detail.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "img/common/md/vehicle_input_bg@2x.png",
-      "img/common/md/icon_tools_disabled@2x.png",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/lib/mui.view.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-input-detail.js"
-    ],
-    "refer": [
-      "html/vehicle-detail.html",
-      "html/vehicle-check-add-explain.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-input-list.html": {
-    "href": "html/vehicle-input-list.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-input-list.js",
-      "img/common/icon_app.png"
-    ],
-    "refer": [
-      "html/vehicle-input-detail.html",
-      "html/vehicle-insurance-apply.html",
-      "html/vehicle-input-info.html",
-      "html/search.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-filter.html": {
-    "href": "html/vehicle-filter.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-filter.js",
-      "img/common/md/icon_subscript@3x.png"
-    ],
-    "refer": [
-      "html/vehicle-list.html",
-      "html/vehicle-insurance-list.html",
-      "html/vehicle-license-list.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-insurance-apply-input.html": {
-    "href": "html/vehicle-insurance-apply-input.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-insurance-apply-input.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-insurance-apply.html": {
-    "href": "html/vehicle-insurance-apply.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-insurance-apply.js"
-    ],
-    "refer": [
-      "html/vehicle-insurance-apply-input.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-insurance-input.html": {
-    "href": "html/vehicle-insurance-input.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-insurance-input.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-insurance-list.html": {
-    "href": "html/vehicle-insurance-list.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-insurance-list.js",
-      "img/common/icon_app.png"
-    ],
-    "refer": [
-      "html/vehicle-insurance-apply.html",
-      "html/vehicle-insurance-input.html",
-      "html/vehicle-insurance-info.html",
-      "html/vehicle-filter.html",
-      "html/search.html"
-    ],
-    "priority": 0
-  },
-  "html/repair-info.html": {
-    "href": "html/repair-info.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/repair-info.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/repair-content.html": {
-    "href": "html/repair-content.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/repair-content.js"
-    ],
-    "refer": [
-      "html/repair-list.html"
-    ],
-    "priority": 0
-  },
-  "html/repair-allot.html": {
-    "href": "html/repair-allot.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/repair-allot.js"
-    ],
-    "refer": [
-      "html/repair-list.html"
-    ],
-    "priority": 0
-  },
-  "html/repair-maintain.html": {
-    "href": "html/repair-maintain.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/repair-maintain.js"
-    ],
-    "refer": [
-      "html/repair-list.html"
-    ],
-    "priority": 0
-  },
-  "html/doorpost-driver-authorize.html": {
-    "href": "html/doorpost-driver-authorize.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/doorpost-driver-authorize.js"
-    ],
-    "refer": [
-      "html/doorpost-driver.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-input-info.html": {
-    "href": "html/vehicle-input-info.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js"
-    ],
-    "refer": [
-      "html/vehicle-input.html",
-      "html/vehicle-info.html",
-      "html/vehicle-RD-tools.html",
-      "html/vehicle-auditing.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-type-change.html": {
-    "href": "html/vehicle-type-change.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-list-info.html": {
-    "href": "html/vehicle-list-info.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "img/common/md/no_data@2x.png",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-list-info.js"
-    ],
-    "refer": [
-      "html/vehicle-info.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-program-status.html": {
-    "href": "html/vehicle-program-status.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-license-input.html": {
-    "href": "html/vehicle-license-input.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-license-input.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-license-info.html": {
-    "href": "html/vehicle-license-info.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-license-info.js"
-    ],
-    "refer": [
-      "html/vehicle-info.html",
-      "html/vehicle-license-input.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-license-apply.html": {
-    "href": "html/vehicle-license-apply.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-license-apply.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-license-list.html": {
-    "href": "html/vehicle-license-list.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-license-list.js",
-      "img/common/icon_app.png"
-    ],
-    "refer": [
-      "html/vehicle-license-info.html",
-      "html/vehicle-license-apply.html",
-      "html/search.html",
-      "html/vehicle-filter.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-insurance-info.html": {
-    "href": "html/vehicle-insurance-info.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "img/common/md/no_data@2x.png",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "js/app/vehicle-insurance-info.js"
-    ],
-    "refer": [
-      "html/vehicle-info.html",
-      "html/vehicle-insurance-apply-input.html",
-      "html/vehicle-insurance-input.html"
-    ],
-    "priority": 0
-  },
-  "html/vehicle-info-detail.html": {
-    "href": "html/vehicle-info-detail.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/repair-maintain-info.html": {
-    "href": "html/repair-maintain-info.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "html/repair-maintain-list.html": {
-    "href": "html/repair-maintain-list.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/style-icon.css",
-      "css/style-common.css",
-      "js/lib/jquery.min.js",
-      "js/mui.min.js",
-      "js/app/config.js",
-      "js/app/app.js",
-      "img/common/icon_app.png"
-    ],
-    "refer": [
-      "html/repair-maintain-info.html",
-      "html/repair-maintain.html",
-      "html/search.html"
-    ],
-    "priority": 0
-  }
+	"index.html": {
+		"resources": [
+			"html/setting.html",
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"img/common/icon_md_home_active.png",
+			"img/common/icon_md_car_active.png",
+			"img/common/icon_md_repair_active.png",
+			"img/common/icon_md_user_active.png",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"img/common/md/icon_home_active.png",
+			"img/common/md/icon_car_active.png",
+			"img/common/md/icon_repair_active.png",
+			"img/common/md/icon_user_active.png",
+			"img/common/md/icon_gps_active@2x.png",
+			"html/home.html"
+		],
+		"refer": [
+			"html/repair.html",
+			"html/setting.html",
+			"html/vehicle.html",
+			"html/home.html",
+			"html/popover.html",
+			"html/doorpost.html",
+			"html/home-map-search.html"
+		]
+	},
+	"html/vehicle.html": {
+		"refer": [
+			"html/vehicle-list.html",
+			"html/vehicle-input.html",
+			"html/vehicle-auditing.html",
+			"html/vehicle-input-unfinished.html",
+			"html/vehicle-input-list.html",
+			"html/vehicle-check-down.html",
+			"html/vehicle-check-up.html",
+			"html/vehicle-insurance-list.html",
+			"html/vehicle-license-list.html"
+		],
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle.js",
+			"css/reset.css",
+			"html/vehicle-list.html"
+		]
+	},
+	"html/vehicle-check-add-explain.html": {
+		"href": "html/vehicle-check-add-explain.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-check-add-explain.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-check-safety.html": {
+		"href": "html/vehicle-check-safety.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-check-safety.js",
+			"js/lib/mui.view.js"
+		],
+		"refer": [
+			"html/vehicle-check-add-explain.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-check-up.html": {
+		"href": "html/vehicle-check-up.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-check-up.js"
+		],
+		"refer": [
+			"html/vehicle-check-safety.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-input.html": {
+		"href": "html/vehicle-input.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-input.js"
+		],
+		"refer": [
+			"html/vehicle-check-up.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-auditing-add-explain.html": {
+		"href": "html/vehicle-auditing-add-explain.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-auditing-add-explain.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-detail.html": {
+		"href": "html/vehicle-detail.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-detail.js"
+		],
+		"refer": [
+			"html/vehicle-auditing-add-explain.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-auditing-reason.html": {
+		"href": "html/vehicle-auditing-reason.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-auditing-reason.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-auditing-list.html": {
+		"href": "html/vehicle-auditing-list.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-auditing-list.js",
+			"img/common/icon_app.png"
+		],
+		"refer": [
+			"html/vehicle-detail.html",
+			"html/vehicle-auditing-reason.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-auditing.html": {
+		"href": "html/vehicle-auditing.html",
+		"resources": [
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-auditing.js",
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/echarts-all.js"
+		],
+		"refer": [
+			"html/vehicle-auditing-list.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-info.html": {
+		"href": "html/vehicle-info.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-info.js",
+			"img/common/md/vehicle_info_bg@2x.png",
+			"img/common/md/vehicle_input@2x.png",
+			"img/common/md/safe_check@2x.png",
+			"img/common/md/wire_check@2x.png",
+			"img/common/md/bom_check@2x.png",
+			"img/common/md/vehicle_auditing@2x.png",
+			"img/common/md/tools@2x.png"
+		],
+		"refer": [
+			"html/vehicle-info-detail.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-success.html": {
+		"href": "html/vehicle-success.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-check-down.html": {
+		"href": "html/vehicle-check-down.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-check-down.js"
+		],
+		"refer": [
+			"html/vehicle-success.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-list.html": {
+		"href": "html/vehicle-list.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-list.js",
+			"img/common/icon_app.png"
+		],
+		"refer": [
+			"html/vehicle-info.html",
+			"html/vehicle-check-down.html",
+			"html/vehicle-filter.html",
+			"html/vehicle-type-change.html",
+			"html/vehicle-list-info.html",
+			"html/vehicle-program-status.html",
+			"html/search.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-input-unfinished.html": {
+		"href": "html/vehicle-input-unfinished.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-input-unfinished.js",
+			"img/common/icon_app.png"
+		],
+		"refer": [
+			"html/vehicle-info.html",
+			"html/vehicle-check-safety.html",
+			"html/vehicle-check-up.html",
+			"html/vehicle-check-down.html"
+		],
+		"priority": 0
+	},
+	"html/popover.html": {
+		"href": "html/popover.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"img/common/icon_md_add_active.png",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/popover.js",
+			"img/common/md/icon_add_active.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"login.html": {
+		"href": "login.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/login.js",
+			"img/login/md_background.png",
+			"img/login/md/background.png",
+			"img/common/md/icon_checked@2x.png"
+		],
+		"refer": [
+			"index.html"
+		],
+		"priority": 0
+	},
+	"html/setting.html": {
+		"href": "html/setting.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"css/feedback.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/setting.js",
+			"img/login/user_logo.png",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/lib/mui.view.js"
+		],
+		"refer": [
+			"login.html"
+		],
+		"priority": 0
+	},
+	"html/repair-apply.html": {
+		"href": "html/repair-apply.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/repair-apply.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/repair-repairman.html": {
+		"href": "html/repair-repairman.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/repair-repairman.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/repair-list.html": {
+		"href": "html/repair-list.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/repair-list.js",
+			"img/common/icon_app.png"
+		],
+		"refer": [
+			"html/repair-repairman.html",
+			"html/repair-info.html",
+			"html/repair-content.html",
+			"html/repair-allot.html",
+			"html/repair-maintain.html",
+			"html/search.html"
+		],
+		"priority": 0
+	},
+	"html/repair.html": {
+		"href": "html/repair.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/repair.js",
+			"html/repair-apply.html"
+		],
+		"refer": [
+			"html/repair-apply.html",
+			"html/repair-list.html",
+			"html/repair-maintain-list.html"
+		],
+		"priority": 0
+	},
+	"html/home-map-search.html": {
+		"href": "html/home-map-search.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"img/common/background_ellipse.png",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/home-map-search.js"
+		],
+		"refer": [
+			"html/search.html"
+		],
+		"priority": 0
+	},
+	"html/home.html": {
+		"href": "html/home.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/home.js",
+			"img/common/background_ellipse.png",
+			"img/2222@3x.png"
+		],
+		"refer": [
+			"html/home-map-search.html"
+		],
+		"priority": 0
+	},
+	"html/doorpost-car-entrance.html": {
+		"href": "html/doorpost-car-entrance.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/doorpost-car-entrance.js",
+			"img/common/icon_app.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/doorpost-driver-input.html": {
+		"href": "html/doorpost-driver-input.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/doorpost-driver-input.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/doorpost-driver-info.html": {
+		"href": "html/doorpost-driver-info.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/doorpost-driver-info.js"
+		],
+		"refer": [
+			"html/doorpost-driver-input.html"
+		],
+		"priority": 0
+	},
+	"html/doorpost-driver.html": {
+		"href": "html/doorpost-driver.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/doorpost-driver.js",
+			"img/common/icon_app.png",
+			"img/common/md/icon_checked@2x.png"
+		],
+		"refer": [
+			"html/doorpost-driver-input.html",
+			"html/doorpost-driver-info.html",
+			"html/doorpost-driver-authorize.html"
+		],
+		"priority": 0
+	},
+	"html/doorpost.html": {
+		"href": "html/doorpost.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/doorpost.js",
+			"html/doorpost-car-entrance.html"
+		],
+		"refer": [
+			"html/doorpost-car-entrance.html",
+			"html/doorpost-driver.html"
+		],
+		"priority": 0
+	},
+	"html/search.html": {
+		"href": "html/search.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/lib/mui.enterfocus.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"img/common/md/no_result.png",
+			"img/common/md/no_net.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-input-detail.html": {
+		"href": "html/vehicle-input-detail.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"img/common/md/vehicle_input_bg@2x.png",
+			"img/common/md/icon_tools_disabled@2x.png",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/lib/mui.view.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-input-detail.js"
+		],
+		"refer": [
+			"html/vehicle-detail.html",
+			"html/vehicle-check-add-explain.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-input-list.html": {
+		"href": "html/vehicle-input-list.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-input-list.js",
+			"img/common/icon_app.png"
+		],
+		"refer": [
+			"html/vehicle-input-detail.html",
+			"html/vehicle-insurance-apply.html",
+			"html/vehicle-input-info.html",
+			"html/search.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-filter.html": {
+		"href": "html/vehicle-filter.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-filter.js",
+			"img/common/md/icon_subscript@3x.png"
+		],
+		"refer": [
+			"html/vehicle-list.html",
+			"html/vehicle-insurance-list.html",
+			"html/vehicle-license-list.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-insurance-apply-input.html": {
+		"href": "html/vehicle-insurance-apply-input.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-insurance-apply-input.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-insurance-apply.html": {
+		"href": "html/vehicle-insurance-apply.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-insurance-apply.js"
+		],
+		"refer": [
+			"html/vehicle-insurance-apply-input.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-insurance-input.html": {
+		"href": "html/vehicle-insurance-input.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-insurance-input.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-insurance-list.html": {
+		"href": "html/vehicle-insurance-list.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-insurance-list.js",
+			"img/common/icon_app.png"
+		],
+		"refer": [
+			"html/vehicle-insurance-apply.html",
+			"html/vehicle-insurance-input.html",
+			"html/vehicle-insurance-info.html",
+			"html/vehicle-filter.html",
+			"html/search.html"
+		],
+		"priority": 0
+	},
+	"html/repair-info.html": {
+		"href": "html/repair-info.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/repair-info.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/repair-content.html": {
+		"href": "html/repair-content.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/repair-content.js"
+		],
+		"refer": [
+			"html/repair-list.html"
+		],
+		"priority": 0
+	},
+	"html/repair-allot.html": {
+		"href": "html/repair-allot.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/repair-allot.js"
+		],
+		"refer": [
+			"html/repair-list.html"
+		],
+		"priority": 0
+	},
+	"html/repair-maintain.html": {
+		"href": "html/repair-maintain.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/repair-maintain.js"
+		],
+		"refer": [
+			"html/repair-list.html"
+		],
+		"priority": 0
+	},
+	"html/doorpost-driver-authorize.html": {
+		"href": "html/doorpost-driver-authorize.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/doorpost-driver-authorize.js"
+		],
+		"refer": [
+			"html/doorpost-driver.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-input-info.html": {
+		"href": "html/vehicle-input-info.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js"
+		],
+		"refer": [
+			"html/vehicle-input.html",
+			"html/vehicle-info.html",
+			"html/vehicle-RD-tools.html",
+			"html/vehicle-auditing.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-type-change.html": {
+		"href": "html/vehicle-type-change.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-list-info.html": {
+		"href": "html/vehicle-list-info.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"img/common/md/no_data@2x.png",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-list-info.js"
+		],
+		"refer": [
+			"html/vehicle-info.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-program-status.html": {
+		"href": "html/vehicle-program-status.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-license-input.html": {
+		"href": "html/vehicle-license-input.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-license-input.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-license-info.html": {
+		"href": "html/vehicle-license-info.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-license-info.js"
+		],
+		"refer": [
+			"html/vehicle-info.html",
+			"html/vehicle-license-input.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-license-apply.html": {
+		"href": "html/vehicle-license-apply.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-license-apply.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/vehicle-license-list.html": {
+		"href": "html/vehicle-license-list.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-license-list.js",
+			"img/common/icon_app.png"
+		],
+		"refer": [
+			"html/vehicle-license-info.html",
+			"html/vehicle-license-apply.html",
+			"html/search.html",
+			"html/vehicle-filter.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-insurance-info.html": {
+		"href": "html/vehicle-insurance-info.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"img/common/md/no_data@2x.png",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"js/app/vehicle-insurance-info.js"
+		],
+		"refer": [
+			"html/vehicle-info.html",
+			"html/vehicle-insurance-apply-input.html",
+			"html/vehicle-insurance-input.html"
+		],
+		"priority": 0
+	},
+	"html/vehicle-info-detail.html": {
+		"href": "html/vehicle-info-detail.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/repair-maintain-info.html": {
+		"href": "html/repair-maintain-info.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"html/repair-maintain-list.html": {
+		"href": "html/repair-maintain-list.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style-icon.css",
+			"css/style-common.css",
+			"js/lib/jquery.min.js",
+			"js/mui.min.js",
+			"js/app/config.js",
+			"js/app/app.js",
+			"img/common/icon_app.png"
+		],
+		"refer": [
+			"html/repair-maintain-info.html",
+			"html/repair-maintain.html",
+			"html/search.html"
+		],
+		"priority": 0
+	}
 }

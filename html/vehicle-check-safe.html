@@ -1239,12 +1239,20 @@
     var stateArr = [];
     var submitArr = ['saveClacyLindersss', 'addSafeCheck'];
     var updateArr = ['updateCldCheckByvSn', 'updateSafeCheckByvSn'];
-    var flag1 = false;
-    var flag2 = false;
+    var isChecked = false; // 核对
+    var isInspect = false; // 检查
+    var submitLock = false; // 提交保护
     var isChecked = false;
+    var hasCheck = false;
     var urlSafeCheck = null;
     var urlCldCheck = null;
 
+
+    var form = document.getElementsByTagName('form')[0];
+
+    form.onsubmit = function (e) {
+      e.preventDefault();// 取消默认事件
+    }
 
     mui.init();
     //初始化单页的区域滚动
@@ -1258,7 +1266,7 @@
       vSn = self.vSn;
       state = self.state ? self.state : 'submitArr';
       fetchData();
-      submitData();
+      // submitData();
     })
 
     function handsetAdaption() {
@@ -1283,8 +1291,8 @@
     function fetchData() {
       // 缸压查看
       app.findCldCheckByvSn({ vSn: vSn }, function (res) {
-        console.log(res);
-        if (!res) {
+        // console.log(res);
+        if (res == null) {
           mui.toast('缸压检查未完成')
           return;
         }
@@ -1295,14 +1303,14 @@
       app.findSafeCheckByvSn({ vSn: vSn }, function (res) {
         console.log(res);
         if (res.checkResults.length <= 0) {
-          isChecked = false;
+          // isChecked = false;
           mui.toast('安全检查未完成');
           return;
         }
 
 
-        if (res.check.checkPerson) {
-          isChecked = true;
+        if (res.check && res.check.checkPerson) {
+          hasCheck = true;
         }
         updateView.safeCheck(res.checkResults);
 
@@ -1341,134 +1349,157 @@
     }
 
     // 提交数据
+    $('#two_next').on('tap', function () {
+      if (submitLock) {
+        mui.toast('请不要重复操作！')
+        return;
+      }
+      submitLock = true;
+      // console.log(isChecked)
+      if (isChecked && !isInspect) {
+        stateArr = updateArr;
+        urlSafeCheck = BASE_URL_1 + 'car-management/car/updateSafeCheckByvSn/' + vSn + '.action';
+        urlCldCheck = BASE_URL_1 + 'car-management/car/updateCldCheckByvSn.action';
+        console.log('执行核对操作');
+        submitData()
+      } else if (!isChecked && isInspect) {
+        stateArr = submitArr;
+        urlSafeCheck = BASE_URL_1 + 'car-management/car/addSafeCheck/' + vSn + '.action'
+        urlCldCheck = BASE_URL_1 + 'car-management/car/saveClacyLindersss.action'
+        console.log('执行检查操作');
+        submitData()
+      } else if (isChecked && isInspect) {
+        stateArr = updateArr;
+        urlSafeCheck = BASE_URL_1 + 'car-management/car/updateSafeCheckByvSn/' + vSn + '.action';
+        urlCldCheck = BASE_URL_1 + 'car-management/car/updateCldCheckByvSn.action'
+        console.log('执行核对操作');
+        submitData()
+        stateArr = submitArr;
+        urlSafeCheck = BASE_URL_1 + 'car-management/car/addSafeCheck/' + vSn + '.action'
+        urlCldCheck = BASE_URL_1 + 'car-management/car/saveClacyLindersss.action';
+        console.log('执行检查操作');
+        submitData()
+      } else {
+        stateArr = submitArr;
+        urlSafeCheck = BASE_URL_1 + 'car-management/car/addSafeCheck/' + vSn + '.action'
+        urlCldCheck = BASE_URL_1 + 'car-management/car/saveClacyLindersss.action';
+        console.log('执行检查操作');
+        submitData()
+      }
+      // console.log(stateArr)
+      return;
+    })
+
     // submitData()
     function submitData() {
-
-      // if (state == 'submitArr') {
-      //   stateArr = submitArr;
-      // } else if (state == 'updateArr') {
-      //   stateArr = updateArr;
-      // }
-      // console.log(stateArr)
-      // 安全检查&缸压检查
-      $('#two_next').on('tap', function () {
-        console.log(isChecked)
-        if (isChecked) {
-          stateArr = updateArr;
-          urlSafeCheck = BASE_URL_1 + 'car-management/car/updateSafeCheckByvSn/' + vSn + '.action';
-          urlCldCheck = BASE_URL_1 + 'car-management/car/updateCldCheckByvSn.action'
-        } else {
-          stateArr = submitArr;
-          urlSafeCheck = BASE_URL_1 + 'car-management/car/addSafeCheck/' + vSn + '.action'
-          urlCldCheck = BASE_URL_1 + 'car-management/car/saveClacyLindersss.action'
-        }
-        // console.log(stateArr)
+      // 缸压检查获取数据
+      var pressure = serialize($('#pressure'));
+      pressure.fuel_p = $('#fuel_p').html()
+      pressure.vSn = vSn
+      pressure.id = $('#pressure').attr('data-id')
+      if (hasEmptyValue(pressure)) {
+        submitLock = false;
+        mui.toast('请填写完整的缸压数据');
         return;
-        // 缸压检查
-        var pressure = serialize($('#pressure'));
-        pressure.fuel_p = $('#fuel_p').html()
-        pressure.vSn = vSn
-        pressure.id = $('#pressure').attr('data-id')
-        console.log(pressure);
+      }
+      // console.log(pressure);
+      // 安全检查获取数据
+      var $safeTr = $('table tbody tr');
+      var safeCheckResult = [];
+      var data = {}
 
-        // app[stateArr[0]](pressure, function (res) {
-        //   console.log(res.msg);
-
-        //   if (res.ret) {
-        //     mui.toast(res.msg);
-        //     flag1 = true;
-        //   } else {
-        //     mui.toast('缸压检查失败');
-        //   }
-        // })
-
-        // 安全检查
-        var $safeTr = $('table tbody tr');
-        var safeCheckResult = [];
-        var data = {}
-
-        $safeTr.each(function (i) {
-          safeCheckResult.push({
-            'checkExplanation': $(this).find('.explain-text').val(),
-            'checkingExplanation': $(this).find('.resolvent-text').val(),
-            'item': $(this).find('.item').html(),
-            'request': $(this).find('.request').html(),
-            'status': $(this).find('.status').val(),
-            'vSn': vSn,
-            'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : ''
-          })
+      $safeTr.each(function (i) {
+        // console.log($(this).attr('data-uuid') ? $(this).attr('data-uuid') : '无')
+        safeCheckResult.push({
+          'checkExplanation': $(this).find('.explain-text').val(),
+          'checkingExplanation': $(this).find('.resolvent-text').val(),
+          'item': $(this).find('.item').html(),
+          'request': $(this).find('.request').html(),
+          'status': $(this).find('.status').val(),
+          'vSn': vSn,
+          'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : ''
         })
-        data = {
-          vSn: vSn,
-          safeCheckResult: safeCheckResult
-        }
-        console.log(data);
+      })
+      data = {
+        vSn: vSn,
+        safeCheckResult: safeCheckResult
+      }
+      // return;
+      // console.log(data);
+      // app[stateArr[0]](pressure, function (res) {
+      //   console.log(res.msg);
 
-        // app[stateArr[1]](data, function (res) {
-        //   console.log(res.msg);
+      //   if (res.ret) {
+      //     mui.toast(res.msg);
+      //     flag1 = true;
+      //   } else {
+      //     mui.toast('缸压检查失败');
+      //   }
+      // })
 
-        //   if (res.ret) {
-        //     mui.toast(res.msg);
-        //     flag2 = true
-        //   } else {
-        //     mui.toast('安全检查失败')
-        //   }
-        // })
+      // app[stateArr[1]](data, function (res) {
+      //   console.log(res.msg);
 
+      //   if (res.ret) {
+      //     mui.toast(res.msg);
+      //     flag2 = true
+      //   } else {
+      //     mui.toast('安全检查失败')
+      //   }
+      // })
 
-        $.when(mui.ajax({
-          type: 'post',//HTTP请求类型
-          url: urlSafeCheck,
-          data: data.safeCheckResult,
-          contentType: 'application/json;charset=UTF-8', //contentType很重要 
-          crossDomain: true,
-          success: function (res) {
-            //服务器返回响应，根据响应结果，分析是否登录成功；
-            console.log(1414, res.msg);
-            // mui.toast(res.msg)
-          },
-          error: function (xhr, type, errorThrown) {
-            //异常处理；
-            console.log(xhr.status);
-            if (type == 'timeout') {
-              mui.toast("请求超时：请检查网络")
-            } else {
-              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
-            }
-          },
-        }), mui.ajax({
-          type: 'post',//HTTP请求类型
-          url: urlCldCheck,
-          data: pressure,
-          contentType: 'application/json;charset=UTF-8', //contentType很重要 
-          crossDomain: true,
-          success: function (res) {
-            //服务器返回响应，根据响应结果，分析是否登录成功；
-            console.log(1428, res.msg);
-            // mui.toast(res.msg)
-          },
-          error: function (xhr, type, errorThrown) {
-            //异常处理；
-            console.log(xhr.status);
-            if (type == 'timeout') {
-              mui.toast("请求超时：请检查网络")
-            } else {
-              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
-            }
+      // 数据提交
+      $.when(mui.ajax({
+        type: 'post',//HTTP请求类型
+        url: urlSafeCheck,
+        data: data.safeCheckResult,
+        contentType: 'application/json;charset=UTF-8', //contentType很重要 
+        crossDomain: true,
+        success: function (res) {
+          //服务器返回响应，根据响应结果，分析是否登录成功；
+          // console.log(1414, res.msg);
+          mui.toast(res.msg)
+        },
+        error: function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(xhr.status);
+          if (type == 'timeout') {
+            mui.toast("请求超时：请检查网络")
+          } else {
+            mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
           }
-        })).then(function (res) {
-          console.log(1435, res.msg);
-          mui.toast('安全检查、缸压检测成功');
-          setTimeout(() => {
-            mui.back();
-            mui.fire(view, 'update', null)
-          }, 500);
+        },
+      }), mui.ajax({
+        type: 'post',//HTTP请求类型
+        url: urlCldCheck,
+        data: pressure,
+        contentType: 'application/json;charset=UTF-8', //contentType很重要 
+        crossDomain: true,
+        success: function (res) {
+          //服务器返回响应，根据响应结果，分析是否登录成功；
+          mui.toast(res.msg)
+        },
+        error: function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(xhr.status);
+          if (type == 'timeout') {
+            mui.toast("请求超时：请检查网络")
+          } else {
+            mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+          }
+        }
+      })).then(function (res) {
+        // console.log(1435, res.msg);
+        mui.toast('安全检查、缸压检测成功');
+        setTimeout(() => {
+          mui.back();
+          mui.fire(view, 'update', null)
+        }, 500);
 
-        }, function (err) {
-          console.log(1437, err);
-          mui.toast('安全检查、缸压检测失败');
-        })
-
+      }, function (err) {
+        submitLock = false;
+        // console.log(1437, err);
+        // mui.toast('安全检查、缸压检测失败');
       })
     }
 
@@ -1497,11 +1528,17 @@
           var explainText = evt.detail.explainText;
           //do something
           $(_this).parents('tr').find('.explain-text').val(explainText);
-          $(_this).html('···')
+          $(_this).html('···');
+          isInspect = true;
         });
       })
       // 添加解决方法
       $('#app').on('tap', '.resolvent', function () {
+        if(!hasCheck) {
+          submitLock = false;
+          mui.alert('请先进行检查操作', '提示')
+          return;
+        }
         var _this = this;
         var explainText = $(_this).parents('tr').find('.explain-text').val();
         var resolventText = $(_this).parents('tr').find('.resolvent-text').val();
@@ -1530,7 +1567,8 @@
           var resolventText = evt.detail.resolventText;
           //do something
           $(_this).parents('tr').find('.resolvent-text').val(resolventText);
-          $(_this).html('···')
+          $(_this).html('···');
+          isChecked = true;
         });
       })
     }

@@ -143,10 +143,10 @@
           console.log(res)
           if(res.length <= 0) {
             mui.toast('研发工具未申请，请先申请');
-            setTimeout(() => {
-              mui.back();
-              return;
-            }, 500);
+            // setTimeout(() => {
+            //   mui.back();
+            //   return;
+            // }, 500);
           }
           updateView(res);
         })

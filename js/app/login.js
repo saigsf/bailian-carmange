@@ -9,6 +9,8 @@
     });
     //更改状态栏颜色
     plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+    //更改状态栏颜色
+    // plus.navigator.setStatusBarStyle("dark");
     // 获取本地配置
     var settings = app.getSettings();
     // console.log(JSON.stringify(settings))

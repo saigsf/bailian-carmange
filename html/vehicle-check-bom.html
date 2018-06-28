@@ -90,7 +90,10 @@
     var stateArr = [];
     var submitArr = ['addEmsAndBomCheck'];
     var updateArr = ['updateEmsAndBomCheckByCar'];
-    var isChecked = false;
+    var isChecked = false; // 核对
+    var isInspect = false; // 检查
+    var submitLock = false; // 提交保护
+    var hasCheck = false;
 
     mui.init();
     //初始化单页的区域滚动
@@ -104,7 +107,7 @@
       vSn = self.vSn;
       state = self.state ? self.state : 'submitArr';
       fetchData();
-      submitData();
+      // submitData();
     })
 
     function handsetAdaption() {
@@ -124,62 +127,88 @@
     }
 
     // 提交数据
+    $('#four_next').on('tap', function () {
+      if(submitLock) {
+        mui.toast('请不要重复操作，以免数据重复提交')
+        return;
+      }
+      submitLock = true;
+      console.log(isChecked, isInspect)
+      if (isChecked && !isInspect) {
+        stateArr = updateArr;
+        // 执行检查操作;
+        submitData();
+        console.log(stateArr)
+      } else if(!isChecked && isInspect) {
+        stateArr = submitArr;
+        // 执行核对操作
+        submitData()
+        console.log(stateArr)
+      } else if (isChecked && isInspect) {
+        stateArr = submitArr;
+        // 执行检查操作;
+        submitData()
+        console.log(stateArr);
+        stateArr = updateArr;
+        // 执行核对操作
+        submitData()
+        console.log(stateArr);
+      } else {
+        stateArr = submitArr;
+        submitData();
+        console.log(stateArr);
+        
+      }
+
+      // return;
+    })
 
     function submitData() {
-      // if (state == 'submitArr') {
-      //   stateArr = submitArr;
-      // } else if (state == 'updateArr') {
-      //   stateArr = updateArr;
-      // }
-
       // bom检查
-      $('#four_next').on('tap', function () {
-        if (isChecked) {
-          stateArr = updateArr;
-        } else {
-          stateArr = submitArr;
-        }
+      var $bomTr = $('table tbody tr');
+      console.log($bomTr.length);
+      if($bomTr.length==0) {
+        mui.alert('您还没有进行bom申请，请先去bom申请', '提示');
+        submitLock = false;
+        return;
+      }
 
-        console.log(isChecked)
+      var emsAndBomCheckResults = [];
+      var data = {};
 
-        // return;
-
-        var $bomTr = $('table tbody tr');
-        // console.log($bomTr);
-
-        var emsAndBomCheckResults = [];
-        var data = {};
-
-        $bomTr.each(function (i) {
-          emsAndBomCheckResults.push({
-            'vSn': vSn,
-            'uuid': $(this).attr('data-uuid'),
-            'bomName': $(this).find('.bomName').html(),
-            'bomNum': $(this).find('.bomNum').html(),
-            'status': $(this).find('.status').val(),
-            'checkExplanation': $(this).find('.explain-text').val(),
-            'checkingExplanation': $(this).find('.resolvent-text').val(),
-          })
-        });
-
-        data = {
-          vSn: vSn,
-          emsAndBomCheckResults: emsAndBomCheckResults
-        }
-        console.log(stateArr[0])
-        app[stateArr[0]](data, function (res) {
-          console.log(res.msg)
-
-          if (res.ret) {
-            mui.toast(res.msg);
-            setTimeout(() => {
-              mui.back();
-            }, 500);
-          } else {
-            mui.toast('BOM零部件检查失败');
-          }
+      $bomTr.each(function (i) {
+        console.log($(this).attr('data-uuid') ? $(this).attr('data-uuid') : '无')
+        emsAndBomCheckResults.push({
+          'vSn': vSn,
+          'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : '',
+          'bomName': $(this).find('.bomName').html(),
+          'bomNum': $(this).find('.bomNum').html(),
+          'status': $(this).find('.status').val(),
+          'checkExplanation': $(this).find('.explain-text').val(),
+          'checkingExplanation': $(this).find('.resolvent-text').val(),
         })
+      });
+
+      data = {
+        vSn: vSn,
+        emsAndBomCheckResults: emsAndBomCheckResults
+      }
+      // return;
+      // console.log(stateArr[0])
+      app[stateArr[0]](data, function (res) {
+        console.log(res.msg)
+
+        if (res.ret) {
+          mui.toast(res.msg);
+          setTimeout(() => {
+            mui.back();
+          }, 500);
+        } else {
+          submitLock = false;
+          mui.toast(res.msg);
+        }
       })
+
     }
 
     // 获取数据
@@ -190,20 +219,13 @@
       }, function (res) {
         console.log(res)
         console.log(JSON.stringify(res.check))
-        if (res.checkResults <= 0 || (res.check.checkPerson != null && res.check.checkingPerson != null)) {
+        if (res.checkResults <= 0) {
           mui.toast('尚未申请bom,请去申请');
-          // setTimeout(() => {
-          //   mui.back();
-          //   return;
-          // }, 500);
         }
 
-        if (res.check.checkPerson == null) {
-          isChecked = false;
-        } else if (res.check.checkingPerson == null) {
-          isChecked = true;
+        if (res.check && res.check.checkPerson) {
+          hasCheck = true;
         }
-
         updateView(res.checkResults)
       })
     }
@@ -265,11 +287,17 @@
           var explainText = evt.detail.explainText;
           //do something
           $(_this).parents('tr').find('.explain-text').val(explainText);
-          $(_this).html('···')
+          $(_this).html('···');
+          isInspect = true
         });
       })
       // 添加解决方法
       $('table').on('tap', '.resolvent', function () {
+        if(!hasCheck) {
+          submitLock = false;
+          mui.alert('请先进行检查操作', '提示')
+          return;
+        }
         var _this = this;
         var explainText = $(_this).parents('tr').find('.explain-text').val();
         var resolventText = $(_this).parents('tr').find('.resolvent-text').val();
@@ -293,7 +321,8 @@
           var resolventText = evt.detail.resolventText;
           //do something
           $(_this).parents('tr').find('.resolvent-text').val(resolventText);
-          $(_this).html('···')
+          $(_this).html('···');
+          isChecked = true;
         });
       })
     }

@@ -1634,6 +1634,7 @@
       var self = null;
       var view = null;
       var vSn = '2018ICECTC006';
+      var submitLock = false;
 
       mui.init();
       // 初始化区域滚动
@@ -1669,8 +1670,12 @@
         app.findReview({
           vSn: vSn
         }, function (res) {
+          console.log('审核查看')
           console.log(res)
           res = JSON.parse(res)
+          if(res.reviewerPerson == null) {
+            return
+          }
           updateView.review(res)
         })
         // 接车点检查看
@@ -1870,28 +1875,35 @@
       }
 
       // 提交数据
-      submitData()
+      
+      $('#six_next').on('tap', function () {
+        if(submitLock) {
+          mui.toast('请不要重复提交')
+          return;
+        }
+        submitLock = true;
+        submitData();
+      })
       function submitData() {
-        $('#six_next').on('tap', function () {
-          var data = serialize($('#auditing_form'));
-          data.vSn = vSn;
-          console.log(data)
-          app.doReview(data, function (res) {
-            console.log(res);
-            res = JSON.parse(res)
-            mui.toast(res.msg);
-            if (res.ret) {
-              setTimeout(() => {
-                mui.back()
-                mui.fire(view, 'update', null)
-              }, 500);
-
-            }
-          })
+        var data = serialize($('#auditing_form'));
+        data.vSn = vSn;
+        // data.status = $('#auditing_form').find('input[checked]').val()
+        console.log(JSON.stringify(data))
+        // return;
+        app.doReview(data, function (res) {
+          console.log(res);
+          res = JSON.parse(res)
+          mui.toast(res.msg);
+          if (res.ret) {
+            setTimeout(() => {
+              mui.back()
+              mui.fire(view, 'update', null)
+            }, 500);
+          } else {
+            submitLock = false;
+          }
         })
       }
-
-
     })();
   </script>
 </body>

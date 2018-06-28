@@ -95,7 +95,7 @@
     <script type="text/javascript" charset="utf-8">
       var closeView = function() {
         var ws = plus.webview.getDisplayWebview();
-
+        
         if(ws.length === 2) {
           ws[0].close();
           setTimeout(function() {
@@ -148,7 +148,7 @@
             document.getElementById('mui_bar_tab').style.paddingBottom = H + 'px';
           }
           //更改状态栏颜色
-          plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+          plus.navigator.setStatusBarStyle("dark");
 
           //禁止横屏
           plus.screen.lockOrientation("portrait-primary");
@@ -178,6 +178,12 @@
 
           if(targetTab == activeTab) {
             return;
+          }
+
+          if(targetTab === 'html/home.html') {
+            plus.navigator.setStatusBarStyle("dark");
+          } else {
+            plus.navigator.setStatusBarStyle("light");
           }
 
           if(targetTab === 'html/popover.html') {
@@ -218,6 +224,7 @@
 
           activeTab = targetTab;
 
+          // if(mui.os.ios) closeView();
           closeView();
 
         });

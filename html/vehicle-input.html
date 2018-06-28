@@ -364,7 +364,7 @@
       })
 
       // 获取接车点检信息
-      app.findUpcheck({vSn}, function(res) {
+      app.findUpcheck({ vSn }, function (res) {
         console.log(res);
         $('#vin').val(res.vin)
         $('#brandModelone').val(res.brandModelone)
@@ -424,44 +424,6 @@
       $('#vehicle-input-bom').on('tap', function () {
         var oneInfo = serialize($('#form_one_info'));
         console.log(oneInfo)
-        // oneInfo = {
-        //   FuelType : "93",
-        //   adminName : "张总",
-        //   carName : "奥迪a6",
-        //   color : "红色",
-        //   contactNumber : "18659131413",
-        //   customer : "张总",
-        //   engineCapacity : "",
-        //   engineNumber : "111",
-        //   engineType : "12321",
-        //   frontTireP : "",
-        //   gbts : "",
-        //   groupName : "",
-        //   makeTime : "",
-        //   oilspecification : "",
-        //   price : "2",
-        //   projectEngineer : "张娟",
-        //   project_name : "2335项目",
-        //   project_sn : "2335",
-        //   reaTireP : "",
-        //   remark : "",
-        //   seats : "4",
-        //   tyresize : "111",
-        //   vCarType : "跑车",
-        //   vSn : "2018ICECTC022",
-        //   vehicleQuality : "2",
-        //   vin : "111",
-        //   brandModelone: '111'
-        // }
-        // // console.log(oneInfo)
-        // oneInfo = JSON.stringify(oneInfo)
-        // app.save(oneInfo, function (res) {
-        //   res = JSON.parse(res)
-        //   console.log(res.msg)
-        //   mui.toast(res.msg)
-        // })
-
-        // return;
 
         var checkArr = [
           'carName',
