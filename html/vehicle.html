@@ -86,9 +86,9 @@
         <div class="mui-scroll">
           <a id="defaultTab" class="mui-control-item mui-active" href="vehicle-list.html">车辆总表</a>
           <a id="vehicle-check-up" class="mui-control-item" href="vehicle-check-up.html">接车点检</a>
-          <a id="vehicle-input-list" class="mui-control-item" href="vehicle-input-list.html">车辆录入</a>
-          <a id="vehicle-insurance-input" class="mui-control-item" href="vehicle-insurance-list.html">保险列表</a>
-          <a id="vehicle-insurance-input" class="mui-control-item" href="vehicle-license-list.html">车牌列表</a>
+          <a id="vehicle-input-list" class="mui-control-item" href="vehicle-input-list.html">新车录入</a>
+          <a id="vehicle-insurance-input" class="mui-control-item" href="vehicle-insurance-list.html">保险</a>
+          <a id="vehicle-insurance-input" class="mui-control-item" href="vehicle-license-list.html">车牌</a>
           <!-- <a id="vehicle-check-down" class="mui-control-item" href="vehicle-check-down.html">还车点检</a> -->
         </div>
       </div>
@@ -165,7 +165,7 @@
         //若为iOS平台或非首次显示，则直接显示
         if (mui.os.ios || aniShow[targetTab]) {
           plus.webview.show(targetTab);
-          plus.webview.getWebviewById(targetTab).reload()
+          // plus.webview.getWebviewById(targetTab).reload()
         } else {
           //否则，使用fade-in动画，且保存变量
           var temp = {};
@@ -173,7 +173,7 @@
           temp[targetTab] = "true";
           mui.extend(aniShow, temp);
           plus.webview.show(targetTab, "slide-in-right", 300);
-          plus.webview.getWebviewById(targetTab).reload()
+          // plus.webview.getWebviewById(targetTab).reload()
         }
         //隐藏当前;
         plus.webview.hide(activeTab);

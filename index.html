@@ -68,8 +68,12 @@
         <span class="mui-icon icon icon-vehicle"></span>
         <span class="mui-tab-label">车辆</span>
       </a>
-      <a class="mui-tab-item" href="html/popover.html" id="openPopover">
+      <!-- <a class="mui-tab-item" href="html/popover.html" id="openPopover">
         <span class="mui-icon icon icon-add"></span>
+      </a> -->
+      <a class="mui-tab-item" href="html/doorpost.html">
+        <span class="mui-icon icon icon-door"></span>
+        <span class="mui-tab-label">门岗</span>
       </a>
       <a class="mui-tab-item" href="html/repair.html">
         <span class="mui-icon icon icon-repair"></span>
@@ -224,8 +228,8 @@
 
           activeTab = targetTab;
 
-          // if(mui.os.ios) closeView();
-          closeView();
+          if(mui.os.ios) closeView();
+          // closeView();
 
         });
 

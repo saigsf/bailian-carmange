@@ -53,6 +53,7 @@
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
     <h1 class="mui-title">接车点检</h1>
+    <a class="icon icon-font mui-pull-right revise" id="revise">修改</a>
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
@@ -200,7 +201,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>备注</label>
-              <input name="remark" type="text" class="mui-input-clear" placeholder="">
+              <input name="remark" type="text" class="mui-input-clear" disabled="true" placeholder="">
 
             </div>
           </li>
@@ -208,7 +209,7 @@
 
       </form>
       <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="next">提交</button>
+        <button class="btn btn-blue" id="next">确认修改</button>
       </div>
     </div>
   </div>
@@ -231,6 +232,7 @@
       var H = null;
       var vSn = '2018ICECTC006';
       var id = null;
+      var data = {}
 
       // plusReady
       mui.plusReady(function () {
@@ -238,6 +240,8 @@
         var self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;
+        fetchData();
+        $('#next').parent().hide()
       })
 
       // 手机适配方法
@@ -269,37 +273,48 @@
       }
 
       // 更新数据
-      updateData()
+      $('#next').on('tap', updateData)
       function updateData() {
-        //提交
-        $('#next').on('tap', function () {
-          //打开接车点检页面
-          var data = serialize($('form'));
-          data.id = id;
-          // console.log(data);
-          app.updateUpcheck(data, function (res) {
-            // res = JSON.parse(res);
-            console.log(res.msg);
-            mui.toast(res.msg)
-            if(res.ret) {
-              setTimeout(() => {
-                mui.back()
-              }, 500);
-            }
-          })
+        //打开接车点检页面
+        var data = serialize($('form'));
+        data.id = id;
+        // console.log(data);
+        app.updateUpcheck(data, function (res) {
+          // res = JSON.parse(res);
+          console.log(res.msg);
+          mui.toast(res.msg)
+          if (res.ret) {
+            setTimeout(() => {
+              mui.back()
+            }, 500);
+          }
         })
       }
 
+      // 修改
+      $('#revise').on('tap', function () {
+        $('#next').parent().show();
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const item = data[key];
+            $('input[name=' + key + ']').attr('disabled', false)
+              .parents('li').find('.mui-icon-clear').show()
+          }
+        }
+
+      })
+
       // 获取数据
-      fetchData()
+      
       function fetchData() {
         app.findUpcheck({
           vSn: vSn
-        }, function(res) {
+        }, function (res) {
           console.log(res)
+          data = res;
           updateView(res)
         })
-        
+
       }
 
       // 视图更新
@@ -308,7 +323,8 @@
         for (const key in data) {
           if (data.hasOwnProperty(key)) {
             const item = data[key];
-            $('input[name='+key+']').val(item)
+            $('input[name=' + key + ']').val(item).attr('disabled', true)
+              .parents('li').find('.mui-icon-clear').hide()
           }
         }
       }
