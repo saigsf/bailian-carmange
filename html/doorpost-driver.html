@@ -179,9 +179,18 @@
           <input type="checkbox" name="" id="all_check">
           <label for="all_check">全选</label>
         </div>
-        <div class="mui-input-row mui-search">
+        <!-- <div class="mui-input-row mui-search">
           <input type="search" id="search" class="mui-input-clear" placeholder="请输入驾驶员姓名">
-        </div>
+        </div> -->
+        <div class="search-wrapper" id="search">
+
+            <div class="search-btn">
+              <i class="icon-search icon"></i>
+            </div>
+            <div class="search-text">
+              <input type="text" readonly placeholder="请输入车辆编号">
+            </div>
+          </div>
         <div class="btn" id="add">
           <i class="icon icon-more"></i>
         </div>
@@ -727,7 +736,7 @@
 
       document.addEventListener('statusBar', function (e) {
         plus.navigator.setStatusBarStyle('light');
-        dataArr = e.detail.data;
+        if(e.detail != null && e.detail.data) dataArr = e.detail.data;
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();

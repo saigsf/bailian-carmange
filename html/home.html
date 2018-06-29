@@ -340,7 +340,7 @@
 
 			}
 
-			fetchData()
+			// fetchData()
 			function fetchData() {
 				// 实时数据查询
 				app.carData({
@@ -348,7 +348,7 @@
 				}, function (res) {
 					res = JSON.parse(res);
 					console.log(res);
-					// updateView.carData(res)
+					updateView.carData(res)
 				});
 
 				app.carTrack({
@@ -362,15 +362,16 @@
 					//   mui.toast('没有数据');
 					//   return;
 					// }
-					// updateView.carTrack(res)
+					updateView.carTrack(res)
 				})
 
 				app.allcar({}, function (res) {
+					console.log(res)
 					res = JSON.parse(res);
 					// if(res.length<=0) {
 					// 	return;
 					// }
-					// updateView.allcar(res)
+					updateView.allcar(res)
 				})
 			}
 
@@ -586,8 +587,7 @@
 			// 状态栏颜色更改
 			document.addEventListener('statusBar', function (e) {
 				plus.navigator.setStatusBarStyle('light');
-				mui.toast(e.detail.vSn);
-				fetchData(e.detail.vSn)
+				fetchData()
 			})
 		})()
 

@@ -118,6 +118,7 @@
         if (mui.os.ios || aniShow[targetTab]) {
           plus.webview.show(targetTab);
           // plus.webview.getWebviewById(targetTab).reload()
+          mui.fire(plus.webview.getWebviewById(targetTab), 'statusBar', null)
         } else {
           //否则，使用fade-in动画，且保存变量
           var temp = {};
@@ -126,6 +127,7 @@
           mui.extend(aniShow, temp);
           plus.webview.show(targetTab, "slide-in-right", 300);
           // plus.webview.getWebviewById(targetTab).reload()
+          mui.fire(plus.webview.getWebviewById(targetTab), 'statusBar', null)
         }
         //隐藏当前;
         plus.webview.hide(activeTab);

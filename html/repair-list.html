@@ -111,12 +111,18 @@
       right: 12px;
     }
 
-    .top .mui-input-row.mui-search {
-      width: 76%;
-    }
 
     .top .mui-btn {
       border: none
+    }
+    .search-wrapper {
+      width: 80%;
+      margin: 10px auto;
+      height: 40px
+    }
+
+    .top {
+      padding: 10px 15px;
     }
 
     /* body {
@@ -130,9 +136,18 @@
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <form class="top">
-        <div class="mui-input-row mui-search" id="search">
+        <!-- <div class="mui-input-row mui-search" id="search">
           <input readonly type="search" class="mui-input-clear" id="current_input" placeholder="请输入车辆编号">
-        </div>
+        </div> -->
+        <div class="search-wrapper" id="search">
+
+            <div class="search-btn">
+              <i class="icon-search icon"></i>
+            </div>
+            <div class="search-text">
+              <input type="text" readonly placeholder="请输入车辆编号">
+            </div>
+          </div>
         <a href="#popover" id="openPopover" class="mui-btn mui-btn-outlined">
           <i class="icon icon-filter">筛选</i>
         </a>
@@ -286,6 +301,8 @@
       var vSn = null;
       var status = null;
       var dataArr = {}
+      // 预加载页面
+      var prepageSearch = null;
 
       mui.init({
         pullRefresh: {
@@ -303,7 +320,14 @@
       mui.plusReady(function () {
         self = plus.webview.currentWebview();
         H = self.H;
-
+        prepageSearch = mui.preload({
+          url: 'search.html',
+          id: 'search',
+          extras: {
+            H: H,
+            prevId: self.id
+          }
+        })
       });
       
       // 下拉刷新
@@ -357,7 +381,7 @@
 
       // 更新视图
       function updateView(data) {
-        console.log(data.length)
+        // console.log(data.length)
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
@@ -561,19 +585,8 @@
         // })
         // 搜索
         $('#search').on('tap', function () {
-          // 修改车型
-          mui.openWindow({
-            url: 'search.html',
-            id: 'search', //默认使用当前页面的url作为id
-            styles: {
-              top: '0px',
-              bottom: H
-            }, //窗口参数
-            extras: {
-              H: H,
-              prevId: self.id
-            } //自定义扩展参数
-          })
+          prepageSearch.show('fade-in');
+          mui.fire(plus.webview.getWebviewById('search'), 'focus', null)
         })
 
         // 保养
@@ -611,7 +624,7 @@
 
       document.addEventListener('statusBar', function (e) {
         plus.navigator.setStatusBarStyle('light');
-        dataArr = e.detail.data;
+        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();

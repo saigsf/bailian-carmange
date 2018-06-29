@@ -74,8 +74,9 @@
       background-color: #fff;
     }
 
-    .top .mui-input-row.mui-search {
-      width: 65%
+    .top .search-wrapper {
+      width: 65%;
+      height: 40px;
     }
   </style>
 </head>
@@ -88,9 +89,19 @@
         <div class="program-status" id="program_status">
           <i class="icon icon-status-change">状态</i>
         </div>
-        <div class="mui-input-row mui-search" id="search">
+        <!-- <div class="mui-input-row mui-search" id="search">
           <input readonly type="search" class="mui-input-clear" placeholder="">
+        </div> -->
+        <div class="search-wrapper" id="search">
+
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
+          </div>
+          <div class="search-text">
+            <input type="text" readonly placeholder="请输入车辆编号">
+          </div>
         </div>
+
         <div class="filter" id="filter">
           <i class="icon icon-filter">筛选</i>
         </div>
@@ -255,7 +266,10 @@
       var isInTransition = false;
       var data = [];
       var dataArr = {};
-      var queryType = 'carQuery'
+      var queryType = 'carQuery';
+
+      // 预加载页面
+      var prepageSearch = null;
 
 
       mui.init({
@@ -287,6 +301,15 @@
         H = self.H;
 
         main.addEventListener('maskClick', closeMenu);
+
+        prepageSearch = mui.preload({
+          url: 'search.html',
+          id: 'search',
+          extras: {
+            H: H,
+            prevId: self.id
+          }
+        })
 
         addEvent();
       });
@@ -339,8 +362,17 @@
 
         opt = $.extend(opt, dataArr);
         console.log(JSON.stringify(opt))
+        
+        var i = 0;
+        for (const key in dataArr) {
+          if (dataArr.hasOwnProperty(key)) {
+            const item = dataArr[key];
+            i++
+          }
+        }
+        console.log(i)
 
-        if (!isEmpty(dataArr)) {
+        if (!isEmpty(dataArr) && i != 1) {
           queryType = 'orderQuery'
         }
         app[queryType](opt, function (res) {
@@ -471,19 +503,8 @@
 
         // 搜索
         $('#search').on('tap', function () {
-          // 修改车型
-          mui.openWindow({
-            url: 'search.html',
-            id: 'search', //默认使用当前页面的url作为id
-            styles: {
-              top: '0px',
-              bottom: H
-            }, //窗口参数
-            extras: {
-              H: H,
-              prevId: self.id
-            } //自定义扩展参数
-          })
+          prepageSearch.show('fade-in');
+          mui.fire(plus.webview.getWebviewById('search'), 'focus', null)
         })
       }
       addEvent()
@@ -542,7 +563,7 @@
       document.addEventListener('statusBar', function (e) {
         plus.navigator.setStatusBarStyle('light');
 
-        dataArr = e.detail.data;
+        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();

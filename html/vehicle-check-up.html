@@ -313,7 +313,12 @@
           $('#vSn').val(res);
         })
       }
-      fetchData()
+      // fetchData()
+
+      document.addEventListener('statusBar', function (e) {
+        plus.navigator.setStatusBarStyle('light');
+        fetchData();
+      })
 
     })();
   </script>

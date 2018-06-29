@@ -112,9 +112,15 @@
       background-color: #fff;
     }
 
-    /* body {
-      font-size: 12px;
-    } */
+    .search-wrapper {
+      width: 80%;
+      margin: 10px auto;
+      height: 40px
+    }
+
+    .top {
+      padding: 10px 15px;
+    }
   </style>
 </head>
 
@@ -122,8 +128,17 @@
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
       <form class="top">
-        <div class="mui-input-row mui-search" id="search">
+        <!-- <div class="mui-input-row mui-search" id="search">
           <input readonly type="search" class="mui-input-clear" placeholder="请输入车辆编号">
+        </div> -->
+        <div class="search-wrapper" id="search">
+
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
+          </div>
+          <div class="search-text">
+            <input type="text" readonly placeholder="请输入车辆编号">
+          </div>
         </div>
         <div class="filter" id="filter">
           <i class="icon icon-filter">筛选</i>
@@ -257,6 +272,8 @@
       var dataArr = {};
       var filter = '20px';
 
+      var prepageSearch = null;
+
       // 初始化
       mui.init({
         pullRefresh: {
@@ -311,6 +328,14 @@
         // 获取传递参数
         H = self.H;
         // 添加点击事件进入下一页
+        prepageSearch = mui.preload({
+          url: 'search.html',
+          id: 'search',
+          extras: {
+            H: H,
+            prevId: self.id
+          }
+        })
       });
 
       // 手机适配方法
@@ -427,19 +452,8 @@
 
         // 搜索
         $('#search').on('tap', function () {
-          // 修改车型
-          mui.openWindow({
-            url: 'search.html',
-            id: 'search', //默认使用当前页面的url作为id
-            styles: {
-              top: '0px',
-              bottom: H
-            }, //窗口参数
-            extras: {
-              H: H,
-              prevId: self.id
-            } //自定义扩展参数
-          })
+          prepageSearch.show('fade-in');
+          mui.fire(plus.webview.getWebviewById('search'), 'focus', null)
         })
       }
       // addEvents()
@@ -499,7 +513,7 @@
 
       document.addEventListener('statusBar', function (e) {
         plus.navigator.setStatusBarStyle('light');
-        dataArr = e.detail.data;
+        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
         curPage = 1;
         $('#vehicle_insurance_list').html('')
         fetchData();

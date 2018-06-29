@@ -33,17 +33,17 @@
       color: #333;
     }
 
-    .search-btn {
+    /* .search-btn {
       width: 44px;
       height: 44px;
       line-height: 44px;
       text-align: center;
       display: block;
-    }
+    } */
 
-    .mui-search {
-      /* width: 77% */
-    }
+    /* .mui-search {
+      width: 77%
+    } */
 
     .noData,
     .noNet,
@@ -102,8 +102,17 @@
 <body>
   <header class="mui-bar mui-bar-nav">
     <form>
-      <div class="mui-input-row mui-search mui-active">
+      <!-- <div class="mui-input-row mui-search mui-active">
         <input type="search" class="mui-input-clear" id="current_input" placeholder="">
+      </div> -->
+      <div class="search-wrapper" id="search">
+
+        <div class="search-btn">
+          <i class="icon-search icon"></i>
+        </div>
+        <div class="search-text">
+          <input type="text" placeholder="请输入车辆编号" id="current_input">
+        </div>
       </div>
     </form>
     <a class="mui-action-back mui-pull-right">取消</a>
@@ -135,8 +144,7 @@
     mui.init({
       swipeBack: true //启用右滑关闭功能
     });
-    // 输入框获取焦点
-    app.focusAndOpenKeyboard(document.getElementById('current_input'));
+
 
     var form = document.getElementsByTagName('form')[0];
 
@@ -157,9 +165,8 @@
       handsetAdaption()
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId);
+      addEvent();
 
-
-      // plus.navigator.setStatusBarStyle('light');
       // 返回事件
 
     })
@@ -177,13 +184,13 @@
           'paddingTop': '88px'
         })
       }
-      plus.navigator.setStatusBarStyle('dark');
     }
 
-    addEvent()
+
     function addEvent() {
       $('#back_btn').on('tap', function () {
         mui.fire(view, 'statusBar', {});
+        app.blur(true);
         mui.back()
       });
 
@@ -193,6 +200,7 @@
         var data = {
           vSn: $btn.attr('data-vSn')
         }
+        app.blur(true);
         mui.fire(view, 'statusBar', { data });
         mui.back()
       })
@@ -223,13 +231,18 @@
       })
     })
 
-    search()
-    function search() {
-      $('#current_input').on('keyup', function (e) {
-        // console.log(e.keyCode)
-        searchArr[0]()
-      })
-    }
+
+    $('#current_input').on('keyup', function (e) {
+      // console.log(e.keyCode)
+      searchArr[0]()
+    })
+
+
+    document.addEventListener('focus', function () {
+      plus.navigator.setStatusBarStyle('dark');
+      // 输入框获取焦点
+      app.focusAndOpenKeyboard(document.getElementById('current_input'));
+    })
 
 
   </script>

@@ -24,15 +24,20 @@
 
 	// 打开软键盘  
 	owner.openSoftKeyboard = function () {
-		if (!_isKeyboardInited) {
-			owner.initSoftKeyboard();
-		}
+		// if (!_isKeyboardInited) {
+		// 	owner.initSoftKeyboard();
+		// }
 		if (mui.os.ios) {
-			_softKeyboardwebView.plusCallMethod({
+			var webView = plus.webview.currentWebview().nativeInstanceObject();
+			webView.plusCallMethod({
 				"setKeyboardDisplayRequiresUserAction": false
 			});
 		} else {
-			_imm.toggleSoftInput(0, _InputMethodManager.SHOW_FORCED);
+			var Context = plus.android.importClass("android.content.Context");
+			var InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+			var main = plus.android.runtimeMainActivity();
+			var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
 		}
 	}
 
@@ -41,10 +46,22 @@
 	owner.focusAndOpenKeyboard = function (input) {
 		setTimeout(function () {
 			input.focus();
-			input.focus();
+			// input.focus();
 			owner.openSoftKeyboard();
 		}, 200);
 	}
+
+	/**
+     * 预加载页面返回时为隐藏，不会自动关闭输入法，可以通过blur来关闭
+     * @param {Object} isRemoveValue
+     */
+	owner.blur = function (isRemoveValue) {
+		var ac = document.activeElement;
+		ac.blur();
+		if (isRemoveValue && ac.value) {
+			ac.value = '';
+		}
+	};
 
 	//***** 强制打开软键盘  End******  
 
@@ -349,9 +366,9 @@
 				// 	$.toast("请求超时：请检查网络")
 				// } else {
 				// 	$.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
-					
+
 				// }
-				switch (parseInt(xhr.status/100)) {
+				switch (parseInt(xhr.status / 100)) {
 					case 0:
 						$.toast('请求无法连接，检查网络是否正常')
 						break;
@@ -361,7 +378,7 @@
 					case 5:
 						$.toast('服务器请求错误')
 						break;
-				
+
 					default:
 						break;
 				}
@@ -947,7 +964,7 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/develop/find/'+ data.vSn +'.action';
+		var url = 'car-management/car/develop/find/' + data.vSn + '.action';
 
 		owner.HTTPRequestPost('POST', url, {}, callback)
 	}
@@ -1078,7 +1095,7 @@
 
 	/* ===============临牌 end=============== */
 	/* ===============项目相关 start=============== */
-	
+
 	/**
 	 * 加载所有项目
 	 * @param {JSON} data 请求参数	
@@ -1092,7 +1109,7 @@
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
-	
+
 	/**
 	 * 加载所有的项目名称
 	 * @param {JSON} data 请求参数	
@@ -1106,7 +1123,7 @@
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
-	
+
 	/**
 	 * 通过项目号查询项目状态
 	 * @param {JSON} data 请求参数	
@@ -1120,7 +1137,7 @@
 
 		owner.HTTPRequest('POST', url, data, callback)
 	}
-	
+
 	/**
 	 * 更新项目状态
 	 * @param {JSON} data 请求参数	
