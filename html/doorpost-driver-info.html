@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>驾驶员详情</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    header.mui-navbar .mui-bar-nav,
+    header.mui-bar,
+    header.mui-navbar {
+      box-shadow: 0 0 0 #fff;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-row>label {
+      margin-right: 10px;
+    }
+
+    .date-wrapper {
+      align-items: center;
+    }
+
+    .date-wrapper:not(:last-of-type) {
+      margin-bottom: 12px;
+    }
+
+    .date-text select,
+    .date-text input[type=text],
+    .date-text input[type=number] {
+      height: 34px;
+    }
+
+    .date-wrapper .date-text {
+      width: 70%;
+    }
+
+    .mui-scroll {
+      padding-bottom: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">驾驶员信息</h1>
+  </header>
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <div class="info-top"></div>
+      <div class="info-wrapper">
+        <div class="info-item">
+          <div class="info-content">
+            <div class="info-content-top">
+              <p>驾驶员姓名</p>
+              <h3 id="name">张三</h3>
+            </div>
+            <div class="info-content-bottom">
+              <div class="info-content-item">
+                <h5 id="allowStartTime_0">32156A</h5>
+                <p>授权起始日</p>
+              </div>
+              <div class="info-content-item">
+                <h5 id="allowEndTime_0">777</h5>
+                <p>授权终止日</p>
+              </div>
+              <div class="info-content-item">
+                <h5 id="isallow">已授权</h5>
+                <p>授权状态</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>基本信息</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>员工卡号</label>
+              <div class="date-text">
+                <input type="text" id="employeeCard" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>IC card</label>
+              <div class="date-text">
+                <input type="text" name="" id="iccard" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>电话</label>
+              <div class="date-text">
+                <input type="text" name="" id="telephone" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>所属分组</label>
+              <div class="date-text">
+                <input type="text" name="" id="groups" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="remark" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>授权信息</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>授权起始日</label>
+              <div class="date-text">
+                <input type="text" name="" id="allowStartTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>授权终止日</label>
+              <div class="date-text">
+                <input type="text" name="" id="allowEndTime" placeholder="" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    (function () {
+      mui.init();
+      //初始化单页的区域滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      var H = null;
+      var id = null;
+
+      mui.plusReady(function () {
+        handsetAdaption()
+
+        var self = plus.webview.currentWebview();
+        H = self.H;
+        id = self.ids;
+        fetchData();
+        addEvent();
+      })
+
+      function handsetAdaption() {
+        // 更改顶部导航栏高度
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+
+        // 更改状态栏颜色
+        // plus.navigator.setStatusBarStyle("light");
+        // 弹出软键盘时自动改变webview的高度
+        // plus.webview.currentWebview().setStyle({
+        //   softinputMode: "adjustResize"
+        // });
+
+      }
+
+      function fetchData() {
+        app.carDriverEdit({ id: id }, function (res) {
+          console.log(res)
+          updateView(res)
+        })
+      }
+
+      function updateView(data) {
+        console.log(data.groups.length);
+        var group = '';
+
+        $('#name').html(data.name);
+        $('#allowStartTime_0').html(data.allowStartTime ? data.allowStartTime : '——');
+        $('#allowEndTime_0').html(data.allowEndTime ? data.allowEndTime : '——');
+        // $('#groups').val((data.groups.length > 0) ? data.groups[0].name : '未分组');
+        $('#isallow').html(data.isallow);
+        $('#employeeCard').val(data.employeeCard);
+        $('#iccard').val(data.iccard);
+        $('#telephone').val(data.telephone ? data.telephone : '未填写');
+        $('#remark').val(data.remark ? data.remark : '无');
+        $('#allowStartTime').val(data.allowStartTime ? data.allowStartTime : '——');
+        $('#allowEndTime').val(data.allowEndTime ? data.allowEndTime : '——');
+
+        data.groups.forEach(item => {
+          group += item.name + ','
+        });
+        $('#groups').val(group)
+      }
+
+      function addEvent() {
+
+      }
+
+
+    })()
+  </script>
+</body>
+
+</html>

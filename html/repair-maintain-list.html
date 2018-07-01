@@ -1,0 +1,500 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>保养列表</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-input-row.mui-search.mui-active:before {
+      position: absolute;
+      /* left: auto; */
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+      color: #999
+    }
+
+    .top .icon-more {
+      width: 30px;
+      height: 30px;
+    }
+
+    .mui-table-view-cell {
+      background-color: #fff;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, .1)
+    }
+
+    .mui-table-view-cell:not(:last-of-type) {
+      margin-bottom: 10px;
+    }
+
+    .mui-popover .mui-table-view .mui-table-view-cell:last-child,
+    .mui-popover .mui-table-view .mui-table-view-cell:last-child>a:not(.mui-btn) {
+      border-radius: 0;
+    }
+
+    .mui-table-view-cell:after {
+      display: none;
+    }
+
+    .mui-scroll-wrapper {
+      height: 100%;
+      /* padding-top: 66px; */
+    }
+
+    .item-right-middle {
+      flex-direction: column;
+    }
+
+    .item-right-middle p {
+      /* font-size: 12px; */
+      width: 100%;
+
+    }
+
+    .item-right-middle p:last-of-type {
+      text-align: right;
+    }
+
+    .item-right-middle p span {
+      display: inline-block;
+      line-height: 0;
+      width: 64px;
+      text-align: justify;
+    }
+
+    .item-right-middle p span:not(:first-of-type) {
+      margin-left: 30px;
+      /* width: 22%; */
+    }
+
+    .item-right-middle p span:after {
+      content: "";
+      display: inline-block;
+      width: 100%
+    }
+
+    .bottom-item {
+      width: 50%;
+      text-align: left;
+    }
+
+    .mui-popover {
+      width: 140px;
+    }
+
+    .mui-popover .mui-table-view-cell {
+      margin-bottom: 0;
+    }
+
+    .mui-popover .mui-table-view-cell:after {
+      display: block;
+    }
+
+
+    .icon-triangle-down {
+      position: absolute;
+      top: 35%;
+      right: 12px;
+    }
+
+    .search-wrapper {
+      /* width: 80%; */
+      margin: 10px auto;
+      height: 40px
+    }
+
+    .top {
+      padding: 10px 15px;
+    }
+
+    .top .mui-btn {
+      border: none
+    }
+
+    /* body {
+      font-size: 12px;
+    } */
+  </style>
+</head>
+
+<body>
+  <!--下拉刷新容器-->
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form class="top">
+        <!-- <div class="mui-input-row mui-search" id="search">
+          <input readonly type="search" class="mui-input-clear" id="current_input" placeholder="请输入车辆编号">
+        </div> -->
+        <div class="search-wrapper" id="search">
+
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
+          </div>
+          <div class="search-text">
+            <input type="text" readonly placeholder="请输入车辆编号">
+          </div>
+        </div>
+        <!-- <a href="#popover" id="openPopover" class="mui-btn mui-btn-outlined">
+          <i class="icon icon-filter">筛选</i>
+        </a> -->
+
+      </form>
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview">
+        <!-- <li class="mui-table-view-cell" data-vSn="" data-status="false">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-gray settop">置顶</a>
+            <a class="mui-btn mui-btn-red repaired">完成</a>
+            <a class="mui-btn mui-btn-blue maintain">保养</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="list-item">
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>2018-0591</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="mui-btn mui-btn-blue mui-btn-outlined repairing">
+                    <span>维修中</span>
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-middle">
+                  <p>
+                    <span>维修项目</span>：更换副驾驶皮带轮</p>
+                  <p>
+                    <span>停放地点</span>：维修车间</p>
+                  <p>
+                    <span>申请人</span>：张三</p>
+                  <p>
+                    <span>申请日期</span>：2018-02-22</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell" data-vSn="" data-status="false">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-gray settop">置顶</a>
+            <a class="mui-btn mui-btn-red allot">分配</a>
+            <a class="mui-btn mui-btn-blue maintain">保养</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="list-item">
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>2018-0591</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="mui-btn mui-btn-red mui-btn-outlined waiting">
+                    <span>等待中</span>
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-middle">
+                  <p>
+                    <span>维修项目</span>：更换副驾驶皮带轮</p>
+                  <p>
+                    <span>停放地点</span>：维修车间</p>
+                  <p>
+                    <span>申请人</span>：张三</p>
+                  <p>
+                    <span>申请日期</span>：2018-02-22</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell" data-vSn="" data-status="true">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-gray settop">置顶</a>
+            <a class="mui-btn mui-btn-blue maintain">保养</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="list-item">
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>2018-0591</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="mui-btn mui-btn-outlined finished">
+                    <span>已完成</span>
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-middle">
+                  <p>
+                    <span>维修项目</span>：更换副驾驶皮带轮</p>
+                  <p>
+                    <span>停放地点</span>：维修车间</p>
+                  <p>
+                    <span>申请人</span>：张三</p>
+                  <p>
+                    <span>申请日期</span>：2018-02-22</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li> -->
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- <div id="popover" class="mui-popover">
+    <ul class="mui-table-view">
+      <li class="mui-table-view-cell">
+        <a href="#">全部</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">排队中</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">维修中</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">已完成</a>
+      </li>
+    </ul>
+  </div> -->
+
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    (function () {
+      var curPage = 1;  //当前页码初始化数0开始
+      var totalPage = 0; //后台算出总页数
+      var self = null;
+      var H = null;
+      var vSn = null;
+      var status = null;
+      var dataArr = {}
+      // 预加载页面
+      var prepageSearch = null;
+
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          down: {
+            auto: true,//可选,默认false.首次加载自动下拉刷新一次
+            callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          },
+          up: {
+            callback: pullupRefresh
+          }
+        }
+      });
+      mui('.mui-scroll-wrapper').scroll();
+      mui.plusReady(function () {
+        self = plus.webview.currentWebview();
+        H = self.H;
+        prepageSearch = mui.preload({
+          url: 'search.html',
+          id: 'search',
+          extras: {
+            H: H,
+            prevId: self.id
+          }
+        })
+      });
+      addEvent();
+      // 下拉刷新
+      function pulldownRwfresh() {
+        curPage = 1;
+        dataArr = {}
+
+        setTimeout(function () {
+          $('#OA_task_1').html('')
+          fetchData();
+          mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+        }, 1000);
+      }
+      // 上拉加载
+      function pullupRefresh() {
+
+        setTimeout(function () {
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
+        }, 1000);
+      }
+
+      // 获取数据
+      function fetchData() {
+        var data = $.extend({
+          page: curPage,
+          size: 3,
+        }, dataArr);
+
+        app.carMaintainQuery(data, function (res) {
+
+          res = JSON.parse(res);
+          console.log(res)
+          if (res.total) {
+            if (res.total == 0) {
+              mui.toast('没有数据');
+              return;
+            }
+            // curPage++;
+            // totalPage = Math.ceil(res.total / 3)
+            updateView(res.rows)
+          }
+        })
+      }
+
+      // 更新视图
+      function updateView(data) {
+        var html = '';
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          // console.log(item.status) 正在维修   已完成   排队中
+          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="' + item.status + '" data-id="' + item.id + '">'
+            + '<div class="mui-slider-right mui-disabled">'
+            + '<a class="mui-btn mui-btn-blue maintain">保养</a>';
+
+          html += '</div>'
+            + '<div class="mui-slider-handle">'
+            + '<div class="list-item">'
+            + '<div class="item-left">'
+            + '<img src="../img/common/icon_app.png" />'
+            + '</div>'
+            + '<div class="item-right">'
+            + '<div class="item-right-top">'
+            + '<div class="number">'
+            + '<h4>' + item.vSn + '</h4>'
+            + '</div>';
+
+          html += '</div>'
+            + '<div class="item-right-middle">'
+            + '<p>'
+            + '<span>维修项目</span>：' + item.item + '</p>'
+            + '<p>'
+            + '<span>停放地点</span>：' + item.send_park + '</p>'
+            + '<p>'
+            + '<span>申请人</span>：' + item.applyPeople + '</p>'
+            + '<p>'
+            + '<span>申请日期</span>：' + item.applytime + '</p>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            + '</li>';
+
+        }
+        $('#OA_task_1').append(html);
+      }
+
+      // 添加点击事件
+      function addEvent() {
+        // 查看详情 
+        $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
+          var $li = $(this).parents('li');
+          mui.openWindow({
+            url: 'repair-maintain-info.html',
+            id: 'repair-maintain-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: $li.attr('data-vSn')
+            }, //自定义扩展参数
+            createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+            show: {
+              autoShow: true, //页面loaded事件发生后自动显示，默认为true
+            },
+            waiting: {
+              autoShow: true, //自动显示等待框，默认为true
+              title: '正在加载...', //等待对话框上显示的提示内容
+            }
+          })
+        });
+
+        // 搜索
+        $('#search').on('tap', function () {
+          prepageSearch.show('fade-in');
+          mui.fire(plus.webview.getWebviewById('search'), 'focus', null)
+        })
+
+        // 保养
+        $('#OA_task_1').on('tap', '.maintain', function (e) {
+
+          var $li = $(this).parents('li');
+          var _this = this;
+
+          setTimeout(function () {
+            mui.swipeoutClose($li[0]);
+          }, 0);
+
+          mui.openWindow({
+            url: 'repair-maintain.html',
+            id: 'repair-maintain', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: $li.attr('data-vSn')
+            } //自定义扩展参数
+
+          })
+        })
+      }
+
+      // 返回刷新
+      document.addEventListener('update', function (e) {
+        mui('#pullrefresh').pullRefresh().pulldownLoading();
+      })
+
+      document.addEventListener('statusBar', function (e) {
+        plus.navigator.setStatusBarStyle('light');
+        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
+
+    })()
+
+  </script>
+</body>
+
+</html>

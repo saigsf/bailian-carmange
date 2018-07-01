@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>驾驶员录入</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-input-row label {
+      width: 22%;
+    }
+
+    .mui-radio label {
+      padding: 0;
+      padding-left: 5px;
+      padding-right: 24px;
+      line-height: 20px;
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: auto;
+    }
+
+    .mui-radio-box {
+      padding-left: 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    /* header {
+      z-index: 999;
+    } */
+
+    select {
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">驾驶员录入</h1>
+  </header>
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form id="driver">
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>姓名</label>
+              <input id="driver_name" name="name" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>准驾车型</label>
+              <input id="allowcartype" name="allowcartype" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>员工卡号</label>
+              <input id="employee_card" name="employeeCard" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>IC card</label>
+              <input id="iccard" name="iccard" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+        </ul>
+
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>电话</label>
+              <input id="telephone" name="telephone" type="tel" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备注</label>
+              <input id="remark" name="remark" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+        </ul>
+        <div class="btn-wrapper ">
+          <div class="btn btn-blue" id="next">提交</div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    (function () {
+      mui.init();
+      //初始化单页的区域滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      var id = null;
+      var self = null;
+      var view = null;
+
+      mui.plusReady(function () {
+        handsetAdaption()
+        self = plus.webview.currentWebview();
+
+        if (self.driverId) {
+          // 驾驶员数据回显
+          $('.mui-title').html('驾驶员编辑');
+          id = self.driverId;
+          fetchData.edit();
+          $('#next').attr('id', 'update');
+        }
+        fetchData.groups()
+        fetchData.update();
+      });
+
+
+      function handsetAdaption() {
+        // 更改顶部导航栏高度
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+
+        // 更改状态栏颜色
+        // plus.navigator.setStatusBarStyle("light");
+        // 弹出软键盘时自动改变webview的高度
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize"
+        });
+
+      }
+
+      function updateView(data) {
+        if (data == null) {
+          mui.toast('没有驾驶员数据')
+          return;
+        }
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const item = data[key];
+            $('input[name='+key+']').val(item)
+          }
+        }
+      }
+
+      var fetchData = {
+        update: function () {
+          // view = plus.webview.getWebviewById('doorpost-driver.html')
+          // 提交数据
+          $('#driver').on('tap', '#next', function () {
+            var data = serialize($('#driver'));
+            // console.log(data)
+            app.carDriverAdd(data, function (res) {
+              res = JSON.parse(res);
+              console.log(res.msg)
+              mui.toast(res.msg)
+              if (res.ret) {
+                setTimeout(() => {
+                  mui.fire(view, 'update', {});
+                  mui.back();
+                }, 500);
+              }
+            })
+            // console.log(hasEmptyValue(data, requiredArr));
+          })
+          $('#driver').on('tap', '#update', function () {
+            var data = serialize($('#driver'));
+            data.id = id;
+
+            app.carDriverUpdate(data, function (res) {
+              console.log(res)
+              res = JSON.parse(res);
+              mui.toast(res.msg)
+              if (res.ret) {
+                setTimeout(() => {
+                  mui.fire(view, 'update', {});
+                  mui.back();
+                }, 500);
+              }
+
+            })
+            // console.log(hasEmptyValue(data, requiredArr));
+          })
+
+        },
+        edit: function () {
+          app.carDriverEdit({ id: id }, function (res) {
+            console.log(res)
+            updateView(res)
+          })
+        },
+        groups: function () {
+          app.carDriverGetGroup({}, function (res) {
+            var html = '';
+            for (let i = 0; i < res.length; i++) {
+              const item = res[i];
+              html += '<option value="' + item.id + '">' + item.name + '</option>'
+            }
+            $('#groups').html(html)
+          })
+        }
+      }
+      // fetchData.update();
+    })()
+  </script>
+</body>
+
+</html>

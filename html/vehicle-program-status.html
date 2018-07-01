@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>更改项目状态</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-table-view-cell {
+      background-color: transparent;
+    }
+
+    .mui-table-view-cell:after {
+      display: none;
+    }
+
+    .mui-input-row label {
+      width: 22%;
+    }
+
+    .mui-radio label {
+      padding: 0;
+      padding-left: 5px;
+      padding-right: 24px;
+      line-height: 20px;
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: auto;
+    }
+
+    .mui-radio-box {
+      padding-left: 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .date-wrapper .date-text {
+      width: 70%
+    }
+
+    .vSn {
+      color: #2885cf;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">更改项目状态</h1>
+  </header>
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form id="program_status">
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>项目号</label>
+              <div class="date-text">
+                <input name="product_sn" type="text" id="product_sn" placeholder="">
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>当前状态</label>
+              <div class="date-text">
+                <input id="currentStatus" name="currentStatus" type="text" placeholder="">
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>更新后状态</label>
+              <div class="date-text">
+                <select name="status" id="status">
+                    <option value="Active" name="Active" class="Active">Active</option>
+                    <option value="Closed" name="Closed" class="Closed">Closed</option>
+                    <option value="pending" name="pending" class="pending">pending</option>
+                    <option value="Cancelled" name="Cancelled" class="Cancelled">Cancelled</option>
+                    <option value="To do" name="To do" class="To do">To do</option>
+                    <option value="Lost" name="Lost" class="Lost">Lost</option>
+                    <option value="ADP" name="ADP" class="ADP">ADP</option>
+                    <option value="C-cal" name="C-cal" class="C-cal">C-cal</option>
+                    <option value="BN-cal" name="BN-cal" class="BN-cal">BN-cal</option>
+                </select>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="btn-wrapper ">
+          <div class="btn btn-blue" id="submit">提交</div>
+        </div>
+      </form>
+
+    </div>
+
+
+  </div>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    (function () {
+      //初始化
+      mui.init();
+
+      // 页面滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      var self = null;
+      var view = null;
+      var H = null;
+
+      // plus Ready
+      mui.plusReady(function () {
+        handsetAdaption()
+        self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById(self.prevId)
+        H = self.H;
+      })
+
+      // 手机适配
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
+      }
+
+      // 获取数据
+      fetchData()
+      function fetchData() {
+        $('#product_sn').on('change', function() {
+          var sn = $(this).val();
+          if(!sn) {
+            mui.toast('请填写项目号');
+            return;
+          }
+          app.loadStatusBySn({sn}, function(res) {
+            console.log(res)
+            updateView(res)
+          })
+        })
+        
+      }
+
+      // 视图更新
+      function updateView(data) {
+        if(!data) {
+          mui.toast('项目不存在！');
+          return;
+        }
+        $('#currentStatus').val(data)
+      }
+
+      // 提交数据
+      submitData();
+      function submitData() {
+        $('#submit').on('tap', function () {
+          var data = {
+            projectSn: $('#product_sn').val(),
+            status: $('#status').val()
+          };
+          console.log(data);
+          app.updateStatus(data, function(res) {
+            res = JSON.parse(res)
+            console.log(res)
+            mui.toast(res.msg)
+            if(res.ret) {
+              setTimeout(() => {
+                mui.back();
+                mui.fire(view, 'update', null)
+              }, 500);
+              
+            }
+          })
+        })
+      }
+    })();
+  </script>
+</body>
+
+</html>

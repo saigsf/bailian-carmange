@@ -1,0 +1,748 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>驾驶员管理</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-input-row.mui-search.mui-active:before {
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+    }
+
+    .top .icon-more {
+      width: 30px;
+      height: 30px;
+    }
+
+    .mui-table-view-cell {
+      margin-bottom: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, .1)
+    }
+
+    .mui-table-view-cell:after {
+      display: none;
+    }
+
+    .mui-scroll-wrapper {
+      height: 100%;
+      /* padding-top: 66px; */
+    }
+
+    .item-right-middle {
+      flex-direction: column;
+    }
+
+    .item-right-middle p {
+      width: 100%;
+      line-height: 20px;
+    }
+
+    .item-right-middle p span {
+      width: 64px;
+    }
+
+    .bottom-item {
+      width: 50%;
+      text-align: left;
+    }
+
+    .item-right-top h4 {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .item-right-top h4 .icon {
+      margin-left: 20px;
+    }
+
+    .top * {
+      transition: all .5s;
+    }
+
+    .top .btn {
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+    }
+
+    .top .allcheck,
+    .top .canclecheck {
+      width: 0;
+      line-height: 40px;
+      text-align: center;
+      color: #2885cf;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .batch .btn {
+      display: none;
+    }
+
+    .top .allcheck input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    .allcheck input[type=checkbox]+label {
+      display: inline-block;
+      line-height: 40px;
+    }
+
+    .allcheck input[type=checkbox]+label:before {
+      content: "";
+      background-color: white;
+      border-radius: 50%;
+      border: 1px solid #d3d3d3;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 16px;
+      color: #fff;
+      margin: 0;
+      margin-right: 2px;
+    }
+
+    .allcheck input[type=checkbox]:checked+label:before {
+      /* background-color: #2885cf; */
+      color: #fff;
+      border-color: #2885cf;
+      background-image: url(../img/common/md/icon_checked@2x.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 18px 18px;
+    }
+
+    .batch .allcheck,
+    .batch .canclecheck {
+      width: 15%;
+    }
+
+    .top.batch .mui-input-row.mui-search {
+      width: 60%
+    }
+
+
+    .batch .item-checked {
+      width: 15%;
+    }
+
+    .btn-container {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 50px;
+      z-index: 999;
+      display: none;
+    }
+
+    .btn-container .btn {
+      width: 50%;
+      height: 100%;
+      float: left;
+      text-align: center;
+      border-radius: 0;
+    }
+
+    /* body {
+      font-size: 12px;
+    } */
+  </style>
+</head>
+
+<body>
+  <!--下拉刷新容器-->
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form class="top">
+        <div class="allcheck" id="allcheck">
+          <input type="checkbox" name="" id="all_check">
+          <label for="all_check">全选</label>
+        </div>
+        <!-- <div class="mui-input-row mui-search">
+          <input type="search" id="search" class="mui-input-clear" placeholder="请输入驾驶员姓名">
+        </div> -->
+        <div class="search-wrapper" id="search">
+
+            <div class="search-btn">
+              <i class="icon-search icon"></i>
+            </div>
+            <div class="search-text">
+              <input type="text" readonly placeholder="请输入车辆编号">
+            </div>
+          </div>
+        <div class="btn" id="add">
+          <i class="icon icon-more"></i>
+        </div>
+        <div class="canclecheck" id="canclecheck">取消</div>
+      </form>
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview">
+        <!-- <li class="mui-table-view-cell">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-gray settop">取消授权</a>
+            <a class="mui-btn mui-btn-red delete">删除</a>
+          </div>
+          <div class="mui-slider-handle">
+
+            <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>
+                      <span>张女士</span>
+                    </h4>
+                    <p>陕A6509B</p>
+                  </div>
+                  <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-middle">
+                  <p>
+                    <span>授权状态</span>：已授权</p>
+                  <p>
+                    <span>授权开始</span>：2018-01-01</p>
+                  <p>
+                    <span>授权截至</span>：2019-01-01</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-gray settop">授权</a>
+            <a class="mui-btn mui-btn-red delete">删除</a>
+          </div>
+          <div class="mui-slider-handle">
+
+            <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>
+                      <span>张女士</span>
+                    </h4>
+                    <p>陕A6509B</p>
+                  </div>
+                  <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-middle">
+                  <p>
+                    <span>授权状态</span>：已授权</p>
+                  <p>
+                    <span>授权开始</span>：2018-01-01</p>
+                  <p>
+                    <span>授权截至</span>：2019-01-01</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-gray settop">取消授权</a>
+            <a class="mui-btn mui-btn-red delete">删除</a>
+          </div>
+          <div class="mui-slider-handle">
+
+            <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>
+                      <span>张女士</span>
+                    </h4>
+                    <p>陕A6509B</p>
+                  </div>
+                  <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-middle">
+                  <p>
+                    <span>授权状态</span>：已授权</p>
+                  <p>
+                    <span>授权开始</span>：2018-01-01</p>
+                  <p>
+                    <span>授权截至</span>：2019-01-01</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li> -->
+      </ul>
+      <div class="no-data" id="no-data">
+        <p>没有找到想要的数据，下拉加载所有数据</p>
+      </div>
+    </div>
+  </div>
+  <div class="btn-container">
+    <button class="btn" id="authorize_batch">授权</buttons>
+      <button class="btn btn-blue" id="cancel_authorize_batch">禁止</button>
+  </div>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    (function () {
+      var curPage = 1; //当前页码初始化数0开始
+      var totalPage = 1; //后台算出总页数
+      var H = null;
+      var allCheckFlag = false;
+      var dataArr = {}
+
+      var form = document.getElementsByTagName('form')[0];
+
+      form.onsubmit = function (e) {
+        e.preventDefault();// 取消默认事件
+      }
+
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          down: {
+            auto: true, //可选,默认false.首次加载自动下拉刷新一次
+            callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          },
+          up: {
+            callback: pullupRefresh
+          }
+        },
+        gestureConfig: {
+          // doubletap: true, //默认为false
+          longtap: true, //默认为false
+        }
+      });
+
+      // 下拉刷新业务
+      function pulldownRwfresh() {
+        curPage = 1;
+        dataArr = {}
+        $('#no-data').hide().prev().show()
+        setTimeout(function () {
+          $('#OA_task_1').html('')
+          fetchData();
+          mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+        }, 1000)
+      }
+
+      // 上拉加载业务
+      function pullupRefresh() {
+        setTimeout(function () {
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
+        }, 1000)
+      }
+      // 
+      mui.plusReady(function () {
+        var self = plus.webview.currentWebview();
+        H = self.H;
+        addEvent()
+      });
+
+      // 获取数据
+      function fetchData() {
+        console.log(curPage);
+        var opt = $.extend({
+          page: curPage,
+          size: 3
+        }, dataArr)
+        app.carDriverList(opt, function (res) {
+          console.log(res)
+          if (!res.total || res.total <= 0) {
+            $('#no-data').show().prev().hide()
+            mui.toast('没有找到想要的数据，下拉加载所有数据')
+            return;
+          }
+          curPage++;
+          totalPage = Math.ceil(res.total / 3)
+          var data = res.rows;
+
+          updateView(data);
+        })
+      }
+
+      // 更新视图
+      function updateView(data) {
+        var html = '';
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          html += '<li class="mui-table-view-cell" data-id="' + item.id + '" data-name="' + item.name + '">' +
+            '<div class="mui-slider-right mui-disabled">' +
+            '<a class="mui-btn mui-btn-gray update">修改</a>' +
+            '<a class="mui-btn mui-btn-red delete">删除</a>' +
+            '</div>' +
+            '<div class="mui-slider-handle">' +
+            '<div class="list-item">' +
+            '<div class="item-checked">' +
+            '<input type="checkbox" name="" id="myCheck' + item.id + '">' +
+            '<label for="myCheck' + item.id + '"></label>' +
+            '</div>' +
+            '<div class="item-left"><img src="../img/common/icon_app.png" /></div>' +
+            '<div class="item-right">' +
+            '<div class="item-right-top">' +
+            '<div class="number">' +
+            '<h4>' +
+            '<span>' + item.name + '</span>'
+
+
+          html += '</h4>' +
+            '<p>' + (item.iccard ? item.iccard : '——') + '</p>' +
+            '</div>' +
+            '<div class="mui-btn mui-btn-blue mui-btn-outlined goback">' +
+            '<!-- <span>未处理</span> -->' +
+            '<i class="mui-icon mui-icon-arrowright"></i>' +
+            '</div>' +
+            '</div>' +
+            '<div class="item-right-middle">' +
+            '<p><span>授权状态</span>：' + item.isallow + '</p>' +
+            '<p><span>授权开始</span>：' + (item.allowStartTime ? item.allowStartTime : '——') + '</p>' +
+            '<p><span>授权截至</span>：' + (item.allowEndTime ? item.allowEndTime : '——') + '</p>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</li>';
+        }
+        $('#OA_task_1').append($(html));
+      }
+
+      function addEvent() {
+
+        // 授权/取消授权业务
+        // $('#OA_task_1').on('tap', '.authorize', function () {
+        //   var $li = $(this).parents('li')
+        //   // mui.toast('这里要添加授权业务');
+        //   if ($(this).attr('data-isallow') == '禁止') {
+        //     mui.openWindow({
+        //       url: 'doorpost-driver-authorize.html',
+        //       id: 'doorpost-driver-authorize', //默认使用当前页面的url作为id
+        //       styles: {
+        //         top: '0px',
+        //         bottom: H
+        //       }, //窗口参数
+        //       extras: {
+        //         H: H,
+        //         ids: $li.attr('data-id'),
+        //         names: $li.attr('data-name')
+        //       } //自定义扩展参数
+        //     })
+        //   } else {
+        //     app.cancelAuthorized({
+        //       ids: $li.attr('data-id')
+        //     }, function (res) {
+        //       console.log(res);
+        //       res = JSON.parse(res)
+        //       if (res.ret) {
+        //         plus.webview.currentWebview().reload()
+        //       } else {
+        //         mui.toast('禁止失败')
+        //       }
+        //     })
+        //   }
+        // })
+
+        // 驾驶员信息修改
+        $('#OA_task_1').on('tap', '.update', function () {
+          var $li = $(this).parents('li');
+          mui.swipeoutClose($li[0]);
+          mui.openWindow({
+            url: 'doorpost-driver-input.html',
+            id: 'doorpost-driver-input', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              driverId: $li.attr('data-id')
+            } //自定义扩展参数
+          })
+        })
+
+        // 删除业务
+        $('#OA_task_1').on('tap', '.delete', function () {
+          var $li = $(this).parents('li')
+          // console.log($li.attr('data-id'))
+          // mui.toast('这里要添加删除业务')
+          app.carDriverDelete({
+            ids: $li.attr('data-id')
+          }, function (res) {
+            console.log(JSON.stringify(res))
+            // res = JSON.parse(res);
+            if (res.ret) {
+              $li.remove();
+              mui.toast('删除成功')
+            } else {
+              mui.toast('删除失败')
+            }
+          })
+        })
+        // 添加驾驶员
+        $('#add').on('tap', function () {
+          mui.openWindow({
+            url: 'doorpost-driver-input.html',
+            id: 'doorpost-driver-input', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H
+            } //自定义扩展参数
+          })
+        })
+
+        // 查看驾驶员信息
+        $('#OA_task_1').on('tap', '.mui-slider-handle', function (e) {
+          e.stopPropagation()
+          var $li = $(this).parent('li');
+          mui.openWindow({
+            url: 'doorpost-driver-info.html',
+            id: 'doorpost-driver-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              ids: $li.attr('data-id')
+            } //自定义扩展参数
+          })
+        })
+
+        // 搜索
+        // $('#search').on('tap', function () {
+        //   // 修改车型
+        //   mui.openWindow({
+        //     url: 'search.html',
+        //     id: 'search', //默认使用当前页面的url作为id
+        //     styles: {
+        //       top: '0px',
+        //       bottom: H
+        //     }, //窗口参数
+        //     extras: {
+        //       H: H,
+        //       prevId: self.id
+        //     } //自定义扩展参数
+        //   })
+        // })
+
+        $('#search').on('keyup', function (e) {
+          if (e.keyCode == 13) {
+            dataArr = {
+              driverName: $(this).val()
+            }
+            curPage = 1;
+            $('#OA_task_1').html('')
+            fetchData();
+          }
+        })
+
+      }
+
+      // 长按
+      document.addEventListener("longtap", function () {
+        console.log("长按操作");
+        $('#OA_task_1').addClass('batch');
+        $('.top').addClass('batch')
+        $('.btn-container').fadeIn()
+      });
+
+      // 取消
+      $('.top').on('tap', '#canclecheck', canceLongtap);
+      function canceLongtap() {
+        $('#OA_task_1').removeClass('batch');
+        $('.top').removeClass('batch');
+        $('#OA_task_1').find('input').prop('checked', false);
+        $('.top').find('#all_check').prop('checked', false);
+        $('.btn-container').fadeOut()
+      }
+
+      // 全选
+      $('.top').on('tap', '#allcheck', function () {
+        var $li = $('#OA_task_1').find('input');
+        var _this = this;
+
+        if ($(this).find('input').prop('checked')) {
+          $li.prop('checked', false);
+        } else {
+          $li.prop('checked', true);
+        }
+      })
+
+      // 单选
+      $('#OA_task_1').on('tap', '.item-checked', function (e) {
+        e.stopPropagation();
+
+        var $li = $('#OA_task_1').find('input');
+        var flag = $(this).find('input').prop('checked');
+
+        flag = !flag;
+        $(this).find('input').prop('checked', flag);
+
+        if (!flag) {
+          $('.top').find('#all_check').prop('checked', false);
+        } else {
+          $li.each(function (i) {
+            if (!$(this).prop('checked')) {
+              allCheckFlag = true;
+            }
+          });
+          if (allCheckFlag) {
+            allCheckFlag = false;
+            $('.top #all_check').prop('checked', false);
+          } else {
+            allCheckFlag = true;
+            $('.top #all_check').prop('checked', true);
+          }
+        }
+      })
+
+
+      // 批量取消授权
+      $('#cancel_authorize_batch').on('tap', function () {
+        var ids = [];
+        var $inputs = $('#OA_task_1').find('input');
+        $inputs.each(function (i) {
+          var id = null;
+          if ($(this).prop('checked')) {
+            id = $(this).parents('li').attr('data-id');
+            ids.push(id);
+          }
+        })
+
+        if (ids.length == 0) {
+          mui.toast('请至少选择一个驾驶员');
+          return;
+        }
+        canceLongtap()
+
+        app.cancelAuthorized({
+          ids: ids.join()
+        }, function (res) {
+          console.log(res);
+          res = JSON.parse(res)
+          if (res.ret) {
+            // plus.webview.currentWebview().reload()
+            curPage = 1;
+            $('#OA_task_1').html('')
+            fetchData();
+          } else {
+            mui.toast('禁止失败')
+          }
+        })
+      })
+
+      $('#authorize_batch').on('tap', function () {
+        var ids = [];
+        var names = [];
+        var $inputs = $('#OA_task_1').find('input');
+
+        $inputs.each(function (i) {
+          var id = null;
+          var name = null;
+          if ($(this).prop('checked')) {
+            id = $(this).parents('li').attr('data-id');
+            name = $(this).parents('li').attr('data-name');
+            names.push(name);
+            ids.push(id);
+          }
+        })
+        if (ids.length == 0) {
+          mui.toast('请至少选择一个驾驶员');
+          return;
+        }
+
+        canceLongtap()
+        mui.openWindow({
+          url: 'doorpost-driver-authorize.html',
+          id: 'doorpost-driver-authorize', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            ids: ids.join(),
+            names: names.join()
+          } //自定义扩展参数
+        })
+
+      })
+
+      // 刷新页面
+      document.addEventListener('update', function (e) {
+        // plus.webview.currentWebview().reload()
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
+
+      document.addEventListener('statusBar', function (e) {
+        plus.navigator.setStatusBarStyle('light');
+        if(e.detail != null && e.detail.data) dataArr = e.detail.data;
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
+    })()
+  </script>
+</body>
+
+</html>

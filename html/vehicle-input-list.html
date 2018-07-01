@@ -1,0 +1,387 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>车辆录入</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+    .mui-table-view-cell {
+      margin-bottom: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, .1)
+    }
+
+    .mui-table-view-cell:after {
+      display: none;
+    }
+
+    .mui-scroll-wrapper {
+      height: 100%;
+      /* padding-top: 66px; */
+    }
+
+    .item-right-middle {
+      flex-direction: column;
+    }
+
+    .item-right-middle p {
+      /* font-size: 12px; */
+      width: 100%;
+    }
+
+    .item-right-middle p span {
+      display: inline-block;
+      line-height: 0;
+      width: 64px;
+      text-align: justify;
+    }
+
+    .item-right-middle p span:not(:first-of-type) {
+      margin-left: 20px;
+      width: 22%;
+    }
+
+    .item-right-middle p span:after {
+      content: "";
+      display: inline-block;
+      width: 100%
+    }
+
+    .bottom-item {
+      width: 50%;
+      text-align: left;
+    }
+
+    .search-wrapper {
+      /* width: 80%; */
+      margin: 10px auto;
+      height: 40px
+    }
+
+    .top {
+      padding: 10px 15px;
+    }
+
+    .top .btn {
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+    }
+
+    /* body {
+      font-size: 12px;
+    } */
+  </style>
+</head>
+
+<body>
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form class="top">
+        <!-- <div class="mui-input-row mui-search" id="search">
+          <input readonly type="search" class="mui-input-clear" placeholder="请输入车辆编号">
+        </div> -->
+        <div class="search-wrapper" id="search">
+
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
+          </div>
+          <div class="search-text">
+            <input type="text" readonly placeholder="请输入车辆编号">
+          </div>
+        </div>
+      </form>
+      <ul id="vehicle_input_list" class="mui-table-view mui-table-listview">
+        <li class="mui-table-view-cell">
+
+          <div class="list-item">
+            <div class="item-left">
+              <img src="../img/common/icon_app.png" />
+            </div>
+            <div class="item-right">
+              <div class="item-right-top">
+                <div class="number">
+                  <h4>2018-0591</h4>
+                  <p>项目编号</p>
+                </div>
+              </div>
+              <div class="item-right-middle">
+                <p>
+                  <span>车架号</span>：1231214335</p>
+                <p>
+                  <span>检查进度</span>：安全检查</p>
+                <p>
+                  <span>保险状态</span>：未申请</p>
+              </div>
+            </div>
+          </div>
+          <div class="item-mark">
+            <div class="icon icon-corner-mark-red"></div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="list-item">
+            <div class="item-left">
+              <img src="../img/common/icon_app.png" />
+            </div>
+            <div class="item-right">
+              <div class="item-right-top">
+                <div class="number">
+                  <h4>2018-0591</h4>
+                  <p>项目编号</p>
+                </div>
+              </div>
+              <div class="item-right-middle">
+                <p>
+                  <span>车架号</span>：1231214335</p>
+                <p>
+                  <span>检查进度</span>：安全检查</p>
+                <p>
+                  <span>保险状态</span>：未申请</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="item-mark">
+            <div class="icon icon-corner-mark-green"></div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="list-item">
+            <div class="item-left">
+              <img src="../img/common/icon_app.png" />
+            </div>
+            <div class="item-right">
+              <div class="item-right-top">
+                <div class="number">
+                  <h4>2018-0591</h4>
+                  <p>项目编号</p>
+                </div>
+              </div>
+              <div class="item-right-middle">
+                <p>
+                  <span>车架号</span>：1231214335</p>
+                <p>
+                  <span>检查进度</span>：安全检查</p>
+                <p>
+                  <span>保险状态</span>：未申请</p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    ; (function () {
+      // 定义全局变量
+      var curPage = 1;  //当前页码初始化数0开始
+      var totalPage = 0; //后台算出总页数
+      var self = null;
+      var H = null; // 页面高度
+      var vSn = null;
+      var data = [];
+      var dataArr = {};
+
+      // 预加载页面
+      var prepageSearch = null;
+
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          down: {
+            auto: true,//可选,默认false.首次加载自动下拉刷新一次
+            callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          },
+          up: {
+            auto: true,
+            callback: pullupRefresh
+          }
+        }
+      });
+      mui('.mui-scroll-wrapper').scroll();
+      // 下拉刷新业务
+      function pulldownRwfresh() {
+        curPage = 1;
+        dataArr = {};
+        $('#vehicle_input_list').html('')
+        fetchData()
+        setTimeout(function () {
+
+          mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+        }, 1000)
+      }
+
+      // 上拉加载业务
+      function pullupRefresh() {
+
+        setTimeout(function () {
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+            fetchData()
+          }
+        }, 1000)
+      }
+
+
+      mui.plusReady(function () {
+        // plus准备好后执行H5
+        handsetAdaption();
+        // 获取当前视图
+        self = plus.webview.currentWebview();
+        // 获取传递参数
+        H = self.H;
+
+        prepageSearch = mui.preload({
+          url: 'search.html',
+          id: 'search',
+          extras: {
+            H: H,
+            prevId: self.id
+          }
+        })
+
+
+      });
+
+      // 手机适配方法
+      function handsetAdaption() {
+        // 更改顶部导航栏高度
+        if (plus.device.model === 'iPhoneX') {
+          // 页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+
+        // 更改状态栏颜色
+        // plus.navigator.setStatusBarStyle("light");
+        // 弹出软键盘时自动改变webview的高度
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize"
+        });
+
+      }
+
+      // 页面点击事件
+      function addEvents() {
+        // 跳转执行下一步
+        $('#vehicle_input_list').on('tap', 'li', function () {
+          var $li = $(this);
+          mui.openWindow({
+            url: 'vehicle-input-info.html',
+            id: 'vehicle-input-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: $li.attr('data-vsn'),
+              data: data[$li.index()]
+            } //自定义扩展参数
+          })
+        })
+
+        // 搜索
+        $('#search').on('tap', function () {
+          prepageSearch.show('fade-in');
+          mui.fire(plus.webview.getWebviewById('search'), 'focus', null)
+        })
+      }
+      // 添加点击事件进入下一页
+      addEvents();
+
+      // 获取数据
+      function fetchData() {
+        var opt = $.extend({
+          page: curPage,
+          size: 3
+        }, dataArr);
+
+        app.carQuery(opt, function (res) {
+          res = JSON.parse(res);
+          console.log(res);
+          curPage++;
+          totalPage = Math.ceil(res.total / 3);
+          if (res.rows) {
+            data = res.rows;
+            updateView(res.rows);
+          }
+        })
+      }
+
+      function updateView(data) {
+        var html = '';
+        data.forEach(item => {
+          html += '<li class="mui-table-view-cell" data-vsn="' + item.vSn + '">'
+            + '<div class="list-item">'
+            + '<div class="item-left">'
+            + '<img src="../img/common/icon_app.png" />'
+            + '</div>'
+            + '<div class="item-right">'
+            + '<div class="item-right-top">'
+            + '<div class="number">'
+            + '<h4>' + item.vSn + '</h4>'
+            + '<p>' + (item.project ? item.project.project_sn : '——') + '</p>'
+            + '</div>'
+            + '</div>'
+            + '<div class="item-right-middle">'
+            + '<p><span>车架号</span>：' + item.vin + '</p>'
+            + '<p><span>检查进度</span>：' + (item.checks_status ? item.checks_status : '——') + '</p>'
+            + '<p><span>保险状态</span>：' + item.istatus + '</p>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            // + '<div class="item-mark">'
+            // + '<div class="icon icon-corner-mark-red"></div>'
+            // + '</div>'
+            + '</li>'
+        });
+
+        $('#vehicle_input_list').append(html)
+      }
+
+
+      document.addEventListener('statusBar', function (e) {
+        plus.navigator.setStatusBarStyle('light');
+        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
+        curPage = 1;
+        $('#vehicle_input_list').html('')
+        fetchData();
+        // mui('#pullrefresh').pullRefresh().pulldownLoading();
+      })
+
+    })()
+
+  </script>
+</body>
+
+</html>

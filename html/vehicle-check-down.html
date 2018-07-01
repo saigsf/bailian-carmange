@@ -1,0 +1,295 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>还车点检</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-table-view-cell {
+      background-color: transparent;
+    }
+
+    .mui-input-row label {
+      width: 22%;
+    }
+
+    .mui-radio label {
+      padding: 0;
+      padding-left: 5px;
+      padding-right: 24px;
+      line-height: 20px;
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: auto;
+    }
+
+    .mui-radio-box {
+      padding-left: 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    header {
+      z-index: 999;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">还车点检</h1>
+  </header>
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆编号</label>
+              <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>运输车号</label>
+              <input name="trans_sn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>工具回收</label>
+              <div class="mui-radio-box">
+                <div class="mui-radio">
+                  <input name="toolisrecycled" id="normal" type="radio" value="是" checked>
+                  <label for="#normal">是</label>
+                </div>
+                <div class="mui-radio">
+                  <input name="toolisrecycled" id="other" value="否" type="radio">
+                  <label for="#other">否</label>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>随车工具</label>
+              <input name="tools" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/套</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备用轮胎</label>
+              <input name="sparetyre" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/只</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>千斤顶</label>
+              <input name="jack" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/只</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>警示牌</label>
+              <input name="warningboard" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/只</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>灭火器</label>
+              <input name="fire" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/只</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>钥匙数量</label>
+              <input name="keyy" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/把</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>里程表</label>
+              <input name="odometer" type="text" class="mui-input-clear" placeholder="">
+              <span class="unit">/km</span>
+            </div>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label class="padtb0">还车申请人</label>
+              <input name="proposer" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>交车人</label>
+              <input name="forpeople" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>接车人</label>
+              <input name="pickone" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label class="padtb0">接车人电话</label>
+              <input name="pick_tel" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label class="padtb0">接车人身份证</label>
+              <input name="pick_card" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备注信息</label>
+              <input name="remark" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label class="">日期</label>
+              <input name="time" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+
+        </ul>
+      </form>
+      <div class="btn-wrapper ">
+        <button class="btn btn-blue" id="submit">提交</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    (function () {
+      var H = null;
+      var self = null;
+      var view = null;
+      var vSn = '2018ICECTC001';
+      var id = null;
+
+      //初始化
+      mui.init();
+      mui('.mui-scroll-wrapper').scroll();
+      mui.plusReady(function () {
+        handsetAdaption()
+        self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById(self.prevId)
+        H = self.H;
+        vSn = self.vSn;
+        fetchData()
+        submitData()
+      })
+
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
+      }
+      // 获取数据
+      
+      function fetchData() {
+        app.findBackcheck({
+          vSn: vSn
+        }, function (res) {
+          res = JSON.parse(res)
+          console.log(res)
+          if (!res) {
+            return;
+          }
+          updateView(res)
+        })
+      }
+
+      function updateView(data) {
+        id = data.id;
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const item = data[key];
+            $('input[name=' + key + ']').val(item)
+          }
+        }
+      }
+
+      
+      function submitData() {
+
+        $('input[name=vSn]').val(vSn)
+        $('#submit').on('tap', function () {
+          if (id) {
+            mui.toast('该车已归还')
+            return;
+          }
+          var data = serialize($('form'));
+          // console.log(data)
+          app.backCheck(data, function (res) {
+            console.log(res.msg)
+            mui.toast(res.msg)
+            if (res.ret) {
+              setTimeout(() => {
+                mui.back();
+                mui.fire(view, 'update', null)
+              }, 500);
+              
+            }
+          })
+
+        })
+      }
+    })();
+  </script>
+</body>
+
+</html>

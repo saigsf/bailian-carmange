@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>添加说明</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .issue {
+      line-height: 24px;
+      font-size: 15px !important;
+    }
+
+    .mui-input-row textarea {
+      width: 90%;
+      margin: 15px auto;
+      display: block;
+      font-size: 14px;
+      background-color: transparent;
+      border: 0;
+    }
+
+    .mui-input-row p {
+      margin: 0 auto;
+      width: 90%;
+      line-height: 30px;
+      font-size: 14px;
+      padding: 10px 15px;
+    }
+
+    .mui-input-row p span:first-of-type {
+      color: #333;
+      font-weight: bold;
+    }
+
+    .mui-input-row:first-of-type {
+      border-bottom: 1px solid #ccc
+    }
+
+    .explain {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">说明问题原因</h1>
+    <a class="mui-icon mui-pull-right issue" id="issue">发表</a>
+  </header>
+  <div class="mui-content">
+    <div class="mui-input-row explain" id="explain">
+      <p>
+        <span>问题原因：</span>
+        <span class="explainText" ></span>
+      </p>
+    </div>
+    <div class="mui-input-row">
+      <textarea id="issue_text" name="" placeholder="请输入问题原因"></textarea>
+    </div>
+
+  </div>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    ;
+    (function () {
+      mui.init();
+
+      var self = null;
+      var view = null;
+      var status = null;
+      var explainText = null;
+      var resolventText = null;
+
+      // 初始化单页的区域滚动
+      mui('.mui-scroll-wrapper').scroll();
+      mui.plusReady(function () {
+        handsetAdaption();
+
+        self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById(self.viewId);  // ?????????????????????
+        explainText = self.explainText;
+        resolventText = self.resolventText;
+        status = self.status;
+
+        if (status == 'resolvent') {
+          $('.mui-title').html('添加解决方法');
+          $('#explain').show().find('.explainText').html(explainText);
+          $('#issue_text').attr('placeholder', '说明解决问题的方法')
+          $('#issue_text').val(resolventText)
+        } else {
+          $('#issue_text').val(explainText)
+        }
+
+        addEvent();
+      })
+
+      function handsetAdaption() {
+        // 更改顶部导航栏高度
+        if (plus.device.model === 'iPhoneX') {
+          // 页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+
+        // 更改状态栏颜色
+        plus.navigator.setStatusBarStyle("light");
+        // 弹出软键盘时自动改变webview的高度
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize"
+        });
+
+      }
+
+      function addEvent() {
+        // 发表components
+        $('#issue').on('tap', function () {
+          if ($('#issue_text').val()) {
+            if (status == 'resolvent') {
+              mui.fire(view, 'updateResolvent', {// 触发自定义事件
+                resolventText: $('#issue_text').val()
+              });
+            } else {
+              mui.fire(view, 'updateExplain', {// 触发自定义事件
+                explainText: $('#issue_text').val()
+              });
+            }
+
+            self.close("auto", 300);
+
+          } else {
+            mui.alert('亲，请输入内容！！', '提示', '确定')
+          }
+        })
+      }
+
+    })()
+  </script>
+</body>
+
+</html>

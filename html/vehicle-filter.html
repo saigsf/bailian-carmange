@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>筛选</title>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-status-bar-style" content="black">
+	<!--mui样式应用-->
+	<link href="../css/mui.min.css" rel="stylesheet" />
+	<!--自定义图标样式-->
+	<link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+	<!--自定义页面样式-->
+	<link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+
+	<style>
+		header.mui-bar,
+		header.mui-navbar {
+			height: 44px;
+			padding-top: 0;
+			background-color: #f1f1f1;
+
+		}
+
+		header.mui-bar h5,
+		header.mui-navbar h5 {
+			color: #797979;
+			line-height: 44px;
+			margin: 0;
+		}
+
+		.mui-bar-nav~.mui-content {
+			padding-top: 44px;
+			padding-bottom: 80px
+		}
+
+		.mui-scroll {
+			background-color: #fff;
+		}
+
+		.mui-table-view,
+		.mui-table-view-cell {
+			background-color: transparent;
+		}
+
+		.mui-table-view-cell {
+			padding: 5px 12px;
+		}
+
+		.mui-table-view-cell:after {
+			display: none;
+		}
+
+		.filter-wrapper,
+		.filter-input-box,
+		.filter-btn-box {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			/* flex-direction: column */
+			font-size: 12px;
+		}
+
+		.filter-input-box {
+			justify-content: space-between;
+		}
+
+		.filter-btn-box {
+			flex-wrap: wrap
+		}
+
+		.filter-btn-box .mui-btn {
+			font-size: 10px;
+			padding: 8px 16px;
+			margin-bottom: 10px;
+			border: none;
+			background-color: #f1f1f1;
+			color: #606060;
+			position: relative;
+			overflow: hidden;
+			margin-right: 5px
+		}
+
+		.filter-btn-box .mui-btn.mui-active {
+			background-color: #e6effd;
+		}
+
+		.filter-btn-box .mui-btn.mui-active:after {
+			content: "";
+			display: block;
+			position: absolute;
+			right: -14px;
+			bottom: -14px;
+			width: 30px;
+			height: 30px;
+			background-image: url(../img/common/md/icon_subscript@3x.png);
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: center center;
+		}
+
+		.filter-wrapper-column {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.filter-wrapper label {
+			min-width: 80px;
+			text-align: right;
+		}
+
+		.filter-wrapper-column label {
+			font-size: 12px;
+			margin-bottom: 2px;
+		}
+
+		.filter-wrapper input,
+		.filter-input-box input {
+			margin: 0;
+			background-color: #f1f1f1;
+			font-size: 10px;
+			height: 34px;
+			width: auto;
+			border: none;
+			padding: 5px 10px;
+		}
+
+		.filter-input-box input {
+			width: 100px;
+
+		}
+
+		nav.mui-bar {
+			box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+		}
+
+		.btn-wrapper {
+			margin: 20px auto;
+			width: 60%;
+			height: 40px;
+		}
+
+		.btn-wrapper .btn {
+			font-size: 14px;
+		}
+
+		.date-box input {
+			border-radius: 20px;
+
+		}
+
+		.mui-scroll {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<h5 class="">筛选</h5>
+	</header>
+	<div class="mui-content mui-scroll-wrapper">
+		<div class="mui-scroll" id="vehicle-list.html">
+			<form>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>项目编号：</label>
+							<input name="project_sn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车辆编号：</label>
+							<input name="vSn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车架号：</label>
+							<input name="brandModeltwo" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>厂牌型号：</label>
+							<input name="brandModeltwo" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>发动机号：</label>
+							<input name="engineNumber" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>项目工程师：</label>
+							<input name="projectEngineer" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>保单号：</label>
+							<input name="NO" type="text" placeholder="请输入">
+						</div>
+					</li>
+				</ul>
+				<ul class="mui-table-view date-box" id="date-box">
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper-column">
+							<label>保险日期</label>
+							<div class="filter-input-box">
+								<input name="bstart" type="text" placeholder="2018-12-12" id="" readonly>
+								<label for="">——</label>
+								<input name="bend" type="text" placeholder="2018-12-12" id="" readonly>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper-column">
+							<label>牌照日期</label>
+							<div class="filter-input-box">
+								<input name="pstart" type="text" placeholder="2018-12-12" id="" readonly>
+								<label for="">——</label>
+								<input name="pend" type="text" placeholder="2018-12-12" id="" readonly>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper-column">
+							<label>接车日期</label>
+							<div class="filter-input-box">
+								<input name="ustart" type="text" placeholder="2018-12-12" id="" readonly>
+								<label for="">——</label>
+								<input name="uend" type="text" placeholder="2018-12-12" id="" readonly>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper-column">
+							<label>还车日期</label>
+							<div class="filter-input-box">
+								<input name="backstart" type="text" placeholder="2018-12-12" id="" readonly>
+								<label for="">——</label>
+								<input name="backend" type="text" placeholder="2018-12-12" id="" readonly>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</form>
+
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper-column">
+						<label>车辆计数</label>
+						<div class="filter-btn-box" id="filter-btn-box">
+							<div class="mui-btn mui-active" data-key="all">所有车辆</div>
+							<div class="mui-btn" data-key="ing">在用车辆</div>
+							<div class="mui-btn" data-key="stop">停用车辆</div>
+							<div class="mui-btn" data-key="beforBack">先前归还</div>
+							<div class="mui-btn" data-key="thismonthback">当月归还</div>
+							<div class="mui-btn" data-key="thismonnew">当月新入</div>
+							<div class="mui-btn" data-key="beforup">先前接车</div>
+							<div class="mui-btn" data-key="HaveIn">有保险无牌照</div>
+							<div class="mui-btn" data-key="haveLi">有牌照无保险</div>
+						</div>
+					</div>
+				</li>
+
+			</ul>
+
+
+		</div>
+		<div class="mui-scroll" id="vehicle-insurance-list.html">
+			<form>
+				<ul class="mui-table-view">
+
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车辆编号：</label>
+							<input name="vSn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>更新日期：</label>
+							<input name="updateTime" id="updateTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>保险终止日：</label>
+							<input name="iendTime" id="iendTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div class="mui-scroll" id="vehicle-license-list.html">
+			<form>
+				<ul class="mui-table-view">
+
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车牌号：</label>
+							<input name="lNo" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>验车申请日：</label>
+							<input name="applyTime" id="applyTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车牌到期日：</label>
+							<input name="lEndTime" id="lEndTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+				</ul>
+			</form>
+		</div>
+
+
+	</div>
+	<nav class="mui-bar mui-bar-tab">
+		<div class="btn-wrapper ">
+			<button class="btn" id="reset">重置</button>
+			<button class="btn btn-blue" id="submit">确认</button>
+		</div>
+	</nav>
+
+	<!--<div class="close">
+		<i class="icon icon-add"></i>
+	</div>-->
+	<!-- jquery -->
+	<script src="../js/lib/jquery.min.js"></script>
+	<!-- mui -->
+	<script src="../js/mui.min.js"></script>
+	<!-- config 配置项 -->
+	<script src="../js/app/config.js"></script>
+	<!-- app 数据获取 -->
+	<script src="../js/app/app.js"></script>
+	<!-- 当前页面js -->
+	<script>
+		; (function () {
+			var H = null;
+			var self = null;
+			var main = null;
+			var prevId = null;
+			var dDate = new Date();
+
+			mui.init();
+			// 初始化区域滚动
+			mui('.mui-scroll-wrapper').scroll();
+			mui.plusReady(function () {
+				handsetAdaption()
+				self = plus.webview.currentWebview();
+				// mui.toast(self.prevId)
+				$('.mui-scroll').each(function (i) {
+					if ($(this).attr('id') == self.prevId) {
+						$(this).show()
+					}
+				})
+				// console.log($('.mui-scroll').length)
+				main = plus.webview.getWebviewById(self.prevId);
+				H = self.H;
+			})
+
+			function handsetAdaption() {
+				if (plus.device.model === 'iPhoneX') {
+					//页面样式重置
+					// $('nav.mui-bar-tab').css({
+					// 	'paddingBottom': '34px'
+					// })
+				}
+				// plus.webview.currentWebview().setStyle({
+				// 	softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+				// });
+			}
+
+			function addEvent() {
+				var $input = $('#date-box input');
+
+				$input.each(function (i) {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+								title: '',
+								date: dDate
+							});
+					});
+				});
+
+				$('#iendTime').on('tap', function() {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+								title: '',
+								date: dDate
+							});
+					});
+				})
+				$('#updateTime').on('tap', function() {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+								title: '',
+								date: dDate
+							});
+					});
+				})
+
+
+
+				$('#filter-btn-box').on('tap', '.mui-btn', function () {
+					$(this).addClass('mui-active').siblings().removeClass('mui-active');
+				})
+
+				// 提交
+				$('#submit').on('tap', function () {
+					var data = {}
+					
+					$('.mui-scroll').each(function (i) {
+						if ($(this).attr('id') == self.prevId) {
+							data = serialize($(this).find('form'));
+							if ($(this).find('#filter-btn-box').length > 0)
+								data[$('#filter-btn-box').find('.mui-active').attr('data-key')] = true;
+						}
+					})
+					// app.carQuery(data, function(res) {
+					// 	res = JSON.parse(res)
+					// 	console.log(res)
+					// })
+					// console.log(JSON.stringify(data))
+
+
+					mui.fire(main, 'closeMenu', {
+						data: data
+					})
+				})
+			}
+			addEvent()
+
+			document.addEventListener('close', function () {
+				mui.back();
+			})
+
+			//http://47.98.182.165/car-management/car/pageQuery.action?size=3&page=1&sort=vSn&sortOrder=asc&vSn=&project_sn=&vin=&engineNumber=&projectEngineer=&brandModeltwo=&NO=&bstart=2018-06-20&bend=2018-06-20&pstart=&pend=&ustart=&uend=&backstart=&backend=
+		})();
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,697 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>基本信息录入</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+    .imgList {
+      width: 73%;
+      min-height: 40px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .imgItem {
+      width: 60px;
+      height: 60px;
+      margin-right: 5px;
+      margin-left: 5px;
+      margin-bottom: 5px;
+      position: relative;
+    }
+
+    .imgItem img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .imgItem .imgDelete {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 11;
+    }
+  </style>
+</head>
+
+<body>
+  <!--页面标题栏开始-->
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">基本信息录入</h1>
+    <a href="#" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
+  </header>
+  <!--页面标题栏结束-->
+  <!--页面主内容区开始-->
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!-- 基本信息录入start -->
+      <form id="form_one_info">
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>项目编号</label>
+              <!-- <input name="product_sn" type="text" class="mui-input-clear" placeholder=""> -->
+              <select name="project_sn" id="project_sn">
+                <option value=""></option>
+              </select>
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>项目名称</label>
+              <input id="project_name" name="project_name" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>项目工程师</label>
+              <input name="projectEngineer" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>联系电话</label>
+              <input name="contactNumber" type="tel" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆编号</label>
+              <input name="vSn" id="vSn" type="text" readonly class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆名称</label>
+              <input name="carName" type="text" class="mui-input-clear" placeholder="车辆名称">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆类型</label>
+              <input name="vCarType" type="text" class="mui-input-clear" placeholder="如：轿车，货车">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>发动机编号</label>
+              <input name="engineNumber" id="engineNumber" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车架号</label>
+              <input name="vin" id="vin" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>客户</label>
+              <input name="customer" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+        </ul>
+
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>发动机型号</label>
+              <input name="engineType" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>发动机排量</label>
+              <input name="engineCapacity" type="text" class="mui-input-clear" placeholder="发动机排量">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>座位容纳</label>
+              <input name="seats" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>燃油规格</label>
+              <input name="fuelType" type="text" class="mui-input-clear" placeholder="如：93号">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>机油规格</label>
+              <input name="oilspecification" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>变速箱油规格</label>
+              <input name="gbts" type="text" class="mui-input-clear" placeholder="变速箱油规格">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>轮胎规格</label>
+              <input name="tyresize" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>前轮胎压力</label>
+              <input name="reaTireP" type="text" class="mui-input-clear" placeholder="前轮胎压力">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>后轮胎压力</label>
+              <input name="frontTireP" type="text" class="mui-input-clear" placeholder="后轮胎压力">
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆吨位</label>
+              <input name="vehicleQuality" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆颜色</label>
+              <input name="color" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆型号</label>
+              <input name="brandModelone" id="brandModelone" type="text" class="mui-input-clear" placeholder="" value="ETC">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆分组</label>
+              <select name="groupName" id="groupName">
+                <option value="">选择分组</option>
+              </select>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车管</label>
+              <input name="adminName" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>价值</label>
+              <input name="price" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆图片</label>
+              <div class="imgList" id="pictureUrl">
+                <!-- <div class="imgItem">
+                  <img class="img" src="" alt="">
+                  <div class="imgDelete">X</div>
+                </div> -->
+              </div>
+              <!-- <input id="pictureUrl" name="pictureUrl" readonly type="text" class="mui-input-clear" placeholder="选择图片"> -->
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>制作日期</label>
+              <input id="makeTime" name="makeTime" type="text" class="mui-input-clear" placeholder="" readonly>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备注</label>
+              <input name="remark" type="text" class="mui-input-clear" placeholder="">
+            </div>
+          </li>
+        </ul>
+      </form>
+      <!-- 基本信息录入end -->
+      <!-- 提交 -->
+      <div class="btn-wrapper ">
+        <a href="#" class="btn btn-blue" id="vehicle-input-bom">下一步</a>
+      </div>
+
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    var H = null;
+    var vSn = '2018ICECTC022';
+    var self = null;
+    var view = null;
+    var dDate = new Date()
+    var productArr = [];
+
+    var canReviseInput = false; // 可以修改
+    var isFirst = false;
+    // 初始化
+    mui.init();
+
+    // 初始化区域滚动
+    mui('.mui-scroll-wrapper').scroll();
+
+    mui.plusReady(function () {
+      handsetAdaption();
+      self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById('vehicle-input-info');
+      H = self.H;
+      vSn = self.vSn;
+      fetchData();
+      submitData();
+    })
+
+    function handsetAdaption() {
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      plus.webview.currentWebview().setStyle({
+        softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      });
+    }
+
+    addEvent()
+    function addEvent() {
+      $('#openPopover').on('tap', function () {
+        if($(this).html() == '修改') {
+          canReviseInput = true;
+          $(this).html('取消');
+          $('select').attr('disabled', false)
+          $('input').attr('disabled', false)
+          .parents('li').find('.mui-icon-clear').hide()
+        } else {
+          canReviseInput = false;
+          $(this).html('修改');
+          $('select').attr('disabled', true)
+          $('input').attr('disabled', true)
+            .parents('li').find('.mui-icon-clear').show()
+        }
+      })
+
+      $('#makeTime').off().on('tap', function () {
+
+        plus.nativeUI.pickDate(function (e) {
+          var d = e.date;
+          $('#makeTime').val(d.format('yyyy-MM-dd'));
+
+        }, function (e) {
+          $('#makeTime').val('您没有选择日期');
+        }, {
+            title: '',
+            date: dDate
+          });
+      });
+    }
+
+    // 获取数据
+    // fetchData();
+    function fetchData() {
+      // 获取车辆分组
+      app.getGroup({}, function (res) {
+        res = JSON.parse(res)
+        console.log(res)
+        if (res && (res instanceof Array)) {
+          updateView.group(res)
+        }
+      })
+
+      // 获取项目信息
+      app.projectQuery({}, function (res) {
+        res = JSON.parse(res)
+        console.log(res);
+        productArr = res.rows;
+        updateView.project(res.rows)
+      })
+
+      // 获取接车点检信息
+      app.findUpcheck({ vSn }, function (res) {
+        console.log(res);
+        $('#vSn').val(res.vSn)
+        $('#vin').val(res.vin)
+        $('#brandModelone').val(res.brandModelone)
+        $('#engineNumber').val(res.engineNumber)
+      })
+
+      // 查看录入信息
+      app.findAddCar({ vSn }, function (res) {
+        console.log(res);
+        res = JSON.parse(res)
+
+        if (res == null) {
+          canReviseInput = false;
+          isFirst = true;
+          $('#openPopover').hide()
+          return;
+        }
+        updateView.addCar(res)
+      })
+
+    }
+
+
+    // 视图更新
+
+
+    var updateView = {
+      group: function (data) {
+        var html = '';
+        data.forEach(item => {
+          html += '<option value="' + item.name + '">' + item.name + '</option>';
+        });
+
+        $('#groupName').append(html)
+      },
+      project: function (data) {
+        var html = '';
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          html += '<option value="' + item.project_sn + '">' + item.project_sn + '</option>'
+        }
+        $('#project_sn').html(html);
+        $('#project_name').val(data[0].projectName);
+      },
+      addCar: function (data) {
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const item = data[key];
+            $('*[name=' + key + ']').val(item).attr('disabled', true)
+            .parents('li').find('.mui-icon-clear').hide()
+          }
+        }
+      }
+    }
+
+    // 提交
+    // submitData()
+    function submitData() {
+      $('#vehicle-input-bom').on('tap', function () {
+        var oneInfo = serialize($('#form_one_info'));
+        console.log(oneInfo)
+
+        var checkArr = [
+          'carName',
+          'vSn',
+          'adminName',
+          'seats',
+          'vin',
+          'color',
+          'vCarType',
+          'project_name',
+          'price',
+          'vehicleQuality',
+          'projectEngineer',
+          'engineNumber',
+          'customer',
+          'project_sn',
+          'contactNumber',
+          'brandModelone'
+        ]
+        var translateArr = [{
+          name: 'carName',
+          value: '车辆名称不能为空'
+        }, {
+          name: 'vSn',
+          value: '车辆编号不能为空'
+        }, {
+          name: 'adminName',
+          value: '车管不能为空'
+        }, {
+          name: 'seats',
+          value: '座位数不可以为空'
+        }, {
+          name: 'vin',
+          value: '车架号不能为空'
+        }, {
+          name: 'color',
+          value: '车辆颜色不能为空'
+        }, {
+          name: 'vCarType',
+          value: '车辆类型不能为空'
+        }, {
+          name: 'project_name',
+          value: '项目名称不能为空'
+        }, {
+          name: 'price',
+          value: '价值不能为空'
+        }, {
+          name: 'vehicleQuality',
+          value: '吨位不能为空'
+        }, {
+          name: 'projectEngineer',
+          value: '项目工程师不能为空'
+        }, {
+          name: 'engineNumber',
+          value: '发动机编号不能为空'
+        }, {
+          name: 'customer',
+          value: '客户不能不能为空'
+        }, {
+          name: 'project_sn',
+          value: '项目号不能为空'
+        }, {
+          name: 'contactNumber',
+          value: '联系电话不能为空'
+        }, {
+          name: 'brandModelone',
+          value: '车辆型号不能为空'
+        }];
+
+        var checkResult = hasEmptyValue(oneInfo, checkArr);
+        if (checkResult) {
+          mui.toast(translate(checkResult, translateArr));
+          console.log(translate(checkResult, translateArr));
+          return;
+        }
+
+        // 第一次录入
+        // 不是第一次，但是有修改操作
+        // console.log(!((canReviseInput && !isFirst) || isFirst))
+        // console.log(isFirst)
+        // console.log(canReviseInput)
+        // return;
+        if(!((canReviseInput && !isFirst) || isFirst)) {
+          oneInfo = null;
+        }
+
+        var id = $(this).attr('id');
+        mui.openWindow({
+          url: id + '.html',
+          id: id, //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn,
+            oneInfo: oneInfo
+          } //自定义扩展参数
+        })
+      })
+
+    }
+    // submitData();
+
+    $('#project_sn').on('change', function () {
+      for (let i = 0; i < productArr.length; i++) {
+        const item = productArr[i];
+        if (item.project_sn == $(this).val()) {
+          $('#project_name').val(item.projectName)
+        }
+      }
+    })
+
+    // 选择图片
+    $('#pictureUrl').on('tap', function (res) {
+      if (mui.os.plus) {
+        var buttonTit = [{
+          title: "拍照"
+        }, {
+          title: "从手机相册选择"
+        }];
+
+        plus.nativeUI.actionSheet({
+          title: "上传图片",
+          cancel: "取消",
+          buttons: buttonTit
+        }, function (b) { /*actionSheet 按钮点击事件*/
+          switch (b.index) {
+            case 0:
+              break;
+            case 1:
+              getImage(); /*拍照*/
+              break;
+            case 2:
+              galleryImg();/*打开相册*/
+              break;
+            default:
+              break;
+          }
+        })
+      }
+    })
+
+    // 拍照获取图片  
+    function getImage() {
+      var c = plus.camera.getCamera();
+      c.captureImage(function (e) {
+        plus.io.resolveLocalFileSystemURL(e, function (entry) {
+          var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径  
+          console.log(imgSrc)
+          setHtml(imgSrc);
+        }, function (e) {
+          console.log("读取拍照文件错误：" + e.message);
+        });
+      }, function (s) {
+        console.log("error" + s);
+      }, {
+          filename: "_doc/camera/"
+        })
+    }
+
+    // 从相册中选择图片   
+    function galleryImg() {
+      // 从相册中选择图片  
+      plus.gallery.pick(function (e) {
+        for (var i in e.files) {
+          var fileSrc = e.files[i];
+          // console.log(414, fileSrc)
+          setHtml(fileSrc);
+        }
+      }, function (e) {
+        console.log("取消选择图片");
+      }, {
+          filter: "image",
+          multiple: true,
+          maximum: 5,
+          system: false,
+          onmaxed: function () {
+            plus.nativeUI.alert('最多只能选择5张图片');
+          }
+        });
+    }
+
+    // 
+    function setHtml(path) {
+      // console.log(typeof path)
+      if (typeof path == 'function') {
+        return;
+      }
+      var html = '<div class="imgItem">\
+                  <img class="img" src="'+ path + '" alt="">\
+                  <div class="imgDelete"></div>\
+                </div>'
+      $('#pictureUrl').append(html)
+    }
+
+
+    // 删除图片
+    $('#pictureUrl').on('tap', '.imgDelete', function (e) {
+      // console.log(124153)
+      e.stopPropagation();
+      $(this).parent().remove()
+    })
+
+    // 上传的方法  
+    function upload() {
+      var files = document.getElementById('testImg')
+      MicroTaskGUID = common.guid();
+
+      var rul = "服务器地址"
+
+      var imgsArr = mui(".task-img");
+
+      mui.each(imgsArr, function (index, item) {
+        //      console.log(index)  
+        //      console.log(item.src)  
+        createUp(item)
+      })
+
+
+      function createUp(files) {
+        var task = plus.uploader.createUpload(url,
+          { method: "POST" },
+          function (t, status) { //上传完成  
+            if (status == 200) {
+              console.log("上传成功：" + t.responseText);
+            } else {
+              console.log("上传失败：" + status);
+            }
+          }
+        );
+        //添加其他参数  
+        //      task.addData("name","test");  
+        task.addFile(files.src, { key: files.src });
+        task.start();
+      }
+    }
+
+    // 返回事件
+    document.addEventListener('goback', function () {
+      mui.back();
+      mui.fire(view, 'update', null)
+    })
+  </script>
+</body>
+
+</html>

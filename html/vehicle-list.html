@@ -1,0 +1,581 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>车辆总表</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-scroll-wrapper {
+      height: 100%;
+      /* padding-top: 66px; */
+    }
+
+    .top * {
+      transition: all .5s;
+    }
+
+    .top .btn {
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+    }
+
+    .top .canclecheck {
+      width: 0;
+      line-height: 40px;
+      text-align: center;
+      color: #2885cf;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .batch .filter {
+      display: none;
+    }
+
+    .batch .canclecheck {
+      width: 15%;
+    }
+
+    .batch .item-checked {
+      width: 15%;
+    }
+
+    .btn-container {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 50px;
+      z-index: 999;
+      display: none;
+    }
+
+    .btn-container .btn {
+      width: 50%;
+      height: 100%;
+      float: left;
+      text-align: center;
+      border-radius: 0;
+    }
+
+    .btn-container .btn:not(.btn-blue) {
+      background-color: #fff;
+    }
+
+    .top .search-wrapper {
+      width: 65%;
+      height: 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form class="top">
+        <div class="program-status" id="program_status">
+          <i class="icon icon-status-change">状态</i>
+        </div>
+        <!-- <div class="mui-input-row mui-search" id="search">
+          <input readonly type="search" class="mui-input-clear" placeholder="">
+        </div> -->
+        <div class="search-wrapper" id="search">
+
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
+          </div>
+          <div class="search-text">
+            <input type="text" readonly placeholder="请输入车辆编号">
+          </div>
+        </div>
+
+        <div class="filter" id="filter">
+          <i class="icon icon-filter">筛选</i>
+        </div>
+      </form>
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview">
+        <li class="mui-table-view-cell">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-red car-type-change">车型修改</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>2018-0591</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-bottom">
+                  <div class="bottom-item">
+                    <h4>2018-02-22</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="bottom-item bottom-item-empty"></div>
+                  <div class="bottom-item">
+                    <h4>active</h4>
+                    <p>项目状态</p>
+                  </div>
+                  <div class="bottom-item bottom-item-empty"></div>
+                  <div class="bottom-item">
+                    <h4>张三</h4>
+                    <p>项目工程师</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-red car-type-change">车型修改</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>2018-0591</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-bottom">
+                  <div class="bottom-item">
+                    <h4>2018-02-22</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="bottom-item bottom-item-empty"></div>
+                  <div class="bottom-item">
+                    <h4>active</h4>
+                    <p>项目状态</p>
+                  </div>
+                  <div class="bottom-item bottom-item-empty"></div>
+                  <div class="bottom-item">
+                    <h4>张三</h4>
+                    <p>项目工程师</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-red car-type-change">车型修改</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="list-item">
+              <div class="item-checked">
+                <input type="checkbox" name="" id="myCheck">
+                <label for="myCheck"></label>
+              </div>
+              <div class="item-left">
+                <img src="../img/common/icon_app.png" />
+              </div>
+              <div class="item-right">
+                <div class="item-right-top">
+                  <div class="number">
+                    <h4>2018-0591</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">
+                    <i class="mui-icon mui-icon-arrowright"></i>
+                  </div>
+                </div>
+                <div class="item-right-bottom">
+                  <div class="bottom-item">
+                    <h4>2018-02-22</h4>
+                    <p>项目编号</p>
+                  </div>
+                  <div class="bottom-item bottom-item-empty"></div>
+                  <div class="bottom-item">
+                    <h4>active</h4>
+                    <p>项目状态</p>
+                  </div>
+                  <div class="bottom-item bottom-item-empty"></div>
+                  <div class="bottom-item">
+                    <h4>张三</h4>
+                    <p>项目工程师</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="no-data" id="no-data">
+        <p>没有找到想要的数据，下拉加载所有数据</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    ; (function () {
+      var curPage = 1;  //当前页码初始化数0开始
+      var totalPage = 0; //后台算出总页数
+      var H = null;
+      var filter = '20px';
+      var self = null;
+      var main = null;
+      var side = null;
+      var view = null;
+      var showMenu = false;
+      var isInTransition = false;
+      var data = [];
+      var dataArr = {};
+      var queryType = 'carQuery';
+
+      // 预加载页面
+      var prepageSearch = null;
+
+
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          down: {
+            auto: true,//可选,默认false.首次加载自动下拉刷新一次
+            callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          },
+          up: {
+            callback: pullupRefresh
+          }
+        },
+        gestureConfig: {
+          // doubletap: true, //默认为false
+          longtap: true, //默认为false
+        }
+      });
+
+      mui('.mui-scroll-wrapper').scroll();
+
+
+      mui.plusReady(function () {
+        handsetAdaption()
+
+        self = plus.webview.currentWebview();
+        main = plus.webview.getWebviewById("index");
+        view = plus.webview.getWebviewById('html/vehicle.html')
+        H = self.H;
+
+        main.addEventListener('maskClick', closeMenu);
+
+        prepageSearch = mui.preload({
+          url: 'search.html',
+          id: 'search',
+          extras: {
+            H: H,
+            prevId: self.id
+          }
+        })
+
+        addEvent();
+      });
+
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          filter = '34px'
+        }
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
+      }
+
+      // 下拉刷新业务
+      function pulldownRwfresh() {
+        curPage = 1;
+        dataArr = {};
+        queryType = 'carQuery';
+        $('#no-data').hide().prev().show()
+
+        setTimeout(function () {
+          $('#OA_task_1').html('')
+          fetchData()
+          mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+        }, 1000)
+      }
+
+      // 上拉加载业务
+      function pullupRefresh() {
+        console.log(totalPage, curPage)
+
+        setTimeout(function () {
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData()
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
+        }, 1000)
+      }
+      // 获取数据
+      function fetchData() {
+
+        var opt = {
+          page: curPage,
+          size: 3
+        }
+
+        opt = $.extend(opt, dataArr);
+        console.log(JSON.stringify(opt))
+        
+        var i = 0;
+        for (const key in dataArr) {
+          if (dataArr.hasOwnProperty(key)) {
+            const item = dataArr[key];
+            i++
+          }
+        }
+        console.log(i)
+
+        if (!isEmpty(dataArr) && i != 1) {
+          queryType = 'orderQuery'
+        }
+        app[queryType](opt, function (res) {
+
+          res = JSON.parse(res);
+          console.log(res)
+          if (!res.total || res.total <= 0) {
+            $('#no-data').show().prev().hide()
+            mui.toast('没有找到想要的数据，下拉加载所有数据')
+            return;
+          }
+          // console.log(res.totalCount)
+          curPage++;
+          totalPage = Math.ceil(res.total / 3);
+
+          // data = data.concat(res.rows);
+          updateView(res.rows);
+
+        });
+      }
+
+      // 更新视图
+      function updateView(data) {
+        var html = '';
+
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          html += '<li class="mui-table-view-cell" data-vsn="' + item.vSn + '">'
+            + '<div class="mui-slider-right mui-disabled">'
+            + '<a class="mui-btn mui-btn-red car-type-change">车型修改</a>'
+            + '</div>'
+            + '<div class="mui-slider-handle">'
+            + '<div class="list-item">'
+            + '<div class="item-left">'
+            + '<img src="../img/common/icon_app.png" />'
+            + '</div>'
+            + '<div class="item-right">'
+            + '<div class="item-right-top">'
+            + '<div class="number">'
+            + '<h4>' + item.vSn + '</h4>'
+            + '<p>' + (item.project ? item.project.project_sn : '——') + '</p>'
+            + '</div>'
+            + '<div class="mui-btn mui-btn-blue mui-btn-outlined tolook">'
+            + '<i class="mui-icon mui-icon-arrowright"></i>'
+            + '</div>'
+            + '</div>'
+            + '<div class="item-right-bottom">'
+            + '<div class="bottom-item">'
+            + '<h4>' + (item.car_status ? item.car_status : '——') + '</h4>'
+            + '<p>车辆状态</p>'
+            + '</div>'
+            + '<div class="bottom-item bottom-item-empty"></div>'
+            + '<div class="bottom-item">'
+            + '<h4>' + (item.project ? item.project.project_status : '——') + '</h4>'
+            + '<p>项目状态</p>'
+            + '</div>'
+            + '<div class="bottom-item bottom-item-empty"></div>'
+            + '<div class="bottom-item">'
+            + '<h4>' + (item.projectEngineer ? item.projectEngineer : '——') + '</h4>'
+            + '<p>项目工程师</p>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+            + '</li>';
+        }
+
+        $('#OA_task_1').append(html)
+      }
+
+      //添加事件
+      function addEvent() {
+        //查看车辆信息
+        $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
+          var $li = $(this).parents('li')
+
+          mui.openWindow({
+            url: 'vehicle-list-info.html',
+            id: 'vehicle-list-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: $li.attr('data-vSn'),
+              data: data[$li.index()]
+            } //自定义扩展参数
+          })
+        });
+
+        // 更改车型
+        $('#OA_task_1').on('tap', '.car-type-change', function () {
+          var $li = $(this).parents('li')
+          // 修改车型
+          mui.openWindow({
+            url: 'vehicle-type-change.html',
+            id: 'vehicle-type-change', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: $li.attr('data-vSn')
+            } //自定义扩展参数
+          });
+          mui.swipeoutClose($li[0])
+        })
+
+        // 更改项目状态
+        $('#program_status').on('tap', function () {
+          //
+          mui.openWindow({
+            url: 'vehicle-program-status.html',
+            id: 'vehicle-program-status', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              prevId: self.id
+            } //自定义扩展参数
+          })
+        })
+
+        // 搜索
+        $('#search').on('tap', function () {
+          prepageSearch.show('fade-in');
+          mui.fire(plus.webview.getWebviewById('search'), 'focus', null)
+        })
+      }
+      addEvent()
+
+      //打开侧滑窗口；
+      function openMenu() {
+
+        main.setStyle({
+          mask: 'rgba(0,0,0,0.5)'
+        }); //menu设置透明遮罩防止点击
+
+        mui.openWindow({
+          url: 'vehicle-filter.html',
+          id: 'vehicle-filter', //默认使用当前页面的url作为id
+          styles: {
+            top: filter,
+            bottom: '0',
+            left: '30%',
+            width: '70%'
+          }, //窗口参数
+          extras: {
+            H: H,
+            prevId: self.id
+          }, //自定义扩展参数
+          waiting: {
+            autoShow: false, //自动显示等待框，默认为true
+            title: '正在加载...', //等待对话框上显示的提示内容
+          }
+        })
+      };
+      //关闭侧滑窗口；
+      function closeMenu(e) {
+        if (e) {
+          dataArr = e.detail.data;
+          curPage = 1;
+          $('#OA_task_1').html('')
+          fetchData();
+        }
+        //关闭遮罩；
+        side = plus.webview.getWebviewById("vehicle-filter");
+        main.setStyle({
+          mask: 'none'
+        });
+        mui.fire(side, 'close', {})
+
+      };
+
+      //点击头部菜单小图标，打开侧滑菜单；
+      $('#filter').on('tap', function (e) {
+        e.stopPropagation();
+        openMenu()
+      });
+      //menu页面点击后关闭菜单；
+      window.addEventListener('closeMenu', closeMenu);
+
+      document.addEventListener('statusBar', function (e) {
+        plus.navigator.setStatusBarStyle('light');
+
+        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
+
+      document.addEventListener('update', function () {
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
+    })();
+  </script>
+</body>
+
+</html>

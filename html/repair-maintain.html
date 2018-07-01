@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>保养记录</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .driver-info {
+      width: 80%;
+      padding: 20px 30px;
+      margin: 40px auto;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      border-radius: 11px;
+      line-height: 30px;
+      padding-bottom: 60px;
+      position: relative;
+
+    }
+
+    .driver-info:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    .driver-info label {
+      font-weight: bold;
+      float: left;
+    }
+
+    .driver-info p {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      width: 80%;
+      float: left;
+      border-radius: 5px;
+      margin: 0;
+      height: auto;
+      min-height: 60px;
+    }
+
+    .mui-btn-outlined {
+      border: 0;
+      position: absolute;
+      right: 30px;
+      bottom: 10px;
+    }
+
+    .mui-table-view {
+      width: 90%;
+    }
+
+    .mui-table-view-cell:after {
+      display: none;
+    }
+
+    .date-wrapper .date-text {
+      width: 80%;
+    }
+
+    /* .mui-button-row {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%)
+    } */
+
+    .vSn {
+      color: #2885cf;
+      font-weight: bold;
+    }
+
+    .maintenance .date-wrapper {
+      align-items: flex-start;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">保养记录</h1>
+  </header>
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form id="maintain">
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <p class="vSn">车辆编号：
+              <span id="vSn"></span>
+            </p>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>保养日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="maintenance_date" placeholder="2018-01-01" readonly>
+                <div class="date-icon">
+                  <i class="icon icon-date"></i>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>保养里程</label>
+              <div class="date-text">
+                <input type="text" name="mm" placeholder="请输入">
+                <!-- <div class="date-icon">
+                  <i class="icon icon-triangle-down"></i>
+                </div> -->
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>下次保养</label>
+              <div class="date-text">
+                <input type="text" name="nt" id="nt" placeholder="2018-01-01 00:00:00" readonly>
+                <div class="date-icon">
+                  <i class="icon icon-date"></i>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </form>
+      <ul class="mui-table-view mui-table-inputview maintenance" id="maintenance">
+        <li class="mui-table-view-cell">
+          <div class="date-wrapper">
+            <label>保养项目</label>
+            <div class="date-content">
+              <input type="checkbox" name="" id="oil_change">
+              <label for="oil_change">换机油</label>
+              <div class="date-text">
+                <input type="text" placeholder="请输入品牌及标号">
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- <li class="mui-table-view-cell">
+          <div class="date-wrapper">
+            <label></label>
+            <div class="date-content">
+              <input type="checkbox" name="" id="machine_filtration">
+              <label for="machine_filtration">换机滤</label>
+              <div class="date-text">
+                <input type="text" placeholder="请输入品牌及标号">
+              </div>
+            </div>
+          </div>
+        </li> -->
+        <li class="mui-table-view-cell">
+          <div class="date-wrapper">
+            <label></label>
+            <div class="date-content">
+              <input type="checkbox" name="" id="antifreeze">
+              <label for="antifreeze">换防冻液</label>
+              <div class="date-text">
+                <input type="text" placeholder="请输入品牌及标号">
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- <li class="mui-table-view-cell">
+          <div class="date-wrapper">
+            <label></label>
+            <div class="date-content">
+              <input type="checkbox" name="" id="air_filtration">
+              <label for="air_filtration">换空滤</label>
+              <div class="date-text">
+                <input type="text" placeholder="请输入品牌及标号">
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="date-wrapper">
+            <label></label>
+            <div class="date-content">
+              <input type="checkbox" name="" id="gearbox_oil">
+              <label for="gearbox_oil">换变速箱油</label>
+              <div class="date-text">
+                <input type="text" placeholder="请输入品牌及标号">
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
+          <div class="date-wrapper">
+            <label></label>
+            <div class="date-content">
+              <input type="checkbox" name="" id="gasoline_filtration">
+              <label for="gasoline_filtration">换汽油滤</label>
+              <div class="date-text">
+                <input type="text" placeholder="请输入品牌及标号">
+              </div>
+            </div>
+          </div>
+        </li> -->
+      </ul>
+      <div class="btn-wrapper ">
+        <div class="btn btn-blue" id="next">提交</div>
+      </div>
+    </div>
+
+  </div>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    (function () {
+      //初始化
+      mui.init();
+
+      mui('.mui-scroll-wrapper').scroll();
+
+      var H = null;
+      var vSn = null;
+      var view = null;
+      var dDate = new Date();
+
+      mui.plusReady(function () {
+        handsetAdaption()
+        var self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById('repair-list.html')
+        H = self.H;
+        vSn = self.vSn;
+        $('#vSn').html(vSn)
+      })
+
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
+      }
+
+      addEvent();
+      function addEvent() {
+        $('#maintenance_date').val(dDate.format('yyyy-MM-dd'))
+        // 开始时间
+        $('#nt').off().on('tap', function () {
+          var _this = this;
+          plus.nativeUI.pickDate(function (e) {
+            var d = e.date;
+            $(_this).val(d.format('yyyy-MM-dd'));
+
+          }, function (e) {
+            $(_this).val('您没有选择日期');
+          }, {
+              title: '',
+              date: dDate,
+              minDate: dDate
+            });
+        });
+      }
+      function fetchData() {
+
+      }
+      fetchData();
+
+      function updateView(data) {
+
+      }
+
+      submitData()
+      function submitData() {
+        // 提交
+        $('#next').on('tap', function () {
+          var data = {};
+          var data = serialize($('#maintain'));
+          var maintenanceItems = [];
+          data.vSn = $('#vSn').html()
+
+          var $checkbox = $('#maintenance li input[type=checkbox]');
+          $checkbox.each(function (i) {
+            var _this = this;
+
+            if ($(this).prop('checked')) {
+              maintenanceItems.push({
+                brandAndlabel: $(_this).next().next().find('input').val(),
+                itemName: $(_this).next().html()
+              })
+            }
+          })
+
+          data.maintenanceItems = maintenanceItems;
+          console.log(data)
+
+          app.saveMaintenance(data, function (res) {
+            console.log(res)
+            mui.toast(res.msg)
+            if (res.ret) {
+              mui.back();
+              mui.fire(view, 'update', {});
+            }
+            
+          })
+
+        })
+      }
+    })();
+
+  </script>
+</body>
+
+</html>

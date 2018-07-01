@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>任务分配</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .driver-info {
+      width: 80%;
+      padding: 20px 30px;
+      margin: 40px auto;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      border-radius: 11px;
+      line-height: 30px;
+      padding-bottom: 60px;
+      position: relative;
+
+    }
+
+    .driver-info:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    .driver-info label {
+      font-weight: bold;
+      float: left;
+    }
+
+    .driver-info p {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      width: 80%;
+      float: left;
+      border-radius: 5px;
+      margin: 0;
+      height: auto;
+      min-height: 60px;
+    }
+
+    .mui-btn-outlined {
+      border: 0;
+      position: absolute;
+      right: 30px;
+      bottom: 10px;
+    }
+
+    .mui-table-view {
+      width: 90%;
+    }
+
+    .mui-table-view-cell:after {
+      display: none;
+    }
+
+    .date-wrapper .date-text {
+      width: 80%;
+    }
+
+    .mui-button-row {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    .vSn {
+      color: #2885cf;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">任务分配</h1>
+  </header>
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form id="allot">
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <p class="vSn">车辆编号：
+              <span id="vSn"></span>
+            </p>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>操作人员</label>
+              <div class="date-text">
+                <select name="operator" id="operator">
+                  <option value="">请选择维修员</option>
+                </select>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>操作员电话</label>
+              <div class="date-text">
+                <input type="tel" name="operatorTEL" id="operatorTEL" readonly>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>预计完成日</label>
+              <div class="date-text">
+                <input type="text" name="forecastTime" id="forecastTime" placeholder="2018-01-01" readonly>
+                <div class="date-icon">
+                  <i class="icon icon-date"></i>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="date-wrapper">
+              <label>工作内容</label>
+              <div class="date-text">
+                <textarea name="workContent" id="" cols="30" rows="4" placeholder="备注"></textarea>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </form>
+      <div class="btn-wrapper ">
+        <button class="btn btn-blue" id="next">提交</button>
+      </div>
+    </div>
+
+  </div>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    (function () {
+      //初始化
+      mui.init();
+
+      mui('.mui-scroll-wrapper').scroll();
+
+      var H = null;
+      var vSn = null;
+      var view = null;
+      var dDate = new Date();
+      var operatorArr = []
+
+      mui.plusReady(function () {
+        handsetAdaption()
+        var self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById('repair-list.html')
+        H = self.H;
+        vSn = self.vSn;
+        $('#vSn').html(vSn)
+      })
+
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
+      }
+
+      addEvent();
+      function addEvent() {
+        // 开始时间
+        $('#forecastTime').off().on('tap', function () {
+          var _this = this;
+          plus.nativeUI.pickDate(function (e) {
+            var d = e.date;
+            $(_this).val(d.format('yyyy-MM-dd'));
+
+          }, function (e) {
+            $(_this).val('您没有选择日期');
+          }, {
+              title: '',
+              date: dDate,
+              minDate: dDate
+            });
+        });
+
+        // 电话随人名联动
+        $('select').on('change', function() {
+          var _this = this;
+          operatorArr.forEach(item => {
+            if(item.name = $(_this).val()) {
+              $('#operatorTEL').val(item.tel)
+            }
+          });
+        })
+      }
+
+
+      function fetchData() {
+
+        app.carMaintainEmployee({}, function (res) {
+          res = JSON.parse(res);
+          console.log(res)
+          operatorArr = res;
+          updateView(res);
+        })
+      }
+      fetchData();
+
+      function updateView(data) {
+        var html = '';
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          html += '<option value="' + item.name + '">' + item.name + '</option>'
+        }
+        $('#operator').append(html)
+      }
+
+      submitData();
+      function submitData() {
+        // 提交
+        $('#next').on('tap', function () {
+          var data = serialize($('#allot'));
+          data.vSn = $('#vSn').html()
+
+          app.carMaintainAssign(data, function (res) {
+            console.log(res);
+            // res = JSON.parse(res);
+            mui.toast(res.msg)
+            if (res.ret) {
+              setTimeout(() => {
+                mui.fire(view, 'update', {});
+                mui.back();
+              }, 100);
+            }
+            
+          })
+        })
+      }
+
+    })();
+  </script>
+</body>
+
+</html>

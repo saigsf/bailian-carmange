@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>研发工具</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+    td {
+      min-height: 40px;
+    }
+
+    .info-operator {
+      flex-direction: column;
+    }
+
+    .info-operator-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .info-operator-item p {
+      width: 50%;
+      margin: 0;
+    }
+
+    .info-operator-item span {
+      display: inline;
+    }
+
+    .no-data {
+      height: 100%;
+      z-index: 999;
+      background-color: #fff;
+    }
+
+    .no-data p {
+      top: 40%
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">研发工具</h1>
+  </header>
+  <!--页面主内容区开始-->
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <table>
+        <thead>
+          <tr>
+            <td width="30%">工具或设备名称</td>
+            <td width="20%">申请人</td>
+            <td width="30%">装备日期</td>
+            <td width="20%">操作</td>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr>
+            <td>12V电源</td>
+            <td>王先生</td>
+            <td>2018-12-12</td>
+            <td>
+              <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder finished">已完成</i>
+            </td>
+          </tr>
+          <tr>
+            <td>12V电源</td>
+            <td>王先生</td>
+            <td>2018-12-12</td>
+            <td>
+              <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder to-submit">提交</i>
+            </td>
+          </tr> -->
+
+        </tbody>
+      </table>
+      <!-- <div class="info-operator">
+        <div class="info-operator-item">
+          <p>
+            <span>申请人：</span>
+            <span class="applyPerson"></span>
+          </p>
+          <p>
+            <span>申请日期：</span>
+            <span class="applyTime"></span>
+          </p>
+        </div>
+      </div> -->
+    </div>
+    <div class="no-data" id="no-data">
+      <p>您还没有申请研发工具安装，请先申请研发工具安装</p>
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    (function () {
+      var H = null;
+      var self = null;
+      var vSn = '2018ICECTC020';
+
+      // 初始化
+      mui.init();
+
+      // 页面滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      // plusReady
+      mui.plusReady(function () {
+        handsetAdaption();
+        self = plus.webview.currentWebview();
+        vSn = self.vSn;
+        fetchData()
+        addEvent()
+        submitData()
+      })
+
+      // 手机适配
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        // plus.webview.currentWebview().setStyle({
+        //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        // });
+      }
+
+      function addEvent() {
+        var dDate = new Date()
+        $('table tbody').on('tap', '.equippedDate', function () {
+          var _this = this;
+          plus.nativeUI.pickDate(function (e) {
+            var d = e.date;
+            $(_this).html(d.format('yyyy-MM-dd'));
+
+            plus.nativeUI.pickTime(function (e) {
+              var d = e.date;
+              $(_this).html($(_this).html() + d.format(' hh:mm:ss'));
+            }, function (e) {
+              $(_this).html("未选择时间：" + e.message);
+            });
+
+          }, function (e) {
+            $(_this).html('您没有选择日期');
+          }, {
+              title: '',
+              date: dDate,
+            });
+        })
+      }
+
+      // 获取数据
+      // fetchData()
+      function fetchData() {
+        app.findDevelopTools({
+          vSn: vSn
+        }, function (res) {
+          console.log(res)
+          if (res.length <= 0) {
+            mui.toast('研发工具未申请，请先申请');
+            $('#no-data').show().prev().hide()
+          }
+          updateView(res);
+        })
+      }
+
+      // 视图更新<input type="text" readonly placeholder="2018-12-12 00:00:00">
+      function updateView(data) {
+        var html = '';
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          html += '<tr data-id="' + item.id + '">\
+                    <td>12V'+ item.toolName + '</td>\
+                    <td>'+ item.applicant + '</td>\
+                    <td><span class="equippedDate">'+ (item.operatorDate ? item.operatorDate : '请选择时间') + '</span></td>\
+                    <td>\
+                      <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder ' + (item.operator ? 'finished' : 'to-submit') + '">' + (item.operator ? item.operator : '提交') + '</i>\
+                    </td>\
+                  </tr>'
+        }
+
+        $('table tbody').append(html)
+      }
+
+      // 数据提交
+      function submitData() {
+        $('table').on('tap', '.to-submit', function () {
+          var _this = this;
+          // 接口调用
+          // 
+          var data = {
+            vSn: vSn,
+            did: $(_this).parents('tr').attr('data-id'),
+            equippedDate: $(_this).parents('tr').find('.equippedDate').html(),
+            remark: ''
+          }
+
+          if (!data.equippedDate) {
+            mui.toast('请选择时间')
+            return;
+          }
+
+          app.developEquipment(data, function (res) {
+            res = JSON.parse(res)
+            console.log(res.msg);
+            mui.toast(res.msg)
+            if (res.ret) {
+              $(_this).removeClass('to-submit').addClass('finished').html('已完成');
+            }
+          })
+        })
+      }
+
+    })()
+
+  </script>
+</body>
+
+</html>
