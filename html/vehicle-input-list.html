@@ -79,9 +79,12 @@
       padding: 0;
     }
 
-    /* body {
-      font-size: 12px;
-    } */
+    .no-data {
+      height: 100%;
+    }
+    .no-data p {
+      top: 40%;
+    }
   </style>
 </head>
 
@@ -181,6 +184,9 @@
           </div>
         </li>
       </ul>
+      <div class="no-data" id="no-data">
+        <p>没有找到想要的数据！</p>
+      </div>
     </div>
   </div>
   <!-- jquery -->
@@ -280,9 +286,6 @@
             'paddingTop': '88px'
           })
         }
-
-        // 更改状态栏颜色
-        // plus.navigator.setStatusBarStyle("light");
         // 弹出软键盘时自动改变webview的高度
         plus.webview.currentWebview().setStyle({
           softinputMode: "adjustResize"
@@ -313,7 +316,7 @@
         // 搜索
         $('#search').on('tap', function () {
           prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'focus', null)
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', null)
         })
       }
       // 添加点击事件进入下一页
@@ -329,6 +332,11 @@
         app.carQuery(opt, function (res) {
           res = JSON.parse(res);
           console.log(res);
+          if (!res.total || res.total <= 0) {
+            $('#no-data').show().prev().hide()
+            // mui.toast('没有找到想要的数据，下拉加载所有数据')
+            return;
+          }
           curPage++;
           totalPage = Math.ceil(res.total / 3);
           if (res.rows) {
@@ -371,7 +379,6 @@
 
 
       document.addEventListener('statusBar', function (e) {
-        plus.navigator.setStatusBarStyle('light');
         if (e.detail != null && e.detail.data) dataArr = e.detail.data;
         curPage = 1;
         $('#vehicle_input_list').html('')

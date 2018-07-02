@@ -8,9 +8,7 @@
       softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
     });
     //更改状态栏颜色
-    plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
-    //更改状态栏颜色
-    // plus.navigator.setStatusBarStyle("dark");
+    plus.navigator.setStatusBarStyle("dark");
     // 获取本地配置
     var settings = app.getSettings();
     // console.log(JSON.stringify(settings))

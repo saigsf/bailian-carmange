@@ -161,6 +161,8 @@
     var self = null;
     var view = null;
 
+    
+
     mui.plusReady(function () {
       handsetAdaption()
       self = plus.webview.currentWebview();
@@ -238,10 +240,11 @@
     })
 
 
-    document.addEventListener('focus', function () {
+    document.addEventListener('getFocus', function () {
       plus.navigator.setStatusBarStyle('dark');
       // 输入框获取焦点
       app.focusAndOpenKeyboard(document.getElementById('current_input'));
+      // $('#current_input').focus()
     })
 
 

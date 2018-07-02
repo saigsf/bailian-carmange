@@ -121,6 +121,12 @@
     .top {
       padding: 10px 15px;
     }
+    .no-data {
+      height: 100%;
+    }
+    .no-data p {
+      top: 40%;
+    }
   </style>
 </head>
 
@@ -246,7 +252,7 @@
         </li> -->
       </ul>
       <div class="no-data" id="no-data">
-        <p>没有找到想要的数据，下拉加载所有数据</p>
+        <p>没有找到想要的数据！</p>
       </div>
     </div>
   </div>
@@ -377,7 +383,7 @@
           console.log(res.total)
           if (!res.total || res.total <= 0 || res.rows.length <= 0) {
             $('#no-data').show().prev().hide()
-            mui.toast('没有找到想要的数据，下拉加载所有数据')
+            // mui.toast('没有找到想要的数据，下拉加载所有数据')
             return;
           }
           // console.log(res.total)
@@ -453,7 +459,7 @@
         // 搜索
         $('#search').on('tap', function () {
           prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'focus', null)
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', null)
         })
       }
       // addEvents()
@@ -512,7 +518,6 @@
       window.addEventListener('closeMenu', closeMenu);
 
       document.addEventListener('statusBar', function (e) {
-        plus.navigator.setStatusBarStyle('light');
         if (e.detail != null && e.detail.data) dataArr = e.detail.data;
         curPage = 1;
         $('#vehicle_insurance_list').html('')

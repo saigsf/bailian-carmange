@@ -788,6 +788,13 @@ span.hide {
   width: 34px;
   height: 34px;
   display: none;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background: url(../img/common/md/icon_clear@2x.png) no-repeat center;
+  background-size: 12px 12px;
 }
 
 .search-wrapper .search-btn {
@@ -1245,6 +1252,7 @@ button {
   background-position: center 30%;
   background-size: 60px;
   height: 200px;
+  width: 100%;
   position: relative;
   display: none;
 }

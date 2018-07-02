@@ -142,36 +142,7 @@ function translate(before, standard) {
  * @param {Function} callback 回掉函数
  */
 function translatePoint(points, callback) {
-  var convertor = new BMap.Convertor();
-  var gpsPoints = [];
 
-  if (points instanceof Array) {
-    gpsPoints = points;
-  } else {
-    gpsPoints.push(points)
-  }
-
-  convertor.translate(gpsPoints, 1, 5, callback); //转换坐标 
-}
-
-// 添加marker
-
-function addMarker(point, map, data) {
-  console.log(JSON.stringify(point))
-
-  var myIcon = new BMap.Icon("../img/car21.png", new BMap.Size(26, 15));
-  var marker = new BMap.Marker(point, { icon: myIcon });
-  map.addOverlay(marker);
-
-  if (!data) {
-    return
-  }
-
-  var label = new BMap.Label(data.name, { offset: new BMap.Size(-10, 25) });
-  marker.setLabel(label);
-  marker.addEventListener("click", function (e) {
-    mui.toast(data.name)
-  });
 }
 
 //获取指定标记的详细信息     

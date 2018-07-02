@@ -7,6 +7,8 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-status-bar-style" content="black">
+	<!-- 地图样式 -->
+	<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
 	<!--mui样式应用-->
 	<link href="../css/mui.min.css" rel="stylesheet" />
 	<!--自定义图标样式-->
@@ -21,180 +23,217 @@
 			overflow: hidden;
 		}
 
-		.mui-content {
-			height: 100%;
-		}
-
-		.mui-segmented-control {
-			position: absolute;
-			top: 108px;
-			left: 50%;
-			transform: translateX(-50%);
-			width: 80%;
-			border-radius: 40px;
-			border-color: #2885CF;
-			z-index: 1;
-			background-color: #fff;
-		}
-
-		.mui-segmented-control .mui-control-item {
-			color: #2885CF;
-			border-color: #2885CF;
-			border-left: 1px solid #2885CF;
-		}
-
-		.mui-segmented-control .mui-control-item.mui-active {
-			background-color: #2885CF;
-			border-color: #2885CF;
-			border-left: 1px solid #2885CF;
-		}
-
-		.mui-control-content {
-			height: 100%;
-			width: 100%;
-		}
-
-		.bottom-search {
-			padding-top: 15px;
-			position: fixed;
-			left: 0;
-			bottom: 0;
-			background-image: url(../img/common/background_ellipse.png);
-			background-position: top center;
-			background-size: 150%;
-			background-repeat: no-repeat;
-			width: 100%;
-			transition: all ease-in-out .7s;
-			z-index: 2;
-		}
-
-		.mui-btn.mui-btn-block.mui-btn-outlined {
-			font-size: 24px;
-			padding: 10px 0;
-			border: none;
-			margin-bottom: 0;
-		}
-
-		.mui-input-row.mui-search {
-			width: 90%;
-			margin: 20px auto;
-			border: 1px solid #ccc;
-			border-radius: 40px;
-		}
-
-		.mui-input-row.mui-search input[type=search] {
-			/* height: 34px; */
-			background-color: rgba(255, 255, 255, .7);
-			margin: 0;
-
-		}
-
-
-
-		.mui-btn .mui-icon {
-			padding: 10px;
-			font-weight: bold
-		}
-
-		.item1-map,
-		.item2-map {
-			height: 100%;
+		.map {
+			height: 80%;
 		}
 
 		.search-wrapper {
-			width: 90%;
-			margin: 20px auto;
+			position: fixed;
+			top: 40px;
+			left: 20px;
+			height: 44px;
+			background-color: rgba(255, 255, 255, .9);
+			z-index: 999;
+			width: 70%;
+			border: none;
+			box-shadow: 0 4px 9px rgba(0, 0, 0, 0.25);
+			transition: all .7s;
 		}
 
-		.date-container {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+		.search-wrapper input {
+			font-size: 14px;
+		}
+
+		.top-mark {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 44px;
+			z-index: 998;
+			background: url(../img/common/md/top_mark@2x.png) no-repeat center;
+		}
+
+		.mui-btn {
+			position: fixed;
+			top: 40px;
+			right: 20px;
+			z-index: 999;
+			width: 44px;
+			height: 44px;
+			line-height: 44px;
+			padding: 0;
+			border-radius: 50%;
+			border: none;
+			box-shadow: 0 2px 6px rgba(40, 133, 207, .7)
+		}
+
+		.vehicle-info {
+			height: 20%;
+			width: 100%;
+			padding: 20px;
+			margin: 0;
+			border-radius: 0;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)
+		}
+
+		.vehicle-info p {
+			color: #333;
+		}
+
+		.license {
+			display: inline-block;
+			padding: 5px 12px;
+			border: 1px solid #2885cf;
+			border-radius: 3px;
+			color: #2885cf;
+			margin-right: 20px;
+			font-size: 16px;
+		}
+
+		.carStatus {
+			display: inline-block;
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			vertical-align: middle;
+		}
+
+		.carStatus.red {
+			background-color: red;
+		}
+
+		.carStatus.gray {
+			background-color: gray;
+		}
+
+		.carStatus.yellow {
+			background-color: yellow;
+		}
+
+		.mui-pull-left {
+			width: 40%;
+			height: 60px;
+			/* text-align: center; */
+			line-height: 60px;
+		}
+
+		.mui-pull-left span {
+			font-size: 18px;
+			padding: 0 2px;
+		}
+
+		.mui-pull-right {
+			width: 60%;
+			height: 60px;
+		}
+
+		.car {
+			position: absolute;
+			top: -20px;
+			right: 20px;
+			width: 100px;
+		}
+
+		.car img {
+			width: 100%;
+		}
+
+		.amap-logo,
+		.amap-copyright {
+			display: none !important;
+		}
+
+		.icon-search {
+			width: 16px;
+			height: 16px;
+		}
+
+		.result {
+			position: fixed;
+			top: 85px;
+			left: 20px;
 			width: 90%;
-			margin: auto;
-			margin-top: 20px;
+			/* padding-top: 20px; */
+			background-color: #fff;
+			z-index: 999;
 			display: none;
 		}
 
-		.date-wrapper {
-			width: 45%;
+		.result-item {
+			height: 44px;
+			line-height: 34px;
+			padding: 5px 20px;
+			color: #999;
+		}
+
+		.result-item span {
+			color: #000;
+		}
+
+		.result-item:not(:last-of-type) {
+			border-bottom: 1px solid #eee;
+		}
+
+		.result-item:after {
+			content: "";
+			width: 10px;
+			height: 100%;
+			display: block;
+			background: url(../img/common/md/icon_arraw_right_top@2x.png) no-repeat center;
+			background-size: contain;
+			float: right;
 		}
 	</style>
 </head>
 
 <body>
-	<!-- <header class="mui-bar mui-bar-nav">
-		<a class="mui-action-back icon icon-back mui-pull-left"></a>
-		<h1 class="mui-title">车辆轨迹</h1>
-		<a class="search mui-pull-right" id="search">
-			<i class="icon icon-search-white"></i>
-		</a>
-	</header> -->
+
 	<!-- 主页面内容容器 -->
 	<div class="mui-content">
-		<div class="mui-segmented-control">
-			<a class="mui-control-item mui-active" href="#item2">实时监控</a>
-			<a class="mui-control-item" href="#item1">车辆轨迹</a>
-		</div>
+		<div class="top-mark"></div>
+		<div class="search-wrapper">
 
-		<div class="mui-control-content mui-active" id="item2">
-			<div class="item2-mask"></div>
-			<div class="item2-map" id="item2-map"></div>
-		</div>
-		<div class="mui-control-content" id="item1">
-			<div class="item1-mask"></div>
-			<div class="item1-map" id="item1-map"></div>
-		</div>
-
-
-		<!--车辆信息弹框-->
-		<div id="popover" class="mui-popover">
-			<div class="vehicle-info"> </div>
-		</div>
-
-		<!--底部搜索-->
-		<div class="bottom-search">
-			<div class="mui-btn mui-btn-block mui-btn-outlined">
-				<i class="icon icon-arrowdown" id="btn"></i>
+			<div class="search-btn">
+				<i class="icon-search icon"></i>
 			</div>
-			<div class="date-container">
-				<div class="date-wrapper">
-					<!--<label>开始</label>-->
-					<div class="date-text" id="start_date_box">
-						<input type="text" id="start_date" readonly placeholder="请选择起始时间">
-						<div class="date-icon">
-							<i class="icon icon-date"></i>
-						</div>
-					</div>
-				</div>
-				<div class="date-wrapper">
-					<!--<label>结束</label>-->
-					<div class="date-text" id="end_date_box">
-						<input type="text" id="end_date" readonly placeholder="请选择终止时间">
-						<div class="date-icon">
-							<i class="icon icon-date"></i>
-						</div>
-					</div>
-				</div>
-
+			<div class="search-text">
+				<input type="text" placeholder="请输入车辆编号" id="search">
+				<div class="clear-btn" id="clear-btn"></div>
 			</div>
+		</div>
 
-			<!-- <div class="search-wrapper">
-				<div class="search-text">
-					<input type="search" class="current-input" id="current_input" placeholder="请输入车辆编号">
-					<span class="clear-btn"></span>
-				</div>
-				<div class="search-btn">
-					<i class="icon icon-search"></i>
-				</div>
-			</div> -->
-			<form>
-				<div class="mui-input-row mui-search">
-					<input type="search" class="mui-input-clear" placeholder="请输入车辆编号">
-				</div>
-			</form>
+		<div class="mui-btn mui-btn-blue" id="track">轨迹</div>
 
+		<div class="result">
+			<!-- <div class="result-item">2018ICECTC001</div> -->
+		</div>
 
+		<div class="map" id="map"></div>
+		<div class="vehicle-info">
+			<p>
+				<span class="license" id="licenseNo">陕A U6666</span>
+				<span class="carStatus red"></span>
+				<span class="carType " id="vCarType">轿车</span>
+			</p>
+			<div class="mui-pull-left">
+				车速
+				<span id="speed">180</span>
+				km/h
+			</div>
+			<div class="mui-pull-right">
+				<p>
+					<span>驾驶员：</span>
+					<span class="driverName">王一凡</span>
+				</p>
+				<p>
+					<span>德尔福编号：</span>
+					<span class="vSn" id="vSn">2018ICECTC001</span>
+				</p>
+			</div>
+			<div class="car">
+				<img src="../img/common/md/home_car@2x.png" alt="">
+			</div>
 		</div>
 	</div>
 	<!-- jquery -->
@@ -206,10 +245,9 @@
 	<!-- app 数据获取 -->
 	<script src="../js/app/app.js"></script>
 	<!-- 百度地图api -->
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qIVEmOSVWxsby5OEWwm6UIbEfHKEDcZz"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=cf6a86da25b978f2976688a4d2f71a0d"></script>
+	<!-- <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script> -->
 	<!--多点聚合-->
-	<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
-	<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
 	<!-- 当前页面js -->
 	<script>
 		(function () {
@@ -221,12 +259,57 @@
 			var bottom = '-70px';
 			var H = null;
 			var self = null;
-			var vSn = '2018ICECTC006';
-			
+			var vSn = '2018ICECTC001';
+			var pageTrack = null;
+
+			var icon = new AMap.Icon({
+				size: new AMap.Size(35, 35),  //图标大小
+				image: "../img/car3.png",
+				imageSize: new AMap.Size(35, 35)
+				// imageOffset: new AMap.Pixel(0, -60)
+			})
+
 			// 百度地图API功能	
-			var map1 = new BMap.Map("item1-map");
-			var map2 = new BMap.Map("item2-map");
-			var myIcon = new BMap.Icon("../img/2222@3x.png", new BMap.Size(28, 64));
+			var map = new AMap.Map("map", {
+				resizeEnable: true,
+				zoom: 16 //地图显示的缩放级别
+			});
+
+			var center = map.getCenter(); /// 中心点
+
+
+			var markers = []
+
+			// 添加marker
+
+			function addMarker(point, map, data) {
+				var marker = new AMap.Marker({
+					position: point,
+					icon: icon
+				});
+				marker.setMap(map);
+				// 设置鼠标划过点标记显示的文字提示
+				marker.setTitle('2018ICECTC001');
+
+				// 设置点标记的旋转角度
+				// marker.setAngle(90)
+
+				// 设置label标签
+				// marker.setLabel({//label默认蓝框白底左上角显示，样式className为：amap-marker-label
+				// 	offset: new AMap.Pixel(-30, 30),//修改label相对于maker的位置
+				// 	content: "2018ICECTC001"
+				// });
+
+				var clickHandle = AMap.event.addListener(marker, 'click', function (e) {
+					// map.zoomIn();
+					// alert(EventListener);
+					console.log(1)
+					console.log()
+					mui.toast(marker.getTitle(), '提示')
+				});
+
+				markers.push(marker)
+			}
 
 			mui.plusReady(function () {
 				// plus准备好后执行H5
@@ -236,8 +319,20 @@
 				// 获取传递参数
 				H = self.H;
 
-				getLocation();
-				addEvent()
+				pageTrack = mui.preload({
+					url: 'home-track.html',
+					id: 'home-track',
+					styles: {
+						top: '0',//mui标题栏默认高度为45px；
+						bottom: H//默认为0px，可不定义；
+					},
+					extras: {
+						H: H,
+						prevId: self.id
+					}
+				})
+
+				// addEvent()
 			})
 
 			// 手机适配方法
@@ -249,122 +344,105 @@
 						'height': '88px',
 						'paddingTop': '40px'
 					});
+					$('.search-wrapper').css({
+						'top': '54px'
+					})
+					$('.result').css({
+						'top': '99px'
+					})
+					$('.mui-btn').css({
+						'top': '54px'
+					})
 					$('.mui-bar-nav~.mui-content').css({
 						'paddingTop': '88px'
 					})
 				}
 
 				// 更改状态栏颜色
-				// plus.navigator.setStatusBarStyle("light");
+				// plus.navigator.setStatusBarStyle("dark");
 				// 弹出软键盘时自动改变webview的高度
 				//  plus.webview.currentWebview().setStyle({
 				//    softinputMode: "adjustResize"
 				//  });
 
 			}
-
+			addEvent()
 			function addEvent() {
-				var dDate = new Date();
-
-				// 开始时间
-				$('#start_date_box').off().on('tap', function () {
-
-					plus.nativeUI.pickDate(function (e) {
-						var d = e.date;
-						$('#start_date').val(d.format('yyyy-MM-dd'));
-
-						plus.nativeUI.pickTime(function (e) {
-							var d = e.date;
-							$('#start_date').val($('#start_date').val() + d.format(' hh:mm:ss'));
-						}, function (e) {
-							$('#start_date').val("未选择时间：" + e.message);
-						});
-					}, function (e) {
-						$('#start_date').val('您没有选择日期');
-					}, {
-							title: '',
-							date: dDate,
-							maxDate: dDate
-						});
+				$('#track').on('tap', function () {
+					pageTrack.show('slide-in-right')
+					mui.fire(pageTrack, 'statusBar', null)
 				});
+				// 搜索框获得焦点
+				$('#search').focus(function () {
+					$('#track').fadeOut(500).prev().css({
+						'width': '90%',
+						'backgroundColor': 'rgba(255, 255, 255, 1)',
+						'borderRadius': '0'
+					});
+					$('#clear-btn').show();
 
-				// 结束时间
-				$('#end_date_box').off().on('tap', function () {
 
-					plus.nativeUI.pickDate(function (e) {
-						var d = e.date;
-						$('#end_date').val(d.format('yyyy-MM-dd'));
-
-						plus.nativeUI.pickTime(function (e) {
-							var d = e.date;
-							$('#end_date').val($('#end_date').val() + d.format(' hh:mm:ss'));
-						}, function (e) {
-							$('#end_date').val("未选择时间：" + e.message);
-						});
-
-					}, function (e) {
-						$('#end_date').val('您没有选择日期');
-					}, {
-							title: '',
-							date: dDate,
-							maxDate: dDate
-						});
-				});
-
-				// 
-				$('#btn').on('tap', function () {
-					if (!flag) {
-						$(this).removeClass('icon-arrowup').addClass('icon-arrowdown')
-						$('.bottom-search').css('bottom', '0px')
-					} else {
-						$(this).removeClass('icon-arrowdown').addClass('icon-arrowup')
-						$('.bottom-search').css('bottom', bottom)
-					}
-					flag = !flag
 				})
-				// 更改标题
-				$('.mui-segmented-control').on('tap', '.mui-control-item', function () {
-					$('.mui-title').html($(this).html())
-					if ($(this).html() == '实时监控') {
-						$('.date-container').hide();
-						bottom = '-70px';
-					}
-					if ($(this).html() == '车辆轨迹') {
-						$('.date-container').css('display', 'flex');
-						bottom = '-130px';
-					}
-					$('#btn').removeClass('icon-arrowdown').addClass('icon-arrowup')
-					$('.bottom-search').css('bottom', bottom)
-					flag = false;
+				// 搜索框失去焦点
+				$('#search').blur(function () {
+					$('#track').prev().css({
+						'width': '70%',
+						'backgroundColor': 'rgba(255, 255, 255, .9)',
+						'borderRadius': '34px'
+					});
+					$('.result').hide()
+					$('#clear-btn').hide();
+					$(this).val('')
+					setTimeout(() => {
+						$('#track').show()
+					}, 500);
+
+				})
+
+				// 搜索框键盘按下事件
+				$('#search').on('keyup', function () {
+					// 车辆编号模糊查询
+					vSn = $(this).val();
+					// console.log($(this).val())
+					var reg = new RegExp(vSn, 'g');
+
+					app.likevSn({
+						vSn: vSn
+					}, function (res) {
+						console.log(res)
+						// res = ['2018ICECTC001', '2018ICECTC002', '2018ICECTC003']
+						var html = '';
+						for (let i = 0; i < res.length; i++) {
+							const item = res[i];
+							html += '<div class="result-item" data-vSn="' + item + '">' + item.replace(reg, '<span>' + vSn + '</span>') + '</div>'
+						}
+						$('.result').show().html(html)
+					})
+				})
+
+				// 取消搜索
+				$('#clear-btn').on('tap', function () {
+					$('#search').blur()
+				})
+
+				$('.result').on('tap', function (e) {
+					$('#search').blur()
+					vSn = $(e.target).attr('data-vSn')
+					app.carData({
+						vSn: vSn
+					}, function (res) {
+						console.log(res);
+						res = JSON.parse(res);
+						updateView.carData(res)
+					});
 				})
 
 			}
 
-			// fetchData()
+			
 			function fetchData() {
-				// 实时数据查询
-				app.carData({
-					vSn: vSn
-				}, function (res) {
-					res = JSON.parse(res);
-					console.log(res);
-					updateView.carData(res)
-				});
-
-				app.carTrack({
-					vSn: vSn,
-					startDate: $('#start_date').val(),
-					endDate: $('#end_date').val()
-				}, function (res) {
-					console.log(res)
-					res = JSON.parse(res)
-					// if (res.length <= 0) {
-					//   mui.toast('没有数据');
-					//   return;
-					// }
-					updateView.carTrack(res)
-				})
-
+				updateView.allcar({})
+				return;
 				app.allcar({}, function (res) {
 					console.log(res)
 					res = JSON.parse(res);
@@ -377,216 +455,78 @@
 
 			var updateView = {
 				carData: function (data) {
-					data.longitude = 116.404844;
-					data.latitude = 39.915378;
-					data.name = '奥迪'
-					console.log(JSON.stringify(data))
-					var point = new BMap.Point(data.longitude, data.latitude)
-					// points.push(point);
-					//坐标转换完之后的回调函数
-					translatePoint(point, function (res) {
-						var point = res.points[0];
-						console.log(JSON.stringify(point))
-						map2.centerAndZoom(point, 11);
-						addMarker(point, map2, data)
-					})
-
-				},
-				carTrack: function (data) {
-					map1.setZoom(11)
-
-					// 获取车辆位置点集，这里使用假数据
-					var pts = [
-						new BMap.Point(121.601, 31.3274),
-						new BMap.Point(121.616, 31.1610),
-						new BMap.Point(121.501, 30.1610),
-						new BMap.Point(120.501, 30.1610),
-						new BMap.Point(119.501, 30.1610),
-						new BMap.Point(118.501, 30.1610),
-						new BMap.Point(117.501, 30.1610),
-						new BMap.Point(116.501, 30.1610),
-						new BMap.Point(115.501, 30.1610),
-						new BMap.Point(114.501, 30.1610)
-					];
-					//展示线条
-					var polyline;
-					// 轨迹配置项
-					var options = {
-						onSearchComplete: function (results) {
-							if (driving.getStatus() == BMAP_STATUS_SUCCESS) {
-								// 获取第一条方案
-								var plan = results.getPlan(0);
-								// 获取方案的驾车线路
-								var route = plan.getRoute(0);
-								//返回路线的地理坐标点数组。（自 1.2 新增）
-								var points = route.getPath();
-								polyline = new BMap.Polyline(points);
-								map1.addOverlay(polyline); //增加折线
-							}
-						}
-						//,
-						//renderOptions:{map: map1, autoViewport: true}
-					};
-					// 创建轨迹实例
-					var driving = new BMap.DrivingRoute(map1, options);
-					// 索引
-					var i = 0;
-
-					// 轨迹实现方法
-					function playLine(i) {
-						if (i == 0) { //第一个点 直接添加
-							// var marker = new BMap.Marker(pts[i]); // 创建标注
-							// map1.addOverlay(marker);
-							// marker.setLabel(new BMap.Label("我是第" + (i + 1) + "个点", { offset: new BMap.Size(20, -10) }));
-							map1.centerAndZoom(pts[i], 11);
-							map1.panTo(pts[i]);
-							i++;
-							setTimeout(function () {
-								playLine(i);
-							}, 2000)
-						} else { //获取PolyLine并添加 添加点
-							if (i < pts.length) {
-								driving.search(pts[i - 1], pts[i]);
-								map1.addOverlay(polyline);
-								// var marker = new BMap.Marker(pts[i]); // 创建标注
-								// map1.addOverlay(marker);
-								addMarker(pts[0], map1)
-								addMarker(pts[pts.length - 1], map1)
-
-								// marker.setLabel(new BMap.Label("我是第" + (i + 1) + "个点", { offset: new BMap.Size(20, -10) }));
-								map1.panTo(pts[i]);
-								i++;
-								setTimeout(function () {
-									playLine(i);
-								}, 10)
-							}
-						}
-
-						map1.setViewport(pts)
+					data = {
+						"id": 37,
+						"carName": null,
+						"vSn": "2018ICECTC003",
+						"vCarType": null,
+						"longitude": 108.929346,
+						"latitude": 34.303791,
+						"runStatic": null,
+						"gpsSN": null,
+						"iccard": null,
+						"isAllow": null,
+						"speed": null,
+						"licenseNo": null,
+						"towards": null
 					}
 
-					playLine(i);
-
+					for (const key in data) {
+						if (data.hasOwnProperty(key)) {
+							const item = data[key];
+							$('#' + key).html(item ? item : '-')
+						}
+					}
+					map.remove(markers)
+					map.setCenter(new AMap.LngLat(data.longitude, data.latitude))
+					addMarker([data.longitude, data.latitude], map, data);
 				},
 				allcar: function (data) {
 					data = [
 						{
 							longitude: 108.929346,
-							latitude: 34.303791,
-							name: '奥迪'
+							latitude: 34.303791
 						},
 						{
 							longitude: 108.929202,
-							latitude: 34.283391,
-							name: '奥迪'
+							latitude: 34.283391
 						},
 						{
 							longitude: 108.929202,
-							latitude: 34.276471,
-							name: '奥迪'
+							latitude: 34.276471
 						},
 						{
 							longitude: 108.928771,
-							latitude: 34.275397,
-							name: '奥迪'
+							latitude: 34.275397
 						}
 					]
 
-					map2.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 14);
-					map2.clearOverlays();       //清除地图上所有覆盖物
-
-					if (!document.createElement('canvas').getContext) {
-						alert('请在chrome、safari、IE8+以上浏览器查看');
-						return;
-					}
-
-					var points = [];
+					map.remove(markers)
+					map.setZoomAndCenter(12, new AMap.LngLat(getAllCenter(data).longitude, getAllCenter(data).latitude))
 					for (let i = 0; i < data.length; i++) {
 						const item = data[i];
-						var point = new BMap.Point(item.longitude, item.latitude)
-						// 添加信息
-						// ···
-						points.push(point);
+						addMarker([item.longitude, item.latitude], map, item);
 					}
-
-
-					translatePoint(points, function (res) {
-						var point = res.points[0];
-						map2.centerAndZoom(point, 11);
-
-						for (let i = 0; i < res.points.length; i++) {
-							const item = res.points[i];
-							addMarker(item, map2, data[i])
-						}
-
-					})
-
-					// var options = {
-					// 	size: BMAP_POINT_SIZE_BIG,
-					// 	shape: BMAP_POINT_SHAPE_WATERDROP,
-					// 	color: '#d340c3'
-					// }
-					// console.log(JSON.stringify(points))
-
-					// var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
-					// pointCollection.addEventListener('click', function (e) {
-					// 	alert('单击点的坐标为：' + e.point.lng + ',' + e.point.lat);  // 监听点击事件
-					// });
-					// map2.addOverlay(pointCollection);  // 添加Overlay
 				}
 			}
 
-			// 获取位置信息
-			
-			function getLocation() {
-				if (navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(showPosition, showError);
-				} else {
-					alert("浏览器不支持地理定位。");
+			// 获取所有车的平均中心点
+			function getAllCenter(data) {
+				var longitude = 0;
+				var latitude = 0;
+				for (let i = 0; i < data.length; i++) {
+					const item = data[i];
+					longitude += item.longitude;
+					latitude += item.latitude;
 				}
+
+				return {longitude: longitude/data.length, latitude: latitude/data.length}
 			}
 
-			// 位置获取失败
-			function showError(error) {
-				switch (error.code) {
-					case error.PERMISSION_DENIED:
-						alert("定位失败,用户拒绝请求地理定位");
-						break;
-					case error.POSITION_UNAVAILABLE:
-						alert("定位失败,位置信息是不可用");
-						break;
-					case error.TIMEOUT:
-						alert("定位失败,请求获取用户位置超时");
-						break;
-					case error.UNKNOWN_ERROR:
-						alert("定位失败,定位系统失效");
-						break;
-				}
-			}
-
-			// 位置获取成功
-			function showPosition(position) {
-				var lat = position.coords.latitude; //纬度 
-				var lag = position.coords.longitude; //经度 
-				var point = new BMap.Point(lag, lat);
-				translatePoint(point, function (res) {
-					var point = res.points[0];
-					var marker1 = new BMap.Marker(point);
-					var marker2 = new BMap.Marker(point);
-
-					map1.centerAndZoom(point, 16);
-					map1.addOverlay(marker1);
-					map2.centerAndZoom(point, 16);
-					map2.addOverlay(marker2);
-					// addMarker(point, map1)
-					// addMarker(point, map2)
-				})
-			}
-
-			
+			fetchData()
 			// 状态栏颜色更改
 			document.addEventListener('statusBar', function (e) {
-				plus.navigator.setStatusBarStyle('light');
+				// plus.navigator.setStatusBarStyle('light');
 				fetchData()
 			})
 		})()
