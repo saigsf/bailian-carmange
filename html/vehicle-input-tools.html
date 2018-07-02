@@ -34,6 +34,7 @@
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
     <h1 class="mui-title">研发工具安装申请</h1>
+    <a href="#" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
   </header>
   <!--页面主内容区开始-->
   <div class="mui-content mui-scroll-wrapper">
@@ -118,6 +119,9 @@
     var flagBom = false;
     var flagTools = false;
 
+    var canTools = false;
+    var isFirst = false;
+
     mui.init();
     mui.plusReady(function () {
       handsetAdaption();
@@ -151,8 +155,17 @@
         res = JSON.parse(res)
         console.log(res);
         if (res.length <= 0) {
-          mui.toast('研发工具未申请');
+          canTools = false;
+          isFirst = true;
+          $('#openPopover').hide()
           return;
+        }
+        console.log(oneBom, oneInfo);
+        
+        if(oneBom == null && oneInfo == null) {
+          $('#submit').parent().hide()
+        } else {
+          $('#submit').html('确认修改').parent().show()
         }
         updateView(res);
       })
@@ -168,6 +181,7 @@
       html += '<tr><td><input type="text" name="toolName" value=""></td></tr>';
       html += '<tr><td><input type="text" name="toolName" value=""></td></tr>';
       $('table tbody').html(html)
+      $('input').attr('readonly', true)
     }
 
     function submitData() {
@@ -187,37 +201,56 @@
           }
         })
 
-        // if (oneInfo != null && oneInfo) {
-        //   app.save(oneInfo, function (res) {
-        //     res = JSON.parse(res)
-        //     console.log(res.msg)
-        //     mui.toast(res.msg);
-        //     if (res.ret) {
-        //       flagInfo = true;
-        //     }
-        //   })
-        // }
+        if (!((!isFirst && canTools) || isFirst)) {
+          oneToolApply = null;
+        }
 
-        // if (oneBom != null && oneBom) {
-        //   app.applybom(oneBom, function (res) {
-        //     // res = JSON.parse(res)
-        //     // console.log(res);
-        //     mui.toast(res.msg);
-        //     if (res.ret) {
-        //       flagBom = true;
-        //     }
-        //   })
-        // }
+        if (oneInfo != null && oneBom == null && oneToolApply == null) {
+          app.save(oneInfo, function (res) {
+            res = JSON.parse(res)
+            console.log(res.msg)
+            mui.toast(res.msg);
+            if (res.ret) {
+              mui.toast('信息修改成功')
+              setTimeout(() => {
+                mui.back();
+                mui.fire(view, 'goback', {});
+              }, 500);
+            }
+          })
+          return;
+        }
 
+        if (oneInfo == null && oneBom != null && oneToolApply == null) {
+          app.applybom(oneBom, function (res) {
+            // res = JSON.parse(res)
+            // console.log(res);
+            mui.toast(res.msg);
+            if (res.ret) {
+              setTimeout(() => {
+                mui.back();
+                mui.fire(view, 'goback', {});
+              }, 500);
+            }
+          })
+          return;
+        }
 
-        // app.applytools(oneToolApply, function (res) {
-        //   // res = JSON.parse(res)
-        //   // console.log(res);
-        //   mui.toast(res.msg);
-        //   if (res.ret) {
-        //     flagTools = true;
-        //   }
-        // })
+        if (oneInfo == null && oneBom == null && oneToolApply != null) {
+          app.applytools(oneToolApply, function (res) {
+            // res = JSON.parse(res)
+            // console.log(res);
+            mui.toast(res.msg);
+            if (res.ret) {
+              setTimeout(() => {
+                mui.back();
+                mui.fire(view, 'goback', {});
+              }, 500);
+            }
+          })
+          return;
+        }
+
 
         // 页面返回
         // setTimeout(function () {
@@ -241,7 +274,7 @@
           url: BASE_URL_1 + 'car-management/car/save.action',
           data: oneInfo,
           dataType: 'jsonp',//服务器返回json格式数据
-		      jsonp: "jsonCallback",
+          jsonp: "jsonCallback",
           success: function (res) {
             //服务器返回响应，根据响应结果，分析是否登录成功；
             console.log(1414, res.msg);
@@ -310,7 +343,21 @@
         })
       })
     }
-    
+
+    $('#openPopover').on('tap', function () {
+      if ($(this).html() == '修改') {
+        canTools = true;
+        $(this).html('取消');
+        $('input').attr('readonly', false);
+        $('#submit').html('确认修改').parent().show()
+      } else {
+        canTools = false;
+        $(this).html('修改');
+        $('input').attr('readonly', true);
+        $('#submit').parent().hide()
+      }
+    })
+
   </script>
 </body>
 

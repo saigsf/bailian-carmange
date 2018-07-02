@@ -201,14 +201,14 @@ function dataRetrieval(data) {
         for (const keys in item) {
           if (item.hasOwnProperty(keys)) {
             const element = item[keys];
-            $('#' + keys + '_0').html(element);
-            $('#' + keys).html(element);
+            $('#' + keys + '_0').html(element ? element : '-');
+            $('#' + keys).html(element ? element : '-');
           }
         }
       } else {
-        $('#' + key + '_0').html(item);
-        $('#' + key).html(item);
-        $('#' + key).val(item);
+        $('#' + key + '_0').html(item ? item : '-');
+        $('#' + key).html((item ? item : '-'));
+        $('#' + key).val(item ? item : '-');
       }
     }
   }
@@ -216,12 +216,12 @@ function dataRetrieval(data) {
 
 
 // 数组中对象的值等于当前值的个数
-var findNum = function(arr, value) {
+var findNum = function (arr, value) {
   var flag = 0;
   for (let i = 0; i < arr.length; i++) {
     const item = arr[i];
     // console.log(item.pitem == value)
-    if(item.pitem.replace(/\s/g, "") == value) {
+    if (item.pitem.replace(/\s/g, "") == value) {
       flag++
     }
   }

@@ -53,7 +53,7 @@
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
     <h1 class="mui-title">接车点检</h1>
-    <a class="icon icon-font mui-pull-right revise" id="revise">修改</a>
+    <a href="#" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
   </header>
   <div class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
@@ -292,20 +292,25 @@
       }
 
       // 修改
-      $('#revise').on('tap', function () {
-        $('#next').parent().show();
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const item = data[key];
-            $('input[name=' + key + ']').attr('disabled', false)
-              .parents('li').find('.mui-icon-clear').show()
-          }
+      $('#openPopover').on('tap', function () {
+        
+        if ($(this).html() == '修改') {
+          $('#next').parent().show();
+          $('input').attr('disabled', false)
+            .parents('li').find('.mui-icon-clear').show();
+          $(this).html('取消')
+
+        } else {
+          $('#next').parent().hide();
+          $('input').attr('disabled', true)
+            .parents('li').find('.mui-icon-clear').hide();
+          $(this).html('修改')
         }
 
       })
 
       // 获取数据
-      
+
       function fetchData() {
         app.findUpcheck({
           vSn: vSn

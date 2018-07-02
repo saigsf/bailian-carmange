@@ -168,11 +168,15 @@
               </div>
               <div class="tab-row">
                 <div class="tab-col">接车日期</div>
-                <div class="tab-col" id=""></div>
+                <div class="tab-col" id="upcheckTime"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">还车日期</div>
-                <div class="tab-col" id=""></div>
+                <div class="tab-col" id="backchecktime"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">还车提交日期</div>
+                <div class="tab-col" id="backcheckSubmitTime"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">车辆类型</div>
@@ -184,15 +188,15 @@
               </div>
               <div class="tab-row">
                 <div class="tab-col">保单号</div>
-                <div class="tab-col" id=""></div>
+                <div class="tab-col" id="insNo"></div>
               </div>
               <div class="tab-row">
-                <div class="tab-col" id="">保险起始日</div>
-                <div class="tab-col"></div>
+                <div class="tab-col">保险起始日</div>
+                <div class="tab-col" id="startTime"></div>
               </div>
               <div class="tab-row">
-                <div class="tab-col" id="">保险终止日</div>
-                <div class="tab-col"></div>
+                <div class="tab-col">保险终止日</div>
+                <div class="tab-col" id="endTime"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">临牌到期日</div>
@@ -287,7 +291,6 @@
       // 更新视图
       function updateView(data) {
         // console.log(data)
-        console.log(typeof data.project)
         dataRetrieval(data)
       }
 

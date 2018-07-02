@@ -19,6 +19,36 @@
     td {
       min-height: 40px;
     }
+
+    .info-operator {
+      flex-direction: column;
+    }
+
+    .info-operator-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .info-operator-item p {
+      width: 50%;
+      margin: 0;
+    }
+
+    .info-operator-item span {
+      display: inline;
+    }
+
+    .no-data {
+      height: 100%;
+      z-index: 999;
+      background-color: #fff;
+    }
+
+    .no-data p {
+      top: 40%
+    }
   </style>
 </head>
 
@@ -56,9 +86,24 @@
               <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder to-submit">提交</i>
             </td>
           </tr> -->
-          
+
         </tbody>
       </table>
+      <!-- <div class="info-operator">
+        <div class="info-operator-item">
+          <p>
+            <span>申请人：</span>
+            <span class="applyPerson"></span>
+          </p>
+          <p>
+            <span>申请日期：</span>
+            <span class="applyTime"></span>
+          </p>
+        </div>
+      </div> -->
+    </div>
+    <div class="no-data" id="no-data">
+      <p>您还没有申请研发工具安装，请先申请研发工具安装</p>
     </div>
   </div>
   <!--页面主内容区结束-->
@@ -112,25 +157,25 @@
 
       function addEvent() {
         var dDate = new Date()
-        $('table tbody').on('tap', '.equippedDate', function() {
+        $('table tbody').on('tap', '.equippedDate', function () {
           var _this = this;
           plus.nativeUI.pickDate(function (e) {
-						var d = e.date;
-						$(_this).html(d.format('yyyy-MM-dd'));
+            var d = e.date;
+            $(_this).html(d.format('yyyy-MM-dd'));
 
-						plus.nativeUI.pickTime(function (e) {
-							var d = e.date;
-							$(_this).html($(_this).html() + d.format(' hh:mm:ss'));
-						}, function (e) {
-							$(_this).html("未选择时间：" + e.message);
-						});
+            plus.nativeUI.pickTime(function (e) {
+              var d = e.date;
+              $(_this).html($(_this).html() + d.format(' hh:mm:ss'));
+            }, function (e) {
+              $(_this).html("未选择时间：" + e.message);
+            });
 
-					}, function (e) {
-						$(_this).html('您没有选择日期');
-					}, {
-							title: '',
-							date: dDate,
-						});
+          }, function (e) {
+            $(_this).html('您没有选择日期');
+          }, {
+              title: '',
+              date: dDate,
+            });
         })
       }
 
@@ -141,12 +186,9 @@
           vSn: vSn
         }, function (res) {
           console.log(res)
-          if(res.length <= 0) {
+          if (res.length <= 0) {
             mui.toast('研发工具未申请，请先申请');
-            // setTimeout(() => {
-            //   mui.back();
-            //   return;
-            // }, 500);
+            $('#no-data').show().prev().hide()
           }
           updateView(res);
         })
@@ -157,12 +199,12 @@
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<tr data-id="' + item.id +'">\
-                    <td>12V'+ item.toolName +'</td>\
-                    <td>'+item.applicant+'</td>\
-                    <td><span class="equippedDate">'+ (new Date()).format('yyyy-MM-dd hh:mm:ss') +'</span></td>\
+          html += '<tr data-id="' + item.id + '">\
+                    <td>12V'+ item.toolName + '</td>\
+                    <td>'+ item.applicant + '</td>\
+                    <td><span class="equippedDate">'+ (item.operatorDate ? item.operatorDate : '请选择时间') + '</span></td>\
                     <td>\
-                      <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder to-submit">提交</i>\
+                      <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder ' + (item.operator ? 'finished' : 'to-submit') + '">' + (item.operator ? item.operator : '提交') + '</i>\
                     </td>\
                   </tr>'
         }
@@ -183,17 +225,22 @@
             remark: ''
           }
 
-          app.developEquipment(data, function(res) {
+          if (!data.equippedDate) {
+            mui.toast('请选择时间')
+            return;
+          }
+
+          app.developEquipment(data, function (res) {
             res = JSON.parse(res)
             console.log(res.msg);
             mui.toast(res.msg)
-            if(res.ret) {
+            if (res.ret) {
               $(_this).removeClass('to-submit').addClass('finished').html('已完成');
             }
           })
         })
       }
-      
+
     })()
 
   </script>

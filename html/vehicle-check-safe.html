@@ -181,6 +181,28 @@
     .resolvent {
       font-size: 24px;
     }
+    .mui-popover {
+      width: 140px;
+    }
+    .info-operator {
+      flex-direction: column;
+    }
+
+    .info-operator-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .info-operator-item p {
+      width: 50%;
+      margin: 0;
+    }
+
+    .info-operator-item span {
+      display: inline;
+    }
   </style>
 </head>
 
@@ -188,7 +210,7 @@
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
     <h1 class="mui-title">安全检查</h1>
-    <a class="icon icon-font mui-pull-right revise" id="revise">修改</a>
+    <a href="#popover" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
   </header>
   <!--页面主内容区开始-->
   <div class="mui-content mui-scroll-wrapper" id="app">
@@ -1215,12 +1237,48 @@
           </tr>
         </tbody>
       </table>
+      <div class="info-operator">
+          <div class="info-operator-item">
+            <p>
+              <span>检查人：</span>
+              <span class="checkPerson"></span>
+            </p>
+            <p>
+              <span>检查日期：</span>
+              <span class="checkTime"></span>
+            </p>
+  
+          </div>
+          <div class="info-operator-item">
+            <p>
+              <span>核对人：</span>
+              <span class="checkingPerson"></span>
+            </p>
+            <p>
+              <span>核对日期：</span>
+              <span class="checkingTime"></span>
+            </p>
+  
+  
+          </div>
+        </div>
       <div class="btn-wrapper ">
         <button class="btn btn-blue" id="two_next">提交</button>
       </div>
     </div>
   </div>
   <!--页面主内容区结束-->
+
+  <div id="popover" class="mui-popover">
+    <ul class="mui-table-view">
+      <li class="mui-table-view-cell">
+        <a href="#">修改检查信息</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">修改核对信息</a>
+      </li>
+    </ul>
+  </div>
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
@@ -1236,17 +1294,18 @@
     var view = null;
     var viewId = null;
     var vSn = '2018ICECTC006';
-    var state = 'submitArr';
+    var state = null;
     var stateArr = [];
     var submitArr = ['saveClacyLindersss', 'addSafeCheck'];
     var updateArr = ['updateCldCheckByvSn', 'updateSafeCheckByvSn'];
-    var isChecked = false; // 核对
-    var isInspect = false; // 检查
+    var canInspect = true;  // 可以检查
+    var canChecked = true;  // 可以核对
+
     var submitLock = false; // 提交保护
-    var isChecked = false;
-    var hasCheck = false;
     var urlSafeCheck = null;
     var urlCldCheck = null;
+
+    var isRevising = false; // 修改索订
 
 
     var form = document.getElementsByTagName('form')[0];
@@ -1265,7 +1324,7 @@
       viewId = self.id;
       H = self.H;
       vSn = self.vSn;
-      state = self.state ? self.state : 'submitArr';
+      state = app.getState();
       fetchData();
       // submitData();
     })
@@ -1303,17 +1362,59 @@
 
       app.findSafeCheckByvSn({ vSn: vSn }, function (res) {
         console.log(res);
-        if (res.checkResults.length <= 0) {
-          // isChecked = false;
-          mui.toast('安全检查未完成');
+        if (res.checkResults == 0 && res.check == null) {
+          // 两者都未完成
+          // 不出现修改按钮，提交按钮的内容为检查提交，
+          // 目前先定位在用户不能同时提交，检查与核对两个操作。即使有这个权限
+          $('#openPopover').hide();
+          if (app.getUserRoles('admin') || app.getUserRoles('engineer')) {
+            canInspect = true;
+            canChecked = false;
+            $('#two_next').html('检查提交')
+          } else {
+            canInspect = false;
+            canChecked = false;
+            $('#two_next').parent().hide();
+            mui.alert('您没有操作权限，只能浏览信息！', '提示')
+          }
+
           return;
-        }
+        } else if (res.check && res.check.checkPerson && !res.check.checkingPerson) {
+          // 检查完成，核对未完成
+          // 判断当前账号与监察人是否一致，
+          // 如果一致，出现修改按钮，并隐藏提交按钮同时将按钮内容改为确认修改。
+          // 如果不一致，隐藏修改按钮，并锁定检查操作，
+          // 判断权限，是否有核对权限，如果有则开放核对操作，并显示提交按钮为核对提交
+          // 如果没有核对权限，那用户只能看
+          // 点击修改按钮，弹出两种修改，检查修改和核对修改，
+          // 判断权限，添加点击操作 
+          $('#two_next').html('核对提交');
+          $('#popover li').eq(1).hide();
+          if ((app.getUserRoles('admin') || app.getUserRoles('engineer')) && state.data.netid == res.check.checkPerson) {
+            $('#openPopover').show();
+            canInspect = false;
+            canChecked = true;
 
 
-        if (res.check && res.check.checkPerson) {
-          hasCheck = true;
+          } else if ((app.getUserRoles('admin') || app.getUserRoles('engineer')) && state.data.netid != res.check.checkPerson) {
+            canInspect = false;
+            canChecked = true;
+            $('#openPopover').hide();
+
+          } else {
+            
+            $('#openPopover').hide();
+            $('#two_next').parent().hide();
+            mui.alert('您没有相关操作权限', '提示')
+          }
+
+        } else if (res.check && res.check.checkPerson && res.check.checkingPerson) {
+          // 两者都完成
+          // 显示修改按钮，判断用户是否可以进行修改，添加点击操作
+          $('#two_next').parent().hide();
         }
-        updateView.safeCheck(res.checkResults);
+
+        updateView.safeCheck(res);
 
       })
     }
@@ -1328,7 +1429,8 @@
         $('#actual_p').val(data.actual_p);
         $('#pressure').attr('data-id', data.id)
       },
-      safeCheck: function (data) {
+      safeCheck: function (res) {
+        var data = res.checkResults
         var $safeTr = $('table tbody tr');
 
         $safeTr.each(function (i) {
@@ -1346,6 +1448,12 @@
           }
 
         })
+
+        $('.checkPerson').html(res.check.checkPerson ? res.check.checkPerson : '')
+      $('.checkTime').html(res.check.checkTime ? res.check.checkTime : '')
+      $('.checkingPerson').html(res.check.checkingPerson ? res.check.checkingPerson : '')
+      $('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '')
+    
       }
     }
 
@@ -1356,20 +1464,20 @@
         return;
       }
       submitLock = true;
-      // console.log(isChecked)
-      if (isChecked && !isInspect) {
+      // console.log(canChecked)
+      if (canChecked && !canInspect) {
         stateArr = updateArr;
         urlSafeCheck = BASE_URL_1 + 'car-management/car/updateSafeCheckByvSn/' + vSn + '.action';
         urlCldCheck = BASE_URL_1 + 'car-management/car/updateCldCheckByvSn.action';
         console.log('执行核对操作');
         submitData()
-      } else if (!isChecked && isInspect) {
+      } else if (!canChecked && canInspect) {
         stateArr = submitArr;
         urlSafeCheck = BASE_URL_1 + 'car-management/car/addSafeCheck/' + vSn + '.action'
         urlCldCheck = BASE_URL_1 + 'car-management/car/saveClacyLindersss.action'
         console.log('执行检查操作');
         submitData()
-      } else if (isChecked && isInspect) {
+      } else if (canChecked && canInspect) {
         stateArr = updateArr;
         urlSafeCheck = BASE_URL_1 + 'car-management/car/updateSafeCheckByvSn/' + vSn + '.action';
         urlCldCheck = BASE_URL_1 + 'car-management/car/updateCldCheckByvSn.action'
@@ -1506,8 +1614,64 @@
 
     addEvent()
     function addEvent() {
+      $('#popover').on('tap', 'a', function () {
+        var str = $(this).html()
+        var btnStr = $('#two_next').show().html()
+        mui('.mui-popover').popover('hide');
+
+        if (str === '修改检查信息') {
+          if (isRevising) {
+            mui.alert('请先完成之前的修改操作', '提示')
+            return;
+          }
+
+          isRevising = true;
+          canInspect = true;
+          canChecked = false;
+
+          $(this).html('取消修改检查信息')
+          $('#two_next').html('确认修改').parent().show()
+        } else if (str === '修改核对信息') {
+          if (isRevising) {
+            mui.alert('请先完成之前的修改操作', '提示')
+            return;
+          }
+
+          isRevising = true;
+          canInspect = false;
+          canChecked = true;
+
+          $(this).html('取消修改核对信息')
+          $('#two_next').html('确认修改').parent().show()
+        } else if (str === '取消修改检查信息') {
+          $(this).html('修改检查信息');
+          isRevising = false;
+          if (btnStr == '提交') {
+            $('#two_next').parent().hide()
+            canInspect = false;
+            canChecked = false;
+          } else {
+            $('#two_next').html('核对提交')
+            canInspect = false;
+            canChecked = true;
+          }
+
+        } else if (str === '取消修改核对信息') {
+          $(this).html('修改核对信息');
+          isRevising = false;
+          $('#two_next').parent().hide();
+          canInspect = false;
+          canChecked = false;
+        }
+
+
+      })
       // 添加说明
       $('#app').on('tap', '.explain', function () {
+        if (!(canInspect && !canChecked)) {
+          mui.alert('您不能这样操作', '提示')
+          return;
+        }
         var _this = this;
         var explainText = $(_this).parents('tr').find('.explain-text').val();
         mui.openWindow({
@@ -1530,14 +1694,12 @@
           //do something
           $(_this).parents('tr').find('.explain-text').val(explainText);
           $(_this).html('···');
-          isInspect = true;
         });
       })
       // 添加解决方法
       $('#app').on('tap', '.resolvent', function () {
-        if(!hasCheck) {
-          submitLock = false;
-          mui.alert('请先进行检查操作', '提示')
+        if (!(!canInspect && canChecked)) {
+          mui.alert('请先进行检查操作,或者点击修改', '提示')
           return;
         }
         var _this = this;
@@ -1569,7 +1731,6 @@
           //do something
           $(_this).parents('tr').find('.resolvent-text').val(resolventText);
           $(_this).html('···');
-          isChecked = true;
         });
       })
     }

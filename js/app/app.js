@@ -187,6 +187,23 @@
 	};
 
 	/**
+	 * 获取用户权限
+	 */
+
+	owner.getUserRoles = function (role) {
+		var state = owner.getState();
+		var roles = state.data.roles;
+
+		for (let i = 0; i < roles.length; i++) {
+			const item = roles[i];
+			if (role == item.keyWord) {
+				return !!1;
+			}
+		}
+		return !!0;
+	}
+
+	/**
 	 * 新用户注册
 	 **/
 	owner.reg = function (regInfo, callback) {

@@ -108,6 +108,12 @@
       height: 0;
       padding: 0 12px;
     }
+    .red {
+      color: red;
+    }
+    .green {
+      color: green
+    }
   </style>
 </head>
 
@@ -177,6 +183,10 @@
               <div class="tab-row">
                 <div class="tab-col">检查进度</div>
                 <div class="tab-col" id="checks_status"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">保险状态</div>
+                <div class="tab-col" id="istatus"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">创建时间</div>
@@ -355,7 +365,12 @@
       })
     }
     function updateView(data) {
-      dataRetrieval(data)
+      dataRetrieval(data);
+      if(data.istatus == '已申请' || data.istatus == '已续保') {
+        $('#istatus').addClass('green')
+      } else {
+        $('#istatus').addClass('red')
+      }
     }
 
     document.addEventListener('update', function() {

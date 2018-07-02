@@ -128,6 +128,10 @@
     .wire-check table tr td {
       padding: 0px;
     }
+
+    #openPopover {
+      display: none;
+    }
   </style>
 </head>
 
@@ -135,7 +139,7 @@
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
     <h1 class="mui-title">车辆审核</h1>
-    <a class="icon icon-font mui-pull-right revise" id="revise">修改</a>
+    <a href="#" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
   </header>
   <!--页面主内容区开始-->
   <div class="mui-content mui-scroll-wrapper">
@@ -1591,6 +1595,79 @@
             <h4>车辆审核</h4>
           </div>
           <div class="info-content">
+            <div class="date-wrapper">
+              <label>安全检查人</label>
+              <div class="date-text">
+                <input type="text" class="safeCheck checkPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>安全检查日期</label>
+              <div class="date-text">
+                <input type="text" class="safeCheck checkTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>安全核对人</label>
+              <div class="date-text">
+                <input type="text" class="safeCheck checkingPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>安全核对日期</label>
+              <div class="date-text">
+                <input type="text" class="safeCheck checkingTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>线束检查人</label>
+              <div class="date-text">
+                <input type="text" class="hiCheck checkPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>线束检查日期</label>
+              <div class="date-text">
+                <input type="text" class="hiCheck checkTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>线束核对人</label>
+              <div class="date-text">
+                <input type="text" class="hiCheck checkingPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>线束核对日期</label>
+              <div class="date-text">
+                <input type="text" class="hiCheck checkingTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>BOM检查人</label>
+              <div class="date-text">
+                <input type="text" class="bCheck checkPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>BOM检查日期</label>
+              <div class="date-text">
+                <input type="text" class="bCheck checkTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>BOM核对人</label>
+              <div class="date-text">
+                <input type="text" class="bCheck checkingPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>BOM核对日期</label>
+              <div class="date-text">
+                <input type="text" class="bCheck checkingTime" placeholder="" readonly>
+              </div>
+            </div>
+
             <form id="auditing_form">
               <div class="mui-input-row">
                 <span>审核是否通过：</span>
@@ -1668,15 +1745,18 @@
       // 获取数据
       // fetchData()
       function fetchData() {
-        app.findReview({
+        app.getReviewInfo({
           vSn: vSn
         }, function (res) {
           console.log('审核查看')
+          
+          // res = JSON.stringify(res)
           console.log(res)
-          res = JSON.parse(res)
-          if(res.reviewerPerson == null) {
-            return
+          if(res.reviewer != null) {
+            $('#openPopover').show();
+            $('#six_next').html('确定修改').parent().hide()
           }
+          // return;
           updateView.review(res)
         })
         // 接车点检查看
@@ -1779,8 +1859,8 @@
             const item = data[i];
             html += '<tr>\
                       <td><span class="item">'+ item.item + '</span></td>\
-                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '无') + '</span></td>\
-                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '无') + '</span></td>\
+                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '-') + '</span></td>\
+                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '-') + '</span></td>\
                     </tr>'
           }
           $('#safeCheck table tbody').html(html);
@@ -1802,16 +1882,16 @@
             const item = data[i];
             html += '<tr>\
                       <td><span class="item">'+ item.bomName + '</span></td>\
-                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '无') + '</span></td>\
-                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '无') + '</span></td>\
+                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '-') + '</span></td>\
+                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '-') + '</span></td>\
                     </tr>'
           }
           $('#bomCheck table tbody').html(html);
 
-          $('#bomCheck').find('.checkPerson').html(res.check.checkPerson ? res.check.checkPerson : '无')
-          $('#bomCheck').find('.checkTime').html(res.check.checkTime ? res.check.checkTime : '无')
-          $('#bomCheck').find('.checkingPerson').html(res.check.checkingPerson ? res.check.checkingPerson : '无')
-          $('#bomCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '无')
+          $('#bomCheck').find('.checkPerson').html(res.check.checkPerson ? res.check.checkPerson : '-')
+          $('#bomCheck').find('.checkTime').html(res.check.checkTime ? res.check.checkTime : '-')
+          $('#bomCheck').find('.checkingPerson').html(res.check.checkingPerson ? res.check.checkingPerson : '-')
+          $('#bomCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '-')
           $('#bomCheck').find('.applyPerson').html(res.check.applyPerson)
           $('#bomCheck').find('.applyTime').html(res.check.applyTime)
 
@@ -1831,13 +1911,13 @@
               $(this).find('.item').html('<span>' + data[i].item + '</span>')
             }
 
-            $(this).find('.checkExplanation').html(data[i].checkExplanation ? data[i].checkExplanation : '无')
-            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation : '无')
+            $(this).find('.checkExplanation').html(data[i].checkExplanation ? data[i].checkExplanation : '-')
+            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation : '-')
           })
-          $('#wireCheck').find('.checkPerson').html('检查人：' + (res.check.checkPerson ? res.check.checkPerson : '无'))
-          $('#wireCheck').find('.checkTime').html(res.check.checkTime ? res.check.checkTime : '无')
-          $('#wireCheck').find('.checkingPerson').html('核对人：' + (res.check.checkingPerson ? res.check.checkingPerson : '无'))
-          $('#wireCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '无')
+          $('#wireCheck').find('.checkPerson').html('检查人：' + (res.check.checkPerson ? res.check.checkPerson : '-'))
+          $('#wireCheck').find('.checkTime').html(res.check.checkTime ? res.check.checkTime : '-')
+          $('#wireCheck').find('.checkingPerson').html('核对人：' + (res.check.checkingPerson ? res.check.checkingPerson : '-'))
+          $('#wireCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '-')
 
 
         },
@@ -1853,8 +1933,8 @@
             html += '<tr>\
                   <td><span>'+ item.toolName + '</span></td>\
                   <td>'+ item.applicant + '</td>\
-                  <td>'+ (item.equippedDate ? item.equippedDate : '无') + '</td>\
-                  <td>'+ item.operator + '</td>\
+                  <td>'+ (item.equippedDate ? item.equippedDate : '-') + '</td>\
+                  <td>'+ (item.operator?item.operator: '-') + '</td>\
                 </tr>'
           }
           $('#tools table tbody').html(html);
@@ -1862,8 +1942,23 @@
           $('#tools').find('.applyTime').html(data[0].applyTime)
         },
         review: function (data) {
-          $('#review').find('input[name=status]').val(data.status)
-          $('#review').find('#explanation').val(data.explanation)
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              console.log(key)
+              const item = data[key];
+              if (item != null) {
+                $('.' + key + '.checkPerson').val(item.checkPerson ? item.checkPerson : '')
+                $('.' + key + '.checkTime').val(item.checkTime ? item.checkTime : '')
+                $('.' + key + '.checkingPerson').val(item.checkingPerson ? item.checkingPerson : '')
+                $('.' + key + '.checkingTime').val(item.checkingTime ? item.checkingTime : '')
+              }
+            }
+          }
+
+          if(res.reviewer != null) {
+            $('#auditing_form input').attr('disabled', true)
+            $('#auditing_form textarea').attr('disabled', true)
+          }
         },
         cldCheck: function (data) {
           for (const key in data) {
@@ -1876,9 +1971,9 @@
       }
 
       // 提交数据
-      
+
       $('#six_next').on('tap', function () {
-        if(submitLock) {
+        if (submitLock) {
           mui.toast('请不要重复提交')
           return;
         }
@@ -1905,6 +2000,21 @@
           }
         })
       }
+
+      $('#openPopover').on('tap', function () {
+        if ($(this).html() == '修改') {
+          $('#next').parent().show();
+          $('#auditing_form input').attr('disabled', false)
+          $('#auditing_form textarea').attr('disabled', false)
+          $(this).html('取消')
+
+        } else {
+          $('#next').parent().hide();
+          $('#auditing_form input').attr('disabled', true)
+          $('#auditing_form textarea').attr('disabled', true)
+          $(this).html('修改')
+        }
+      })
     })();
   </script>
 </body>

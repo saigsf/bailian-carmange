@@ -26,6 +26,7 @@
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
     <h1 class="mui-title">BOM零部件查验</h1>
+    <a href="#" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
   </header>
   <!--页面主内容区开始-->
   <div class="mui-content mui-scroll-wrapper" id="app">
@@ -141,6 +142,9 @@
     var vSn = '2018ICECTC022'; // 车辆编码
     var oneInfo = null; //基本信息
 
+    var canBomCheck = false;
+    var isFirst = false;
+
     mui.init();
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
@@ -174,14 +178,16 @@
       app.findEmsAndBomCheckByvSn({ vSn }, function (res) {
         console.log(res);
         if (res.checkResults.length <= 0) {
-          mui.toast('bom查验未完成');
+          canBomCheck = false;
+          isFirst = true;
+          $('#openPopover').hide()
           return;
         }
         updateView(res.checkResults)
 
       })
     }
-    
+
 
     function updateView(data) {
       var html = '';
@@ -216,6 +222,7 @@
             </tr>'
 
       $('table tbody').html(html)
+      $('input').attr('readonly', true)
     }
 
 
@@ -229,7 +236,6 @@
         $bomTr.each(function (i) {
           var $bomName = $(this).find('input[name=bomName]');
           var $bomNum = $(this).find('input[name=bomNum]');
-          console.log($bomNum.val())
           if ($bomName.val()) {
             oneBom.push({
               bomName: $bomName.val(),
@@ -239,7 +245,7 @@
             })
           }
         })
-        
+
         // oneBom = JSON.stringify(oneBom)
         // console.log(oneBom)
         // app.applybom(oneBom, function(res) {
@@ -249,6 +255,14 @@
         // })
 
         // return;
+        // console.log(!((canBomCheck && !isFirst) || isFirst))
+        // console.log(isFirst)
+        // console.log(canBomCheck)
+        // return;
+
+        if (!((!isFirst && canBomCheck) || isFirst)) {
+          oneBom = null;
+        }
 
         var id = $(this).attr('id');
         mui.openWindow({
@@ -268,6 +282,18 @@
       })
 
     }
+
+    $('#openPopover').on('tap', function () {
+      if ($(this).html() == '修改') {
+        canBomCheck = true;
+        $(this).html('取消');
+        $('input').attr('readonly', false)
+      } else {
+        canBomCheck = false;
+        $(this).html('修改');
+        $('input').attr('readonly', true)
+      }
+    })
 
 
     // 返回事件

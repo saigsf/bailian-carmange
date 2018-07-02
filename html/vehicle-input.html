@@ -55,6 +55,7 @@
   <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back icon icon-back mui-pull-left"></a>
     <h1 class="mui-title">基本信息录入</h1>
+    <a href="#" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
   </header>
   <!--页面标题栏结束-->
   <!--页面主内容区开始-->
@@ -99,7 +100,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆编号</label>
-              <input name="vSn" type="text" readonly class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <input name="vSn" id="vSn" type="text" readonly class="mui-input-clear" placeholder="车辆编号,如：2017-211">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -293,7 +294,10 @@
     var self = null;
     var view = null;
     var dDate = new Date()
-    var productArr = []
+    var productArr = [];
+
+    var canReviseInput = false; // 可以修改
+    var isFirst = false;
     // 初始化
     mui.init();
 
@@ -328,6 +332,22 @@
 
     addEvent()
     function addEvent() {
+      $('#openPopover').on('tap', function () {
+        if($(this).html() == '修改') {
+          canReviseInput = true;
+          $(this).html('取消');
+          $('select').attr('disabled', false)
+          $('input').attr('disabled', false)
+          .parents('li').find('.mui-icon-clear').hide()
+        } else {
+          canReviseInput = false;
+          $(this).html('修改');
+          $('select').attr('disabled', true)
+          $('input').attr('disabled', true)
+            .parents('li').find('.mui-icon-clear').show()
+        }
+      })
+
       $('#makeTime').off().on('tap', function () {
 
         plus.nativeUI.pickDate(function (e) {
@@ -366,6 +386,7 @@
       // 获取接车点检信息
       app.findUpcheck({ vSn }, function (res) {
         console.log(res);
+        $('#vSn').val(res.vSn)
         $('#vin').val(res.vin)
         $('#brandModelone').val(res.brandModelone)
         $('#engineNumber').val(res.engineNumber)
@@ -377,8 +398,9 @@
         res = JSON.parse(res)
 
         if (res == null) {
-          $('input[name=vSn]').val(vSn)
-          mui.toast('该车没有录入信息');
+          canReviseInput = false;
+          isFirst = true;
+          $('#openPopover').hide()
           return;
         }
         updateView.addCar(res)
@@ -412,7 +434,8 @@
         for (const key in data) {
           if (data.hasOwnProperty(key)) {
             const item = data[key];
-            $('input[name=' + key + ']').val(item)
+            $('*[name=' + key + ']').val(item).attr('disabled', true)
+            .parents('li').find('.mui-icon-clear').hide()
           }
         }
       }
@@ -498,6 +521,16 @@
           mui.toast(translate(checkResult, translateArr));
           console.log(translate(checkResult, translateArr));
           return;
+        }
+
+        // 第一次录入
+        // 不是第一次，但是有修改操作
+        // console.log(!((canReviseInput && !isFirst) || isFirst))
+        // console.log(isFirst)
+        // console.log(canReviseInput)
+        // return;
+        if(!((canReviseInput && !isFirst) || isFirst)) {
+          oneInfo = null;
         }
 
         var id = $(this).attr('id');
