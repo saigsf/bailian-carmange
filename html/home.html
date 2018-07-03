@@ -277,7 +277,6 @@
 
 			var center = map.getCenter(); /// 中心点
 
-
 			var markers = []
 
 			// 添加marker
@@ -289,25 +288,24 @@
 				});
 				marker.setMap(map);
 				// 设置鼠标划过点标记显示的文字提示
-				marker.setTitle('2018ICECTC001');
+				marker.setTitle(data.vSn);
 
 				// 设置点标记的旋转角度
-				// marker.setAngle(90)
+				marker.setAngle(data.towards)
 
-				// 设置label标签
-				// marker.setLabel({//label默认蓝框白底左上角显示，样式className为：amap-marker-label
-				// 	offset: new AMap.Pixel(-30, 30),//修改label相对于maker的位置
-				// 	content: "2018ICECTC001"
-				// });
-
+				// 添加点击事件
 				var clickHandle = AMap.event.addListener(marker, 'click', function (e) {
 					// map.zoomIn();
 					// alert(EventListener);
-					console.log(1)
-					console.log()
-					mui.toast(marker.getTitle(), '提示')
+					// mui.toast(marker.getTitle(), '提示')
+					for (const key in data) {
+						if (data.hasOwnProperty(key)) {
+							const item = data[key];
+							$('#' + key).html(item ? item : '-')
+						}
+					}
 				});
-
+				// 移除其他marker
 				markers.push(marker)
 			}
 
@@ -441,8 +439,8 @@
 
 			
 			function fetchData() {
-				updateView.allcar({})
-				return;
+				// updateView.allcar({})
+				// return;
 				app.allcar({}, function (res) {
 					console.log(res)
 					res = JSON.parse(res);
@@ -455,21 +453,21 @@
 
 			var updateView = {
 				carData: function (data) {
-					data = {
-						"id": 37,
-						"carName": null,
-						"vSn": "2018ICECTC003",
-						"vCarType": null,
-						"longitude": 108.929346,
-						"latitude": 34.303791,
-						"runStatic": null,
-						"gpsSN": null,
-						"iccard": null,
-						"isAllow": null,
-						"speed": null,
-						"licenseNo": null,
-						"towards": null
-					}
+					// data = {
+					// 	"id": 37,
+					// 	"carName": null,
+					// 	"vSn": "2018ICECTC003",
+					// 	"vCarType": null,
+					// 	"longitude": 108.929346,
+					// 	"latitude": 34.303791,
+					// 	"runStatic": null,
+					// 	"gpsSN": null,
+					// 	"iccard": null,
+					// 	"isAllow": null,
+					// 	"speed": null,
+					// 	"licenseNo": null,
+					// 	"towards": null
+					// }
 
 					for (const key in data) {
 						if (data.hasOwnProperty(key)) {
@@ -482,24 +480,24 @@
 					addMarker([data.longitude, data.latitude], map, data);
 				},
 				allcar: function (data) {
-					data = [
-						{
-							longitude: 108.929346,
-							latitude: 34.303791
-						},
-						{
-							longitude: 108.929202,
-							latitude: 34.283391
-						},
-						{
-							longitude: 108.929202,
-							latitude: 34.276471
-						},
-						{
-							longitude: 108.928771,
-							latitude: 34.275397
-						}
-					]
+					// data = [
+					// 	{
+					// 		longitude: 108.929346,
+					// 		latitude: 34.303791
+					// 	},
+					// 	{
+					// 		longitude: 108.929202,
+					// 		latitude: 34.283391
+					// 	},
+					// 	{
+					// 		longitude: 108.929202,
+					// 		latitude: 34.276471
+					// 	},
+					// 	{
+					// 		longitude: 108.928771,
+					// 		latitude: 34.275397
+					// 	}
+					// ]
 
 					map.remove(markers)
 					map.setZoomAndCenter(12, new AMap.LngLat(getAllCenter(data).longitude, getAllCenter(data).latitude))
