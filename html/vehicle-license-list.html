@@ -35,6 +35,52 @@
     .no-data p {
       top: 40%;
     }
+
+        .mui-table-view-cell {
+      background: url(../img/common/md/in_background.png)no-repeat center;
+      background-size: 105%;
+      background-position-x: center;
+      background-position-y: 0;
+      background-color: transparent !important;
+      padding: 0;
+    }
+
+
+    .item-right {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 80%;
+    }
+
+    .list-item {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 12px 5px 5px;
+    }
+
+    .item-right .item-top {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 2px 0;
+    }
+
+    .item-left {
+      width: 80px;
+    }
+
+    .item-right {
+      width: 75%
+    }
+
+
+    .marker.blue {
+      border-color: #7484f9;
+      color: #7484f9;
+    }
+
+    .item-right h4 {
+      color: #333;
+    }
   </style>
 </head>
 
@@ -60,110 +106,32 @@
         </div>
       </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <!-- <li class="mui-table-view-cell" data-vSn="" data-status="true">
-
-          <div class="list-item">
-            <div class="item-left">
-              <img src="../img/common/icon_app.png" />
-            </div>
-            <div class="item-right">
-              <div class="item-right-top">
-                <div class="number">
-                  <h4>2018-0591</h4>
-                  <p>项目编号</p>
+          <li class="mui-table-view-cell" data-vSn="2019-222">
+              <div class="list-item">
+                <div class="item-left">
+                  <img src="../img/common/md/lience_pic.png" />
                 </div>
-                <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">查看
-                  <i class="mui-icon mui-icon-arrowright"></i>
-                </div>
-              </div>
-              <div class="item-right-bottom">
-                <div class="bottom-item">
-                  <h4>2018-02-22</h4>
-                  <p>临牌号</p>
-                </div>
-                <div class="bottom-item bottom-item-empty"></div>
-                <div class="bottom-item">
-                  <h4>active</h4>
-                  <p>终止日</p>
-                </div>
-                <div class="bottom-item bottom-item-empty"></div>
-                <div class="bottom-item">
-                  <h4>张三</h4>
-                  <p>验车状态</p>
+                <div class="item-right">
+                  <div class="item-top">
+                    <h4>
+                      <span>2018ICECTC001</span>
+                    </h4>
+                    <p>
+                      <span>车牌号：</span>
+                      <span class="blue">陕A U6666</span>
+                    </p>
+                  </div>
+                  <div class="progress-wrapper">
+                    <label>剩余时间：</label>
+                    <div class="progress">
+                      <div class="move red"></div>
+                    </div>
+                    <span>365天</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </li>
-        <li class="mui-table-view-cell" data-vSn="" data-status="false">
-          <div class="list-item">
-            <div class="item-left">
-              <img src="../img/common/icon_app.png" />
-            </div>
-            <div class="item-right">
-              <div class="item-right-top">
-                <div class="number">
-                  <h4>2018-0591</h4>
-                  <p>项目编号</p>
-                </div>
-                <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">录入
-                  <i class="mui-icon mui-icon-arrowright"></i>
-                </div>
-              </div>
-              <div class="item-right-bottom">
-                <div class="bottom-item">
-                  <h4>2018-02-22</h4>
-                  <p>临牌号</p>
-                </div>
-                <div class="bottom-item bottom-item-empty"></div>
-                <div class="bottom-item">
-                  <h4>active</h4>
-                  <p>终止日</p>
-                </div>
-                <div class="bottom-item bottom-item-empty"></div>
-                <div class="bottom-item">
-                  <h4>张三</h4>
-                  <p>验车状态</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="mui-table-view-cell" data-vSn="" data-status="false">
-
-          <div class="list-item">
-            <div class="item-left">
-              <img src="../img/common/icon_app.png" />
-            </div>
-            <div class="item-right">
-              <div class="item-right-top">
-                <div class="number">
-                  <h4>2018-0591</h4>
-                  <p>项目编号</p>
-                </div>
-                <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">录入
-                  <i class="mui-icon mui-icon-arrowright"></i>
-                </div>
-              </div>
-              <div class="item-right-bottom">
-                <div class="bottom-item">
-                  <h4>2018-02-22</h4>
-                  <p>临牌号</p>
-                </div>
-                <div class="bottom-item bottom-item-empty"></div>
-                <div class="bottom-item">
-                  <h4>active</h4>
-                  <p>终止日</p>
-                </div>
-                <div class="bottom-item bottom-item-empty"></div>
-                <div class="bottom-item">
-                  <h4>张三</h4>
-                  <p>验车状态</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li> -->
+              <span class="marker green">已申请</span>
+            </li>  
       </ul>
       <div class="no-data" id="no-data">
         <p>没有找到想要的数据！</p>
@@ -291,40 +259,42 @@
 
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="false">\
-          <div class="list-item">\
-            <div class="item-left">\
-              <img src="../img/common/icon_app.png" />\
-            </div>\
-            <div class="item-right">\
-              <div class="item-right-top">\
-                <div class="number">\
-                  <h4>'+ item.vSn + '</h4>\
-                  <p>'+ item.project.project_sn + '</p>\
-                </div>\
-                <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">\
-                  <i class="mui-icon mui-icon-arrowright"></i>\
-                </div>\
-              </div>\
-              <div class="item-right-bottom">\
-                <div class="bottom-item">\
-                  <h4>'+ item.licenseNo + '</h4>\
-                  <p>车牌号</p>\
-                </div>\
-                <div class="bottom-item bottom-item-empty"></div>\
-                <div class="bottom-item">\
-                  <h4>'+ item.endTime + '</h4>\
-                  <p>终止日</p>\
-                </div>\
-                <div class="bottom-item bottom-item-empty"></div>\
-                <div class="bottom-item">\
-                  <h4>'+ item.vehicleInspection + '</h4>\
-                  <p>验车状态</p>\
-                </div>\
-              </div>\
-            </div>\
-          </div>\
-        </li>';
+
+          var endDate = new Date(item.licenseEndTime.replace(/-/g, "/"))
+          var startDate = new Date(item.licenseStartTime.replace(/-/g, "/"))
+          var time = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+
+          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
+            + '<div class="list-item">'
+            + '<div class="item-left">'
+            + '<img src="../img/common/md/lience_pic.png" />'
+            + '</div>'
+            + '<div class="item-right">'
+            + '<div class="item-top">'
+            + '<h4>'
+            + '<span>' + item.vSn + '</span>'
+            + '</h4>'
+            + '<p>'
+            + '<span>车牌号：</span>'
+            + '<span class="blue">' + (item.licenseNo ? item.licenseNo : '-') + '</span>'
+            + '</p>'
+            + '</div>'
+            + '<div class="progress-wrapper">'
+            + '<label>剩余时间：</label>'
+            + '<div class="progress">'
+            + '<div class="move green" style="width:' + (item.llave ? (item.llave / time * 100 + '%') : '0') + '" ></div>'
+            + '</div>'
+            + '<span>' + (item.llave ? (item.llave + '天') : '暂无') + '</span>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+
+          if (item.vehicleInspection == '已申请') {
+            html += '<span class="marker green">' + item.vehicleInspection + '</span></li>'
+          } else if (item.vehicleInspection == '未申请') {
+            html += '<span class="marker blue">' + item.vehicleInspection + '</span></li>'
+          }
+
         }
 
         $('#OA_task_1').append($(html))
@@ -355,7 +325,7 @@
         // 搜索
         $('#search').on('tap', function () {
           prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', null)
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', {prevId:self.id})
         })
       }
       addEvent();
@@ -413,7 +383,7 @@
 
 
       document.addEventListener('statusBar', function (e) {
-        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
+        if (e.detail != null && e.detail.vSn) dataArr.vSn = e.detail.vSn;
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();

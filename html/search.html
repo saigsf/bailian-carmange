@@ -202,8 +202,8 @@
         var data = {
           vSn: $btn.attr('data-vSn')
         }
+        mui.fire(view, 'statusBar', data);
         app.blur(true);
-        mui.fire(view, 'statusBar', { data });
         mui.back()
       })
     }
@@ -240,8 +240,10 @@
     })
 
 
-    document.addEventListener('getFocus', function () {
+    document.addEventListener('getFocus', function (e) {
       plus.navigator.setStatusBarStyle('dark');
+      console.log(e.detail.prevId)
+      view = plus.webview.getWebviewById(e.detail.prevId);
       // 输入框获取焦点
       app.focusAndOpenKeyboard(document.getElementById('current_input'));
       // $('#current_input').focus()

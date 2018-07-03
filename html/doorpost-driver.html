@@ -136,7 +136,7 @@
       width: 15%;
     }
 
-    .top.batch .mui-input-row.mui-search {
+    .top.batch .search-wrapper {
       width: 60%
     }
 
@@ -167,6 +167,70 @@
     /* body {
       font-size: 12px;
     } */
+
+    .mui-table-view-cell {
+      background: url(../img/common/md/in_background.png)no-repeat center;
+      background-size: 105%;
+      background-position-x: center;
+      background-position-y: 0;
+      background-color: transparent !important;
+      padding: 0;
+    }
+
+    .mui-table-view-cell>.mui-slider-handle {
+      background-color: transparent;
+    }
+
+    .item-right {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 75%;
+    }
+
+    .list-item {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 12px 5px 5px;
+    }
+
+    .item-right .item-top {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 2px 0;
+    }
+
+    .item-left {
+      width: 80px;
+    }
+
+
+    .marker.blue {
+      border-color: #7484f9;
+      color: #7484f9;
+    }
+
+    .item-right h4 {
+      color: #333;
+    }
+
+    .item-right .item-bottom {
+      padding: 0
+    }
+    .item-left {
+      width: 78px;
+    }
+
+    .mui-table-view-cell {
+      background-size: cover;
+    }
+
+    .search-wrapper {
+      height: 40px;
+    }
+
+    .search-wrapper {
+      width: 85%;
+    }
   </style>
 </head>
 
@@ -184,136 +248,56 @@
         </div> -->
         <div class="search-wrapper" id="search">
 
-            <div class="search-btn">
-              <i class="icon-search icon"></i>
-            </div>
-            <div class="search-text">
-              <input type="text" readonly placeholder="请输入车辆编号">
-            </div>
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
           </div>
+          <div class="search-text">
+            <input type="text" placeholder="请输入车辆编号">
+          </div>
+        </div>
         <div class="btn" id="add">
           <i class="icon icon-more"></i>
         </div>
         <div class="canclecheck" id="canclecheck">取消</div>
       </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <!-- <li class="mui-table-view-cell">
-          <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">取消授权</a>
-            <a class="mui-btn mui-btn-red delete">删除</a>
-          </div>
-          <div class="mui-slider-handle">
-
-            <div class="list-item">
-              <div class="item-checked">
-                <input type="checkbox" name="" id="myCheck">
-                <label for="myCheck"></label>
-              </div>
-              <div class="item-left">
-                <img src="../img/common/icon_app.png" />
-              </div>
-              <div class="item-right">
-                <div class="item-right-top">
-                  <div class="number">
-                    <h4>
-                      <span>张女士</span>
-                    </h4>
-                    <p>陕A6509B</p>
-                  </div>
-                  <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                    <i class="mui-icon mui-icon-arrowright"></i>
-                  </div>
-                </div>
-                <div class="item-right-middle">
-                  <p>
-                    <span>授权状态</span>：已授权</p>
-                  <p>
-                    <span>授权开始</span>：2018-01-01</p>
-                  <p>
-                    <span>授权截至</span>：2019-01-01</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
         <li class="mui-table-view-cell">
           <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">授权</a>
+            <a class="mui-btn mui-btn-gray update">修改</a>
             <a class="mui-btn mui-btn-red delete">删除</a>
           </div>
           <div class="mui-slider-handle">
-
             <div class="list-item">
               <div class="item-checked">
                 <input type="checkbox" name="" id="myCheck">
                 <label for="myCheck"></label>
               </div>
               <div class="item-left">
-                <img src="../img/common/icon_app.png" />
+                <img src="../img/common/md/driver_pic.png" />
               </div>
               <div class="item-right">
-                <div class="item-right-top">
+                <div class="item-top">
                   <div class="number">
-                    <h4>
-                      <span>张女士</span>
-                    </h4>
-                    <p>陕A6509B</p>
-                  </div>
-                  <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                    <i class="mui-icon mui-icon-arrowright"></i>
+                    <h4>王春生</h4>
+                    <p>
+                      <span>ICcard：</span>
+                      <span class="">8888888888888888</span>
+                    </p>
                   </div>
                 </div>
-                <div class="item-right-middle">
+                <div class="item-bottom">
                   <p>
-                    <span>授权状态</span>：已授权</p>
+                    <span>授权分组：</span>Q组</p>
                   <p>
-                    <span>授权开始</span>：2018-01-01</p>
-                  <p>
-                    <span>授权截至</span>：2019-01-01</p>
+                    <span>电话：</span>18792889956</p>
                 </div>
               </div>
             </div>
+            <span class="marker">已禁用</span>
           </div>
         </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">取消授权</a>
-            <a class="mui-btn mui-btn-red delete">删除</a>
-          </div>
-          <div class="mui-slider-handle">
 
-            <div class="list-item">
-              <div class="item-checked">
-                <input type="checkbox" name="" id="myCheck">
-                <label for="myCheck"></label>
-              </div>
-              <div class="item-left">
-                <img src="../img/common/icon_app.png" />
-              </div>
-              <div class="item-right">
-                <div class="item-right-top">
-                  <div class="number">
-                    <h4>
-                      <span>张女士</span>
-                    </h4>
-                    <p>陕A6509B</p>
-                  </div>
-                  <div class="mui-btn mui-btn-blue mui-btn-outlined goback">
-                    <i class="mui-icon mui-icon-arrowright"></i>
-                  </div>
-                </div>
-                <div class="item-right-middle">
-                  <p>
-                    <span>授权状态</span>：已授权</p>
-                  <p>
-                    <span>授权开始</span>：2018-01-01</p>
-                  <p>
-                    <span>授权截至</span>：2019-01-01</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li> -->
+
       </ul>
       <div class="no-data" id="no-data">
         <p>没有找到想要的数据，下拉加载所有数据</p>
@@ -433,29 +417,21 @@
             '<input type="checkbox" name="" id="myCheck' + item.id + '">' +
             '<label for="myCheck' + item.id + '"></label>' +
             '</div>' +
-            '<div class="item-left"><img src="../img/common/icon_app.png" /></div>' +
+            '<div class="item-left"><img src="../img/common/md/driver_pic.png" /></div>' +
             '<div class="item-right">' +
-            '<div class="item-right-top">' +
+            '<div class="item-top">' +
             '<div class="number">' +
-            '<h4>' +
-            '<span>' + item.name + '</span>'
-
-
-          html += '</h4>' +
-            '<p>' + (item.iccard ? item.iccard : '——') + '</p>' +
-            '</div>' +
-            '<div class="mui-btn mui-btn-blue mui-btn-outlined goback">' +
-            '<!-- <span>未处理</span> -->' +
-            '<i class="mui-icon mui-icon-arrowright"></i>' +
+            '<h4>' + item.name + '</h4>' +
+            '<p><span>ICcard：</span><span class="">' + (item.iccard ? item.iccard : '-') + '</span></p>' +
             '</div>' +
             '</div>' +
-            '<div class="item-right-middle">' +
-            '<p><span>授权状态</span>：' + item.isallow + '</p>' +
-            '<p><span>授权开始</span>：' + (item.allowStartTime ? item.allowStartTime : '——') + '</p>' +
-            '<p><span>授权截至</span>：' + (item.allowEndTime ? item.allowEndTime : '——') + '</p>' +
+            '<div class="item-bottom">' +
+            '<p><span>授权分组：</span>Q组</p>' +
+            '<p><span>电话：</span>' + (item.telephone?item.telephone:'-') + '</p>' +
             '</div>' +
             '</div>' +
             '</div>' +
+            '<span class="marker ' + (item.isallow == '禁止' ? 'red' : 'green') + '">' + item.isallow + '</span>' +
             '</div>' +
             '</li>';
         }
@@ -736,7 +712,7 @@
 
       document.addEventListener('statusBar', function (e) {
         // plus.navigator.setStatusBarStyle('light');
-        if(e.detail != null && e.detail.data) dataArr = e.detail.data;
+        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();

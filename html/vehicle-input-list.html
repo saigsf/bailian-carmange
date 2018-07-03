@@ -35,27 +35,31 @@
       flex-direction: column;
     }
 
-    .item-right-middle p {
-      /* font-size: 12px; */
-      width: 100%;
+    .list-item {
+      flex-direction: row;
+      justify-content: space-between;
     }
 
-    .item-right-middle p span {
-      display: inline-block;
-      line-height: 0;
-      width: 64px;
-      text-align: justify;
+    .item-right {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 68%;
     }
 
-    .item-right-middle p span:not(:first-of-type) {
-      margin-left: 20px;
-      width: 22%;
+    .item-left {
+      width: 100px;
+      height: 100px;
+      font-size: 0;
+      overflow: hidden;
+    }
+    .item-left img {
+      height: 100%;
+      width: auto;
+      margin-left: -20px;
     }
 
-    .item-right-middle p span:after {
-      content: "";
-      display: inline-block;
-      width: 100%
+    .item-right p {
+      font-size: 11px;
     }
 
     .bottom-item {
@@ -66,7 +70,7 @@
     .search-wrapper {
       /* width: 80%; */
       margin: 10px auto;
-      height: 40px
+      height: 40px;
     }
 
     .top {
@@ -82,8 +86,26 @@
     .no-data {
       height: 100%;
     }
+
     .no-data p {
       top: 40%;
+    }
+
+    .mui-btn-blue,
+    .mui-btn-primary,
+    input[type=submit] {
+      border: none
+    }
+
+    .mui-table-view-cell {
+      padding: 0;
+    }
+
+    .blue {
+      color: #2885cf
+    }
+    .item-right h4 {
+      color: #333;
     }
   </style>
 </head>
@@ -106,7 +128,7 @@
         </div>
       </form>
       <ul id="vehicle_input_list" class="mui-table-view mui-table-listview">
-        <li class="mui-table-view-cell">
+        <!-- <li class="mui-table-view-cell">
 
           <div class="list-item">
             <div class="item-left">
@@ -132,55 +154,36 @@
           <div class="item-mark">
             <div class="icon icon-corner-mark-red"></div>
           </div>
-        </li>
+        </li> -->
         <li class="mui-table-view-cell">
           <div class="list-item">
             <div class="item-left">
-              <img src="../img/common/icon_app.png" />
+              <!-- <img src="../img/common/md/backup_picture.png" /> -->
+              <i class="icon icon-nopic"></i>
             </div>
             <div class="item-right">
-              <div class="item-right-top">
+              <div class="item-top">
                 <div class="number">
-                  <h4>2018-0591</h4>
-                  <p>项目编号</p>
+                  <h4>2018ICECTC001</h4>
+                  <p>
+                    <span>检查进度：</span>
+                    <span class="blue">接车点检</span>
+                  </p>
+                </div>
+                <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">
+                  <i class="mui-icon mui-icon-arrowright"></i>
                 </div>
               </div>
-              <div class="item-right-middle">
+              <div class="item-bottom">
                 <p>
-                  <span>车架号</span>：1231214335</p>
-                <p>
-                  <span>检查进度</span>：安全检查</p>
+                  <span>项目工程师：</span>1231214335</p>
                 <p>
                   <span>保险状态</span>：未申请</p>
               </div>
             </div>
-
           </div>
           <div class="item-mark">
             <div class="icon icon-corner-mark-green"></div>
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="list-item">
-            <div class="item-left">
-              <img src="../img/common/icon_app.png" />
-            </div>
-            <div class="item-right">
-              <div class="item-right-top">
-                <div class="number">
-                  <h4>2018-0591</h4>
-                  <p>项目编号</p>
-                </div>
-              </div>
-              <div class="item-right-middle">
-                <p>
-                  <span>车架号</span>：1231214335</p>
-                <p>
-                  <span>检查进度</span>：安全检查</p>
-                <p>
-                  <span>保险状态</span>：未申请</p>
-              </div>
-            </div>
           </div>
         </li>
       </ul>
@@ -316,7 +319,7 @@
         // 搜索
         $('#search').on('tap', function () {
           prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', null)
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', {prevId: self.id})
         })
       }
       // 添加点击事件进入下一页
@@ -328,6 +331,8 @@
           page: curPage,
           size: 3
         }, dataArr);
+
+        console.log(JSON.stringify(opt))
 
         app.carQuery(opt, function (res) {
           res = JSON.parse(res);
@@ -349,29 +354,45 @@
       function updateView(data) {
         var html = '';
         data.forEach(item => {
-          html += '<li class="mui-table-view-cell" data-vsn="' + item.vSn + '">'
-            + '<div class="list-item">'
-            + '<div class="item-left">'
-            + '<img src="../img/common/icon_app.png" />'
-            + '</div>'
-            + '<div class="item-right">'
-            + '<div class="item-right-top">'
-            + '<div class="number">'
-            + '<h4>' + item.vSn + '</h4>'
-            + '<p>' + (item.project ? item.project.project_sn : '——') + '</p>'
-            + '</div>'
-            + '</div>'
-            + '<div class="item-right-middle">'
-            + '<p><span>车架号</span>：' + item.vin + '</p>'
-            + '<p><span>检查进度</span>：' + (item.checks_status ? item.checks_status : '——') + '</p>'
-            + '<p><span>保险状态</span>：' + item.istatus + '</p>'
-            + '</div>'
-            + '</div>'
-            + '</div>'
-            // + '<div class="item-mark">'
-            // + '<div class="icon icon-corner-mark-red"></div>'
-            // + '</div>'
-            + '</li>'
+          html += '<li class="mui-table-view-cell" data-vsn="' + item.vSn + '">\
+                    <div class="list-item">\
+                      <div class="item-left">'
+
+
+          if (item.picurl) {
+            html += '<img src="' + item.picurl + '" />'
+          } else {
+            html += '<i class="icon icon-nopic"></i>'
+          }
+
+
+
+          html += '</div>\
+                      <div class="item-right">\
+                        <div class="item-top">\
+                          <div class="number">\
+                            <h4>'+ item.vSn + '</h4>\
+                            <p>\
+                              <span>检查进度：</span>\
+                              <span class="blue">'+ (item.checks_status ? item.checks_status : '-') + '</span>\
+                            </p>\
+                          </div>\
+                          <div class="mui-btn mui-btn-blue mui-btn-outlined tolook">\
+                            <i class="mui-icon mui-icon-arrowright"></i>\
+                          </div>\
+                        </div>\
+                        <div class="item-bottom">\
+                          <p>\
+                            <span>项目工程师：</span>'+ (item.projectEngineer ? item.projectEngineer : '-') + '</p>\
+                          <p>\
+                            <span>保险状态：</span>'+ (item.istatus == '未申请' ? item.istatus : (item.istatus + '(' + item.startTime + '至' + item.endTime + ')')) + '</p>\
+                        </div>\
+                      </div>\
+                    </div>\
+                  </li>'
+          // <div class="item-mark">\
+          //     <div class="icon icon-corner-mark-green"></div>\
+          //   </div>\
         });
 
         $('#vehicle_input_list').append(html)
@@ -379,7 +400,7 @@
 
 
       document.addEventListener('statusBar', function (e) {
-        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
+        if (e.detail != null && e.detail.vSn) dataArr.vSn = e.detail.vSn;
         curPage = 1;
         $('#vehicle_input_list').html('')
         fetchData();

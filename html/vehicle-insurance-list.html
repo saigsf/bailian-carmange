@@ -58,60 +58,6 @@
       margin: 20px auto
     }
 
-    .top * {
-      transition: all .5s;
-    }
-
-    .top .btn {
-      background-color: transparent;
-      border: 0;
-      padding: 0;
-    }
-
-    .top .canclecheck {
-      width: 0;
-      line-height: 40px;
-      text-align: center;
-      color: #2885cf;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    .batch .btn {
-      display: none;
-    }
-
-    .batch .canclecheck {
-      width: 15%;
-    }
-
-    .batch .item-checked {
-      width: 15%;
-    }
-
-    .btn-container {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      height: 50px;
-      z-index: 999;
-      display: none;
-    }
-
-    .btn-container .btn {
-      width: 50%;
-      height: 100%;
-      float: left;
-      text-align: center;
-      border-radius: 0;
-    }
-
-    .btn-container .btn:not(.btn-blue) {
-      background-color: #fff;
-    }
-
     .search-wrapper {
       width: 80%;
       margin: 10px auto;
@@ -121,11 +67,54 @@
     .top {
       padding: 10px 15px;
     }
+
     .no-data {
       height: 100%;
     }
+
     .no-data p {
       top: 40%;
+    }
+
+
+    .mui-table-view-cell {
+      background: url(../img/common/md/in_background.png)no-repeat center;
+      background-size: 105%;
+      background-position-x: center;
+      background-position-y: 0;
+      background-color: transparent !important;
+      padding: 0;
+    }
+
+
+    .item-right {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 80%;
+    }
+
+    .list-item {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 12px 5px 5px;
+    }
+
+    .item-right .item-top {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 2px 0;
+    }
+
+    .item-left {
+      width: 80px;
+    }
+
+    .item-right {
+      width: 75%
+    }
+
+    .item-right h4 {
+      color: #333;
     }
   </style>
 </head>
@@ -151,105 +140,33 @@
         </div>
       </form>
       <ul id="vehicle_insurance_list" class="mui-table-view mui-table-listview">
-        <!-- <li class="mui-table-view-cell" data-vSn="2019-222" data-status="0">
+        <li class="mui-table-view-cell" data-vSn="2019-222">
           <div class="list-item">
-            <div class="item-checked">
-              <input type="checkbox" name="" id="myCheck">
-              <label for="myCheck"></label>
-            </div>
             <div class="item-left">
-              <img src="../img/common/icon_app.png" />
+              <img src="../img/common/md/in_pic.png" />
             </div>
             <div class="item-right">
-              <div class="item-right-top">
-                <div class="number">
-                  <h4>2018-0591</h4>
-                  <p>项目编号</p>
-                </div>
-                <div class="mui-btn mui-btn-blue mui-btn-outlined insurance-entry">
-                  <span>录入</span>
-                  <i class="mui-icon mui-icon-arrowright"></i>
-                </div>
+              <div class="item-top">
+                <h4>
+                  <span>2018ICECTC001</span>
+                </h4>
+                <p>
+                  <span>车辆名称：</span>
+                  <span class="blue">奥迪A6</span>
+                </p>
               </div>
-              <div class="item-right-middle">
-                <p>
-                  <span>临牌状态</span>：2017-132</p>
-                <p>
-                  <span>保单号</span>：2017-132</p>
-                <p>
-                  <span>保险起始</span>：2018-12-12</p>
-                <p>
-                  <span>保险终止</span>：2018-12-12</p>
+              <div class="progress-wrapper">
+                <label>剩余时间：</label>
+                <div class="progress">
+                  <div class="move red"></div>
+                </div>
+                <span>365天</span>
               </div>
             </div>
           </div>
+          <span class="marker green">已申请</span>
         </li>
-        <li class="mui-table-view-cell" data-vSn="2019-222" data-status="1">
-          <div class="list-item">
-            <div class="item-checked">
-              <input type="checkbox" name="" id="myCheck">
-              <label for="myCheck"></label>
-            </div>
-            <div class="item-left">
-              <img src="../img/common/icon_app.png" />
-            </div>
-            <div class="item-right">
-              <div class="item-right-top">
-                <div class="number">
-                  <h4>2018-0591</h4>
-                  <p>项目编号</p>
-                </div>
-                <div class="mui-btn mui-btn-red mui-btn-outlined renew-insurance">
-                  <span>续保</span>
-                  <i class="mui-icon mui-icon-arrowright"></i>
-                </div>
-              </div>
-              <div class="item-right-middle">
-                <p>
-                  <span>临牌状态</span>：2017-132</p>
-                <p>
-                  <span>保单号</span>：2017-132</p>
-                <p>
-                  <span>保险起始</span>：2018-12-12</p>
-                <p>
-                  <span>保险终止</span>：2018-12-12</p>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="mui-table-view-cell" data-vSn="2019-222" data-status="2">
-          <div class="list-item">
-            <div class="item-checked">
-              <input type="checkbox" name="" id="myCheck">
-              <label for="myCheck"></label>
-            </div>
-            <div class="item-left">
-              <img src="../img/common/icon_app.png" />
-            </div>
-            <div class="item-right">
-              <div class="item-right-top">
-                <div class="number">
-                  <h4>2018-0591</h4>
-                  <p>项目编号</p>
-                </div>
-                <div class="mui-btn  mui-btn-outlined no-renew-insurance">
-                  <span>续保</span>
-                  <i class="mui-icon mui-icon-arrowright"></i>
-                </div>
-              </div>
-              <div class="item-right-middle">
-                <p>
-                  <span>临牌状态</span>：2017-132</p>
-                <p>
-                  <span>保单号</span>：2017-132</p>
-                <p>
-                  <span>保险起始</span>：2018-12-12</p>
-                <p>
-                  <span>保险终止</span>：2018-12-12</p>
-              </div>
-            </div>
-          </div>
-        </li> -->
+
       </ul>
       <div class="no-data" id="no-data">
         <p>没有找到想要的数据！</p>
@@ -376,11 +293,9 @@
           size: 3
         }, dataArr);
 
-        console.log(334, JSON.stringify(opt))
-
         app.insuranceQuery(opt, function (res) {
           res = JSON.parse(res)
-          console.log(res.total)
+          console.log(res)
           if (!res.total || res.total <= 0 || res.rows.length <= 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据，下拉加载所有数据')
@@ -400,35 +315,39 @@
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="2">'
+          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
             + '<div class="list-item">'
-            + '<div class="item-checked">'
-            + '<input type="checkbox" name="" id="myCheck">'
-            + '<label for="myCheck"></label>'
-            + '</div>'
             + '<div class="item-left">'
-            + '<img src="../img/common/icon_app.png" />'
+            + '<img src="../img/common/md/in_pic.png" />'
             + '</div>'
             + '<div class="item-right">'
-            + '<div class="item-right-top">'
-            + '<div class="number">'
-            + '<h4>' + item.vSn + '</h4>'
-            + '<p>' + item.project.project_sn + '</p>'
+            + '<div class="item-top">'
+            + '<h4>'
+            + '<span>' + item.vSn + '</span>'
+            + '</h4>'
+            + '<p>'
+            + '<span>车辆名称：</span>'
+            + '<span class="blue">' + (item.carName ? item.carName : '-') + '</span>'
+            + '</p>'
             + '</div>'
-            + '<div class="mui-btn  mui-btn-outlined no-renew-insurance">'
-            + '<span>续保</span>'
-            + '<i class="mui-icon mui-icon-arrowright"></i>'
+            + '<div class="progress-wrapper">'
+            + '<label>剩余时间：</label>'
+            + '<div class="progress">'
+            + '<div class="move ' + (item.lave < 90 ? 'red' : 'green') + '" style="width:' + (item.lave ? (item.lave / (item.numtime * 365) * 100 + '%') : '0') + '" ></div>'
             + '</div>'
-            + '</div>'
-            + '<div class="item-right-middle">'
-            + '<p><span>验车状态</span>：' + item.vehicleInspection + '</p>'
-            + '<p><span>保单号</span>：2017-132</p>'
-            + '<p><span>保险起始</span>：' + item.startTime + '</p>'
-            + '<p><span>保险终止</span>：' + item.endTime + '</p>'
+            + '<span>' + (item.lave ? (item.lave + '天') : '暂无') + '</span>'
             + '</div>'
             + '</div>'
             + '</div>'
-            + '</li>'
+
+          if (item.istatus == '未续保') {
+            html += '<span class="marker red">' + item.istatus + '</span></li>'
+          } else if (item.istatus == '已申请' || item.istatus == '已续保') {
+            html += '<span class="marker green">' + item.istatus + '</span></li>'
+          } else if (item.istatus == '未申请') {
+            html += '<span class="marker blue">' + item.istatus + '</span></li>'
+          }
+
         }
         $('#vehicle_insurance_list').append(html)
       }
@@ -439,7 +358,7 @@
         // 保险详情
         $('#vehicle_insurance_list').on('tap', 'li', function () {
           var $li = $(this)
-          console.log($li.index())
+          // console.log($li.index())
           mui.openWindow({
             url: 'vehicle-insurance-info.html',
             id: 'vehicle-insurance-info', //默认使用当前页面的url作为id
@@ -459,7 +378,7 @@
         // 搜索
         $('#search').on('tap', function () {
           prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', null)
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', {prevId:self.id})
         })
       }
       // addEvents()
@@ -518,7 +437,7 @@
       window.addEventListener('closeMenu', closeMenu);
 
       document.addEventListener('statusBar', function (e) {
-        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
+        if (e.detail != null && e.detail.vSn) dataArr.vSn = e.detail.vSn;
         curPage = 1;
         $('#vehicle_insurance_list').html('')
         fetchData();

@@ -396,6 +396,14 @@
   text-align: center;
 }
 
+.icon-nopic {
+  width: 100%;
+  height: 100%;
+  background-image: url(../img/common/md/backup_picture1.png);
+  background-size: 50%;
+  /* background-color: #f5f5f5; */
+}
+
 .unit {
   line-height: 40px;
 }
