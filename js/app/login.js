@@ -58,6 +58,8 @@
           clearInterval(id);
           mui.fire(mainPage, 'goback', null);
           mui.fire(plus.webview.getWebviewById('html/home.html'), 'statusBar', null)
+          mui.fire(plus.webview.getWebviewById('html/setting.html'), 'statusBar', null)
+          
           mainPage.show("pop-in");
 
         }

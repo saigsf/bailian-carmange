@@ -22,21 +22,23 @@
 
     .search-wrapper {
       width: 80%;
-      margin: 10px auto;
+      /* margin: 10px auto; */
       height: 40px
     }
 
-    .top {
+    /* .top {
       padding: 10px 15px;
-    }
+    } */
+
     .no-data {
       height: 100%;
     }
+
     .no-data p {
       top: 40%;
     }
 
-        .mui-table-view-cell {
+    .mui-table-view-cell {
       background: url(../img/common/md/in_background.png)no-repeat center;
       background-size: 105%;
       background-position-x: center;
@@ -85,56 +87,53 @@
 </head>
 
 <body>
+  <form class="top">
+    <div class="search-wrapper" id="search">
 
+      <div class="search-btn">
+        <i class="icon-search icon"></i>
+      </div>
+      <div class="search-text">
+        <input type="text" readonly placeholder="请输入车辆编号">
+      </div>
+    </div>
+    <div class="filter" id="filter">
+      <i class="icon icon-filter">筛选</i>
+    </div>
+  </form>
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <form class="top">
-        <!-- <div class="mui-input-row mui-search" id="search">
-          <input readonly type="search" class="mui-input-clear" placeholder="请输入车辆编号">
-        </div> -->
-        <div class="search-wrapper" id="search">
 
-          <div class="search-btn">
-            <i class="icon-search icon"></i>
-          </div>
-          <div class="search-text">
-            <input type="text" readonly placeholder="请输入车辆编号">
-          </div>
-        </div>
-        <div class="filter" id="filter">
-          <i class="icon icon-filter">筛选</i>
-        </div>
-      </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-          <li class="mui-table-view-cell" data-vSn="2019-222">
-              <div class="list-item">
-                <div class="item-left">
-                  <img src="../img/common/md/lience_pic.png" />
-                </div>
-                <div class="item-right">
-                  <div class="item-top">
-                    <h4>
-                      <span>2018ICECTC001</span>
-                    </h4>
-                    <p>
-                      <span>车牌号：</span>
-                      <span class="blue">陕A U6666</span>
-                    </p>
-                  </div>
-                  <div class="progress-wrapper">
-                    <label>剩余时间：</label>
-                    <div class="progress">
-                      <div class="move red"></div>
-                    </div>
-                    <span>365天</span>
-                  </div>
-                </div>
+        <li class="mui-table-view-cell" data-vSn="2019-222">
+          <div class="list-item">
+            <div class="item-left">
+              <img src="../img/common/md/lience_pic.png" />
+            </div>
+            <div class="item-right">
+              <div class="item-top">
+                <h4>
+                  <span>2018ICECTC001</span>
+                </h4>
+                <p>
+                  <span>车牌号：</span>
+                  <span class="blue">陕A U6666</span>
+                </p>
               </div>
-              <span class="marker green">已申请</span>
-            </li>  
+              <div class="progress-wrapper">
+                <label>剩余时间：</label>
+                <div class="progress">
+                  <div class="move red"></div>
+                </div>
+                <span>365天</span>
+              </div>
+            </div>
+          </div>
+          <span class="marker green">已申请</span>
+        </li>
       </ul>
       <div class="no-data" id="no-data">
-        <p>没有找到想要的数据！</p>
+        <p>没有找到想要的数据,下拉刷新</p>
       </div>
     </div>
   </div>
@@ -183,11 +182,12 @@
 
       // plusReady
       mui.plusReady(function () {
+        handsetAdaption()
         self = plus.webview.currentWebview();
         main = plus.webview.getWebviewById("index");
         main.addEventListener('maskClick', closeMenu);
         H = self.H;
-        
+
         prepageSearch = mui.preload({
           url: 'search.html',
           id: 'search',
@@ -196,8 +196,29 @@
             prevId: self.id
           }
         })
+
+        $('#refreshContainer').height($(document).height() - 62)
+        $('#no-data').height($('#refreshContainer').height())
         // addEvent();
       });
+
+          // 手机适配方法
+          function handsetAdaption() {
+        // 更改顶部导航栏高度
+        if (plus.device.model === 'iPhoneX') {
+          // 页面样式重置
+          filter = '34px';
+        }
+
+        // 更改状态栏颜色
+        // plus.navigator.setStatusBarStyle("light");
+        // 弹出软键盘时自动改变webview的高度
+        // plus.webview.currentWebview().setStyle({
+        //   softinputMode: "adjustResize"
+        // });
+
+      }
+
 
       // 下拉刷新业务
       function pulldownRwfresh() {
@@ -240,7 +261,7 @@
           console.log(res)
           if (!res.total || res.total <= 0 || res.rows.length <= 0) {
             $('#no-data').show().prev().hide()
-            mui.toast('没有找到想要的数据')
+            // mui.toast('没有找到想要的数据')
             return;
           }
           // console.log(res.totalCount)
@@ -325,7 +346,7 @@
         // 搜索
         $('#search').on('tap', function () {
           prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', {prevId:self.id})
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
         })
       }
       addEvent();

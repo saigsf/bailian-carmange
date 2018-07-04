@@ -225,7 +225,9 @@
             remark: ''
           }
 
-          if (!data.equippedDate) {
+          // mui.toast(data.equippedDate)
+          // return;
+          if (data.equippedDate == '请选择时间' || data.equippedDate == '您没有选择日期' || data.equippedDate>19) {
             mui.toast('请选择时间')
             return;
           }

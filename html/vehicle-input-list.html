@@ -52,10 +52,11 @@
       font-size: 0;
       overflow: hidden;
     }
+
     .item-left img {
       height: 100%;
       width: auto;
-      margin-left: -20px;
+      /* margin-left: -20px; */
     }
 
     .item-right p {
@@ -69,12 +70,12 @@
 
     .search-wrapper {
       /* width: 80%; */
-      margin: 10px auto;
+      /* margin: 10px auto; */
       height: 40px;
     }
 
     .top {
-      padding: 10px 15px;
+      padding-top: 16px;
     }
 
     .top .btn {
@@ -104,6 +105,7 @@
     .blue {
       color: #2885cf
     }
+
     .item-right h4 {
       color: #333;
     }
@@ -111,22 +113,23 @@
 </head>
 
 <body>
-  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-    <div class="mui-scroll">
-      <form class="top">
-        <!-- <div class="mui-input-row mui-search" id="search">
+  <form class="top">
+    <!-- <div class="mui-input-row mui-search" id="search">
           <input readonly type="search" class="mui-input-clear" placeholder="请输入车辆编号">
         </div> -->
-        <div class="search-wrapper" id="search">
+    <div class="search-wrapper" id="search">
 
-          <div class="search-btn">
-            <i class="icon-search icon"></i>
-          </div>
-          <div class="search-text">
-            <input type="text" readonly placeholder="请输入车辆编号">
-          </div>
-        </div>
-      </form>
+      <div class="search-btn">
+        <i class="icon-search icon"></i>
+      </div>
+      <div class="search-text">
+        <input type="text" readonly placeholder="请输入车辆编号">
+      </div>
+    </div>
+  </form>
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+
       <ul id="vehicle_input_list" class="mui-table-view mui-table-listview">
         <!-- <li class="mui-table-view-cell">
 
@@ -155,10 +158,10 @@
             <div class="icon icon-corner-mark-red"></div>
           </div>
         </li> -->
-        <li class="mui-table-view-cell">
+        <!-- <li class="mui-table-view-cell">
           <div class="list-item">
             <div class="item-left">
-              <!-- <img src="../img/common/md/backup_picture.png" /> -->
+              <img src="../img/common/md/backup_picture.png" />
               <i class="icon icon-nopic"></i>
             </div>
             <div class="item-right">
@@ -185,7 +188,7 @@
           <div class="item-mark">
             <div class="icon icon-corner-mark-green"></div>
           </div>
-        </li>
+        </li> -->
       </ul>
       <div class="no-data" id="no-data">
         <p>没有找到想要的数据！</p>
@@ -273,8 +276,14 @@
           }
         })
 
+        // scroll的高度
 
+
+        $('#refreshContainer').height($(document).height() - 62)
+        $('#no-data').height($('#refreshContainer').height())
       });
+
+
 
       // 手机适配方法
       function handsetAdaption() {
@@ -319,7 +328,7 @@
         // 搜索
         $('#search').on('tap', function () {
           prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', {prevId: self.id})
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
         })
       }
       // 添加点击事件进入下一页
@@ -337,7 +346,7 @@
         app.carQuery(opt, function (res) {
           res = JSON.parse(res);
           console.log(res);
-          if (!res.total || res.total <= 0) {
+          if (!res.total || res.total == 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据，下拉加载所有数据')
             return;

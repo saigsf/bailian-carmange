@@ -24,9 +24,14 @@
     }
 
     .top .icon-more {
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
     }
+
+    .top {
+      padding-top: 16px;
+    }
+
 
     .mui-table-view-cell {
       margin-bottom: 10px;
@@ -234,11 +239,7 @@
   </style>
 </head>
 
-<body>
-  <!--下拉刷新容器-->
-  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-    <div class="mui-scroll">
-      <form class="top">
+<body><form class="top">
         <div class="allcheck" id="allcheck">
           <input type="checkbox" name="" id="all_check">
           <label for="all_check">全选</label>
@@ -260,8 +261,12 @@
         </div>
         <div class="canclecheck" id="canclecheck">取消</div>
       </form>
+  <!--下拉刷新容器-->
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <li class="mui-table-view-cell">
+        <!-- <li class="mui-table-view-cell">
           <div class="mui-slider-right mui-disabled">
             <a class="mui-btn mui-btn-gray update">修改</a>
             <a class="mui-btn mui-btn-red delete">删除</a>
@@ -295,12 +300,12 @@
             </div>
             <span class="marker">已禁用</span>
           </div>
-        </li>
+        </li> -->
 
 
       </ul>
       <div class="no-data" id="no-data">
-        <p>没有找到想要的数据，下拉加载所有数据</p>
+        <p>没有找到想要的数据，下拉刷新</p>
       </div>
     </div>
   </div>
@@ -377,6 +382,9 @@
         var self = plus.webview.currentWebview();
         H = self.H;
         addEvent()
+
+        $('#refreshContainer').height($(document).height() - 62)
+        $('#no-data').height($('#refreshContainer').height())
       });
 
       // 获取数据
@@ -390,7 +398,7 @@
           console.log(res)
           if (!res.total || res.total <= 0) {
             $('#no-data').show().prev().hide()
-            mui.toast('没有找到想要的数据，下拉加载所有数据')
+            // mui.toast('没有找到想要的数据，下拉加载所有数据')
             return;
           }
           curPage++;
@@ -422,11 +430,11 @@
             '<div class="item-top">' +
             '<div class="number">' +
             '<h4>' + item.name + '</h4>' +
-            '<p><span>ICcard：</span><span class="">' + (item.iccard ? item.iccard : '-') + '</span></p>' +
+            '<p><span>员工卡号：</span><span class="">' + (item.employeeCard ? item.employeeCard : '-') + '</span></p>' +
             '</div>' +
             '</div>' +
             '<div class="item-bottom">' +
-            '<p><span>授权分组：</span>Q组</p>' +
+            '<p><span>授权分组：</span>'+(item.groups.length>0 ? item.groups.join():'-')+'</p>' +
             '<p><span>电话：</span>' + (item.telephone?item.telephone:'-') + '</p>' +
             '</div>' +
             '</div>' +

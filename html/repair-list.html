@@ -99,10 +99,11 @@
     .mui-popover .mui-table-view-cell {
       margin-bottom: 0;
       height: 34px;
-    line-height: 34px;
-    font-size: 12px;
-    text-align: center;
+      line-height: 34px;
+      font-size: 12px;
+      text-align: center;
     }
+
     .mui-table-view-cell>a:not(.mui-btn) {
       margin: 0;
     }
@@ -125,13 +126,13 @@
 
     .search-wrapper {
       width: 80%;
-      margin: 10px auto;
+      /* margin: 10px auto; */
       height: 40px
     }
 
-    .top {
+    /* .top {
       padding: 10px 15px;
-    }
+    } */
 
     /* body {
       font-size: 12px;
@@ -140,7 +141,7 @@
     .list-item {
       flex-direction: row;
       justify-content: space-between;
-      
+
     }
 
     .item-right {
@@ -178,105 +179,40 @@
     .blue {
       color: #2885cf
     }
+
+    .openPopover {
+      color: #333;
+    }
+
+    .no-data {
+      position: relative;
+      background-color: transparent;
+    }
   </style>
 </head>
 
 <body>
+  <form class="top">
+    <div class="search-wrapper" id="search">
+
+      <div class="search-btn">
+        <i class="icon-search icon"></i>
+      </div>
+      <div class="search-text">
+        <input type="text" readonly placeholder="请输入车辆编号">
+      </div>
+    </div>
+    <a href="#popover" id="openPopover" class="openPopover">
+      <i class="icon icon-filter">筛选</i>
+    </a>
+
+  </form>
   <!--下拉刷新容器-->
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <form class="top">
-        <!-- <div class="mui-input-row mui-search" id="search">
-          <input readonly type="search" class="mui-input-clear" id="current_input" placeholder="请输入车辆编号">
-        </div> -->
-        <div class="search-wrapper" id="search">
 
-          <div class="search-btn">
-            <i class="icon-search icon"></i>
-          </div>
-          <div class="search-text">
-            <input type="text" readonly placeholder="请输入车辆编号">
-          </div>
-        </div>
-        <a href="#popover" id="openPopover" class="mui-btn mui-btn-outlined">
-          <i class="icon icon-filter">筛选</i>
-        </a>
-
-      </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <!-- <li class="mui-table-view-cell" data-vSn="" data-status="false">
-          <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">优先</a>
-            <a class="mui-btn mui-btn-red repaired">完成</a>
-            <a class="mui-btn mui-btn-blue maintain">保养</a>
-          </div>
-          <div class="mui-slider-handle">
-            <div class="list-item">
-              <div class="item-left">
-                <img src="../img/common/icon_app.png" />
-              </div>
-              <div class="item-right">
-                <div class="item-right-top">
-                  <div class="number">
-                    <h4>2018-0591</h4>
-                    <p>项目编号</p>
-                  </div>
-                  <div class="mui-btn mui-btn-blue mui-btn-outlined repairing">
-                    <span>维修中</span>
-                    <i class="mui-icon mui-icon-arrowright"></i>
-                  </div>
-                </div>
-                <div class="item-right-middle">
-                  <p>
-                    <span>维修项目</span>：更换副驾驶皮带轮</p>
-                  <p>
-                    <span>停放地点</span>：维修车间</p>
-                  <p>
-                    <span>申请人</span>：张三</p>
-                  <p>
-                    <span>申请日期</span>：2018-02-22</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="mui-table-view-cell" data-vSn="" data-status="false">
-          <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">优先</a>
-            <a class="mui-btn mui-btn-red allot">分配</a>
-            <a class="mui-btn mui-btn-blue maintain">保养</a>
-          </div>
-          <div class="mui-slider-handle">
-            <div class="list-item">
-              <div class="item-left">
-                <img src="../img/common/icon_app.png" />
-              </div>
-              <div class="item-right">
-                <div class="item-right-top">
-                  <div class="number">
-                    <h4>2018-0591</h4>
-                    <p>项目编号</p>
-                  </div>
-                  <div class="mui-btn mui-btn-red mui-btn-outlined waiting">
-                    <span>等待中</span>
-                    <i class="mui-icon mui-icon-arrowright"></i>
-                  </div>
-                </div>
-                <div class="item-right-middle">
-                  <p>
-                    <span>维修项目</span>：更换副驾驶皮带轮</p>
-                  <p>
-                    <span>停放地点</span>：维修车间</p>
-                  <p>
-                    <span>申请人</span>：张三</p>
-                  <p>
-                    <span>申请日期</span>：2018-02-22</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li> -->
-        <li class="mui-table-view-cell" data-vSn="" data-status="true">
+        <!-- <li class="mui-table-view-cell" data-vSn="" data-status="true">
           <div class="mui-slider-right mui-disabled">
             <a class="mui-btn mui-btn-gray settop">优先</a>
             <a class="mui-btn mui-btn-blue maintain">保养</a>
@@ -284,7 +220,7 @@
           <div class="mui-slider-handle">
             <div class="list-item">
               <div class="item-left">
-                <!-- <img src="../img/common/md/backup_picture.png" /> -->
+                <img src="../img/common/md/backup_picture.png" />
                 <i class="icon icon-nopic"></i>
               </div>
               <div class="item-right">
@@ -307,7 +243,7 @@
             </div>
             <span class="marker blue">已完成</span>
           </div>
-        </li>
+        </li> -->
 
       </ul>
     </div>
@@ -375,7 +311,14 @@
             prevId: self.id
           }
         })
+
+
+        console.log($(document).height())
+        $('#refreshContainer').height($(document).height() - 62)
+        console.log($('#refreshContainer').height())
+        $('#no-data').height($('#refreshContainer').height())
       });
+
 
       // 下拉刷新
       function pulldownRwfresh() {
@@ -386,7 +329,7 @@
           $('#OA_task_1').html('')
           fetchData();
           mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
-          // mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
         }, 1000);
       }
       // 上拉加载
@@ -543,8 +486,16 @@
           var elem = this;
           var $li = $(this).parents('li');
           var id = $li.attr('data-id')
+          setTimeout(function () {
+            mui.swipeoutClose($li[0]);
+          }, 0);
 
           console.log(id)
+          if(!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
+
           app.carMaintainTop({
             id: id
           }, function (res) {
@@ -570,6 +521,11 @@
             mui.swipeoutClose($li[0]);
           }, 0);
 
+          if(!app.getUserRoles('admin')) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
+
           mui.openWindow({
             url: 'repair-allot.html',
             id: 'repair-allot', //默认使用当前页面的url作为id
@@ -592,6 +548,11 @@
           setTimeout(function () {
             mui.swipeoutClose($li[0]);
           }, 0);
+
+          if(!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
 
           mui.openWindow({
             url: 'repair-content.html',
@@ -638,6 +599,11 @@
           setTimeout(function () {
             mui.swipeoutClose($li[0]);
           }, 0);
+
+          if(!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
 
           mui.openWindow({
             url: 'repair-maintain.html',

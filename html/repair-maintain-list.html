@@ -113,13 +113,13 @@
 
     .search-wrapper {
       /* width: 80%; */
-      margin: 10px auto;
+      /* margin: 10px auto; */
       height: 40px
     }
 
-    .top {
+    /* .top {
       padding: 10px 15px;
-    }
+    } */
 
     .top .mui-btn {
       border: none
@@ -129,10 +129,10 @@
       font-size: 12px;
     } */
 
-        .list-item {
+    .list-item {
       flex-direction: row;
       justify-content: space-between;
-      
+
     }
 
     .item-right {
@@ -170,33 +170,32 @@
     .blue {
       color: #2885cf
     }
+    .no-data {
+      position: relative;
+      background-color: transparent;
+    }
   </style>
 </head>
 
 <body>
+  <form class="top">
+
+    <div class="search-wrapper" id="search">
+
+      <div class="search-btn">
+        <i class="icon-search icon"></i>
+      </div>
+      <div class="search-text">
+        <input type="text" readonly placeholder="请输入车辆编号">
+      </div>
+    </div>
+  </form>
   <!--下拉刷新容器-->
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <form class="top">
-        <!-- <div class="mui-input-row mui-search" id="search">
-          <input readonly type="search" class="mui-input-clear" id="current_input" placeholder="请输入车辆编号">
-        </div> -->
-        <div class="search-wrapper" id="search">
 
-          <div class="search-btn">
-            <i class="icon-search icon"></i>
-          </div>
-          <div class="search-text">
-            <input type="text" readonly placeholder="请输入车辆编号">
-          </div>
-        </div>
-        <!-- <a href="#popover" id="openPopover" class="mui-btn mui-btn-outlined">
-          <i class="icon icon-filter">筛选</i>
-        </a> -->
-
-      </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        
+
       </ul>
     </div>
   </div>
@@ -242,10 +241,12 @@
           url: 'search.html',
           id: 'search',
           extras: {
-            H: H,
-            prevId: self.id
+            H: H
           }
-        })
+        });
+        
+        $('#refreshContainer').height($(document).height() - 62)
+        $('#no-data').height($('#refreshContainer').height())
       });
       addEvent();
       // 下拉刷新
@@ -289,8 +290,8 @@
               mui.toast('没有数据');
               return;
             }
-            // curPage++;
-            // totalPage = Math.ceil(res.total / 3)
+            curPage++;
+            totalPage = Math.ceil(res.total / 3)
             updateView(res.rows)
           }
         })
@@ -377,7 +378,7 @@
         // 搜索
         $('#search').on('tap', function () {
           prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', null)
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', {prevId: self.id})
         })
 
         // 保养

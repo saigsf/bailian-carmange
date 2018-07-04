@@ -170,12 +170,12 @@
 							<input name="project_sn" type="text" placeholder="请输入">
 						</div>
 					</li>
-					<li class="mui-table-view-cell">
+					<!-- <li class="mui-table-view-cell">
 						<div class="filter-wrapper">
 							<label>车辆编号：</label>
 							<input name="vSn" type="text" placeholder="请输入">
 						</div>
-					</li>
+					</li> -->
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
 							<label>车架号：</label>
@@ -293,6 +293,12 @@
 						<div class="filter-wrapper">
 							<label>保险终止日：</label>
 							<input name="iendTime" id="iendTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>保险申请日：</label>
+							<input name="applyTime" id="applyTime" type="text" readonly placeholder="请输入">
 						</div>
 					</li>
 				</ul>
@@ -418,6 +424,23 @@
 							});
 					});
 				})
+				$('#applyTime').on('tap', function() {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+								title: '',
+								date: dDate
+							});
+					});
+				})
+
 				$('#updateTime').on('tap', function() {
 					var _this = this;
 					$(_this).off().on('tap', function () {

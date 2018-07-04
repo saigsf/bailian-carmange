@@ -132,6 +132,11 @@
     #openPopover {
       display: none;
     }
+
+    .no-data {
+      position: relative;
+      background-color: transparent;
+    }
   </style>
 </head>
 
@@ -150,20 +155,20 @@
           <div class="info-content" id="vehicle-info">
             <div class="info-content-top">
               <p>车辆编号</p>
-              <h3 id="vSn">2017-123</h3>
+              <h3 id="vSn_0">2017-123</h3>
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="vin">32156A</h5>
-                <p>车架号</p>
+                <h5 id="engineNumber_0">-</h5>
+                <p>发动机号</p>
               </div>
               <div class="info-content-item">
-                <h5 id="applyPeople">张三</h5>
+                <h5 id="projectEngineer_0">-</h5>
                 <p>项目工程师</p>
               </div>
               <div class="info-content-item">
-                <h5 id="status">安全检查</h5>
-                <p>项目进度</p>
+                <h5 id="checks_status_0">-</h5>
+                <p>检查进度</p>
               </div>
             </div>
           </div>
@@ -1745,14 +1750,25 @@
       // 获取数据
       // fetchData()
       function fetchData() {
+        // 查看车辆信息
+        app.carQuery({ vSn }, function (res) {
+          res = JSON.parse(res);
+          console.log(res);
+          // res.rows
+          $('#vSn_0').html(res.rows[0].vSn)
+          $('#engineNumber_0').html(res.rows[0].engineNumber?res.rows[0].engineNumber:'-')
+          $('#projectEngineer_0').html(res.rows[0].projectEngineer?res.rows[0].projectEngineer:'-')
+          $('#checks_status_0').html(res.rows[0].checks_status?res.rows[0].checks_status:'-')
+        })
+
+        // 查看审核
         app.getReviewInfo({
           vSn: vSn
         }, function (res) {
           console.log('审核查看')
-          
           // res = JSON.stringify(res)
           console.log(res)
-          if(res.reviewer != null) {
+          if (res.reviewer != null) {
             $('#openPopover').show();
             $('#six_next').html('确定修改').parent().hide()
           }
@@ -1934,7 +1950,7 @@
                   <td><span>'+ item.toolName + '</span></td>\
                   <td>'+ item.applicant + '</td>\
                   <td>'+ (item.equippedDate ? item.equippedDate : '-') + '</td>\
-                  <td>'+ (item.operator?item.operator: '-') + '</td>\
+                  <td>'+ (item.operator ? item.operator : '-') + '</td>\
                 </tr>'
           }
           $('#tools table tbody').html(html);
@@ -1955,7 +1971,7 @@
             }
           }
 
-          if(res.reviewer != null) {
+          if (data.reviewer != null) {
             $('#auditing_form input').attr('disabled', true)
             $('#auditing_form textarea').attr('disabled', true)
           }

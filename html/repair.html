@@ -72,6 +72,13 @@
 
       // 创建子页面，显示首个选项卡其他都影藏
       mui.plusReady(function () {
+        // if(!(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
+        //   mui.alert('您没有这个权限', '提示')
+        //   $('a').eq(0).hide()
+        //   return;
+        // }
+
+
         // //更改状态栏颜色
         if (plus.device.model === 'iPhoneX') {
           //子页面导入样式重置

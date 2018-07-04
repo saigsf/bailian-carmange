@@ -52,6 +52,10 @@
     .mui-scroll {
       padding-bottom: 24px;
     }
+    .no-data {
+      position: relative;
+      background-color: transparent;
+    }
   </style>
 </head>
 
@@ -192,7 +196,7 @@
     ; (function () {
       mui.init();
 
-      var vSn = '2018ICECTC001';
+      var vSn = '2018-217';
       var hasData = null;
 
       //初始化单页的区域滚动
@@ -220,109 +224,15 @@
         app.carMaintainQuery({
           vSn: vSn
         }, function (res) {
-          res = JSON.parse(res);
           console.log(res)
+          res = JSON.parse(res);
           updateView(res.rows[0])
         })
-        // updateView()
       }
 
       function updateView(data) {
-        var html = '';
-        // for (let i = 0; i < data.length; i++) {
-        //   const item = data[i];
-        //   html += '<div class="info-middle"></div>\
-        //       <div class="info-item">\
-        //         <div class="info-title">\
-        //           <h4>送修申请信息</h4>\
-        //         </div>\
-        //         <div class="info-content">\
-        //           <div class="date-wrapper">\
-        //             <label>维修项目</label>\
-        //             <div class="date-text">\
-        //               <input type="text" id="item" placeholder="" readonly>\
-        //             </div>\
-        //           </div>\
-        //           <div class="date-wrapper">\
-        //             <label>停放地点</label>\
-        //             <div class="date-text">\
-        //               <input type="text" name="" id="send_park" placeholder="" readonly>\
-        //             </div>\
-        //           </div>\
-        //           <div class="date-wrapper">\
-        //             <label>申请日期</label>\
-        //             <div class="date-text">\
-        //               <input type="text" name="" id="applytime" placeholder="" readonly>\
-        //             </div>\
-        //           </div>\
-        //           <div class="date-wrapper">\
-        //             <label>维修备注</label>\
-        //             <div class="date-text">\
-        //               <input type="text" name="" id="applyRemark" placeholder="" readonly>\
-        //             </div>\
-        //           </div>\
-        //           <div class="info-operator">\
-        //             <div class="info-operator-item">\
-        //               <span id="applyPeople_0"></span>\
-        //               <span id="applytime_0"></span>\
-        //             </div>\
-        //           </div>\
-        //         </div>\
-        //       </div>\
-        //       <div class="info-middle"></div>\
-        //       <div class="info-item">\
-        //         <div class="info-title">\
-        //           <h4>维修信息</h4>\
-        //         </div>\
-        //         <div class="info-content">\
-        //           <div class="date-wrapper">\
-        //             <label>操作员</label>\
-        //             <div class="date-text">\
-        //               <input type="text" name="" id="operator" placeholder="" readonly>\
-        //             </div>\
-        //           </div>\
-        //           <div class="date-wrapper">\
-        //             <label>完成日期</label>\
-        //             <div class="date-text">\
-        //               <input type="text" name="" id="forecastTime" placeholder="" readonly>\
-        //             </div>\
-        //           </div>\
-        //           <div class="date-wrapper">\
-        //             <label>停放地点</label>\
-        //             <div class="date-text">\
-        //               <input type="text" name="" value="" id="fin_park" placeholder="" readonly>\
-        //             </div>\
-        //           </div>\
-        //           <div class="date-wrapper">\
-        //             <label>工作内容</label>\
-        //             <div class="date-text">\
-        //               <input type="text" name="" id="workContent" placeholder="" readonly>\
-        //             </div>\
-        //           </div>\
-        //           <div class="date-wrapper">\
-        //             <label>备注</label>\
-        //             <div class="date-text">\
-        //               <input type="text" name="" id="remark" placeholder="" readonly>\
-        //             </div>\
-        //           </div>\
-        //           <div class="info-operator">\
-        //             <div class="info-operator-item">\
-        //               <span id="operator_0"></span>\
-        //               <span id="forecastTime_0"></span>\
-        //             </div>\
-        //           </div>\
-        //         </div>\
-        //         <div class="no-data" id="no_data">\
-        //           <p>没有维修数据</p>\
-        //         </div>\
-        //       </div>'
-        // }
-
-
-
-
-        hasData = data.status;
-        if (hasData == '已完成') {
+        console.log(data)
+        if (data.status == '已完成') {
           $('#no_data').hide().prev().show();
         } else {
           $('#no_data').show().prev().hide();

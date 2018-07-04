@@ -376,9 +376,10 @@
       })
 
       // 获取项目信息
-      app.projectQuery({}, function (res) {
-        res = JSON.parse(res)
+      app.projectQuery({}, function (res) { 
         console.log(res);
+        res = JSON.parse(res)
+       
         productArr = res.rows;
         updateView.project(res.rows)
       })
@@ -422,13 +423,16 @@
         $('#groupName').append(html)
       },
       project: function (data) {
+        if(data.length == 0) {
+          return;
+        }
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
           html += '<option value="' + item.project_sn + '">' + item.project_sn + '</option>'
         }
         $('#project_sn').html(html);
-        $('#project_name').val(data[0].projectName);
+        $('#project_name').val(data[0].project_name);
       },
       addCar: function (data) {
         for (const key in data) {

@@ -87,7 +87,7 @@
     }
     .take-down {
       position: absolute;
-      bottom: 2px;
+      bottom: 4px;
       width: 100%;
       text-align: center;
     }
@@ -135,15 +135,15 @@
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="engineNumber_0">——</h5>
+                <h5 id="engineNumber_0">-</h5>
                 <p>发动机号</p>
               </div>
               <div class="info-content-item">
-                <h5 id="projectEngineer_0">——</h5>
+                <h5 id="projectEngineer_0">-</h5>
                 <p>项目工程师</p>
               </div>
               <div class="info-content-item">
-                <h5 id="checks_status_0">——</h5>
+                <h5 id="checks_status_0">-</h5>
                 <p>检查进度</p>
               </div>
               <div class="take-down" id="take-down">
@@ -287,6 +287,22 @@
 
       $link.on('tap', function () {
         var id = $(this).attr('id');
+
+        
+        if(id == 'vehicle-input' && !(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
+          mui.alert('您没有这个权限', '提示')
+          return;
+        }
+        if((id != 'vehicle-input' && id != 'vehicle-auditing') && !(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
+          mui.alert('您没有这个权限', '提示')
+          return;
+        }
+        if(id == 'vehicle-auditing' && !app.getUserRoles('admin')) {
+          mui.alert('您没有这个权限', '提示')
+          return;
+        }
+
+
         mui.openWindow({
           url: id + '.html',
           id: id, //默认使用当前页面的url作为id

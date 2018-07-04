@@ -77,8 +77,8 @@
 		if (loginInfo.NETID.length < 0) {
 			return callback('请输入员工netid号');
 		}
-		if (loginInfo.password.length < 6) {
-			return callback('密码最短为 6 个字符');
+		if (loginInfo.password.length < 0) {
+			return callback('密码不能为空');
 		}
 
 		$.ajax({
@@ -132,8 +132,8 @@
 		if (loginInfo.employeeCard.length < 0) {
 			return callback('请输入员工卡号');
 		}
-		if (loginInfo.password.length < 6) {
-			return callback('密码最短为 6 个字符');
+		if (loginInfo.password.length < 0) {
+			return callback('密码不能为空');
 		}
 		// if (!loginInfo.verifyCode) {
 		// 	return callback('验证码不能为空')
@@ -1406,7 +1406,7 @@
 
 		var url = 'car-management/driver/authorized.action';
 
-		owner.HTTPRequestPost('GET', url, data, callback)
+		owner.HTTPRequestPost('post', url, data, callback)
 	}
 
 	/**

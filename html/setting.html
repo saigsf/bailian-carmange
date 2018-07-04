@@ -1065,9 +1065,12 @@
 
 
     // y用户名
-    if (app.getState().account) {
-      $('#username').html(app.getState().account)
-    }
+    
+
+    document.addEventListener('statusBar', function() {
+      console.log(JSON.stringify(app.getState().data))
+      $('#username').html(app.getState().data.nickname)
+    })
 
   </script>
 
