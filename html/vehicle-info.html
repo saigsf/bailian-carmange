@@ -83,10 +83,22 @@
       background-image: url(../img/common/md/vehicle_input@2x.png);
     }
 
+    .icon-vehicle-input-disabled {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/vehicleinput_disabled@2x.png);
+    }
+
     .icon-safe-check {
       width: 35px;
       height: 35px;
       background-image: url(../img/common/md/safe_check@2x.png);
+    }
+
+    .icon-safe-check-disabled {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/safe_check_disabled@2x.png);
     }
 
     .icon-wire-check {
@@ -95,10 +107,22 @@
       background-image: url(../img/common/md/wire_check@2x.png);
     }
 
+    .icon-wire-check-disabled {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/wire_check_disabled@2x.png);
+    }
+
     .icon-bom-check {
       width: 35px;
       height: 35px;
       background-image: url(../img/common/md/bom_check@2x.png);
+    }
+
+    .icon-bom-check-disabled {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/bom_check_disabled@2x.png);
     }
 
     .icon-vehicle-auditing {
@@ -107,10 +131,22 @@
       background-image: url(../img/common/md/vehicle_auditing@2x.png);
     }
 
+    .icon-vehicle-auditing-disabled {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/vehicle_auditing_disabled@2x.png);
+    }
+
     .icon-tools {
       width: 35px;
       height: 35px;
       background-image: url(../img/common/md/tools@2x.png);
+    }
+
+    .icon-tools-disabled {
+      width: 35px;
+      height: 35px;
+      background-image: url(../img/common/md/tools_disabled@2x.png);
     }
 
     table tbody tr td span {
@@ -146,6 +182,7 @@
       width: 16px;
       height: 16px;
     }
+
     .no-data {
       position: relative;
       background-color: transparent;
@@ -536,36 +573,36 @@
             <h4>安全检查</h4>
           </div>
           <div class="info-content">
-              <div class="date-wrapper">
-                  <label>缸压/1缸</label>
-                  <div class="date-text">
-                    <input type="text" name="one_p" id="" placeholder="" readonly>
-                  </div>
-                </div>
-                <div class="date-wrapper">
-                  <label>缸压/2缸</label>
-                  <div class="date-text">
-                    <input type="text" name="two_p" id="" placeholder="" readonly>
-                  </div>
-                </div>
-                <div class="date-wrapper">
-                  <label>缸压/3缸</label>
-                  <div class="date-text">
-                    <input type="text" name="three_p" id="" placeholder="" readonly>
-                  </div>
-                </div>
-                <div class="date-wrapper">
-                  <label>缸压/4缸</label>
-                  <div class="date-text">
-                    <input type="text" name="four_p" id="" placeholder="" readonly>
-                  </div>
-                </div>
-                <div class="date-wrapper">
-                  <label>燃油压力/实测</label>
-                  <div class="date-text">
-                    <input type="text" name="actual_p" id="" placeholder="" readonly>
-                  </div>
-                </div>
+            <div class="date-wrapper">
+              <label>缸压/1缸</label>
+              <div class="date-text">
+                <input type="text" name="one_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>缸压/2缸</label>
+              <div class="date-text">
+                <input type="text" name="two_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>缸压/3缸</label>
+              <div class="date-text">
+                <input type="text" name="three_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>缸压/4缸</label>
+              <div class="date-text">
+                <input type="text" name="four_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>燃油压力/实测</label>
+              <div class="date-text">
+                <input type="text" name="actual_p" id="" placeholder="" readonly>
+              </div>
+            </div>
             <table>
               <thead>
                 <tr>
@@ -2009,8 +2046,26 @@
           return
         }
         vSn = self.vSn;
+        if (!(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
+          $('#vehicle-input').find('i').removeClass('icon-vehicle-input').addClass('icon-vehicle-input-disabled').next().css('color', '#bbb')
+          $('#vehicle-up-check').find('i').removeClass('icon-up-check').addClass('icon-up-check-disabled').next().css('color', '#bbb')
+
+        }
+        // 维修技师
+        if (!(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
+          $('#vehicle-check-safe').find('i').removeClass('icon-safe-check').addClass('icon-safe-check-disabled').next().css('color', '#bbb')
+          $('#vehicle-check-wire').find('i').removeClass('icon-wire-check').addClass('icon-wire-check-disabled').next().css('color', '#bbb')
+          $('#vehicle-check-bom').find('i').removeClass('icon-bom-check').addClass('icon-bom-check-disabled').next().css('color', '#bbb')
+          $('#vehicle-RD-tools').find('i').removeClass('icon-tools').addClass('icon-tools-disabled').next().css('color', '#bbb')
+          $('#vehicle-check-down').find('i').removeClass('icon-down-check').addClass('icon-down-check-disabled').next().css('color', '#bbb')
+        }
+        // 超级管理员
+        if (!app.getUserRoles('admin')) {
+          $('#vehicle-auditing').find('i').removeClass('icon-vehicle-auditing').addClass('icon-vehicle-auditing-disabled').next().css('color', '#bbb')
+        }
+
         fetchData()
-        // mui.toast(vSn);
+
       })
 
       function handsetAdaption() {
@@ -2055,7 +2110,7 @@
         app.findCldCheckByvSn({ vSn }, function (res) {
           console.log('缸压检查查看')
           console.log(res);
-          if(!res) {
+          if (!res) {
             return;
           }
 
@@ -2173,11 +2228,11 @@
           $('#safeCheck').find('.checkingTime').html(res.check.checkingTime)
 
         },
-        cldCheck: function(data) {
+        cldCheck: function (data) {
           for (const key in data) {
             if (data.hasOwnProperty(key)) {
               const item = data[key];
-              $('input[name='+key+']').val(item)
+              $('input[name=' + key + ']').val(item)
             }
           }
         },
@@ -2322,6 +2377,29 @@
         var $link = $('#info_link_box .info-link');
         $link.on('tap', function () {
           var id = $(this).attr('id')
+
+          // 工程师
+          if (id == 'vehicle-input' && id != 'vehicle-up-check' && !(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
+          // 维修技师
+          if ((id != 'vehicle-input' && id != 'vehicle-auditing' && id != 'vehicle-up-check') && !(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
+          // 超级管理员
+          if (id == 'vehicle-auditing' && !app.getUserRoles('admin')) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
+
+          // 接车员
+          // if (id == 'vehicle-up-check' && (!app.getUserRoles('admin') && !app.getUserRoles('uppeople'))) {
+          //   mui.alert('您没有这个权限', '提示')
+          //   return;
+          // }
+
           if (id) {
             mui.openWindow({
               url: id + '.html',

@@ -90,121 +90,28 @@
 </head>
 
 <body>
-  <form class="top">
-    <div class="program-status" id="program_status">
-      <i class="icon icon-status-change">状态</i>
-    </div>
-    <div class="search-wrapper" id="search">
 
-      <div class="search-btn">
-        <i class="icon-search icon"></i>
-      </div>
-      <div class="search-text">
-        <input type="text" readonly placeholder="请输入车辆编号">
-      </div>
-    </div>
-
-    <div class="filter" id="filter">
-      <i class="icon icon-filter">筛选</i>
-    </div>
-  </form>
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
+      <form class="top">
+        <div class="program-status" id="program_status">
+          <i class="icon icon-status-change">状态</i>
+        </div>
+        <div class="search-wrapper" id="search">
 
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
+          </div>
+          <div class="search-text">
+            <input type="text" readonly placeholder="请输入车辆编号">
+          </div>
+        </div>
+
+        <div class="filter" id="filter">
+          <i class="icon icon-filter">筛选</i>
+        </div>
+      </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <!-- <li class="mui-table-view-cell">
-          <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-red car-type-change">车型修改</a>
-          </div>
-          <div class="mui-slider-handle">
-            <div class="list-item">
-
-              <div class="item-top">
-                <div class="item-left">
-                  <img src="../img/common/md/backup_picture.png" />
-                </div>
-                <div class="item-right">
-                  <h4>2018ICECTC001</h4>
-                  <p>
-                    <span>项目编号：</span>
-                    <span>2018ICECTC001</span>
-                  </p>
-                </div>
-              </div>
-              <div class="item-middle">
-                <img src="../img/common/md/line_finished@2x.png" />
-              </div>
-              <div class="item-bottom">
-                <div class="item-left">
-                  <img src="../img/common/md/icon_finished@2x.png" />
-                </div>
-                <div class="item-right">
-                  <div class="bottom-item">
-                    <h4>已完成</h4>
-                    <p>车辆状态</p>
-                  </div>
-                  <div class="bottom-item bottom-item-empty"></div>
-                  <div class="bottom-item">
-                    <h4>active</h4>
-                    <p>项目状态</p>
-                  </div>
-                  <div class="bottom-item bottom-item-empty"></div>
-                  <div class="bottom-item">
-                    <h4>张三</h4>
-                    <p>项目工程师</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </li>
-        <li class="mui-table-view-cell">
-          <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-red car-type-change">车型修改</a>
-          </div>
-          <div class="mui-slider-handle">
-            <div class="list-item">
-
-              <div class="item-top">
-                <div class="item-left">
-                  <img src="../img/common/md/backup_picture.png" />
-                </div>
-                <div class="item-right">
-                  <h4>2018ICECTC001</h4>
-                  <p>
-                    <span>项目编号：</span>
-                    <span>2018ICECTC001</span>
-                  </p>
-                </div>
-              </div>
-              <div class="item-middle">
-                <img src="../img/common/md/line_runing@2x.png" />
-              </div>
-              <div class="item-bottom">
-                <div class="item-left">
-                  <img src="../img/common/md/icon_runing.png" />
-                </div>
-                <div class="item-right">
-                  <div class="bottom-item">
-                    <h4>进行中...</h4>
-                    <p>车辆状态</p>
-                  </div>
-                  <div class="bottom-item bottom-item-empty"></div>
-                  <div class="bottom-item">
-                    <h4>active</h4>
-                    <p>项目状态</p>
-                  </div>
-                  <div class="bottom-item bottom-item-empty"></div>
-                  <div class="bottom-item">
-                    <h4>张三</h4>
-                    <p>项目工程师</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li> -->
       </ul>
       <div class="no-data" id="no-data">
         <p>没有找到想要的数据！</p>
@@ -269,6 +176,10 @@
         view = plus.webview.getWebviewById('html/vehicle.html')
         H = self.H;
 
+        if (!app.getUserRoles('admin')) {
+          $('#program_status').hide().next().css('width', '80%')
+        }
+
         main.addEventListener('maskClick', closeMenu);
 
         prepageSearch = mui.preload({
@@ -280,19 +191,29 @@
           }
         })
 
-        $('#refreshContainer').height($(document).height() - 62)
-        $('#no-data').height($('#refreshContainer').height())
+
         addEvent();
       });
+      console.log($(document).height())
 
       function handsetAdaption() {
-        if (plus.device.model === 'iPhoneX') {
+
+        if (mui.os.ios && parseFloat(mui.os.version) >= 10.0) {
           //页面样式重置
           filter = '34px'
         }
         plus.webview.currentWebview().setStyle({
           softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
         });
+
+        if (mui.os.android) {
+
+          var height = plus.android.invoke(plus.android.currentWebview(), 'getHeight')
+          console.log(height)
+        }
+
+
+
       }
 
       // 下拉刷新业务
@@ -360,10 +281,15 @@
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
           html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
-            + '<div class="mui-slider-right mui-disabled">'
-            + '<a class="mui-btn mui-btn-red car-type-change">车型修改</a>'
-            + '</div>'
-            + '<div class="mui-slider-handle">'
+
+          if (app.getUserRoles('admin')) {
+            html += '<div class="mui-slider-right mui-disabled">'
+              + '<a class="mui-btn mui-btn-red car-type-change">车型修改</a>'
+              + '</div>'
+          }
+
+
+          html += '<div class="mui-slider-handle">'
             + '<div class="list-item">'
             + '<div class="item-top">'
             + '<div class="item-left">'
@@ -433,6 +359,10 @@
         // 更改车型
         $('#OA_task_1').on('tap', '.car-type-change', function () {
           var $li = $(this).parents('li')
+          mui.swipeoutClose($li[0])
+
+
+
           // 修改车型
           mui.openWindow({
             url: 'vehicle-type-change.html',
@@ -446,11 +376,15 @@
               vSn: $li.attr('data-vSn')
             } //自定义扩展参数
           });
-          mui.swipeoutClose($li[0])
+
         })
 
         // 更改项目状态
         $('#program_status').on('tap', function () {
+          if (!app.getUserRoles('admin')) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
           //
           mui.openWindow({
             url: 'vehicle-program-status.html',
@@ -535,8 +469,20 @@
 
       document.addEventListener('update', function () {
         curPage = 1;
-        $('#OA_task_1').html('')
+        $('#OA_task_1').html('');
         fetchData();
+      })
+
+      document.addEventListener('roles', function () {
+        if (!app.getUserRoles('admin')) {
+          $('#program_status').hide()
+        }
+      })
+
+      document.addEventListener('setHeight', function () {
+        // $('#refreshContainer').height($(document).height() - 62)
+        // $('#no-data').height($('#refreshContainer').height())
+        // console.log($('#refreshContainer').height())
       })
     })();
   </script>

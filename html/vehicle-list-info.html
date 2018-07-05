@@ -267,6 +267,7 @@
       var self = null;
       var data = {}
 
+      var infoPage = null;
       //初始化单页的区域滚动
       mui('.mui-scroll-wrapper').scroll();
 
@@ -278,6 +279,19 @@
         // data = self.data;
         // updateView(data);
         fetchData();
+
+        infoPage = mui.preload({
+          url: 'vehicle-info.html',
+          id: 'vehicle-info', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn
+          } //自定义扩展参数
+        })
       });
 
       // 手机适配
@@ -306,7 +320,7 @@
       // 获取数据
       function fetchData() {
         console.log(vSn)
-        app.carQuery({vSn}, function (res) {
+        app.carQuery({ vSn }, function (res) {
           res = JSON.parse(res);
           console.log(res)
           updateView(res.rows[0])
@@ -323,18 +337,21 @@
       function addEvent() {
         // 查看详情
         $('#next').on('tap', function () {
-          mui.openWindow({
-            url: 'vehicle-info.html',
-            id: 'vehicle-info', //默认使用当前页面的url作为id
-            styles: {
-              top: '0px',
-              bottom: H
-            }, //窗口参数
-            extras: {
-              H: H,
-              vSn: vSn
-            } //自定义扩展参数
-          })
+          // mui.openWindow({
+          //   url: 'vehicle-info.html',
+          //   id: 'vehicle-info', //默认使用当前页面的url作为id
+          //   styles: {
+          //     top: '0px',
+          //     bottom: H
+          //   }, //窗口参数
+          //   extras: {
+          //     H: H,
+          //     vSn: vSn
+          //   } //自定义扩展参数
+          // }) 
+          
+          infoPage.show('slide-in-right')
+         
         })
 
         // 查看详情

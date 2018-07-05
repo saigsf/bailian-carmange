@@ -121,7 +121,7 @@
       // 创建子页面，显示首个选项卡其他都影藏
       mui.plusReady(function () {
         
-        if (plus.device.model === 'iPhoneX') {
+        if (mui.os.ios && parseFloat(mui.os.version) >= 10.0) {
           //子页面导入样式重置
           subpages_style.top = 88 + 'px';
           //传参重置
@@ -131,6 +131,7 @@
             'paddingTop': '40px'
           })
         }
+
 
         var self = plus.webview.currentWebview();
 
@@ -165,6 +166,7 @@
           plus.webview.show(targetTab);
           // plus.webview.getWebviewById(targetTab).reload()
           mui.fire(plus.webview.getWebviewById(targetTab), 'statusBar', null)
+          mui.fire(plus.webview.getWebviewById(targetTab), 'roles', null)
         } else {
           //否则，使用fade-in动画，且保存变量
           var temp = {};
@@ -174,6 +176,7 @@
           plus.webview.show(targetTab, "slide-in-right", 300);
           // plus.webview.getWebviewById(targetTab).reload()
           mui.fire(plus.webview.getWebviewById(targetTab), 'statusBar', null)
+          mui.fire(plus.webview.getWebviewById(targetTab), 'roles', null)
         }
         //隐藏当前;
         plus.webview.hide(activeTab);
@@ -194,19 +197,11 @@
         }
       });
 
-      //接车点检
-      document.addEventListener('checkup', function (e) {
-        var defaultTab = document.getElementById(e.detail.domId);
-        //模拟首页点击
-        mui.trigger(defaultTab, 'tap');
-        //切换选项卡高亮
-        var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
-        if (defaultTab !== current) {
-          current.classList.remove('mui-active');
-          defaultTab.classList.add('mui-active');
+      document.addEventListener('roles', function() {
+        if(!app.getUserRoles('uppeople') && !app.getUserRoles('admin')) {
+          // $('#vehicle-check-up').hide()
         }
-      });
-
+      })
 
       // 点击a标签时，检测下一个是否显示完全，如果不完整，则滚动到完整的位置，否则不变。
       // 点击a标签时，检测上一个是否显示完全，如果不完整，则滚动到完整的位置，否则不变。

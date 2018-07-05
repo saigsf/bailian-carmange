@@ -59,6 +59,9 @@
           mui.fire(mainPage, 'goback', null);
           mui.fire(plus.webview.getWebviewById('html/home.html'), 'statusBar', null)
           mui.fire(plus.webview.getWebviewById('html/setting.html'), 'statusBar', null)
+          mui.fire(plus.webview.getWebviewById('html/vehicle.html'), 'roles', null)
+          mui.fire(plus.webview.getWebviewById('html/repair.html'), 'roles', null)
+          mui.fire(mainPage, 'roles', null)
           
           mainPage.show("pop-in");
 

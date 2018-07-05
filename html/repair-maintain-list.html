@@ -117,9 +117,11 @@
       height: 40px
     }
 
-    /* .top {
-      padding: 10px 15px;
-    } */
+    .top {
+      padding-top: 14px;
+      padding-bottom: 8px;
+
+    }
 
     .top .mui-btn {
       border: none
@@ -170,6 +172,7 @@
     .blue {
       color: #2885cf
     }
+
     .no-data {
       position: relative;
       background-color: transparent;
@@ -178,22 +181,22 @@
 </head>
 
 <body>
-  <form class="top">
 
-    <div class="search-wrapper" id="search">
-
-      <div class="search-btn">
-        <i class="icon-search icon"></i>
-      </div>
-      <div class="search-text">
-        <input type="text" readonly placeholder="请输入车辆编号">
-      </div>
-    </div>
-  </form>
   <!--下拉刷新容器-->
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
+      <form class="top">
 
+        <div class="search-wrapper" id="search">
+
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
+          </div>
+          <div class="search-text">
+            <input type="text" readonly placeholder="请输入车辆编号">
+          </div>
+        </div>
+      </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
 
       </ul>
@@ -244,9 +247,9 @@
             H: H
           }
         });
-        
-        $('#refreshContainer').height($(document).height() - 62)
-        $('#no-data').height($('#refreshContainer').height())
+
+        // $('#refreshContainer').height($(document).height() - 62)
+        // $('#no-data').height($('#refreshContainer').height())
       });
       addEvent();
       // 下拉刷新
@@ -378,7 +381,7 @@
         // 搜索
         $('#search').on('tap', function () {
           prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', {prevId: self.id})
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
         })
 
         // 保养

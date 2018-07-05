@@ -138,19 +138,26 @@
         activeTab = targetTab;
       });
 
-      //接车点检
-      document.addEventListener('repair', function (e) {
-        console.log(e.detail.domId)
-        var defaultTab = document.getElementById(e.detail.domId);
-        //模拟首页点击
-        mui.trigger(defaultTab, 'tap');
-        //切换选项卡高亮
-        var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
-        if (defaultTab !== current) {
-          current.classList.remove('mui-active');
-          defaultTab.classList.add('mui-active');
+      // //接车点检
+      // document.addEventListener('repair', function (e) {
+      //   console.log(e.detail.domId)
+      //   var defaultTab = document.getElementById(e.detail.domId);
+      //   //模拟首页点击
+      //   mui.trigger(defaultTab, 'tap');
+      //   //切换选项卡高亮
+      //   var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
+      //   if (defaultTab !== current) {
+      //     current.classList.remove('mui-active');
+      //     defaultTab.classList.add('mui-active');
+      //   }
+      // });
+      
+      document.addEventListener('roles', function() {
+        if(!app.getUserRoles('engineer') && !app.getUserRoles('admin')) {
+          $('#defaultTab').hide()
         }
-      });
+      })
+
     })()
   </script>
 </body>

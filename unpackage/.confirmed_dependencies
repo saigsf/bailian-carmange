@@ -271,7 +271,8 @@
       "js/app/config.js",
       "js/app/app.js",
       "js/app/vehicle-list.js",
-      "img/common/icon_app.png"
+      "img/common/icon_app.png",
+      "html/vehicle-list-sub.html"
     ],
     "refer": [
       "html/vehicle-info.html",

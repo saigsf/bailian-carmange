@@ -74,7 +74,7 @@
       <!-- <a class="mui-tab-item" href="html/popover.html" id="openPopover">
         <span class="mui-icon icon icon-add"></span>
       </a> -->
-      <a class="mui-tab-item" href="html/doorpost.html">
+      <a class="mui-tab-item" id="doorpost" href="html/doorpost.html">
         <span class="mui-icon icon icon-door"></span>
         <span class="mui-tab-label">门岗</span>
       </a>
@@ -267,6 +267,11 @@
         	
         })
 
+        document.addEventListener('roles', function() {
+          if(!app.getUserRoles('driverManager') && !app.getUserRoles('admin')) {
+            // $('#doorpost').hide()
+          }
+        })
       })()
     </script>
   </body>

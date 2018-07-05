@@ -275,53 +275,105 @@
   height: 40px;
   background-image: url(../img/common/md/icon_vehicleinput@2x.png);
 }
+.icon-vehicle-input-disabled {
+  width: 40px;
+  height: 40px;
+  background-image: url(../img/common/md/icon_vehicleinput_disabled@2x.png);
+}
+
 
 .icon-safe-check {
   width: 40px;
   height: 35px;
   background-image: url(../img/common/md/icon_safecheck@2x.png);
 }
+.icon-safe-check-disabled {
+  width: 40px;
+  height: 35px;
+  background-image: url(../img/common/md/icon_safecheck_disabled@2x.png);
+}
+
 
 .icon-wire-check {
   width: 40px;
   height: 40px;
   background-image: url(../img/common/md/icon_wirecheck@2x.png);
 }
+.icon-wire-check-disabled {
+  width: 40px;
+  height: 40px;
+  background-image: url(../img/common/md/icon_wirecheck_disabled@2x.png);
+}
+
 
 .icon-bom-check {
   width: 40px;
   height: 35px;
   background-image: url(../img/common/md/icon_bomcheck@2x.png);
 }
+.icon-bom-check-disabled {
+  width: 40px;
+  height: 35px;
+  background-image: url(../img/common/md/icon_bomcheck_disabled@2x.png);
+}
+
 
 .icon-vehicle-auditing {
   width: 40px;
   height: 30px;
   background-image: url(../img/common/md/icon_vehicleauditing@2x.png);
 }
+.icon-vehicle-auditing-disabled {
+  width: 40px;
+  height: 30px;
+  background-image: url(../img/common/md/icon_vehicleauditing_disabled@2x.png);
+}
+
 
 .icon-vehicle-check-down {
   width: 40px;
   height: 30px;
   background-image: url(../img/common/md/icon_vehicledown@2x.png);
 }
+.icon-vehicle-check-down-disabled {
+  width: 40px;
+  height: 30px;
+  background-image: url(../img/common/md/icon_vehicledown_disabled@2x.png);
+}
+
 
 .icon-tools {
   width: 40px;
   height: 35px;
   background-image: url(../img/common/md/icon_tools@2x.png);
 }
+.icon-tools-disabled {
+  width: 40px;
+  height: 35px;
+  background-image: url(../img/common/md/icon_tools_disabled@2x.png);
+}
+
 
 .icon-up-check {
   width: 35px;
   height: 35px;
   background-image: url(../img/common/md/up_check@2x.png);
 }
+.icon-up-check-disabled {
+  width: 35px;
+  height: 35px;
+  background-image: url(../img/common/md/up_check_disabled@2x.png);
+}
 
 .icon-down-check {
   width: 35px;
   height: 35px;
   background-image: url(../img/common/md/down_check@2x.png);
+}
+.icon-down-check-disabled {
+  width: 35px;
+  height: 35px;
+  background-image: url(../img/common/md/down_check_disabled@2x.png);
 }
 
 .icon-insurance-info {

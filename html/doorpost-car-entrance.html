@@ -27,10 +27,12 @@
       width: 30px;
       height: 30px;
     }
-    
+
     .top {
-      padding-top: 16px;
+      padding-top: 14px;
+      padding-bottom: 8px;
     }
+
     .search-wrapper {
       height: 40px;
       line-height: 40px;
@@ -117,12 +119,12 @@
   </style>
 </head>
 
-<body><form class="top">
-        <!-- <div class="mui-input-row mui-search">
-          <input type="search" class="mui-input-clear" placeholder="请输入关键词">
-        </div> -->
+<body>
+  <!--下拉刷新容器-->
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form class="top">
         <div class="search-wrapper" id="search">
-
           <div class="search-btn">
             <i class="icon-search icon"></i>
           </div>
@@ -131,14 +133,7 @@
           </div>
         </div>
       </form>
-  <!--下拉刷新容器-->
-  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-    <div class="mui-scroll">
-      
-      <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-
-
-      </ul>
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview"></ul>
     </div>
   </div>
 
@@ -172,8 +167,8 @@
 
       mui.plusReady(function () {
         addEvent()
-        $('#refreshContainer').height($(document).height() - 62)
-        $('#no-data').height($('#refreshContainer').height())
+        // $('#refreshContainer').height($(document).height() - 62)
+        // $('#no-data').height($('#refreshContainer').height())
       });
 
       // 下拉刷新业务

@@ -1675,7 +1675,8 @@
 					"img/common/md/icon_corner_mark_red@2x.png",
 					"img/common/md/icon_status_change.png",
 					"img/common/md/icon_checked@2x.png",
-					"img/common/md/no_data@2x.png"
+					"img/common/md/no_data@2x.png",
+					"html/vehicle-list-sub.html"
 				],
 				"refer": [
 					"html/vehicle-info.html",

@@ -29,7 +29,8 @@
     }
 
     .top {
-      padding-top: 16px;
+      padding-top: 14px;
+      padding-bottom: 8px;
     }
 
 
@@ -221,6 +222,7 @@
     .item-right .item-bottom {
       padding: 0
     }
+
     .item-left {
       width: 78px;
     }
@@ -239,14 +241,15 @@
   </style>
 </head>
 
-<body><form class="top">
+<body>
+  <!--下拉刷新容器-->
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form class="top">
         <div class="allcheck" id="allcheck">
           <input type="checkbox" name="" id="all_check">
           <label for="all_check">全选</label>
         </div>
-        <!-- <div class="mui-input-row mui-search">
-          <input type="search" id="search" class="mui-input-clear" placeholder="请输入驾驶员姓名">
-        </div> -->
         <div class="search-wrapper" id="search">
 
           <div class="search-btn">
@@ -261,47 +264,7 @@
         </div>
         <div class="canclecheck" id="canclecheck">取消</div>
       </form>
-  <!--下拉刷新容器-->
-  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-    <div class="mui-scroll">
-      
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <!-- <li class="mui-table-view-cell">
-          <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray update">修改</a>
-            <a class="mui-btn mui-btn-red delete">删除</a>
-          </div>
-          <div class="mui-slider-handle">
-            <div class="list-item">
-              <div class="item-checked">
-                <input type="checkbox" name="" id="myCheck">
-                <label for="myCheck"></label>
-              </div>
-              <div class="item-left">
-                <img src="../img/common/md/driver_pic.png" />
-              </div>
-              <div class="item-right">
-                <div class="item-top">
-                  <div class="number">
-                    <h4>王春生</h4>
-                    <p>
-                      <span>ICcard：</span>
-                      <span class="">8888888888888888</span>
-                    </p>
-                  </div>
-                </div>
-                <div class="item-bottom">
-                  <p>
-                    <span>授权分组：</span>Q组</p>
-                  <p>
-                    <span>电话：</span>18792889956</p>
-                </div>
-              </div>
-            </div>
-            <span class="marker">已禁用</span>
-          </div>
-        </li> -->
-
 
       </ul>
       <div class="no-data" id="no-data">
@@ -383,8 +346,8 @@
         H = self.H;
         addEvent()
 
-        $('#refreshContainer').height($(document).height() - 62)
-        $('#no-data').height($('#refreshContainer').height())
+        // $('#refreshContainer').height($(document).height() - 62)
+        // $('#no-data').height($('#refreshContainer').height())
       });
 
       // 获取数据
@@ -414,12 +377,16 @@
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<li class="mui-table-view-cell" data-id="' + item.id + '" data-name="' + item.name + '">' +
-            '<div class="mui-slider-right mui-disabled">' +
-            '<a class="mui-btn mui-btn-gray update">修改</a>' +
-            '<a class="mui-btn mui-btn-red delete">删除</a>' +
-            '</div>' +
-            '<div class="mui-slider-handle">' +
+          html += '<li class="mui-table-view-cell" data-id="' + item.id + '" data-name="' + item.name + '">'
+
+          if (app.getUserRoles('admin') || app.getUserRoles('driverManager')) {
+            html += '<div class="mui-slider-right mui-disabled">' +
+              '<a class="mui-btn mui-btn-gray update">修改</a>' +
+              '<a class="mui-btn mui-btn-red delete">删除</a>' +
+              '</div>'
+          }
+
+          html += '<div class="mui-slider-handle">' +
             '<div class="list-item">' +
             '<div class="item-checked">' +
             '<input type="checkbox" name="" id="myCheck' + item.id + '">' +
@@ -434,8 +401,8 @@
             '</div>' +
             '</div>' +
             '<div class="item-bottom">' +
-            '<p><span>授权分组：</span>'+(item.groups.length>0 ? item.groups.join():'-')+'</p>' +
-            '<p><span>电话：</span>' + (item.telephone?item.telephone:'-') + '</p>' +
+            '<p><span>授权分组：</span>' + (item.groups.length > 0 ? item.groups.join() : '-') + '</p>' +
+            '<p><span>电话：</span>' + (item.telephone ? item.telephone : '-') + '</p>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -447,39 +414,6 @@
       }
 
       function addEvent() {
-
-        // 授权/取消授权业务
-        // $('#OA_task_1').on('tap', '.authorize', function () {
-        //   var $li = $(this).parents('li')
-        //   // mui.toast('这里要添加授权业务');
-        //   if ($(this).attr('data-isallow') == '禁止') {
-        //     mui.openWindow({
-        //       url: 'doorpost-driver-authorize.html',
-        //       id: 'doorpost-driver-authorize', //默认使用当前页面的url作为id
-        //       styles: {
-        //         top: '0px',
-        //         bottom: H
-        //       }, //窗口参数
-        //       extras: {
-        //         H: H,
-        //         ids: $li.attr('data-id'),
-        //         names: $li.attr('data-name')
-        //       } //自定义扩展参数
-        //     })
-        //   } else {
-        //     app.cancelAuthorized({
-        //       ids: $li.attr('data-id')
-        //     }, function (res) {
-        //       console.log(res);
-        //       res = JSON.parse(res)
-        //       if (res.ret) {
-        //         plus.webview.currentWebview().reload()
-        //       } else {
-        //         mui.toast('禁止失败')
-        //       }
-        //     })
-        //   }
-        // })
 
         // 驾驶员信息修改
         $('#OA_task_1').on('tap', '.update', function () {
@@ -499,24 +433,6 @@
           })
         })
 
-        // 删除业务
-        $('#OA_task_1').on('tap', '.delete', function () {
-          var $li = $(this).parents('li')
-          // console.log($li.attr('data-id'))
-          // mui.toast('这里要添加删除业务')
-          app.carDriverDelete({
-            ids: $li.attr('data-id')
-          }, function (res) {
-            console.log(JSON.stringify(res))
-            // res = JSON.parse(res);
-            if (res.ret) {
-              $li.remove();
-              mui.toast('删除成功')
-            } else {
-              mui.toast('删除失败')
-            }
-          })
-        })
         // 添加驾驶员
         $('#add').on('tap', function () {
           mui.openWindow({
@@ -581,12 +497,20 @@
       }
 
       // 长按
-      document.addEventListener("longtap", function () {
+      function langTap() {
         console.log("长按操作");
         $('#OA_task_1').addClass('batch');
         $('.top').addClass('batch')
         $('.btn-container').fadeIn()
-      });
+      }
+      document.addEventListener("longtap", langTap, false);
+
+      if (!app.getUserRoles('admin') && !app.getUserRoles('driverManager')) {
+        document.removeEventListener('longtap', langTap, false);
+        $('#add').hide().prev().css('width', '100%')
+      }
+
+
 
       // 取消
       $('.top').on('tap', '#canclecheck', canceLongtap);
@@ -724,6 +648,10 @@
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();
+      })
+
+      document.addEventListener('roles', function () {
+        document.removeEventListener('longtap', function () { })
       })
     })()
   </script>

@@ -35,7 +35,7 @@
       width: 90%;
       /* margin: 40px auto; */
       position: absolute;
-      top: 35%;
+      top: 250px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -82,9 +82,11 @@
     .tab-row:nth-child(2n) {
       background-color: #f6fbff;
     }
+
     .info-content-bottom {
       position: relative;
     }
+
     .take-down {
       position: absolute;
       bottom: 4px;
@@ -104,13 +106,16 @@
     .hide {
       display: none;
     }
+
     .hide.info-item {
       height: 0;
       padding: 0 12px;
     }
+
     .red {
       color: red;
     }
+
     .green {
       color: green
     }
@@ -198,8 +203,8 @@
               </div>
             </div>
             <div class="take-up" id="take-up">
-                <i class="icon icon-take-down"></i>
-                <span>收起</span>
+              <i class="icon icon-take-down"></i>
+              <span>收起</span>
             </div>
           </div>
         </div>
@@ -261,11 +266,31 @@
       self = plus.webview.currentWebview();
       H = self.H;
       vSn = self.vSn;
+      // 工程师
+      if (!(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
+        $('#vehicle-input').find('i').removeClass('icon-vehicle-input').addClass('icon-vehicle-input-disabled').next().css('color', '#bbb')
+      }
+      // 维修技师
+      if (!(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
+        $('#vehicle-check-safe').find('i').removeClass('icon-safe-check').addClass('icon-safe-check-disabled').next().css('color', '#bbb')
+        $('#vehicle-check-wire').find('i').removeClass('icon-wire-check').addClass('icon-wire-check-disabled').next().css('color', '#bbb')
+        $('#vehicle-check-bom').find('i').removeClass('icon-bom-check').addClass('icon-bom-check-disabled').next().css('color', '#bbb')
+        $('#vehicle-RD-tools').find('i').removeClass('icon-tools').addClass('icon-tools-disabled').next().css('color', '#bbb')
+        $('#vehicle-check-down').find('i').removeClass('icon-vehicle-check-down').addClass('icon-vehicle-check-down-disabled').next().css('color', '#bbb')
+      }
+      // 审核
+      if (!app.getUserRoles('admin')) {
+        $('#vehicle-auditing').find('i').removeClass('icon-vehicle-auditing').addClass('icon-vehicle-auditing-disabled').next().css('color', '#bbb')
+
+      }
+      
+
       fetchData();
       // data = self.data;
       addEvent()
-    })
 
+
+    })
     function handsetAdaption() {
       if (plus.device.model === 'iPhoneX') {
         //页面样式重置
@@ -288,16 +313,16 @@
       $link.on('tap', function () {
         var id = $(this).attr('id');
 
-        
-        if(id == 'vehicle-input' && !(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
+
+        if (id == 'vehicle-input' && !(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
           mui.alert('您没有这个权限', '提示')
           return;
         }
-        if((id != 'vehicle-input' && id != 'vehicle-auditing') && !(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
+        if ((id != 'vehicle-input' && id != 'vehicle-auditing') && !(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
           mui.alert('您没有这个权限', '提示')
           return;
         }
-        if(id == 'vehicle-auditing' && !app.getUserRoles('admin')) {
+        if (id == 'vehicle-auditing' && !app.getUserRoles('admin')) {
           mui.alert('您没有这个权限', '提示')
           return;
         }
@@ -338,7 +363,7 @@
 
       $('#vehicle-info').on('tap', '.info-content-bottom', function (e) {
         e.stopPropagation();
-        if(flag) {
+        if (flag) {
           return;
         }
         flag = true;
@@ -349,7 +374,7 @@
             'height': '0px',
             'padding': '0px 12px'
           }).animate({
-            'height': '380px',
+            'height': '420px',
             'padding': '12px'
           });
         $('#take-down').hide()
@@ -365,7 +390,7 @@
           }).css({
             'display': 'none'
           });
-          $('#take-down').show()
+        $('#take-down').show()
       })
     }
     // addEvent()
@@ -374,7 +399,7 @@
     function fetchData() {
       app.carQuery({
         vSn: vSn
-      }, function(res) {
+      }, function (res) {
         res = JSON.parse(res)
         console.log(res)
         updateView(res.rows[0])
@@ -382,20 +407,20 @@
     }
     function updateView(data) {
       dataRetrieval(data);
-      if(data.istatus == '已申请' || data.istatus == '已续保') {
+      if (data.istatus == '已申请' || data.istatus == '已续保') {
         $('#istatus').addClass('green')
       } else {
         $('#istatus').addClass('red')
       }
     }
 
-    document.addEventListener('update', function() {
+    document.addEventListener('update', function () {
       fetchData();
     })
 
 
 
-    
+
   </script>
 </body>
 

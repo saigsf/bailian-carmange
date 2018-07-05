@@ -139,6 +139,7 @@
       var H = null;
       var self = null;
       var vSn = '2018ICECTC006';
+      var marker, lineArr = [];
 
       var icon = new AMap.Icon({
         size: new AMap.Size(35, 35),  //图标大小
@@ -301,52 +302,89 @@
       }
 
       // fetchData() 
+
+
+      var updateView = function (res) {
+        // res = [
+        //   {
+        //     longitude: 108.929346,
+        //     latitude: 34.303791,
+        //     towards: 270,
+        //     name: '奥迪'
+        //   },
+        //   {
+        //     longitude: 108.929202,
+        //     latitude: 34.283391,
+        //     name: '奥迪'
+        //   },
+        //   {
+        //     longitude: 108.929202,
+        //     latitude: 34.276471,
+        //     name: '奥迪'
+        //   },
+        //   {
+        //     longitude: 108.928771,
+        //     latitude: 34.275397,
+        //     name: '奥迪'
+        //   }
+        // ]
+        marker = new AMap.Marker({
+          map: map,
+          position: [res[0].longitude, res[0].latitude],
+          icon: icon,
+          size: new AMap.Size(24, 44),
+          offset: new AMap.Pixel(-15, -10),
+          autoRotation: true,
+          angle: res[0].towards
+        });
+        console.log(res[0].towards)
+        // lineArr.length = 0;
+        for (var i = 0; i < res.length; i++) {
+          lineArr.push(new AMap.LngLat(res[i].longitude, res[i].latitude));
+        }
+        // 绘制轨迹
+        var polyline = new AMap.Polyline({
+          map: map,
+          path: lineArr,
+          strokeColor: "#00A", //线颜色
+          strokeOpacity: 1, //线透明度
+          strokeWeight: 3, //线宽
+          strokeStyle: "solid" //线样式
+        });
+        var passedPolyline = new AMap.Polyline({
+          map: map,
+          path: lineArr,
+          strokeColor: "#2885cf", //线颜色
+          strokeOpacity: 1, //线透明度
+          strokeWeight: 3, //线宽
+          strokeStyle: "solid" //线样式
+        });
+
+        marker.on('moving', function (e) {
+          passedPolyline.setPath(e.passedPath);
+        })
+        map.setFitView();
+        marker.moveAlong(lineArr, 500);
+
+      }
+
       function fetchData() {
         var data = serialize($('form'));
-        
+
         // 实时数据查询
         app.carTrack(data, function (res) {
           console.log(res)
           res = JSON.parse(res)
-          // if (res.length <= 0) {
-          //   mui.toast('没有数据');
-          //   return;
-          // }
-          // updateView.carTrack(res)
+          if (res.ret === false) {
+            mui.toast(res.msg);
+            return;
+          }
+          updateView(res)
         })
       }
 
-      var updateView = function (data) {
-        data = [
-          {
-            longitude: 108.929346,
-            latitude: 34.303791,
-            name: '奥迪'
-          },
-          {
-            longitude: 108.929202,
-            latitude: 34.283391,
-            name: '奥迪'
-          },
-          {
-            longitude: 108.929202,
-            latitude: 34.276471,
-            name: '奥迪'
-          },
-          {
-            longitude: 108.928771,
-            latitude: 34.275397,
-            name: '奥迪'
-          }
-        ]
-
-
-      }
-
-
-
       // 获取数据
-      $('#search-btn').on('tap', function() {
+      $('#search-btn').on('tap', function () {
         fetchData()
       })
       // 状态栏颜色更改

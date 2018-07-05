@@ -25,6 +25,10 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
     }
 
+    .pressure input[type=number] {
+      margin: 0;
+    }
+
     .pressure-vat {
       display: flex;
       justify-content: flex-start;
@@ -224,47 +228,51 @@
           <div class="vat-right">
             <div class="vat-right-item">
               <label>1缸</label>
-              <select name="one_p" id="one_p">
+              <input type="number" name="one_p" id="one_p">
+              <!-- <select name="one_p" id="one_p">
                 <option value="">请选择</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-              </select>
-              <i class="mui-icon mui-icon-arrowdown"></i>
+              </select> -->
+              <!-- <i class="mui-icon mui-icon-arrowdown"></i> -->
             </div>
             <div class="vat-right-item">
               <label>2缸</label>
-              <select name="two_p" id="two_p">
+              <input type="number" name="two_p" id="two_p">
+              <!-- <select name="two_p" id="two_p">
                 <option value="">请选择</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-              </select>
-              <i class="mui-icon mui-icon-arrowdown"></i>
+              </select> -->
+              <!-- <i class="mui-icon mui-icon-arrowdown"></i> -->
             </div>
             <div class="vat-right-item">
               <label>3缸</label>
-              <select name="three_p" id="three_p">
+              <input type="number" name="three_p" id="three_p">
+              <!-- <select name="three_p" id="three_p">
                 <option value="">请选择</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-              </select>
-              <i class="mui-icon mui-icon-arrowdown"></i>
+              </select> -->
+              <!-- <i class="mui-icon mui-icon-arrowdown"></i> -->
             </div>
             <div class="vat-right-item">
               <label>4缸</label>
-              <select name="four_p" id="four_p">
+              <input type="number" name="four_p" id="four_p">
+              <!-- <select name="four_p" id="four_p">
                 <option value="">请选择</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-              </select>
-              <i class="mui-icon mui-icon-arrowdown"></i>
+              </select> -->
+              <!-- <i class="mui-icon mui-icon-arrowdown"></i> -->
             </div>
           </div>
         </div>
@@ -1505,8 +1513,9 @@
       var pressure = serialize($('#pressure'));
       pressure.fuel_p = $('#fuel_p').html()
       pressure.vSn = vSn
-      pressure.id = $('#pressure').attr('data-id')
+      // pressure.id = $('#pressure').attr('data-id')
       console.log(JSON.stringify(pressure))
+      console.log(hasEmptyValue(pressure))
       if (hasEmptyValue(pressure)) {
         submitLock = false;
         mui.toast('请填写完整的缸压数据');

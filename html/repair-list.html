@@ -192,60 +192,26 @@
 </head>
 
 <body>
-  <form class="top">
-    <div class="search-wrapper" id="search">
 
-      <div class="search-btn">
-        <i class="icon-search icon"></i>
-      </div>
-      <div class="search-text">
-        <input type="text" readonly placeholder="请输入车辆编号">
-      </div>
-    </div>
-    <a href="#popover" id="openPopover" class="openPopover">
-      <i class="icon icon-filter">筛选</i>
-    </a>
-
-  </form>
   <!--下拉刷新容器-->
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
+      <form class="top">
+        <div class="search-wrapper" id="search">
 
-      <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-        <!-- <li class="mui-table-view-cell" data-vSn="" data-status="true">
-          <div class="mui-slider-right mui-disabled">
-            <a class="mui-btn mui-btn-gray settop">优先</a>
-            <a class="mui-btn mui-btn-blue maintain">保养</a>
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
           </div>
-          <div class="mui-slider-handle">
-            <div class="list-item">
-              <div class="item-left">
-                <img src="../img/common/md/backup_picture.png" />
-                <i class="icon icon-nopic"></i>
-              </div>
-              <div class="item-right">
-                <div class="item-top">
-                  <div class="number">
-                    <h4>2018ICECTC001</h4>
-                    <p>
-                      <span>维修项目：</span>
-                      <span class="blue">换轮胎</span>
-                    </p>
-                  </div>
-                </div>
-                <div class="item-bottom">
-                  <p>
-                    <span>申请人</span>：张三</p>
-                  <p>
-                    <span>申请日期</span>：2018-02-22</p>
-                </div>
-              </div>
-            </div>
-            <span class="marker blue">已完成</span>
+          <div class="search-text">
+            <input type="text" readonly placeholder="请输入车辆编号">
           </div>
-        </li> -->
+        </div>
+        <a href="#popover" id="openPopover" class="openPopover">
+          <i class="icon icon-filter">筛选</i>
+        </a>
 
-      </ul>
+      </form>
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview"></ul>
     </div>
   </div>
 
@@ -313,10 +279,10 @@
         })
 
 
-        console.log($(document).height())
-        $('#refreshContainer').height($(document).height() - 62)
-        console.log($('#refreshContainer').height())
-        $('#no-data').height($('#refreshContainer').height())
+        // console.log($(document).height())
+        // $('#refreshContainer').height($(document).height() - 62)
+        // console.log($('#refreshContainer').height())
+        // $('#no-data').height($('#refreshContainer').height())
       });
 
 
@@ -377,23 +343,46 @@
           const item = data[i];
           // console.log(item.status) 正在维修   已完成   排队中
           html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="' + item.status + '" data-id="' + item.id + '">'
-            + '<div class="mui-slider-right mui-disabled">'
+
           if (item.status == '已完成') {
-            html += '<a class="mui-btn mui-btn-gray settop">优先</a>'
-              + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+            if (app.getUserRoles('admin') || app.getUserRoles('maintenanceManager')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+                + '</div>'
+            
+            }
 
           } else if (item.status == '排队中') {
-            html += '<a class="mui-btn mui-btn-gray settop">优先</a>'
-              + '<a class="mui-btn mui-btn-red allot">分配</a>'
-              + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+            if (app.getUserRoles('maintenanceManager')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+                + '</div>'
+            
+            }
+            if (app.getUserRoles('admin')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
+                + '<a class="mui-btn mui-btn-red allot">分配</a>'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+                + '</div>'
+            
+            }
+
           } else if (item.status == '维修中') {
-            html += '<a class="mui-btn mui-btn-gray settop">优先</a>'
-              + '<a class="mui-btn mui-btn-red repaired">完成</a>'
-              + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+            if (app.getUserRoles('admin') || app.getUserRoles('maintenanceManager')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
+                + '<a class="mui-btn mui-btn-red repaired">完成</a>'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+               + '</div>'
+             
+            }
+
           }
 
-          html += '</div>'
-            + '<div class="mui-slider-handle">'
+          html += '<div class="mui-slider-handle">'
             + '<div class="list-item">'
             + '<div class="item-left">'
             + '<img src="../img/common/md/backup_picture.png" />'
@@ -491,7 +480,7 @@
           }, 0);
 
           console.log(id)
-          if(!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
+          if (!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
             mui.alert('您没有这个权限', '提示')
             return;
           }
@@ -521,7 +510,7 @@
             mui.swipeoutClose($li[0]);
           }, 0);
 
-          if(!app.getUserRoles('admin')) {
+          if (!app.getUserRoles('admin')) {
             mui.alert('您没有这个权限', '提示')
             return;
           }
@@ -549,7 +538,7 @@
             mui.swipeoutClose($li[0]);
           }, 0);
 
-          if(!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
+          if (!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
             mui.alert('您没有这个权限', '提示')
             return;
           }
@@ -600,7 +589,7 @@
             mui.swipeoutClose($li[0]);
           }, 0);
 
-          if(!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
+          if (!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
             mui.alert('您没有这个权限', '提示')
             return;
           }
