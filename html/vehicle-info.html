@@ -2186,7 +2186,7 @@
         input: function (data) {
           if (data == null) {
             // console.log(1233444)
-            mui.toast('车辆录入未完成');
+            // mui.toast('车辆录入未完成');
             $('#vehicle_input .no-data').show().prev().hide()
             return;
           }
@@ -2208,7 +2208,7 @@
         safeCheck: function (res) {
           var data = res.checkResults;
           if (data.length == 0) {
-            mui.toast('安全检查未完成！');
+            // mui.toast('安全检查未完成！');
             $('#safeCheck .no-data').show().prev().hide()
             return;
           }
@@ -2239,7 +2239,7 @@
         bomCheck: function (res) {
           var data = res.checkResults;
           if (data.length == 0) {
-            mui.toast('bom检查未完成！');
+            // mui.toast('bom检查未完成！');
             $('#bomCheck .no-data').show().prev().hide()
             return;
           }
@@ -2266,7 +2266,7 @@
         wire: function (res) {
           var data = res.checkResults;
           if (data.length == 0) {
-            mui.toast('线束检查未完成！');
+            // mui.toast('线束检查未完成！');
             $('#wireCheck .no-data').show().prev().hide()
             return;
           }
@@ -2284,7 +2284,7 @@
         },
         tools: function (data) {
           if (data.length == 0) {
-            mui.toast('研发工具未安装');
+            // mui.toast('研发工具未安装');
             $('#tools .no-data').show().prev().hide()
             return;
           }
@@ -2294,8 +2294,8 @@
             html += '<tr>\
                   <td><span>'+ item.toolName + '</span></td>\
                   <td>'+ item.applicant + '</td>\
-                  <td>'+ item.equippedDate + '</td>\
-                  <td>'+ item.operator + '</td>\
+                  <td>'+ (item.equippedDate ? item.equippedDate : '-') + '</td>\
+                  <td>'+ (item.operator ? item.operator : '-') + '</td>\
                 </tr>'
           }
           $('#tools table tbody').html(html);
@@ -2304,7 +2304,7 @@
         },
         review: function (data) {
           if (data == null) {
-            mui.toast('审核未完成');
+            // mui.toast('审核未完成');
             $('#review .no-data').show().prev().hide()
             return;
           }
@@ -2319,14 +2319,14 @@
         },
         backcheck: function (data) {
           if (data == null) {
-            mui.toast('还车点检未完成');
+            // mui.toast('还车点检未完成');
             $('#check_down .no-data').show().prev().hide()
             return;
           }
         },
         insurance: function (data) {
           console.log(data)
-          if (!data || !data.ret || data.length == 0) {
+          if (data.length == 0) {
             $('#insurance .no-data').show().prev().hide()
             return;
           }
@@ -2350,7 +2350,7 @@
           $('#insNo').html(html)
         },
         license: function (data) {
-          if (!data || !data.ret || data.length == 0) {
+          if (data.length == 0) {
             $('#license .no-data').show().prev().hide()
             return;
           }

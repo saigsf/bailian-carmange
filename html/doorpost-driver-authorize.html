@@ -124,11 +124,11 @@
             <label>是否授权</label>
             <div class="mui-radio-box">
               <div class="mui-radio">
-                <input name="isallow" id="yes" type="radio" value="授权" checked>
+                <input name="isallow" id="yes" type="radio" value="是" checked>
                 <label for="#yes">是</label>
               </div>
               <div class="mui-radio">
-                <input name="isallow" id="no" value="禁止" type="radio">
+                <input name="isallow" id="no" value="否" type="radio">
                 <label for="#no">否</label>
               </div>
             </div>
@@ -230,9 +230,10 @@
       // 获取分组
       fetchData()
       function fetchData() {
-        app.getGroup({}, function (res) {
-          res = JSON.parse(res)
-          // console.log(res);
+        app.carDriverGetGroup({}, function (res) {
+          console.log(res);
+          // res = JSON.parse(res)
+
           updateView(res)
         })
       }
@@ -252,21 +253,24 @@
         $('#next').on('tap', function () {
           var startTime = $('#start_date').val();
           var endTime = $('#end_date').val();
-          var gid = $('#groups').val();
-          var isallow = '是'
-          console.log(gid)
-          
-          if ($('input[name=isallow]').val() == '授权') {
-            app.authorized({
-              isallow,
-              ids,
-              startTime,
-              endTime,
-              gid
-            }, function (res) {
-              
-              // res = JSON.parse(res)
-              console.log(res.msg)
+          var gid = $('#groups').val().join();
+          var isallow = $('input[name=isallow]').val()
+
+          // console.log($('input[name=isallow]').val())
+          var opt = {
+            isallow,
+            ids,
+            startTime,
+            endTime,
+            gid
+          }
+          console.log(JSON.stringify(opt))
+          // return;
+          if ($('input[name=isallow]').val() == '是') {
+            app.authorized(opt, function (res) {
+              console.log(res)
+              res = JSON.parse(res)
+
               mui.toast(res.msg)
               if (res.ret) {
                 // mui.toast('授权成功')

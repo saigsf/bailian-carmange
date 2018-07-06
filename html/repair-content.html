@@ -143,6 +143,7 @@
       var H = null;
       var vSn = null;
       var view = null;
+      var ids = null;
 
       mui.plusReady(function () {
         handsetAdaption()
@@ -150,6 +151,7 @@
         view = plus.webview.getWebviewById('repair-list.html')
         H = self.H;
         vSn = self.vSn;
+        ids = self.ids;
         $('#vSn').html(vSn)
       })
 
@@ -175,6 +177,7 @@
         $('#next').on('tap', function () {
           var data = serialize($('#allot'));
           data.vSn = $('#vSn').html()
+          data.id = ids;
 
           app.carMaintainComplete(data, function (res) {
             // res = JSON.parse(res);

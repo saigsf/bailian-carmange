@@ -136,12 +136,12 @@
           <div class="info-content">
             <div class="info-content-top">
               <p>车辆编号</p>
-              <h3 id="vSn_0">——</h3>
+              <h3 id="vSn_0">-</h3>
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="engineNumber_0">-</h5>
-                <p>发动机号</p>
+                <h5 id="project_sn_0">-</h5>
+                <p>项目编号</p>
               </div>
               <div class="info-content-item">
                 <h5 id="projectEngineer_0">-</h5>
@@ -190,8 +190,16 @@
                 <div class="tab-col" id="checks_status"></div>
               </div>
               <div class="tab-row">
+                <div class="tab-col">审核进度</div>
+                <div class="tab-col" id="rstatus"></div>
+              </div>
+              <div class="tab-row">
                 <div class="tab-col">保险状态</div>
                 <div class="tab-col" id="istatus"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">保险终止日</div>
+                <div class="tab-col" id="endTime"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">创建时间</div>
@@ -211,9 +219,9 @@
       </div>
 
       <div class="input-operation" id="input_operation">
-        <a class="input-operation-item" id="vehicle-input" href="#">
+        <a class="input-operation-item" id="vehicle-up-check" href="#">
           <i class="icon icon-vehicle-input"></i>
-          <span>信息录入</span>
+          <span>信息修改</span>
         </a>
         <a class="input-operation-item" id="vehicle-check-safe" href="#">
           <i class="icon icon-safe-check"></i>
@@ -257,6 +265,8 @@
     var self = null;
     var vSn = '2018ICECTC001';
     var data = {}
+    var idArr = ['vehicle-up-check', 'vehicle-check-safe', 'vehicle-check-wire', 'vehicle-check-bom', 'vehicle-RD-tools', 'vehicle-auditing', 'vehicle-check-down', 'vehicle-info']
+    var page = []
 
     mui.init();
     //初始化单页的区域滚动
@@ -268,7 +278,7 @@
       vSn = self.vSn;
       // 工程师
       if (!(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
-        $('#vehicle-input').find('i').removeClass('icon-vehicle-input').addClass('icon-vehicle-input-disabled').next().css('color', '#bbb')
+        $('#vehicle-up-check').find('i').removeClass('icon-vehicle-input').addClass('icon-vehicle-input-disabled').next().css('color', '#bbb')
       }
       // 维修技师
       if (!(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
@@ -277,11 +287,29 @@
         $('#vehicle-check-bom').find('i').removeClass('icon-bom-check').addClass('icon-bom-check-disabled').next().css('color', '#bbb')
         $('#vehicle-RD-tools').find('i').removeClass('icon-tools').addClass('icon-tools-disabled').next().css('color', '#bbb')
         $('#vehicle-check-down').find('i').removeClass('icon-vehicle-check-down').addClass('icon-vehicle-check-down-disabled').next().css('color', '#bbb')
+      
       }
       // 审核
       if (!app.getUserRoles('admin')) {
         $('#vehicle-auditing').find('i').removeClass('icon-vehicle-auditing').addClass('icon-vehicle-auditing-disabled').next().css('color', '#bbb')
 
+      }
+
+      for (let i = 0; i < idArr.length; i++) {
+        const item = idArr[i];
+        page.push(mui.preload({
+          url: item + '.html',
+          id: item, //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn,
+            prevId: self.id
+          } //自定义扩展参数
+        }))
       }
       
 
@@ -314,11 +342,11 @@
         var id = $(this).attr('id');
 
 
-        if (id == 'vehicle-input' && !(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
+        if (id == 'vehicle-up-check' && !(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
           mui.alert('您没有这个权限', '提示')
           return;
         }
-        if ((id != 'vehicle-input' && id != 'vehicle-auditing') && !(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
+        if ((id != 'vehicle-up-check' && id != 'vehicle-auditing') && !(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
           mui.alert('您没有这个权限', '提示')
           return;
         }
@@ -328,35 +356,38 @@
         }
 
 
-        mui.openWindow({
-          url: id + '.html',
-          id: id, //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            bottom: H
-          }, //窗口参数
-          extras: {
-            H: H,
-            vSn: vSn,
-            prevId: self.id
-          } //自定义扩展参数
-        })
+        // mui.openWindow({
+        //   url: id + '.html',
+        //   id: id, //默认使用当前页面的url作为id
+        //   styles: {
+        //     top: '0px',
+        //     bottom: H
+        //   }, //窗口参数
+        //   extras: {
+        //     H: H,
+        //     vSn: vSn,
+        //     prevId: self.id
+        //   } //自定义扩展参数
+        // })
+        plus.webview.getWebviewById(id).show('slide-in-right')
+
       });
       // 查看详情
       $('#vehicle-info').on('tap', function () {
         var id = $(this).attr('id');
-        mui.openWindow({
-          url: id + '.html',
-          id: id, //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            bottom: H
-          }, //窗口参数
-          extras: {
-            H: H,
-            vSn: vSn
-          } //自定义扩展参数
-        })
+        plus.webview.getWebviewById(id).show('slide-in-right')
+        // mui.openWindow({
+        //   url: id + '.html',
+        //   id: id, //默认使用当前页面的url作为id
+        //   styles: {
+        //     top: '0px',
+        //     bottom: H
+        //   }, //窗口参数
+        //   extras: {
+        //     H: H,
+        //     vSn: vSn
+        //   } //自定义扩展参数
+        // })
       });
 
       var flag = false;
@@ -374,7 +405,7 @@
             'height': '0px',
             'padding': '0px 12px'
           }).animate({
-            'height': '420px',
+            'height': '480px',
             'padding': '12px'
           });
         $('#take-down').hide()
@@ -411,6 +442,11 @@
         $('#istatus').addClass('green')
       } else {
         $('#istatus').addClass('red')
+      }
+      if (data.rstatus == '已审核') {
+        $('#rstatus').addClass('green')
+      } else {
+        $('#rstatus').addClass('red')
       }
     }
 

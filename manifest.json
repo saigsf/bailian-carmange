@@ -123,16 +123,16 @@
         "ios": {
           "iphone": {
             "default": "",
-            "retina47": "750-1334.png",
-            "retina35": "640-960.png",
-            "retina40": "640-1136.png",
-            "iphonex": "1125-2436.png"
+            "retina47": "unpackage/res/images/750-1334.png",
+            "retina35": "unpackage/res/images/640-960.png",
+            "retina40": "unpackage/res/images/640-1136.png",
+            "iphonex": "unpackage/res/images/1125-2436.png"
           },
           "ipad": {
-            "portrait": "768-1104.png",
-            "portrait7": "768-1024.png",
-            "portrait-retina": "1536-2008.png",
-            "portrait-retina7": "1536-2048.png"
+            "portrait": "unpackage/res/images/768-1104.png",
+            "portrait7": "unpackage/res/images/768-1024.png",
+            "portrait-retina": "unpackage/res/images/1536-2008.png",
+            "portrait-retina7": "unpackage/res/images/1536-2048.png"
           }
         },
         "android": {

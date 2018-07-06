@@ -52,6 +52,7 @@
     .mui-scroll {
       padding-bottom: 24px;
     }
+
     .no-data {
       position: relative;
       background-color: transparent;
@@ -178,6 +179,10 @@
             <p>没有维修数据</p>
           </div>
         </div>
+        <div class="btn-wrapper ">
+          <div class="btn btn-blue" id="submit">保养记录</div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -197,8 +202,8 @@
       mui.init();
 
       var vSn = '2018-217';
-      var hasData = null;
-
+      var H = null;
+      var page = null;
       //初始化单页的区域滚动
       mui('.mui-scroll-wrapper').scroll();
 
@@ -215,11 +220,22 @@
         }
         var self = plus.webview.currentWebview();
         vSn = self.vSn;
-        // hasData = self.hasData;
+        H = self.H;
+        page = mui.preload({
+          url: 'repair-maintain-info.html',
+          id: 'repair-maintain-info', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn
+          } //自定义扩展参数
+        })
+
         fetchData();
       });
-
-      fetchData()
       function fetchData() {
         app.carMaintainQuery({
           vSn: vSn
@@ -231,7 +247,6 @@
       }
 
       function updateView(data) {
-        console.log(data)
         if (data.status == '已完成') {
           $('#no_data').hide().prev().show();
         } else {
@@ -242,6 +257,11 @@
         $('#operator_0').html('维修人：' + data.operator)
 
       }
+
+      $("#submit").on('tap', function () {
+
+        page.show('slide-in-right')
+      })
 
     })();
   </script>

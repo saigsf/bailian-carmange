@@ -536,38 +536,6 @@
 	owner.upcheck = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
-		var checkArr = ['vSn', 'brandModelone', 'vin', 'odometer', 'send_p', 'engineNumber', 'telephone']
-		var translateArr = [{
-			name: 'vSn',
-			value: '车辆编号不能为空'
-		}, {
-			name: 'brandModelone',
-			value: '厂牌型号不能为空'
-		}, {
-			name: 'vin',
-			value: '车架号不能为空'
-		}, {
-			name: 'odometer',
-			value: '里程表不能为空'
-		}, {
-			name: 'send_p',
-			value: '送车人不能为空'
-		}, {
-			name: 'engineNumber',
-			value: '发动机号不能为空'
-		}, {
-			name: 'telephone',
-			value: '送车人电话不能为空'
-		}];
-
-
-		var checkResult = hasEmptyValue(data, checkArr);
-		if (checkResult) {
-			console.log(translate(checkResult, translateArr))
-			mui.toast(translate(checkResult, translateArr));
-			return;
-		}
-		console.log(data)
 
 		var url = 'car-management/car/upcheck.action';
 
@@ -1293,11 +1261,11 @@
 	 * @param {Object} data 请求参数
 	 * @param {Function} callback 回掉函数
 	 */
-	owner.carMaintainEmployee = function (data, callback) {
+	owner.findEmployee = function (data, callback) {
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/carmaintain/employee.action';
+		var url = 'car-management/carmaintain/findEmployee.action';
 
 		owner.HTTPRequest('post', url, data, callback)
 	}
@@ -1341,7 +1309,7 @@
 		callback = callback || $.noop;
 		data = data || {};
 
-		var url = 'car-management/car/maintenance/save/' + data.vSn + '/' + data.mm + '/' + data.nt + '.action';
+		var url = 'car-management/car/maintenance/save/' + data.vSn + '/' + data.mm + '/' + data.nt+'/' + data.id + '.action';
 
 		// url = decodeURI(url)
 		// console.log(url)
@@ -1406,7 +1374,7 @@
 
 		var url = 'car-management/driver/authorized.action';
 
-		owner.HTTPRequestPost('post', url, data, callback)
+		owner.HTTPRequest('post', url, data, callback)
 	}
 
 	/**

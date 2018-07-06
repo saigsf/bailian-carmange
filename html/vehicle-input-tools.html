@@ -113,6 +113,7 @@
     var self = null;
     var oneInfo = null;
     var oneBom = null;
+    var upCheckInfo = null;
     var view = null;
 
     var flagInfo = false;
@@ -129,6 +130,7 @@
       view = plus.webview.getWebviewById('vehicle-input-bom')
       oneInfo = self.oneInfo
       oneBom = self.oneBom
+      upCheckInfo = self.upCheckInfo
       vSn = self.vSn;
       fetchData();
       submitData()
@@ -161,8 +163,8 @@
           return;
         }
         console.log(oneBom, oneInfo);
-        
-        if(oneBom == null && oneInfo == null) {
+
+        if (oneBom == null && oneInfo == null) {
           $('#submit').parent().hide()
         } else {
           $('#submit').html('确认修改').parent().show()
@@ -204,6 +206,137 @@
         if (!((!isFirst && canTools) || isFirst)) {
           oneToolApply = null;
         }
+
+        $.when($.ajax({
+          type: 'get',//HTTP请求类型
+          url: BASE_URL_1 + 'car-management/car/save.action',
+          data: oneInfo,
+          dataType: 'jsonp',//服务器返回json格式数据
+          jsonp: "jsonCallback",
+          success: function (res) {
+            //服务器返回响应，根据响应结果，分析是否登录成功；
+            console.log(1414, res.msg);
+            // mui.toast(res.msg)
+          },
+          error: function (xhr, type, errorThrown) {
+            //异常处理；
+            console.log(xhr.status);
+            if (type == 'timeout') {
+              mui.toast("请求超时：请检查网络")
+            } else {
+              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+            }
+          },
+        }), $.ajax({
+          type: 'post',//HTTP请求类型
+          url: BASE_URL_1 + 'car-management/car/applybom.action',
+          data: JSON.stringify(oneBom),
+          contentType: 'application/json;charset=UTF-8', //contentType很重要 
+          crossDomain: true,
+          success: function (res) {
+            //服务器返回响应，根据响应结果，分析是否登录成功；
+            console.log(1428, res.msg);
+            // mui.toast(res.msg)
+          },
+          error: function (xhr, type, errorThrown) {
+            //异常处理；
+            console.log(xhr.status);
+            if (type == 'timeout') {
+              mui.toast("请求超时：请检查网络")
+            } else {
+              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+            }
+          }
+        }), $.ajax({
+          type: 'post',//HTTP请求类型
+          url: BASE_URL_1 + 'car-management/car/applytools.action',
+          data: JSON.stringify(oneToolApply),
+          contentType: 'application/json;charset=UTF-8', //contentType很重要 
+          crossDomain: true,
+          success: function (res) {
+            //服务器返回响应，根据响应结果，分析是否登录成功；
+            console.log(1428, res.msg);
+            // mui.toast(res.msg)
+          },
+          error: function (xhr, type, errorThrown) {
+            //异常处理；
+            console.log(xhr.status);
+            if (type == 'timeout') {
+              mui.toast("请求超时：请检查网络")
+            } else {
+              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+            }
+          }
+        })).done(function (res) {
+          console.log(1435, res);
+          console.log(res[0]);
+          // setTimeout(() => {
+          //   mui.back();
+          //   mui.fire(view, 'goback', {});
+          // }, 500);
+
+        })
+      
+
+      return;
+
+        $.when(app.upcheck(upCheckInfo, function (res) {
+          // console.log(res);
+          mui.toast(res.msg)
+          // if (res.ret) {
+          //   for (const key in data) {
+          //     if (data.hasOwnProperty(key)) {
+          //       const item = data[key];
+          //       $('input[name=' + key + ']').val('')
+          //     }
+          //   }
+          //   fetchData();
+          // }
+        }), app.save(oneInfo, function (res) {
+          res = JSON.parse(res)
+          console.log(res.msg)
+          mui.toast(res.msg);
+          // if (res.ret) {
+          //   mui.toast('信息修改成功')
+          //   setTimeout(() => {
+          //     mui.back();
+          //     mui.fire(view, 'goback', {});
+          //   }, 500);
+          // }
+        })
+          // , app.applybom(oneBom, function (res) {
+          //   // res = JSON.parse(res)
+          //   // console.log(res);
+          //   mui.toast(res.msg);
+          //   // if (res.ret) {
+          //   //   setTimeout(() => {
+          //   //     mui.back();
+          //   //     mui.fire(view, 'goback', {});
+          //   //   }, 500);
+          //   // }
+          // }), app.applytools(oneToolApply, function (res) {
+          //     // res = JSON.parse(res)
+          //     // console.log(res);
+          //     mui.toast(res.msg);
+          //     // if (res.ret) {
+          //     //   setTimeout(() => {
+          //     //     mui.back();
+          //     //     mui.fire(view, 'goback', {});
+          //     //   }, 500);
+          //     // }
+          //   })
+        ).then(function (res) {
+          console.log(1435, res);
+          console.log(res);
+          // setTimeout(() => {
+          //   mui.back();
+          //   mui.fire(view, 'goback', {});
+          // }, 500);
+
+        })
+
+        return;
+
 
         if (oneInfo != null && oneBom == null && oneToolApply == null) {
           app.save(oneInfo, function (res) {
@@ -268,7 +401,7 @@
         // }, 100)
 
 
-
+        return;
         $.when(mui.ajax({
           type: 'post',//HTTP请求类型
           url: BASE_URL_1 + 'car-management/car/save.action',
@@ -330,7 +463,7 @@
             }
           }
         })).then(function (res) {
-          console.log(1435, res.msg);
+          console.log(1435, res);
           mui.toast('车辆录入成功');
           setTimeout(() => {
             mui.back();

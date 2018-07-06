@@ -204,7 +204,7 @@
 
       </form>
       <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="next">提交</button>
+        <button class="btn btn-blue" id="vehicle-input">下一步</button>
       </div>
     </div>
   </div>
@@ -282,26 +282,74 @@
 
       // 更新数据
       function submitData() {
+        console.log($(this).attr('id'))
         //提交
-        $('#next').on('tap', function () {
-          var data = serialize($('form'));
-          console.log(data)
-          app.upcheck(data, function (res) {
-            // console.log(res);
-            mui.toast(res.msg)
-            if (res.ret) {
-              for (const key in data) {
-                if (data.hasOwnProperty(key)) {
-                  const item = data[key];
-                  $('input[name='+key+']').val('')
-                }
+        var data = serialize($('form'));
+        console.log(data)
+        var checkArr = ['vSn', 'brandModelone', 'vin', 'odometer', 'send_p', 'engineNumber', 'telephone']
+        var translateArr = [{
+          name: 'vSn',
+          value: '车辆编号不能为空'
+        }, {
+          name: 'brandModelone',
+          value: '厂牌型号不能为空'
+        }, {
+          name: 'vin',
+          value: '车架号不能为空'
+        }, {
+          name: 'odometer',
+          value: '里程表不能为空'
+        }, {
+          name: 'send_p',
+          value: '送车人不能为空'
+        }, {
+          name: 'engineNumber',
+          value: '发动机号不能为空'
+        }, {
+          name: 'telephone',
+          value: '送车人电话不能为空'
+        }];
+
+
+        var checkResult = hasEmptyValue(data, checkArr);
+        // if (checkResult) {
+        //   console.log(translate(checkResult, translateArr))
+        //   mui.toast(translate(checkResult, translateArr));
+        //   return;
+        // }
+        
+
+        var id = $(this).attr('id');
+        mui.openWindow({
+          url: id + '.html',
+          id: id, //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: data.vSn,
+            upCheckInfo: data
+          } //自定义扩展参数
+        })
+        return;
+        app.upcheck(data, function (res) {
+          // console.log(res);
+          mui.toast(res.msg)
+          if (res.ret) {
+            for (const key in data) {
+              if (data.hasOwnProperty(key)) {
+                const item = data[key];
+                $('input[name=' + key + ']').val('')
               }
-              fetchData()
             }
-          })
+            fetchData();
+          }
         })
       }
-      submitData()
+
+      $('#vehicle-input').on('tap', submitData);
 
       // 获取数据
       function fetchData() {

@@ -238,6 +238,7 @@
       var vSn = null;
       var view = null;
       var dDate = new Date();
+      var ids = null;
 
       mui.plusReady(function () {
         handsetAdaption()
@@ -245,6 +246,7 @@
         view = plus.webview.getWebviewById('repair-list.html')
         H = self.H;
         vSn = self.vSn;
+        ids = self.ids;
         $('#vSn').html(vSn)
       })
 
@@ -300,6 +302,7 @@
           var data = serialize($('#maintain'));
           var maintenanceItems = [];
           data.vSn = $('#vSn').html()
+          data.id = ids;
 
           var $checkbox = $('#maintenance li input[type=checkbox]');
           $checkbox.each(function (i) {

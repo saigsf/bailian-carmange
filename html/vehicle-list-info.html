@@ -108,16 +108,16 @@
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="project_sn_0">——</h5>
+                <h5 id="project_sn_0">-</h5>
                 <p>项目号</p>
               </div>
               <div class="info-content-item">
-                <h5 id="engineNumber_0">——</h5>
-                <p>发动机号</p>
+                <h5 id="projectEngineer_0">-</h5>
+                <p>项目工程师</p>
               </div>
               <div class="info-content-item">
-                <h5 id="brandModelone_0">——</h5>
-                <p>厂牌型号</p>
+                <h5 id="project_status_0">-</h5>
+                <p>项目状态</p>
               </div>
             </div>
           </div>
@@ -216,7 +216,7 @@
               </div>
               <div class="tab-row">
                 <div class="tab-col">保险备注</div>
-                <div class="tab-col" id="endTime"></div>
+                <div class="tab-col" id="insremark"></div>
               </div>
 
               <div class="tab-row">
@@ -229,7 +229,7 @@
               </div>
               <div class="tab-row">
                 <div class="tab-col">临牌备注</div>
-                <div class="tab-col" id="licenseNo"></div>
+                <div class="tab-col" id="licremark"></div>
               </div>
             </div>
             <div class="no-data">
@@ -280,18 +280,21 @@
         // updateView(data);
         fetchData();
 
-        infoPage = mui.preload({
-          url: 'vehicle-info.html',
-          id: 'vehicle-info', //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            bottom: H
-          }, //窗口参数
-          extras: {
-            H: H,
-            vSn: vSn
-          } //自定义扩展参数
-        })
+        setTimeout(() => {
+          infoPage = mui.preload({
+            url: 'vehicle-info.html',
+            id: 'vehicle-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: vSn
+            } //自定义扩展参数
+          })
+        }, 100);
+
       });
 
       // 手机适配
@@ -337,37 +340,12 @@
       function addEvent() {
         // 查看详情
         $('#next').on('tap', function () {
-          // mui.openWindow({
-          //   url: 'vehicle-info.html',
-          //   id: 'vehicle-info', //默认使用当前页面的url作为id
-          //   styles: {
-          //     top: '0px',
-          //     bottom: H
-          //   }, //窗口参数
-          //   extras: {
-          //     H: H,
-          //     vSn: vSn
-          //   } //自定义扩展参数
-          // }) 
-          
           infoPage.show('slide-in-right')
-         
         })
 
         // 查看详情
         $('#info').on('tap', function () {
-          mui.openWindow({
-            url: 'vehicle-info.html',
-            id: 'vehicle-info', //默认使用当前页面的url作为id
-            styles: {
-              top: '0px',
-              bottom: H
-            }, //窗口参数
-            extras: {
-              H: H,
-              vSn: vSn
-            } //自定义扩展参数
-          })
+          infoPage.show('slide-in-right')
         })
       }
       addEvent()

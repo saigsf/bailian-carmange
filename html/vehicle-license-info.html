@@ -286,9 +286,9 @@
           $('#vehicleInspection').addClass('green')
         }
         if(data.llave > 90) {
-          $('#llave').addClass('green')
+          $('#llave').addClass('green').html('剩余'+ (data.llave?data.llave:'-') + '天')
         } else {
-          $('#llave').addClass('blue')
+          $('#llave').addClass('blue').html('剩余'+ (data.llave?data.llave:'-') + '天')
         }
       }
  

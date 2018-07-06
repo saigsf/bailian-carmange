@@ -162,6 +162,7 @@
 
       var H = null;
       var vSn = null;
+      var ids = null;
       var view = null;
       var dDate = new Date();
       var operatorArr = []
@@ -172,6 +173,7 @@
         view = plus.webview.getWebviewById('repair-list.html')
         H = self.H;
         vSn = self.vSn;
+        ids = self.ids;
         $('#vSn').html(vSn)
       })
 
@@ -199,7 +201,12 @@
           plus.nativeUI.pickDate(function (e) {
             var d = e.date;
             $(_this).val(d.format('yyyy-MM-dd'));
-
+            plus.nativeUI.pickTime(function (e) {
+              var d = e.date;
+              $(_this).val($(_this).val() + d.format(' hh:mm:ss'));
+            }, function (e) {
+              $(_this).val("未选择时间：" + e.message);
+            });
           }, function (e) {
             $(_this).val('您没有选择日期');
           }, {
@@ -213,8 +220,8 @@
         $('select').on('change', function() {
           var _this = this;
           operatorArr.forEach(item => {
-            if(item.name = $(_this).val()) {
-              $('#operatorTEL').val(item.tel)
+            if(item.nickname = $(_this).val()) {
+              $('#operatorTEL').val(item.telephone)
             }
           });
         })
@@ -223,9 +230,10 @@
 
       function fetchData() {
 
-        app.carMaintainEmployee({}, function (res) {
-          res = JSON.parse(res);
+        app.findEmployee({}, function (res) {
           console.log(res)
+          res = JSON.parse(res);
+          
           operatorArr = res;
           updateView(res);
         })
@@ -236,17 +244,16 @@
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<option value="' + item.name + '">' + item.name + '</option>'
+          html += '<option value="' + item.nickname + '">' + item.nickname + '</option>'
         }
         $('#operator').append(html)
       }
 
-      submitData();
+      
       function submitData() {
-        // 提交
-        $('#next').on('tap', function () {
-          var data = serialize($('#allot'));
+        var data = serialize($('#allot'));
           data.vSn = $('#vSn').html()
+          data.id = ids;
 
           app.carMaintainAssign(data, function (res) {
             console.log(res);
@@ -260,8 +267,9 @@
             }
             
           })
-        })
       }
+      // 提交
+      $('#next').on('tap', submitData)
 
     })();
   </script>

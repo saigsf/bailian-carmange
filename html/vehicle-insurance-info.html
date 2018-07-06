@@ -115,20 +115,21 @@
           <div class="info-content">
             <div class="info-content-top">
               <p>车辆编号</p>
-              <h3 id="vSn_0">2017-123</h3>
+              <h3 id="vSn_0">-</h3>
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="project_sn_0">32156A</h5>
+                <h5 id="project_sn_0">-</h5>
                 <p>项目号</p>
               </div>
+              
               <div class="info-content-item">
-                <h5 id="engineNumber_0">32156A</h5>
-                <p>发动机号</p>
+                <h5 id="projectEngineer_0">-</h5>
+                <p>项目工程师</p>
               </div>
               <div class="info-content-item">
-                <h5 id="projectEngineer_0"></h5>
-                <p>项目工程师</p>
+                <h5 id="project_status_0">-</h5>
+                <p>项目状态</p>
               </div>
             </div>
           </div>
@@ -313,10 +314,11 @@
           $('#istatus').addClass('green')
         }
         if(data.lave > 90) {
-          $('#lave').addClass('green')
+          $('#lave').addClass('green').html('剩余'+ (data.lave?data.lave:'-') + '天')
         } else {
-          $('#lave').addClass('red')
+          $('#lave').addClass('red').html('剩余'+ (data.lave?data.lave:'-') + '天')
         }
+        $('#numtime').html(data.numtime+'年')
 
       }
 

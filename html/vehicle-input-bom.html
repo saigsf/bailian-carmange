@@ -141,6 +141,7 @@
     var view = null; // 上页面
     var vSn = '2018ICECTC022'; // 车辆编码
     var oneInfo = null; //基本信息
+    var upCheckInfo = null;
 
     var canBomCheck = false;
     var isFirst = false;
@@ -154,6 +155,7 @@
       H = self.H;
       vSn = self.vSn;
       oneInfo = self.oneInfo;
+      upCheckInfo = self.upCheckInfo;
       fetchData();
       submitData();
     })
@@ -276,7 +278,8 @@
             H: H,
             vSn: vSn,
             oneBom: oneBom,
-            oneInfo: oneInfo
+            oneInfo: oneInfo,
+            upCheckInfo: upCheckInfo
           } //自定义扩展参数
         })
       })

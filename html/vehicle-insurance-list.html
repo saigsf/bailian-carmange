@@ -274,8 +274,18 @@
       // 视图更新
       function updateView(data) {
         var html = '';
+
+
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
+          if (item.endTime) {
+            var endDate = new Date(item.endTime.replace(/-/g, "/"))
+            var startDate = new Date(item.startTime.replace(/-/g, "/"))
+            var time = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+          }
+          console.log(time)
+
+
           html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
             + '<div class="list-item">'
             + '<div class="item-left">'
@@ -294,7 +304,7 @@
             + '<div class="progress-wrapper">'
             + '<label>剩余时间：</label>'
             + '<div class="progress">'
-            + '<div class="move ' + (item.lave < 90 ? 'red' : 'green') + '" style="width:' + (item.lave ? (item.lave / (item.numtime * 365) * 100 + '%') : '0') + '" ></div>'
+            + '<div class="move ' + (item.lave < 90 ? 'red' : 'green') + '" style="width:' + (item.lave ? (item.lave / time * 100 + '%') : '0') + '" ></div>'
             + '</div>'
             + '<span>' + (item.lave ? (item.lave + '天') : '暂无') + '</span>'
             + '</div>'

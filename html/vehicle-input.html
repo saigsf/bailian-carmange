@@ -118,20 +118,20 @@
               <span class="icon-red-star">*</span>
             </div>
           </li>
-          <li class="mui-table-view-cell">
+          <!-- <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>发动机编号</label>
               <input name="engineNumber" id="engineNumber" type="text" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
-          </li>
-          <li class="mui-table-view-cell">
+          </li> -->
+          <!-- <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车架号</label>
               <input name="vin" id="vin" type="text" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
-          </li>
+          </li> -->
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>客户</label>
@@ -212,13 +212,13 @@
               <span class="icon-red-star">*</span>
             </div>
           </li>
-          <li class="mui-table-view-cell">
+          <!-- <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆型号</label>
               <input name="brandModelone" id="brandModelone" type="text" class="mui-input-clear" placeholder="" value="ETC">
               <span class="icon-red-star">*</span>
             </div>
-          </li>
+          </li> -->
 
         </ul>
         <ul class="mui-table-view mui-table-inputview">
@@ -296,6 +296,8 @@
     var dDate = new Date()
     var productArr = [];
 
+    var upCheckInfo = null;
+
     var canReviseInput = false; // 可以修改
     var isFirst = false;
     // 初始化
@@ -310,6 +312,8 @@
       view = plus.webview.getWebviewById('vehicle-input-info');
       H = self.H;
       vSn = self.vSn;
+      $('#vSn').val(vSn)
+      upCheckInfo = self.upCheckInfo
       fetchData();
       submitData();
     })
@@ -385,13 +389,13 @@
       })
 
       // 获取接车点检信息
-      app.findUpcheck({ vSn }, function (res) {
-        console.log(res);
-        $('#vSn').val(res.vSn)
-        $('#vin').val(res.vin)
-        $('#brandModelone').val(res.brandModelone)
-        $('#engineNumber').val(res.engineNumber)
-      })
+      // app.findUpcheck({ vSn }, function (res) {
+      //   console.log(res);
+      //   $('#vSn').val(res.vSn)
+      //   $('#vin').val(res.vin)
+      //   $('#brandModelone').val(res.brandModelone)
+      //   $('#engineNumber').val(res.engineNumber)
+      // })
 
       // 查看录入信息
       app.findAddCar({ vSn }, function (res) {
@@ -521,11 +525,11 @@
         }];
 
         var checkResult = hasEmptyValue(oneInfo, checkArr);
-        if (checkResult) {
-          mui.toast(translate(checkResult, translateArr));
-          console.log(translate(checkResult, translateArr));
-          return;
-        }
+        // if (checkResult) {
+        //   mui.toast(translate(checkResult, translateArr));
+        //   console.log(translate(checkResult, translateArr));
+        //   return;
+        // }
 
         // 第一次录入
         // 不是第一次，但是有修改操作
@@ -536,7 +540,7 @@
         if(!((canReviseInput && !isFirst) || isFirst)) {
           oneInfo = null;
         }
-
+        console.log(11212)
         var id = $(this).attr('id');
         mui.openWindow({
           url: id + '.html',
@@ -548,7 +552,8 @@
           extras: {
             H: H,
             vSn: vSn,
-            oneInfo: oneInfo
+            oneInfo: oneInfo,
+            upCheckInfo: upCheckInfo
           } //自定义扩展参数
         })
       })
@@ -617,20 +622,21 @@
     function galleryImg() {
       // 从相册中选择图片  
       plus.gallery.pick(function (e) {
-        for (var i in e.files) {
-          var fileSrc = e.files[i];
-          // console.log(414, fileSrc)
-          setHtml(fileSrc);
-        }
+        // for (var i in e.files) {
+        //   var fileSrc = e.files[i];
+        //   // console.log(414, fileSrc)
+        //   setHtml(fileSrc);
+        // }
+
+        setHtml(fileSrc);
+        upload()
       }, function (e) {
         console.log("取消选择图片");
       }, {
           filter: "image",
-          multiple: true,
-          maximum: 5,
           system: false,
           onmaxed: function () {
-            plus.nativeUI.alert('最多只能选择5张图片');
+            plus.nativeUI.alert('最多只能选择1张图片');
           }
         });
     }
@@ -642,7 +648,7 @@
         return;
       }
       var html = '<div class="imgItem">\
-                  <img class="img" src="'+ path + '" alt="">\
+                  <img class="img" id="img" src="'+ path + '" alt="">\
                   <div class="imgDelete"></div>\
                 </div>'
       $('#pictureUrl').append(html)
@@ -658,18 +664,19 @@
 
     // 上传的方法  
     function upload() {
-      var files = document.getElementById('testImg')
+      var files = document.getElementById('img')
       MicroTaskGUID = common.guid();
 
-      var rul = "服务器地址"
+      var rul = "http://36.110.56.189:8848/car-management/car/carPicUpload.action?vSn=2018-001"
 
       var imgsArr = mui(".task-img");
 
-      mui.each(imgsArr, function (index, item) {
-        //      console.log(index)  
-        //      console.log(item.src)  
-        createUp(item)
-      })
+      // mui.each(imgsArr, function (index, item) {
+      //   //      console.log(index)  
+      //   //      console.log(item.src)  
+      //   createUp(item)
+      // })
+      createUp(files)
 
 
       function createUp(files) {
