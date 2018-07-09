@@ -329,6 +329,7 @@
 			data: data,
 			dataType: 'jsonp',//服务器返回json格式数据
 			jsonp: "jsonCallback",
+			async: false,
 			beforeSend: function () {
 				console.log('beforesend!');
 				// plus.nativeUI.showWaiting();
@@ -368,6 +369,7 @@
 			data: data,
 			contentType: 'application/json;charset=UTF-8', //contentType很重要 
 			crossDomain: true,
+			async: false,
 			beforeSend: function () {
 				console.log('beforesend!');
 				// plus.nativeUI.showWaiting();
@@ -421,6 +423,7 @@
 			type: type,//HTTP请求类型
 			url: BASE_URL_1 + url,
 			data: data,
+			async: false,
 			beforeSend: function () {
 				console.log('beforesend!')
 			},
@@ -892,6 +895,20 @@
 		data = data || {};
 
 		var url = 'car-management/car/save.action';
+		// data = JSON.stringify(data);
+
+		owner.HTTPRequest('POST', url, data, callback)
+	}
+	/**
+	 * 车辆录入更新
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.update = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/car/update.action';
 		// data = JSON.stringify(data);
 
 		owner.HTTPRequest('POST', url, data, callback)

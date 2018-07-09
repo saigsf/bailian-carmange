@@ -126,7 +126,7 @@
       </div>
       <!-- 提交 -->
       <div class="btn-wrapper ">
-        <button type="button" class="btn btn-blue" id="submit">提交</button>
+        <button type="button" class="btn btn-blue" id="submit">下一步</button>
       </div>
 
     </div>
@@ -150,6 +150,7 @@
     var upCheckInfo = null;
     var view = null;
 
+    var flagCheck = false;
     var flagInfo = false;
     var flagBom = false;
     var flagTools = false;
@@ -158,7 +159,10 @@
     var isFirst = false;
     var isModify = false;
 
-    var upcheckURL = null;
+    var upcheck = null;
+    var addcar = null;
+
+    var submitLock = false;
 
     mui.init();
     // 页面滚动
@@ -202,13 +206,13 @@
           $('#openPopover').hide()
           return;
         }
-        console.log(oneBom, oneInfo);
+        // console.log(oneBom, oneInfo);
 
-        if (!isModify && !isFirst) {
-          $('#submit').parent().hide()
-        } else {
-          $('#submit').html('确认修改').parent().show()
-        }
+        // if (!isModify && !isFirst) {
+        //   // $('#submit').parent().hide()
+        // } else {
+        //   // $('#submit').html('确认修改').parent().show()
+        // }
         updateView(res);
       })
     }
@@ -232,6 +236,11 @@
     function submitData() {
       // 车辆录入,包含三部分的数据提交
       $('#submit').on('tap', function () {
+        if (submitLock) {
+          return;
+        }
+        submitLock = true;
+
         var oneToolApply = [];
         var $toolTr = $('#form_one_tool_apply tr');
 
@@ -250,119 +259,27 @@
         //   oneToolApply = null;
         // }
 
-        if (!isModify) {
-          upcheckURL = BASE_URL_1 + 'car-management/car/upcheck.action'
-        } else {
-          upcheckURL = BASE_URL_1 + 'car-management/car/updateUpcheck.action'
-        }
-
-        $.when($.ajax({
-          type: 'post',//HTTP请求类型
-          url: upcheckURL,
-          data: upCheckInfo,
-          contentType: 'application/json;charset=UTF-8', //contentType很重要 
-          crossDomain: true,
-          success: function (res) {
-            //服务器返回响应，根据响应结果，分析是否登录成功；
-            console.log(1428, res.msg);
-            // mui.toast(res.msg)
-          },
-          error: function (xhr, type, errorThrown) {
-            //异常处理；
-            console.log(xhr.status);
-            if (type == 'timeout') {
-              mui.toast("请求超时：请检查网络")
-            } else {
-              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
-            }
-          }
-        }), $.ajax({
-          type: 'post',//HTTP请求类型
-          url: BASE_URL_1 + 'car-management/car/save.action',
-          data: oneInfo,
-          contentType: 'application/json;charset=UTF-8', //contentType很重要 
-          crossDomain: true,
-          success: function (res) {
-            //服务器返回响应，根据响应结果，分析是否登录成功；
-            console.log(1414, res);
-            // mui.toast(res.msg)
-          },
-          error: function (xhr, type, errorThrown) {
-            //异常处理；
-            console.log(xhr.status);
-            if (type == 'timeout') {
-              mui.toast("请求超时：请检查网络")
-            } else {
-              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
-            }
-          },
-        }), $.ajax({
-          type: 'post',//HTTP请求类型
-          url: BASE_URL_1 + 'car-management/car/applybom.action',
-          data: JSON.stringify(oneBom),
-          contentType: 'application/json;charset=UTF-8', //contentType很重要 
-          crossDomain: true,
-          success: function (res) {
-            //服务器返回响应，根据响应结果，分析是否登录成功；
-            console.log(1428, res.msg);
-            // mui.toast(res.msg)
-          },
-          error: function (xhr, type, errorThrown) {
-            //异常处理；
-            console.log(xhr.status);
-            if (type == 'timeout') {
-              mui.toast("请求超时：请检查网络")
-            } else {
-              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
-            }
-          }
-        }), $.ajax({
-          type: 'post',//HTTP请求类型
-          url: BASE_URL_1 + 'car-management/car/applytools.action',
-          data: JSON.stringify(oneToolApply),
-          contentType: 'application/json;charset=UTF-8', //contentType很重要 
-          crossDomain: true,
-          success: function (res) {
-            //服务器返回响应，根据响应结果，分析是否登录成功；
-            console.log(1428, res.msg);
-            // mui.toast(res.msg)
-          },
-          error: function (xhr, type, errorThrown) {
-            //异常处理；
-            console.log(xhr.status);
-            if (type == 'timeout') {
-              mui.toast("请求超时：请检查网络")
-            } else {
-              mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
-            }
-          }
-        })).then(function (res) {
-          console.log(1435, res);
-          mui.toast('车辆录入成功');
-          mui.openWindow({
-            url: 'vehicle-upload.html',
-            id: 'vehicle-upload', //默认使用当前页面的url作为id
-            styles: {
-              top: '0px',
-              bottom: H
-            }, //窗口参数
-            extras: {
-              H: H,
-              vSn: vSn
-            } //自定义扩展参数
-          })
-          setTimeout(() => {
-            mui.back();
-            mui.fire(view, 'goback', {});
-          }, 500);
-
-        }, function (err) {
-          console.log(1437, err);
-          mui.toast('车辆录入失败');
+        mui.openWindow({
+          url: 'vehicle-upload.html',
+          id: 'vehicle-upload', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn,
+            oneBom: oneBom,
+            oneInfo: oneInfo,
+            upCheckInfo: upCheckInfo,
+            oneToolApply: oneToolApply,
+            isModify: isModify
+          } //自定义扩展参数
         })
-
-
+        
         return;
+
+        
       })
 
     }
@@ -373,16 +290,25 @@
         canTools = true;
         $(this).html('取消');
         $('input').attr('readonly', false);
-        $('#submit').html('确认修改').parent().show()
-        isModify = true;
+        // $('#submit').html('确认修改').parent().show()
+        // isModify = true;
       } else {
         canTools = false;
         $(this).html('修改');
         $('input').attr('readonly', true);
-        $('#submit').parent().hide()
-        isModify = false;
+        // $('#submit').parent().hide()
+        // isModify = false;
       }
+
+      isModify = canTools || isModify
     })
+    // 返回事件
+    document.addEventListener('goback', function () {
+      mui.back();
+      mui.fire(view, 'goback', {});
+    })
+
+    
 
   </script>
 </body>

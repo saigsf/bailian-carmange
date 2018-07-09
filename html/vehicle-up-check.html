@@ -201,7 +201,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>备注</label>
-              <input name="remark" type="text" class="mui-input-clear" disabled="true" placeholder="">
+              <input name="remark" type="text" class="mui-input-clear" readonly="true" placeholder="">
 
             </div>
           </li>
@@ -231,15 +231,18 @@
 
       var H = null;
       var vSn = '2018ICECTC006';
+      var self = null;
+      var view = null;
       var id = null;
       var data = {};
       var canUpCheck = false;
-      var isModify= false; // 是否修改
+      var isModify = false; // 是否修改
 
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
-        var self = plus.webview.currentWebview();
+        self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById(self.prevId)
         H = self.H;
         vSn = self.vSn;
         fetchData();
@@ -277,14 +280,12 @@
         //打开接车点检页面
         var data = serialize($('form'));
         data.id = id;
-        // console.log(data);
-        if(canUpCheck) {
-          isModify = true;
-        }
-        var id = $(this).attr('id');
+        console.log(data.id);
+        isModify = canUpCheck || isModify;
+        var idx = $(this).attr('id');
         mui.openWindow({
-          url: id + '.html',
-          id: id, //默认使用当前页面的url作为id
+          url: idx + '.html',
+          id: idx, //默认使用当前页面的url作为id
           styles: {
             top: '0px',
             bottom: H
@@ -293,7 +294,8 @@
             H: H,
             vSn: vSn,
             upCheckInfo: data,
-            isModify: isModify
+            isModify: isModify,
+            prevId: self.id
           } //自定义扩展参数
         })
         return;
@@ -311,16 +313,16 @@
 
       // 修改
       $('#openPopover').on('tap', function () {
-        
+
         if ($(this).html() == '修改') {
           // $('#vehicle-input').parent().show();
-          $('input').attr('disabled', false)
+          $('input').attr('readonly', false)
             .parents('li').find('.mui-icon-clear').show();
           $(this).html('取消')
           canUpCheck = true;
         } else {
           // $('#vehicle-input').parent().hide();
-          $('input').attr('disabled', true)
+          $('input').attr('readonly', true)
             .parents('li').find('.mui-icon-clear').hide();
           $(this).html('修改')
           canUpCheck = false;
@@ -347,11 +349,17 @@
         for (const key in data) {
           if (data.hasOwnProperty(key)) {
             const item = data[key];
-            $('input[name=' + key + ']').val(item).attr('disabled', true)
+            $('input[name=' + key + ']').val(item).attr('readonly', true)
               .parents('li').find('.mui-icon-clear').hide()
           }
         }
       }
+
+      // 返回事件
+      document.addEventListener('goback', function () {
+        mui.back();
+        mui.fire(view, 'update', null)
+      })
 
     })();
   </script>

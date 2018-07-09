@@ -293,6 +293,7 @@
     var vSn = '2018ICECTC022';
     var self = null;
     var view = null;
+    var id = null;
     var dDate = new Date()
     var productArr = [];
 
@@ -311,7 +312,7 @@
     mui.plusReady(function () {
       handsetAdaption();
       self = plus.webview.currentWebview();
-      view = plus.webview.getWebviewById('vehicle-input-info');
+      view = plus.webview.getWebviewById(self.prevId);
       H = self.H;
       vSn = self.vSn;
       console.log(vSn)
@@ -341,21 +342,22 @@
     addEvent()
     function addEvent() {
       $('#openPopover').on('tap', function () {
-        if($(this).html() == '修改') {
+        if ($(this).html() == '修改') {
           canReviseInput = true;
           $(this).html('取消');
-          $('select').attr('disabled', false)
-          $('input').attr('disabled', false)
-          .parents('li').find('.mui-icon-clear').hide()
-          isModify = true;
+          $('select').attr('readonly', false)
+          $('input').attr('readonly', false)
+            .parents('li').find('.mui-icon-clear').hide()
+          // isModify = true;
         } else {
           canReviseInput = false;
           $(this).html('修改');
-          $('select').attr('disabled', true)
-          $('input').attr('disabled', true)
+          $('select').attr('readonly', true)
+          $('input').attr('readonly', true)
             .parents('li').find('.mui-icon-clear').show()
-            isModify =false;
+          // isModify = false;
         }
+        isModify = canReviseInput || isModify
       })
 
       $('#makeTime').off().on('tap', function () {
@@ -386,10 +388,10 @@
       })
 
       // 获取项目信息
-      app.projectQuery({}, function (res) { 
+      app.projectQuery({}, function (res) {
         console.log(res);
         res = JSON.parse(res)
-       
+
         productArr = res.rows;
         updateView.project(res.rows)
       })
@@ -414,6 +416,8 @@
           $('#openPopover').hide()
           return;
         }
+
+        id = res.id;
         updateView.addCar(res)
       })
 
@@ -433,7 +437,7 @@
         $('#groupName').append(html)
       },
       project: function (data) {
-        if(data.length == 0) {
+        if (data.length == 0) {
           return;
         }
         var html = '';
@@ -448,8 +452,8 @@
         for (const key in data) {
           if (data.hasOwnProperty(key)) {
             const item = data[key];
-            $('*[name=' + key + ']').val(item).attr('disabled', true)
-            .parents('li').find('.mui-icon-clear').hide()
+            $('*[name=' + key + ']').val(item).attr('readonly', true)
+              .parents('li').find('.mui-icon-clear').hide()
           }
         }
       }
@@ -460,6 +464,7 @@
     function submitData() {
       $('#vehicle-input-bom').on('tap', function () {
         var oneInfo = serialize($('#form_one_info'));
+        oneInfo.id = id;
         console.log(oneInfo)
 
         var checkArr = [
@@ -547,10 +552,10 @@
         //   isModify = true;
         // }
         // console.log(11212)
-        var id = $(this).attr('id');
+        var idx = $(this).attr('id');
         mui.openWindow({
-          url: id + '.html',
-          id: id, //默认使用当前页面的url作为id
+          url: idx + '.html',
+          id: idx, //默认使用当前页面的url作为id
           styles: {
             top: '0px',
             bottom: H
@@ -560,7 +565,7 @@
             vSn: vSn,
             oneInfo: oneInfo,
             upCheckInfo: upCheckInfo,
-            isModify:isModify
+            isModify: isModify
           } //自定义扩展参数
         })
       })
@@ -577,137 +582,11 @@
       }
     })
 
-    // 选择图片
-    $('#pictureUrl').on('tap', function (res) {
-      if (mui.os.plus) {
-        var buttonTit = [{
-          title: "拍照"
-        }, {
-          title: "从手机相册选择"
-        }];
-
-        plus.nativeUI.actionSheet({
-          title: "上传图片",
-          cancel: "取消",
-          buttons: buttonTit
-        }, function (b) { /*actionSheet 按钮点击事件*/
-          switch (b.index) {
-            case 0:
-              break;
-            case 1:
-              getImage(); /*拍照*/
-              break;
-            case 2:
-              galleryImg();/*打开相册*/
-              break;
-            default:
-              break;
-          }
-        })
-      }
-    })
-
-    // 拍照获取图片  
-    function getImage() {
-      var c = plus.camera.getCamera();
-      c.captureImage(function (e) {
-        plus.io.resolveLocalFileSystemURL(e, function (entry) {
-          var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径  
-          console.log(imgSrc)
-          setHtml(imgSrc);
-        }, function (e) {
-          console.log("读取拍照文件错误：" + e.message);
-        });
-      }, function (s) {
-        console.log("error" + s);
-      }, {
-          filename: "_doc/camera/"
-        })
-    }
-
-    // 从相册中选择图片   
-    function galleryImg() {
-      // 从相册中选择图片  
-      plus.gallery.pick(function (e) {
-        // for (var i in e.files) {
-        //   var fileSrc = e.files[i];
-        //   // console.log(414, fileSrc)
-        //   setHtml(fileSrc);
-        // }
-
-        setHtml(fileSrc);
-        upload()
-      }, function (e) {
-        console.log("取消选择图片");
-      }, {
-          filter: "image",
-          system: false,
-          onmaxed: function () {
-            plus.nativeUI.alert('最多只能选择1张图片');
-          }
-        });
-    }
-
-    // 
-    function setHtml(path) {
-      // console.log(typeof path)
-      if (typeof path == 'function') {
-        return;
-      }
-      var html = '<div class="imgItem">\
-                  <img class="img" id="img" src="'+ path + '" alt="">\
-                  <div class="imgDelete"></div>\
-                </div>'
-      $('#pictureUrl').append(html)
-    }
-
-
-    // 删除图片
-    $('#pictureUrl').on('tap', '.imgDelete', function (e) {
-      // console.log(124153)
-      e.stopPropagation();
-      $(this).parent().remove()
-    })
-
-    // 上传的方法  
-    function upload() {
-      var files = document.getElementById('img')
-      MicroTaskGUID = common.guid();
-
-      var rul = "http://36.110.56.189:8848/car-management/car/carPicUpload.action?vSn=2018-001"
-
-      var imgsArr = mui(".task-img");
-
-      // mui.each(imgsArr, function (index, item) {
-      //   //      console.log(index)  
-      //   //      console.log(item.src)  
-      //   createUp(item)
-      // })
-      createUp(files)
-
-
-      function createUp(files) {
-        var task = plus.uploader.createUpload(url,
-          { method: "POST" },
-          function (t, status) { //上传完成  
-            if (status == 200) {
-              console.log("上传成功：" + t.responseText);
-            } else {
-              console.log("上传失败：" + status);
-            }
-          }
-        );
-        //添加其他参数  
-        //      task.addData("name","test");  
-        task.addFile(files.src, { key: files.src });
-        task.start();
-      }
-    }
-
+ 
     // 返回事件
     document.addEventListener('goback', function () {
       mui.back();
-      mui.fire(view, 'update', null)
+      mui.fire(view, 'goback', null)
     })
   </script>
 </body>

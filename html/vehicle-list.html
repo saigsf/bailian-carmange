@@ -280,6 +280,7 @@
 
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
+          console.log(item.picurl)
           html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
 
           if (app.getUserRoles('admin')) {

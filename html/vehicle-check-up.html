@@ -330,7 +330,8 @@
           extras: {
             H: H,
             vSn: data.vSn,
-            upCheckInfo: data
+            upCheckInfo: data,
+            prevId: self.id
           } //自定义扩展参数
         })
         return;
@@ -362,6 +363,10 @@
       // fetchData()
 
       document.addEventListener('statusBar', function (e) {
+        fetchData();
+      })
+
+      document.addEventListener('goback', function () {
         fetchData();
       })
 

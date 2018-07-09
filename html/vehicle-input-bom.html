@@ -332,13 +332,15 @@
         canBomCheck = true;
         $(this).html('取消');
         $('input').attr('readonly', false)
-        isModify = true;
+        // isModify = true;
       } else {
         canBomCheck = false;
         $(this).html('修改');
         $('input').attr('readonly', true)
-        isModify = false;
+        // isModify = false;
       }
+
+      isModify = canBomCheck || isModify
     })
 
 

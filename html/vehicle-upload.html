@@ -39,6 +39,7 @@
       padding: 10px;
       margin-bottom: 40px;
     }
+
     .items {
       display: flex;
       align-items: center;
@@ -53,6 +54,16 @@
       position: relative;
       overflow: hidden;
       margin-right: 20px;
+    }
+
+    .img-btn label {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .img-btn input {
+      display: none;
     }
 
     .img-btn p {
@@ -72,16 +83,27 @@
       height: 100%;
       position: relative;
       z-index: 999;
+      border-radius: 3px;
       display: block;
+      display: none;
     }
+
+
+
     .upload-info {
       width: 65%;
     }
+
     .upload-progress {
       height: 50px;
     }
+
     .progress-wrapper .progress {
       width: 100%;
+    }
+
+    .progress-wrapper span {
+      width: 100%
     }
   </style>
 </head>
@@ -94,51 +116,71 @@
   <!--页面主内容区开始-->
   <div class="mui-content">
     <div class="container">
-      <div class="items">
+      <form class="items" id="img_one">
         <div class="img-btn">
-          <img src="" alt="">
-          <p>点击上传</p>
+          <label for="vehicle_img">
+            <img src="" alt="">
+            <p>点击上传</p>
+          </label>
+          <input id="vehicle_img" name="uploadFile" type="file">
         </div>
         <div class="upload-info">
           <div class="upload-name">上传车辆图片</div>
           <div class="progress-wrapper upload-progress">
-              <div class="progress">
-                <div class="move"></div>
-              </div>
+            <!-- <div class="progress">
+              <div class="move"></div>
+            </div> -->
+            <div id="demo1" class="mui-progressbar">
+              <span></span>
             </div>
+
+          </div>
         </div>
-      </div>
-      <div class="items">
+      </form>
+      <form class="items">
         <div class="img-btn">
-          <img src="" alt="">
-          <p>点击上传</p>
+          <label for="circuit_img">
+            <img src="" alt="">
+            <p>点击上传</p>
+          </label>
+          <input id="circuit_img" name="uploadFile" type="file">
         </div>
         <div class="upload-info">
           <div class="upload-name">上传车辆电路图</div>
           <div class="progress-wrapper upload-progress">
-              <div class="progress">
-                <div class="move"></div>
-              </div>
+            <!-- <div class="progress">
+              <div class="move"></div>
+            </div> -->
+            <div id="demo2" class="mui-progressbar">
+              <span></span>
             </div>
+          </div>
         </div>
-      </div>
+      </form>
 
-      <div class="items">
+      <form class="items">
         <div class="img-btn">
-          <img src="" alt="">
-          <p>点击上传</p>
+          <label for="crd_file">
+            <img src="" alt="">
+            <p>点击上传</p>
+          </label>
+          <input id="crd_file" name="uploadFile" type="file">
         </div>
         <div class="upload-info">
           <div class="upload-name">上传车辆crd文件</div>
           <div class="progress-wrapper upload-progress">
-            <div class="progress">
+            <!-- <div class="progress">
               <div class="move"></div>
+            </div> -->
+            <div id="demo3" class="mui-progressbar">
+              <span></span>
             </div>
           </div>
         </div>
+      </form>
+      <div class="btn-wrapper ">
+        <button type="button" class="btn btn-blue" id="submit">提交</button>
       </div>
-
-
     </div>
   </div>
   <!--页面主内容区结束-->
@@ -154,11 +196,43 @@
   <script type="text/javascript">
     var H = null;
     var self = null;
+    var view = null;
+    var vSn = null;
+    var url = null;
+    var isModify = false;
+
+    var oneInfo = null;
+    var oneBom = null;
+    var upCheckInfo = null;
+    var oneToolApply = null;
+
+    var isFirst = false;
+
+    var upcheck = null;
+    var addcar = null;
+
+    var submitLock = false;
 
     mui.init();
     mui.plusReady(function () {
       handsetAdaption();
       self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById('vehicle-input-tools')
+      vSn = self.vSn;
+      isModify = self.isModify
+      oneInfo = self.oneInfo
+      oneBom = self.oneBom
+      upCheckInfo = self.upCheckInfo
+      oneToolApply = self.oneToolApply;
+      
+      if(isModify ) {
+        $('#submit').html('确定修改').parent().show()
+      } else if(isFirst){
+        $('#submit').parent().show();
+      } else {
+        $('#submit').parent().hide();
+      }
+      fetchData()
     })
 
     function handsetAdaption() {
@@ -176,6 +250,153 @@
       //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
       // });
     }
+
+    function fetchData() {
+      app.carQuery({vSn}, function(res) {
+        console.log(res)
+        res = JSON.parse(res);
+        if(res.total != 1) {
+          isFirst = true;
+          return;
+        }
+        if(res.rows[0].picurl)
+        $('#vehicle_img').prev().find('img').attr('src', res.rows[0].picurl).show()
+        // if(res.picurl)
+        // $('#circuit_img').attr('src', res.picurl).show()
+        // if(res.picurl)
+        // $('#crd_file').attr('src', res.picurl).show()
+      })
+    }
+
+
+
+
+    function getObjectURL(file) {
+      var url = null;
+      if (window.createObjectURL != undefined) {
+        url = window.createObjectURL(file)
+      } else if (window.URL != undefined) {
+        url = window.URL.createObjectURL(file)
+      } else if (window.webkitURL != undefined) {
+        url = window.webkitURL.createObjectURL(file)
+      }
+      return url
+    };
+
+
+
+
+    $('input').on('change', function (e) {
+      var _this = this;
+      var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
+
+      var srcs = getObjectURL(this.files[0]);   //获取路径
+      $(this).parent().find('img').prop('src', srcs).show()
+      var formData = new FormData($(this).parents('form')[0])
+
+      if (pid == '#demo1') {
+        url = BASE_URL_1 + 'car-management/car/carPicUpload.action?vSn=' + vSn;
+      } else if (pid == '#demo2') {
+        url = BASE_URL_1 + 'car-management/file/circuitPicUpload.action?vSn=' + vSn;
+      } else {
+        url = BASE_URL_1 + 'car-management/file/wordUpload.action?vSn=' + vSn;
+      }
+
+      var process = 0;
+      mui(pid)[0].style.visibility = 'visible';
+      mui(pid).progressbar({ progress: 10 }).show();
+      $.ajax({
+        url: url,
+        type: "post",
+        data: formData,
+        contentType: false,//必须false才会自动加上正确的Content-Type
+        processData: false,//必须false才会避开jQuery对 formdata 的默认处理
+        crossDomain: true,
+        xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
+          myXhr = $.ajaxSettings.xhr();
+          if (myXhr.upload) { //检查upload属性是否存在  
+            //绑定progress事件的回调函数  
+            myXhr.upload.addEventListener('progress', function (e) {
+              console.log(e.loaded, e.total)
+              var curr = e.loaded;
+              var total = e.total;
+              process = curr / total * 100;
+              console.log(pid)
+              mui(pid).progressbar().setProgress(process);
+
+            }, false);
+          }
+          return myXhr; //xhr对象返回给jQuery使用  
+        },
+        success: function (data) {
+          console.log(data)
+          mui.alert(data.msg, "提示", "确定");
+        },
+        error: function () {
+          mui.alert("上传失败！", "提示", "确定");
+        }
+
+      })
+    })
+
+
+    $('#submit').on('tap', function () {
+
+      if (submitLock) {
+        return;
+      }
+      submitLock = true;
+
+      if (!isModify) {
+        upcheck = 'upcheck';
+        addcar = 'save';
+      } else {
+        upcheck = 'updateUpcheck';
+        addcar = 'update'
+      }
+
+
+      app[upcheck](upCheckInfo, function (res) {
+        console.log(res)
+        if (res.ret) {
+          flagCheck = true;
+        }
+      })
+      app[addcar](oneInfo, function (res) {
+        console.log(res)
+        res = JSON.parse(res)
+        if (res.ret) {
+          flagInfo = true;
+        }
+      })
+
+      app.applybom(oneBom, function (res) {
+        console.log(res)
+        if (res.ret) {
+          flagBom = true;
+        }
+      })
+
+      app.applytools(oneToolApply, function (res) {
+        console.log(res)
+        if (res.ret) {
+          flagTools = true;
+        }
+      });
+
+      setTimeout(() => {
+        console.log(flagCheck, flagInfo, flagBom, flagTools)
+        if (flagCheck && flagInfo && flagBom && flagTools) {
+          console.log('成功')
+
+          mui.back();
+          mui.fire(view, 'goback', {});
+
+        }
+        submitLock = false;
+      }, 500);
+
+    })
   </script>
 </body>
 
