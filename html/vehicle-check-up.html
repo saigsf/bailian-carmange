@@ -312,11 +312,11 @@
 
 
         var checkResult = hasEmptyValue(data, checkArr);
-        // if (checkResult) {
-        //   console.log(translate(checkResult, translateArr))
-        //   mui.toast(translate(checkResult, translateArr));
-        //   return;
-        // }
+        if (checkResult) {
+          console.log(translate(checkResult, translateArr))
+          mui.toast(translate(checkResult, translateArr));
+          return;
+        }
         
 
         var id = $(this).attr('id');

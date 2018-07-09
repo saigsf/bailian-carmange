@@ -300,6 +300,8 @@
 
     var canReviseInput = false; // 可以修改
     var isFirst = false;
+
+    var isModify = false;
     // 初始化
     mui.init();
 
@@ -312,7 +314,9 @@
       view = plus.webview.getWebviewById('vehicle-input-info');
       H = self.H;
       vSn = self.vSn;
-      $('#vSn').val(vSn)
+      console.log(vSn)
+      $('#vSn').val(vSn);
+      isModify = self.isModify;
       upCheckInfo = self.upCheckInfo
       fetchData();
       submitData();
@@ -343,12 +347,14 @@
           $('select').attr('disabled', false)
           $('input').attr('disabled', false)
           .parents('li').find('.mui-icon-clear').hide()
+          isModify = true;
         } else {
           canReviseInput = false;
           $(this).html('修改');
           $('select').attr('disabled', true)
           $('input').attr('disabled', true)
             .parents('li').find('.mui-icon-clear').show()
+            isModify =false;
         }
       })
 
@@ -525,11 +531,11 @@
         }];
 
         var checkResult = hasEmptyValue(oneInfo, checkArr);
-        // if (checkResult) {
-        //   mui.toast(translate(checkResult, translateArr));
-        //   console.log(translate(checkResult, translateArr));
-        //   return;
-        // }
+        if (checkResult) {
+          mui.toast(translate(checkResult, translateArr));
+          console.log(translate(checkResult, translateArr));
+          return;
+        }
 
         // 第一次录入
         // 不是第一次，但是有修改操作
@@ -537,10 +543,10 @@
         // console.log(isFirst)
         // console.log(canReviseInput)
         // return;
-        if(!((canReviseInput && !isFirst) || isFirst)) {
-          oneInfo = null;
-        }
-        console.log(11212)
+        // if(!((canReviseInput && !isFirst) || isFirst)) {
+        //   isModify = true;
+        // }
+        // console.log(11212)
         var id = $(this).attr('id');
         mui.openWindow({
           url: id + '.html',
@@ -553,7 +559,8 @@
             H: H,
             vSn: vSn,
             oneInfo: oneInfo,
-            upCheckInfo: upCheckInfo
+            upCheckInfo: upCheckInfo,
+            isModify:isModify
           } //自定义扩展参数
         })
       })

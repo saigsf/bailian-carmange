@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>上传图片</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+    .container {
+      height: 100%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .container p {
+      color: #333;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .container .items {
+      width: 95%;
+      min-height: 100px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      margin-bottom: 40px;
+    }
+    .items {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .img-btn {
+      width: 80px;
+      height: 80px;
+      background: url(../img/common/md/upload_img@2x.png) no-repeat center;
+      background-size: contain;
+      position: relative;
+      overflow: hidden;
+      margin-right: 20px;
+    }
+
+    .img-btn p {
+      color: #bbb;
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      line-height: 20px;
+      margin: 0;
+      font-size: 12px;
+    }
+
+    .img-btn img {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 999;
+      display: block;
+    }
+    .upload-info {
+      width: 65%;
+    }
+    .upload-progress {
+      height: 50px;
+    }
+    .progress-wrapper .progress {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">上传图片</h1>
+  </header>
+  <!--页面主内容区开始-->
+  <div class="mui-content">
+    <div class="container">
+      <div class="items">
+        <div class="img-btn">
+          <img src="" alt="">
+          <p>点击上传</p>
+        </div>
+        <div class="upload-info">
+          <div class="upload-name">上传车辆图片</div>
+          <div class="progress-wrapper upload-progress">
+              <div class="progress">
+                <div class="move"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="items">
+        <div class="img-btn">
+          <img src="" alt="">
+          <p>点击上传</p>
+        </div>
+        <div class="upload-info">
+          <div class="upload-name">上传车辆电路图</div>
+          <div class="progress-wrapper upload-progress">
+              <div class="progress">
+                <div class="move"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="items">
+        <div class="img-btn">
+          <img src="" alt="">
+          <p>点击上传</p>
+        </div>
+        <div class="upload-info">
+          <div class="upload-name">上传车辆crd文件</div>
+          <div class="progress-wrapper upload-progress">
+            <div class="progress">
+              <div class="move"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    var H = null;
+    var self = null;
+
+    mui.init();
+    mui.plusReady(function () {
+      handsetAdaption();
+      self = plus.webview.currentWebview();
+    })
+
+    function handsetAdaption() {
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      // plus.webview.currentWebview().setStyle({
+      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      // });
+    }
+  </script>
+</body>
+
+</html>

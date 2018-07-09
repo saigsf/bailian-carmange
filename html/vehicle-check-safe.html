@@ -185,9 +185,11 @@
     .resolvent {
       font-size: 24px;
     }
+
     .mui-popover {
       width: 140px;
     }
+
     .info-operator {
       flex-direction: column;
     }
@@ -1246,30 +1248,30 @@
         </tbody>
       </table>
       <div class="info-operator">
-          <div class="info-operator-item">
-            <p>
-              <span>检查人：</span>
-              <span class="checkPerson"></span>
-            </p>
-            <p>
-              <span>检查日期：</span>
-              <span class="checkTime"></span>
-            </p>
-  
-          </div>
-          <div class="info-operator-item">
-            <p>
-              <span>核对人：</span>
-              <span class="checkingPerson"></span>
-            </p>
-            <p>
-              <span>核对日期：</span>
-              <span class="checkingTime"></span>
-            </p>
-  
-  
-          </div>
+        <div class="info-operator-item">
+          <p>
+            <span>检查人：</span>
+            <span class="checkPerson"></span>
+          </p>
+          <p>
+            <span>检查日期：</span>
+            <span class="checkTime"></span>
+          </p>
+
         </div>
+        <div class="info-operator-item">
+          <p>
+            <span>核对人：</span>
+            <span class="checkingPerson"></span>
+          </p>
+          <p>
+            <span>核对日期：</span>
+            <span class="checkingTime"></span>
+          </p>
+
+
+        </div>
+      </div>
       <div class="btn-wrapper ">
         <button class="btn btn-blue" id="two_next">提交</button>
       </div>
@@ -1410,7 +1412,7 @@
             $('#openPopover').hide();
 
           } else {
-            
+
             $('#openPopover').hide();
             $('#two_next').parent().hide();
             mui.alert('您没有相关操作权限', '提示')
@@ -1458,10 +1460,10 @@
         })
 
         $('.checkPerson').html(res.check.checkPerson ? res.check.checkPerson : '')
-      $('.checkTime').html(res.check.checkTime ? res.check.checkTime : '')
-      $('.checkingPerson').html(res.check.checkingPerson ? res.check.checkingPerson : '')
-      $('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '')
-    
+        $('.checkTime').html(res.check.checkTime ? res.check.checkTime : '')
+        $('.checkingPerson').html(res.check.checkingPerson ? res.check.checkingPerson : '')
+        $('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '')
+
       }
     }
 

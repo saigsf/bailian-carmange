@@ -19,6 +19,26 @@
     td {
       min-height: 40px;
     }
+
+    .info-operator {
+      flex-direction: column;
+    }
+
+    .info-operator-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .info-operator-item p {
+      width: 50%;
+      margin: 0;
+    }
+
+    .info-operator-item span {
+      display: inline;
+    }
   </style>
 </head>
 
@@ -118,6 +138,20 @@
 
       </form>
       <!-- BOM零部件申请end -->
+      <div class="info-operator">
+        <div class="info-operator-item">
+          <p>
+            <span>申请人：</span>
+            <span class="applyPerson"></span>
+          </p>
+          <p>
+            <span>申请日期：</span>
+            <span class="applyTime"></span>
+          </p>
+
+        </div>
+
+      </div>
       <!-- 提交 -->
       <div class="btn-wrapper ">
         <a href="#" class="btn btn-blue" id="vehicle-input-tools">下一步</a>
@@ -146,6 +180,8 @@
     var canBomCheck = false;
     var isFirst = false;
 
+    var isModify = false;
+
     mui.init();
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
@@ -156,6 +192,7 @@
       vSn = self.vSn;
       oneInfo = self.oneInfo;
       upCheckInfo = self.upCheckInfo;
+      isModify = self.isModify;
       fetchData();
       submitData();
     })
@@ -185,6 +222,9 @@
           $('#openPopover').hide()
           return;
         }
+
+        $('.applyPerson').html(res.check.applyPerson)
+        $('.applyTime').html(res.check.applyTime)
         updateView(res.checkResults)
 
       })
@@ -262,9 +302,9 @@
         // console.log(canBomCheck)
         // return;
 
-        if (!((!isFirst && canBomCheck) || isFirst)) {
-          oneBom = null;
-        }
+        // if (!((!isFirst && canBomCheck) || isFirst)) {
+        //   oneBom = null;
+        // }
 
         var id = $(this).attr('id');
         mui.openWindow({
@@ -279,7 +319,8 @@
             vSn: vSn,
             oneBom: oneBom,
             oneInfo: oneInfo,
-            upCheckInfo: upCheckInfo
+            upCheckInfo: upCheckInfo,
+            isModify: isModify
           } //自定义扩展参数
         })
       })
@@ -291,10 +332,12 @@
         canBomCheck = true;
         $(this).html('取消');
         $('input').attr('readonly', false)
+        isModify = true;
       } else {
         canBomCheck = false;
         $(this).html('修改');
         $('input').attr('readonly', true)
+        isModify = false;
       }
     })
 

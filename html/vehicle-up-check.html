@@ -209,7 +209,7 @@
 
       </form>
       <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="next">确认修改</button>
+        <button class="btn btn-blue" id="vehicle-input">下一步</button>
       </div>
     </div>
   </div>
@@ -232,7 +232,9 @@
       var H = null;
       var vSn = '2018ICECTC006';
       var id = null;
-      var data = {}
+      var data = {};
+      var canUpCheck = false;
+      var isModify= false; // 是否修改
 
       // plusReady
       mui.plusReady(function () {
@@ -241,7 +243,7 @@
         H = self.H;
         vSn = self.vSn;
         fetchData();
-        $('#next').parent().hide()
+        // $('#vehicle-input').parent().hide()
       })
 
       // 手机适配方法
@@ -270,12 +272,31 @@
       }
 
       // 更新数据
-      $('#next').on('tap', updateData)
+      $('#vehicle-input').on('tap', updateData)
       function updateData() {
         //打开接车点检页面
         var data = serialize($('form'));
         data.id = id;
         // console.log(data);
+        if(canUpCheck) {
+          isModify = true;
+        }
+        var id = $(this).attr('id');
+        mui.openWindow({
+          url: id + '.html',
+          id: id, //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn,
+            upCheckInfo: data,
+            isModify: isModify
+          } //自定义扩展参数
+        })
+        return;
         app.updateUpcheck(data, function (res) {
           // res = JSON.parse(res);
           console.log(res.msg);
@@ -292,16 +313,17 @@
       $('#openPopover').on('tap', function () {
         
         if ($(this).html() == '修改') {
-          $('#next').parent().show();
+          // $('#vehicle-input').parent().show();
           $('input').attr('disabled', false)
             .parents('li').find('.mui-icon-clear').show();
           $(this).html('取消')
-
+          canUpCheck = true;
         } else {
-          $('#next').parent().hide();
+          // $('#vehicle-input').parent().hide();
           $('input').attr('disabled', true)
             .parents('li').find('.mui-icon-clear').hide();
           $(this).html('修改')
+          canUpCheck = false;
         }
 
       })
