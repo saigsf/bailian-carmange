@@ -2255,6 +2255,7 @@
         if (res.ret) {
           // mui.toast(res.msg);
           setTimeout(() => {
+            submitLock = false;
             mui.back()
             mui.fire(view, 'update', null)
           }, 500);
@@ -2390,6 +2391,10 @@
         });
       })
     }
+
+    document.addEventListener('update', function() {
+      fetchData()
+    })
   </script>
 </body>
 

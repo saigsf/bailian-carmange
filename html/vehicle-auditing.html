@@ -155,12 +155,12 @@
           <div class="info-content" id="vehicle-info">
             <div class="info-content-top">
               <p>车辆编号</p>
-              <h3 id="vSn_0">2017-123</h3>
+              <h3 id="vSn_0">-</h3>
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="engineNumber_0">-</h5>
-                <p>发动机号</p>
+                <h5 id="project_status_0">-</h5>
+                <p>项目状态</p>
               </div>
               <div class="info-content-item">
                 <h5 id="projectEngineer_0">-</h5>
@@ -346,12 +346,12 @@
                 <input type="text" name="vSn" placeholder="" readonly>
               </div>
             </div>
-            <div class="date-wrapper">
+            <!-- <div class="date-wrapper">
               <label>备注</label>
               <div class="date-text">
                 <input type="text" name="" placeholder="" readonly>
               </div>
-            </div>
+            </div> -->
             <div class="date-wrapper">
               <label>车辆名称</label>
               <div class="date-text">
@@ -364,7 +364,7 @@
                 <input type="text" name="vCarType" placeholder="" readonly>
               </div>
             </div>
-            <div class="date-wrapper">
+            <!-- <div class="date-wrapper">
               <label>发动机编号</label>
               <div class="date-text">
                 <input type="text" name="engineNumber" placeholder="" readonly>
@@ -375,7 +375,7 @@
               <div class="date-text">
                 <input type="text" name="vin" placeholder="" readonly>
               </div>
-            </div>
+            </div> -->
             <div class="date-wrapper">
               <label>客户</label>
               <div class="date-text">
@@ -1691,6 +1691,13 @@
                 <span>审核说明：</span>
                 <textarea name="explanation" id="explanation" cols="4" rows="3" placeholder="添加说明"></textarea>
               </div>
+              <div class="info-operator">
+                <div class="info-operator-item">
+                  <span class="reviewerPerson">审核人：</span>
+                  <span class="reviewerTime"></span>
+                </div>
+              </div>
+
             </form>
           </div>
         </div>
@@ -1752,13 +1759,13 @@
       function fetchData() {
         // 查看车辆信息
         app.carQuery({ vSn }, function (res) {
-          res = JSON.parse(res);
           console.log(res);
+          res = JSON.parse(res);
           // res.rows
           $('#vSn_0').html(res.rows[0].vSn)
-          $('#engineNumber_0').html(res.rows[0].engineNumber?res.rows[0].engineNumber:'-')
-          $('#projectEngineer_0').html(res.rows[0].projectEngineer?res.rows[0].projectEngineer:'-')
-          $('#checks_status_0').html(res.rows[0].checks_status?res.rows[0].checks_status:'-')
+          $('#project_status_0').html(res.rows[0].project ? res.rows[0].project.project_status : '-')
+          $('#projectEngineer_0').html(res.rows[0].projectEngineer ? res.rows[0].projectEngineer : '-')
+          $('#checks_status_0').html(res.rows[0].checks_status ? res.rows[0].checks_status : '-')
         })
 
         // 查看审核
@@ -1768,13 +1775,25 @@
           console.log('审核查看')
           // res = JSON.stringify(res)
           console.log(res)
-          if (res.reviewer != null) {
-            $('#openPopover').show();
-            $('#six_next').html('确定修改').parent().hide()
-          }
           // return;
           updateView.review(res)
         })
+        
+        // 查看审核信息
+        app.findReview({vSn}, function(res) {
+          console.log(res)
+          res = JSON.parse(res);
+          if(res != null && res.reviewerPerson != null) {
+            $('#openPopover').show();
+            $('#six_next').html('确定修改').parent().hide()
+
+            $('#auditing_form').find('input[name=status]').val(res.status)
+            $('#auditing_form').find('textarea[name=explanation]').val(res.explanation)
+            $('#auditing_form').find('.reviewerPerson').html('申请人：' + res.reviewerPerson)
+            $('#auditing_form').find('.reviewerTime').html(res.reviewerTime)
+          }
+        })
+
         // 接车点检查看
         app.findUpcheck({ vSn }, function (res) {
           console.log('接车点检查看')
@@ -1960,7 +1979,6 @@
         review: function (data) {
           for (const key in data) {
             if (data.hasOwnProperty(key)) {
-              console.log(key)
               const item = data[key];
               if (item != null) {
                 $('.' + key + '.checkPerson').val(item.checkPerson ? item.checkPerson : '')
@@ -2008,6 +2026,7 @@
           mui.toast(res.msg);
           if (res.ret) {
             setTimeout(() => {
+              submitLock = false;
               mui.back()
               mui.fire(view, 'update', null)
             }, 500);
@@ -2030,6 +2049,10 @@
           $('#auditing_form textarea').attr('disabled', true)
           $(this).html('修改')
         }
+      })
+
+      document.addEventListener('update', function () {
+        fetchData()
       })
     })();
   </script>

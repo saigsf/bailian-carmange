@@ -257,7 +257,7 @@
           var endDate = new Date(item.licenseEndTime.replace(/-/g, "/"))
           var startDate = new Date(item.licenseStartTime.replace(/-/g, "/"))
           var time = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-
+          console.log(time)
           html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
             + '<div class="list-item">'
             + '<div class="item-left">'
@@ -276,9 +276,9 @@
             + '<div class="progress-wrapper">'
             + '<label>剩余时间：</label>'
             + '<div class="progress">'
-            + '<div class="move green" style="width:' + (item.llave ? (item.llave / time * 100 + '%') : '0') + '" ></div>'
+            + '<div class="move green" style="width:' + (item.llave > 0 ? (item.llave / time * 100 + '%') : '0') + '" ></div>'
             + '</div>'
-            + '<span>' + (item.llave ? (item.llave + '天') : '暂无') + '</span>'
+            + '<span>' + (item.llave > 0 ? (item.llave + '天') : '暂无') + '</span>'
             + '</div>'
             + '</div>'
             + '</div>'

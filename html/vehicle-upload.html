@@ -201,6 +201,11 @@
     var url = null;
     var isModify = false;
 
+    var flagCheck = false;
+    var flagInfo = false;
+    var flagBom = false;
+    var flagTools = false;
+
     var oneInfo = null;
     var oneBom = null;
     var upCheckInfo = null;
@@ -208,8 +213,8 @@
 
     var isFirst = false;
 
-    var upcheck = null;
-    var addcar = null;
+    var upcheck = 'upcheck';
+    var addcar = 'save';
 
     var submitLock = false;
 
@@ -224,15 +229,17 @@
       oneBom = self.oneBom
       upCheckInfo = self.upCheckInfo
       oneToolApply = self.oneToolApply;
-      
-      if(isModify ) {
+
+
+      fetchData()
+      if (isModify) {
         $('#submit').html('确定修改').parent().show()
-      } else if(isFirst){
+      } else if (isFirst) {
         $('#submit').parent().show();
       } else {
         $('#submit').parent().hide();
       }
-      fetchData()
+
     })
 
     function handsetAdaption() {
@@ -252,15 +259,15 @@
     }
 
     function fetchData() {
-      app.carQuery({vSn}, function(res) {
+      app.carQuery({ vSn }, function (res) {
         console.log(res)
         res = JSON.parse(res);
-        if(res.total != 1) {
+        if (res.total != 1) {
           isFirst = true;
           return;
         }
-        if(res.rows[0].picurl)
-        $('#vehicle_img').prev().find('img').attr('src', res.rows[0].picurl).show()
+        if (res.rows[0].picurl)
+          $('#vehicle_img').prev().find('img').attr('src', res.rows[0].picurl).show()
         // if(res.picurl)
         // $('#circuit_img').attr('src', res.picurl).show()
         // if(res.picurl)
@@ -291,54 +298,66 @@
       var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
 
       var srcs = getObjectURL(this.files[0]);   //获取路径
-      $(this).parent().find('img').prop('src', srcs).show()
-      var formData = new FormData($(this).parents('form')[0])
-
-      if (pid == '#demo1') {
-        url = BASE_URL_1 + 'car-management/car/carPicUpload.action?vSn=' + vSn;
-      } else if (pid == '#demo2') {
-        url = BASE_URL_1 + 'car-management/file/circuitPicUpload.action?vSn=' + vSn;
-      } else {
-        url = BASE_URL_1 + 'car-management/file/wordUpload.action?vSn=' + vSn;
-      }
-
-      var process = 0;
-      mui(pid)[0].style.visibility = 'visible';
-      mui(pid).progressbar({ progress: 10 }).show();
-      $.ajax({
-        url: url,
-        type: "post",
-        data: formData,
-        contentType: false,//必须false才会自动加上正确的Content-Type
-        processData: false,//必须false才会避开jQuery对 formdata 的默认处理
-        crossDomain: true,
-        xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
-          myXhr = $.ajaxSettings.xhr();
-          if (myXhr.upload) { //检查upload属性是否存在  
-            //绑定progress事件的回调函数  
-            myXhr.upload.addEventListener('progress', function (e) {
-              console.log(e.loaded, e.total)
-              var curr = e.loaded;
-              var total = e.total;
-              process = curr / total * 100;
-              console.log(pid)
-              mui(pid).progressbar().setProgress(process);
-
-            }, false);
-          }
-          return myXhr; //xhr对象返回给jQuery使用  
-        },
-        success: function (data) {
-          console.log(data)
-          mui.alert(data.msg, "提示", "确定");
-        },
-        error: function () {
-          mui.alert("上传失败！", "提示", "确定");
-        }
-
-      })
+      console.log(srcs)
+      $(this).parent().find('img').prop('src', srcs).show() 
+      $('#submit').html('确定修改').parent().show()
     })
 
+
+    function submitData() {
+      $('input').each(function (i) {
+        console.log(this.files)
+        if (this.files.length == 0) {
+          return;
+        }
+        var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
+
+        var formData = new FormData($(this).parents('form')[0])
+        console.log(formData)
+        if (pid == '#demo1') {
+          url = BASE_URL_1 + 'car-management/car/carPicUpload.action?vSn=' + vSn;
+        } else if (pid == '#demo2') {
+          url = BASE_URL_1 + 'car-management/file/circuitPicUpload.action?vSn=' + vSn;
+        } else {
+          url = BASE_URL_1 + 'car-management/file/wordUpload.action?vSn=' + vSn;
+        }
+
+        var process = 0;
+        mui(pid)[0].style.visibility = 'visible';
+        mui(pid).progressbar({ progress: 10 }).show();
+        $.ajax({
+          url: url,
+          type: "post",
+          data: formData,
+          contentType: false,//必须false才会自动加上正确的Content-Type
+          processData: false,//必须false才会避开jQuery对 formdata 的默认处理
+          crossDomain: true,
+          xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
+            myXhr = $.ajaxSettings.xhr();
+            if (myXhr.upload) { //检查upload属性是否存在  
+              //绑定progress事件的回调函数  
+              myXhr.upload.addEventListener('progress', function (e) {
+                console.log(e.loaded, e.total)
+                var curr = e.loaded;
+                var total = e.total;
+                process = curr / total * 100;
+                mui(pid).progressbar().setProgress(process);
+
+              }, false);
+            }
+            return myXhr; //xhr对象返回给jQuery使用  
+          },
+          success: function (data) {
+            console.log(data)
+            mui.alert(data.msg, "提示", "确定");
+          },
+          error: function () {
+            mui.alert("上传失败！", "提示", "确定");
+          }
+
+        })
+      })
+    }
 
     $('#submit').on('tap', function () {
 
@@ -347,14 +366,12 @@
       }
       submitLock = true;
 
-      if (!isModify) {
-        upcheck = 'upcheck';
-        addcar = 'save';
-      } else {
+      if (isModify) {
         upcheck = 'updateUpcheck';
         addcar = 'update'
       }
 
+      submitData();
 
       app[upcheck](upCheckInfo, function (res) {
         console.log(res)
@@ -362,6 +379,8 @@
           flagCheck = true;
         }
       })
+      console.log(JSON.stringify(oneInfo))
+      console.log(addcar)
       app[addcar](oneInfo, function (res) {
         console.log(res)
         res = JSON.parse(res)

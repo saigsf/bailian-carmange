@@ -377,6 +377,13 @@
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
+
+          var groups = '';
+          for (let i = 0; i < item.groups.length; i++) {
+            groups += item.groups[i].name;
+          }
+
+
           html += '<li class="mui-table-view-cell" data-id="' + item.id + '" data-name="' + item.name + '">'
 
           if (app.getUserRoles('admin') || app.getUserRoles('driverManager')) {
@@ -401,7 +408,7 @@
             '</div>' +
             '</div>' +
             '<div class="item-bottom">' +
-            '<p><span>授权分组：</span>' + (item.groups.length > 0 ? item.groups.join() : '-') + '</p>' +
+            '<p><span>授权分组：</span>' + groups + '</p>' +
             '<p><span>电话：</span>' + (item.telephone ? item.telephone : '-') + '</p>' +
             '</div>' +
             '</div>' +

@@ -361,6 +361,10 @@
         mui.fire(view, 'update', null)
       })
 
+      document.addEventListener('update', function () {
+        fetchData()
+      })
+
     })();
   </script>
 </body>

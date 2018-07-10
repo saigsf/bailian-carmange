@@ -1613,6 +1613,7 @@
         // console.log(1435, res.msg);
         mui.toast('安全检查、缸压检测成功');
         setTimeout(() => {
+          submitLock = false;
           mui.back();
           mui.fire(view, 'update', null)
         }, 500);
@@ -1745,7 +1746,12 @@
           $(_this).html('···');
         });
       })
+      
     }
+
+    document.addEventListener('update', function() {
+      fetchData()
+    })
   </script>
 </body>
 

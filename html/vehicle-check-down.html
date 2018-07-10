@@ -59,14 +59,14 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆编号</label>
-              <input name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <input name="vSn" type="text" class="" placeholder="车辆编号,如：2017-211">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>运输车号</label>
-              <input name="trans_sn" type="text" class="mui-input-clear" placeholder="车辆编号,如：2017-211">
+              <input name="trans_sn" type="text" class="" placeholder="车辆编号,如：2017-211">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -90,49 +90,49 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>随车工具</label>
-              <input name="tools" type="text" class="mui-input-clear" placeholder="">
+              <input name="tools" type="text" class="" placeholder="">
               <span class="unit">/套</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>备用轮胎</label>
-              <input name="sparetyre" type="text" class="mui-input-clear" placeholder="">
+              <input name="sparetyre" type="text" class="" placeholder="">
               <span class="unit">/只</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>千斤顶</label>
-              <input name="jack" type="text" class="mui-input-clear" placeholder="">
+              <input name="jack" type="text" class="" placeholder="">
               <span class="unit">/只</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>警示牌</label>
-              <input name="warningboard" type="text" class="mui-input-clear" placeholder="">
+              <input name="warningboard" type="text" class="" placeholder="">
               <span class="unit">/只</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>灭火器</label>
-              <input name="fire" type="text" class="mui-input-clear" placeholder="">
+              <input name="fire" type="text" class="" placeholder="">
               <span class="unit">/只</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>钥匙数量</label>
-              <input name="keyy" type="text" class="mui-input-clear" placeholder="">
+              <input name="keyy" type="text" class="" placeholder="">
               <span class="unit">/把</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>里程表</label>
-              <input name="odometer" type="text" class="mui-input-clear" placeholder="">
+              <input name="odometer" type="text" class="" placeholder="">
               <span class="unit">/km</span>
             </div>
           </li>
@@ -141,49 +141,52 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label class="padtb0">还车申请人</label>
-              <input name="proposer" type="text" class="mui-input-clear" placeholder="">
+              <input name="proposer" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>交车人</label>
-              <input name="forpeople" type="text" class="mui-input-clear" placeholder="">
+              <input name="forpeople" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>接车人</label>
-              <input name="pickone" type="text" class="mui-input-clear" placeholder="">
+              <input name="pickone" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label class="padtb0">接车人电话</label>
-              <input name="pick_tel" type="text" class="mui-input-clear" placeholder="">
+              <input name="pick_tel" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label class="padtb0">接车人身份证</label>
-              <input name="pick_card" type="text" class="mui-input-clear" placeholder="">
+              <input name="pick_card" type="text" class="" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label class="">实际还车日期</label>
+              <input name="time" id="time" type="text" class="" readonly placeholder="">
+              <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>备注信息</label>
-              <input name="remark" type="text" class="mui-input-clear" placeholder="">
+              <input name="remark" type="text" class="" placeholder="">
             </div>
           </li>
-          <li class="mui-table-view-cell">
-            <div class="mui-input-row">
-              <label class="">日期</label>
-              <input name="time" type="text" class="mui-input-clear" placeholder="">
-            </div>
-          </li>
+          
 
         </ul>
       </form>
@@ -239,7 +242,7 @@
         });
       }
       // 获取数据
-      
+
       function fetchData() {
         app.findBackcheck({
           vSn: vSn
@@ -263,7 +266,7 @@
         }
       }
 
-      
+
       function submitData() {
 
         $('input[name=vSn]').val(vSn)
@@ -282,12 +285,35 @@
                 mui.back();
                 mui.fire(view, 'update', null)
               }, 500);
-              
+
             }
           })
 
         })
       }
+
+      var dDate = new Date();
+      $('#time').val(dDate.format('yyyy-MM-dd'))
+      $('#time').on('tap', function() {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+								title: '',
+								date: dDate
+							});
+					});
+				})
+
+      document.addEventListener('update', function () {
+        fetchData()
+      })
     })();
   </script>
 </body>

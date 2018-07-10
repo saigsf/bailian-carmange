@@ -1540,6 +1540,20 @@
 		owner.HttpRequestNonCrossDomain('POST', url, data, callback)
 	}
 
+	/**
+	 * 修改密码
+	 * @param {Object} data 请求参数
+	 * @param {Function} callback 回掉函数
+	 */
+	owner.changeUserPassWord = function (data, callback) {
+		callback = callback || $.noop;
+		data = data || {};
+
+		var url = 'car-management/user/changeUserPassWord.action';
+
+		owner.HTTPRequestPost('POST', url, data, callback)
+	}
+
 
 
 

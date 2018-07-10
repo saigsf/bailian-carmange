@@ -370,7 +370,7 @@
         //   } //自定义扩展参数
         // })
         plus.webview.getWebviewById(id).show('slide-in-right')
-
+        mui.fire(plus.webview.getWebviewById(id), 'update', null)
       });
       // 查看详情
       $('#vehicle-info').on('tap', function () {
@@ -438,6 +438,7 @@
     }
     function updateView(data) {
       dataRetrieval(data);
+      $('#remark').html(data.remark)
       if (data.istatus == '已申请' || data.istatus == '已续保') {
         $('#istatus').addClass('green')
       } else {

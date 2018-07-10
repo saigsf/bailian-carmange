@@ -228,6 +228,7 @@
       var self = null;
       var vSn = null;
       var dDate = new Date();
+      var isModify = false;
 
       // plusReady
       mui.plusReady(function () {
@@ -331,6 +332,7 @@
             H: H,
             vSn: data.vSn,
             upCheckInfo: data,
+            isModify: isModify,
             prevId: self.id
           } //自定义扩展参数
         })

@@ -168,7 +168,7 @@
     var view = null;
     var vSn = '2018ICECTC006';
     var viewId = null;
-    var state = 'submitArr';
+    var state = null;
     var stateArr = [];
     var submitArr = ['addEmsAndBomCheck'];
     var updateArr = ['updateEmsAndBomCheckByCar'];
@@ -190,7 +190,7 @@
       viewId = self.id;
       H = self.H;
       vSn = self.vSn;
-      state = self.state ? self.state : 'submitArr';
+      state = app.getState();
       fetchData();
       // submitData();
     })
@@ -286,6 +286,7 @@
         if (res.ret) {
           mui.toast(res.msg);
           setTimeout(() => {
+            submitLock = false;
             mui.back();
           }, 500);
         } else {
@@ -521,6 +522,9 @@
         });
       })
     }
+    document.addEventListener('update', function() {
+      fetchData()
+    })
   </script>
 </body>
 
