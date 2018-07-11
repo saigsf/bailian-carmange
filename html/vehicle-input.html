@@ -67,17 +67,17 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>项目编号</label>
-              <!-- <input name="product_sn" type="text" class="" placeholder=""> -->
-              <select name="project_sn" id="project_sn">
+              <input name="project_sn" type="text" class="" placeholder="">
+              <!-- <select name="project_sn" id="project_sn">
                 <option value=""></option>
-              </select>
+              </select> -->
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>项目名称</label>
-              <input id="project_name" name="project_name" type="text" class="" readonly>
+              <input id="project_name" name="project_name" type="text" class="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -433,6 +433,7 @@
           const item = data[i];
           html += '<option value="' + item.project_sn + '">' + item.project_sn + '</option>'
         }
+        return;
         $('#project_sn').html(html);
         console.log(JSON.stringify(data[0]))
         $('#project_name').val(data[0].projectName);
@@ -550,7 +551,8 @@
           id: idx, //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H
+            bottom: H,
+            hardwareAccelerated: true
           }, //窗口参数
           extras: {
             H: H,
@@ -566,6 +568,7 @@
     // submitData();
 
     $('#project_sn').on('change', function () {
+      return;
       for (let i = 0; i < productArr.length; i++) {
         const item = productArr[i];
         if (item.project_sn == $(this).val()) {

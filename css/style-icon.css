@@ -411,6 +411,21 @@
   height: 14px;
   background-image: url(../img/common/md/icon_corner_mark_red@2x.png);
 }
+.icon-updated {
+  width: 14px;
+  height: 14px;
+  background-image: url(../img/common/md/icon_updated.png);
+}
+.icon-update-success {
+  width: 14px;
+  height: 14px;
+  background-image: url(../img/common/md/icon_update_success.png);
+}
+.icon-update-failed {
+  width: 14px;
+  height: 14px;
+  background-image: url(../img/common/md/icon_update_failed.png);
+}
 
 .icon-filter {
   line-height: 44px;

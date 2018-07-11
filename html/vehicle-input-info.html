@@ -89,7 +89,8 @@
 
     .take-down {
       position: absolute;
-      bottom: 4px;
+      bottom: 0px;
+      left: 0;
       width: 100%;
       text-align: center;
     }
@@ -108,7 +109,6 @@
     }
 
     .hide.info-item {
-      height: 0;
       padding: 0 12px;
     }
 
@@ -143,10 +143,12 @@
                 <h5 id="project_sn_0">-</h5>
                 <p>项目编号</p>
               </div>
+              <div class="info-content-empty"></div>
               <div class="info-content-item">
                 <h5 id="projectEngineer_0">-</h5>
                 <p>项目工程师</p>
               </div>
+              <div class="info-content-empty"></div>
               <div class="info-content-item">
                 <h5 id="checks_status_0">-</h5>
                 <p>检查进度</p>
@@ -302,7 +304,8 @@
           id: item, //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H
+            bottom: H,
+            hardwareAccelerated: true
           }, //窗口参数
           extras: {
             H: H,
@@ -334,7 +337,7 @@
       //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
       // });
     }
-
+    addEvent()
     function addEvent() {
       var $link = $('#input_operation a');
 
@@ -398,29 +401,14 @@
           return;
         }
         flag = true;
-        $('#vehicle-info').next()
-          .slideDown()
-          .next().css({
-            'display': 'block',
-            'height': '0px',
-            'padding': '0px 12px'
-          }).animate({
-            'height': '480px',
-            'padding': '12px'
-          });
+        $('#vehicle-info').next().fadeIn()
+          .next().slideDown();
         $('#take-down').hide()
       });
       $('#take-up').on('tap', function () {
         flag = false;
-        $('#vehicle-info').next().next()
-          .slideUp()
-          .prev()
-          .delay(500).animate({
-            'height': '0px',
-            'padding': '0px 12px'
-          }).css({
-            'display': 'none'
-          });
+        $('#vehicle-info').next().next().slideUp()
+          .prev().fadeOut();
         $('#take-down').show()
       })
     }

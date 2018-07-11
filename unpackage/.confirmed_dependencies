@@ -17,7 +17,8 @@
       "img/common/md/icon_repair_active.png",
       "img/common/md/icon_user_active.png",
       "img/common/md/icon_gps_active@2x.png",
-      "html/home.html"
+      "html/home.html",
+      "img/common/md/icon_door_active.png"
     ],
     "refer": [
       "html/repair.html",
@@ -222,7 +223,12 @@
       "img/common/md/wire_check@2x.png",
       "img/common/md/bom_check@2x.png",
       "img/common/md/vehicle_auditing@2x.png",
-      "img/common/md/tools@2x.png"
+      "img/common/md/tools@2x.png",
+      "img/common/md/safe_check_disabled@2x.png",
+      "img/common/md/wire_check_disabled@2x.png",
+      "img/common/md/bom_check_disabled@2x.png",
+      "img/common/md/vehicle_auditing_disabled@2x.png",
+      "img/common/md/tools_disabled@2x.png"
     ],
     "refer": [
       "html/vehicle-info-detail.html"
@@ -272,7 +278,8 @@
       "js/app/app.js",
       "js/app/vehicle-list.js",
       "img/common/icon_app.png",
-      "html/vehicle-list-sub.html"
+      "html/vehicle-list-sub.html",
+      "img/common/md/backup_picture1.png"
     ],
     "refer": [
       "html/vehicle-info.html",
@@ -338,7 +345,11 @@
       "img/common/md/icon_checked@2x.png"
     ],
     "refer": [
-      "index.html"
+      "index.html",
+      "html/vehicle.html",
+      "html/setting.html",
+      "html/repair.html",
+      "html/home.html"
     ],
     "priority": 0
   },
@@ -403,7 +414,8 @@
       "js/app/config.js",
       "js/app/app.js",
       "js/app/repair-list.js",
-      "img/common/icon_app.png"
+      "img/common/icon_app.png",
+      "img/common/md/backup_picture.png"
     ],
     "refer": [
       "html/repair-repairman.html",
@@ -465,7 +477,11 @@
       "js/app/app.js",
       "js/app/home.js",
       "img/common/background_ellipse.png",
-      "img/2222@3x.png"
+      "img/2222@3x.png",
+      "img/common/md/top_mark@2x.png",
+      "img/common/md/icon_arraw_right_top@2x.png",
+      "img/car.png",
+      "img/common/md/home_car@2x.png"
     ],
     "refer": [
       "html/home-map-search.html",
@@ -484,7 +500,8 @@
       "js/app/config.js",
       "js/app/app.js",
       "js/app/doorpost-car-entrance.js",
-      "img/common/icon_app.png"
+      "img/common/icon_app.png",
+      "img/common/md/car_outin.png"
     ],
     "refer": [],
     "priority": 0
@@ -533,7 +550,9 @@
       "js/app/app.js",
       "js/app/doorpost-driver.js",
       "img/common/icon_app.png",
-      "img/common/md/icon_checked@2x.png"
+      "img/common/md/icon_checked@2x.png",
+      "img/common/md/in_background.png",
+      "img/common/md/driver_pic.png"
     ],
     "refer": [
       "html/doorpost-driver-input.html",
@@ -698,7 +717,9 @@
       "js/app/config.js",
       "js/app/app.js",
       "js/app/vehicle-insurance-list.js",
-      "img/common/icon_app.png"
+      "img/common/icon_app.png",
+      "img/common/md/in_background.png",
+      "img/common/md/in_pic.png"
     ],
     "refer": [
       "html/vehicle-insurance-apply.html",
@@ -721,7 +742,9 @@
       "js/app/app.js",
       "js/app/repair-info.js"
     ],
-    "refer": [],
+    "refer": [
+      "html/repair-maintain-info.html"
+    ],
     "priority": 0
   },
   "html/repair-content.html": {
@@ -916,7 +939,9 @@
       "js/app/config.js",
       "js/app/app.js",
       "js/app/vehicle-license-list.js",
-      "img/common/icon_app.png"
+      "img/common/icon_app.png",
+      "img/common/md/in_background.png",
+      "img/common/md/lience_pic.png"
     ],
     "refer": [
       "html/vehicle-license-info.html",
@@ -984,13 +1009,29 @@
       "js/mui.min.js",
       "js/app/config.js",
       "js/app/app.js",
-      "img/common/icon_app.png"
+      "img/common/icon_app.png",
+      "img/common/md/backup_picture.png"
     ],
     "refer": [
       "html/repair-maintain-info.html",
       "html/repair-maintain.html",
       "html/search.html"
     ],
+    "priority": 0
+  },
+  "html/home-track.html": {
+    "href": "html/home-track.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "css/style-common.css",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js",
+      "img/car.png"
+    ],
+    "refer": [],
     "priority": 0
   }
 }

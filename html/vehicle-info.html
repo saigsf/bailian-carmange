@@ -73,10 +73,6 @@
       text-align: center
     }
 
-    .info-item:first-of-type {
-      background-image: url(../img/common/md/vehicle_info_bg@2x.png);
-    }
-
     .icon-vehicle-input {
       width: 35px;
       height: 35px;
@@ -2406,7 +2402,8 @@
               id: id, //默认使用当前页面的url作为id
               styles: {
                 top: '0px',
-                bottom: H
+                bottom: H,
+                hardwareAccelerated: true
               }, //窗口参数
               extras: {
                 H: H,

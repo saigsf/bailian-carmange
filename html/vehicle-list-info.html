@@ -111,10 +111,12 @@
                 <h5 id="project_sn_0">-</h5>
                 <p>项目号</p>
               </div>
+              <div class="info-content-empty"></div>
               <div class="info-content-item">
                 <h5 id="projectEngineer_0">-</h5>
                 <p>项目工程师</p>
               </div>
+              <div class="info-content-empty"></div>
               <div class="info-content-item">
                 <h5 id="project_status_0">-</h5>
                 <p>项目状态</p>
@@ -278,23 +280,26 @@
         vSn = self.vSn;
         // data = self.data;
         // updateView(data);
-        fetchData();
-
-        setTimeout(() => {
+        mui.ready(function() {
+          fetchData();
           infoPage = mui.preload({
             url: 'vehicle-info.html',
             id: 'vehicle-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H
+              bottom: H,
+              hardwareAccelerated: true
             }, //窗口参数
             extras: {
               H: H,
               vSn: vSn
             } //自定义扩展参数
           })
-        }, 100);
 
+        })
+        
+
+       
       });
 
       // 手机适配

@@ -302,11 +302,11 @@
             + '</div>'
             + '</div>'
             + '<div class="item-middle">'
-            + '<img src="../img/common/md/line_' + (item.car_status == '已完成' ? 'finished' : 'runing') + '@2x.png" />'
+            + '<img src="../img/common/md/line_' + (item.car_status == '已还' ? 'finished' : 'runing') + '@2x.png" />'
             + '</div>'
             + '<div class="item-bottom">'
             + '<div class="item-left">'
-            + '<img src="../img/common/md/icon_' + (item.car_status == '已完成' ? 'finished' : 'runing') + '@2x.png" />'
+            + '<img src="../img/common/md/icon_' + (item.car_status == '已还' ? 'finished' : 'runing') + '@2x.png" />'
             + '</div>'
             + '<div class="item-right">'
             + '<div class="bottom-item">'
@@ -344,7 +344,8 @@
             id: 'vehicle-list-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H
+              bottom: H,
+              hardwareAccelerated: true
             }, //窗口参数
             extras: {
               H: H,
@@ -370,7 +371,8 @@
             id: 'vehicle-type-change', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H
+              bottom: H,
+              hardwareAccelerated: true
             }, //窗口参数
             extras: {
               H: H,
@@ -392,7 +394,8 @@
             id: 'vehicle-program-status', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H
+              bottom: H,
+              hardwareAccelerated: true
             }, //窗口参数
             extras: {
               H: H,
@@ -423,7 +426,8 @@
             top: filter,
             bottom: '0',
             left: '30%',
-            width: '70%'
+            width: '70%',
+            hardwareAccelerated: true
           }, //窗口参数
           extras: {
             H: H,

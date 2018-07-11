@@ -105,6 +105,11 @@
     .progress-wrapper span {
       width: 100%
     }
+
+    .mui-progressbar {
+      width: 80%;
+      background-color: #e5e5e5;
+    }
   </style>
 </head>
 
@@ -133,11 +138,11 @@
             <div id="demo1" class="mui-progressbar">
               <span></span>
             </div>
-
+            <i class="icon icon-updated"></i>
           </div>
         </div>
       </form>
-      <form class="items">
+      <!-- <form class="items">
         <div class="img-btn">
           <label for="circuit_img">
             <img src="" alt="">
@@ -148,9 +153,6 @@
         <div class="upload-info">
           <div class="upload-name">上传车辆电路图</div>
           <div class="progress-wrapper upload-progress">
-            <!-- <div class="progress">
-              <div class="move"></div>
-            </div> -->
             <div id="demo2" class="mui-progressbar">
               <span></span>
             </div>
@@ -169,15 +171,12 @@
         <div class="upload-info">
           <div class="upload-name">上传车辆crd文件</div>
           <div class="progress-wrapper upload-progress">
-            <!-- <div class="progress">
-              <div class="move"></div>
-            </div> -->
             <div id="demo3" class="mui-progressbar">
               <span></span>
             </div>
           </div>
         </div>
-      </form>
+      </form> -->
       <div class="btn-wrapper ">
         <button type="button" class="btn btn-blue" id="submit">提交</button>
       </div>
@@ -294,26 +293,31 @@
 
 
     $('input').on('change', function (e) {
+      if(isFirst) {
+        isModify = false;
+      } else {
+        isModify = true;
+      }
+      
       var _this = this;
       var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
 
       var srcs = getObjectURL(this.files[0]);   //获取路径
-      console.log(srcs)
-      $(this).parent().find('img').prop('src', srcs).show() 
-      $('#submit').html('确定修改').parent().show()
+      $(this).parent().find('img').prop('src', srcs).show()
+      $('#submit').html('确定修改').parent().show();
+
+      submitData();
     })
 
 
     function submitData() {
       $('input').each(function (i) {
-        console.log(this.files)
         if (this.files.length == 0) {
           return;
         }
         var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
 
         var formData = new FormData($(this).parents('form')[0])
-        console.log(formData)
         if (pid == '#demo1') {
           url = BASE_URL_1 + 'car-management/car/carPicUpload.action?vSn=' + vSn;
         } else if (pid == '#demo2') {
@@ -337,9 +341,14 @@
             if (myXhr.upload) { //检查upload属性是否存在  
               //绑定progress事件的回调函数  
               myXhr.upload.addEventListener('progress', function (e) {
-                console.log(e.loaded, e.total)
                 var curr = e.loaded;
                 var total = e.total;
+                if (curr < total) {
+                  $(pid).find('span').css('backgroundColor', '#ff4c4c')
+                }
+                // else {
+                //   $(pid).find('span').css('backgroundColor', '#18c918')
+                // }
                 process = curr / total * 100;
                 mui(pid).progressbar().setProgress(process);
 
@@ -348,11 +357,24 @@
             return myXhr; //xhr对象返回给jQuery使用  
           },
           success: function (data) {
-            console.log(data)
-            mui.alert(data.msg, "提示", "确定");
+            if (data.ret == true) {
+              $(pid).find('span').css('backgroundColor', '#18c918');
+              $(pid).next().removeClass('icon-update').addClass('icon-update-success')
+              mui.alert(data.msg, "提示", "确定");
+            } else {
+              mui(pid).progressbar().setProgress(100);
+              $(pid).find('span').css('backgroundColor', '#ff4c4c');
+              $(pid).next().removeClass('icon-update').addClass('icon-update-failed')
+              mui.alert('上传失败', "提示", "确定");
+            }
+
+
           },
           error: function () {
-            mui.alert("上传失败！", "提示", "确定");
+            mui(pid).progressbar().setProgress(100);
+            $(pid).find('span').css('backgroundColor', '#ff4c4c');
+            $(pid).next().removeClass('icon-update').addClass('icon-update-failed')
+            mui.alert('上传失败', "提示", "确定");
           }
 
         })
@@ -371,10 +393,10 @@
         addcar = 'update'
       }
 
-      submitData();
-
+      console.log(JSON.stringify(upCheckInfo))
+      console.log(upcheck)
       app[upcheck](upCheckInfo, function (res) {
-        console.log(res)
+        console.log(JSON.stringify(res))
         if (res.ret) {
           flagCheck = true;
         }
@@ -390,14 +412,14 @@
       })
 
       app.applybom(oneBom, function (res) {
-        console.log(res)
+        console.log(JSON.stringify(res))
         if (res.ret) {
           flagBom = true;
         }
       })
 
       app.applytools(oneToolApply, function (res) {
-        console.log(res)
+        console.log(JSON.stringify(res))
         if (res.ret) {
           flagTools = true;
         }
@@ -406,11 +428,8 @@
       setTimeout(() => {
         console.log(flagCheck, flagInfo, flagBom, flagTools)
         if (flagCheck && flagInfo && flagBom && flagTools) {
-          console.log('成功')
-
           mui.back();
           mui.fire(view, 'goback', {});
-
         }
         submitLock = false;
       }, 500);
