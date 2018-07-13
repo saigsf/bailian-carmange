@@ -146,20 +146,17 @@
     }
 
     table tbody tr td span {
-      line-height: 34px;
-
-    }
-
-    table tbody tr td span {
-      display: block;
       margin: 0 auto;
-      width: 94px;
-      height: 100%;
-      overflow: hidden;
+      width: 100%;
+      min-height: 34px;
+      /* overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
-      /* color: #000; */
-      text-align: center;
+      white-space: nowrap; */
+      /* text-align: center; */
+      /* line-height: 34px; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .wire-check table tbody td {
@@ -267,12 +264,6 @@
               <label>发动机号</label>
               <div class="date-text">
                 <input type="text" name="engineNumber" id="" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>车架号</label>
-              <div class="date-text">
-                <input type="text" name="vin" id="" placeholder="" readonly>
               </div>
             </div>
             <div class="date-wrapper">
@@ -610,13 +601,13 @@
               <tbody>
                 <tr>
                   <td>
-                    <span>检查项目</span>
+                    <span></span>
                   </td>
                   <td>
-                    <span>解决方法检查项目检查项目</span>
+                    <span></span>
                   </td>
                   <td>
-                    <span>解决方法检查项目检查项目</span>
+                    <span></span>
                   </td>
                 </tr>
               </tbody>
@@ -2376,17 +2367,20 @@
 
           // 工程师
           if (id == 'vehicle-input' && id != 'vehicle-up-check' && !(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
-            mui.alert('您没有这个权限', '提示')
+            // mui.alert('您没有这个权限', '提示')
+            mui.toast('您没有这个权限')
             return;
           }
           // 维修技师
           if ((id != 'vehicle-input' && id != 'vehicle-auditing' && id != 'vehicle-up-check') && !(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
-            mui.alert('您没有这个权限', '提示')
+            // mui.alert('您没有这个权限', '提示')
+            mui.toast('您没有这个权限')
             return;
           }
           // 超级管理员
           if (id == 'vehicle-auditing' && !app.getUserRoles('admin')) {
-            mui.alert('您没有这个权限', '提示')
+            // mui.alert('您没有这个权限', '提示')
+            mui.toast('您没有这个权限')
             return;
           }
 

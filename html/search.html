@@ -152,23 +152,24 @@
       e.preventDefault();// 取消默认事件
     }
 
-    var oldBack = mui.back;
-    mui.back = function () {
-      plus.navigator.setStatusBarStyle('light');
-      oldBack();
-    };
+
 
     var self = null;
     var view = null;
 
-    
+
 
     mui.plusReady(function () {
       handsetAdaption()
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId);
       addEvent();
-
+      var oldBack = mui.back;
+      mui.back = function () {
+        plus.navigator.setStatusBarStyle('light');
+        app.blur(true);
+        oldBack();
+      };
       // 返回事件
 
     })
@@ -191,19 +192,18 @@
 
     function addEvent() {
       $('#back_btn').on('tap', function () {
-        mui.fire(view, 'statusBar', {});
         app.blur(true);
+        mui.fire(view, 'statusBar', {});
         mui.back()
       });
 
       $('#result').on('tap', '.mui-btn', function () {
         var $btn = $(this);
-        // console.log($btn.attr('data-vSn'))
         var data = {
           vSn: $btn.attr('data-vSn')
         }
-        mui.fire(view, 'statusBar', data);
         app.blur(true);
+        mui.fire(view, 'statusBar', data);
         mui.back()
       })
     }
@@ -218,7 +218,6 @@
         // console.log(res)
 
         if (res && res.length > 0) {
-          console.log(res.length);
           var html = ''
           for (let i = 0; i < res.length; i++) {
             const item = res[i];
@@ -242,11 +241,10 @@
 
     document.addEventListener('getFocus', function (e) {
       plus.navigator.setStatusBarStyle('dark');
-      console.log(e.detail.prevId)
       view = plus.webview.getWebviewById(e.detail.prevId);
       // 输入框获取焦点
-      app.focusAndOpenKeyboard(document.getElementById('current_input'));
-      // $('#current_input').focus()
+      // app.focusAndOpenKeyboard(document.getElementById('current_input'));
+      $('#current_input')[0].focus()
     })
 
 

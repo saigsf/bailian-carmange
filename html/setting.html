@@ -304,7 +304,7 @@
               <i class="icon icon-logout"></i>
               <a class="mui-navigate-right" href="#">注销账号</a>
             </li>
-            <li class="mui-table-view-cell">
+            <li class="mui-table-view-cell" id="clear_cache">
               <i class="icon icon-clear-cache"></i>
               <a class="mui-navigate-right" href="#">清除缓存</a>
             </li>
@@ -511,6 +511,8 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- common.js -->
+  <script src="../js/app/common.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -863,6 +865,11 @@
       })
     })
 
+
+    $('#clear_cache').on('tap', function() {
+      // myStorage.clear();
+      myStorage.removeItem('vehicleList')
+    })
   </script>
 
 </body>

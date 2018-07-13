@@ -100,21 +100,18 @@
       width: 70%;
     }
 
-    table tbody tr td {
-      line-height: 34px;
-
-    }
-
     table tbody tr td span {
-      display: block;
       margin: 0 auto;
-      width: 94px;
-      height: 100%;
-      overflow: hidden;
+      width: 100%;
+      min-height: 34px;
+      /* overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
-      /* color: #000; */
-      text-align: center;
+      white-space: nowrap; */
+      /* text-align: center; */
+      /* line-height: 34px; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .wire-check table tbody td {
@@ -162,10 +159,12 @@
                 <h5 id="project_status_0">-</h5>
                 <p>项目状态</p>
               </div>
+              <div class="info-content-empty"></div>
               <div class="info-content-item">
                 <h5 id="projectEngineer_0">-</h5>
                 <p>项目工程师</p>
               </div>
+              <div class="info-content-empty"></div>
               <div class="info-content-item">
                 <h5 id="checks_status_0">-</h5>
                 <p>检查进度</p>
@@ -1863,7 +1862,7 @@
         input: function (data) {
           if (data == null) {
             // console.log(1233444)
-            mui.toast('车辆录入未完成');
+            // mui.toast('车辆录入未完成');
             $('#vehicle_input .no-data').show().prev().hide()
             return;
           }
@@ -1885,7 +1884,7 @@
         safeCheck: function (res) {
           var data = res.checkResults;
           if (data.length == 0) {
-            mui.toast('安全检查未完成！');
+            // mui.toast('安全检查未完成！');
             $('#safeCheck .no-data').show().prev().hide()
             return;
           }
@@ -1908,7 +1907,7 @@
         bomCheck: function (res) {
           var data = res.checkResults;
           if (data.length == 0) {
-            mui.toast('bom检查未完成！');
+            // mui.toast('bom检查未完成！');
             $('#bomCheck .no-data').show().prev().hide()
             return;
           }
@@ -1935,7 +1934,7 @@
         wire: function (res) {
           var data = res.checkResults;
           if (data.length == 0) {
-            mui.toast('线束检查未完成！');
+            // mui.toast('线束检查未完成！');
             $('#wireCheck .no-data').show().prev().hide()
             return;
           }
@@ -1958,7 +1957,7 @@
         },
         tools: function (data) {
           if (data.length == 0) {
-            mui.toast('研发工具未安装');
+            // mui.toast('研发工具未安装');
             $('#tools .no-data').show().prev().hide()
             return;
           }

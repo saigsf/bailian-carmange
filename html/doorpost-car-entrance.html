@@ -218,7 +218,7 @@
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="' + item.status + '" data-id="' + item.id + '">'
+          html += '<li class="mui-table-view-cell" data-vSn="' + (item.vSn ? item.vSn : '-') + '" data-status="' + item.status + '" data-id="' + item.id + '">'
             // + '<div class="mui-slider-right mui-disabled">'
             // + '</div>'
             + '<div class="mui-slider-handle">'
@@ -229,18 +229,21 @@
             + '<div class="item-right">'
             + '<div class="item-top">'
             + '<div class="number">'
-            + '<h4>' + item.licenseNo + '</h4>'
-            + '<p><span>更新日期：</span><span class="blue">' + item.updateTime + '</span></p>'
+            + '<h4>' + (item.licenseNo ? item.licenseNo : '-') + '</h4>'
+            + '<p><span>更新日期：</span><span class="blue">' + (item.updateTime ? item.updateTime : '-') + '</span></p>'
             + '</div>'
             + '</div>'
             + '<div class="item-bottom">'
-            + '<p><span>驾驶员：</span>' + item.driverName + '</p>'
-            + '<p><span>牌照有效期：</span>' + item.licenseEndTime + '</p>'
+            + '<p><span>驾驶员：</span>' + (item.driverName ? item.driverName : '-') + '</p>'
+            + '<p><span>牌照有效期：</span>' + (item.licenseEndTime ? item.licenseEndTime : '-') + '</p>'
 
 
           html += '</div></div></div>'
 
-          if (item.isallow == '通过') {
+          if (item.isallow == null) {
+            html += '<span class="marker red">无数据</span>'
+
+          } else if (item.isallow == '通过') {
             html += '<span class="marker green">' + item.isallow + '</span>'
 
           } else {

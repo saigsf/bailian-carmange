@@ -57,6 +57,10 @@
       position: relative;
       background-color: transparent;
     }
+
+    .date-text textarea {
+      font-size: 14px;
+    }
   </style>
 </head>
 
@@ -79,13 +83,15 @@
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="item_0">32156A</h5>
-                <p>维修项目</p>
+                <h5 id="send_park_0">32156A</h5>
+                <p>停放地点</p>
               </div>
+              <div class="info-content-empty"></div>
               <div class="info-content-item">
                 <h5 id="applyPeople">张三</h5>
                 <p>申请人</p>
               </div>
+              <div class="info-content-empty"></div>
               <div class="info-content-item">
                 <h5 id="status">排队中</h5>
                 <p>维修状态</p>
@@ -102,7 +108,8 @@
             <div class="date-wrapper">
               <label>维修项目</label>
               <div class="date-text">
-                <input type="text" id="item" placeholder="" readonly>
+                <!-- <input type="text" id="item" placeholder="" readonly> -->
+                <textarea name="item" id="item" cols="30" rows="1" readonly></textarea>
               </div>
             </div>
             <div class="date-wrapper">
@@ -262,6 +269,11 @@
 
         page.show('slide-in-right')
       })
+
+      $("textarea").autoTextarea({
+        maxHeight:400,
+        minHeight:34
+      });
 
     })();
   </script>

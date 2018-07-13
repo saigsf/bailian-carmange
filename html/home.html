@@ -218,7 +218,7 @@
 			</p>
 			<div class="mui-pull-left">
 				车速
-				<span id="speed">-</span>
+				<span id="speed">0</span>
 				km/h
 			</div>
 			<div class="mui-pull-right">
@@ -246,7 +246,8 @@
 	<script src="../js/app/app.js"></script>
 	<!-- 百度地图api -->
 	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=ffc8503b4c8647c3753679c5e95278a5"></script>
-	<script crossorigin="anonymous" id="amap_plus_js" src="http://webapi.amap.com/maps/modules?v=1.4.7&amp;key=ffc8503b4c8647c3753679c5e95278a5&amp;vrs=1527753092704&amp;m=mouse,vectorlayer,overlay,wgl,sync" type="text/javascript"></script>
+	<script crossorigin="anonymous" id="amap_plus_js" src="http://webapi.amap.com/maps/modules?v=1.4.7&amp;key=ffc8503b4c8647c3753679c5e95278a5&amp;vrs=1527753092704&amp;m=mouse,vectorlayer,overlay,wgl,sync"
+	 type="text/javascript"></script>
 	<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 	<!--多点聚合-->
 	<!-- 当前页面js -->
@@ -262,6 +263,7 @@
 			var self = null;
 			var vSn = '2018ICECTC001';
 			var pageTrack = null;
+			var timer = null;
 
 			var icon = new AMap.Icon({
 				size: new AMap.Size(35, 35),  //图标大小
@@ -368,7 +370,22 @@
 			addEvent()
 			function addEvent() {
 				$('#track').on('tap', function () {
+
+					clearInterval(timer)
 					pageTrack.show('slide-in-right')
+					// mui.openWindow({
+					// 	url: 'home-track.html',
+					// 	id: 'home-track',
+					// 	styles: {
+					// 		top: '0',//mui标题栏默认高度为45px；
+					// 		bottom: H//默认为0px，可不定义；
+					// 	},
+					// 	extras: {
+					// 		H: H,
+					// 		prevId: self.id
+					// 	}
+					// })
+
 					mui.fire(pageTrack, 'statusBar', null)
 				});
 				// 搜索框获得焦点
@@ -379,8 +396,6 @@
 						'borderRadius': '0'
 					});
 					$('#clear-btn').show();
-
-
 				})
 				// 搜索框失去焦点
 				$('#search').blur(function () {
@@ -427,6 +442,7 @@
 				$('.result').on('tap', function (e) {
 					$('#search').blur()
 					vSn = $(e.target).attr('data-vSn')
+
 					app.carData({
 						vSn: vSn
 					}, function (res) {
@@ -434,11 +450,21 @@
 						res = JSON.parse(res);
 						updateView.carData(res)
 					});
+					clearInterval(timer)
+					timer = setInterval(function () {
+						app.carData({
+							vSn: vSn
+						}, function (res) {
+							console.log(res);
+							res = JSON.parse(res);
+							updateView.carData(res)
+						});
+					}, 5000)
 				})
 
 			}
 
-			
+
 			function fetchData() {
 				// updateView.allcar({})
 				// return;
@@ -519,14 +545,20 @@
 					latitude += item.latitude;
 				}
 
-				return {longitude: longitude/data.length, latitude: latitude/data.length}
+				return { longitude: longitude / data.length, latitude: latitude / data.length }
 			}
-
-			fetchData()
 			// 状态栏颜色更改
 			document.addEventListener('statusBar', function (e) {
 				// plus.navigator.setStatusBarStyle('light');
 				fetchData()
+				clearInterval(timer)
+				timer = setInterval(function () {
+					fetchData()
+				}, 5000)
+			})
+
+			document.addEventListener('clearTimer', function () {
+				clearInterval(timer)
 			})
 		})()
 

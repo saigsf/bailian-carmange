@@ -79,6 +79,42 @@
     .mui-input-group {
       width: 100%;
     }
+
+    .result {
+      position: fixed;
+      top: 85px;
+      left: 20px;
+      width: 90%;
+      /* padding-top: 20px; */
+      background-color: #fff;
+      z-index: 999;
+      display: none;
+    }
+
+    .result-item {
+      height: 44px;
+      line-height: 34px;
+      padding: 5px 20px;
+      color: #999;
+    }
+
+    .result-item span {
+      color: #000;
+    }
+
+    .result-item:not(:last-of-type) {
+      border-bottom: 1px solid #eee;
+    }
+
+    .result-item:after {
+      content: "";
+      width: 10px;
+      height: 100%;
+      display: block;
+      background: url(../img/common/md/icon_arraw_right_top@2x.png) no-repeat center;
+      background-size: contain;
+      float: right;
+    }
   </style>
 </head>
 
@@ -96,6 +132,10 @@
             <i class="icon icon-NO"></i>
           </label>
           <input type="text" name="vSn" class="mui-input-clear" placeholder="请输入车辆编号">
+          <!-- <div class="result">
+            <div class="result-item">2018ICECTC001</div>
+          </div> -->
+          
         </div>
         <div class="mui-input-row">
           <label>
@@ -140,6 +180,10 @@
       var self = null;
       var vSn = '2018ICECTC006';
       var marker, lineArr = [];
+      var submitLock = false;
+
+
+
 
       var icon = new AMap.Icon({
         size: new AMap.Size(35, 35),  //图标大小
@@ -185,6 +229,12 @@
         self = plus.webview.currentWebview();
         // 获取传递参数
         H = self.H;
+        var oldBack = mui.back;
+        mui.back = function () {
+
+          oldBack();
+          mui.fire(plus.webview.getWebviewById('html/home.html'), 'statusBar', null)
+        };
 
         addEvent()
       })
@@ -264,34 +314,6 @@
               maxDate: dDate
             });
         });
-
-        // 
-        $('#btn').on('tap', function () {
-          if (!flag) {
-            $(this).removeClass('icon-arrowup').addClass('icon-arrowdown')
-            $('.bottom-search').css('bottom', '0px')
-          } else {
-            $(this).removeClass('icon-arrowdown').addClass('icon-arrowup')
-            $('.bottom-search').css('bottom', bottom)
-          }
-          flag = !flag
-        })
-        // 更改标题
-        $('.mui-segmented-control').on('tap', '.mui-control-item', function () {
-          $('.mui-title').html($(this).html())
-          if ($(this).html() == '实时监控') {
-            $('.date-container').hide();
-            bottom = '-70px';
-          }
-          if ($(this).html() == '车辆轨迹') {
-            $('.date-container').css('display', 'flex');
-            bottom = '-130px';
-          }
-          $('#btn').removeClass('icon-arrowdown').addClass('icon-arrowup')
-          $('.bottom-search').css('bottom', bottom)
-          flag = false;
-        })
-
       }
 
       // fetchData() 
@@ -322,7 +344,7 @@
         //   }
         // ]
         // res = [{ "vSn": "2018-001", "longitude": "121.604252", "latitude": "31.325282", "driverName": null, "towards": "241.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604219", "latitude": "31.325266", "driverName": null, "towards": "238.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604165", "latitude": "31.325222", "driverName": null, "towards": "217.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.60414", "latitude": "31.325173", "driverName": null, "towards": "194.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604127", "latitude": "31.325118", "driverName": null, "towards": "190.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.60411", "latitude": "31.325063", "driverName": null, "towards": "204.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604097", "latitude": "31.325008", "driverName": null, "towards": "176.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604117", "latitude": "31.324948", "driverName": null, "towards": "156.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.60415", "latitude": "31.324887", "driverName": null, "towards": "156.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604188", "latitude": "31.324821", "driverName": null, "towards": "155.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604223", "latitude": "31.324753", "driverName": null, "towards": "155.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604262", "latitude": "31.324695", "driverName": null, "towards": "153.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604299", "latitude": "31.324652", "driverName": null, "towards": "132.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604352", "latitude": "31.324637", "driverName": null, "towards": "90.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604409", "latitude": "31.324648", "driverName": null, "towards": "69.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604482", "latitude": "31.324675", "driverName": null, "towards": "65.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604559", "latitude": "31.324708", "driverName": null, "towards": "61.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604647", "latitude": "31.324746", "driverName": null, "towards": "61.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604744", "latitude": "31.324791", "driverName": null, "towards": "63.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604845", "latitude": "31.324833", "driverName": null, "towards": "64.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604954", "latitude": "31.324883", "driverName": null, "towards": "62.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605066", "latitude": "31.324928", "driverName": null, "towards": "66.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605172", "latitude": "31.324968", "driverName": null, "towards": "66.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605273", "latitude": "31.325009", "driverName": null, "towards": "63.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605374", "latitude": "31.325049", "driverName": null, "towards": "62.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605477", "latitude": "31.325094", "driverName": null, "towards": "64.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605586", "latitude": "31.325137", "driverName": null, "towards": "65.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605685", "latitude": "31.325178", "driverName": null, "towards": "63.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.60576", "latitude": "31.325213", "driverName": null, "towards": "53.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605802", "latitude": "31.325261", "driverName": null, "towards": "20.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605803", "latitude": "31.325316", "driverName": null, "towards": "344.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605783", "latitude": "31.325356", "driverName": null, "towards": "332.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605764", "latitude": "31.325388", "driverName": null, "towards": "332.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605739", "latitude": "31.325424", "driverName": null, "towards": "331.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605704", "latitude": "31.325476", "driverName": null, "towards": "327.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605653", "latitude": "31.325526", "driverName": null, "towards": "307.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605599", "latitude": "31.325561", "driverName": null, "towards": "316.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605557", "latitude": "31.325599", "driverName": null, "towards": "317.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605508", "latitude": "31.325634", "driverName": null, "towards": "297.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605439", "latitude": "31.325636", "driverName": null, "towards": "251.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605382", "latitude": "31.325614", "driverName": null, "towards": "243.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605307", "latitude": "31.325581", "driverName": null, "towards": "243.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605208", "latitude": "31.325538", "driverName": null, "towards": "242.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.605097", "latitude": "31.325487", "driverName": null, "towards": "243.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604993", "latitude": "31.325444", "driverName": null, "towards": "243.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604899", "latitude": "31.325401", "driverName": null, "towards": "243.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604811", "latitude": "31.325363", "driverName": null, "towards": "243.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604731", "latitude": "31.325329", "driverName": null, "towards": "243.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604647", "latitude": "31.325293", "driverName": null, "towards": "243.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604547", "latitude": "31.325248", "driverName": null, "towards": "242.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.60444", "latitude": "31.325203", "driverName": null, "towards": "244.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604347", "latitude": "31.325162", "driverName": null, "towards": "244.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604268", "latitude": "31.325129", "driverName": null, "towards": "244.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604209", "latitude": "31.325107", "driverName": null, "towards": "252.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604164", "latitude": "31.325112", "driverName": null, "towards": "307.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604145", "latitude": "31.325144", "driverName": null, "towards": "348.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604155", "latitude": "31.325184", "driverName": null, "towards": "21.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604187", "latitude": "31.325219", "driverName": null, "towards": "40.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604234", "latitude": "31.325251", "driverName": null, "towards": "56.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604302", "latitude": "31.325283", "driverName": null, "towards": "60.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604382", "latitude": "31.325321", "driverName": null, "towards": "60.0", "licenseNo": "s12345" }, { "vSn": "2018-001", "longitude": "121.604425", "latitude": "31.325341", "driverName": null, "towards": "61.0", "licenseNo": "s12345" }]
-        
+
         // 使用clearMap方法删除所有覆盖物
         map.clearMap();
         marker = new AMap.Marker({
@@ -372,16 +394,22 @@
         app.carTrack(data, function (res) {
           console.log(res)
           res = JSON.parse(res)
+          submitLock = false;
           if (res.ret === false) {
             mui.toast(res.msg);
-            // return;
+            return;
           }
+
           updateView(res)
         })
       }
 
       // 获取数据
       $('#search-btn').on('tap', function () {
+        if (submitLock) {
+          return;
+        }
+        submitLock = true;
         fetchData()
       })
       // 状态栏颜色更改

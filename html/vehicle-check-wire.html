@@ -2251,9 +2251,9 @@
       // return;
       app[stateArr[0]](data, function (res) {
         console.log(res);
-        mui.toast(res.msg);
+        // mui.toast(res.msg);
         if (res.ret) {
-          // mui.toast(res.msg);
+          mui.toast(res.msg);
           setTimeout(() => {
             submitLock = false;
             mui.back()
@@ -2261,7 +2261,7 @@
           }, 500);
 
         } else {
-          // mui.toast('线束检查失败')
+          mui.toast('线束检查失败')
           submitLock = false;
         }
       })

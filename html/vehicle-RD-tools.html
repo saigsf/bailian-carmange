@@ -187,7 +187,7 @@
         }, function (res) {
           console.log(res)
           if (res.length <= 0) {
-            mui.toast('研发工具未申请，请先申请');
+            // mui.toast('研发工具未申请，请先申请');
             $('#no-data').show().prev().hide()
           }
           updateView(res);

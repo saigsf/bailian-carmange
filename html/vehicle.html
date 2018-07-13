@@ -113,7 +113,7 @@
       var subpages_style = {
         top: '64px',
         bottom: '0px',
-        hardwareAccelerated:true
+        hardwareAccelerated: true
       }
       //页面切换动画
       var aniShow = {};
@@ -121,7 +121,7 @@
       var extras = {}
       // 创建子页面，显示首个选项卡其他都影藏
       mui.plusReady(function () {
-        
+
         if (mui.os.ios && parseFloat(mui.os.version) >= 10.0) {
           //子页面导入样式重置
           subpages_style.top = 88 + 'px';
@@ -161,12 +161,19 @@
         if (targetTab == activeTab) {
           return;
         }
+
+
+
+
         //显示目标选项卡
         //若为iOS平台或非首次显示，则直接显示
         if (mui.os.ios || aniShow[targetTab]) {
           plus.webview.show(targetTab);
           // plus.webview.getWebviewById(targetTab).reload()
-          mui.fire(plus.webview.getWebviewById(targetTab), 'statusBar', null)
+          // mui.fire(plus.webview.getWebviewById(targetTab), 'statusBar', null)
+          if (targetTab == 'vehicle-check-up.html') {
+            mui.fire(plus.webview.getWebviewById(targetTab), 'statusBar', null)
+          }
           mui.fire(plus.webview.getWebviewById(targetTab), 'roles', null)
         } else {
           //否则，使用fade-in动画，且保存变量
@@ -176,7 +183,7 @@
           mui.extend(aniShow, temp);
           plus.webview.show(targetTab, "slide-in-right", 300);
           // plus.webview.getWebviewById(targetTab).reload()
-          mui.fire(plus.webview.getWebviewById(targetTab), 'statusBar', null)
+          // mui.fire(plus.webview.getWebviewById(targetTab), 'statusBar', null)
           mui.fire(plus.webview.getWebviewById(targetTab), 'roles', null)
         }
         //隐藏当前;
@@ -198,8 +205,8 @@
         }
       });
 
-      document.addEventListener('roles', function() {
-        if(!app.getUserRoles('uppeople') && !app.getUserRoles('admin')) {
+      document.addEventListener('roles', function () {
+        if (!app.getUserRoles('uppeople') && !app.getUserRoles('admin')) {
           // $('#vehicle-check-up').hide()
         }
       })
@@ -244,7 +251,7 @@
 
         if (!!prevWidth && (prevLeft < 0)) {
           scroll.scrollTo(scrollx - prevLeft, 0, 100);
-        } 
+        }
 
         if ((currentLeft + currentWidth) > w) {
           if (!!nextWidth) {
@@ -256,12 +263,12 @@
         }
 
         if (currentLeft < 0) {
-          if(!!prevWidth) {
+          if (!!prevWidth) {
             scroll.scrollTo(scrollx - prevLeft, 0, 100);
           } else {
             scroll.scrollTo(scrollx - currentLeft, 0, 100);
           }
-          
+
         }
 
       })

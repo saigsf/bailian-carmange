@@ -385,19 +385,20 @@
           html += '<div class="mui-slider-handle">'
             + '<div class="list-item">'
             + '<div class="item-left">'
-            + '<img src="../img/common/md/backup_picture.png" />'
+            // + '<img src="../img/common/md/backup_picture.png" />'
+            + '<i class="icon icon-nopic"></i>'
             + '</div>'
             + '<div class="item-right">'
             + '<div class="item-top">'
             + '<div class="number">'
             + '<h4>' + item.vSn + '</h4>'
-            + '<p><span>维修项目：</span><span class="blue">' + item.item + '</span></p>'
+            + '<p><span>停放地点：</span><span class="blue">' + item.send_park + '</span></p>'
             + '</div>'
             + '</div>'
             + '<div class="item-bottom">'
 
           if (item.status == '已完成') {
-            html += '<p><span>停放地点：</span>' + item.send_park + '</p>'
+            html += '<p><span>操作员：</span>' + item.applyPeople + '</p>'
               + '<p><span>备注：</span>' + item.item + '</p>'
 
           } else if (item.status == '排队中') {

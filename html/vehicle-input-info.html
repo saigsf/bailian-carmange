@@ -315,7 +315,6 @@
         }))
       }
       
-
       fetchData();
       // data = self.data;
       addEvent()
@@ -346,15 +345,18 @@
 
 
         if (id == 'vehicle-up-check' && !(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
-          mui.alert('您没有这个权限', '提示')
+          // mui.alert('您没有这个权限', '提示')
+          mui.toast('您没有这个权限')
           return;
         }
         if ((id != 'vehicle-up-check' && id != 'vehicle-auditing') && !(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
-          mui.alert('您没有这个权限', '提示')
+          // mui.alert('您没有这个权限', '提示')
+          mui.toast('您没有这个权限')
           return;
         }
         if (id == 'vehicle-auditing' && !app.getUserRoles('admin')) {
-          mui.alert('您没有这个权限', '提示')
+          // mui.alert('您没有这个权限', '提示')
+          mui.toast('您没有这个权限')
           return;
         }
 
@@ -419,8 +421,8 @@
       app.carQuery({
         vSn: vSn
       }, function (res) {
-        res = JSON.parse(res)
         console.log(res)
+        res = JSON.parse(res)
         updateView(res.rows[0])
       })
     }

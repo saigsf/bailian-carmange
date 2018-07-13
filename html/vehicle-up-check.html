@@ -280,7 +280,6 @@
         //打开接车点检页面
         var data = serialize($('form'));
         data.id = id;
-        console.log(data.id);
         isModify = canUpCheck || isModify;
         var idx = $(this).attr('id');
         mui.openWindow({
@@ -299,17 +298,7 @@
             prevId: self.id
           } //自定义扩展参数
         })
-        return;
-        app.updateUpcheck(data, function (res) {
-          // res = JSON.parse(res);
-          console.log(res.msg);
-          mui.toast(res.msg)
-          if (res.ret) {
-            setTimeout(() => {
-              mui.back()
-            }, 500);
-          }
-        })
+
       }
 
       // 修改

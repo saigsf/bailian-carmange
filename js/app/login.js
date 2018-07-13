@@ -110,7 +110,7 @@
 
     function login() {
       var loginInfo = serialize($('form'))
-      loginInfo.autoLogin = '是';
+      loginInfo.autoLogin = 'true';
       console.log(loginInfo)
       if (loginType == 'netid') {
         app.loginNetId(loginInfo, function (err) {

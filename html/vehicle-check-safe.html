@@ -1363,7 +1363,7 @@
       app.findCldCheckByvSn({ vSn: vSn }, function (res) {
         // console.log(res);
         if (res == null) {
-          mui.toast('缸压检查未完成')
+          // mui.toast('缸压检查未完成')
           return;
         }
 
@@ -1579,7 +1579,7 @@
         success: function (res) {
           //服务器返回响应，根据响应结果，分析是否登录成功；
           // console.log(1414, res.msg);
-          mui.toast(res.msg)
+          // mui.toast(res.msg)
         },
         error: function (xhr, type, errorThrown) {
           //异常处理；
@@ -1587,7 +1587,7 @@
           if (type == 'timeout') {
             mui.toast("请求超时：请检查网络")
           } else {
-            mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+            // mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
           }
         },
       }), mui.ajax({
@@ -1598,7 +1598,7 @@
         crossDomain: true,
         success: function (res) {
           //服务器返回响应，根据响应结果，分析是否登录成功；
-          mui.toast(res.msg)
+          // mui.toast(res.msg)
         },
         error: function (xhr, type, errorThrown) {
           //异常处理；
@@ -1606,7 +1606,7 @@
           if (type == 'timeout') {
             mui.toast("请求超时：请检查网络")
           } else {
-            mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+            // mui.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
           }
         }
       })).then(function (res) {
@@ -1621,7 +1621,7 @@
       }, function (err) {
         submitLock = false;
         // console.log(1437, err);
-        // mui.toast('安全检查、缸压检测失败');
+        mui.toast('安全检查、缸压检测失败');
       })
     }
 

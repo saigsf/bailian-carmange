@@ -86,6 +86,14 @@
     .no-data p {
       top: 40%;
     }
+
+    .item-left {
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
   </style>
 </head>
 
@@ -123,6 +131,8 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- common.js -->
+  <script src="../js/app/common.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -194,7 +204,6 @@
 
         addEvent();
       });
-      console.log($(document).height())
 
       function handsetAdaption() {
 
@@ -205,15 +214,6 @@
         plus.webview.currentWebview().setStyle({
           softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
         });
-
-        if (mui.os.android) {
-
-          var height = plus.android.invoke(plus.android.currentWebview(), 'getHeight')
-          console.log(height)
-        }
-
-
-
       }
 
       // 下拉刷新业务
@@ -243,6 +243,7 @@
         }, 1000)
       }
       // 获取数据
+      fetchData()
       function fetchData() {
 
         var opt = {
@@ -255,21 +256,29 @@
         if (!isEmpty(dataArr) && !dataArr.vSn) {
           queryType = 'orderQuery'
         }
-        app[queryType](opt, function (res) {
+        var storage = myStorage.getItem('vehicleList')
+        console.log(storage)
+        if (storage) {
+          for (let i = 0; i < storage.length; i++) {
+            const item = storage[i];
+            console.log(JSON.stringify(item))
+          }
+        }
 
-          res = JSON.parse(res);
+        app[queryType](opt, function (res) {
           console.log(res)
+          res = JSON.parse(res);
           if (!res.total || res.total <= 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据，下拉加载所有数据')
             return;
           }
-          // console.log(res.totalCount)
           curPage++;
           totalPage = Math.ceil(res.total / 3);
-
+          myStorage.setItem('vehicleList', res.rows)
           // data = data.concat(res.rows);
           updateView(res.rows);
+
 
         });
       }
@@ -280,7 +289,6 @@
 
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          console.log(item.picurl)
           html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
 
           if (app.getUserRoles('admin')) {
@@ -465,7 +473,6 @@
       window.addEventListener('closeMenu', closeMenu);
 
       document.addEventListener('statusBar', function (e) {
-        // console.log(e.detail.vSn)
         if (e.detail && e.detail.vSn) dataArr.vSn = e.detail.vSn;
         curPage = 1;
         $('#OA_task_1').html('')
@@ -487,7 +494,6 @@
       document.addEventListener('setHeight', function () {
         // $('#refreshContainer').height($(document).height() - 62)
         // $('#no-data').height($('#refreshContainer').height())
-        // console.log($('#refreshContainer').height())
       })
     })();
   </script>

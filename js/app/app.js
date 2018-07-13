@@ -24,9 +24,9 @@
 
 	// 打开软键盘  
 	owner.openSoftKeyboard = function () {
-		// if (!_isKeyboardInited) {
-		// 	owner.initSoftKeyboard();
-		// }
+		if (!_isKeyboardInited) {
+			owner.initSoftKeyboard();
+		}
 		if (mui.os.ios) {
 			var webView = plus.webview.currentWebview().nativeInstanceObject();
 			webView.plusCallMethod({
@@ -46,7 +46,7 @@
 	owner.focusAndOpenKeyboard = function (input) {
 		setTimeout(function () {
 			input.focus();
-			// input.focus();
+			input.focus();
 			owner.openSoftKeyboard();
 		}, 200);
 	}
@@ -323,16 +323,20 @@
 	 */
 	owner.HTTPRequest = function (type, url, data, callback, loading) {
 		callback = callback || $.noop;
+		console.log(loading)
 		$.ajax({
 			type: type,//HTTP请求类型
 			url: BASE_URL_1 + url,
 			data: data,
 			dataType: 'jsonp',//服务器返回json格式数据
 			jsonp: "jsonCallback",
-			async: false,
+			async: true,
+			timeout: 3000,
 			beforeSend: function () {
 				console.log('beforesend!');
-				// plus.nativeUI.showWaiting();
+				if(loading) {
+					plus.nativeUI.showWaiting();
+				} 
 			},
 			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
@@ -343,13 +347,27 @@
 				console.log(xhr.status);
 				if (type == 'timeout') {
 					$.toast("请求超时：请检查网络")
-				} else {
-					$.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
+					if(loading) plus.nativeUI.closeWaiting();
+				} 
+
+				switch (parseInt(xhr.status / 100)) {
+					case 0:
+						$.toast('请求无法连接，检查网络是否正常')
+						break;
+					case 4:
+						$.toast('请求错误，请联系程序员')
+						break;
+					case 5:
+						$.toast('服务器请求错误')
+						break;
+
+					default:
+						break;
 				}
 			},
 			complete: function () {
 				console.log('complete');
-				// plus.nativeUI.closeWaiting();
+				if(loading) plus.nativeUI.closeWaiting();
 			}
 		});
 	}
@@ -361,7 +379,7 @@
 	 * @param  data 请求参数
 	 * @param  callback 回掉函数
 	 */
-	owner.HTTPRequestPost = function (type, url, data, callback) {
+	owner.HTTPRequestPost = function (type, url, data, callback, loading) {
 		callback = callback || $.noop;
 		$.ajax({
 			type: type,//HTTP请求类型
@@ -369,10 +387,11 @@
 			data: data,
 			contentType: 'application/json;charset=UTF-8', //contentType很重要 
 			crossDomain: true,
-			async: false,
+			async: true,
+			timeout: 3000,
 			beforeSend: function () {
 				console.log('beforesend!');
-				// plus.nativeUI.showWaiting();
+				if(loading) plus.nativeUI.showWaiting();
 			},
 			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
@@ -381,12 +400,10 @@
 			error: function (xhr, type, errorThrown) {
 				//异常处理；
 				console.log(xhr.status);
-				// if (type == 'timeout') {
-				// 	$.toast("请求超时：请检查网络")
-				// } else {
-				// 	$.toast('请求失败：' + xhr.status + '\n err:' + errorThrown);
-
-				// }
+				if (type == 'timeout') {
+					$.toast("请求超时：请检查网络")
+					if(loading) plus.nativeUI.closeWaiting();
+				} 
 				switch (parseInt(xhr.status / 100)) {
 					case 0:
 						$.toast('请求无法连接，检查网络是否正常')
@@ -405,7 +422,7 @@
 			},
 			complete: function () {
 				console.log('complete');
-				// plus.nativeUI.closeWaiting();
+				if(loading) plus.nativeUI.closeWaiting();
 			}
 		});
 	}
@@ -423,7 +440,8 @@
 			type: type,//HTTP请求类型
 			url: BASE_URL_1 + url,
 			data: data,
-			async: false,
+			async: true,
+			timeout: 3000,
 			beforeSend: function () {
 				console.log('beforesend!')
 			},
@@ -998,7 +1016,7 @@
 
 		var url = 'car-management/car/pageQuery.action';
 
-		owner.HTTPRequest('POST', url, data, callback)
+		owner.HTTPRequest('get', url, data, callback)
 	}
 
 	/**
@@ -1523,7 +1541,7 @@
 
 		var url = 'car-management/car/carTrack.action';
 
-		owner.HTTPRequest('post', url, data, callback)
+		owner.HTTPRequest('get', url, data, callback, true)
 	}
 
 	/**
