@@ -1765,17 +1765,33 @@
           $('#project_status_0').html(res.rows[0].project ? res.rows[0].project.project_status : '-')
           $('#projectEngineer_0').html(res.rows[0].projectEngineer ? res.rows[0].projectEngineer : '-')
           $('#checks_status_0').html(res.rows[0].checks_status ? res.rows[0].checks_status : '-')
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
 
         // 查看审核
-        app.getReviewInfo({
-          vSn: vSn
-        }, function (res) {
+        app.getReviewInfo({vSn}, function (res) {
           console.log('审核查看')
           // res = JSON.stringify(res)
           console.log(res)
           // return;
           updateView.review(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         
         // 查看审核信息
@@ -1791,6 +1807,15 @@
             $('#auditing_form').find('.reviewerPerson').html('申请人：' + res.reviewerPerson)
             $('#auditing_form').find('.reviewerTime').html(res.reviewerTime)
           }
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
 
         // 接车点检查看
@@ -1798,6 +1823,15 @@
           console.log('接车点检查看')
           console.log(res)
           updateView.checkUp(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 车辆录入查看
         app.findAddCar({ vSn }, function (res) {
@@ -1806,6 +1840,15 @@
           console.log(res);
           updateView.input(res);
 
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 安全检查查看
         app.findSafeCheckByvSn({ vSn }, function (res) {
@@ -1813,6 +1856,15 @@
           console.log('安全检查查看')
           console.log(res);
           updateView.safeCheck(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 缸压检查查看
         app.findCldCheckByvSn({ vSn }, function (res) {
@@ -1823,6 +1875,15 @@
           }
 
           updateView.cldCheck(res);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // bom检查查看
 
@@ -1830,6 +1891,15 @@
           console.log('bom检查查看')
           console.log(res);
           updateView.bomCheck(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 线束检查查看
 
@@ -1837,12 +1907,30 @@
           console.log('线束检查查看')
           console.log(res);
           updateView.wire(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 研发工具查看
         app.findDevelopTools({ vSn }, function (res) {
           console.log('研发工具查看')
           console.log(res)
           updateView.tools(res);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
       }
 
@@ -2031,6 +2119,15 @@
             }, 500);
           } else {
             submitLock = false;
+          }
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
           }
         })
       }

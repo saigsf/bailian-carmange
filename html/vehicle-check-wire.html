@@ -2096,9 +2096,7 @@
     // 获取数据
     // fetchData()
     function fetchData() {
-      app.findHiCheckByvSn({
-        vSn: vSn
-      }, function (res) {
+      app.findHiCheckByvSn({vSn}, function (res) {
         console.log(res)
         // console.log(res.check)
         if (res.checkResults == 0 && res.check == null) {
@@ -2153,7 +2151,16 @@
           $('#three_next').parent().hide();
         }
         updateView(res)
-      })
+      }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
     }
 
     // 更新视图 

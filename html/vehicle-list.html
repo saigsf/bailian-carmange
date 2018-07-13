@@ -280,6 +280,15 @@
           updateView(res.rows);
 
 
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         });
       }
 
@@ -370,9 +379,6 @@
         $('#OA_task_1').on('tap', '.car-type-change', function () {
           var $li = $(this).parents('li')
           mui.swipeoutClose($li[0])
-
-
-
           // 修改车型
           mui.openWindow({
             url: 'vehicle-type-change.html',
@@ -418,7 +424,6 @@
           mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
         })
       }
-      addEvent()
 
       //打开侧滑窗口；
       function openMenu() {

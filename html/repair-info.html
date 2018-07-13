@@ -244,12 +244,19 @@
         fetchData();
       });
       function fetchData() {
-        app.carMaintainQuery({
-          vSn: vSn
-        }, function (res) {
+        app.carMaintainQuery({vSn}, function (res) {
           console.log(res)
           res = JSON.parse(res);
           updateView(res.rows[0])
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
       }
 

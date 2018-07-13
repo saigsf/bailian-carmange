@@ -275,6 +275,15 @@
           res = JSON.parse(res);
           console.log(res)
           updateView(res.rows[0])
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         
       }

@@ -2077,6 +2077,15 @@
           console.log('接车点检查看')
           console.log(res)
           updateView.checkUp(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 车辆录入查看
         app.findAddCar({ vSn }, function (res) {
@@ -2085,6 +2094,15 @@
           console.log(res);
           updateView.input(res);
 
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 安全检查查看
         app.findSafeCheckByvSn({ vSn }, function (res) {
@@ -2092,6 +2110,15 @@
           console.log('安全检查查看')
           console.log(res);
           updateView.safeCheck(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 缸压检查查看
         app.findCldCheckByvSn({ vSn }, function (res) {
@@ -2102,6 +2129,15 @@
           }
 
           updateView.cldCheck(res);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // bom检查查看
 
@@ -2109,6 +2145,15 @@
           console.log('bom检查查看')
           console.log(res);
           updateView.bomCheck(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 线束检查查看
 
@@ -2116,12 +2161,30 @@
           console.log('线束检查查看')
           console.log(res);
           updateView.wire(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 研发工具查看
         app.findDevelopTools({ vSn }, function (res) {
           console.log('研发工具查看')
           console.log(res)
           updateView.tools(res);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
         // 审核
         app.findReview({ vSn }, function (res) {
@@ -2129,6 +2192,15 @@
           res = JSON.parse(res)
           console.log(res)
           updateView.review(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
 
         // 还车
@@ -2138,6 +2210,15 @@
           console.log(res)
           updateView.backcheck(res)
 
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
 
         // 保险信息
@@ -2146,6 +2227,15 @@
           res = JSON.parse(res)
           console.log(res);
           updateView.insurance(res);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
 
         // 临牌信息
@@ -2154,6 +2244,15 @@
           res = JSON.parse(res)
           console.log(res);
           updateView.license(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
       }
 

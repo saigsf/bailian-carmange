@@ -323,12 +323,19 @@
       // 获取数据
 
       function fetchData() {
-        app.findUpcheck({
-          vSn: vSn
-        }, function (res) {
+        app.findUpcheck({vSn}, function (res) {
           console.log(res)
           data = res;
           updateView(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
 
       }

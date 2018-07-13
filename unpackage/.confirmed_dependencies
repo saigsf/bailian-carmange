@@ -231,7 +231,8 @@
       "img/common/md/tools_disabled@2x.png"
     ],
     "refer": [
-      "html/vehicle-info-detail.html"
+      "html/vehicle-info-detail.html",
+      "html/vehicle-up-check.html"
     ],
     "priority": 0
   },
@@ -830,7 +831,12 @@
       "html/vehicle-input.html",
       "html/vehicle-info.html",
       "html/vehicle-RD-tools.html",
-      "html/vehicle-auditing.html"
+      "html/vehicle-auditing.html",
+      "html/vehicle-check-bom.html",
+      "html/vehicle-check-wire.html",
+      "html/vehicle-up-check.html",
+      "html/vehicle-check-safe.html",
+      "html/vehicle-check-down.html"
     ],
     "priority": 0
   },

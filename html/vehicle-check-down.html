@@ -186,7 +186,7 @@
               <input name="remark" type="text" class="" placeholder="">
             </div>
           </li>
-          
+
 
         </ul>
       </form>
@@ -244,15 +244,22 @@
       // 获取数据
 
       function fetchData() {
-        app.findBackcheck({
-          vSn: vSn
-        }, function (res) {
+        app.findBackcheck({vSn}, function (res) {
           res = JSON.parse(res)
           console.log(res)
           if (!res) {
             return;
           }
           updateView(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
       }
 
@@ -285,7 +292,15 @@
                 mui.back();
                 mui.fire(view, 'update', null)
               }, 500);
-
+            }
+          }, function (xhr, type, errorThrown) {
+            //异常处理；
+            console.log(type);
+            mui.toast(type);
+            if (type == 'timeout') {
+              console.log("请求超时：请检查网络")
+            } else {
+              console.log('请求失败：' + type + '\n err:' + errorThrown);
             }
           })
 
@@ -294,22 +309,22 @@
 
       var dDate = new Date();
       $('#time').val(dDate.format('yyyy-MM-dd'))
-      $('#time').on('tap', function() {
-					var _this = this;
-					$(_this).off().on('tap', function () {
+      $('#time').on('tap', function () {
+        var _this = this;
+        $(_this).off().on('tap', function () {
 
-						plus.nativeUI.pickDate(function (e) {
-							var d = e.date;
-							$(_this).val(d.format('yyyy-MM-dd'));
+          plus.nativeUI.pickDate(function (e) {
+            var d = e.date;
+            $(_this).val(d.format('yyyy-MM-dd'));
 
-						}, function (e) {
-							$(_this).val('您没有选择日期');
-						}, {
-								title: '',
-								date: dDate
-							});
-					});
-				})
+          }, function (e) {
+            $(_this).val('您没有选择日期');
+          }, {
+              title: '',
+              date: dDate
+            });
+        });
+      })
 
       document.addEventListener('update', function () {
         fetchData()

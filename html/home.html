@@ -133,6 +133,7 @@
 			top: -20px;
 			right: 20px;
 			width: 100px;
+			z-index: 998;
 		}
 
 		.car img {
@@ -184,6 +185,14 @@
 			background-size: contain;
 			float: right;
 		}
+
+		.no-data {
+			background-image: url(../img/common/md/no_mapdata.png);
+			background-size: 50%;
+			background-position: center 10%;
+			background-color: #fff;
+			display: block;
+		}
 	</style>
 </head>
 
@@ -234,6 +243,7 @@
 			<div class="car">
 				<img src="../img/common/md/home_car@2x.png" alt="">
 			</div>
+			<div class="no-data" id="no-data"></div>
 		</div>
 	</div>
 	<!-- jquery -->
@@ -286,9 +296,11 @@
 
 			function addMarker(point, map, data) {
 				var marker = new AMap.Marker({
-					position: point,
+					// position: point,
 					icon: icon
 				});
+
+				marker.setPosition(point)
 				marker.setMap(map);
 				// 设置鼠标划过点标记显示的文字提示
 				marker.setTitle(data.vSn);
@@ -296,11 +308,13 @@
 				// 设置点标记的旋转角度
 				marker.setAngle(data.towards)
 
+
 				// 添加点击事件
 				var clickHandle = AMap.event.addListener(marker, 'click', function (e) {
 					// map.zoomIn();
 					// alert(EventListener);
 					// mui.toast(marker.getTitle(), '提示')
+					$('#no-data').hide()
 					for (const key in data) {
 						if (data.hasOwnProperty(key)) {
 							const item = data[key];
@@ -420,9 +434,7 @@
 					// console.log($(this).val())
 					var reg = new RegExp(vSn, 'g');
 
-					app.likevSn({
-						vSn: vSn
-					}, function (res) {
+					app.likevSn({ vSn }, function (res) {
 						console.log(res)
 						// res = ['2018ICECTC001', '2018ICECTC002', '2018ICECTC003']
 						var html = '';
@@ -431,6 +443,15 @@
 							html += '<div class="result-item" data-vSn="' + item + '">' + item.replace(reg, '<span>' + vSn + '</span>') + '</div>'
 						}
 						$('.result').show().html(html)
+					}, function (xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+						mui.toast(type);
+						if (type == 'timeout') {
+							console.log("请求超时：请检查网络")
+						} else {
+							console.log('请求失败：' + type + '\n err:' + errorThrown);
+						}
 					})
 				})
 
@@ -443,21 +464,35 @@
 					$('#search').blur()
 					vSn = $(e.target).attr('data-vSn')
 
-					app.carData({
-						vSn: vSn
-					}, function (res) {
+					app.carData({ vSn }, function (res) {
 						console.log(res);
 						res = JSON.parse(res);
 						updateView.carData(res)
+					}, function (xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+						mui.toast(type);
+						if (type == 'timeout') {
+							console.log("请求超时：请检查网络")
+						} else {
+							console.log('请求失败：' + type + '\n err:' + errorThrown);
+						}
 					});
 					clearInterval(timer)
 					timer = setInterval(function () {
-						app.carData({
-							vSn: vSn
-						}, function (res) {
+						app.carData({ vSn }, function (res) {
 							console.log(res);
 							res = JSON.parse(res);
 							updateView.carData(res)
+						}, function (xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							mui.toast(type);
+							if (type == 'timeout') {
+								console.log("请求超时：请检查网络")
+							} else {
+								console.log('请求失败：' + type + '\n err:' + errorThrown);
+							}
 						});
 					}, 5000)
 				})
@@ -475,62 +510,54 @@
 					// 	return;
 					// }
 					updateView.allcar(res)
+				}, function (xhr, type, errorThrown) {
+					//异常处理；
+					console.log(type);
+					mui.toast(type);
+					if (type == 'timeout') {
+						console.log("请求超时：请检查网络")
+					} else {
+						console.log('请求失败：' + type + '\n err:' + errorThrown);
+					}
 				})
 			}
 
 			var updateView = {
 				carData: function (data) {
-					// data = {
-					// 	"id": 37,
-					// 	"carName": null,
-					// 	"vSn": "2018ICECTC003",
-					// 	"vCarType": null,
-					// 	"longitude": 108.929346,
-					// 	"latitude": 34.303791,
-					// 	"runStatic": null,
-					// 	"gpsSN": null,
-					// 	"iccard": null,
-					// 	"isAllow": null,
-					// 	"speed": null,
-					// 	"licenseNo": null,
-					// 	"towards": null
-					// }
-
+					$('#no-data').hide()
 					for (const key in data) {
 						if (data.hasOwnProperty(key)) {
 							const item = data[key];
 							$('#' + key).html(item ? item : '-')
 						}
 					}
-					map.remove(markers)
-					map.setCenter(new AMap.LngLat(data.longitude, data.latitude))
-					addMarker([data.longitude, data.latitude], map, data);
+					
+					console.log(markers.length)
+					if (markers.length > 0) {
+						markers[0].setPosition([data.longitude, data.latitude])
+					} else {
+						map.remove(markers)
+						map.setCenter(new AMap.LngLat(data.longitude, data.latitude))
+						addMarker([data.longitude, data.latitude], map, data);
+					}
+					
 				},
 				allcar: function (data) {
-					// data = [
-					// 	{
-					// 		longitude: 108.929346,
-					// 		latitude: 34.303791
-					// 	},
-					// 	{
-					// 		longitude: 108.929202,
-					// 		latitude: 34.283391
-					// 	},
-					// 	{
-					// 		longitude: 108.929202,
-					// 		latitude: 34.276471
-					// 	},
-					// 	{
-					// 		longitude: 108.928771,
-					// 		latitude: 34.275397
-					// 	}
-					// ]
-
-					map.remove(markers)
+					console.log(markers.length)
+					// map.remove(markers)
 					map.setZoomAndCenter(12, new AMap.LngLat(getAllCenter(data).longitude, getAllCenter(data).latitude))
-					for (let i = 0; i < data.length; i++) {
-						const item = data[i];
-						addMarker([item.longitude, item.latitude], map, item);
+
+					if (markers.length > 0) {
+						for (let i = 0; i < markers.length; i++) {
+							const item = markers[i];
+							item.setPosition([data[i].longitude, data[i].latitude])
+						}
+					} else {
+						map.remove(markers)
+						for (let i = 0; i < data.length; i++) {
+							const item = data[i];
+							addMarker([item.longitude, item.latitude], map, item);
+						}
 					}
 				}
 			}

@@ -271,6 +271,15 @@
         // $('#circuit_img').attr('src', res.picurl).show()
         // if(res.picurl)
         // $('#crd_file').attr('src', res.picurl).show()
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
       })
     }
 
@@ -293,12 +302,12 @@
 
 
     $('input').on('change', function (e) {
-      if(isFirst) {
+      if (isFirst) {
         isModify = false;
       } else {
         isModify = true;
       }
-      
+
       var _this = this;
       var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
 
@@ -400,6 +409,15 @@
         if (res.ret) {
           flagCheck = true;
         }
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
       })
       console.log(JSON.stringify(oneInfo))
       console.log(addcar)
@@ -409,6 +427,15 @@
         if (res.ret) {
           flagInfo = true;
         }
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
       })
 
       app.applybom(oneBom, function (res) {
@@ -416,12 +443,30 @@
         if (res.ret) {
           flagBom = true;
         }
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
       })
 
       app.applytools(oneToolApply, function (res) {
         console.log(JSON.stringify(res))
         if (res.ret) {
           flagTools = true;
+        }
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
         }
       });
 

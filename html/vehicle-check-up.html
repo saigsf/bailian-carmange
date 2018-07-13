@@ -318,7 +318,7 @@
           mui.toast(translate(checkResult, translateArr));
           return;
         }
-        
+
 
         var id = $(this).attr('id');
         mui.openWindow({
@@ -350,20 +350,42 @@
             }
             fetchData();
           }
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
       }
 
       $('#vehicle-input').on('tap', submitData);
 
       // 获取数据
+      // fetchData()
       function fetchData() {
         // 获取车辆编号
         app.getvSn({}, function (res) {
-          // console.log(res);
+          console.log(res);
+          if (res.length > 30) {
+            return;
+          }
           $('#vSn').val(res);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
       }
-      
+
 
       document.addEventListener('statusBar', function (e) {
         fetchData();

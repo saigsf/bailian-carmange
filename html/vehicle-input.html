@@ -373,7 +373,16 @@
         if (res && (res instanceof Array)) {
           updateView.group(res)
         }
-      })
+      }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
 
       // 获取项目信息
       app.projectQuery({}, function (res) {
@@ -382,7 +391,16 @@
 
         productArr = res.rows;
         updateView.project(res.rows)
-      })
+      }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
 
       // 获取接车点检信息
       // app.findUpcheck({ vSn }, function (res) {
@@ -407,7 +425,16 @@
 
         id = res.id;
         updateView.addCar(res)
-      })
+      }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
 
     }
 

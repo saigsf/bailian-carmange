@@ -182,15 +182,22 @@
       // 获取数据
       // fetchData()
       function fetchData() {
-        app.findDevelopTools({
-          vSn: vSn
-        }, function (res) {
+        app.findDevelopTools({vSn}, function (res) {
           console.log(res)
           if (res.length <= 0) {
             // mui.toast('研发工具未申请，请先申请');
             $('#no-data').show().prev().hide()
           }
           updateView(res);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
       }
 
@@ -239,7 +246,16 @@
             if (res.ret) {
               $(_this).removeClass('to-submit').addClass('finished').html('已完成');
             }
-          })
+          }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
         })
       }
       document.addEventListener('update', function () {

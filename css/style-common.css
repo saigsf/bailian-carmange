@@ -1366,11 +1366,11 @@ button {
 }
 
 .progress-wrapper label {
-  width: 20%;
+  width: auto;
 }
 
 .progress-wrapper .progress {
-  width: 65%;
+  width: 60%;
   height: 4px;
   border-radius: 3px;
   -webkit-border-radius: 3px;

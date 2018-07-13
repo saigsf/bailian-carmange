@@ -233,8 +233,16 @@
         app.carDriverGetGroup({}, function (res) {
           console.log(res);
           // res = JSON.parse(res)
-
           updateView(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
       }
 
@@ -280,6 +288,15 @@
                 }, 500);
 
               }
+            }, function (xhr, type, errorThrown) {
+              //异常处理；
+              console.log(type);
+              mui.toast(type);
+              if (type == 'timeout') {
+                console.log("请求超时：请检查网络")
+              } else {
+                console.log('请求失败：' + type + '\n err:' + errorThrown);
+              }
             })
           } else {
 
@@ -298,6 +315,15 @@
                 }, 500);
               } else {
                 mui.toast('禁止失败')
+              }
+            }, function (xhr, type, errorThrown) {
+              //异常处理；
+              console.log(type);
+              mui.toast(type);
+              if (type == 'timeout') {
+                console.log("请求超时：请检查网络")
+              } else {
+                console.log('请求失败：' + type + '\n err:' + errorThrown);
               }
             })
           }

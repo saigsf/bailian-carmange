@@ -332,6 +332,15 @@
 
           // data = data.concat(res.rows);
           updateView(res.rows);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
       }
 
@@ -487,9 +496,7 @@
             return;
           }
 
-          app.carMaintainTop({
-            id: id
-          }, function (res) {
+          app.carMaintainTop({id}, function (res) {
             res = JSON.parse(res);
             console.log(res);
             if (res.ret) {
@@ -500,7 +507,16 @@
               }, 0);
             }
             mui.toast(res.msg)
-          })
+          }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
         })
 
         // 分配
