@@ -1,111 +1,364 @@
 <!DOCTYPE html>
-<html class="ui-page-login">
+<html>
 
 <head>
-    <meta charset="utf-8">
-    <!-- 屏幕适配 -->
-    <script>
-        ! function(a, b) {
-            function c() {
-                var b = f.getBoundingClientRect().width;
-                b / i > 540 && (b = 540 * i);
-                var c = b / 10;
-                f.style.fontSize = c + "px", k.rem = a.rem = c
-            }
-            var d, e = a.document,
-                f = e.documentElement,
-                g = e.querySelector('meta[name="viewport"]'),
-                h = e.querySelector('meta[name="flexible"]'),
-                i = 0,
-                j = 0,
-                k = b.flexible || (b.flexible = {});
-            if (g) {
-                console.warn("将根据已有的meta标签来设置缩放比例");
-                var l = g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
-                l && (j = parseFloat(l[1]), i = parseInt(1 / j))
-            } else if (h) {
-                var m = h.getAttribute("content");
-                if (m) {
-                    var n = m.match(/initial\-dpr=([\d\.]+)/),
-                        o = m.match(/maximum\-dpr=([\d\.]+)/);
-                    n && (i = parseFloat(n[1]), j = parseFloat((1 / i).toFixed(2))), o && (i = parseFloat(o[1]), j = parseFloat((1 / i).toFixed(2)))
-                }
-            }
-            if (!i && !j) {
-                var p = (a.navigator.appVersion.match(/android/gi), a.navigator.appVersion.match(/iphone/gi)),
-                    q = a.devicePixelRatio;
-                i = p ? q >= 3 && (!i || i >= 3) ? 3 : q >= 2 && (!i || i >= 2) ? 2 : 1 : 1, j = 1 / i
-            }
-            if (f.setAttribute("data-dpr", i), !g)
-                if (g = e.createElement("meta"), g.setAttribute("name", "viewport"), g.setAttribute("content", "initial-scale=" + j + ", maximum-scale=" + j + ", minimum-scale=" + j + ", user-scalable=no"), f.firstElementChild) f.firstElementChild.appendChild(g);
-                else {
-                    var r = e.createElement("div");
-                    r.appendChild(g), e.write(r.innerHTML)
-                }
-            a.addEventListener("resize", function() {
-                clearTimeout(d), d = setTimeout(c, 300)
-            }, !1), a.addEventListener("pageshow", function(a) {
-                a.persisted && (clearTimeout(d), d = setTimeout(c, 300))
-            }, !1), "complete" === e.readyState ? e.body.style.fontSize = 12 * i + "px" : e.addEventListener("DOMContentLoaded", function() {
-                e.body.style.fontSize = 12 * i + "px"
-            }, !1), c(), k.dpr = a.dpr = i, k.refreshRem = c, k.rem2px = function(a) {
-                var b = parseFloat(a) * this.rem;
-                return "string" == typeof a && a.match(/rem$/) && (b += "px"), b
-            }, k.px2rem = function(a) {
-                var b = parseFloat(a) / this.rem;
-                return "string" == typeof a && a.match(/px$/) && (b += "rem"), b
-            }
-        }(window, window.lib || (window.lib = {}));
-    </script>
-    <!-- <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> -->
-    <title>login</title>
-    <link rel="stylesheet" href="src/css/reset.css">
-    <link rel="stylesheet" href="src/css/common.css">
-    <link rel="stylesheet" href="src/css/login.css">
+  <meta charset="UTF-8">
+  <title></title>
+  <meta http-equiv="Access-Control-Allow-Origin" content="*">
+  <meta http-equiv="content-security-policy">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      overflow: hidden;
+    }
 
+    .mui-content {
+      padding: 0;
+      background-color: #fff;
+      overflow: hidden;
+    }
+
+    .background {
+      margin-left: -15px;
+      margin-top: -75px;
+      width: 120%;
+      display: block;
+    }
+
+    .mui-input-row>label {
+      text-align: right;
+      width: 20%;
+    }
+
+    .mui-input-row label .icon {
+      display: inline-block;
+    }
+
+    .mui-input-group {
+      margin: 20px 0;
+      position: static
+    }
+
+    .mui-input-group:before,
+    .mui-input-group:after {
+      display: none;
+    }
+
+    .mui-input-group .mui-input-row:after {
+      /* display: none; */
+      width: 66%;
+      margin: auto
+    }
+
+    .mui-btn-block {
+      width: 80%;
+      margin: auto;
+      padding: 10px 0;
+    }
+
+    .mui-input-row {
+      margin: 40px 0 0 0;
+    }
+
+    .mui-input-row>label~input[type=text],
+    .mui-input-row>label~input[type=password] {
+      font-size: 16px;
+    }
+
+    .three {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .three-link {
+      margin-top: 20px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    .three-link:after,
+    .three-link:before {
+      display: table;
+      content: ' ';
+    }
+
+    .mui-input-row .allcheck label {
+      float: right;
+      font-size: 12px;
+      padding: 0;
+    }
+
+    .allcheck {
+      width: 100%;
+      line-height: 40px;
+      text-align: center;
+      color: #2885cf;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .allcheck input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    .allcheck input[type=checkbox]+label {
+      display: inline-block;
+      line-height: 40px;
+    }
+
+    .allcheck input[type=checkbox]+label:before {
+      content: "";
+      background-color: white;
+      border-radius: 50%;
+      border: 1px solid #d3d3d3;
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 16px;
+      color: #fff;
+      margin: 0;
+      margin-right: 2px;
+    }
+
+    .allcheck input[type=checkbox]:checked+label:before {
+      /* background-color: #2885cf; */
+      color: #fff;
+      border-color: #2885cf;
+      background-image: url(./img/common/md/icon_checked@2x.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 18px 18px;
+    }
+
+    .btn-wrapper {
+      margin-top: 20px;
+      height: auto;
+    }
+
+    .loginType {
+      display: block;
+      width: 100%;
+      padding: 20px 50px;
+      color: #2885cf;
+      text-align: right;
+      text-decoration: underline
+    }
+
+    #employeeCard {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <img class="background" src="./src/img/login/md_background.png" alt="">
-        <form id='login-form' class="input-group">
-            <div class="input-row">
-                <label>
-                    <i class="icon icon-username"></i>
-                    <span>|</span>
-                </label>
-                <input id='account' type="text" class="input-clear input" placeholder="请输入账号">
-            </div>
-            <div class="input-row">
-                <label>
-                    <i class="icon icon-psd"></i>
-                    <span>|</span>
-                </label>
-                <input id='password' type="password" class="input-clear input" placeholder="请输入密码">
-            </div>
-        </form>
+  <!-- 主页面内容容器 -->
+  <div class="mui-content">
+    <img class="background" src="img/login/md/background.png" alt="">
+    <form class="mui-input-group">
+      <div class="mui-input-row">
+        <label>
+          <i class="icon icon-username"></i>
+        </label>
+        <input type="text" name="NETID" id="NETID" class="" placeholder="请输入员工NET ID号">
+        <input type="text" name="employeeCard" id="employeeCard" class="" placeholder="请输入员工卡号" disabled>
+      </div>
+      <div class="mui-input-row">
+        <label>
+          <i class="icon icon-psd"></i>
+        </label>
+        <input type="password" name="password" id="password" class="" placeholder="请输入密码">
+      </div>
 
-        <div class="container-padded">
-            <button id='login' class="btn btn-block btn-primary">登录</button>
-            <div class="link-area">
-                <a id='reg' href="javascript:;">注销账号</a>
-            </div>
-        </div>
-        <div class="container-padded three">
-            <h1>第三方登陆</h1>
-            <div class="row three-link">
-                <a href="javascript:;">
-                    <i class="icon icon-weixin"></i>
-                </a>
-                <a href="javascript:;">
-                    <i class="icon icon-weibo"></i>
-                </a>
-                <a href="javascript:;">
-                    <i class="icon icon-qq"></i>
-                </a>
-            </div>
-        </div>
+    </form>
+    <a href="#" class="loginType" id="loginType">用员工卡号登陆</a>
+
+    <div class="btn-wrapper ">
+      <div id="login" type="button" class="btn btn-blue">登陆</div>
     </div>
+    <!--<div class="three">
+        <h4>第三方登陆</h4>
+        <div class="three-link">
+          <a href="javascript:;">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a href="javascript:;">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a href="javascript:;">
+            <i class="icon icon-qq"></i>
+          </a>
+        </div>
+      </div>-->
+  </div>
+  <!-- jquery -->
+  <script src="js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <!-- <script src="js/app/login.js"></script> -->
+  <script>
+    (function (mui, doc) {
+      var loginType = 'netid';
+      mui.init({
+        swipeBack: true //启用右滑关闭功能
+      });
+      mui.plusReady(function () {
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
+        //更改状态栏颜色
+        plus.navigator.setStatusBarStyle("dark");
+        // 获取本地配置
+        var settings = app.getSettings();
+        // console.log(JSON.stringify(settings))
+        // 获取本地存储
+        var state = app.getState();
+        // 预加载页面是否加载完成
+        var main_loaded_flag = false;
+        // 获取预加载页面
+        var mainPage = plus.webview.getWebviewById("index");
+        // 判读预加载页面是否存在，
+        if (!mainPage) {
+          mainPage = mui.preload({
+            "id": 'index',
+            "url": 'index.html'
+          });
+        } else {
+          main_loaded_flag = true;
+        }
+        // 预加载页面添加加载完成事件
+        mainPage.addEventListener("loaded", function () {
+          main_loaded_flag = true;
+        });
+
+
+
+        // 
+        doc.getElementById('NETID').value = state.data ? state.data.netid : '';
+        doc.getElementById('employeeCard').value = state.data ? state.data.employeeCard : '';
+        doc.getElementById('password').value = state.loginInfo ? state.loginInfo.password : '';
+
+
+        //					console.log(state.token)
+        if (settings.autoLogin && state.data) {
+          setTimeout(function () {
+            login();
+          }, 1000)
+
+        }
+
+
+
+        var toMain = function () {
+          // 使用定时器的原因：
+          // 可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
+          var id = setInterval(function () {
+            if (main_loaded_flag) {
+              clearInterval(id);
+              mui.fire(mainPage, 'goback', null);
+              mui.fire(plus.webview.getWebviewById('html/home.html'), 'statusBar', null)
+              mui.fire(plus.webview.getWebviewById('html/setting.html'), 'statusBar', null)
+              mui.fire(plus.webview.getWebviewById('html/vehicle.html'), 'roles', null)
+              mui.fire(plus.webview.getWebviewById('html/repair.html'), 'roles', null)
+              mui.fire(mainPage, 'roles', null)
+
+              mainPage.show("pop-in");
+
+            }
+          }, 20);
+
+          // mui.openWindow({
+          //   url: 'index.html',
+          //   id: 'index', //默认使用当前页面的url作为id
+          //   styles: {}, //窗口参数
+          //   extras: {}, //自定义扩展参数
+          //   createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+          //   show: {
+          //     autoShow: true, //页面loaded事件发生后自动显示，默认为true
+          //   },
+          //   waiting: {
+          //     autoShow: true, //自动显示等待框，默认为true
+          //     title: '正在加载...', //等待对话框上显示的提示内容
+          //   }
+          // })
+        };
+        addEvent();
+        function addEvent() {
+          $('#loginType').on('tap', function () {
+            if ($(this).html() == '用员工卡号登陆') {
+              $('#NETID').hide().attr('disabled', true);
+              $('#employeeCard').show().attr('disabled', false);
+              $(this).html('用员工NET ID号登陆');
+
+              loginType = 'employeeCard'
+            } else {
+              $('#NETID').show().attr('disabled', false);
+              $('#employeeCard').hide().attr('disabled', true);
+              $(this).html('用员工卡号登陆');
+
+              loginType = 'netid'
+            }
+
+          })
+        }
+
+        submitData()
+        function submitData() {
+          $('#login').on('tap', login);
+        }
+
+        function login() {
+          var loginInfo = serialize($('form'))
+          loginInfo.autoLogin = 'true';
+          console.log(loginInfo)
+          if (loginType == 'netid') {
+            app.loginNetId(loginInfo, function (err) {
+              if (err) {
+                mui.toast(err);
+                return;
+              }
+              toMain();
+            });
+          } else {
+            app.loginCard(loginInfo, function (err) {
+              if (err) {
+                plus.nativeUI.toast(err);
+                return;
+              }
+              toMain();
+            });
+          }
+        }
+      });
+    })(mui, document);
+  </script>
 </body>
 
 </html>

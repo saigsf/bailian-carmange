@@ -1,0 +1,432 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>保险列表</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+    .mui-scroll-wrapper {
+      height: 100%;
+      /* padding-top: 66px; */
+    }
+
+    .item-right-middle {
+      flex-direction: column;
+    }
+
+    .item-right-middle p {
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .item-right-middle p span {
+      display: inline-block;
+      line-height: 0;
+      width: 64px;
+      text-align: justify;
+    }
+
+    .item-right-middle p span:not(:first-of-type) {
+      margin-left: 20px;
+      width: 22%;
+    }
+
+    .item-right-middle p span:after {
+      content: "";
+      display: inline-block;
+      width: 100%
+    }
+
+    .bottom-item {
+      width: 50%;
+      text-align: left;
+    }
+
+    .search-wrapper {
+      width: 80%;
+      /* margin: 10px auto; */
+      height: 40px
+    }
+
+    /* .top {
+      padding: 10px 15px;
+    } */
+
+    .no-data {
+      height: 100%;
+    }
+
+    .no-data p {
+      top: 40%;
+    }
+
+
+    .mui-table-view-cell {
+      background: url(../img/common/md/in_background.png)no-repeat center;
+      background-size: 105%;
+      background-position-x: center;
+      background-position-y: 0;
+      background-color: transparent !important;
+      padding: 0;
+    }
+
+
+    .item-right {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 80%;
+    }
+
+    .list-item {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 12px 5px 5px;
+    }
+
+    .item-right .item-top {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 2px 0;
+    }
+
+    .item-left {
+      width: 80px;
+    }
+
+    .item-right {
+      width: 75%
+    }
+
+    .item-right h4 {
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form class="top">
+        <div class="search-wrapper" id="search">
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
+          </div>
+          <div class="search-text">
+            <input type="text" readonly placeholder="请输入车辆编号">
+          </div>
+        </div>
+        <div class="filter" id="filter">
+          <i class="icon icon-filter">筛选</i>
+        </div>
+      </form>
+      <ul id="vehicle_insurance_list" class="mui-table-view mui-table-listview">
+      </ul>
+      <div class="no-data" id="no-data">
+        <p>没有找到想要的数据，下拉刷新</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    ; (function () {
+      // 定义全局变量
+      var self = null;
+      var main = null;
+      var H = null; // 页面高度
+      var curPage = 1; //当前页码初始化数0开始
+      var totalPage = 0; //后台算出总页数
+      var data = [];
+      var dataArr = {};
+      var filter = '20px';
+
+      var prepageSearch = null;
+
+      // 初始化
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          down: {
+            auto: true, //可选,默认false.首次加载自动下拉刷新一次
+            callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          },
+          up: {
+            callback: pullupRefresh
+          }
+        }
+      });
+
+      // 页面滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      // 下拉刷新业务
+      function pulldownRwfresh() {
+        curPage = 1;
+        dataArr = {}
+        $('#no-data').hide().prev().show()
+        setTimeout(function () {
+          $('#vehicle_insurance_list').html('')
+          fetchData();
+          mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+        }, 1000)
+      }
+
+      // 上拉加载业务
+      function pullupRefresh() {
+
+        setTimeout(function () {
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
+        }, 1000)
+      }
+
+
+      mui.plusReady(function () {
+        // plus准备好后执行H5
+        handsetAdaption();
+        // 获取当前视图
+        self = plus.webview.currentWebview();
+        main = plus.webview.getWebviewById("index");
+        main.addEventListener('maskClick', closeMenu);
+        // 获取传递参数
+        H = self.H;
+        // 添加点击事件进入下一页
+        prepageSearch = mui.preload({
+          url: 'search.html',
+          id: 'search',
+          extras: {
+            H: H,
+            prevId: self.id
+          }
+        })
+
+        // $('#refreshContainer').height($(document).height() - 62)
+        // $('#no-data').height($('#refreshContainer').height())
+        // console.log($('#refreshContainer').height())
+      });
+
+      // 手机适配方法
+      function handsetAdaption() {
+        // 更改顶部导航栏高度
+        if (plus.device.model === 'iPhoneX') {
+          // 页面样式重置
+          filter = '34px';
+        }
+
+        // 更改状态栏颜色
+        // plus.navigator.setStatusBarStyle("light");
+        // 弹出软键盘时自动改变webview的高度
+        // plus.webview.currentWebview().setStyle({
+        //   softinputMode: "adjustResize"
+        // });
+
+      }
+
+      // 获取数据
+      function fetchData() {
+        var opt = $.extend({
+          page: curPage,
+          size: 3
+        }, dataArr);
+
+        app.insuranceQuery(opt, function (res) {
+          res = JSON.parse(res)
+          console.log(res)
+          if (!res.total || res.total <= 0 || res.rows.length <= 0) {
+            $('#no-data').show().prev().hide()
+            // mui.toast('没有找到想要的数据，下拉加载所有数据')
+            return;
+          }
+          // console.log(res.total)
+          curPage++;
+          totalPage = Math.ceil(res.total / 3)
+
+          data = res.rows;
+          updateView(res.rows);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+      }
+
+      // 视图更新
+      function updateView(data) {
+        var html = '';
+
+
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          if (item.endTime) {
+            var endDate = new Date(item.endTime.replace(/-/g, "/"))
+            var startDate = new Date(item.startTime.replace(/-/g, "/"))
+            var time = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+          }
+          console.log(time)
+
+
+          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
+            + '<div class="list-item">'
+            + '<div class="item-left">'
+            + '<img src="../img/common/md/in_pic.png" />'
+            + '</div>'
+            + '<div class="item-right">'
+            + '<div class="item-top">'
+            + '<h4>'
+            + '<span>' + item.vSn + '</span>'
+            + '</h4>'
+            + '<p>'
+            + '<span>车辆名称：</span>'
+            + '<span class="blue">' + (item.carName ? item.carName : '-') + '</span>'
+            + '</p>'
+            + '</div>'
+            + '<div class="progress-wrapper">'
+            + '<label>剩余时间：</label>'
+            + '<div class="progress">'
+            + '<div class="move ' + (item.lave < 90 ? 'red' : 'green') + '" style="width:' + (item.lave ? (item.lave / time * 100 + '%') : '0') + '" ></div>'
+            + '</div>'
+            + '<span>' + (item.lave ? (item.lave + '天') : '暂无') + '</span>'
+            + '</div>'
+            + '</div>'
+            + '</div>'
+
+          if (item.istatus == '未续保') {
+            html += '<span class="marker red">' + item.istatus + '</span></li>'
+          } else if (item.istatus == '已申请' || item.istatus == '已续保') {
+            html += '<span class="marker green">' + item.istatus + '</span></li>'
+          } else if (item.istatus == '未申请') {
+            html += '<span class="marker blue">' + item.istatus + '</span></li>'
+          }
+
+        }
+        $('#vehicle_insurance_list').append(html)
+      }
+
+      // 页面点击事件
+      addEvents();
+      function addEvents() {
+        // 保险详情
+        $('#vehicle_insurance_list').on('tap', 'li', function () {
+          var $li = $(this)
+          // console.log($li.index())
+          mui.openWindow({
+            url: 'vehicle-insurance-info.html',
+            id: 'vehicle-insurance-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H,
+              hardwareAccelerated: true
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: $li.attr('data-vSn'),
+              // hasData: $li.attr('data-status'),
+              // data: data[$li.index()]
+            } //自定义扩展参数
+          })
+        });
+
+        // 搜索
+        $('#search').on('tap', function () {
+          prepageSearch.show('fade-in');
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
+        })
+      }
+      // addEvents()
+
+
+
+      //打开侧滑窗口；
+      function openMenu() {
+
+        main.setStyle({
+          mask: 'rgba(0,0,0,0.5)'
+        }); //menu设置透明遮罩防止点击
+
+        mui.openWindow({
+          url: 'vehicle-filter.html',
+          id: 'vehicle-filter', //默认使用当前页面的url作为id
+          styles: {
+            top: filter,
+            bottom: '0',
+            left: '30%',
+            width: '70%',
+            hardwareAccelerated: true
+          }, //窗口参数
+          extras: {
+            H: H,
+            prevId: self.id
+          }, //自定义扩展参数
+          waiting: {
+            autoShow: false, //自动显示等待框，默认为true
+            title: '正在加载...', //等待对话框上显示的提示内容
+          }
+        })
+      };
+      //关闭侧滑窗口；
+      function closeMenu(e) {
+        if (e) {
+          dataArr = e.detail.data;
+          curPage = 1;
+          $('#vehicle_insurance_list').html('')
+          fetchData();
+        }
+        //关闭遮罩；
+        side = plus.webview.getWebviewById("vehicle-filter");
+        main.setStyle({
+          mask: 'none'
+        });
+        mui.fire(side, 'close', {})
+
+      };
+
+      //点击头部菜单小图标，打开侧滑菜单；
+      $('#filter').on('tap', function (e) {
+        e.stopPropagation();
+        openMenu()
+      });
+      //menu页面点击后关闭菜单；
+      window.addEventListener('closeMenu', closeMenu);
+
+      document.addEventListener('statusBar', function (e) {
+        if (e.detail != null && e.detail.vSn) dataArr.vSn = e.detail.vSn;
+        curPage = 1;
+        $('#vehicle_insurance_list').html('')
+        fetchData();
+      })
+    })()
+
+  </script>
+</body>
+
+</html>

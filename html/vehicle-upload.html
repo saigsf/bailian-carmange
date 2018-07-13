@@ -1,0 +1,486 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>上传图片</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+    .container {
+      height: 100%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .container p {
+      color: #333;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .container .items {
+      width: 95%;
+      min-height: 100px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      margin-bottom: 40px;
+    }
+
+    .items {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .img-btn {
+      width: 80px;
+      height: 80px;
+      background: url(../img/common/md/upload_img@2x.png) no-repeat center;
+      background-size: contain;
+      position: relative;
+      overflow: hidden;
+      margin-right: 20px;
+    }
+
+    .img-btn label {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .img-btn input {
+      display: none;
+    }
+
+    .img-btn p {
+      color: #bbb;
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      line-height: 20px;
+      margin: 0;
+      font-size: 12px;
+    }
+
+    .img-btn img {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 999;
+      border-radius: 3px;
+      display: block;
+      display: none;
+    }
+
+
+
+    .upload-info {
+      width: 65%;
+    }
+
+    .upload-progress {
+      height: 50px;
+    }
+
+    .progress-wrapper .progress {
+      width: 100%;
+    }
+
+    .progress-wrapper span {
+      width: 100%
+    }
+
+    .mui-progressbar {
+      width: 80%;
+      background-color: #e5e5e5;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">上传图片</h1>
+  </header>
+  <!--页面主内容区开始-->
+  <div class="mui-content">
+    <div class="container">
+      <form class="items" id="img_one">
+        <div class="img-btn">
+          <label for="vehicle_img">
+            <img src="" alt="">
+            <p>点击上传</p>
+          </label>
+          <input id="vehicle_img" name="uploadFile" type="file">
+        </div>
+        <div class="upload-info">
+          <div class="upload-name">上传车辆图片</div>
+          <div class="progress-wrapper upload-progress">
+            <!-- <div class="progress">
+              <div class="move"></div>
+            </div> -->
+            <div id="demo1" class="mui-progressbar">
+              <span></span>
+            </div>
+            <i class="icon icon-updated"></i>
+          </div>
+        </div>
+      </form>
+      <!-- <form class="items">
+        <div class="img-btn">
+          <label for="circuit_img">
+            <img src="" alt="">
+            <p>点击上传</p>
+          </label>
+          <input id="circuit_img" name="uploadFile" type="file">
+        </div>
+        <div class="upload-info">
+          <div class="upload-name">上传车辆电路图</div>
+          <div class="progress-wrapper upload-progress">
+            <div id="demo2" class="mui-progressbar">
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <form class="items">
+        <div class="img-btn">
+          <label for="crd_file">
+            <img src="" alt="">
+            <p>点击上传</p>
+          </label>
+          <input id="crd_file" name="uploadFile" type="file">
+        </div>
+        <div class="upload-info">
+          <div class="upload-name">上传车辆crd文件</div>
+          <div class="progress-wrapper upload-progress">
+            <div id="demo3" class="mui-progressbar">
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </form> -->
+      <div class="btn-wrapper ">
+        <button type="button" class="btn btn-blue" id="submit">提交</button>
+      </div>
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    var H = null;
+    var self = null;
+    var view = null;
+    var vSn = null;
+    var url = null;
+    var isModify = false;
+
+    var flagCheck = false;
+    var flagInfo = false;
+    var flagBom = false;
+    var flagTools = false;
+
+    var oneInfo = null;
+    var oneBom = null;
+    var upCheckInfo = null;
+    var oneToolApply = null;
+
+    var isFirst = false;
+
+    var upcheck = 'upcheck';
+    var addcar = 'save';
+
+    var submitLock = false;
+
+    mui.init();
+    mui.plusReady(function () {
+      handsetAdaption();
+      self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById('vehicle-input-tools')
+      vSn = self.vSn;
+      isModify = self.isModify
+      oneInfo = self.oneInfo
+      oneBom = self.oneBom
+      upCheckInfo = self.upCheckInfo
+      oneToolApply = self.oneToolApply;
+
+
+      fetchData()
+      if (isModify) {
+        $('#submit').html('确定修改').parent().show()
+      } else if (isFirst) {
+        $('#submit').parent().show();
+      } else {
+        $('#submit').parent().hide();
+      }
+
+    })
+
+    function handsetAdaption() {
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      // plus.webview.currentWebview().setStyle({
+      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      // });
+    }
+
+    function fetchData() {
+      app.carQuery({ vSn }, function (res) {
+        console.log(res)
+        res = JSON.parse(res);
+        if (res.total != 1) {
+          isFirst = true;
+          return;
+        }
+        if (res.rows[0].picurl)
+          $('#vehicle_img').prev().find('img').attr('src', res.rows[0].picurl).show()
+        // if(res.picurl)
+        // $('#circuit_img').attr('src', res.picurl).show()
+        // if(res.picurl)
+        // $('#crd_file').attr('src', res.picurl).show()
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
+    }
+
+
+
+
+    function getObjectURL(file) {
+      var url = null;
+      if (window.createObjectURL != undefined) {
+        url = window.createObjectURL(file)
+      } else if (window.URL != undefined) {
+        url = window.URL.createObjectURL(file)
+      } else if (window.webkitURL != undefined) {
+        url = window.webkitURL.createObjectURL(file)
+      }
+      return url
+    };
+
+
+
+
+    $('input').on('change', function (e) {
+      if (isFirst) {
+        isModify = false;
+      } else {
+        isModify = true;
+      }
+
+      var _this = this;
+      var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
+
+      var srcs = getObjectURL(this.files[0]);   //获取路径
+      $(this).parent().find('img').prop('src', srcs).show()
+      $('#submit').html('确定修改').parent().show();
+
+      submitData();
+    })
+
+
+    function submitData() {
+      $('input').each(function (i) {
+        if (this.files.length == 0) {
+          return;
+        }
+        var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
+
+        var formData = new FormData($(this).parents('form')[0])
+        if (pid == '#demo1') {
+          url = BASE_URL_1 + 'car-management/car/carPicUpload.action?vSn=' + vSn;
+        } else if (pid == '#demo2') {
+          url = BASE_URL_1 + 'car-management/file/circuitPicUpload.action?vSn=' + vSn;
+        } else {
+          url = BASE_URL_1 + 'car-management/file/wordUpload.action?vSn=' + vSn;
+        }
+
+        var process = 0;
+        mui(pid)[0].style.visibility = 'visible';
+        mui(pid).progressbar({ progress: 10 }).show();
+        $.ajax({
+          url: url,
+          type: "post",
+          data: formData,
+          contentType: false,//必须false才会自动加上正确的Content-Type
+          processData: false,//必须false才会避开jQuery对 formdata 的默认处理
+          crossDomain: true,
+          xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
+            myXhr = $.ajaxSettings.xhr();
+            if (myXhr.upload) { //检查upload属性是否存在  
+              //绑定progress事件的回调函数  
+              myXhr.upload.addEventListener('progress', function (e) {
+                var curr = e.loaded;
+                var total = e.total;
+                if (curr < total) {
+                  $(pid).find('span').css('backgroundColor', '#ff4c4c')
+                }
+                // else {
+                //   $(pid).find('span').css('backgroundColor', '#18c918')
+                // }
+                process = curr / total * 100;
+                mui(pid).progressbar().setProgress(process);
+
+              }, false);
+            }
+            return myXhr; //xhr对象返回给jQuery使用  
+          },
+          success: function (data) {
+            if (data.ret == true) {
+              $(pid).find('span').css('backgroundColor', '#18c918');
+              $(pid).next().removeClass('icon-update').addClass('icon-update-success')
+              mui.alert(data.msg, "提示", "确定");
+            } else {
+              mui(pid).progressbar().setProgress(100);
+              $(pid).find('span').css('backgroundColor', '#ff4c4c');
+              $(pid).next().removeClass('icon-update').addClass('icon-update-failed')
+              mui.alert('上传失败', "提示", "确定");
+            }
+
+
+          },
+          error: function () {
+            mui(pid).progressbar().setProgress(100);
+            $(pid).find('span').css('backgroundColor', '#ff4c4c');
+            $(pid).next().removeClass('icon-update').addClass('icon-update-failed')
+            mui.alert('上传失败', "提示", "确定");
+          }
+
+        })
+      })
+    }
+
+    $('#submit').on('tap', function () {
+
+      if (submitLock) {
+        return;
+      }
+      submitLock = true;
+
+      if (isModify) {
+        upcheck = 'updateUpcheck';
+        addcar = 'update'
+      }
+
+      console.log(JSON.stringify(upCheckInfo))
+      console.log(upcheck)
+      app[upcheck](upCheckInfo, function (res) {
+        console.log(JSON.stringify(res))
+        if (res.ret) {
+          flagCheck = true;
+        }
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
+      console.log(JSON.stringify(oneInfo))
+      console.log(addcar)
+      app[addcar](oneInfo, function (res) {
+        console.log(res)
+        res = JSON.parse(res)
+        if (res.ret) {
+          flagInfo = true;
+        }
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
+
+      app.applybom(oneBom, function (res) {
+        console.log(JSON.stringify(res))
+        if (res.ret) {
+          flagBom = true;
+        }
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
+
+      app.applytools(oneToolApply, function (res) {
+        console.log(JSON.stringify(res))
+        if (res.ret) {
+          flagTools = true;
+        }
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      });
+
+      setTimeout(() => {
+        console.log(flagCheck, flagInfo, flagBom, flagTools)
+        if (flagCheck && flagInfo && flagBom && flagTools) {
+          mui.back();
+          mui.fire(view, 'goback', {});
+        }
+        submitLock = false;
+      }, 500);
+
+    })
+  </script>
+</body>
+
+</html>

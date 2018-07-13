@@ -1,0 +1,371 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>车辆信息</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    header.mui-navbar .mui-bar-nav,
+    header.mui-bar,
+    header.mui-navbar {
+      box-shadow: 0 0 0 #fff;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-row>label {
+      margin-right: 10px;
+    }
+
+    .date-wrapper {
+      align-items: center;
+    }
+
+    .date-wrapper:not(:last-of-type) {
+      margin-bottom: 12px;
+    }
+
+    .date-text select,
+    .date-text input[type=text],
+    .date-text input[type=number] {
+      height: 34px;
+    }
+
+    .date-wrapper .date-text {
+      width: 70%;
+    }
+
+    .mui-scroll {
+      padding-bottom: 24px;
+    }
+
+    .tab {
+      width: 90%;
+      margin: 20px auto;
+    }
+
+    .tab-col {
+      border: 0;
+    }
+
+    .tab-row:nth-child(2n+1) {
+      background-color: #ebf6ff;
+    }
+
+    .tab-row:nth-child(2n) {
+      background-color: #f6fbff;
+    }
+
+    .no-data {
+      background-image: url(../img/common/md/no_data@2x.png);
+      background-repeat: no-repeat;
+      background-position: center 30%;
+      background-size: 60px;
+      height: 200px;
+      position: relative;
+      display: none;
+    }
+
+    .no-data p {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 60%;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">车辆信息</h1>
+  </header>
+
+
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <div class="info-top"></div>
+      <div class="info-wrapper">
+        <div class="info-item" id="info">
+          <div class="info-content">
+            <div class="info-content-top">
+              <p>车辆编号</p>
+              <h3 id="vSn_0">2017-123</h3>
+            </div>
+            <div class="info-content-bottom">
+              <div class="info-content-item">
+                <h5 id="project_sn_0">-</h5>
+                <p>项目号</p>
+              </div>
+              <div class="info-content-empty"></div>
+              <div class="info-content-item">
+                <h5 id="projectEngineer_0">-</h5>
+                <p>项目工程师</p>
+              </div>
+              <div class="info-content-empty"></div>
+              <div class="info-content-item">
+                <h5 id="project_status_0">-</h5>
+                <p>项目状态</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-content">
+            <div class="tab">
+              <div class="tab-row">
+                <div class="tab-col">名称</div>
+                <div class="tab-col">参数</div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车辆编号</div>
+                <div class="tab-col" id="vSn"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">项目号</div>
+                <div class="tab-col" id="project_sn"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">项目状态</div>
+                <div class="tab-col" id="project_status"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">客户</div>
+                <div class="tab-col" id="customer"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">项目工程师</div>
+                <div class="tab-col" id="projectEngineer"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车辆状态</div>
+                <div class="tab-col" id="car_status"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">发动机号</div>
+                <div class="tab-col" id="engineNumber"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车架号</div>
+                <div class="tab-col" id="vin"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">吨位</div>
+                <div class="tab-col" id="vehicleQuality"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">接车日期</div>
+                <div class="tab-col" id="upcheckTime"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">接车提交日期</div>
+                <div class="tab-col" id="upcheckSubmitTime"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">还车日期</div>
+                <div class="tab-col" id="backchecktime"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">还车提交日期</div>
+                <div class="tab-col" id="backcheckSubmitTime"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车辆类型</div>
+                <div class="tab-col" id="vCarType"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">检测站车型</div>
+                <div class="tab-col" id="checkStaionType"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车辆型号</div>
+                <div class="tab-col" id="brandModelone"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">厂牌型号</div>
+                <div class="tab-col" id="brandModeltwo"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">车管</div>
+                <div class="tab-col" id="adminName"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">保单号</div>
+                <div class="tab-col" id="insNo"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">保险起始日</div>
+                <div class="tab-col" id="startTime"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">保险终止日</div>
+                <div class="tab-col" id="endTime"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">保险备注</div>
+                <div class="tab-col" id="insremark"></div>
+              </div>
+
+              <div class="tab-row">
+                <div class="tab-col">临牌到期日</div>
+                <div class="tab-col" id="licenseEndTime"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">临牌</div>
+                <div class="tab-col" id="licenseNo"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">临牌备注</div>
+                <div class="tab-col" id="licremark"></div>
+              </div>
+            </div>
+            <div class="no-data">
+              <p>暂时没有数据</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="btn-wrapper ">
+        <button class="btn btn-blue" id="next">查看详情</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    ; (function () {
+      // 初始化
+      mui.init();
+
+      var H = null;
+      var vSn = '2018ICECTC001';
+      var self = null;
+      var data = {}
+
+      var infoPage = null;
+      //初始化单页的区域滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      mui.plusReady(function () {
+        handsetAdaption()
+        self = plus.webview.currentWebview();
+        H = self.H;
+        vSn = self.vSn;
+        // data = self.data;
+        // updateView(data);
+        mui.ready(function() {
+          fetchData();
+          infoPage = mui.preload({
+            url: 'vehicle-info.html',
+            id: 'vehicle-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H,
+              hardwareAccelerated: true
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: vSn
+            } //自定义扩展参数
+          })
+
+        })
+        
+
+       
+      });
+
+      // 手机适配
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        // plus.webview.currentWebview().setStyle({
+        //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        // });
+      }
+
+
+      document.addEventListener('close', function () {
+        mui.back();
+      })
+
+      // fetchData();
+      // 获取数据
+      function fetchData() {
+        console.log(vSn)
+        app.carQuery({ vSn }, function (res) {
+          res = JSON.parse(res);
+          console.log(res)
+          updateView(res.rows[0])
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+      }
+
+      // 更新视图
+      function updateView(data) {
+        // console.log(data)
+        dataRetrieval(data)
+      }
+
+      // 添加事件
+      function addEvent() {
+        // 查看详情
+        $('#next').on('tap', function () {
+          infoPage.show('slide-in-right')
+        })
+
+        // 查看详情
+        $('#info').on('tap', function () {
+          infoPage.show('slide-in-right')
+        })
+      }
+      addEvent()
+
+    })();
+  </script>
+</body>
+
+</html>

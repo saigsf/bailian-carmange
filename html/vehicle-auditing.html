@@ -1,0 +1,2157 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>车辆审核</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+    header.mui-navbar .mui-bar-nav,
+    header.mui-bar,
+    header.mui-navbar {
+      box-shadow: 0 0 0 #fff;
+    }
+
+    .mui-radio label {
+      padding: 0;
+      padding-left: 5px;
+      padding-right: 24px;
+      line-height: 20px;
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: auto;
+    }
+
+    .mui-radio-box {
+      padding-left: 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .mui-input-row span {
+      float: left;
+      line-height: 40px;
+    }
+
+    .mui-input-row textarea {
+      width: 78%;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .page-six .mui-input-row {
+      padding: 0px 20px;
+      margin-top: 10px;
+    }
+
+    .auditing {
+      width: 90%;
+      margin: 10px auto;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      background-color: #fff;
+    }
+
+    .auditing-title {
+      color: #2885cf;
+      line-height: 40px;
+      padding-left: 20px;
+    }
+
+    .auditing-content p {
+      width: 49%;
+      display: inline-block;
+      color: #333;
+      text-align: center;
+    }
+
+    table {
+      margin-top: 0;
+    }
+
+    .date-wrapper {
+      align-items: center;
+    }
+
+    .date-wrapper:not(:last-of-type) {
+      margin-bottom: 12px;
+    }
+
+    .date-text select,
+    .date-text input[type=text],
+    .date-text input[type=number] {
+      height: 34px;
+    }
+
+    .date-wrapper .date-text {
+      width: 70%;
+    }
+
+    table tbody tr td span {
+      margin: 0 auto;
+      width: 100%;
+      min-height: 34px;
+      /* overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; */
+      /* text-align: center; */
+      /* line-height: 34px; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wire-check table tbody td {
+      border: 1px solid #eee;
+    }
+
+    .wire-check table tbody tr td:not(:last-of-type):after {
+      display: none;
+    }
+
+    .wire-check table tr td {
+      padding: 0px;
+    }
+
+    #openPopover {
+      display: none;
+    }
+
+    .no-data {
+      position: relative;
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">车辆审核</h1>
+    <a href="#" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
+  </header>
+  <!--页面主内容区开始-->
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <div class="info-top"></div>
+      <div class="info-wrapper">
+        <div class="info-item">
+          <div class="info-content" id="vehicle-info">
+            <div class="info-content-top">
+              <p>车辆编号</p>
+              <h3 id="vSn_0">-</h3>
+            </div>
+            <div class="info-content-bottom">
+              <div class="info-content-item">
+                <h5 id="project_status_0">-</h5>
+                <p>项目状态</p>
+              </div>
+              <div class="info-content-empty"></div>
+              <div class="info-content-item">
+                <h5 id="projectEngineer_0">-</h5>
+                <p>项目工程师</p>
+              </div>
+              <div class="info-content-empty"></div>
+              <div class="info-content-item">
+                <h5 id="checks_status_0">-</h5>
+                <p>检查进度</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 接车点检开始 -->
+        <div class="info-middle"></div>
+        <div class="info-item" id="checkUp">
+          <div class="info-title">
+            <h4>接车点检</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>车辆编号</label>
+              <div class="date-text">
+                <input name="vSn" type="text" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>厂牌型号</label>
+              <div class="date-text">
+                <input type="text" name="brandModelone" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>发动机号</label>
+              <div class="date-text">
+                <input type="text" name="engineNumber" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车架号</label>
+              <div class="date-text">
+                <input type="text" name="vin" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车架号</label>
+              <div class="date-text">
+                <input type="text" name="vin" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车辆外观</label>
+              <div class="date-text">
+                <input type="text" name="facade" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>外观说明</label>
+              <div class="date-text">
+                <input type="text" name="explanation" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>送车人</label>
+              <div class="date-text">
+                <input type="text" name="send_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>送车人电话</label>
+              <div class="date-text">
+                <input type="text" name="telephone" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>接车人</label>
+              <div class="date-text">
+                <input type="text" name="pickone" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>接车日期</label>
+              <div class="date-text">
+                <input type="text" name="time" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>随车物品</label>
+              <div class="date-text">
+                <input type="text" name="item" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>随车工具</label>
+              <div class="date-text">
+                <input type="text" name="tools" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备用轮胎</label>
+              <div class="date-text">
+                <input type="text" name="sparetyre" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>千斤顶</label>
+              <div class="date-text">
+                <input type="text" name="jack" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>警示牌</label>
+              <div class="date-text">
+                <input type="text" name="warningboard" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>灭火器</label>
+              <div class="date-text">
+                <input type="text" name="fire" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>钥匙数量</label>
+              <div class="date-text">
+                <input type="text" name="keyy" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>里程表</label>
+              <div class="date-text">
+                <input type="text" name="odometer" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="remark" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="info-operator">
+              <div class="info-operator-item">
+                <span class="pickone">接车人：张三问</span>
+                <span class="time">2018-12-12</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 接车点检结束 -->
+        <!-- 车辆录入开始 -->
+        <div class="info-middle"></div>
+        <div class="info-item" id="vehicle_input">
+          <div class="info-title">
+            <h4>车辆录入</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>项目编号</label>
+              <div class="date-text">
+                <input type="text" name="project_sn" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>项目名称</label>
+              <div class="date-text">
+                <input type="text" name="project_name" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>项目工程师</label>
+              <div class="date-text">
+                <input type="text" name="projectEngineer" value="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>联系电话</label>
+              <div class="date-text">
+                <input type="text" name="contactNumber" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车辆编号</label>
+              <div class="date-text">
+                <input type="text" name="vSn" placeholder="" readonly>
+              </div>
+            </div>
+            <!-- <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="" placeholder="" readonly>
+              </div>
+            </div> -->
+            <div class="date-wrapper">
+              <label>车辆名称</label>
+              <div class="date-text">
+                <input type="text" name="carName" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车辆类型</label>
+              <div class="date-text">
+                <input type="text" name="vCarType" placeholder="" readonly>
+              </div>
+            </div>
+            <!-- <div class="date-wrapper">
+              <label>发动机编号</label>
+              <div class="date-text">
+                <input type="text" name="engineNumber" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车架号</label>
+              <div class="date-text">
+                <input type="text" name="vin" placeholder="" readonly>
+              </div>
+            </div> -->
+            <div class="date-wrapper">
+              <label>客户</label>
+              <div class="date-text">
+                <input type="text" name="customer" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>发动机型号</label>
+              <div class="date-text">
+                <input type="text" name="engineType" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>发动机排量</label>
+              <div class="date-text">
+                <input type="text" name="engineCapacity" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>座位容纳</label>
+              <div class="date-text">
+                <input type="text" name="seats" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>燃油规格</label>
+              <div class="date-text">
+                <input type="text" name="fuelType" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>机油规格</label>
+              <div class="date-text">
+                <input type="text" name="oilspecification" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>变速箱油规格</label>
+              <div class="date-text">
+                <input type="text" name="gbts" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>轮胎规格</label>
+              <div class="date-text">
+                <input type="text" name="tyresize" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>前轮胎压力</label>
+              <div class="date-text">
+                <input type="text" name="reaTireP" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>后轮胎压力</label>
+              <div class="date-text">
+                <input type="text" name="frontTireP" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车辆吨位</label>
+              <div class="date-text">
+                <input type="text" name="vehicleQuality" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车辆颜色</label>
+              <div class="date-text">
+                <input type="text" name="color" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车辆分组</label>
+              <div class="date-text">
+                <input type="text" name="groupName" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>车管</label>
+              <div class="date-text">
+                <input type="text" name="adminName" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>价值</label>
+              <div class="date-text">
+                <input type="text" name="price" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>制作日期</label>
+              <div class="date-text">
+                <input type="text" name="makeTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="remark" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="info-operator">
+              <div class="info-operator-item">
+                <span class="operator">录入人：张三问</span>
+                <span class="makeTime">2018-12-12</span>
+              </div>
+            </div>
+          </div>
+          <div class="no-data">
+            <p>车辆录入未完成！</p>
+          </div>
+
+        </div>
+        <!-- 车辆录入结束 -->
+        <!-- 安全检查开始 -->
+        <div class="info-middle"></div>
+        <div class="info-item" id="safeCheck">
+          <div class="info-title">
+            <h4>安全检查</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>缸压/1缸</label>
+              <div class="date-text">
+                <input type="text" name="one_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>缸压/2缸</label>
+              <div class="date-text">
+                <input type="text" name="two_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>缸压/3缸</label>
+              <div class="date-text">
+                <input type="text" name="three_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>缸压/4缸</label>
+              <div class="date-text">
+                <input type="text" name="four_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>燃油压力/实测</label>
+              <div class="date-text">
+                <input type="text" name="actual_p" id="" placeholder="" readonly>
+              </div>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <td width="33%">检查项目</td>
+                  <td width="34%">问题原因</td>
+                  <td width="33%">解决方法</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span>检查项目</span>
+                  </td>
+                  <td>
+                    <span>解决方法检查项目检查项目</span>
+                  </td>
+                  <td>
+                    <span>解决方法检查项目检查项目</span>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+            <div class="info-operator">
+              <div class="info-operator-item">
+                <span class="checkPerson">检查人：</span>
+                <span class="checkTime"></span>
+              </div>
+              <div class="info-operator-item">
+                <span class="checkingPerson">核对人：</span>
+                <span class="checkingTime"></span>
+              </div>
+            </div>
+          </div>
+          <div class="no-data">
+            <p>安全检查未完成！</p>
+          </div>
+        </div>
+        <!-- 安全检查结束 -->
+        <!-- 线束检查开始 -->
+        <div class="info-middle"></div>
+        <div class="info-item wire-check" id="wireCheck">
+          <div class="info-title">
+            <h4>线束检查</h4>
+          </div>
+          <div class="info-content">
+            <table>
+              <thead>
+                <tr>
+                  <td colspan="2" width="40%">检查项目</td>
+                  <td width="30%">问题原因</td>
+                  <td width="30%">解决方法</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">点火线圈</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">EGR阀</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">电子防盗器</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">巡航控制</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">前氧传感器</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">后氧传感器</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">曲轴位置传感器</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">凸轮轴位置传感器</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">水温传感器</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">进气压力/温度传感器</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pitem" width="10%" rowspan="2">通讯</td>
+                  <td class="item">KW2000</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">CAN</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pitem" width="10%" rowspan="5">E L O A D 信号</td>
+                  <td class="item">大灯负载信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">鼓风机负载信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">除雾负载信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">助力转向开关</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">其他电器负载信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pitem" width="10%" rowspan="7">燃油供给系统</td>
+                  <td class="item">喷油器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">油泵继电器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">碳罐电磁阀</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">燃油箱油位传感器信号输出（输入ECM）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">高压油泵控制阀（GDI)</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">高压油轨压力传感器（GDI）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">喷嘴加热控制（Flex Fuel）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pitem" width="10%" rowspan="5">制动系统</td>
+                  <td class="item">刹车开关</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">刹车灯</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">制动真空度传感器信号输入（Turbo建议安装）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">真空泵ECM控制（Turbo建议安装）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">制动真空泵继电器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pitem" width="10%" rowspan="2">车速及轮速</td>
+                  <td class="item">轮速传感器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">车速传感器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pitem" width="10%" rowspan="5">仪表显示</td>
+                  <td class="item">瞬时油耗数据输出功能</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">汽车仪表水温数据显示输出</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">汽车仪表转速显示输出</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">仪表电源输入</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">SVS灯/MIL灯</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pitem" width="10%" rowspan="8">空调系统</td>
+                  <td class="item">空调请求开关信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">空调前蒸发器温度传感器是否接入ECM</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">空调后蒸发器温度传感器是否接入ECM</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">空调压力传感器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">独立冷凝器风扇继电器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">空调离合器继电器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">空调高低压开关</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">空调中压开关</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="pitem" width="10%" rowspan="5">风扇控制</td>
+                  <td class="item">低速风扇继电器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">高速风扇继电器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">高低速中间继电器（五脚）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">PWM风扇控制</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">可变进气通道</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="pitem" width="10%" rowspan="5">增压发动机</td>
+                  <td class="item">旁通阀</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">泄压阀</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">增压压力、温度传感器（Turbo）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">大气压力、温度传感器（Turbo）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">中冷风扇继电器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pitem" width="10%" rowspan="3">V V T</td>
+                  <td class="item">可变进气相位调节装置</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">进气油压控制阀</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">排气油压控制阀</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="pitem" width="10%" rowspan="2">水温电子控制</td>
+                  <td class="item">电子节温器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">电子水泵</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">碰撞断油功能</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pitem" width="10%" rowspan="4">发动机控制</td>
+                  <td class="item">发电机（LIN通讯）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">发电机负载反馈输入信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">ECM控制发电机输出信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">充电指示灯是否受ECM控制</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="pitem" width="10%" rowspan="14">启停控制</td>
+                  <td class="item">起动请求信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">起停系统主控制开关</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">起动电机继电器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">空挡位置传感器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">空挡开关输入信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">传动链状态输入信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">发动机舱开关状态输入信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">驾驶员侧车门开关信号输入起动机继电器控制（输出）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">起动机继电器控制（输出）信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">起停系统工作状态指示灯输出信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">起停系统警示灯输出信号</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">怠速停机状态输出信号（屏蔽仪表机油灯，电池灯）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">蓄电池状态传感器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">离合器信号（顶部开关，底部开关）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="pitem" width="10%" rowspan="2">机油温度/压力</td>
+                  <td class="item">机油温度传感器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">机油压力传感器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="pitem" width="10%" rowspan="4">进气流量控制</td>
+                  <td class="item">节气门位置传感器</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">怠速步进电机</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">电子节气门（ETC）</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item">电子油门踏板</td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">爆震传感器</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <span class="pitem">加速度传感器</span>
+                  </td>
+
+                  <td>
+                    <span class="checkExplanation"></span>
+                  </td>
+                  <td>
+                    <span class="checkingExplanation"></span>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+
+            <div class="info-operator">
+              <div class="info-operator-item">
+                <span class="checkPerson">检查人：</span>
+                <span class="checkTime"></span>
+              </div>
+              <div class="info-operator-item">
+                <span class="checkingPerson">核对人：</span>
+                <span class="checkingTime"></span>
+              </div>
+            </div>
+          </div>
+          <div class="no-data">
+            <p>线束检查未完成！</p>
+          </div>
+        </div>
+        <!-- 线束检查结束 -->
+        <!-- bom检查开始 -->
+        <div class="info-middle"></div>
+        <div class="info-item" id="bomCheck">
+          <div class="info-title">
+            <h4>bom检查</h4>
+          </div>
+          <div class="info-content">
+            <table>
+              <thead>
+                <tr>
+                  <td width="33%">检查项目</td>
+                  <td width="34%">问题原因</td>
+                  <td width="33%">解决方法</td>
+                </tr>
+              </thead>
+              <tbody></tbody>
+
+            </table>
+            <div class="info-operator">
+              <div class="info-operator-item">
+                <span>申请人</span>
+                <span class="applyPerson"></span>
+                <span class="applyTime"></span>
+              </div>
+              <div class="info-operator-item">
+                <span>检查人</span>
+                <span class="checkPerson"></span>
+                <span class="checkTime"></span>
+              </div>
+              <div class="info-operator-item">
+                <span>核对人</span>
+                <span class="checkingPerson"></span>
+                <span class="checkingTime"></span>
+              </div>
+            </div>
+          </div>
+          <div class="no-data">
+            <p>bom检查未完成！</p>
+          </div>
+        </div>
+        <!-- bom检查结束 -->
+        <!-- 研发工具开始 -->
+        <div class="info-middle"></div>
+        <div class="info-item" id="tools">
+          <div class="info-title">
+            <h4>研发工具</h4>
+          </div>
+          <div class="info-content">
+            <table>
+              <thead>
+                <tr>
+                  <!-- 工具或设备 -->
+                  <td width="30%">名称</td>
+                  <td width="20%">申请人</td>
+                  <td width="30%">装备日期</td>
+                  <td width="20%">操作人</td>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr>
+          <td>12V电源</td>
+          <td>王先生</td>
+          <td>2018-12-12</td>
+          <td>张三丰</td>
+        </tr> -->
+              </tbody>
+            </table>
+            <div class="info-operator">
+              <div class="info-operator-item">
+                <span class="applyPerson">申请人：</span>
+                <span class="applyTime"></span>
+              </div>
+            </div>
+          </div>
+          <div class="no-data">
+            <p>研发工具未安装</p>
+          </div>
+        </div>
+        <!-- 研发工具结束 -->
+        <!-- 审核开始 -->
+        <div class="info-middle"></div>
+        <div class="info-item" id="review">
+          <div class="info-title">
+            <h4>车辆审核</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>安全检查人</label>
+              <div class="date-text">
+                <input type="text" class="safeCheck checkPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>安全检查日期</label>
+              <div class="date-text">
+                <input type="text" class="safeCheck checkTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>安全核对人</label>
+              <div class="date-text">
+                <input type="text" class="safeCheck checkingPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>安全核对日期</label>
+              <div class="date-text">
+                <input type="text" class="safeCheck checkingTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>线束检查人</label>
+              <div class="date-text">
+                <input type="text" class="hiCheck checkPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>线束检查日期</label>
+              <div class="date-text">
+                <input type="text" class="hiCheck checkTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>线束核对人</label>
+              <div class="date-text">
+                <input type="text" class="hiCheck checkingPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>线束核对日期</label>
+              <div class="date-text">
+                <input type="text" class="hiCheck checkingTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>BOM检查人</label>
+              <div class="date-text">
+                <input type="text" class="bCheck checkPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>BOM检查日期</label>
+              <div class="date-text">
+                <input type="text" class="bCheck checkTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>BOM核对人</label>
+              <div class="date-text">
+                <input type="text" class="bCheck checkingPerson" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>BOM核对日期</label>
+              <div class="date-text">
+                <input type="text" class="bCheck checkingTime" placeholder="" readonly>
+              </div>
+            </div>
+
+            <form id="auditing_form">
+              <div class="mui-input-row">
+                <span>审核是否通过：</span>
+                <div class="mui-radio-box">
+                  <div class="mui-radio">
+                    <input name="status" id="normal" value="是" type="radio" checked>
+                    <label for="#normal">是</label>
+                  </div>
+                  <div class="mui-radio">
+                    <input name="status" id="other" value="否" type="radio">
+                    <label for="#other">否</label>
+                  </div>
+                </div>
+              </div>
+              <div class="mui-input-row">
+                <span>审核说明：</span>
+                <textarea name="explanation" id="explanation" cols="4" rows="3" placeholder="添加说明"></textarea>
+              </div>
+              <div class="info-operator">
+                <div class="info-operator-item">
+                  <span class="reviewerPerson">审核人：</span>
+                  <span class="reviewerTime"></span>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+        <!-- 审核结束 -->
+      </div>
+      <div class="btn-wrapper ">
+        <button class="btn btn-blue" id="six_next">提交</button>
+      </div>
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    ; (function () {
+      var H = null;
+      var self = null;
+      var view = null;
+      var vSn = '2018ICECTC006';
+      var submitLock = false;
+
+      mui.init();
+      // 初始化区域滚动
+      mui('.mui-scroll-wrapper').scroll();
+      mui.plusReady(function () {
+        handsetAdaption();
+        self = plus.webview.currentWebview();
+        view = plus.webview.getWebviewById(self.prevId)
+        H = self.H;
+        vSn = self.vSn;
+        fetchData()
+      })
+
+      function handsetAdaption() {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        plus.webview.currentWebview().setStyle({
+          softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+        });
+      }
+
+      // 获取数据
+      // fetchData()
+      function fetchData() {
+        // 查看车辆信息
+        app.carQuery({ vSn }, function (res) {
+          console.log(res);
+          res = JSON.parse(res);
+          // res.rows
+          $('#vSn_0').html(res.rows[0].vSn)
+          $('#project_status_0').html(res.rows[0].project ? res.rows[0].project.project_status : '-')
+          $('#projectEngineer_0').html(res.rows[0].projectEngineer ? res.rows[0].projectEngineer : '-')
+          $('#checks_status_0').html(res.rows[0].checks_status ? res.rows[0].checks_status : '-')
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+
+        // 查看审核
+        app.getReviewInfo({vSn}, function (res) {
+          console.log('审核查看')
+          // res = JSON.stringify(res)
+          console.log(res)
+          // return;
+          updateView.review(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+        
+        // 查看审核信息
+        app.findReview({vSn}, function(res) {
+          console.log(res)
+          res = JSON.parse(res);
+          if(res != null && res.reviewerPerson != null) {
+            $('#openPopover').show();
+            $('#six_next').html('确定修改').parent().hide()
+
+            $('#auditing_form').find('input[name=status]').val(res.status)
+            $('#auditing_form').find('textarea[name=explanation]').val(res.explanation)
+            $('#auditing_form').find('.reviewerPerson').html('申请人：' + res.reviewerPerson)
+            $('#auditing_form').find('.reviewerTime').html(res.reviewerTime)
+          }
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+
+        // 接车点检查看
+        app.findUpcheck({ vSn }, function (res) {
+          console.log('接车点检查看')
+          console.log(res)
+          updateView.checkUp(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+        // 车辆录入查看
+        app.findAddCar({ vSn }, function (res) {
+          res = JSON.parse(res);
+          console.log('车辆录入查看')
+          console.log(res);
+          updateView.input(res);
+
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+        // 安全检查查看
+        app.findSafeCheckByvSn({ vSn }, function (res) {
+          // res = JSON.parse(res);
+          console.log('安全检查查看')
+          console.log(res);
+          updateView.safeCheck(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+        // 缸压检查查看
+        app.findCldCheckByvSn({ vSn }, function (res) {
+          console.log('缸压检查查看')
+          console.log(res);
+          if (!res) {
+            return;
+          }
+
+          updateView.cldCheck(res);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+        // bom检查查看
+
+        app.findEmsAndBomCheckByvSn({ vSn }, function (res) {
+          console.log('bom检查查看')
+          console.log(res);
+          updateView.bomCheck(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+        // 线束检查查看
+
+        app.findHiCheckByvSn({ vSn }, function (res) {
+          console.log('线束检查查看')
+          console.log(res);
+          updateView.wire(res)
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+        // 研发工具查看
+        app.findDevelopTools({ vSn }, function (res) {
+          console.log('研发工具查看')
+          console.log(res)
+          updateView.tools(res);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+      }
+
+      // 视图更新
+      var updateView = {
+        checkUp: function (data) {
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = data[key];
+              $('#checkUp input[name=' + key + ']').val(item)
+            }
+          }
+
+          $('#checkUp').find('.pickone').html('接车人：' + data.pickone)
+          $('#checkUp').find('.time').html(data.time)
+        },
+        input: function (data) {
+          if (data == null) {
+            // console.log(1233444)
+            // mui.toast('车辆录入未完成');
+            $('#vehicle_input .no-data').show().prev().hide()
+            return;
+          }
+
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = data[key];
+              $('#vehicle_input input[name=' + key + ']').val(item)
+            }
+          }
+          $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
+          $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
+
+          $('#vSn').html(data.vSn)
+          $('#vin').html(data.vin)
+          $('#projectEngineer').html(data.projectEngineer)
+          $('#status').html(data.status)
+        },
+        safeCheck: function (res) {
+          var data = res.checkResults;
+          if (data.length == 0) {
+            // mui.toast('安全检查未完成！');
+            $('#safeCheck .no-data').show().prev().hide()
+            return;
+          }
+          var html = '';
+          for (let i = 0; i < 41; i++) {
+            const item = data[i];
+            html += '<tr>\
+                      <td><span class="item">'+ item.item + '</span></td>\
+                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '-') + '</span></td>\
+                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '-') + '</span></td>\
+                    </tr>'
+          }
+          $('#safeCheck table tbody').html(html);
+          $('#safeCheck').find('.checkPerson').html('检查人：' + res.check.checkPerson)
+          $('#safeCheck').find('.checkTime').html(res.check.checkTime)
+          $('#safeCheck').find('.checkingPerson').html('核对人：' + res.check.checkingPerson)
+          $('#safeCheck').find('.checkingTime').html(res.check.checkingTime)
+
+        },
+        bomCheck: function (res) {
+          var data = res.checkResults;
+          if (data.length == 0) {
+            // mui.toast('bom检查未完成！');
+            $('#bomCheck .no-data').show().prev().hide()
+            return;
+          }
+          var html = '';
+          for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            html += '<tr>\
+                      <td><span class="item">'+ item.bomName + '</span></td>\
+                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '-') + '</span></td>\
+                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '-') + '</span></td>\
+                    </tr>'
+          }
+          $('#bomCheck table tbody').html(html);
+
+          $('#bomCheck').find('.checkPerson').html(res.check.checkPerson ? res.check.checkPerson : '-')
+          $('#bomCheck').find('.checkTime').html(res.check.checkTime ? res.check.checkTime : '-')
+          $('#bomCheck').find('.checkingPerson').html(res.check.checkingPerson ? res.check.checkingPerson : '-')
+          $('#bomCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '-')
+          $('#bomCheck').find('.applyPerson').html(res.check.applyPerson)
+          $('#bomCheck').find('.applyTime').html(res.check.applyTime)
+
+
+        },
+        wire: function (res) {
+          var data = res.checkResults;
+          if (data.length == 0) {
+            // mui.toast('线束检查未完成！');
+            $('#wireCheck .no-data').show().prev().hide()
+            return;
+          }
+          var $tr = $('#wireCheck table tbody tr');
+
+          $tr.each(function (i) {
+            if (data[i].item) {
+              $(this).find('.item').html('<span>' + data[i].item + '</span>')
+            }
+
+            $(this).find('.checkExplanation').html(data[i].checkExplanation ? data[i].checkExplanation : '-')
+            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation : '-')
+          })
+          $('#wireCheck').find('.checkPerson').html('检查人：' + (res.check.checkPerson ? res.check.checkPerson : '-'))
+          $('#wireCheck').find('.checkTime').html(res.check.checkTime ? res.check.checkTime : '-')
+          $('#wireCheck').find('.checkingPerson').html('核对人：' + (res.check.checkingPerson ? res.check.checkingPerson : '-'))
+          $('#wireCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '-')
+
+
+        },
+        tools: function (data) {
+          if (data.length == 0) {
+            // mui.toast('研发工具未安装');
+            $('#tools .no-data').show().prev().hide()
+            return;
+          }
+          var html = '';
+          for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            html += '<tr>\
+                  <td><span>'+ item.toolName + '</span></td>\
+                  <td>'+ item.applicant + '</td>\
+                  <td>'+ (item.equippedDate ? item.equippedDate : '-') + '</td>\
+                  <td>'+ (item.operator ? item.operator : '-') + '</td>\
+                </tr>'
+          }
+          $('#tools table tbody').html(html);
+          $('#tools').find('.applyPerson').html('申请人：' + data[0].applicant)
+          $('#tools').find('.applyTime').html(data[0].applyTime)
+        },
+        review: function (data) {
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = data[key];
+              if (item != null) {
+                $('.' + key + '.checkPerson').val(item.checkPerson ? item.checkPerson : '')
+                $('.' + key + '.checkTime').val(item.checkTime ? item.checkTime : '')
+                $('.' + key + '.checkingPerson').val(item.checkingPerson ? item.checkingPerson : '')
+                $('.' + key + '.checkingTime').val(item.checkingTime ? item.checkingTime : '')
+              }
+            }
+          }
+
+          if (data.reviewer != null) {
+            $('#auditing_form input').attr('disabled', true)
+            $('#auditing_form textarea').attr('disabled', true)
+          }
+        },
+        cldCheck: function (data) {
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const item = data[key];
+              $('input[name=' + key + ']').val(item)
+            }
+          }
+        }
+      }
+
+      // 提交数据
+
+      $('#six_next').on('tap', function () {
+        if (submitLock) {
+          mui.toast('请不要重复提交')
+          return;
+        }
+        submitLock = true;
+        submitData();
+      })
+      function submitData() {
+        var data = serialize($('#auditing_form'));
+        data.vSn = vSn;
+        // data.status = $('#auditing_form').find('input[checked]').val()
+        console.log(JSON.stringify(data))
+        // return;
+        app.doReview(data, function (res) {
+          console.log(res);
+          res = JSON.parse(res)
+          mui.toast(res.msg);
+          if (res.ret) {
+            setTimeout(() => {
+              submitLock = false;
+              mui.back()
+              mui.fire(view, 'update', null)
+            }, 500);
+          } else {
+            submitLock = false;
+          }
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+      }
+
+      $('#openPopover').on('tap', function () {
+        if ($(this).html() == '修改') {
+          $('#next').parent().show();
+          $('#auditing_form input').attr('disabled', false)
+          $('#auditing_form textarea').attr('disabled', false)
+          $(this).html('取消')
+
+        } else {
+          $('#next').parent().hide();
+          $('#auditing_form input').attr('disabled', true)
+          $('#auditing_form textarea').attr('disabled', true)
+          $(this).html('修改')
+        }
+      })
+
+      document.addEventListener('update', function () {
+        fetchData()
+      })
+    })();
+  </script>
+</body>
+
+</html>

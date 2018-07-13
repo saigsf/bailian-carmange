@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>维修申请</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <!-- 淘宝适配 -->
+  <!-- 全屏沉浸式状态栏 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    /* .mui-table-view {
+      padding-top: 20px;
+    }
+
+    .mui-table-view-cell {
+      background-color: transparent;
+    }
+
+    .mui-content>.mui-table-view:first-child {
+      margin-top: 0
+    }
+
+    .mui-input-row label {
+      width: 22%
+    }
+
+    .mui-input-row label~input,
+    .mui-input-row label~select,
+    .mui-input-row label~textarea {
+      border-bottom: 1px solid #ccc;
+
+    }
+
+    .mui-input-row label~input[type=text],
+    .mui-input-row label~input[type=password],
+    .mui-input-row label~select,
+    .mui-input-row label~textarea {
+      width: 78%;
+      border-radius: 0
+    }
+
+    .mui-table-view-cell:after {
+      display: none
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!--这里放置真实显示的DOM内容-->
+      <form id="repair_apply">
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>车辆编号</label>
+              <input id="vSn" name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>维修项目</label>
+              <input id="item" name="item" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>停放地点</label>
+              <input id="send_park" name="send_park" type="text" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>申请人电话</label>
+              <input id="applyTEL" name="applyTEL" type="tel" class="mui-input-clear" placeholder="">
+              <span class="icon-red-star">*</span>
+            </div>
+          </li>
+
+          <li class="mui-table-view-cell">
+            <div class="mui-input-row">
+              <label>备注</label>
+              <input id="applyRemark" name="applyRemark" type="text" class="mui-input-clear" placeholder="备注">
+            </div>
+          </li>
+        </ul>
+        <div class="btn-wrapper ">
+          <div class="btn btn-blue" id="submit">提交</div>
+        </div>
+      </form>
+
+    </div>
+
+
+  </div>
+
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    ; (function () {
+      mui.init();
+      mui('.mui-scroll-wrapper').scroll();
+
+      var view = null;
+
+      mui.plusReady(function () {
+        view = plus.webview.getWebviewById('html/repair.html')
+      })
+
+      // 提交数据
+      submitData()
+      function submitData() {
+        // 维修申请
+        $('#submit').on('tap', function () {
+          var data = serialize($('#repair_apply'));
+          console.log(data)
+          // 维修申请
+          app.carMaintainApply(data, function (res) {
+            // console.log(res)
+            // res = JSON.parse(res);
+            mui.toast(res.msg);
+
+            if (res.ret) {
+              setTimeout(function () {
+                mui.fire(view, 'repair', {
+                  domId: 'repair-list'
+                })
+              }, 500)
+            }
+
+          }, function (xhr, type, errorThrown) {
+            //异常处理；
+            console.log(type);
+            mui.toast(type);
+            if (type == 'timeout') {
+              console.log("请求超时：请检查网络")
+            } else {
+              console.log('请求失败：' + type + '\n err:' + errorThrown);
+            }
+          })
+        })
+      }
+    })();
+  </script>
+</body>
+
+</html>

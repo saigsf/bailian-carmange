@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>维修详情</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    header.mui-navbar .mui-bar-nav,
+    header.mui-bar,
+    header.mui-navbar {
+      box-shadow: 0 0 0 #fff;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-row>label {
+      margin-right: 10px;
+    }
+
+    .date-wrapper {
+      align-items: center;
+    }
+
+    .date-wrapper:not(:last-of-type) {
+      margin-bottom: 12px;
+    }
+
+    .date-text select,
+    .date-text input[type=text],
+    .date-text input[type=number] {
+      height: 34px;
+    }
+
+    .date-wrapper .date-text {
+      width: 70%;
+    }
+
+    .mui-scroll {
+      padding-bottom: 24px;
+    }
+
+    .no-data {
+      position: relative;
+      background-color: transparent;
+    }
+
+    .date-text textarea {
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">维修详情</h1>
+  </header>
+
+
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <div class="info-top"></div>
+      <div class="info-wrapper">
+        <div class="info-item">
+          <div class="info-content">
+            <div class="info-content-top">
+              <p>车辆编号</p>
+              <h3 id="vSn">2017-123</h3>
+            </div>
+            <div class="info-content-bottom">
+              <div class="info-content-item">
+                <h5 id="send_park_0">32156A</h5>
+                <p>停放地点</p>
+              </div>
+              <div class="info-content-empty"></div>
+              <div class="info-content-item">
+                <h5 id="applyPeople">张三</h5>
+                <p>申请人</p>
+              </div>
+              <div class="info-content-empty"></div>
+              <div class="info-content-item">
+                <h5 id="status">排队中</h5>
+                <p>维修状态</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>送修申请信息</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>维修项目</label>
+              <div class="date-text">
+                <!-- <input type="text" id="item" placeholder="" readonly> -->
+                <textarea name="item" id="item" cols="30" rows="1" readonly></textarea>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" id="send_park" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>申请日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="applytime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>维修备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="applyRemark" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="info-operator">
+              <div class="info-operator-item">
+                <span id="applyPeople_0"></span>
+                <span id="applytime_0"></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>维修信息</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper">
+              <label>操作员</label>
+              <div class="date-text">
+                <input type="text" name="" id="operator" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>完成日期</label>
+              <div class="date-text">
+                <input type="text" name="" id="forecastTime" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>停放地点</label>
+              <div class="date-text">
+                <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>工作内容</label>
+              <div class="date-text">
+                <input type="text" name="" id="workContent" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>备注</label>
+              <div class="date-text">
+                <input type="text" name="" id="remark" placeholder="" readonly>
+              </div>
+            </div>
+            <div class="info-operator">
+              <div class="info-operator-item">
+                <span id="operator_0"></span>
+                <span id="forecastTime_0"></span>
+              </div>
+            </div>
+          </div>
+          <div class="no-data" id="no_data">
+            <p>没有维修数据</p>
+          </div>
+        </div>
+        <div class="btn-wrapper ">
+          <div class="btn btn-blue" id="submit">保养记录</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    ; (function () {
+      mui.init();
+
+      var vSn = '2018-217';
+      var H = null;
+      var page = null;
+      //初始化单页的区域滚动
+      mui('.mui-scroll-wrapper').scroll();
+
+      mui.plusReady(function () {
+        if (plus.device.model === 'iPhoneX') {
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          });
+          $('.mui-bar-nav~.mui-content').css({
+            'paddingTop': '88px'
+          })
+        }
+        var self = plus.webview.currentWebview();
+        vSn = self.vSn;
+        H = self.H;
+        page = mui.preload({
+          url: 'repair-maintain-info.html',
+          id: 'repair-maintain-info', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn
+          } //自定义扩展参数
+        })
+
+        fetchData();
+      });
+      function fetchData() {
+        app.carMaintainQuery({vSn}, function (res) {
+          console.log(res)
+          res = JSON.parse(res);
+          updateView(res.rows[0])
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+      }
+
+      function updateView(data) {
+        if (data.status == '已完成') {
+          $('#no_data').hide().prev().show();
+        } else {
+          $('#no_data').show().prev().hide();
+        }
+        dataRetrieval(data)
+        $('#applyPeople_0').html('送修申请人：' + data.applyPeople)
+        $('#operator_0').html('维修人：' + data.operator)
+
+      }
+
+      $("#submit").on('tap', function () {
+
+        page.show('slide-in-right')
+      })
+
+      $("textarea").autoTextarea({
+        maxHeight:400,
+        minHeight:34
+      });
+
+    })();
+  </script>
+</body>
+
+</html>

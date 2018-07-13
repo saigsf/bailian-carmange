@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Hello MUI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    header.mui-bar {
+      background-color: #333;
+    }
+
+    header.mui-bar * {
+      color: #fff;
+    }
+
+    .mui-scroll-wrapper,
+    .mui-scroll {
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <div id="slider" class="mui-slider">
+      <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        <div class="mui-scroll">
+          <a id="defaultTab" class="mui-control-item mui-active" href="repair-apply.html">送修申请</a>
+          <a class="mui-control-item" id="repair-list" href="repair-list.html">维修列表</a>
+          <!-- <a class="mui-control-item" id="repair-list" href="repair-maintain-list.html">保养列表</a> -->
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    (function () {
+
+      mui.init();
+
+      //子页面列表
+      var subpages = ['repair-apply.html', 'repair-list.html', 'repair-maintain-list.html'];
+
+      // 子页面切换样式
+      var subpages_style = {
+        top: '64px',
+        bottom: '0px'
+      }
+      //页面切换动画
+      var aniShow = {};
+
+      //页面传值
+      var extras = {}
+
+      // 创建子页面，显示首个选项卡其他都影藏
+      mui.plusReady(function () {
+        // if(!(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
+        //   mui.alert('您没有这个权限', '提示')
+        //   $('a').eq(0).hide()
+        //   return;
+        // }
+
+
+        // //更改状态栏颜色
+        if (plus.device.model === 'iPhoneX') {
+          //子页面导入样式重置
+          subpages_style.top = 88 + 'px';
+          //传参重置
+          //页面样式重置
+          $('header').css({
+            'height': '88px',
+            'paddingTop': '40px'
+          })
+        }
+
+        var self = plus.webview.currentWebview();
+
+        extras.H = self.H;
+
+        for (var i = 0; i < subpages.length; i++) {
+          var temp = {};
+          var sub = plus.webview.create(subpages[i], subpages[i], subpages_style, extras);
+
+          if (i > 0) {
+            sub.hide();
+          } else {
+            temp[subpages[i]] = "true";
+            mui.extend(aniShow, temp);
+          }
+          self.append(sub);
+        }
+
+      });
+      //当前激活选项
+      var activeTab = subpages[0];
+      //选项卡点击事件
+      mui('.mui-scroll').on('tap', 'a', function (e) {
+        var targetTab = this.getAttribute('href');
+
+        if (targetTab == activeTab) {
+          return;
+        }
+        //显示目标选项卡
+        //若为iOS平台或非首次显示，则直接显示
+        if (mui.os.ios || aniShow[targetTab]) {
+          plus.webview.show(targetTab);
+          // plus.webview.getWebviewById(targetTab).reload()
+        } else {
+          //否则，使用fade-in动画，且保存变量
+          var temp = {};
+
+          temp[targetTab] = "true";
+          mui.extend(aniShow, temp);
+          plus.webview.show(targetTab, "slide-in-right", 300);
+          // plus.webview.getWebviewById(targetTab).reload()
+        }
+        //隐藏当前;
+        plus.webview.hide(activeTab);
+        //更改当前活跃的选项卡
+        activeTab = targetTab;
+      });
+
+      // //接车点检
+      // document.addEventListener('repair', function (e) {
+      //   console.log(e.detail.domId)
+      //   var defaultTab = document.getElementById(e.detail.domId);
+      //   //模拟首页点击
+      //   mui.trigger(defaultTab, 'tap');
+      //   //切换选项卡高亮
+      //   var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
+      //   if (defaultTab !== current) {
+      //     current.classList.remove('mui-active');
+      //     defaultTab.classList.add('mui-active');
+      //   }
+      // });
+      
+      document.addEventListener('roles', function() {
+        if(!app.getUserRoles('engineer') && !app.getUserRoles('admin')) {
+          $('#defaultTab').hide()
+        }
+      })
+
+    })()
+  </script>
+</body>
+
+</html>

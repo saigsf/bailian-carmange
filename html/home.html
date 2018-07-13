@@ -1,0 +1,595 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-status-bar-style" content="black">
+	<!-- 地图样式 -->
+	<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
+	<!--mui样式应用-->
+	<link href="../css/mui.min.css" rel="stylesheet" />
+	<!--自定义图标样式-->
+	<link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+	<!--自定义页面样式-->
+	<link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+	<!--独立样式-->
+	<style type="text/css">
+		html,
+		body {
+			height: 100%;
+			overflow: hidden;
+		}
+
+		.map {
+			height: 80%;
+		}
+
+		.search-wrapper {
+			position: fixed;
+			top: 40px;
+			left: 20px;
+			height: 44px;
+			background-color: rgba(255, 255, 255, .9);
+			z-index: 999;
+			width: 70%;
+			border: none;
+			box-shadow: 0 4px 9px rgba(0, 0, 0, 0.25);
+			transition: all .7s;
+		}
+
+		.search-wrapper input {
+			font-size: 14px;
+		}
+
+		.top-mark {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 44px;
+			z-index: 998;
+			background: url(../img/common/md/top_mark@2x.png) no-repeat center;
+		}
+
+		.mui-btn {
+			position: fixed;
+			top: 40px;
+			right: 20px;
+			z-index: 999;
+			width: 44px;
+			height: 44px;
+			line-height: 44px;
+			padding: 0;
+			border-radius: 50%;
+			border: none;
+			box-shadow: 0 2px 6px rgba(40, 133, 207, .7)
+		}
+
+		.vehicle-info {
+			height: 20%;
+			width: 100%;
+			padding: 20px;
+			margin: 0;
+			border-radius: 0;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)
+		}
+
+		.vehicle-info p {
+			color: #333;
+		}
+
+		.license {
+			display: inline-block;
+			padding: 5px 12px;
+			border: 1px solid #2885cf;
+			border-radius: 3px;
+			color: #2885cf;
+			margin-right: 20px;
+			font-size: 16px;
+		}
+
+		.carStatus {
+			display: inline-block;
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			vertical-align: middle;
+		}
+
+		.carStatus.red {
+			background-color: red;
+		}
+
+		.carStatus.gray {
+			background-color: gray;
+		}
+
+		.carStatus.yellow {
+			background-color: yellow;
+		}
+
+		.mui-pull-left {
+			width: 40%;
+			height: 60px;
+			/* text-align: center; */
+			line-height: 60px;
+		}
+
+		.mui-pull-left span {
+			font-size: 18px;
+			padding: 0 2px;
+		}
+
+		.mui-pull-right {
+			width: 60%;
+			height: 60px;
+		}
+
+		.car {
+			position: absolute;
+			top: -20px;
+			right: 20px;
+			width: 100px;
+			z-index: 998;
+		}
+
+		.car img {
+			width: 100%;
+		}
+
+		.amap-logo,
+		.amap-copyright {
+			display: none !important;
+		}
+
+		.icon-search {
+			width: 16px;
+			height: 16px;
+		}
+
+		.result {
+			position: fixed;
+			top: 85px;
+			left: 20px;
+			width: 90%;
+			/* padding-top: 20px; */
+			background-color: #fff;
+			z-index: 999;
+			display: none;
+		}
+
+		.result-item {
+			height: 44px;
+			line-height: 34px;
+			padding: 5px 20px;
+			color: #999;
+		}
+
+		.result-item span {
+			color: #000;
+		}
+
+		.result-item:not(:last-of-type) {
+			border-bottom: 1px solid #eee;
+		}
+
+		.result-item:after {
+			content: "";
+			width: 10px;
+			height: 100%;
+			display: block;
+			background: url(../img/common/md/icon_arraw_right_top@2x.png) no-repeat center;
+			background-size: contain;
+			float: right;
+		}
+
+		.no-data {
+			background-image: url(../img/common/md/no_mapdata.png);
+			background-size: 50%;
+			background-position: center 10%;
+			background-color: #fff;
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- 主页面内容容器 -->
+	<div class="mui-content">
+		<div class="top-mark"></div>
+		<div class="search-wrapper">
+
+			<div class="search-btn">
+				<i class="icon-search icon"></i>
+			</div>
+			<div class="search-text">
+				<input type="text" placeholder="请输入车辆编号" id="search">
+				<div class="clear-btn" id="clear-btn"></div>
+			</div>
+		</div>
+
+		<div class="mui-btn mui-btn-blue" id="track">轨迹</div>
+
+		<div class="result">
+			<!-- <div class="result-item">2018ICECTC001</div> -->
+		</div>
+
+		<div class="map" id="map"></div>
+		<div class="vehicle-info">
+			<p>
+				<span class="license" id="licenseNo">未选择</span>
+				<span class="carStatus red"></span>
+				<span class="carType " id="vCarType">-</span>
+			</p>
+			<div class="mui-pull-left">
+				车速
+				<span id="speed">0</span>
+				km/h
+			</div>
+			<div class="mui-pull-right">
+				<p>
+					<span>驾驶员：</span>
+					<span class="driverName">-</span>
+				</p>
+				<p>
+					<span>德尔福编号：</span>
+					<span class="vSn" id="vSn">-</span>
+				</p>
+			</div>
+			<div class="car">
+				<img src="../img/common/md/home_car@2x.png" alt="">
+			</div>
+			<div class="no-data" id="no-data"></div>
+		</div>
+	</div>
+	<!-- jquery -->
+	<script src="../js/lib/jquery.min.js"></script>
+	<!-- mui -->
+	<script src="../js/mui.min.js"></script>
+	<!-- config 配置项 -->
+	<script src="../js/app/config.js"></script>
+	<!-- app 数据获取 -->
+	<script src="../js/app/app.js"></script>
+	<!-- 百度地图api -->
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=ffc8503b4c8647c3753679c5e95278a5"></script>
+	<script crossorigin="anonymous" id="amap_plus_js" src="http://webapi.amap.com/maps/modules?v=1.4.7&amp;key=ffc8503b4c8647c3753679c5e95278a5&amp;vrs=1527753092704&amp;m=mouse,vectorlayer,overlay,wgl,sync"
+	 type="text/javascript"></script>
+	<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+	<!--多点聚合-->
+	<!-- 当前页面js -->
+	<script>
+		(function () {
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			// 全局变量
+			var flag = true;
+			var bottom = '-70px';
+			var H = null;
+			var self = null;
+			var vSn = '2018ICECTC001';
+			var pageTrack = null;
+			var timer = null;
+
+			var icon = new AMap.Icon({
+				size: new AMap.Size(35, 35),  //图标大小
+				image: "../img/car.png",
+				imageSize: new AMap.Size(35, 35)
+				// imageOffset: new AMap.Pixel(0, -60)
+			})
+
+			// 百度地图API功能	
+			var map = new AMap.Map("map", {
+				resizeEnable: true,
+				zoom: 16 //地图显示的缩放级别
+			});
+
+			var center = map.getCenter(); /// 中心点
+
+			var markers = []
+
+			// 添加marker
+
+			function addMarker(point, map, data) {
+				var marker = new AMap.Marker({
+					// position: point,
+					icon: icon
+				});
+
+				marker.setPosition(point)
+				marker.setMap(map);
+				// 设置鼠标划过点标记显示的文字提示
+				marker.setTitle(data.vSn);
+
+				// 设置点标记的旋转角度
+				marker.setAngle(data.towards)
+
+
+				// 添加点击事件
+				var clickHandle = AMap.event.addListener(marker, 'click', function (e) {
+					// map.zoomIn();
+					// alert(EventListener);
+					// mui.toast(marker.getTitle(), '提示')
+					$('#no-data').hide()
+					for (const key in data) {
+						if (data.hasOwnProperty(key)) {
+							const item = data[key];
+							$('#' + key).html(item ? item : '-')
+						}
+					}
+				});
+				// 移除其他marker
+				markers.push(marker)
+			}
+
+			mui.plusReady(function () {
+				// plus准备好后执行H5
+				handsetAdaption()
+				// 获取当前视图
+				self = plus.webview.currentWebview();
+				// 获取传递参数
+				H = self.H;
+
+				pageTrack = mui.preload({
+					url: 'home-track.html',
+					id: 'home-track',
+					styles: {
+						top: '0',//mui标题栏默认高度为45px；
+						bottom: H//默认为0px，可不定义；
+					},
+					extras: {
+						H: H,
+						prevId: self.id
+					}
+				})
+
+				// addEvent()
+			})
+
+			// 手机适配方法
+			function handsetAdaption() {
+				// 更改顶部导航栏高度
+				if (plus.device.model === 'iPhoneX') {
+					// 页面样式重置
+					$('header').css({
+						'height': '88px',
+						'paddingTop': '40px'
+					});
+					$('.search-wrapper').css({
+						'top': '54px'
+					})
+					$('.result').css({
+						'top': '99px'
+					})
+					$('.mui-btn').css({
+						'top': '54px'
+					})
+					$('.mui-bar-nav~.mui-content').css({
+						'paddingTop': '88px'
+					})
+				}
+
+				// 更改状态栏颜色
+				// plus.navigator.setStatusBarStyle("dark");
+				// 弹出软键盘时自动改变webview的高度
+				//  plus.webview.currentWebview().setStyle({
+				//    softinputMode: "adjustResize"
+				//  });
+
+			}
+			addEvent()
+			function addEvent() {
+				$('#track').on('tap', function () {
+
+					clearInterval(timer)
+					pageTrack.show('slide-in-right')
+					// mui.openWindow({
+					// 	url: 'home-track.html',
+					// 	id: 'home-track',
+					// 	styles: {
+					// 		top: '0',//mui标题栏默认高度为45px；
+					// 		bottom: H//默认为0px，可不定义；
+					// 	},
+					// 	extras: {
+					// 		H: H,
+					// 		prevId: self.id
+					// 	}
+					// })
+
+					mui.fire(pageTrack, 'statusBar', null)
+				});
+				// 搜索框获得焦点
+				$('#search').focus(function () {
+					$('#track').fadeOut(500).prev().css({
+						'width': '90%',
+						'backgroundColor': 'rgba(255, 255, 255, 1)',
+						'borderRadius': '0'
+					});
+					$('#clear-btn').show();
+				})
+				// 搜索框失去焦点
+				$('#search').blur(function () {
+					$('#track').prev().css({
+						'width': '70%',
+						'backgroundColor': 'rgba(255, 255, 255, .9)',
+						'borderRadius': '34px'
+					});
+					$('.result').hide()
+					$('#clear-btn').hide();
+					$(this).val('')
+					setTimeout(() => {
+						$('#track').show()
+					}, 500);
+
+				})
+
+				// 搜索框键盘按下事件
+				$('#search').on('keyup', function () {
+					// 车辆编号模糊查询
+					vSn = $(this).val();
+					// console.log($(this).val())
+					var reg = new RegExp(vSn, 'g');
+
+					app.likevSn({ vSn }, function (res) {
+						console.log(res)
+						// res = ['2018ICECTC001', '2018ICECTC002', '2018ICECTC003']
+						var html = '';
+						for (let i = 0; i < res.length; i++) {
+							const item = res[i];
+							html += '<div class="result-item" data-vSn="' + item + '">' + item.replace(reg, '<span>' + vSn + '</span>') + '</div>'
+						}
+						$('.result').show().html(html)
+					}, function (xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+						mui.toast(type);
+						if (type == 'timeout') {
+							console.log("请求超时：请检查网络")
+						} else {
+							console.log('请求失败：' + type + '\n err:' + errorThrown);
+						}
+					})
+				})
+
+				// 取消搜索
+				$('#clear-btn').on('tap', function () {
+					$('#search').blur()
+				})
+
+				$('.result').on('tap', function (e) {
+					$('#search').blur()
+					vSn = $(e.target).attr('data-vSn')
+
+					app.carData({ vSn }, function (res) {
+						console.log(res);
+						res = JSON.parse(res);
+						updateView.carData(res)
+					}, function (xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+						mui.toast(type);
+						if (type == 'timeout') {
+							console.log("请求超时：请检查网络")
+						} else {
+							console.log('请求失败：' + type + '\n err:' + errorThrown);
+						}
+					});
+					clearInterval(timer)
+					timer = setInterval(function () {
+						app.carData({ vSn }, function (res) {
+							console.log(res);
+							res = JSON.parse(res);
+							updateView.carData(res)
+						}, function (xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							mui.toast(type);
+							if (type == 'timeout') {
+								console.log("请求超时：请检查网络")
+							} else {
+								console.log('请求失败：' + type + '\n err:' + errorThrown);
+							}
+						});
+					}, 5000)
+				})
+
+			}
+
+
+			function fetchData() {
+				// updateView.allcar({})
+				// return;
+				app.allcar({}, function (res) {
+					console.log(res)
+					res = JSON.parse(res);
+					// if(res.length<=0) {
+					// 	return;
+					// }
+					updateView.allcar(res)
+				}, function (xhr, type, errorThrown) {
+					//异常处理；
+					console.log(type);
+					mui.toast(type);
+					if (type == 'timeout') {
+						console.log("请求超时：请检查网络")
+					} else {
+						console.log('请求失败：' + type + '\n err:' + errorThrown);
+					}
+				})
+			}
+
+			var updateView = {
+				carData: function (data) {
+					$('#no-data').hide()
+					for (const key in data) {
+						if (data.hasOwnProperty(key)) {
+							const item = data[key];
+							$('#' + key).html(item ? item : '-')
+						}
+					}
+					
+					console.log(markers.length)
+					if (markers.length > 0) {
+						markers[0].setPosition([data.longitude, data.latitude])
+					} else {
+						map.remove(markers)
+						map.setCenter(new AMap.LngLat(data.longitude, data.latitude))
+						addMarker([data.longitude, data.latitude], map, data);
+					}
+					
+				},
+				allcar: function (data) {
+					console.log(markers.length)
+					// map.remove(markers)
+					map.setZoomAndCenter(12, new AMap.LngLat(getAllCenter(data).longitude, getAllCenter(data).latitude))
+
+					if (markers.length > 0) {
+						for (let i = 0; i < markers.length; i++) {
+							const item = markers[i];
+							item.setPosition([data[i].longitude, data[i].latitude])
+						}
+					} else {
+						map.remove(markers)
+						for (let i = 0; i < data.length; i++) {
+							const item = data[i];
+							addMarker([item.longitude, item.latitude], map, item);
+						}
+					}
+				}
+			}
+
+			// 获取所有车的平均中心点
+			function getAllCenter(data) {
+				var longitude = 0;
+				var latitude = 0;
+				for (let i = 0; i < data.length; i++) {
+					const item = data[i];
+					longitude += item.longitude;
+					latitude += item.latitude;
+				}
+
+				return { longitude: longitude / data.length, latitude: latitude / data.length }
+			}
+			// 状态栏颜色更改
+			document.addEventListener('statusBar', function (e) {
+				// plus.navigator.setStatusBarStyle('light');
+				fetchData()
+				clearInterval(timer)
+				timer = setInterval(function () {
+					fetchData()
+				}, 5000)
+			})
+
+			document.addEventListener('clearTimer', function () {
+				clearInterval(timer)
+			})
+		})()
+
+	</script>
+</body>
+
+</html>

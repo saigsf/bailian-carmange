@@ -1,0 +1,322 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>研发工具安装申请</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+
+  <style type="text/css">
+    table thead {
+      line-height: normal;
+    }
+
+    td {
+      height: 40px;
+    }
+
+    table thead span:last-of-type {
+      font-size: 12px;
+    }
+
+    .info-operator {
+      flex-direction: column;
+    }
+
+    .info-operator-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .info-operator-item p {
+      width: 50%;
+      margin: 0;
+    }
+
+    .info-operator-item span {
+      display: inline;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <h1 class="mui-title">研发工具安装申请</h1>
+    <a href="#" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
+  </header>
+  <!--页面主内容区开始-->
+  <div class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!-- 研发工具申请start -->
+      <form id="form_one_tool_apply">
+        <table>
+          <thead>
+            <tr>
+              <td>
+                <span>工具或设备名称</span>
+                <span>(请在下方空格内填写需要安装的工具或设备名称)</span>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="12V电源">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="CAN1开发接头">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="空气比传感器座">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="排放前采样管">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      <!-- 研发工具申请end -->
+      <div class="info-operator">
+        <div class="info-operator-item">
+          <p>
+            <span>申请人：</span>
+            <span class="applicant"></span>
+          </p>
+          <p>
+            <span>申请日期：</span>
+            <span class="applyTime"></span>
+          </p>
+
+        </div>
+
+      </div>
+      <!-- 提交 -->
+      <div class="btn-wrapper ">
+        <button type="button" class="btn btn-blue" id="submit">下一步</button>
+      </div>
+
+    </div>
+  </div>
+  <!--页面主内容区结束-->
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script type="text/javascript">
+    var H = null;
+    var vSn = null;
+    var self = null;
+    var oneInfo = null;
+    var oneBom = null;
+    var upCheckInfo = null;
+    var view = null;
+
+
+    var canTools = false;
+    var isFirst = false;
+    var isModify = false;
+
+    var upcheck = null;
+    var addcar = null;
+
+    var submitLock = false;
+
+    mui.init();
+    // 页面滚动
+    mui('.mui-scroll-wrapper').scroll();
+    mui.plusReady(function () {
+      handsetAdaption();
+      self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById('vehicle-input-bom')
+      oneInfo = self.oneInfo
+      oneBom = self.oneBom
+      upCheckInfo = self.upCheckInfo;
+      isModify = self.isModify;
+      vSn = self.vSn;
+      fetchData();
+      submitData()
+    })
+
+    function handsetAdaption() {
+      if (plus.device.model === 'iPhoneX') {
+        //页面样式重置
+        $('header').css({
+          'height': '88px',
+          'paddingTop': '40px'
+        });
+        $('.mui-bar-nav~.mui-content').css({
+          'paddingTop': '88px'
+        })
+      }
+      plus.webview.currentWebview().setStyle({
+        softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      });
+    }
+
+    function fetchData() {
+      app.findDevelop({ vSn }, function (res) {
+        res = JSON.parse(res)
+        console.log(res);
+        if (res.length <= 0) {
+          canTools = false;
+          isFirst = true;
+          $('#openPopover').hide()
+          return;
+        }
+        // console.log(oneBom, oneInfo);
+
+        // if (!isModify && !isFirst) {
+        //   // $('#submit').parent().hide()
+        // } else {
+        //   // $('#submit').html('确认修改').parent().show()
+        // }
+        updateView(res);
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
+    }
+
+
+    function updateView(data) {
+      var html = '';
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        html += '<tr data-id="' + item.id + '"><td><input type="text" name="toolName" value="' + item.toolName + '"></td></tr>'
+      }
+      html += '<tr><td><input type="text" name="toolName" value=""></td></tr>';
+      html += '<tr><td><input type="text" name="toolName" value=""></td></tr>';
+      $('table tbody').html(html)
+      $('input').attr('readonly', true)
+
+      $('.applyTime').html(data[0].applyTime)
+      $('.applicant').html(data[0].applicant)
+    }
+
+    function submitData() {
+      // 车辆录入,包含三部分的数据提交
+      $('#submit').on('tap', function () {
+        if (submitLock) {
+          return;
+        }
+        submitLock = true;
+
+        var oneToolApply = [];
+        var $toolTr = $('#form_one_tool_apply tr');
+
+        $toolTr.each(function (i) {
+          var $toolName = $(this).find('input[name=toolName]');
+
+          if ($toolName.val()) {
+            oneToolApply.push({
+              toolName: $toolName.val(),
+              vSn: vSn
+            })
+          }
+        })
+
+        // if (!((!isFirst && canTools) || isFirst)) {
+        //   oneToolApply = null;
+        // }
+
+        mui.openWindow({
+          url: 'vehicle-upload.html',
+          id: 'vehicle-upload', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            bottom: H,
+            hardwareAccelerated: true
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn,
+            oneBom: oneBom,
+            oneInfo: oneInfo,
+            upCheckInfo: upCheckInfo,
+            oneToolApply: oneToolApply,
+            isModify: isModify
+          } //自定义扩展参数
+        })
+
+        return;
+
+
+      })
+
+    }
+
+    $('#openPopover').on('tap', function () {
+      console.log($(this).html())
+      if ($(this).html() == '修改') {
+        canTools = true;
+        $(this).html('取消');
+        $('input').attr('readonly', false);
+        // $('#submit').html('确认修改').parent().show()
+        // isModify = true;
+      } else {
+        canTools = false;
+        $(this).html('修改');
+        $('input').attr('readonly', true);
+        // $('#submit').parent().hide()
+        // isModify = false;
+      }
+
+      isModify = canTools || isModify
+    })
+    // 返回事件
+    document.addEventListener('goback', function () {
+      mui.back();
+      mui.fire(view, 'goback', {});
+    })
+
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,657 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>维修列表</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-input-row.mui-search.mui-active:before {
+      position: absolute;
+      /* left: auto; */
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+      color: #999
+    }
+
+    .top .icon-more {
+      width: 30px;
+      height: 30px;
+    }
+
+    .mui-table-view-cell {
+      background-color: #fff;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, .1)
+    }
+
+    .mui-table-view-cell:not(:last-of-type) {
+      margin-bottom: 10px;
+    }
+
+    .mui-popover .mui-table-view .mui-table-view-cell:last-child,
+    .mui-popover .mui-table-view .mui-table-view-cell:last-child>a:not(.mui-btn) {
+      border-radius: 0;
+    }
+
+    .mui-table-view-cell:after {
+      display: none;
+    }
+
+    .mui-scroll-wrapper {
+      height: 100%;
+      /* padding-top: 66px; */
+    }
+
+    .item-right-middle {
+      flex-direction: column;
+    }
+
+    .item-right-middle p {
+      /* font-size: 12px; */
+      width: 100%;
+
+    }
+
+    .item-right-middle p:last-of-type {
+      text-align: right;
+    }
+
+    .item-right-middle p span {
+      display: inline-block;
+      line-height: 0;
+      width: 64px;
+      text-align: justify;
+    }
+
+    .item-right-middle p span:not(:first-of-type) {
+      margin-left: 30px;
+      /* width: 22%; */
+    }
+
+    .item-right-middle p span:after {
+      content: "";
+      display: inline-block;
+      width: 100%
+    }
+
+    .bottom-item {
+      width: 50%;
+      text-align: left;
+    }
+
+    .mui-popover {
+      width: 90px;
+    }
+
+    .mui-popover .mui-table-view-cell {
+      margin-bottom: 0;
+      height: 34px;
+      line-height: 34px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .mui-table-view-cell>a:not(.mui-btn) {
+      margin: 0;
+    }
+
+    .mui-popover .mui-table-view-cell:after {
+      display: block;
+    }
+
+
+    .icon-triangle-down {
+      position: absolute;
+      top: 35%;
+      right: 12px;
+    }
+
+
+    .top .mui-btn {
+      border: none
+    }
+
+    .search-wrapper {
+      width: 80%;
+      /* margin: 10px auto; */
+      height: 40px
+    }
+
+    /* .top {
+      padding: 10px 15px;
+    } */
+
+    /* body {
+      font-size: 12px;
+    } */
+
+    .list-item {
+      flex-direction: row;
+      justify-content: space-between;
+
+    }
+
+    .item-right {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 70%;
+      padding: 0 5px;
+    }
+
+    .item-left {
+      width: 100px;
+      height: 100px;
+      font-size: 0;
+      overflow: hidden;
+    }
+
+    .item-left img {
+      height: 100%;
+      width: auto;
+      /* margin-left: -20px; */
+    }
+
+    .item-right p {
+      font-size: 11px;
+    }
+
+    .mui-table-view-cell {
+      padding: 0;
+    }
+
+    .item-right h4 {
+      color: #333;
+    }
+
+    .blue {
+      color: #2885cf
+    }
+
+    .openPopover {
+      color: #333;
+    }
+
+    .no-data {
+      position: relative;
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--下拉刷新容器-->
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form class="top">
+        <div class="search-wrapper" id="search">
+
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
+          </div>
+          <div class="search-text">
+            <input type="text" readonly placeholder="请输入车辆编号">
+          </div>
+        </div>
+        <a href="#popover" id="openPopover" class="openPopover">
+          <i class="icon icon-filter">筛选</i>
+        </a>
+
+      </form>
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview"></ul>
+    </div>
+  </div>
+
+  <div id="popover" class="mui-popover">
+    <ul class="mui-table-view">
+      <li class="mui-table-view-cell">
+        <a href="#">全部</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">排队中</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">维修中</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">已完成</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    (function () {
+      var curPage = 1;  //当前页码初始化数0开始
+      var totalPage = 0; //后台算出总页数
+      var self = null;
+      var H = null;
+      var vSn = null;
+      var status = null;
+      var dataArr = {}
+      // 预加载页面
+      var prepageSearch = null;
+
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          down: {
+            auto: true,//可选,默认false.首次加载自动下拉刷新一次
+            callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          },
+          up: {
+            callback: pullupRefresh
+          }
+        }
+      });
+      mui('.mui-scroll-wrapper').scroll();
+      mui.plusReady(function () {
+        self = plus.webview.currentWebview();
+        H = self.H;
+        prepageSearch = mui.preload({
+          url: 'search.html',
+          id: 'search',
+          extras: {
+            H: H,
+            prevId: self.id
+          }
+        })
+
+
+        // console.log($(document).height())
+        // $('#refreshContainer').height($(document).height() - 62)
+        // console.log($('#refreshContainer').height())
+        // $('#no-data').height($('#refreshContainer').height())
+      });
+
+
+      // 下拉刷新
+      function pulldownRwfresh() {
+        curPage = 1;
+        dataArr = {}
+
+        setTimeout(function () {
+          $('#OA_task_1').html('')
+          fetchData();
+          mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+          mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+        }, 1000);
+      }
+      // 上拉加载
+      function pullupRefresh() {
+        console.log(curPage, totalPage)
+        setTimeout(function () {
+          if (curPage > totalPage) {
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+          } else {
+            fetchData();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+          }
+        }, 1000);
+      }
+
+      // 获取数据
+      function fetchData(opt) {
+        var data = $.extend({
+          page: curPage,
+          size: 3,
+        }, dataArr);
+
+        console.log(JSON.stringify(data))
+        app.carMaintainQuery(data, function (res) {
+
+          res = JSON.parse(res);
+          console.log(res)
+          if (!res.total || res.total <= 0) {
+            return;
+          }
+          // console.log(res.totalCount)
+          curPage++;
+          totalPage = Math.ceil(res.total / 3);
+
+          // data = data.concat(res.rows);
+          updateView(res.rows);
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+      }
+
+      // 更新视图
+      function updateView(data) {
+        // console.log(data.length)
+        var html = '';
+        for (let i = 0; i < data.length; i++) {
+          const item = data[i];
+          // console.log(item.status) 正在维修   已完成   排队中
+          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="' + item.status + '" data-id="' + item.id + '">'
+
+          if (item.status == '已完成') {
+            if (app.getUserRoles('admin') || app.getUserRoles('maintenanceManager')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+                + '</div>'
+            
+            }
+
+          } else if (item.status == '排队中') {
+            if (app.getUserRoles('maintenanceManager')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+                + '</div>'
+            
+            }
+            if (app.getUserRoles('admin')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
+                + '<a class="mui-btn mui-btn-red allot">分配</a>'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+                + '</div>'
+            
+            }
+
+          } else if (item.status == '维修中') {
+            if (app.getUserRoles('admin') || app.getUserRoles('maintenanceManager')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
+                + '<a class="mui-btn mui-btn-red repaired">完成</a>'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+               + '</div>'
+             
+            }
+
+          }
+
+          html += '<div class="mui-slider-handle">'
+            + '<div class="list-item">'
+            + '<div class="item-left">'
+            // + '<img src="../img/common/md/backup_picture.png" />'
+            + '<i class="icon icon-nopic"></i>'
+            + '</div>'
+            + '<div class="item-right">'
+            + '<div class="item-top">'
+            + '<div class="number">'
+            + '<h4>' + item.vSn + '</h4>'
+            + '<p><span>停放地点：</span><span class="blue">' + item.send_park + '</span></p>'
+            + '</div>'
+            + '</div>'
+            + '<div class="item-bottom">'
+
+          if (item.status == '已完成') {
+            html += '<p><span>操作员：</span>' + item.applyPeople + '</p>'
+              + '<p><span>备注：</span>' + item.item + '</p>'
+
+          } else if (item.status == '排队中') {
+            html += '<p><span>申请人：</span>' + item.applyPeople + '</p>'
+              + '<p><span>申请日期：</span>' + item.applytime + '</p>'
+          } else if (item.status == '维修中') {
+            html += '<p><span>操作员：</span>' + item.applyPeople + '</p>'
+              + '<p><span>预计完成日期：</span>' + item.applytime + '</p>'
+          }
+
+          html += '</div></div></div>'
+
+          if (item.status == '已完成') {
+            html += '<span class="marker blue">' + item.status + '</span>'
+
+          } else if (item.status == '排队中') {
+            html += '<span class="marker red">' + item.status + '</span>'
+          } else if (item.status == '维修中') {
+            html += '<span class="marker green">' + item.status + '</span>'
+          }
+          html += '</div></li>';
+
+        }
+        $('#OA_task_1').append(html);
+      }
+
+      // 添加点击事件
+      addEvent();
+      function addEvent() {
+        // 查看详情 
+        $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
+          var $li = $(this).parents('li');
+          mui.openWindow({
+            url: 'repair-info.html',
+            id: 'repair-info', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H,
+              hardwareAccelerated: true
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: $li.attr('data-vSn'),
+              // hasData: $li.attr('data-status')
+            }, //自定义扩展参数
+            createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+            show: {
+              autoShow: true, //页面loaded事件发生后自动显示，默认为true
+            },
+            waiting: {
+              autoShow: true, //自动显示等待框，默认为true
+              title: '正在加载...', //等待对话框上显示的提示内容
+            }
+          })
+        });
+
+        // 筛选
+        $('#popover').on('tap', 'a', function () {
+          status = $(this).html()
+          if (status == '全部') {
+            status = ''
+          }
+
+          mui('.mui-popover').popover('hide');
+          curPage = 1;
+          $('#OA_task_1').html('')
+          dataArr = {
+            status: status
+          }
+          fetchData()
+
+        })
+
+        // 优先
+        $('#OA_task_1').on('tap', '.settop', function () {
+          var elem = this;
+          var $li = $(this).parents('li');
+          var id = $li.attr('data-id')
+          setTimeout(function () {
+            mui.swipeoutClose($li[0]);
+          }, 0);
+
+          console.log(id)
+          if (!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
+
+          app.carMaintainTop({id}, function (res) {
+            res = JSON.parse(res);
+            console.log(res);
+            if (res.ret) {
+              mui.toast(res.msg)
+              $('#OA_task_1').prepend($li.remove());
+              setTimeout(function () {
+                mui.swipeoutClose($li[0]);
+              }, 0);
+            }
+            mui.toast(res.msg)
+          }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+        })
+
+        // 分配
+        $('#OA_task_1').on('tap', '.allot', function () {
+          var $li = $(this).parents('li');
+          var _this = this;
+
+          setTimeout(function () {
+            mui.swipeoutClose($li[0]);
+          }, 0);
+
+          if (!app.getUserRoles('admin')) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
+
+          mui.openWindow({
+            url: 'repair-allot.html',
+            id: 'repair-allot', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H,
+              hardwareAccelerated: true
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: $li.attr('data-vSn'),
+              ids: $li.attr('data-id')
+            } //自定义扩展参数
+
+          })
+        })
+        // 完成
+        $('#OA_task_1').on('tap', '.repaired', function () {
+          var $li = $(this).parents('li');
+          var _this = this;
+
+          setTimeout(function () {
+            mui.swipeoutClose($li[0]);
+          }, 0);
+
+          if (!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
+
+          mui.openWindow({
+            url: 'repair-content.html',
+            id: 'repair-content', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H,
+              hardwareAccelerated: true
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: $li.attr('data-vSn'),
+              ids: $li.attr('data-id')
+            } //自定义扩展参数
+          })
+        })
+
+        var form = document.getElementsByTagName('form')[0];
+
+        form.onsubmit = function (e) {
+          e.preventDefault();// 取消默认事件
+        }
+
+        // // 搜索
+        // $('#current_input').off().on('keyup', function (e) {
+        //   e.preventDefault();
+        //   if (e.keyCode == 13) {
+        //     $('#OA_task_1').html('')
+        //     fetchData({
+        //       vSn: $(this).val()
+        //     })
+        //   }
+        // })
+        // 搜索
+        $('#search').on('tap', function () {
+          prepageSearch.show('fade-in');
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', null)
+        })
+
+        // 保养
+        $('#OA_task_1').on('tap', '.maintain', function (e) {
+
+          var $li = $(this).parents('li');
+          var _this = this;
+
+          setTimeout(function () {
+            mui.swipeoutClose($li[0]);
+          }, 0);
+
+          if (!app.getUserRoles('admin') && app.getUserRoles('maintenanceManager')) {
+            mui.alert('您没有这个权限', '提示')
+            return;
+          }
+
+          mui.openWindow({
+            url: 'repair-maintain.html',
+            id: 'repair-maintain', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H,
+              hardwareAccelerated: true
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: $li.attr('data-vSn'),
+              ids: $li.attr('data-id')
+            } //自定义扩展参数
+
+          })
+        })
+      }
+
+      // 返回刷新
+      document.addEventListener('update', function (e) {
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
+
+      document.addEventListener('statusBar', function (e) {
+        // plus.navigator.setStatusBarStyle('light');
+        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
+        curPage = 1;
+        $('#OA_task_1').html('')
+        fetchData();
+      })
+
+    })()
+
+  </script>
+</body>
+
+</html>
