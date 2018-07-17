@@ -1035,7 +1035,7 @@
 
 		var url = 'car-management/license/query.action';
 
-		owner.HTTPRequest('POST', url, data, success, error)
+		owner.HTTPRequest('GET', url, data, success, error)
 	}
 
 	/**
@@ -1081,6 +1081,32 @@
 		var url = 'car-management/project/loadprojectName.action';
 
 		owner.HTTPRequest('POST', url, data, success, error)
+	}
+	/**
+	 * 加载所有的项目编号
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} success 回掉函数
+	 */
+	owner.likeProjectSn = function (data, success, error) {
+
+		data = data || {};
+
+		var url = 'car-management/project/likeProjectSn.action';
+
+		owner.HTTPRequest('get', url, data, success, error)
+	}
+	/**
+	 * 通过项目编号获取项目名称
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} success 回掉函数
+	 */
+	owner.loadNameBySn = function (data, success, error) {
+
+		data = data || {};
+
+		var url = 'car-management/project/loadNameBySn.action';
+
+		owner.HTTPRequest('get', url, data, success, error)
 	}
 
 	/**
@@ -1212,7 +1238,7 @@
 
 		var url = 'car-management/carmaintain/query.action';
 
-		owner.HTTPRequest('post', url, data, success, error)
+		owner.HTTPRequest('get', url, data, success, error)
 	}
 
 

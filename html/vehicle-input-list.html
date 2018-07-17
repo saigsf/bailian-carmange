@@ -258,7 +258,7 @@
             id: 'vehicle-input-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -282,7 +282,7 @@
       function fetchData() {
         var opt = $.extend({
           page: curPage,
-          size: 3
+          size: 10
         }, dataArr);
 
         console.log(JSON.stringify(opt))
@@ -296,7 +296,7 @@
             return;
           }
           curPage++;
-          totalPage = Math.ceil(res.total / 3);
+          totalPage = Math.ceil(res.total / 10);
           if (res.rows) {
             data = res.rows;
             updateView(res.rows);
@@ -348,10 +348,10 @@
 
           if (item.istatus == null) {
             html += '<p><span>保险状态：</span>暂无保险信息</p>'
-          } else if (item.istatus == '未申请') {
+          } else if (item.istatus == '未申请' || item.istatus == '已申请') {
             html += '<p><span>保险状态：</span>' + item.istatus + '</p>'
           } else {
-            html += '<p><span>保险状态：</span>' + (item.istatus + '(' + (item.startTime?item.startTime:'-') + '至' + (item.endTime?item.endTime:'-') + ')') + '</p>'
+            html += '<p><span>保险状态：</span>' + (item.istatus + '(' + (item.startTime ? item.startTime : '-') + '至' + (item.endTime ? item.endTime : '-') + ')') + '</p>'
           }
 
           html += '</div></div></div></li>'

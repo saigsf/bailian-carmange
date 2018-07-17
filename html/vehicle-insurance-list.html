@@ -71,16 +71,22 @@
       top: 40%;
     }
 
+    .mui-table-view.mui-table-listview .mui-table-view-cell {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .1)
+    }
 
     .mui-table-view-cell {
-      background: url(../img/common/md/in_background.png)no-repeat center;
+      /* background: url(../img/common/md/in_background.png)no-repeat center; */
       background-size: 105%;
       background-position-x: center;
       background-position-y: 0;
-      background-color: transparent !important;
+      /* background-color: transparent !important; */
       padding: 0;
     }
 
+    .item-right .item-top {
+      line-height: 24px;
+    }
 
     .item-right {
       flex-direction: column;
@@ -251,7 +257,7 @@
       function fetchData() {
         var opt = $.extend({
           page: curPage,
-          size: 3
+          size: 10
         }, dataArr);
 
         app.insuranceQuery(opt, function (res) {
@@ -264,7 +270,7 @@
           }
           // console.log(res.total)
           curPage++;
-          totalPage = Math.ceil(res.total / 3)
+          totalPage = Math.ceil(res.total / 10)
 
           data = res.rows;
           updateView(res.rows);
@@ -344,7 +350,7 @@
             id: 'vehicle-insurance-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {

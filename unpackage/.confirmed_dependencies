@@ -232,7 +232,8 @@
     ],
     "refer": [
       "html/vehicle-info-detail.html",
-      "html/vehicle-up-check.html"
+      "html/vehicle-up-check.html",
+      "html/vehicle-auditing.html"
     ],
     "priority": 0
   },

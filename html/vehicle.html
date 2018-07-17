@@ -107,6 +107,8 @@
     (function () {
 
       mui.init();
+
+      var deceleration = mui.os.ios ? 0.003 : 0.0009;
       //子页面列表
       var subpages = ['vehicle-list.html', 'vehicle-check-up.html', 'vehicle-input-list.html', 'vehicle-insurance-list.html', 'vehicle-license-list.html'];
       // 子页面切换样式
@@ -163,8 +165,6 @@
         }
 
 
-
-
         //显示目标选项卡
         //若为iOS平台或非首次显示，则直接显示
         if (mui.os.ios || aniShow[targetTab]) {
@@ -214,7 +214,11 @@
       // 点击a标签时，检测下一个是否显示完全，如果不完整，则滚动到完整的位置，否则不变。
       // 点击a标签时，检测上一个是否显示完全，如果不完整，则滚动到完整的位置，否则不变。
       // 判断上/下一个是否存在
-      var scroll = mui('.mui-scroll-wrapper').scroll()
+      var scroll = mui('.mui-scroll-wrapper').scroll({
+        bounce: false,
+        indicators: true, //是否显示滚动条
+        deceleration: deceleration
+      })
       var w = $('.mui-scroll-wrapper').width();  // 可视区域的宽度
       $('.mui-scroll').on('tap', 'a', function () {
         var $next = $(this).next();
@@ -268,7 +272,6 @@
           } else {
             scroll.scrollTo(scrollx - currentLeft, 0, 100);
           }
-
         }
 
       })

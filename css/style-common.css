@@ -839,8 +839,8 @@ span.hide {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   display: none;
   border-radius: 50%;
   -webkit-border-radius: 50%;

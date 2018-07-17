@@ -1335,7 +1335,8 @@
 				"priority": 2,
 				"refer": [
 					"html/vehicle-info-detail.html",
-					"html/vehicle-up-check.html"
+					"html/vehicle-up-check.html",
+					"html/vehicle-auditing.html"
 				]
 			},
 			"html/vehicle-success.html": {

@@ -203,7 +203,7 @@
             <i class="icon-search icon"></i>
           </div>
           <div class="search-text">
-            <input type="text" readonly placeholder="请输入车辆编号">
+            <input type="text" id="current_input" placeholder="请输入车辆编号">
           </div>
         </div>
         <a href="#popover" id="openPopover" class="openPopover">
@@ -315,20 +315,20 @@
       function fetchData(opt) {
         var data = $.extend({
           page: curPage,
-          size: 3,
+          size: 10,
         }, dataArr);
 
         console.log(JSON.stringify(data))
         app.carMaintainQuery(data, function (res) {
-
-          res = JSON.parse(res);
           console.log(res)
+          res = JSON.parse(res);
+
           if (!res.total || res.total <= 0) {
             return;
           }
           // console.log(res.totalCount)
           curPage++;
-          totalPage = Math.ceil(res.total / 3);
+          totalPage = Math.ceil(res.total / 10);
 
           // data = data.concat(res.rows);
           updateView(res.rows);
@@ -359,7 +359,7 @@
                 + '<a class="mui-btn mui-btn-gray settop">优先</a>'
                 + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
                 + '</div>'
-            
+
             }
 
           } else if (item.status == '排队中') {
@@ -368,7 +368,7 @@
                 + '<a class="mui-btn mui-btn-gray settop">优先</a>'
                 + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
                 + '</div>'
-            
+
             }
             if (app.getUserRoles('admin')) {
               html += '<div class="mui-slider-right mui-disabled">'
@@ -376,7 +376,7 @@
                 + '<a class="mui-btn mui-btn-red allot">分配</a>'
                 + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
                 + '</div>'
-            
+
             }
 
           } else if (item.status == '维修中') {
@@ -385,8 +385,8 @@
                 + '<a class="mui-btn mui-btn-gray settop">优先</a>'
                 + '<a class="mui-btn mui-btn-red repaired">完成</a>'
                 + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-               + '</div>'
-             
+                + '</div>'
+
             }
 
           }
@@ -408,7 +408,7 @@
 
           if (item.status == '已完成') {
             html += '<p><span>操作员：</span>' + item.applyPeople + '</p>'
-              + '<p><span>备注：</span>' + item.item + '</p>'
+              + '<p><span>备注：</span>' + (item.item ? item.item : '无') + '</p>'
 
           } else if (item.status == '排队中') {
             html += '<p><span>申请人：</span>' + item.applyPeople + '</p>'
@@ -445,7 +445,7 @@
             id: 'repair-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -496,7 +496,7 @@
             return;
           }
 
-          app.carMaintainTop({id}, function (res) {
+          app.carMaintainTop({ id }, function (res) {
             res = JSON.parse(res);
             console.log(res);
             if (res.ret) {
@@ -508,15 +508,15 @@
             }
             mui.toast(res.msg)
           }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+            //异常处理；
+            console.log(type);
+            mui.toast(type);
+            if (type == 'timeout') {
+              console.log("请求超时：请检查网络")
+            } else {
+              console.log('请求失败：' + type + '\n err:' + errorThrown);
+            }
+          })
         })
 
         // 分配
@@ -538,7 +538,7 @@
             id: 'repair-allot', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -568,7 +568,7 @@
             id: 'repair-content', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -585,21 +585,25 @@
           e.preventDefault();// 取消默认事件
         }
 
-        // // 搜索
-        // $('#current_input').off().on('keyup', function (e) {
-        //   e.preventDefault();
-        //   if (e.keyCode == 13) {
-        //     $('#OA_task_1').html('')
-        //     fetchData({
-        //       vSn: $(this).val()
-        //     })
-        //   }
-        // })
         // 搜索
-        $('#search').on('tap', function () {
-          prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', null)
+        $('#current_input').off().on('keyup', function (e) {
+          e.preventDefault();
+          if (e.keyCode == 13) {
+            $('#OA_task_1').html('')
+            dataArr = {
+              vSn: $(this).val(),
+              status: ''
+            }
+            fetchData()
+          }
         })
+        // 搜索
+        // $('#search').on('tap', function () {
+        //   prepageSearch.show('fade-in');
+        //   mui.fire(plus.webview.getWebviewById('search'), 'getFocus', {
+        //     prevId: self.id
+        //   })
+        // })
 
         // 保养
         $('#OA_task_1').on('tap', '.maintain', function (e) {
@@ -621,7 +625,7 @@
             id: 'repair-maintain', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -643,7 +647,9 @@
 
       document.addEventListener('statusBar', function (e) {
         // plus.navigator.setStatusBarStyle('light');
-        if (e.detail != null && e.detail.data) dataArr = e.detail.data;
+        console.log(e.detail.vSn)
+        if (e.detail != null && e.detail.vSn) dataArr.vSn = e.detail.vSn;
+
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();

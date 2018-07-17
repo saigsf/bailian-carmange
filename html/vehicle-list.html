@@ -248,24 +248,24 @@
 
         var opt = {
           page: curPage,
-          size: 3
+          size: 10
         }
 
         opt = $.extend(opt, dataArr);
 
-        if (!isEmpty(dataArr) && !dataArr.vSn) {
-          queryType = 'orderQuery'
-        }
-        var storage = myStorage.getItem('vehicleList')
-        console.log(storage)
-        if (storage) {
-          for (let i = 0; i < storage.length; i++) {
-            const item = storage[i];
-            console.log(JSON.stringify(item))
-          }
-        }
+        // if (!isEmpty(dataArr) && !dataArr.vSn) {
+        //   queryType = 'orderQuery'
+        // }
+        // var storage = myStorage.getItem('vehicleList')
+        // console.log(storage)
+        // if (storage) {
+        //   for (let i = 0; i < storage.length; i++) {
+        //     const item = storage[i];
+        //     console.log(JSON.stringify(item))
+        //   }
+        // }
 
-        app[queryType](opt, function (res) {
+        app.carQuery(opt, function (res) {
           console.log(res)
           res = JSON.parse(res);
           if (!res.total || res.total <= 0) {
@@ -274,7 +274,7 @@
             return;
           }
           curPage++;
-          totalPage = Math.ceil(res.total / 3);
+          totalPage = Math.ceil(res.total / 10);
           myStorage.setItem('vehicleList', res.rows)
           // data = data.concat(res.rows);
           updateView(res.rows);
@@ -361,7 +361,7 @@
             id: 'vehicle-list-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              bottom: '0px',
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -385,7 +385,7 @@
             id: 'vehicle-type-change', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -408,7 +408,7 @@
             id: 'vehicle-program-status', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -420,6 +420,7 @@
 
         // 搜索
         $('#search').on('tap', function () {
+          console.log(123)
           prepageSearch.show('fade-in');
           mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
         })

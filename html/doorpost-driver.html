@@ -175,16 +175,26 @@
     } */
 
     .mui-table-view-cell {
-      background: url(../img/common/md/in_background.png)no-repeat center;
+      /* background: url(../img/common/md/in_background.png)no-repeat center; */
       background-size: 105%;
       background-position-x: center;
       background-position-y: 0;
       background-color: transparent !important;
       padding: 0;
     }
+    .mui-slider-handle:before {
+      content: "";
+      width: 90%;
+      height: 6px;
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #eef7fd;
+    }
 
-    .mui-table-view-cell>.mui-slider-handle {
-      background-color: transparent;
+    .mui-slider-handle{
+      position: relative;
     }
 
     .item-right {
@@ -197,6 +207,8 @@
       flex-direction: row;
       justify-content: space-between;
       padding: 12px 5px 5px;
+      position: relative;
+      background-color: #fff;
     }
 
     .item-right .item-top {
@@ -351,11 +363,12 @@
       });
 
       // 获取数据
+      fetchData()
       function fetchData() {
         console.log(curPage);
         var opt = $.extend({
           page: curPage,
-          size: 3
+          size: 10
         }, dataArr)
         app.carDriverList(opt, function (res) {
           console.log(res)
@@ -365,7 +378,7 @@
             return;
           }
           curPage++;
-          totalPage = Math.ceil(res.total / 3)
+          totalPage = Math.ceil(res.total / 10)
           var data = res.rows;
 
           updateView(data);
@@ -395,12 +408,12 @@
 
           html += '<li class="mui-table-view-cell" data-id="' + item.id + '" data-name="' + item.name + '">'
 
-          if (app.getUserRoles('admin') || app.getUserRoles('driverManager')) {
+          // if (app.getUserRoles('admin') || app.getUserRoles('driverManager')) {
             html += '<div class="mui-slider-right mui-disabled">' +
               '<a class="mui-btn mui-btn-gray update">修改</a>' +
               '<a class="mui-btn mui-btn-red delete">删除</a>' +
               '</div>'
-          }
+          // }
 
           html += '<div class="mui-slider-handle">' +
             '<div class="list-item">' +
@@ -440,7 +453,7 @@
             id: 'doorpost-driver-input', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -457,7 +470,7 @@
             id: 'doorpost-driver-input', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -475,7 +488,7 @@
             id: 'doorpost-driver-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {

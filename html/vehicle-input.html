@@ -47,6 +47,62 @@
       height: 100%;
       z-index: 11;
     }
+
+    .result {
+      position: fixed;
+      top: 64px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 220px;
+      overflow: scroll;
+      /* padding-top: 20px; */
+      background-color: #fff;
+      z-index: 999;
+      /* display: none; */
+    }
+
+    .result-item {
+      height: 44px;
+      line-height: 34px;
+      padding: 5px 20px;
+      color: #999;
+    }
+
+    .result-item:nth-child(2n) {
+      background-color: #f7f7f7;
+    }
+
+    .result-item:nth-child(2n-1) {
+      background-color: #f5f5f5;
+    }
+
+    .result-item span {
+      color: #000;
+    }
+
+    .result-item:not(:last-of-type) {
+      border-bottom: 1px solid #eee;
+    }
+
+    .result-item:after {
+      content: "";
+      width: 10px;
+      height: 100%;
+      display: block;
+      background: url(../img/common/md/icon_arraw_right_top@2x.png) no-repeat center;
+      background-size: contain;
+      float: right;
+    }
+
+    .mui-ios .mui-table-view-cell:first-of-type {
+      overflow: visible;
+      z-index: 111;
+    }
+
+    .mui-table-view.mui-table-inputview {
+      overflow: visible;
+    }
   </style>
 </head>
 
@@ -67,10 +123,10 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>项目编号</label>
-              <input name="project_sn" type="text" class="" placeholder="">
-              <!-- <select name="project_sn" id="project_sn">
-                <option value=""></option>
-              </select> -->
+              <!-- <input name="project_sn" type="text" class="" placeholder=""> -->
+              <select name="project_sn" id="project_sn" value="">
+                <option value="">请选择项目编号</option>
+              </select>
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -333,16 +389,15 @@
         if ($(this).html() == '修改') {
           canReviseInput = true;
           $(this).html('取消');
-          $('select').attr('readonly', false)
+          $('select').attr('disabled', false)
           $('input').attr('readonly', false)
-            .parents('li').find('.mui-icon-clear').hide()
+
           // isModify = true;
         } else {
           canReviseInput = false;
           $(this).html('修改');
-          $('select').attr('readonly', true)
+          $('select').attr('disabled', true)
           $('input').attr('readonly', true)
-            .parents('li').find('.mui-icon-clear').show()
           // isModify = false;
         }
         isModify = canReviseInput || isModify
@@ -374,33 +429,54 @@
           updateView.group(res)
         }
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
 
-      // 获取项目信息
-      app.projectQuery({}, function (res) {
+      // // 获取项目信息
+      // app.projectQuery({}, function (res) {
+
+      //   res = JSON.parse(res)
+      //   console.log(res);
+      //   productArr = res.rows;
+      //   updateView.project(res.rows)
+      // }, function (xhr, type, errorThrown) {
+      //   //异常处理；
+      //   console.log(type);
+      //   mui.toast(type);
+      //   if (type == 'timeout') {
+      //     console.log("请求超时：请检查网络")
+      //   } else {
+      //     console.log('请求失败：' + type + '\n err:' + errorThrown);
+      //   }
+      // })
+
+      app.likeProjectSn({
+        projectsn:''
+      }, function(res) {
+        console.log('项目编号')
         console.log(res);
         res = JSON.parse(res)
+        if(res != null && res.length>0) {
+          updateView.project(res)
+        }
+      }, function(xhr, type, errorThrown) {
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
 
-        productArr = res.rows;
-        updateView.project(res.rows)
-      }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+
 
       // 获取接车点检信息
       // app.findUpcheck({ vSn }, function (res) {
@@ -426,15 +502,15 @@
         id = res.id;
         updateView.addCar(res)
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
 
     }
 
@@ -458,21 +534,24 @@
         var html = '';
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
-          html += '<option value="' + item.project_sn + '">' + item.project_sn + '</option>'
+          html += '<option value="' + item + '">' + item + '</option>'
         }
+        
+        $('#project_sn').append(html);
         return;
-        $('#project_sn').html(html);
-        console.log(JSON.stringify(data[0]))
         $('#project_name').val(data[0].projectName);
       },
       addCar: function (data) {
+        $('#project_sn').append('<option value="' + data.project_sn + '">' + data.project_sn + '</option>');
+        $('#groupName').append('<option value="' + data.groupName + '">' + data.groupName + '</option>')
         for (const key in data) {
           if (data.hasOwnProperty(key)) {
             const item = data[key];
             $('*[name=' + key + ']').val(item).attr('readonly', true)
-              .parents('li').find('.mui-icon-clear').hide()
           }
         }
+
+        $('select').attr('disabled', true)
       }
     }
 
@@ -481,9 +560,9 @@
     function submitData() {
       $('#vehicle-input-bom').on('tap', function () {
         var oneInfo = serialize($('#form_one_info'));
-        if(!isFirst) {
+        if (!isFirst) {
           oneInfo.id = id;
-        } 
+        }
         oneInfo.id = id;
         console.log(oneInfo)
 
@@ -595,21 +674,35 @@
     // submitData();
 
     $('#project_sn').on('change', function () {
-      return;
-      for (let i = 0; i < productArr.length; i++) {
-        const item = productArr[i];
-        if (item.project_sn == $(this).val()) {
-          $('#project_name').val(item.projectName)
+      
+      app.loadNameBySn({
+        sn: $(this).val()
+      }, function(res) {
+        console.log(res)
+          $('#project_name').val(res)
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
         }
-      }
+      })
+
     })
 
- 
+
     // 返回事件
     document.addEventListener('goback', function () {
       mui.back();
       mui.fire(view, 'goback', null)
     })
+
+    // $('.result').on('swipeup', function(e) {
+    //   e.stopPropagation();
+    // })
   </script>
 </body>
 

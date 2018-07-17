@@ -49,9 +49,10 @@
 			top: 0;
 			left: 0;
 			width: 100%;
-			height: 44px;
+			height: 20px;
 			z-index: 998;
 			background: url(../img/common/md/top_mark@2x.png) no-repeat center;
+			background-size: cover;
 		}
 
 		.mui-btn {
@@ -188,10 +189,19 @@
 
 		.no-data {
 			background-image: url(../img/common/md/no_mapdata.png);
-			background-size: 50%;
+			background-size: 40%;
 			background-position: center 10%;
 			background-color: #fff;
 			display: block;
+		}
+
+		.no-data p {
+			color: #999;
+			top: 50%;
+		}
+
+		.car {
+			display: none;
 		}
 	</style>
 </head>
@@ -208,8 +218,8 @@
 			</div>
 			<div class="search-text">
 				<input type="text" placeholder="请输入车辆编号" id="search">
-				<div class="clear-btn" id="clear-btn"></div>
 			</div>
+			<div class="clear-btn" id="clear-btn"></div>
 		</div>
 
 		<div class="mui-btn mui-btn-blue" id="track">轨迹</div>
@@ -243,7 +253,9 @@
 			<div class="car">
 				<img src="../img/common/md/home_car@2x.png" alt="">
 			</div>
-			<div class="no-data" id="no-data"></div>
+			<div class="no-data" id="no-data">
+				<p>请先搜索或选择车辆</p>
+			</div>
 		</div>
 	</div>
 	<!-- jquery -->
@@ -315,6 +327,7 @@
 					// alert(EventListener);
 					// mui.toast(marker.getTitle(), '提示')
 					$('#no-data').hide()
+					$('.car').show()
 					for (const key in data) {
 						if (data.hasOwnProperty(key)) {
 							const item = data[key];
@@ -339,7 +352,7 @@
 					id: 'home-track',
 					styles: {
 						top: '0',//mui标题栏默认高度为45px；
-						bottom: H//默认为0px，可不定义；
+						// bottom: H//默认为0px，可不定义；
 					},
 					extras: {
 						H: H,
@@ -371,6 +384,8 @@
 					$('.mui-bar-nav~.mui-content').css({
 						'paddingTop': '88px'
 					})
+
+					$('.top-mark').height(44)
 				}
 
 				// 更改状态栏颜色
@@ -457,7 +472,8 @@
 
 				// 取消搜索
 				$('#clear-btn').on('tap', function () {
-					$('#search').blur()
+					console.log(123)
+					$('#search')[0].blur()
 				})
 
 				$('.result').on('tap', function (e) {
@@ -525,22 +541,23 @@
 			var updateView = {
 				carData: function (data) {
 					$('#no-data').hide()
+					$('.car').show()
 					for (const key in data) {
 						if (data.hasOwnProperty(key)) {
 							const item = data[key];
 							$('#' + key).html(item ? item : '-')
 						}
 					}
-					
+
 					console.log(markers.length)
 					if (markers.length > 0) {
 						markers[0].setPosition([data.longitude, data.latitude])
 					} else {
 						map.remove(markers)
-						map.setCenter(new AMap.LngLat(data.longitude, data.latitude))
+						// map.setCenter(new AMap.LngLat(data.longitude, data.latitude))
 						addMarker([data.longitude, data.latitude], map, data);
 					}
-					
+
 				},
 				allcar: function (data) {
 					console.log(markers.length)

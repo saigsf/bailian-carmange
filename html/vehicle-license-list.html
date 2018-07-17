@@ -38,12 +38,16 @@
       top: 40%;
     }
 
+    .mui-table-view.mui-table-listview .mui-table-view-cell {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .1)
+    }
+
     .mui-table-view-cell {
-      background: url(../img/common/md/in_background.png)no-repeat center;
+      /* background: url(../img/common/md/in_background.png)no-repeat center; */
       background-size: 105%;
       background-position-x: center;
       background-position-y: 0;
-      background-color: transparent !important;
+      /* background-color: transparent !important; */
       padding: 0;
     }
 
@@ -220,26 +224,28 @@
       }
 
       // 获取数据
+      fetchData()
       function fetchData() {
         // console.log(curPage)
         // var data = null;
         var opt = $.extend({
           page: curPage,
-          size: 3
+          size: 10
         }, dataArr);
         console.log(JSON.stringify(opt))
         app.licenseQuery(opt, function (res) {
 
           res = JSON.parse(res);
           console.log(res)
-          if (!res.total || res.total <= 0 || res.rows.length <= 0) {
+          console.log(!!res.total && res.total == 0 && res.rows.length == 0)
+          if (!!res.total && res.total == 0 && res.rows.length == 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据')
             return;
           }
           // console.log(res.totalCount)
           curPage++;
-          totalPage = Math.ceil(res.total / 3)
+          totalPage = Math.ceil(res.total / 10)
 
           // data = res.rows;
           updateView(res.rows);
@@ -263,10 +269,14 @@
         for (let i = 0; i < data.length; i++) {
           const item = data[i];
 
-          var endDate = new Date(item.licenseEndTime.replace(/-/g, "/"))
-          var startDate = new Date(item.licenseStartTime.replace(/-/g, "/"))
-          var time = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-          console.log(time)
+          if (item.licenseStartTime) {
+            var endDate = new Date(item.licenseEndTime.replace(/-/g, "/"))
+            var startDate = new Date(item.licenseStartTime.replace(/-/g, "/"))
+            var time = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+            console.log(time)
+          }
+
+
           html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
             + '<div class="list-item">'
             + '<div class="item-left">'
@@ -314,7 +324,7 @@
             id: 'vehicle-license-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {

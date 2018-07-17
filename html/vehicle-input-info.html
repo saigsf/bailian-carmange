@@ -289,7 +289,7 @@
         $('#vehicle-check-bom').find('i').removeClass('icon-bom-check').addClass('icon-bom-check-disabled').next().css('color', '#bbb')
         $('#vehicle-RD-tools').find('i').removeClass('icon-tools').addClass('icon-tools-disabled').next().css('color', '#bbb')
         $('#vehicle-check-down').find('i').removeClass('icon-vehicle-check-down').addClass('icon-vehicle-check-down-disabled').next().css('color', '#bbb')
-      
+
       }
       // 审核
       if (!app.getUserRoles('admin')) {
@@ -297,24 +297,25 @@
 
       }
 
-      for (let i = 0; i < idArr.length; i++) {
-        const item = idArr[i];
-        page.push(mui.preload({
-          url: item + '.html',
-          id: item, //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            bottom: H,
-            hardwareAccelerated: true
-          }, //窗口参数
-          extras: {
-            H: H,
-            vSn: vSn,
-            prevId: self.id
-          } //自定义扩展参数
-        }))
+      if (mui.os.ios) {
+        for (let i = 0; i < idArr.length; i++) {
+          const item = idArr[i];
+          page.push(mui.preload({
+            url: item + '.html',
+            id: item, //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              // bottom: H,
+              hardwareAccelerated: true
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: vSn,
+              prevId: self.id
+            } //自定义扩展参数
+          }))
+        }
       }
-      
       fetchData();
       // data = self.data;
       addEvent()
@@ -336,7 +337,6 @@
       //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
       // });
     }
-    addEvent()
     function addEvent() {
       var $link = $('#input_operation a');
 
@@ -360,39 +360,48 @@
           return;
         }
 
+        if (!mui.os.ios) {
+          mui.openWindow({
+            url: id + '.html',
+            id: id, //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              // bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: vSn,
+              prevId: self.id
+            } //自定义扩展参数
+          })
+        } else {
+          mui.fire(plus.webview.getWebviewById(id), 'update', null)
+          plus.webview.getWebviewById(id).show('slide-in-right')
+        }
 
-        // mui.openWindow({
-        //   url: id + '.html',
-        //   id: id, //默认使用当前页面的url作为id
-        //   styles: {
-        //     top: '0px',
-        //     bottom: H
-        //   }, //窗口参数
-        //   extras: {
-        //     H: H,
-        //     vSn: vSn,
-        //     prevId: self.id
-        //   } //自定义扩展参数
-        // })
-        plus.webview.getWebviewById(id).show('slide-in-right')
-        mui.fire(plus.webview.getWebviewById(id), 'update', null)
+
       });
       // 查看详情
       $('#vehicle-info').on('tap', function () {
         var id = $(this).attr('id');
-        plus.webview.getWebviewById(id).show('slide-in-right')
-        // mui.openWindow({
-        //   url: id + '.html',
-        //   id: id, //默认使用当前页面的url作为id
-        //   styles: {
-        //     top: '0px',
-        //     bottom: H
-        //   }, //窗口参数
-        //   extras: {
-        //     H: H,
-        //     vSn: vSn
-        //   } //自定义扩展参数
-        // })
+        if (mui.os.ios) {
+          plus.webview.getWebviewById(id).show('slide-in-right')
+        } else {
+          mui.openWindow({
+            url: id + '.html',
+            id: id, //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              // bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              vSn: vSn
+            } //自定义扩展参数
+          })
+        }
+
+
       });
 
       var flag = false;
@@ -418,20 +427,20 @@
 
     // 获取数据
     function fetchData() {
-      app.carQuery({vSn}, function (res) {
+      app.carQuery({ vSn }, function (res) {
         console.log(res)
         res = JSON.parse(res)
         updateView(res.rows[0])
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
     }
     function updateView(data) {
       dataRetrieval(data);

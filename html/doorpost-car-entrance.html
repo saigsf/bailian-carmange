@@ -199,7 +199,7 @@
       function fetchData() {
         var opt = $.extend({
           page: curPage,
-          size: 3,
+          size: 10,
         }, dataArr);
         app.carInAndOutAll(opt, function (res) {
           res = JSON.parse(res)
@@ -208,7 +208,7 @@
             return;
           }
           curPage++;
-          totalPage = Math.ceil(res.total / 3)
+          totalPage = Math.ceil(res.total / 10)
           updateView(res.rows);
         }, function (xhr, type, errorThrown) {
           //异常处理；

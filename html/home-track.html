@@ -33,9 +33,9 @@
     }
 
     .search-container {
-      height: 20%;
       background-color: #fff;
       padding-left: 5%;
+      padding: 2% 0 2% 5%;
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -69,7 +69,7 @@
     .search-btn {
       height: 100%;
       width: 30%;
-      line-height: 170px;
+      /* line-height: 170px; */
       text-align: center;
       font-size: 16px;
       color: #2885cf;
@@ -183,7 +183,8 @@
       var submitLock = false;
 
 
-
+      // console.log($('.mui-content').height())
+      $('#map').height($('.mui-content').height() - $('#map').prev().height())
 
       var icon = new AMap.Icon({
         size: new AMap.Size(35, 35),  //图标大小
