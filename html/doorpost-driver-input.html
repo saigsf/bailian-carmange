@@ -130,7 +130,7 @@
       mui.plusReady(function () {
         handsetAdaption()
         self = plus.webview.currentWebview();
-
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         if (self.driverId) {
           // 驾驶员数据回显
           $('.mui-title').html('驾驶员编辑');

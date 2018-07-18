@@ -186,6 +186,7 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
+      $('.mui-scroll').css('min-height',$('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById('vehicle-input')
       H = self.H;
@@ -287,7 +288,7 @@
         $bomTr.each(function (i) {
           var $bomName = $(this).find('input[name=bomName]');
           var $bomNum = $(this).find('input[name=bomNum]');
-          if ($bomName.val()) {
+          if ($bomName.val() && $bomNum.val()) {
             oneBom.push({
               bomName: $bomName.val(),
               bomNum: $bomNum.val(),

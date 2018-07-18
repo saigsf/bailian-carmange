@@ -211,6 +211,7 @@
       var vSn = '2018-217';
       var H = null;
       var page = null;
+      var self = null;
       //初始化单页的区域滚动
       mui('.mui-scroll-wrapper').scroll();
 
@@ -225,7 +226,8 @@
             'paddingTop': '88px'
           })
         }
-        var self = plus.webview.currentWebview();
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        self = plus.webview.currentWebview();
         vSn = self.vSn;
         H = self.H;
         page = mui.preload({

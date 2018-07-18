@@ -203,6 +203,7 @@
       mui.plusReady(function () {
         // plus准备好后执行H5
         handsetAdaption();
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         // 获取当前视图
         self = plus.webview.currentWebview();
         // 获取传递参数

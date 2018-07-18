@@ -180,7 +180,7 @@
 
       mui.plusReady(function () {
         handsetAdaption()
-
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         self = plus.webview.currentWebview();
         main = plus.webview.getWebviewById("index");
         view = plus.webview.getWebviewById('html/vehicle.html')

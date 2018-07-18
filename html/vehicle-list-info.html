@@ -222,15 +222,15 @@
               </div>
 
               <div class="tab-row">
-                <div class="tab-col">临牌到期日</div>
+                <div class="tab-col">车牌到期日</div>
                 <div class="tab-col" id="licenseEndTime"></div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">临牌</div>
+                <div class="tab-col">车牌</div>
                 <div class="tab-col" id="licenseNo"></div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">临牌备注</div>
+                <div class="tab-col">车牌备注</div>
                 <div class="tab-col" id="licremark"></div>
               </div>
             </div>
@@ -275,6 +275,7 @@
 
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;
@@ -295,11 +296,7 @@
               vSn: vSn
             } //自定义扩展参数
           })
-
         })
-        
-
-       
       });
 
       // 手机适配

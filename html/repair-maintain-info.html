@@ -156,6 +156,7 @@
       mui.init();
 
       var vSn = '1111';
+      var self = null;
       var hasData = null;
 
       //初始化单页的区域滚动
@@ -172,7 +173,8 @@
             'paddingTop': '88px'
           })
         }
-        var self = plus.webview.currentWebview();
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        self = plus.webview.currentWebview();
         vSn = self.vSn;
         hasData = self.hasData;
         fetchData();

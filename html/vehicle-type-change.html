@@ -122,6 +122,7 @@
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;

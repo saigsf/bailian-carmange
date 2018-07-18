@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>临牌信息</title>
+  <title>车牌信息</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -209,7 +209,7 @@
               </div>
             </div>
             <div class="no-data" id="no_data">
-              <p>暂时没有临牌数据</p>
+              <p>暂时没有车牌数据</p>
             </div>
           </div>
         </div>
@@ -244,6 +244,7 @@
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;

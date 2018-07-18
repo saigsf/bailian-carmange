@@ -163,13 +163,15 @@
       var H = null;
       var vSn = null;
       var ids = null;
+      var self = null;
       var view = null;
       var dDate = new Date();
       var operatorArr = []
 
       mui.plusReady(function () {
         handsetAdaption()
-        var self = plus.webview.currentWebview();
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById('repair-list.html')
         H = self.H;
         vSn = self.vSn;

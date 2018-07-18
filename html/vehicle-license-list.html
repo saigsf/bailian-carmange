@@ -101,7 +101,7 @@
             <i class="icon-search icon"></i>
           </div>
           <div class="search-text">
-            <input type="text" readonly placeholder="请输入车辆编号">
+            <input type="text" id="current_input" placeholder="请输入车牌号">
           </div>
         </div>
         <div class="filter" id="filter">
@@ -154,12 +154,19 @@
         }
       });
 
+      var form = document.getElementsByTagName('form')[0];
+
+      form.onsubmit = function (e) {
+        e.preventDefault();// 取消默认事件
+      }
+
       //页面滚动 
       mui('.mui-scroll-wrapper').scroll();
 
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         main = plus.webview.getWebviewById("index");
         main.addEventListener('maskClick', closeMenu);
@@ -234,10 +241,9 @@
         }, dataArr);
         console.log(JSON.stringify(opt))
         app.licenseQuery(opt, function (res) {
-
-          res = JSON.parse(res);
           console.log(res)
-          console.log(!!res.total && res.total == 0 && res.rows.length == 0)
+          res = JSON.parse(res);
+
           if (!!res.total && res.total == 0 && res.rows.length == 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据')
@@ -337,9 +343,21 @@
         });
 
         // 搜索
-        $('#search').on('tap', function () {
-          prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
+        // $('#search').on('tap', function () {
+        //   prepageSearch.show('fade-in');
+        //   mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
+        // })
+
+        $('#current_input').on('keyup', function (e) {
+          if (e.keyCode == 13) {
+            dataArr = {
+              page: 1,
+              lNo: $(this).val(),
+              applyTime: '',
+              lEndTime: ''
+            }
+            fetchData()
+          }
         })
       }
       addEvent();

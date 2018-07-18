@@ -147,6 +147,7 @@
 
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         var self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById('repair-list.html')
         H = self.H;

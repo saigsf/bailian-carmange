@@ -162,7 +162,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label class="padtb0">接车人电话</label>
-              <input name="pick_tel" type="text" class="" placeholder="">
+              <input name="pick_tel" type="tel" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -218,6 +218,7 @@
       mui('.mui-scroll-wrapper').scroll();
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById(self.prevId)
         H = self.H;

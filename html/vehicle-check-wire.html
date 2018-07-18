@@ -16,8 +16,9 @@
   <!--独立样式-->
 
   <style type="text/css">
-    table tbody td {
+    table tbody tr td {
       border: 1px solid #eee;
+      padding: 0
     }
 
     table tbody tr td:not(:last-of-type):after {
@@ -2066,6 +2067,7 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
+      $('.mui-scroll').css('min-height',$('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;

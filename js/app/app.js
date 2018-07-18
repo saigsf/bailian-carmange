@@ -1331,7 +1331,7 @@
 		data = data || {};
 		var url = 'car-management/driver/CarDriverList.action';
 
-		owner.HttpRequestNonCrossDomain('post', url, data, success, error)
+		owner.HTTPRequest('get', url, data, success, error)
 	}
 
 	/**

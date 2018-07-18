@@ -215,6 +215,7 @@
       mui.plusReady(function () {
         // plus准备好后执行H5
         handsetAdaption();
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         // 获取当前视图
         self = plus.webview.currentWebview();
         main = plus.webview.getWebviewById("index");
@@ -259,8 +260,10 @@
           page: curPage,
           size: 10
         }, dataArr);
+        console.log(JSON.stringify(dataArr))
 
         app.insuranceQuery(opt, function (res) {
+          console.log(res)
           res = JSON.parse(res)
           console.log(res)
           if (!res.total || res.total <= 0 || res.rows.length <= 0) {
@@ -313,7 +316,7 @@
             + '</h4>'
             + '<p>'
             + '<span>车辆名称：</span>'
-            + '<span class="blue">' + (item.carName ? item.carName : '-') + '</span>'
+            + '<span class="blue">' + (item.insNo ? item.insNo : '-') + '</span>'
             + '</p>'
             + '</div>'
             + '<div class="progress-wrapper">'

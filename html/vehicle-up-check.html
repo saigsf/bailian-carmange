@@ -62,28 +62,28 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆编号</label>
-              <input name="vSn" id="vSn" type="text" class="mui-input-clear" placeholder="" readonly>
+              <input name="vSn" id="vSn" type="text" class="" placeholder="" readonly>
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>厂牌型号</label>
-              <input name="brandModelone" type="text" class="mui-input-clear" placeholder="">
+              <input name="brandModelone" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>发动机号</label>
-              <input name="engineNumber" type="text" class="mui-input-clear" placeholder="">
+              <input name="engineNumber" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车架号</label>
-              <input name="vin" type="text" class="mui-input-clear" placeholder="">
+              <input name="vin" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -107,7 +107,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>外观说明</label>
-              <input name="explanation" type="text" class="mui-input-clear" placeholder="">
+              <input name="explanation" type="text" class="" placeholder="">
             </div>
           </li>
         </ul>
@@ -115,28 +115,28 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>送车人</label>
-              <input name="send_p" type="text" class="mui-input-clear" placeholder="">
+              <input name="send_p" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>送车人电话</label>
-              <input name="telephone" type="tel" class="mui-input-clear" placeholder="">
+              <input name="telephone" type="tel" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>接车人</label>
-              <input name="pickone" type="text" class="mui-input-clear" placeholder="">
+              <input name="pickone" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>接车日期</label>
-              <input name="time" type="text" class="mui-input-clear" placeholder="">
+              <input name="time" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -146,62 +146,62 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>随车物品</label>
-              <input name="item" type="text" class="mui-input-clear" placeholder="">
+              <input name="item" type="text" class="" placeholder="">
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>随车工具</label>
-              <input name="tools" type="number" class="mui-input-clear" placeholder="">
+              <input name="tools" type="number" class="" placeholder="">
               <span class="unit">/套</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>备用轮胎</label>
-              <input name="sparetyre" type="number" class="mui-input-clear" placeholder="">
+              <input name="sparetyre" type="number" class="" placeholder="">
               <span class="unit">/只</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>千斤顶</label>
-              <input name="jack" type="number" class="mui-input-clear" placeholder="">
+              <input name="jack" type="number" class="" placeholder="">
               <span class="unit">/只</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>警示牌</label>
-              <input name="warningboard" type="number" class="mui-input-clear" placeholder="">
+              <input name="warningboard" type="number" class="" placeholder="">
               <span class="unit">/只</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>灭火器</label>
-              <input name="fire" type="number" class="mui-input-clear" placeholder="">
+              <input name="fire" type="number" class="" placeholder="">
               <span class="unit">/只</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>钥匙数量</label>
-              <input name="keyy" type="number" class="mui-input-clear" placeholder="">
+              <input name="keyy" type="number" class="" placeholder="">
               <span class="unit">/把</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>里程表</label>
-              <input name="odometer" type="text" class="mui-input-clear" placeholder="">
+              <input name="odometer" type="text" class="" placeholder="">
               <span class="unit">/km</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>备注</label>
-              <input name="remark" type="text" class="mui-input-clear" readonly="true" placeholder="">
+              <input name="remark" type="text" class="" readonly="true" placeholder="">
 
             </div>
           </li>
@@ -241,6 +241,7 @@
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById(self.prevId)
         H = self.H;

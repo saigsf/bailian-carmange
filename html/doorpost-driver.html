@@ -268,7 +268,7 @@
             <i class="icon-search icon"></i>
           </div>
           <div class="search-text">
-            <input type="text" placeholder="请输入车辆编号">
+            <input type="text" id="current_input" placeholder="请输入车辆编号">
           </div>
         </div>
         <div class="btn" id="add">
@@ -302,6 +302,7 @@
       var curPage = 1; //当前页码初始化数0开始
       var totalPage = 1; //后台算出总页数
       var H = null;
+      var self = null;
       var allCheckFlag = false;
       var dataArr = {}
 
@@ -354,7 +355,8 @@
       }
       // 
       mui.plusReady(function () {
-        var self = plus.webview.currentWebview();
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        self = plus.webview.currentWebview();
         H = self.H;
         addEvent()
 
@@ -363,14 +365,16 @@
       });
 
       // 获取数据
-      fetchData()
+      // fetchData()
       function fetchData() {
-        console.log(curPage);
+        
         var opt = $.extend({
           page: curPage,
           size: 10
         }, dataArr)
+        console.log(JSON.stringify(opt));
         app.carDriverList(opt, function (res) {
+          res = JSON.parse(res)
           console.log(res)
           if (!res.total || res.total <= 0) {
             $('#no-data').show().prev().hide()
@@ -515,7 +519,7 @@
         //   })
         // })
 
-        $('#search').on('keyup', function (e) {
+        $('#current_input').on('keyup', function (e) {
           if (e.keyCode == 13) {
             dataArr = {
               driverName: $(this).val()

@@ -27,6 +27,7 @@
 
     .pressure input[type=number] {
       margin: 0;
+      height: 34px;
     }
 
     .pressure-vat {
@@ -1329,6 +1330,7 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
+      $('.mui-scroll').css('min-height',$('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;
@@ -1350,9 +1352,9 @@
           'paddingTop': '88px'
         })
       }
-      // plus.webview.currentWebview().setStyle({
-      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-      // });
+      plus.webview.currentWebview().setStyle({
+        softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      });
     }
 
     // 获取数据
@@ -1454,7 +1456,8 @@
         $('#three_p').val(data.three_p);
         $('#four_p').val(data.four_p);
         $('#actual_p').val(data.actual_p);
-        $('#pressure').attr('data-id', data.id)
+        $('#pressure').attr('data-id', data.id);
+        $('#pressure').find('input').attr('readonly', true)
       },
       safeCheck: function (res) {
         var data = res.checkResults
