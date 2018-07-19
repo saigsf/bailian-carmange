@@ -101,7 +101,7 @@
             <i class="icon-search icon"></i>
           </div>
           <div class="search-text">
-            <input type="text" id="current_input" placeholder="请输入车牌号">
+            <input type="text" id="current_input" readonly placeholder="请输入车牌号">
           </div>
         </div>
         <div class="filter" id="filter">
@@ -344,22 +344,22 @@
         });
 
         // 搜索
-        // $('#search').on('tap', function () {
-        //   prepageSearch.show('fade-in');
-        //   mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
-        // })
-
-        $('#current_input').on('keyup', function (e) {
-          if (e.keyCode == 13) {
-            dataArr = {
-              page: 1,
-              lNo: $(this).val(),
-              applyTime: '',
-              lEndTime: ''
-            }
-            fetchData()
-          }
+        $('#search').on('tap', function () {
+          prepageSearch.show('fade-in');
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
         })
+
+        // $('#current_input').on('keyup', function (e) {
+        //   if (e.keyCode == 13) {
+        //     dataArr = {
+        //       page: 1,
+        //       lNo: $(this).val(),
+        //       applyTime: '',
+        //       lEndTime: ''
+        //     }
+        //     fetchData()
+        //   }
+        // })
       }
       addEvent();
 

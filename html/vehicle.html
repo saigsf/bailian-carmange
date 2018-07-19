@@ -82,16 +82,15 @@
 <body>
   <header class="mui-bar mui-bar-nav">
     <div id="slider" class="mui-slider">
-    <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-      <div class="mui-scroll">
-        <a id="defaultTab" class="mui-control-item mui-active" href="vehicle-list.html">车辆总表</a>
-        <a id="vehicle-check-up" class="mui-control-item" href="vehicle-check-up.html">车辆录入</a>
-        <a id="vehicle-input-list" class="mui-control-item" href="vehicle-input-list.html">新车查验</a>
-        <a id="vehicle-insurance-input" class="mui-control-item" href="vehicle-insurance-list.html">车辆保险</a>
-        <a id="vehicle-insurance-input" class="mui-control-item" href="vehicle-license-list.html">车辆牌照</a>
-        <!-- <a id="vehicle-check-down" class="mui-control-item" href="vehicle-check-down.html">还车点检</a> -->
+      <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        <div class="mui-scroll">
+          <a id="defaultTab" class="mui-control-item mui-active" href="vehicle-list.html">车辆总表</a>
+          <a id="vehicle-check-up" class="mui-control-item" href="vehicle-check-up.html">车辆录入</a>
+          <a id="vehicle-input-list" class="mui-control-item" href="vehicle-input-list.html">新车查验</a>
+          <a id="vehicle-insurance-input" class="mui-control-item" href="vehicle-insurance-list.html">车辆保险</a>
+          <a id="vehicle-insurance-input" class="mui-control-item" href="vehicle-license-list.html">车辆牌照</a>
+        </div>
       </div>
-    </div>
     </div>
   </header>
   <div class="mui-content"></div>
@@ -105,12 +104,12 @@
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
   <script>
-    (function () {
+    // (function () {
 
       mui.init();
 
 
-      var deceleration = mui.os.ios ? 0.003 : 0.0009;
+      // var deceleration = mui.os.ios ? 0.003 : 0.0009;
       //子页面列表
       var subpages = ['vehicle-list.html', 'vehicle-check-up.html', 'vehicle-input-list.html', 'vehicle-insurance-list.html', 'vehicle-license-list.html'];
       // 子页面切换样式
@@ -194,19 +193,6 @@
         activeTab = targetTab;
       });
 
-      //自定义事件，模拟点击“首页选项卡”
-      document.addEventListener('gohome', function () {
-        var defaultTab = document.getElementById("defaultTab");
-        //模拟首页点击
-        mui.trigger(defaultTab, 'tap');
-        //切换选项卡高亮
-        var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
-        if (defaultTab !== current) {
-          current.classList.remove('mui-active');
-          defaultTab.classList.add('mui-active');
-        }
-      });
-
       document.addEventListener('roles', function () {
         if (!app.getUserRoles('uppeople') && !app.getUserRoles('admin')) {
           // $('#vehicle-check-up').hide()
@@ -216,69 +202,69 @@
       // 点击a标签时，检测下一个是否显示完全，如果不完整，则滚动到完整的位置，否则不变。
       // 点击a标签时，检测上一个是否显示完全，如果不完整，则滚动到完整的位置，否则不变。
       // 判断上/下一个是否存在
-      var scroll = mui('.mui-scroll-wrapper').scroll({
-        bounce: false,
-        indicators: true, //是否显示滚动条
-        deceleration: deceleration
-      })
-      var w = $('.mui-scroll-wrapper').width();  // 可视区域的宽度
-      $('.mui-scroll').on('tap', 'a', function () {
-        var $next = $(this).next();
-        var $prev = $(this).prev();
-        var nextLeft;
-        var nextWidth;
-        var currentLeft;
-        var currentWidth;
-        var prevLeft;
-        var prevWidth;
-        var scrollx = mui('.mui-scroll-wrapper').scroll().x;  // 当前滚动值
+      // var scroll = mui('.mui-scroll-wrapper').scroll({
+      //   bounce: false,
+      //   indicators: true, //是否显示滚动条
+      //   deceleration: deceleration
+      // })
+      // var w = $('.mui-scroll-wrapper').width();  // 可视区域的宽度
+      // $('.mui-scroll').on('tap', 'a', function () {
+      //   var $next = $(this).next();
+      //   var $prev = $(this).prev();
+      //   var nextLeft;
+      //   var nextWidth;
+      //   var currentLeft;
+      //   var currentWidth;
+      //   var prevLeft;
+      //   var prevWidth;
+      //   var scrollx = mui('.mui-scroll-wrapper').scroll().x;  // 当前滚动值
 
-        currentLeft = $(this).offset().left; // 下一个元素到最左边的距离
-        currentWidth = $(this).outerWidth();  // 下一个的宽度
+      //   currentLeft = $(this).offset().left; // 下一个元素到最左边的距离
+      //   currentWidth = $(this).outerWidth();  // 下一个的宽度
 
-        if ($next.length > 0) {
-          nextLeft = $(this).next().offset().left; // 下一个元素到最左边的距离
-          nextWidth = $(this).next().outerWidth();  // 下一个的宽度
-        } else {
-          nextWidth = 0;
-        }
+      //   if ($next.length > 0) {
+      //     nextLeft = $(this).next().offset().left; // 下一个元素到最左边的距离
+      //     nextWidth = $(this).next().outerWidth();  // 下一个的宽度
+      //   } else {
+      //     nextWidth = 0;
+      //   }
 
-        if ($prev.length > 0) {
-          prevLeft = $(this).prev().offset().left; // 上一个元素到最左边的距离
-          prevWidth = $(this).prev().outerWidth();  // 上一个的宽度
-        } else {
-          prevWidth = 0;
-        }
+      //   if ($prev.length > 0) {
+      //     prevLeft = $(this).prev().offset().left; // 上一个元素到最左边的距离
+      //     prevWidth = $(this).prev().outerWidth();  // 上一个的宽度
+      //   } else {
+      //     prevWidth = 0;
+      //   }
 
-        if (!!nextWidth && (nextLeft + nextWidth) > (w - scrollx)) {
-          scroll.scrollTo(-(nextLeft + nextWidth - w - scrollx), 0, 100);
-        }
+      //   if (!!nextWidth && (nextLeft + nextWidth) > (w - scrollx)) {
+      //     scroll.scrollTo(-(nextLeft + nextWidth - w - scrollx), 0, 100);
+      //   }
 
 
-        if (!!prevWidth && (prevLeft < 0)) {
-          scroll.scrollTo(scrollx - prevLeft, 0, 100);
-        }
+      //   if (!!prevWidth && (prevLeft < 0)) {
+      //     scroll.scrollTo(scrollx - prevLeft, 0, 100);
+      //   }
 
-        if ((currentLeft + currentWidth) > w) {
-          if (!!nextWidth) {
-            scroll.scrollTo(-(nextLeft + nextWidth - w - scrollx), 0, 100);
-          } else {
-            scroll.scrollTo(-(currentLeft + currentWidth - w - scrollx), 0, 100);
-          }
+      //   if ((currentLeft + currentWidth) > w) {
+      //     if (!!nextWidth) {
+      //       scroll.scrollTo(-(nextLeft + nextWidth - w - scrollx), 0, 100);
+      //     } else {
+      //       scroll.scrollTo(-(currentLeft + currentWidth - w - scrollx), 0, 100);
+      //     }
 
-        }
+      //   }
 
-        if (currentLeft < 0) {
-          if (!!prevWidth) {
-            scroll.scrollTo(scrollx - prevLeft, 0, 100);
-          } else {
-            scroll.scrollTo(scrollx - currentLeft, 0, 100);
-          }
-        }
+      //   if (currentLeft < 0) {
+      //     if (!!prevWidth) {
+      //       scroll.scrollTo(scrollx - prevLeft, 0, 100);
+      //     } else {
+      //       scroll.scrollTo(scrollx - currentLeft, 0, 100);
+      //     }
+      //   }
 
-      })
+      // })
 
-    })()
+    // })()
   </script>
 </body>
 

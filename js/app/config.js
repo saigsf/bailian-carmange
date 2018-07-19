@@ -152,6 +152,38 @@ Array.prototype.contains = function (obj) {
   return false;
 }
 
+Array.prototype.remove = function (val) {
+  var index = this.indexOf(val);
+  if (index > -1) {
+    this.splice(index, 1);
+  }
+};
+
+var merge = function (arr, subArr) {
+  var length = arr.length;
+  console.log(length);
+  console.log(subArr.length)
+  
+  for (let i = 0; i < subArr.length; i++) {
+    const item = subArr[i];
+    if (length == 0) {
+      arr.push(item);
+    } else {
+      for (let j = 0; j < arr.length; j++) {
+        const value = arr[j];
+        if (item.id === value.id) {
+          arr[j] = item;
+        } else {
+          arr.push(item);
+        }
+      }
+    }
+
+  }
+  return arr;
+  // return [];
+}
+
 // 翻译
 function translate(before, standard) {
 

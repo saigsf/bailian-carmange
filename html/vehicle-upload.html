@@ -403,8 +403,8 @@
         addcar = 'update'
       }
 
-      console.log(JSON.stringify(upCheckInfo))
-      console.log(upcheck)
+      // console.log(JSON.stringify(upCheckInfo))
+      // console.log(upcheck)
       app[upcheck](upCheckInfo, function (res) {
         console.log(JSON.stringify(res))
         if (res.ret) {
@@ -420,8 +420,8 @@
           console.log('请求失败：' + type + '\n err:' + errorThrown);
         }
       })
-      console.log(JSON.stringify(oneInfo))
-      console.log(addcar)
+      // console.log(JSON.stringify(oneInfo))
+      // console.log(addcar)
       app[addcar](oneInfo, function (res) {
         console.log(res)
         res = JSON.parse(res)

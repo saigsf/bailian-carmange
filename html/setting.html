@@ -299,7 +299,7 @@
               <a class="mui-navigate-right" href="#repassword">修改密码</a>
             </li>
           </ul>
-          <!-- <ul class="mui-table-view mui-table-view-chevron">
+          <ul class="mui-table-view mui-table-view-chevron">
             <li class="mui-table-view-cell">
               <i class="icon icon-logout"></i>
               <a class="mui-navigate-right" href="#">注销账号</a>
@@ -312,7 +312,7 @@
               <i class="icon icon-update"></i>
               <a class="mui-navigate-right" href="#">版本更新</a>
             </li>
-          </ul> -->
+          </ul>
           <div class="mui-btn mui-btn-block exit" id="exit">退出登录</div>
         </div>
       </div>
@@ -852,6 +852,7 @@
 
     $('#clear_cache').on('tap', function () {
       // myStorage.clear();
+      console.log('清除数据')
       myStorage.removeItem('vehicleList')
     })
   </script>

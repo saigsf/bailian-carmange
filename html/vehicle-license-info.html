@@ -274,7 +274,9 @@
 
       // 获取数据
       function fetchData() {
-        app.licenseQuery({lNo}, function(res) {
+        // console.log(lNo)
+        app.licenseQuery({vSn}, function(res) {
+          console.log(res)
           res = JSON.parse(res);
           console.log(res)
           updateView(res.rows[0])
