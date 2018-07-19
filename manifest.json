@@ -137,7 +137,7 @@
         },
         "android": {
           "mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-          "ldpi": ""
+          "ldpi": "","hdpi":"unpackage/res/imges/480x762.png","xhdpi":"unpackage/res/imges/720x1242.png","xxhdpi":"unpackage/res/imges/1080x1882.png"
         }
       },"debug":true
     },
@@ -2295,7 +2295,8 @@
 					"img/common/md/icon_update_success.png",
 					"img/common/md/icon_update_failed.png",
 					"img/common/md/backup_picture1.png",
-					"img/common/md/icon_clear@2x.png"
+					"img/common/md/icon_clear@2x.png",
+					"js/mui.js"
 				],
 				"refer": [
 					"index.html",
@@ -6762,7 +6763,6 @@
 				"img/common/md/vehicle_input_disabled@2x.png",
 				"html/vehicle-input-tools.html",
 				"img/car_red.png",
-				"js/mui.js",
 				"img/common/md/line.png",
 				"img/common/md/icon_bus.png",
 				"README.md",

@@ -103,7 +103,7 @@
     <div class="mui-scroll">
       <form class="top">
         <div class="program-status" id="program_status">
-          <i class="icon icon-status-change">状态</i>
+          <i class="icon icon-status-change">项目状态</i>
         </div>
         <div class="search-wrapper" id="search">
 
@@ -162,7 +162,8 @@
         pullRefresh: {
           container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
           down: {
-            auto: true,//可选,默认false.首次加载自动下拉刷新一次
+            // style:'circle',
+            // auto: true,//可选,默认false.首次加载自动下拉刷新一次
             callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
           },
           up: {
@@ -175,12 +176,12 @@
         }
       });
 
-      mui('.mui-scroll-wrapper').scroll();
+      // var scroll = mui('.mui-scroll-wrapper').scroll();
 
 
       mui.plusReady(function () {
         handsetAdaption()
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         main = plus.webview.getWebviewById("index");
         view = plus.webview.getWebviewById('html/vehicle.html')
@@ -332,7 +333,7 @@
             + '</div>'
             + '<div class="bottom-item bottom-item-empty"></div>'
             + '<div class="bottom-item">'
-            + '<h4>' + (item.project ? item.project.project_status : '-') + '</h4>'
+            + '<h4>' + (item.project ? (item.project.project_status ? item.project.project_status : '-') : '-') + '</h4>'
             + '<p>项目状态</p>'
             + '</div>'
             + '<div class="bottom-item bottom-item-empty"></div>'

@@ -250,7 +250,6 @@
 					</li>
 				</ul>
 			</form>
-
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
 					<div class="filter-wrapper-column">
@@ -304,7 +303,7 @@
 				</ul>
 			</form>
 		</div>
-		<div class="mui-scroll" id="vehicle-license-list.html">
+		<div class="mui-scroll license" id="vehicle-license-list.html">
 			<form>
 				<ul class="mui-table-view">
 
@@ -441,8 +440,39 @@
 							});
 					});
 				})
-
 				$('#updateTime').on('tap', function() {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+								title: '',
+								date: dDate
+							});
+					});
+				})
+				$('.license #applyTime').on('tap', function() {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+								title: '',
+								date: dDate
+							});
+					});
+				})
+				$('.license #lEndTime').on('tap', function() {
 					var _this = this;
 					$(_this).off().on('tap', function () {
 

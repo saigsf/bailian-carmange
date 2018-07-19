@@ -123,7 +123,7 @@
   <!--下拉刷新容器-->
   <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-      <form class="top">
+      <!-- <form class="top">
         <div class="search-wrapper" id="search">
           <div class="search-btn">
             <i class="icon-search icon"></i>
@@ -132,7 +132,7 @@
             <input type="text" readonly placeholder="请输入车辆编号">
           </div>
         </div>
-      </form>
+      </form> -->
       <ul id="OA_task_1" class="mui-table-view mui-table-listview"></ul>
     </div>
   </div>
@@ -203,8 +203,9 @@
           size: 10,
         }, dataArr);
         app.carInAndOutAll(opt, function (res) {
+           console.log(res)
           res = JSON.parse(res)
-          console.log(res)
+         
           if (!res.total || res.total <= 0) {
             return;
           }
@@ -253,7 +254,7 @@
           if (item.isallow == null) {
             html += '<span class="marker red">无数据</span>'
 
-          } else if (item.isallow == '通过') {
+          } else if (item.isallow == '正常') {
             html += '<span class="marker green">' + item.isallow + '</span>'
 
           } else {

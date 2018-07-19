@@ -193,10 +193,10 @@
       </div>
 
     </form>
-    <a href="#" class="loginType" id="loginType">用员工卡号登陆</a>
+    <a href="#" class="loginType" id="loginType">用员工卡号登录</a>
 
     <div class="btn-wrapper ">
-      <div id="login" type="button" class="btn btn-blue">登陆</div>
+      <div id="login" type="button" class="btn btn-blue">登录</div>
     </div>
     <!--<div class="three">
         <h4>第三方登陆</h4>
@@ -315,13 +315,13 @@
             if ($(this).html() == '用员工卡号登陆') {
               $('#NETID').hide().attr('disabled', true);
               $('#employeeCard').show().attr('disabled', false);
-              $(this).html('用员工NET ID号登陆');
+              $(this).html('用员工NET ID号登录');
 
               loginType = 'employeeCard'
             } else {
               $('#NETID').show().attr('disabled', false);
               $('#employeeCard').hide().attr('disabled', true);
-              $(this).html('用员工卡号登陆');
+              $(this).html('用员工卡号登录');
 
               loginType = 'netid'
             }

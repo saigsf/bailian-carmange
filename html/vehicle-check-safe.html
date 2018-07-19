@@ -215,7 +215,9 @@
 
 <body>
   <header class="mui-bar mui-bar-nav">
-    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <a class="mui-action-back mui-pull-left">
+      <i class="icon-back icon"></i>
+    </a>
     <h1 class="mui-title">安全检查</h1>
     <a href="#popover" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
   </header>
@@ -1330,7 +1332,7 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
-      $('.mui-scroll').css('min-height',$('.mui-content').height())
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;
@@ -1370,15 +1372,15 @@
         }
         updateView.cldCheck(res);
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
 
       app.findSafeCheckByvSn({ vSn: vSn }, function (res) {
         console.log(res);
@@ -1437,15 +1439,15 @@
         updateView.safeCheck(res);
 
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
     }
 
     // 更新视图 
@@ -1536,8 +1538,6 @@
       pressure.fuel_p = $('#fuel_p').html()
       pressure.vSn = vSn
       // pressure.id = $('#pressure').attr('data-id')
-      console.log(JSON.stringify(pressure))
-      console.log(hasEmptyValue(pressure))
       if (hasEmptyValue(pressure)) {
         submitLock = false;
         mui.toast('请填写完整的缸压数据');
@@ -1551,7 +1551,7 @@
 
       $safeTr.each(function (i) {
         // console.log($(this).attr('data-uuid') ? $(this).attr('data-uuid') : '无')
-        safeCheckResult.push({
+        var obj = {
           'checkExplanation': $(this).find('.explain-text').val(),
           'checkingExplanation': $(this).find('.resolvent-text').val(),
           'item': $(this).find('.item').html(),
@@ -1559,13 +1559,27 @@
           'status': $(this).find('.status').val(),
           'vSn': vSn,
           'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : ''
-        })
+        }
+        if (obj.status == 'N' && obj.checkExplanation == '') {
+          $(this).find('.status').css('color', '#ff3a31')
+        }
+        safeCheckResult.push(obj)
+
       })
+
+      for (let i = 0; i < safeCheckResult.length; i++) {
+        const item = safeCheckResult[i];
+        if (item.status == 'N' && item.checkExplanation == '') {
+          mui.alert('"' + item.item +'"未添加说明' , '提示')
+          submitLock = false;
+          return;
+        }
+      }
       data = {
         vSn: vSn,
         safeCheckResult: safeCheckResult
       }
-      // return;
+      
       // console.log(data);
       // app[stateArr[0]](pressure, function (res) {
       //   console.log(res.msg);
@@ -1768,10 +1782,10 @@
           $(_this).html('···');
         });
       })
-      
+
     }
 
-    document.addEventListener('update', function() {
+    document.addEventListener('update', function () {
       fetchData()
     })
   </script>

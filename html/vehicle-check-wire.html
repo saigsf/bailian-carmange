@@ -2067,7 +2067,7 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
-      $('.mui-scroll').css('min-height',$('.mui-content').height())
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;
@@ -2098,7 +2098,7 @@
     // 获取数据
     // fetchData()
     function fetchData() {
-      app.findHiCheckByvSn({vSn}, function (res) {
+      app.findHiCheckByvSn({ vSn }, function (res) {
         console.log(res)
         // console.log(res.check)
         if (res.checkResults == 0 && res.check == null) {
@@ -2141,7 +2141,7 @@
             $('#openPopover').hide();
 
           } else {
-            
+
             $('#openPopover').hide();
             $('#three_next').parent().hide();
             mui.alert('您没有相关操作权限', '提示')
@@ -2154,15 +2154,15 @@
         }
         updateView(res)
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
     }
 
     // 更新视图 
@@ -2240,8 +2240,7 @@
         if ($(element).find('.pitem').length > 0) {
           pitem = $(element).find('.pitem').html()
         }
-        console.log($(element).attr('data-uuid') ? $(element).attr('data-uuid') : '无')
-        HIResults.push({
+        var obj = {
           'checkExplanation': $(element).find('.explain-text').val(),
           'checkingExplanation': $(element).find('.resolvent-text').val(),
           'pitem': pitem,
@@ -2249,7 +2248,22 @@
           'status': $(element).find('.status').val(),
           'vSn': vSn,
           'uuid': $(element).attr('data-uuid') ? $(element).attr('data-uuid') : ''
-        })
+        }
+        if (obj.status == 'N' && obj.checkExplanation == '') {
+          $(this).find('.status').css('color', '#ff3a31')
+        }
+
+        HIResults.push(obj)
+      }
+
+
+      for (let i = 0; i < HIResults.length; i++) {
+        const item = HIResults[i];
+        if (item.status == 'N' && item.checkExplanation == '') {
+          mui.alert('"' + item.item + '"未添加说明', '提示')
+          submitLock = false;
+          return;
+        }
       }
 
       data = {
@@ -2402,7 +2416,7 @@
       })
     }
 
-    document.addEventListener('update', function() {
+    document.addEventListener('update', function () {
       fetchData()
     })
   </script>

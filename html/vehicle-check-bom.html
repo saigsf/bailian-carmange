@@ -263,8 +263,7 @@
       var data = {};
 
       $bomTr.each(function (i) {
-        console.log($(this).attr('data-uuid') ? $(this).attr('data-uuid') : '无')
-        emsAndBomCheckResults.push({
+        var obj = {
           'vSn': vSn,
           'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : '',
           'bomName': $(this).find('.bomName').html(),
@@ -272,8 +271,21 @@
           'status': $(this).find('.status').val(),
           'checkExplanation': $(this).find('.explain-text').val(),
           'checkingExplanation': $(this).find('.resolvent-text').val(),
-        })
+        }
+        if (obj.status == 'N' && obj.checkExplanation == '') {
+          $(this).find('.status').css('color', '#ff3a31')
+        }
+        emsAndBomCheckResults.push(obj)
       });
+
+      for (let i = 0; i < emsAndBomCheckResults.length; i++) {
+        const item = emsAndBomCheckResults[i];
+        if (item.status == 'N' && item.checkExplanation == '') {
+          mui.alert('"' + item.item +'"未添加说明' , '提示')
+          submitLock = false;
+          return;
+        }
+      }
 
       data = {
         vSn: vSn,

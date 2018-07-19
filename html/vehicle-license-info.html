@@ -232,6 +232,7 @@
       // 全局变量
       var H = null;
       var vSn = null;
+      var lNo = null;
       var self = null;
       var hasData = false;
 
@@ -248,6 +249,7 @@
         self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;
+        lNo = self.lNo;
         // hasData = self.hasData;
         // console.log(hasData);
         fetchData();
@@ -272,7 +274,7 @@
 
       // 获取数据
       function fetchData() {
-        app.licenseQuery({vSn}, function(res) {
+        app.licenseQuery({lNo}, function(res) {
           res = JSON.parse(res);
           console.log(res)
           updateView(res.rows[0])

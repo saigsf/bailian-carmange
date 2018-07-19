@@ -344,7 +344,8 @@
       "js/app/login.js",
       "img/login/md_background.png",
       "img/login/md/background.png",
-      "img/common/md/icon_checked@2x.png"
+      "img/common/md/icon_checked@2x.png",
+      "js/mui.js"
     ],
     "refer": [
       "index.html",

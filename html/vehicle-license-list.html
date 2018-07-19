@@ -161,7 +161,7 @@
       }
 
       //页面滚动 
-      mui('.mui-scroll-wrapper').scroll();
+      // mui('.mui-scroll-wrapper').scroll();
 
       // plusReady
       mui.plusReady(function () {
@@ -283,7 +283,7 @@
           }
 
 
-          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
+          html += '<li class="mui-table-view-cell" data-vSn="'+ item.vSn+'" data-lNo="' + item.licenseNo + '">'
             + '<div class="list-item">'
             + '<div class="item-left">'
             + '<img src="../img/common/md/lience_pic.png" />'
@@ -335,7 +335,8 @@
             }, //窗口参数
             extras: {
               H: H,
-              vSn: $li.attr('data-vSn'),
+              lNo: $li.attr('data-lNo'),
+              vSn: $li.attr('data-vSn')
               // hasData: $li.attr('data-status'),
               // data: data[$li.index()]
             } //自定义扩展参数

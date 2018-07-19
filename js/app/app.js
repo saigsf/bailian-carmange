@@ -332,7 +332,7 @@
 			dataType: 'jsonp',//服务器返回json格式数据
 			jsonp: "jsonCallback",
 			async: true,
-			timeout: 10000,
+			// timeout: 10000,
 			beforeSend: function () {
 				console.log('beforesend!');
 				if (loading) {
@@ -365,7 +365,7 @@
 			contentType: 'application/json;charset=UTF-8', //contentType很重要 
 			crossDomain: true,
 			async: true,
-			timeout: 10000,
+			// timeout: 10000,
 			beforeSend: function () {
 				console.log('beforesend!');
 				if (loading) plus.nativeUI.showWaiting();
@@ -396,7 +396,7 @@
 			url: BASE_URL_1 + url,
 			data: data,
 			async: true,
-			timeout: 10000,
+			// timeout: 10000,
 			beforeSend: function () {
 				console.log('beforesend!')
 			},
@@ -1533,6 +1533,19 @@
 		data = data || {};
 
 		var url = 'car-management/user/changeUserPassWord.action';
+
+		owner.HTTPRequestPost('POST', url, data, success, error)
+	}
+	/**
+	 * 更新用户信息
+	 * @param {Object} data 请求参数
+	 * @param {Function} success 回掉函数
+	 */
+	owner.updateUser = function (data, success, error) {
+
+		data = data || {};
+
+		var url = 'car-management/user/updateUser.action';
 
 		owner.HTTPRequestPost('POST', url, data, success, error)
 	}

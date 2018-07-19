@@ -446,6 +446,7 @@
 .icon-status-change {
   line-height: 44px;
   font-size: 14px;
+  width: 80px
 }
 
 .icon-status-change:after {
