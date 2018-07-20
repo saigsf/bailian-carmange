@@ -105,7 +105,7 @@
             <h4>送修申请信息</h4>
           </div>
           <div class="info-content">
-            <div class="date-wrapper">
+            <div class="date-wrapper start">
               <label>维修项目</label>
               <div class="date-text">
                 <!-- <input type="text" id="item" placeholder="" readonly> -->
@@ -124,12 +124,12 @@
                 <input type="text" name="" id="applytime" placeholder="" readonly>
               </div>
             </div>
-            <div class="date-wrapper">
+            <div class="date-wrapper start">
               <label>维修备注</label>
               <div class="date-text">
                 <!-- <input type="text" name="" id="applyRemark" placeholder="" readonly> -->
                 <textarea name="applyRemark" id="applyRemark" cols="30" rows="3" readonly></textarea>
-              
+
               </div>
             </div>
             <div class="info-operator">
@@ -165,12 +165,12 @@
                 <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
               </div>
             </div>
-            <div class="date-wrapper">
+            <div class="date-wrapper start">
               <label>工作内容</label>
               <div class="date-text">
                 <!-- <input type="text" name="" id="workContent" placeholder="" readonly> -->
                 <textarea name="workContent" id="workContent" cols="30" rows="3" readonly></textarea>
-              
+
               </div>
             </div>
             <div class="date-wrapper">
@@ -178,7 +178,7 @@
               <div class="date-text">
                 <!-- <input type="text" name="" id="remark" placeholder="" readonly> -->
                 <textarea name="remark" id="remark" cols="30" rows="3" readonly></textarea>
-              
+
               </div>
             </div>
             <div class="info-operator">
@@ -232,7 +232,7 @@
             'paddingTop': '88px'
           })
         }
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         vSn = self.vSn;
         H = self.H;
@@ -252,7 +252,7 @@
         fetchData();
       });
       function fetchData() {
-        app.carMaintainQuery({vSn}, function (res) {
+        app.carMaintainQuery({ vSn }, function (res) {
           console.log(res)
           res = JSON.parse(res);
           updateView(res.rows[0])
@@ -286,8 +286,8 @@
       })
 
       $("textarea").autoTextarea({
-        maxHeight:400,
-        minHeight:34
+        maxHeight: 400,
+        minHeight: 34
       });
 
     })();

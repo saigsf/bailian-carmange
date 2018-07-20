@@ -184,8 +184,8 @@
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="project_status_0">-</h5>
-                <p>项目状态</p>
+                <h5 id="project_sn_0">-</h5>
+                <p>项目编号</p>
               </div>
               <div class="info-content-empty"></div>
               <div class="info-content-item">
@@ -1593,9 +1593,10 @@
               <thead>
                 <tr>
                   <!-- 工具或设备 -->
-                  <td width="30%">名称</td>
+                  <td width="20%">名称</td>
                   <td width="20%">申请人</td>
-                  <td width="30%">装备日期</td>
+                  <td width="20%">装备日期</td>
+                  <td width="20%">备注</td>
                   <td width="20%">操作人</td>
                 </tr>
               </thead>
@@ -1820,7 +1821,7 @@
           res = JSON.parse(res);
           // res.rows
           $('#vSn_0').html(res.rows[0].vSn)
-          $('#project_status_0').html(res.rows[0].project ? res.rows[0].project.project_status : '-')
+          $('#project_sn_0').html(res.rows[0].project ? res.rows[0].project.project_sn : '-')
           $('#projectEngineer_0').html(res.rows[0].projectEngineer ? res.rows[0].projectEngineer : '-')
           $('#checks_status_0').html(res.rows[0].checks_status ? res.rows[0].checks_status : '-')
         }, function (xhr, type, errorThrown) {
@@ -2122,6 +2123,7 @@
                   <td><span>'+ item.toolName + '</span></td>\
                   <td>'+ item.applicant + '</td>\
                   <td>'+ (item.equippedDate ? item.equippedDate : '-') + '</td>\
+                  <td>'+ (item.remark ? item.remark : '-') + '</td>\
                   <td>'+ (item.operator ? item.operator : '-') + '</td>\
                 </tr>'
           }

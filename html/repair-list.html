@@ -313,7 +313,7 @@
       }
 
       // 获取数据
-      function fetchData(opt) {
+      function fetchData() {
         var data = $.extend({
           page: curPage,
           size: 10,
@@ -588,13 +588,14 @@
 
         // 搜索
         $('#current_input').off().on('keyup', function (e) {
-          e.preventDefault();
+          // e.preventDefault();
           if (e.keyCode == 13) {
             $('#OA_task_1').html('')
             dataArr = {
               vSn: $(this).val(),
               status: ''
             }
+            curPage = 1;
             fetchData()
           }
         })

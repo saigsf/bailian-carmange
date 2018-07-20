@@ -206,6 +206,12 @@
 							<input name="NO" type="text" placeholder="请输入">
 						</div>
 					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>客户：</label>
+							<input name="customer" type="text" placeholder="请输入">
+						</div>
+					</li>
 				</ul>
 				<ul class="mui-table-view date-box" id="date-box">
 					<li class="mui-table-view-cell">
@@ -255,7 +261,7 @@
 					<div class="filter-wrapper-column">
 						<label>车辆计数</label>
 						<div class="filter-btn-box" id="filter-btn-box">
-							<div class="mui-btn mui-active" data-key="all">所有车辆</div>
+							<div class="mui-btn" data-key="all">所有车辆</div>
 							<div class="mui-btn" data-key="ing">在用车辆</div>
 							<div class="mui-btn" data-key="stop">停用车辆</div>
 							<div class="mui-btn" data-key="beforBack">先前归还</div>
@@ -297,7 +303,7 @@
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
 							<label>保单号：</label>
-							<input name="insNO" type="text" placeholder="请输入">
+							<input name="insNo" type="text" placeholder="请输入">
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
@@ -338,17 +344,17 @@
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
-							<div class="filter-wrapper">
-								<label>车架号：</label>
-								<input name="vin" type="text" placeholder="请输入">
-							</div>
-						</li>
-						<li class="mui-table-view-cell">
-							<div class="filter-wrapper">
-								<label>发动机号：</label>
-								<input name="engineNumber" type="text" placeholder="请输入">
-							</div>
-						</li>
+						<div class="filter-wrapper">
+							<label>车架号：</label>
+							<input name="vin" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>发动机号：</label>
+							<input name="engineNumber" type="text" placeholder="请输入">
+						</div>
+					</li>
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
 							<label>验车申请日：</label>
@@ -357,10 +363,55 @@
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
+							<label>车牌录入日：</label>
+							<input name="maketime" id="maketime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
 							<label>车牌到期日：</label>
 							<input name="lEndTime" id="lEndTime" type="text" readonly placeholder="请输入">
 						</div>
 					</li>
+				</ul>
+			</form>
+		</div>
+		<div class="mui-scroll vehicle-input" id="vehicle-input-list.html">
+			<form>
+				<ul class="mui-table-view">
+
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车辆编号：</label>
+							<input name="vSn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>项目号：</label>
+							<input name="project_sn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车架号：</label>
+							<input name="vin" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>项目工程师：</label>
+							<input name="projectEngineer" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>保险状态：</label>
+							<input name="istatus" type="text" placeholder="请输入">
+						</div>
+					</li>
+
+
 				</ul>
 			</form>
 		</div>
@@ -399,7 +450,7 @@
 			mui('.mui-scroll-wrapper').scroll();
 			mui.plusReady(function () {
 				handsetAdaption()
-				$('.mui-scroll').css('min-height',$('.mui-content').height())
+				$('.mui-scroll').css('min-height', $('.mui-content').height())
 				self = plus.webview.currentWebview();
 				// mui.toast(self.prevId)
 				$('.mui-scroll').each(function (i) {
@@ -444,7 +495,7 @@
 					});
 				});
 
-				$('#iendTime').on('tap', function() {
+				$('#iendTime').on('tap', function () {
 					var _this = this;
 					$(_this).off().on('tap', function () {
 
@@ -460,7 +511,7 @@
 							});
 					});
 				})
-				$('#applyTime').on('tap', function() {
+				$('#applyTime').on('tap', function () {
 					var _this = this;
 					$(_this).off().on('tap', function () {
 
@@ -476,7 +527,7 @@
 							});
 					});
 				})
-				$('#updateTime').on('tap', function() {
+				$('#updateTime').on('tap', function () {
 					var _this = this;
 					$(_this).off().on('tap', function () {
 
@@ -492,7 +543,7 @@
 							});
 					});
 				})
-				$('.license #applyTime').on('tap', function() {
+				$('.license #applyTime').on('tap', function () {
 					var _this = this;
 					$(_this).off().on('tap', function () {
 
@@ -508,7 +559,7 @@
 							});
 					});
 				})
-				$('.license #lEndTime').on('tap', function() {
+				$('.license #lEndTime').on('tap', function () {
 					var _this = this;
 					$(_this).off().on('tap', function () {
 
@@ -534,7 +585,7 @@
 				// 提交
 				$('#submit').on('tap', function () {
 					var data = {}
-					
+
 					$('.mui-scroll').each(function (i) {
 						if ($(this).attr('id') == self.prevId) {
 							data = serialize($(this).find('form'));

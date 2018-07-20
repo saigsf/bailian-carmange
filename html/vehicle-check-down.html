@@ -59,14 +59,14 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆编号</label>
-              <input name="vSn" type="text" class="" placeholder="车辆编号,如：2017-211">
+              <input name="vSn" type="text" class="" readonly placeholder="车辆编号">
               <span class="icon-red-star">*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>运输车号</label>
-              <input name="trans_sn" type="text" class="" placeholder="车辆编号,如：2017-211">
+              <input name="trans_sn" type="text" class="" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -269,7 +269,10 @@
         for (const key in data) {
           if (data.hasOwnProperty(key)) {
             const item = data[key];
-            $('input[name=' + key + ']').val(item)
+            // $('input[name=' + key + ']').val(item).attr('readonly', true)
+            if(item) {
+              $('input[name=' + key + ']').val(item).attr('readonly', true)
+            }
           }
         }
       }

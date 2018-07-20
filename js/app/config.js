@@ -241,7 +241,7 @@ function dataRetrieval(data) {
         }
       } else {
         $('#' + key + '_0').html(item ? item : '-');
-        $('#' + key).html((item ? item : '-'));
+        $('#' + key).html(item ? item : '-');
         $('#' + key).val(item ? item : '-');
       }
     }

@@ -959,6 +959,20 @@
 	}
 
 	/**
+	 * 车辆列表
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} success 回掉函数
+	 */
+	owner.carQuery2 = function (data, success, error) {
+
+		data = data || {};
+
+		var url = 'car-management/car/pageQuery2.action';
+
+		owner.HTTPRequest('get', url, data, success, error)
+	}
+
+	/**
 	 * 车辆列表条件查询
 	 * @param {JSON} data 请求参数	
 	 * @param {Function} success 回掉函数

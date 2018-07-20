@@ -240,7 +240,7 @@
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById(self.prevId)
         H = self.H;
@@ -323,9 +323,11 @@
       // 获取数据
 
       function fetchData() {
-        app.findUpcheck({vSn}, function (res) {
-          console.log(res)
-          data = res;
+        app.findUpcheck({ vSn }, function (res) {
+          if (JSON.stringify(res) == 'null') {
+            
+            return;
+          }
           updateView(res)
         }, function (xhr, type, errorThrown) {
           //异常处理；

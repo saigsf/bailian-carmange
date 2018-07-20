@@ -1684,27 +1684,22 @@
               <thead>
                 <tr>
                   <!-- 工具或设备 -->
-                  <td width="30%">名称</td>
+                  <td width="20%">名称</td>
                   <td width="20%">申请人</td>
-                  <td width="30%">装备日期</td>
+                  <td width="20%">装备日期</td>
+                  <td width="20%">备注</td>
                   <td width="20%">操作人</td>
                 </tr>
               </thead>
               <tbody>
-                <!-- <tr>
-          <td>12V电源</td>
-          <td>王先生</td>
-          <td>2018-12-12</td>
-          <td>张三丰</td>
-        </tr> -->
               </tbody>
             </table>
-            <div class="info-operator">
+            <!-- <div class="info-operator">
               <div class="info-operator-item">
                 <span class="applyPerson">申请人：</span>
                 <span class="applyTime"></span>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="no-data">
             <p>研发工具未安装</p>
@@ -2435,6 +2430,7 @@
 
         },
         tools: function (data) {
+          console.log(JSON.stringify(data[0]))
           if (data.length == 0) {
             // mui.toast('研发工具未安装');
             $('#tools .no-data').show().prev().hide()
@@ -2447,12 +2443,13 @@
                   <td><span>'+ item.toolName + '</span></td>\
                   <td>'+ item.applicant + '</td>\
                   <td>'+ (item.equippedDate ? item.equippedDate : '-') + '</td>\
+                  <td>'+ (item.remark ? item.remark : '-') + '</td>\
                   <td>'+ (item.operator ? item.operator : '-') + '</td>\
                 </tr>'
           }
           $('#tools table tbody').html(html);
-          $('#tools').find('.applyPerson').html('申请人：' + data[0].applicant)
-          $('#tools').find('.applyTime').html(data[0].applyTime)
+          // $('#tools').find('.applyPerson').html('申请人：' + data[0].applicant)
+          // $('#tools').find('.applyTime').html(data[0].applyTime)
         },
         review: function (data) {
           if (data == null) {

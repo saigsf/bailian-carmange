@@ -72,7 +72,7 @@
     }
 
     .search-wrapper {
-      /* width: 80%; */
+      width: 80%;
       /* margin: 10px auto; */
       height: 40px;
     }
@@ -128,6 +128,11 @@
           <div class="search-text">
             <input type="text" readonly placeholder="请输入车辆编号">
           </div>
+
+
+        </div>
+        <div class="filter" id="filter">
+          <i class="icon icon-filter">筛选</i>
         </div>
       </form>
       <ul id="vehicle_input_list" class="mui-table-view mui-table-listview"></ul>
@@ -140,6 +145,9 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- 懒加载 -->
+  <script src="../js/lib/mui.lazyload.js"></script>
+  <script src="../js/lib/mui.lazyload.img.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -151,13 +159,20 @@
       var curPage = 1;  //当前页码初始化数0开始
       var totalPage = 0; //后台算出总页数
       var self = null;
+      var main = null;
       var H = null; // 页面高度
       var vSn = null;
       var data = [];
       var dataArr = {};
+      var filter = '20px';
 
       // 预加载页面
       var prepageSearch = null;
+
+      var lazyLoad = mui('#vehicle_input_list').imageLazyload({
+        placeholder: '../img/common/md/loading0.gif',
+        autoDestroy: false
+      });
 
       mui.init({
         pullRefresh: {
@@ -172,6 +187,7 @@
           }
         }
       });
+
       // mui('.mui-scroll-wrapper').scroll();
       // 下拉刷新业务
       function pulldownRwfresh() {
@@ -203,9 +219,11 @@
       mui.plusReady(function () {
         // plus准备好后执行H5
         handsetAdaption();
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         // 获取当前视图
         self = plus.webview.currentWebview();
+        main = plus.webview.getWebviewById("index");
+        main.addEventListener('maskClick', closeMenu);
         // 获取传递参数
         H = self.H;
 
@@ -241,6 +259,7 @@
           $('.mui-bar-nav~.mui-content').css({
             'paddingTop': '88px'
           })
+          filter = '34px';
         }
         // 弹出软键盘时自动改变webview的高度
         plus.webview.currentWebview().setStyle({
@@ -281,6 +300,7 @@
 
       // 获取数据
       function fetchData() {
+
         var opt = $.extend({
           page: curPage,
           size: 10
@@ -288,9 +308,9 @@
 
         console.log(JSON.stringify(opt))
 
-        app.carQuery(opt, function (res) {
-          res = JSON.parse(res);
+        app.carQuery2(opt, function (res) {
           console.log(res);
+          res = JSON.parse(res);
           if (!res.total || res.total == 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据，下拉加载所有数据')
@@ -323,7 +343,7 @@
 
 
           if (item.picurl) {
-            html += '<img src="' + item.picurl + '" alt="暂无图片" />'
+            html += '<img data-lazyload="' + item.picurl + '" alt="" />'
           } else {
             html += '<i class="icon icon-nopic"></i>'
           }
@@ -362,7 +382,14 @@
         });
 
         $('#vehicle_input_list').append(html)
+        lazyLoad.refresh(true);
       }
+
+      document.addEventListener('update', function () {
+        curPage = 1;
+        $('#vehicle_input_list').html('');
+        fetchData();
+      })
 
 
       document.addEventListener('statusBar', function (e) {
@@ -372,6 +399,60 @@
         fetchData();
         // mui('#pullrefresh').pullRefresh().pulldownLoading();
       })
+
+
+      //打开侧滑窗口；
+      function openMenu() {
+
+        main.setStyle({
+          mask: 'rgba(0,0,0,0.5)'
+        }); //menu设置透明遮罩防止点击
+
+        mui.openWindow({
+          url: 'vehicle-filter.html',
+          id: 'vehicle-filter', //默认使用当前页面的url作为id
+          styles: {
+            top: filter,
+            bottom: '0',
+            left: '30%',
+            width: '70%',
+            hardwareAccelerated: true
+          }, //窗口参数
+          extras: {
+            H: H,
+            prevId: self.id
+          }, //自定义扩展参数
+          waiting: {
+            autoShow: false, //自动显示等待框，默认为true
+            title: '正在加载...', //等待对话框上显示的提示内容
+          }
+        })
+      };
+      //关闭侧滑窗口；
+      function closeMenu(e) {
+        if ((mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
+          dataArr = e.detail.data;
+          curPage = 1;
+          $('#vehicle_input_list').html('')
+          fetchData();
+        }
+        //关闭遮罩；
+        side = plus.webview.getWebviewById("vehicle-filter");
+        main.setStyle({
+          mask: 'none'
+        });
+        mui.fire(side, 'close', {})
+
+      };
+
+      //点击头部菜单小图标，打开侧滑菜单；
+      $('#filter').on('tap', function (e) {
+        e.stopPropagation();
+        openMenu()
+      });
+      //menu页面点击后关闭菜单；
+      window.addEventListener('closeMenu', closeMenu);
+
 
 
 

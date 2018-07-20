@@ -297,7 +297,7 @@
 			// 百度地图API功能	
 			var map = new AMap.Map("map", {
 				resizeEnable: true,
-				zoom: 16 //地图显示的缩放级别
+				zoom: 4 //地图显示的缩放级别
 			});
 
 			var center = map.getCenter(); /// 中心点
@@ -326,6 +326,7 @@
 					// map.zoomIn();
 					// alert(EventListener);
 					// mui.toast(marker.getTitle(), '提示')
+					map.setZoomAndCenter(16, point)
 					$('#no-data').hide()
 					$('.car').show()
 					for (const key in data) {
@@ -562,7 +563,7 @@
 				allcar: function (data) {
 					console.log(markers.length)
 					// map.remove(markers)
-					map.setZoomAndCenter(12, new AMap.LngLat(getAllCenter(data).longitude, getAllCenter(data).latitude))
+					// map.setZoomAndCenter(12, new AMap.LngLat(getAllCenter(data).longitude, getAllCenter(data).latitude))
 
 					if (markers.length > 0) {
 						for (let i = 0; i < markers.length; i++) {
@@ -604,6 +605,17 @@
 			document.addEventListener('clearTimer', function () {
 				clearInterval(timer)
 			})
+
+
+
+			// 绑定事件
+			var listener = AMap.event.addListener(map, "click", function (ev) {
+				// DOM 被点击时触发，ev 为原生事件
+				console.log(ev)
+				$('#no-data').show()
+				$('.car').hide()
+				map.setZoom(10)
+			});
 		})()
 
 	</script>

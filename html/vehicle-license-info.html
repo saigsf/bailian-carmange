@@ -73,9 +73,11 @@
     .tab-col.red {
       color: red
     }
+
     .tab-col.green {
       color: green
     }
+
     .tab-col.blue {
       color: #2885cf
     }
@@ -142,6 +144,10 @@
               <div class="tab-row">
                 <div class="tab-col">车辆状态</div>
                 <div class="tab-col" id="car_status"></div>
+              </div>
+              <div class="tab-row">
+                <div class="tab-col">客户</div>
+                <div class="tab-col" id="customer"></div>
               </div>
               <div class="tab-row">
                 <div class="tab-col">接车日期</div>
@@ -245,11 +251,11 @@
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;
-        lNo = self.vSn;
+        lNo = self.lNo;
         // hasData = self.hasData;
         // console.log(hasData);
         fetchData();
@@ -275,7 +281,7 @@
       // 获取数据
       function fetchData() {
         // console.log(lNo)
-        app.licenseQuery({lNo}, function(res) {
+        app.licenseQuery({ vSn }, function (res) {
           console.log(res)
           res = JSON.parse(res);
           console.log(res)
@@ -290,24 +296,24 @@
             console.log('请求失败：' + type + '\n err:' + errorThrown);
           }
         })
-        
+
       }
 
       // 数据回显
       function updateView(data) {
         dataRetrieval(data);
-        if(data.vehicleInspection == '未申请') {
+        if (data.vehicleInspection == '未申请') {
           $('#vehicleInspection').addClass('red')
         } else {
           $('#vehicleInspection').addClass('green')
         }
-        if(data.llave > 90) {
-          $('#llave').addClass('green').html('剩余'+ (data.llave?data.llave:'-') + '天')
+        if (data.llave > 90) {
+          $('#llave').addClass('green').html('剩余' + (data.llave ? data.llave : '-') + '天')
         } else {
-          $('#llave').addClass('blue').html('剩余'+ (data.llave?data.llave:'-') + '天')
+          $('#llave').addClass('blue').html('剩余' + (data.llave ? data.llave : '-') + '天')
         }
       }
- 
+
       function addEvent() {
         // 详情页
         $('#info').on('tap', function () {

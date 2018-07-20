@@ -287,6 +287,11 @@
               mui.fire(plus.webview.getWebviewById('html/setting.html'), 'statusBar', null)
               mui.fire(plus.webview.getWebviewById('html/vehicle.html'), 'roles', null)
               mui.fire(plus.webview.getWebviewById('vehicle-list.html'), 'roles', null)
+              mui.fire(plus.webview.getWebviewById('doorpost-driver.html'), 'roles', null)
+              mui.fire(plus.webview.getWebviewById('doorpost-driver.html'), 'update', null)
+              mui.fire(plus.webview.getWebviewById('vehicle-list.html'), 'update', null)
+              mui.fire(plus.webview.getWebviewById('vehicle-input-list.html'), 'update', null)
+              mui.fire(plus.webview.getWebviewById('repair-list.html'), 'update', null)
               mui.fire(plus.webview.getWebviewById('html/repair.html'), 'roles', null)
               mui.fire(mainPage, 'roles', null)
 
@@ -330,10 +335,9 @@
           })
         }
 
-        submitData()
-        function submitData() {
-          $('#login').on('tap', login);
-        }
+        // 点击登录
+        $('#login').on('tap', login);
+        
 
         function login() {
           var loginInfo = serialize($('form'))

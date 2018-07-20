@@ -108,7 +108,33 @@
           <i class="icon icon-filter">筛选</i>
         </div>
       </form>
-      <ul id="OA_task_1" class="mui-table-view mui-table-listview"></ul>
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview">
+          <!-- <li class="mui-table-view-cell" data-vSn="'+ item.vSn+'" data-lNo="' + item.licenseNo + '">
+              <div class="list-item">
+              <div class="item-left">
+              <img src="../img/common/md/lience_pic.png" />
+              </div>
+              <div class="item-right">
+              <div class="item-top">
+              <h4>
+              <span>' + item.vSn + '</span>
+              </h4>
+              <p>
+              <span>车牌号：</span>
+              <span class="blue">(item.licenseNo ? item.licenseNo : '-')</span>
+              </p>
+              </div>
+              <div class="progress-wrapper">
+              <label>剩余时间：</label>
+              <div class="progress">
+              <div class="move green" ></div>
+              </div>
+              <span>(item.llave > 0 ? (item.llave + '天') : '暂无') </span>
+              </div>
+              </div>
+              </div>
+          <span class="marker green"> item.vehicleInspection </span></li> -->
+      </ul>
       <div class="no-data" id="no-data">
         <p>没有找到想要的数据,下拉刷新</p>
       </div>
@@ -417,7 +443,7 @@
 
 
       document.addEventListener('statusBar', function (e) {
-        if (e.detail != null && e.detail.vSn) dataArr.lNo = e.detail.vSn;
+        if (e.detail != null && e.detail.vSn) dataArr.vSn = e.detail.vSn;
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();

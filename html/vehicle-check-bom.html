@@ -334,7 +334,7 @@
             canInspect = false;
             canChecked = false;
             $('#four_next').parent().hide();
-            mui.alert('您没有操作权限，只能浏览信息！', '提示')
+            // mui.alert('您没有操作权限，只能浏览信息！', '提示')
           }
         } else if (res.check && res.check.checkPerson && !res.check.checkingPerson) {
           // 检查完成，核对未完成
@@ -362,7 +362,7 @@
 
             $('#openPopover').hide();
             $('#four_next').parent().hide();
-            mui.alert('您没有相关操作权限', '提示')
+            // mui.alert('您没有相关操作权限', '提示')
           }
 
         } else if (res.check && res.check.checkPerson && res.check.checkingPerson) {

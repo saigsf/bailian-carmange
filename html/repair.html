@@ -27,6 +27,10 @@
     .mui-scroll {
       background-color: transparent;
     }
+
+    .mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+      padding: 0 12px;
+    }
   </style>
 </head>
 
@@ -145,7 +149,14 @@
           $('#defaultTab').hide()
           plus.webview.hide('repair-apply.html');
           plus.webview.show('repair-list.html');
-          activeTab = 'repair-list.html'
+          activeTab = 'repair-list.html';
+          $('#repair-list').addClass('mui-active')
+        } else {
+          $('#defaultTab').show().addClass('mui-active')
+          plus.webview.show('repair-apply.html');
+          plus.webview.hide('repair-list.html');
+          activeTab = 'repair-apply.html';
+          $('#repair-list').removeClass('mui-active');
         }
       })
 
