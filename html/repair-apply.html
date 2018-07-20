@@ -17,40 +17,10 @@
   <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
   <!--独立样式-->
   <style type="text/css">
-    /* .mui-table-view {
-      padding-top: 20px;
+    .mui-input-row>label~textarea {
+      /* border: 1px solid #f1f1f1 */
     }
 
-    .mui-table-view-cell {
-      background-color: transparent;
-    }
-
-    .mui-content>.mui-table-view:first-child {
-      margin-top: 0
-    }
-
-    .mui-input-row label {
-      width: 22%
-    }
-
-    .mui-input-row label~input,
-    .mui-input-row label~select,
-    .mui-input-row label~textarea {
-      border-bottom: 1px solid #ccc;
-
-    }
-
-    .mui-input-row label~input[type=text],
-    .mui-input-row label~input[type=password],
-    .mui-input-row label~select,
-    .mui-input-row label~textarea {
-      width: 78%;
-      border-radius: 0
-    }
-
-    .mui-table-view-cell:after {
-      display: none
-    } */
   </style>
 </head>
 
@@ -63,7 +33,7 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>车辆编号</label>
-              <input id="vSn" name="vSn" type="text" class="mui-input-clear" placeholder="车辆编号">
+              <input id="vSn" name="vSn" type="text" class="mui-input-clear" placeholder="请输入车辆编号">
               <span class="icon-red-star">*</span>
             </div>
           </li>
@@ -72,10 +42,14 @@
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>维修项目</label>
-              <input id="item" name="item" type="text" class="mui-input-clear" placeholder="">
+              <!-- <input id="item" name="item" type="text" class="mui-input-clear" placeholder=""> -->
+              <textarea name="item" id="item" cols="30" rows="1" placeholder="请输入维修项目"></textarea>
               <span class="icon-red-star">*</span>
             </div>
           </li>
+        </ul>
+        <ul class="mui-table-view mui-table-inputview">
+
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>停放地点</label>
@@ -83,13 +57,13 @@
               <span class="icon-red-star">*</span>
             </div>
           </li>
-          <li class="mui-table-view-cell">
+          <!-- <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>申请人电话</label>
               <input id="applyTEL" name="applyTEL" type="tel" class="mui-input-clear" placeholder="">
               <span class="icon-red-star">*</span>
             </div>
-          </li>
+          </li> -->
 
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
@@ -125,7 +99,7 @@
       var view = null;
 
       mui.plusReady(function () {
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         view = plus.webview.getWebviewById('html/repair.html')
       })
 
@@ -135,7 +109,9 @@
         // 维修申请
         $('#submit').on('tap', function () {
           var data = serialize($('#repair_apply'));
-          console.log(data)
+          data.applyTEL = app.getState().data.telephone
+          console.log(JSON.stringify(data));
+
           // 维修申请
           app.carMaintainApply(data, function (res) {
             // console.log(res)

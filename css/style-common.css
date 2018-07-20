@@ -2,13 +2,13 @@
 
 html,
 body {
-  height: 100%;
+  min-height: 100%;
   margin: 0px;
   padding: 0px;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  background-color: #fff;
+  background-color: #F5F5F5;
 }
 
 body {
@@ -359,10 +359,6 @@ table thead {
   padding: 0 24px;
 }
 
-table tbody {
-  /* padding: 0 24px; */
-}
-
 table tbody tr:nth-child(2n+1) {
   background-color: #fff;
 }
@@ -579,6 +575,12 @@ input[type=search] {
 .item-bottom {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.item-top .item-left {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -869,6 +871,9 @@ span.hide {
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+}
+.date-wrapper.start {
+  align-items: flex-start;
 }
 
 .date-wrapper label {

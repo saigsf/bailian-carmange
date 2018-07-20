@@ -55,9 +55,10 @@
     (function () {
 
       mui.init();
+      var self = null;
 
       //子页面列表
-      var subpages = ['repair-apply.html', 'repair-list.html', 'repair-maintain-list.html'];
+      var subpages = ['repair-apply.html', 'repair-list.html'];
 
       // 子页面切换样式
       var subpages_style = {
@@ -91,7 +92,7 @@
           })
         }
 
-        var self = plus.webview.currentWebview();
+        self = plus.webview.currentWebview();
 
         extras.H = self.H;
 
@@ -139,22 +140,12 @@
       });
 
       // //接车点检
-      // document.addEventListener('repair', function (e) {
-      //   console.log(e.detail.domId)
-      //   var defaultTab = document.getElementById(e.detail.domId);
-      //   //模拟首页点击
-      //   mui.trigger(defaultTab, 'tap');
-      //   //切换选项卡高亮
-      //   var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
-      //   if (defaultTab !== current) {
-      //     current.classList.remove('mui-active');
-      //     defaultTab.classList.add('mui-active');
-      //   }
-      // });
-      
       document.addEventListener('roles', function() {
         if(!app.getUserRoles('engineer') && !app.getUserRoles('admin')) {
           $('#defaultTab').hide()
+          plus.webview.hide('repair-apply.html');
+          plus.webview.show('repair-list.html');
+          activeTab = 'repair-list.html'
         }
       })
 

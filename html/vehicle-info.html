@@ -45,9 +45,36 @@
       height: 34px;
     }
 
-    .date-wrapper .date-text {
+    .date-wrapper .date-text,
+    .date-wrapper .date-file {
       width: 70%;
     }
+
+    .date-wrapper .date-img {
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .date-file .mui-btn {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      border-color: #eee;
+    }
+
+    /* .date-wrapper {
+      align-items: flex-start
+    } */
 
     .mui-scroll {
       padding-bottom: 24px;
@@ -553,6 +580,36 @@
 
         </div>
         <!-- 车辆录入结束 -->
+
+        <!-- 图片文件开始 -->
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>车辆图片和电路图</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper start">
+              <label>车辆图片</label>
+              <div class="date-img">
+                <img src="" id="vehicel-img" alt="没有图片">
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>电路图</label>
+              <div class="date-file">
+                <div class="mui-btn" id="download_cir">点击下载文件</div>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>crd文件</label>
+              <div class="date-file">
+                <div class="mui-btn" id="download_crd">点击下载文件</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- 图片文件结束 -->
         <!-- 安全检查开始 -->
         <div class="info-middle"></div>
         <div class="info-item" id="safeCheck">
@@ -2027,7 +2084,7 @@
 
       mui.plusReady(function () {
         handsetAdaption();
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         H = self.H;
         if (!self.vSn) {
@@ -2291,6 +2348,14 @@
           $('#vin').html(data.vin)
           $('#projectEngineer').html(data.projectEngineer)
           $('#status').html(data.status)
+
+          $('img').attr('src', data.picurl)
+          var cir_url = (data.circuiturl ? data.circuiturl : '') + (data.circuitName ? data.circuitName : '')
+          $('#download_cir').attr('data-url', cir_url).html(data.circuitName ? data.circuitName : '暂无文件')
+
+          var crd_url = (data.wordurl ? data.wordurl : '') + (data.wordName ? data.wordName : '')
+          $('#download_crd').attr('data-url', crd_url).html(data.wordName ? data.wordName : '暂无文件')
+
         },
         safeCheck: function (res) {
           var data = res.checkResults;

@@ -184,6 +184,7 @@
       view = plus.webview.getWebviewById('html/vehicle.html')
       H = self.H;
 
+      console.log(app.getUserRoles('admin'))
       if (!app.getUserRoles('admin')) {
         $('#program_status').hide().next().css('width', '80%')
       }
@@ -200,7 +201,7 @@
       })
 
 
-      addEvent();
+      // addEvent();
     });
 
     function handsetAdaption() {
@@ -311,7 +312,7 @@
           + '<div class="list-item">'
           + '<div class="item-top">'
           + '<div class="item-left">'
-          + '<img src="' + (item.picurl ? item.picurl : '../img/common/md/backup_picture1.png') + '" />'
+          + '<img src="' + (item.picurl ? item.picurl : '../img/common/md/backup_picture1.png') + '" alt="暂无图片" />'
           + '</div>'
           + '<div class="item-right">'
           + '<h4>' + item.vSn + '</h4>'
@@ -351,7 +352,7 @@
     }
 
     //添加事件
-    function addEvent() {
+    // function addEvent() {
       //查看车辆信息
       $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
         var $li = $(this).parents('li')
@@ -423,7 +424,7 @@
         prepageSearch.show('fade-in');
         mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
       })
-    }
+    // }
 
     //打开侧滑窗口；
     function openMenu() {
@@ -455,7 +456,8 @@
 
     //关闭侧滑窗口；
     function closeMenu(e) {
-      if (e) {
+      // console.log( mui.os.ios && e != 'null')
+      if ( (mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
         dataArr = e.detail.data;
         curPage = 1;
         $('#OA_task_1').html('')

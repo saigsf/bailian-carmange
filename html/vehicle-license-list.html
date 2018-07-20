@@ -101,7 +101,7 @@
             <i class="icon-search icon"></i>
           </div>
           <div class="search-text">
-            <input type="text" id="current_input" readonly placeholder="请输入车牌号">
+            <input type="text" id="current_input" readonly placeholder="请输入车辆编号">
           </div>
         </div>
         <div class="filter" id="filter">
@@ -392,7 +392,7 @@
       };
       //关闭侧滑窗口；
       function closeMenu(e) {
-        if (e) {
+        if ( (mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
           dataArr = e.detail.data;
           curPage = 1;
           $('#OA_task_1').html('')
@@ -417,7 +417,7 @@
 
 
       document.addEventListener('statusBar', function (e) {
-        if (e.detail != null && e.detail.vSn) dataArr.vSn = e.detail.vSn;
+        if (e.detail != null && e.detail.vSn) dataArr.lNo = e.detail.vSn;
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();
