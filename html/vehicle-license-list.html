@@ -72,6 +72,10 @@
 
     .item-left {
       width: 80px;
+      height: 80px
+    }
+    .item-left img {
+      max-height: 100%;
     }
 
     .item-right {
@@ -109,7 +113,7 @@
         </div>
       </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview">
-          <!-- <li class="mui-table-view-cell" data-vSn="'+ item.vSn+'" data-lNo="' + item.licenseNo + '">
+        <!-- <li class="mui-table-view-cell" data-vSn="'+ item.vSn+'" data-lNo="' + item.licenseNo + '">
               <div class="list-item">
               <div class="item-left">
               <img src="../img/common/md/lience_pic.png" />
@@ -145,6 +149,9 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- 懒加载 -->
+  <script src="../js/lib/mui.lazyload.js"></script>
+  <script src="../js/lib/mui.lazyload.img.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -161,6 +168,11 @@
       var data = [];
       var dataArr = {};
       var filter = '20px';
+
+      var lazyLoad = mui('#OA_task_1').imageLazyload({
+        placeholder: '../img/common/md/loading0.gif',
+        autoDestroy: false
+      });
 
       // 预加载页面
       var prepageSearch = null;
@@ -265,12 +277,11 @@
           page: curPage,
           size: 10
         }, dataArr);
-        console.log(JSON.stringify(opt))
         app.licenseQuery(opt, function (res) {
           console.log(res)
           res = JSON.parse(res);
 
-          if (!!res.total && res.total == 0 && res.rows.length == 0) {
+          if (res.total == 0 && res.rows.length == 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据')
             return;
@@ -309,11 +320,16 @@
           }
 
 
-          html += '<li class="mui-table-view-cell" data-vSn="'+ item.vSn+'" data-lNo="' + item.licenseNo + '">'
+          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-lNo="' + item.licenseNo + '">'
             + '<div class="list-item">'
             + '<div class="item-left">'
-            + '<img src="../img/common/md/lience_pic.png" />'
-            + '</div>'
+
+          if (item.picurl) {
+            html += '<img data-lazyload="' + item.picurl + '" alt="" />'
+          } else {
+            html += '<i class="icon icon-nopic"></i>'
+          }
+          html += '</div>'
             + '<div class="item-right">'
             + '<div class="item-top">'
             + '<h4>'
@@ -343,6 +359,7 @@
         }
 
         $('#OA_task_1').append($(html))
+        lazyLoad.refresh(true);
       }
 
       //添加事件
@@ -418,7 +435,7 @@
       };
       //关闭侧滑窗口；
       function closeMenu(e) {
-        if ( (mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
+        if ((mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
           dataArr = e.detail.data;
           curPage = 1;
           $('#OA_task_1').html('')

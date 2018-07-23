@@ -108,6 +108,10 @@
 
     .item-left {
       width: 80px;
+      height: 80px
+    }
+    .item-left img {
+      max-height: 100%;
     }
 
     .item-right {
@@ -149,6 +153,9 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- 懒加载 -->
+  <script src="../js/lib/mui.lazyload.js"></script>
+  <script src="../js/lib/mui.lazyload.img.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -167,6 +174,10 @@
       var filter = '20px';
 
       var prepageSearch = null;
+      var lazyLoad = mui('#vehicle_insurance_list').imageLazyload({
+        placeholder: '../img/common/md/loading0.gif',
+        autoDestroy: false
+      });
 
       // 初始化
       mui.init({
@@ -215,7 +226,7 @@
       mui.plusReady(function () {
         // plus准备好后执行H5
         handsetAdaption();
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         // 获取当前视图
         self = plus.webview.currentWebview();
         main = plus.webview.getWebviewById("index");
@@ -305,8 +316,13 @@
           html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
             + '<div class="list-item">'
             + '<div class="item-left">'
-            + '<img src="../img/common/md/in_pic.png" />'
-            + '</div>'
+
+          if (item.picurl) {
+            html += '<img data-lazyload="' + item.picurl + '" alt="" />'
+          } else {
+            html += '<i class="icon icon-nopic"></i>'
+          }
+          html += '</div>'
             + '<div class="item-right">'
             + '<div class="item-top">'
             + '<h4>'
@@ -337,6 +353,7 @@
 
         }
         $('#vehicle_insurance_list').append(html)
+        lazyLoad.refresh(true);
       }
 
       // 页面点击事件
@@ -403,7 +420,7 @@
       //关闭侧滑窗口；
       function closeMenu(e) {
         console.log(e)
-        if ( (mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
+        if ((mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
           dataArr = e.detail.data;
           curPage = 1;
           $('#vehicle_insurance_list').html('')

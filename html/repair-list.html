@@ -361,23 +361,25 @@
                 + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
                 + '</div>'
 
+            } else if(app.getUserRoles('maintain')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+                + '</div>'
             }
 
           } else if (item.status == '排队中') {
-            if (app.getUserRoles('maintenanceManager')) {
-              html += '<div class="mui-slider-right mui-disabled">'
-                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
-                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-                + '</div>'
-
-            }
-            if (app.getUserRoles('admin')) {
+            
+            if (app.getUserRoles('admin') || app.getUserRoles('maintenanceManager')) {
               html += '<div class="mui-slider-right mui-disabled">'
                 + '<a class="mui-btn mui-btn-gray settop">优先</a>'
                 + '<a class="mui-btn mui-btn-red allot">分配</a>'
                 + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
                 + '</div>'
 
+            } else if (app.getUserRoles('maintain')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+                + '</div>'
             }
 
           } else if (item.status == '维修中') {
@@ -387,7 +389,11 @@
                 + '<a class="mui-btn mui-btn-red repaired">完成</a>'
                 + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
                 + '</div>'
-
+            } else if (app.getUserRoles('maintain')) {
+              html += '<div class="mui-slider-right mui-disabled">'
+                + '<a class="mui-btn mui-btn-red repaired">完成</a>'
+                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
+                + '</div>'
             }
 
           }
