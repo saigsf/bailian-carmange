@@ -228,7 +228,8 @@
       var self = null;
       var vSn = null;
       var dDate = new Date();
-      var isModify = false;
+      var isModify = false; // 
+      var isFirst = true;
 
       // plusReady
       mui.plusReady(function () {
@@ -236,6 +237,7 @@
         $('.mui-scroll').css('min-height',$('.mui-content').height())
         self = plus.webview.currentWebview();
         H = self.H;
+        
       })
 
       // 手机适配方法
@@ -266,6 +268,7 @@
 
       addEvent()
       function addEvent() {
+        $('#time').val(dDate.format('yyyy-MM-dd'));
         $('#time').off().on('tap', function () {
 
           plus.nativeUI.pickDate(function (e) {
@@ -327,7 +330,7 @@
           id: id, //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H,
+            // bottom: H,
             hardwareAccelerated: true
           }, //窗口参数
           extras: {
@@ -335,6 +338,7 @@
             vSn: data.vSn,
             upCheckInfo: data,
             isModify: isModify,
+            isFirst: isFirst,
             prevId: self.id
           } //自定义扩展参数
         })

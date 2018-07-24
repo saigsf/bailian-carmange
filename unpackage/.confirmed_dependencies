@@ -101,7 +101,8 @@
       "js/app/vehicle-check-up.js"
     ],
     "refer": [
-      "html/vehicle-check-safety.html"
+      "html/vehicle-check-safety.html",
+      "html/vehicle-input.html"
     ],
     "priority": 0
   },
@@ -118,7 +119,8 @@
       "js/app/vehicle-input.js"
     ],
     "refer": [
-      "html/vehicle-check-up.html"
+      "html/vehicle-check-up.html",
+      "html/vehicle-input-bom.html"
     ],
     "priority": 0
   },
@@ -1041,5 +1043,22 @@
     ],
     "refer": [],
     "priority": 0
+  },
+  "html/vehicle-input-bom.html": {
+    "refer": [
+      "html/vehicle-input-tools.html"
+    ],
+    "resources": []
+  },
+  "html/vehicle-input-tools.html": {
+    "refer": [
+      "html/vehicle-upload.html"
+    ],
+    "resources": []
+  },
+  "html/vehicle-up-check.html": {
+    "refer": [
+      "html/vehicle-input.html"
+    ]
   }
 }

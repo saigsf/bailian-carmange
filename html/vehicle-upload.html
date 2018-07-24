@@ -20,6 +20,7 @@
     body {
       height: 100%;
     }
+
     .container {
       height: 100%;
       padding: 20px;
@@ -221,28 +222,49 @@
 
     var submitLock = false;
 
+
+    // 数据统一提交
+    // 实际顺序：先接车点检，然后基本信息，bom申请，研发工具安装申请，上传图片
+    // 所有数据上传成功后才可以返回
+    // 当页面打开时，判断是否是第一次录入，
+    // 如果是第一次，isFirst = true，当点击提交按钮时，需要判断当前车辆编号是否已被录入，
+    //  如果已被录入，则重新获取车辆编号，并替换之前的车辆编号，给用户提示信息，
+    //  如果没有被录入，则直接提交
+    // 如果不是第一次， isFirst = false, 同时，判断之前的数据是否有被修改，
+    //  如果没有被修改，isModify = false，提交按钮处于隐藏状态，
+    //   当图片发生改变时，isModify = true，按钮显示，按钮内容变为“确认修改”。
+    //  如果有被修改，isModify = true，提交按钮显示，按钮内容变为“确认修改”。
+    // 当isModify = true时，对应的接车点检和车辆录入，要改成修改接口，并在提交信息中添加相应的id。
+    // 当isFirst = true时，都为录入接口，不用添加id
+
     mui.init();
     mui.plusReady(function () {
       handsetAdaption();
-      $('.mui-scroll').css('min-height',$('.mui-content').height())
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById('vehicle-input-tools')
       vSn = self.vSn;
-      isModify = self.isModify
-      oneInfo = self.oneInfo
-      oneBom = self.oneBom
-      upCheckInfo = self.upCheckInfo
+      isModify = self.isModify;
+      isFirst = self.isFirst;
+      oneInfo = self.oneInfo;
+      oneBom = self.oneBom;
+      upCheckInfo = self.upCheckInfo;
       oneToolApply = self.oneToolApply;
+      if (isFirst) {
+        $('#submit').parent().show();
+      } else {
+        if (isModify) {
+          $('#submit').html('确定修改').parent().show()
+        } else {
+          $('#submit').parent().hide();
+        }
+
+      }
 
 
       fetchData()
-      if (isModify) {
-        $('#submit').html('确定修改').parent().show()
-      } else if (isFirst) {
-        $('#submit').parent().show();
-      } else {
-        $('#submit').parent().hide();
-      }
+
+
 
     })
 
@@ -266,8 +288,7 @@
       app.carQuery({ vSn }, function (res) {
         console.log(res)
         res = JSON.parse(res);
-        if (res.total != 1) {
-          isFirst = true;
+        if (res.rows.length == 0) {
           return;
         }
         if (res.rows[0].picurl)
@@ -307,10 +328,13 @@
 
 
     $('input').on('change', function (e) {
+      console.log(isFirst)
       if (isFirst) {
         isModify = false;
+        $('#submit').parent().show()
       } else {
         isModify = true;
+        $('#submit').html('确定修改').parent().show()
       }
 
       var _this = this;
@@ -318,114 +342,27 @@
 
       var srcs = getObjectURL(this.files[0]);   //获取路径
       $(this).parent().find('img').prop('src', srcs).show()
-      $('#submit').html('确定修改').parent().show();
+      $('#submit').parent().show();
 
-      submitData();
+      // if (isModify) {
+      //   submitData()
+      // } else {
+      //   app.getvSn({}, function (res) {
+      //     if (res != null && res != vSn) {
+      //       vSn = res;
+      //     }
+      //     console.log(vSn)
+      //     // return;
+      //     submitData()
+      //   }, function (err) {
+
+      //   })
+      // }
     })
 
-
+    // 提交数据
     function submitData() {
-      $('input').each(function (i) {
-        if (this.files.length == 0) {
-          return;
-        }
-        var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
 
-        var formData = new FormData($(this).parents('form')[0])
-        if (pid == '#demo1') {
-          url = BASE_URL_1 + 'car-management/car/carPicUpload.action?vSn=' + vSn;
-        } else if (pid == '#demo2') {
-          url = BASE_URL_1 + 'car-management/file/circuitPicUpload.action?vSn=' + vSn;
-        } else {
-          url = BASE_URL_1 + 'car-management/file/wordUpload.action?vSn=' + vSn;
-        }
-
-        var process = 0;
-        mui(pid)[0].style.visibility = 'visible';
-        mui(pid).progressbar({ progress: 10 }).show();
-        $.ajax({
-          url: url,
-          type: "post",
-          data: formData,
-          contentType: false,//必须false才会自动加上正确的Content-Type
-          processData: false,//必须false才会避开jQuery对 formdata 的默认处理
-          crossDomain: true,
-          xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
-            myXhr = $.ajaxSettings.xhr();
-            if (myXhr.upload) { //检查upload属性是否存在  
-              //绑定progress事件的回调函数  
-              myXhr.upload.addEventListener('progress', function (e) {
-                var curr = e.loaded;
-                var total = e.total;
-                if (curr < total) {
-                  $(pid).find('span').css('backgroundColor', '#ff4c4c')
-                }
-                // else {
-                //   $(pid).find('span').css('backgroundColor', '#18c918')
-                // }
-                process = curr / total * 100;
-                mui(pid).progressbar().setProgress(process);
-
-              }, false);
-            }
-            return myXhr; //xhr对象返回给jQuery使用  
-          },
-          success: function (data) {
-            if (data.ret == true) {
-              $(pid).find('span').css('backgroundColor', '#18c918');
-              $(pid).next().removeClass('icon-update').addClass('icon-update-success')
-              mui.alert(data.msg, "提示", "确定");
-            } else {
-              mui(pid).progressbar().setProgress(100);
-              $(pid).find('span').css('backgroundColor', '#ff4c4c');
-              $(pid).next().removeClass('icon-update').addClass('icon-update-failed')
-              mui.alert('上传失败', "提示", "确定");
-            }
-
-
-          },
-          error: function () {
-            mui(pid).progressbar().setProgress(100);
-            $(pid).find('span').css('backgroundColor', '#ff4c4c');
-            $(pid).next().removeClass('icon-update').addClass('icon-update-failed')
-            mui.alert('上传失败', "提示", "确定");
-          }
-
-        })
-      })
-    }
-
-    $('#submit').on('tap', function () {
-
-      if (submitLock) {
-        return;
-      }
-      submitLock = true;
-
-      if (isModify) {
-        upcheck = 'updateUpcheck';
-        addcar = 'update'
-      }
-
-      // console.log(JSON.stringify(upCheckInfo))
-      // console.log(upcheck)
-      app[upcheck](upCheckInfo, function (res) {
-        console.log(JSON.stringify(res))
-        if (res.ret) {
-          flagCheck = true;
-        }
-      }, function (xhr, type, errorThrown) {
-        //异常处理；
-        console.log(type);
-        mui.toast(type);
-        if (type == 'timeout') {
-          console.log("请求超时：请检查网络")
-        } else {
-          console.log('请求失败：' + type + '\n err:' + errorThrown);
-        }
-      })
-      // console.log(JSON.stringify(oneInfo))
-      // console.log(addcar)
       app[addcar](oneInfo, function (res) {
         console.log(res)
         res = JSON.parse(res)
@@ -474,17 +411,193 @@
           console.log('请求失败：' + type + '\n err:' + errorThrown);
         }
       });
+      submitData2()
 
-      setTimeout(() => {
-        console.log(flagCheck, flagInfo, flagBom, flagTools)
-        if (flagCheck && flagInfo && flagBom && flagTools) {
-          mui.back();
-          mui.fire(view, 'goback', {});
-        }
-        submitLock = false;
-      }, 500);
+      // setTimeout(() => {
+      //   console.log(flagCheck, flagInfo, flagBom, flagTools)
+      //   if (flagCheck && flagInfo && flagBom && flagTools) {
+      //     mui.back();
+      //     mui.fire(view, 'goback', {});
+      //   }
+      //   submitLock = false;
+      // }, 500);
+    }
+
+    $('#submit').on('tap', function () {
+
+      if (submitLock) {
+        return;
+      }
+      submitLock = true;
+
+      if (isModify) {
+        upcheck = 'updateUpcheck';
+        addcar = 'update'
+        submitData1()
+      } else {
+        app.getvSn({}, function (res) {
+          if (res != null) {
+            if (res != upCheckInfo.vSn) {
+              // mui.alert(vSn + '车辆编号已被使用，自动更新为' + res)
+              var btnArray = ['确认', '取消'];
+              mui.confirm(vSn + '车辆编号已存在，自动更新为' + res, '提示', btnArray, function (e) {
+                if (e.index == 0) {
+                  vSn = res;
+                  upCheckInfo.vSn = res
+                  oneInfo.vSn = res
+
+                  for (let i = 0; i < oneBom.length; i++) {
+                    const item = oneBom[i];
+                    item.vSn = res
+                  }
+                  for (let i = 0; i < oneToolApply.length; i++) {
+                    const item = oneToolApply[i];
+                    item.vSn = res
+                  }
+                  submitData1()
+                } else {
+                  submitLock = false;
+                }
+              });
+
+            } else {
+              submitData1()
+            }
+
+          }
+          // return;
+
+        }, function (err) {
+
+        })
+      }
+
+
 
     })
+
+    // 接车点检提交数据
+    function submitData1() {
+      // console.log(JSON.stringify(upCheckInfo))
+      // console.log(upcheck)
+      app[upcheck](upCheckInfo, function (res) {
+        console.log(JSON.stringify(res))
+        if (res.ret) {
+          flagCheck = true;
+          submitData()
+        } else {
+          submitLock = false;
+          mui.toast('接车点检失败，请检查数据是否填写正确', '提示')
+        }
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
+      // console.log(JSON.stringify(oneInfo))
+      // console.log(addcar)
+
+    }
+
+    // 上传图片
+    function submitData2() {
+      $('input').each(function (i) {
+        if (this.files.length == 0) {
+          return;
+        }
+        var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
+
+        var formData = new FormData($(this).parents('form')[0])
+        if (pid == '#demo1') {
+          url = BASE_URL_1 + 'car-management/car/carPicUpload.action?vSn=' + vSn;
+        } else if (pid == '#demo2') {
+          url = BASE_URL_1 + 'car-management/file/circuitPicUpload.action?vSn=' + vSn;
+        } else {
+          url = BASE_URL_1 + 'car-management/file/wordUpload.action?vSn=' + vSn;
+        }
+
+        var process = 0;
+        mui(pid)[0].style.visibility = 'visible';
+        mui(pid).progressbar({ progress: 10 }).show();
+        // mui(pid).progressbar().setProgress(100);
+        // $(pid).find('span').css('backgroundColor', '#ff4c4c');
+        $(pid).find('span').css('backgroundColor', '#18c918')
+        $(pid).next().removeClass('icon-update-failed').addClass('icon-update')
+        $.ajax({
+          url: url,
+          type: "post",
+          data: formData,
+          contentType: false,//必须false才会自动加上正确的Content-Type
+          processData: false,//必须false才会避开jQuery对 formdata 的默认处理
+          crossDomain: true,
+          xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
+            myXhr = $.ajaxSettings.xhr();
+            if (myXhr.upload) { //检查upload属性是否存在  
+              //绑定progress事件的回调函数  
+              myXhr.upload.addEventListener('progress', function (e) {
+                var curr = e.loaded;
+                var total = e.total;
+                // if (curr < total) {
+                //   $(pid).find('span').css('backgroundColor', '#ff4c4c')
+                // }
+                // else {
+                //   $(pid).find('span').css('backgroundColor', '#18c918')
+                // }
+                process = curr / total * 100;
+                mui(pid).progressbar().setProgress(process);
+
+              }, false);
+            }
+            return myXhr; //xhr对象返回给jQuery使用  
+          },
+          success: function (data) {
+            submitLock = false;
+            if (data.ret == true) {
+
+              $(pid).find('span').css('backgroundColor', '#18c918');
+              $(pid).next().removeClass('icon-update').addClass('icon-update-success')
+
+              plus.nativeUI.toast("图片上传成功", {
+                duration: "shot",// 持续3.5s，short---2s
+                align: "center",// 水平居中
+              });
+
+              console.log(flagCheck, flagInfo, flagBom, flagTools)
+              if (flagCheck && flagInfo && flagBom && flagTools) {
+                mui.back();
+                mui.fire(view, 'goback', {});
+              }
+
+            } else {
+              mui(pid).progressbar().setProgress(100);
+              $(pid).find('span').css('backgroundColor', '#ff4c4c');
+              $(pid).next().removeClass('icon-update').addClass('icon-update-failed')
+              mui.alert('上传失败', "提示", "确定");
+              $('input').on('change', function () {
+                submitData2()
+              })
+            }
+
+
+          },
+          error: function () {
+            mui(pid).progressbar().setProgress(100);
+            $(pid).find('span').css('backgroundColor', '#ff4c4c');
+            $(pid).next().removeClass('icon-update').addClass('icon-update-failed')
+            mui.alert('上传失败', "提示", "确定");
+          }
+
+        })
+      })
+
+
+    }
+    // 
   </script>
 </body>
 

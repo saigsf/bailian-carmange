@@ -123,21 +123,21 @@
         "ios": {
           "iphone": {
             "default": "",
-            "retina47": "unpackage/res/imges/750-1334.png",
-            "retina35": "unpackage/res/imges/640-960.png",
-            "retina40": "unpackage/res/imges/640-1136.png",
-            "iphonex": "unpackage/res/imges/1125-2436.png"
+            "retina47": "unpackage/res/imges/ios/750.png",
+            "retina35": "unpackage/res/imges/ios/640-960.png",
+            "retina40": "unpackage/res/imges/ios/640-1336.png",
+            "iphonex": "unpackage/res/imges/ios/1125-2436.png"
           },
           "ipad": {
-            "portrait": "unpackage/res/imges/768-1104.png",
-            "portrait7": "unpackage/res/imges/768-1024.png",
-            "portrait-retina": "unpackage/res/imges/1536-2008.png",
-            "portrait-retina7": "unpackage/res/imges/1536-2048.png"
+            "portrait": "unpackage/res/imges/ios/768-1104.png",
+            "portrait7": "unpackage/res/imges/ios/768-1024.png",
+            "portrait-retina": "unpackage/res/imges/ios/1536-2008.png",
+            "portrait-retina7": "unpackage/res/imges/ios/1536-2048.png"
           }
         },
         "android": {
           "mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-          "ldpi": "","hdpi":"unpackage/res/imges/480x762.png","xhdpi":"unpackage/res/imges/720x1242.png","xxhdpi":"unpackage/res/imges/1080x1882.png"
+          "ldpi": "","hdpi":"unpackage/res/imges/andriod/480.png","xhdpi":"unpackage/res/imges/andriod/720.png","xxhdpi":"unpackage/res/imges/andriod/1080.png"
         }
       },"debug":true
     },
@@ -516,7 +516,8 @@
 					"img/common/md/icon_clear@2x.png"
 				],
 				"refer": [
-					"html/vehicle-check-safety.html"
+					"html/vehicle-check-safety.html",
+					"html/vehicle-input.html"
 				],
 				"priority": 0
 			},
@@ -621,7 +622,8 @@
 					"img/other/md/icon_search_new.png"
 				],
 				"refer": [
-					"html/vehicle-check-up.html"
+					"html/vehicle-check-up.html",
+					"html/vehicle-input-bom.html"
 				],
 				"priority": 0
 			},
@@ -6749,19 +6751,37 @@
 					"img/car.png"
 				],
 				"priority": 3
+			},
+			"html/vehicle-input-bom.html": {
+				"resources": [],
+				"refer": [
+					"html/vehicle-input-tools.html"
+				],
+				"priority": 0
+			},
+			"html/vehicle-input-tools.html": {
+				"resources": [],
+				"refer": [
+					"html/vehicle-upload.html"
+				],
+				"priority": 0
+			},
+			"html/vehicle-up-check.html": {
+				"resources": [],
+				"refer": [
+					"html/vehicle-input.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {
 			"resources": [
 				"img/login/md/icon_arrow_right.png",
 				"img/common/md/start@2x.png",
-				"html/vehicle-input-bom.html",
 				"img/common/md/icon_finished@2x.png",
 				"img/common/md/line_finished@2x.png",
-				"html/vehicle-upload.html",
 				"img/common/md/upload_img@2x.png",
 				"img/common/md/vehicle_input_disabled@2x.png",
-				"html/vehicle-input-tools.html",
 				"img/car_red.png",
 				"img/common/md/line.png",
 				"img/common/md/icon_bus.png",

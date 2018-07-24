@@ -46,6 +46,10 @@
     header {
       z-index: 999;
     }
+
+    #openPopover {
+      padding: 6px 12px;
+    }
   </style>
 </head>
 
@@ -236,6 +240,7 @@
       var data = {};
       var canUpCheck = false;
       var isModify = false; // 是否修改
+      var isFirst = false; // 是否为首次录入
 
       // plusReady
       mui.plusReady(function () {
@@ -295,6 +300,7 @@
             vSn: vSn,
             upCheckInfo: data,
             isModify: isModify,
+            isFirst: isFirst,
             prevId: self.id
           } //自定义扩展参数
         })
@@ -325,7 +331,7 @@
       function fetchData() {
         app.findUpcheck({ vSn }, function (res) {
           if (JSON.stringify(res) == 'null') {
-            
+
             return;
           }
           updateView(res)

@@ -567,12 +567,12 @@
                 <input type="text" name="remark" placeholder="" readonly>
               </div>
             </div>
-            <div class="info-operator">
+            <!-- <div class="info-operator">
               <div class="info-operator-item">
-                <span class="operator">录入人：张三问</span>
-                <span class="makeTime">2018-12-12</span>
+                <span class="operator">录入人：</span>
+                <span class="makeTime"></span>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="no-data">
             <p>车辆录入未完成！</p>
@@ -1618,12 +1618,12 @@
 
             <div class="info-operator">
               <div class="info-operator-item">
-                <span>检查人：张三问</span>
-                <span>2018-12-12</span>
+                <span class="checkPerson">检查人：</span>
+                <span class="checkTime" ></span>
               </div>
               <div class="info-operator-item">
-                <span>核对人：张三问</span>
-                <span>2018-12-12</span>
+                <span class="checkingPerson">核对人：</span>
+                <span class="checkingTime"></span>
               </div>
             </div>
           </div>
@@ -2312,6 +2312,12 @@
       // 更新视图
       var updateView = {
         checkUp: function (data) {
+          if (JSON.stringify(data) == 'null') {
+            // console.log(1233444)
+            // mui.toast('车辆录入未完成');
+            $('#checkUp .no-data').show().prev().hide()
+            return;
+          }
           for (const key in data) {
             if (data.hasOwnProperty(key)) {
               const item = data[key];
@@ -2336,8 +2342,8 @@
               $('#vehicle_input input[name=' + key + ']').val(item)
             }
           }
-          $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
-          $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
+          // $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
+          // $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
 
           $('#vSn').html(data.vSn)
           $('#vin').html(data.vin)
@@ -2427,6 +2433,12 @@
             $(this).find('.checkExplanation').html(data[i].checkExplanation ? data[i].checkExplanation : '无')
             $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation : '无')
           })
+
+           $('#wireCheck').find('.checkPerson').html('检查人：' + res.check.checkPerson ? res.check.checkPerson : '无')
+          $('#wireCheck').find('.checkTime').html(res.check.checkTime ? res.check.checkTime : '无')
+          $('#wireCheck').find('.checkingPerson').html('核对人：'+ res.check.checkingPerson ? res.check.checkingPerson : '无')
+          $('#wireCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '无')
+          
 
         },
         tools: function (data) {

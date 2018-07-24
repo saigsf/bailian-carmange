@@ -47,6 +47,11 @@
     .info-operator-item span {
       display: inline;
     }
+
+    #openPopover {
+      display: none;
+      padding: 6px 12px;
+    }
   </style>
 </head>
 
@@ -83,6 +88,16 @@
             </tr>
             <tr>
               <td>
+                <input type="text" name="toolName" value="CAN0开发接头">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="前催化器载体温度">
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <input type="text" name="toolName" value="空气比传感器座">
               </td>
             </tr>
@@ -93,24 +108,29 @@
             </tr>
             <tr>
               <td>
-                <input type="text" name="toolName" value="">
+                <input type="text" name="toolName" value="排气管改造">
               </td>
             </tr>
             <tr>
               <td>
-                <input type="text" name="toolName" value="">
+                <input type="text" name="toolName" value="安装前拖车钩">
               </td>
             </tr>
             <tr>
               <td>
-                <input type="text" name="toolName" value="">
+                <input type="text" name="toolName" value="拆下ECU">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="" placeholder="添加">
               </td>
             </tr>
           </tbody>
         </table>
       </form>
       <!-- 研发工具申请end -->
-      <div class="info-operator">
+      <div class="info-operator hide">
         <div class="info-operator-item">
           <p>
             <span>申请人：</span>
@@ -165,14 +185,24 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
-      $('.mui-scroll').css('min-height',$('.mui-content').height())
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
+
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById('vehicle-input-bom')
+      vSn = self.vSn;
       oneInfo = self.oneInfo
       oneBom = self.oneBom
       upCheckInfo = self.upCheckInfo;
       isModify = self.isModify;
-      vSn = self.vSn;
+      isFirst = self.isFirst;
+
+      if (!isFirst) {
+        $('#openPopover').show()
+        $('.info-operator').css('display', 'flex')
+      } else {
+        $('.info-operator').hide()
+      }
+
       fetchData();
       submitData()
     })
@@ -199,17 +229,9 @@
         console.log(res);
         if (res.length <= 0) {
           canTools = false;
-          isFirst = true;
-          $('#openPopover').hide()
-          return;
         }
         // console.log(oneBom, oneInfo);
 
-        // if (!isModify && !isFirst) {
-        //   // $('#submit').parent().hide()
-        // } else {
-        //   // $('#submit').html('确认修改').parent().show()
-        // }
         updateView(res);
       }, function (xhr, type, errorThrown) {
         //异常处理；
@@ -230,8 +252,7 @@
         const item = data[i];
         html += '<tr data-id="' + item.id + '"><td><input type="text" name="toolName" value="' + item.toolName + '"></td></tr>'
       }
-      html += '<tr><td><input type="text" name="toolName" value=""></td></tr>';
-      html += '<tr><td><input type="text" name="toolName" value=""></td></tr>';
+      html += '<tr><td><input type="text" name="toolName" value="" placeholder="添加"></td></tr>';
       $('table tbody').html(html)
       $('input').attr('readonly', true)
 
@@ -261,9 +282,6 @@
           }
         })
 
-        // if (!((!isFirst && canTools) || isFirst)) {
-        //   oneToolApply = null;
-        // }
 
         mui.openWindow({
           url: 'vehicle-upload.html',
@@ -280,7 +298,8 @@
             oneInfo: oneInfo,
             upCheckInfo: upCheckInfo,
             oneToolApply: oneToolApply,
-            isModify: isModify
+            isModify: isModify,
+            isFirst: isFirst
           } //自定义扩展参数
         })
 
@@ -314,6 +333,17 @@
       mui.back();
       mui.fire(view, 'goback', {});
     })
+
+    $('table tbody ').on('focus', 'tr:last input', function () {
+      $('table tbody ').append('<tr><td><input type="text" name="toolName" value="" placeholder="添加"></td></tr>');
+      $(this).attr('placeholder', '')
+    })
+    $('table tbody ').on('blur', 'input', function () {
+      if(!$(this).val()) {
+        $(this).parents('tr').remove()
+      }
+    })
+
 
 
 

@@ -103,6 +103,10 @@
     .mui-table-view.mui-table-inputview {
       overflow: visible;
     }
+    #openPopover {
+      display: none;
+      padding: 6px 12px;
+    }
   </style>
 </head>
 
@@ -344,7 +348,7 @@
     var upCheckInfo = null;
 
     var canReviseInput = false; // 可以修改
-    var isFirst = false;
+    var isFirst = true;
 
     var isModify = false;
     // 初始化
@@ -360,10 +364,15 @@
       view = plus.webview.getWebviewById(self.prevId);
       H = self.H;
       vSn = self.vSn;
-      console.log(vSn)
       $('#vSn').val(vSn);
       isModify = self.isModify;
-      upCheckInfo = self.upCheckInfo
+      isFirst = self.isFirst;
+      upCheckInfo = self.upCheckInfo;
+
+      if(!isFirst) {
+        $('#openPopover').show()
+      }
+
       fetchData();
       submitData();
     })
@@ -404,6 +413,7 @@
         isModify = canReviseInput || isModify
       })
 
+      $('#makeTime').val(dDate.format('yyyy-MM-dd'));
       $('#makeTime').off().on('tap', function () {
 
         plus.nativeUI.pickDate(function (e) {
@@ -495,10 +505,9 @@
 
         if (res == null) {
           canReviseInput = false;
-          isFirst = true;
-          $('#openPopover').hide()
           return;
         }
+        
 
         id = res.id;
         updateView.addCar(res)
@@ -642,16 +651,6 @@
           return;
         }
 
-        // 第一次录入
-        // 不是第一次，但是有修改操作
-        // console.log(!((canReviseInput && !isFirst) || isFirst))
-        // console.log(isFirst)
-        // console.log(canReviseInput)
-        // return;
-        // if(!((canReviseInput && !isFirst) || isFirst)) {
-        //   isModify = true;
-        // }
-        // console.log(11212)
         var idx = $(this).attr('id');
         mui.openWindow({
           url: idx + '.html',
@@ -666,7 +665,8 @@
             vSn: vSn,
             oneInfo: oneInfo,
             upCheckInfo: upCheckInfo,
-            isModify: isModify
+            isModify: isModify,
+            isFirst: isFirst
           } //自定义扩展参数
         })
       })

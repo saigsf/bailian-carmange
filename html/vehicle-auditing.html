@@ -100,6 +100,7 @@
     .date-wrapper .date-file {
       width: 70%;
     }
+
     .date-wrapper .date-img {
       width: 100px;
       height: 100px;
@@ -117,7 +118,7 @@
       border-color: #eee;
     }
 
-    
+
 
     table tbody tr td span {
       margin: 0 auto;
@@ -505,12 +506,12 @@
                 <input type="text" name="remark" placeholder="" readonly>
               </div>
             </div>
-            <div class="info-operator">
+            <!-- <div class="info-operator">
               <div class="info-operator-item">
-                <span class="operator">录入人：张三问</span>
-                <span class="makeTime">2018-12-12</span>
+                <span class="operator">录入人：</span>
+                <span class="makeTime"></span>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="no-data">
             <p>车辆录入未完成！</p>
@@ -1861,7 +1862,14 @@
             $('#openPopover').show();
             $('#six_next').html('确定修改').parent().hide()
 
-            $('#auditing_form').find('input[name=status]').val(res.status)
+            $('#auditing_form').find('input[name=status]').each(function (i) {
+              if ($(this).val() == res.status) {
+                $(this).attr('checked', true)
+              } else {
+                $(this).attr('checked', false)
+              }
+            })
+
             $('#auditing_form').find('textarea[name=explanation]').val(res.explanation)
             $('#auditing_form').find('.reviewerPerson').html('申请人：' + res.reviewerPerson)
             $('#auditing_form').find('.reviewerTime').html(res.reviewerTime)
@@ -2020,8 +2028,8 @@
               $('#vehicle_input input[name=' + key + ']').val(item)
             }
           }
-          $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
-          $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
+          // $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
+          // $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
 
           $('#vSn').html(data.vSn)
           $('#vin').html(data.vin)
@@ -2202,13 +2210,13 @@
 
       $('#openPopover').on('tap', function () {
         if ($(this).html() == '修改') {
-          $('#next').parent().show();
+          $('#six_next').parent().show();
           $('#auditing_form input').attr('disabled', false)
           $('#auditing_form textarea').attr('disabled', false)
           $(this).html('取消')
 
         } else {
-          $('#next').parent().hide();
+          $('#six_next').parent().hide();
           $('#auditing_form input').attr('disabled', true)
           $('#auditing_form textarea').attr('disabled', true)
           $(this).html('修改')
