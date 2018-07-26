@@ -4488,7 +4488,8 @@
 					"html/vehicle-input-detail.html",
 					"html/vehicle-insurance-apply.html",
 					"html/vehicle-input-info.html",
-					"html/search.html"
+					"html/search.html",
+					"html/vehicle-filter.html"
 				],
 				"priority": 0
 			},

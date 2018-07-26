@@ -613,7 +613,7 @@
 
 
 			// 绑定事件
-			var listener = AMap.event.addListener(map, "click", function (ev) {
+			var listener = AMap.event.addListener(map, "tap", function (ev) {
 				// DOM 被点击时触发，ev 为原生事件
 				console.log(ev)
 				$('#no-data').show()

@@ -266,7 +266,7 @@
     var H = null;
     var self = null;
     var vSn = '2018ICECTC001';
-    var data = {}
+    // var data = {}
     var idArr = ['vehicle-up-check', 'vehicle-check-safe', 'vehicle-check-wire', 'vehicle-check-bom', 'vehicle-RD-tools', 'vehicle-auditing', 'vehicle-check-down', 'vehicle-info']
     var page = []
 
@@ -428,7 +428,8 @@
 
     // 获取数据
     function fetchData() {
-      app.carQuery({ vSn }, function (res) {
+      console.log(vSn)
+      app.carQuery2({ vSn }, function (res) {
         console.log(res)
         res = JSON.parse(res)
         updateView(res.rows[0])

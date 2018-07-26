@@ -457,7 +457,7 @@
       function addEvents() {
         // 跳转执行下一步
         $('#vehicle_input_list').on('tap', 'li .item-right', function () {
-          var $li = $(this);
+          var $li = $(this).parents('li');
           mui.openWindow({
             url: 'vehicle-input-info.html',
             id: 'vehicle-input-info', //默认使用当前页面的url作为id
@@ -469,7 +469,7 @@
             extras: {
               H: H,
               vSn: $li.attr('data-vsn'),
-              data: data[$li.index()]
+              // data: data[$li.index()]
             } //自定义扩展参数
           })
         })
