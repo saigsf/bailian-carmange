@@ -2007,8 +2007,7 @@
 					"html/vehicle-check-down.html",
 					"html/vehicle-check-up.html",
 					"html/vehicle-insurance-list.html",
-					"html/vehicle-license-list.html",
-					"html/vehicle-list.html"
+					"html/vehicle-license-list.html"
 				],
 				"priority": 0
 			},
@@ -3010,9 +3009,7 @@
 					"img/common/md/icon_clear@2x.png"
 				],
 				"refer": [
-					"html/repair-maintain-list.html",
-					"html/repair-apply.html",
-					"html/repair-list.html"
+					"html/repair-maintain-list.html"
 				],
 				"priority": 3
 			},
@@ -4044,8 +4041,7 @@
 					"img/common/md/icon_clear@2x.png"
 				],
 				"refer": [
-					"html/doorpost-driver.html",
-					"html/doorpost-car-entrance.html"
+					"html/doorpost-driver.html"
 				],
 				"priority": 5
 			},
@@ -4203,7 +4199,7 @@
 					"html/setting.html",
 					"html/repair.html",
 					"html/doorpost.html",
-					"html/home.html"
+					"login.html"
 				],
 				"priority": 0
 			},

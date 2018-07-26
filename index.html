@@ -143,6 +143,22 @@
 
       // 创建子页面，显示首个选项卡其他都影藏
       mui.plusReady(function () {
+        /**
+  * 获取本地存储中launchFlag的值
+  * http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getItem
+  * 若存在，说明不是首次启动，直接进入首页；
+  * 若不存在，说明是首次启动，进入引导页；
+  */
+        // var launchFlag = plus.storage.getItem("launchFlag");
+        // if (!launchFlag) {
+        //   mui.openWindow({
+        //     url: 'login.html',
+        //     id: 'login',
+        //     show: {
+        //       aniShow: 'pop-in'
+        //     }
+        //   });
+        // }
 
         //获取底部导航栏的实际高度
         var tabH = $('#mui_bar_tab').height()
@@ -177,7 +193,24 @@
           self.append(sub);
         }
 
+
+
+        var backButtonPress = 0;
+        mui.back = function (event) {
+          backButtonPress++;
+          if (backButtonPress > 1) {
+            plus.runtime.quit();
+          } else {
+            plus.nativeUI.toast('再按一次退出应用');
+          }
+          setTimeout(function () {
+            backButtonPress = 0;
+          }, 1000);
+          return false;
+        };
       });
+
+
 
       //当前激活选项
       var activeTab = subpages[0];
@@ -217,9 +250,8 @@
 
         activeTab = targetTab;
 
-        if (mui.os.ios) closeView();
-        // closeView();
-
+        // if (mui.os.ios) closeView();
+        // closeView()
       });
 
       //自定义事件，模拟点击“首页选项卡”

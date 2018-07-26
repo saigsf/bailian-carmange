@@ -291,6 +291,10 @@
         //提交
         var data = serialize($('form'));
         console.log(data)
+        if(data.vSn == '您未登录') {
+          mui.alert('您未登录，请先登录', '提示')
+          return;
+        }
         var checkArr = ['vSn', 'brandModelone', 'vin', 'odometer', 'send_p', 'engineNumber', 'telephone']
         var translateArr = [{
           name: 'vSn',
@@ -375,8 +379,9 @@
         $('input').val('')
         // 获取车辆编号
         app.getvSn({}, function (res) {
-          console.log(res);
-          if (res.length > 30) {
+          if( res.substring(0, 15) == '<!DOCTYPE html>') {
+            console.log('您未登录');
+            $('#vSn').val('您未登录');
             return;
           }
           $('#vSn').val(res);

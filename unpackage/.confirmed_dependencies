@@ -27,7 +27,8 @@
       "html/home.html",
       "html/popover.html",
       "html/doorpost.html",
-      "html/home-map-search.html"
+      "html/home-map-search.html",
+      "login.html"
     ]
   },
   "html/vehicle.html": {
@@ -1059,6 +1060,7 @@
   "html/vehicle-up-check.html": {
     "refer": [
       "html/vehicle-input.html"
-    ]
+    ],
+    "resources": []
   }
 }

@@ -538,8 +538,10 @@
     var oldBack = mui.back;
     mui.back = function () {
       if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+        console.log(1)
         viewApi.back();
       } else { //执行webview后退
+        console.log(2)
         oldBack();
       }
     };
@@ -853,7 +855,11 @@
     $('#clear_cache').on('tap', function () {
       // myStorage.clear();
       console.log('清除数据')
-      myStorage.removeItem('vehicleList')
+      var cle = myStorage.clear();
+      if(cle) {
+        mui.toast('数据清除成功')
+      }
+      console.log(cle)
     })
   </script>
 

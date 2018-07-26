@@ -108,10 +108,16 @@
 
     .item-left {
       width: 80px;
-      height: 80px
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
     }
+
     .item-left img {
-      max-height: 100%;
+      width: 100%;
+      display: block;
     }
 
     .item-right {
@@ -276,7 +282,6 @@
         app.insuranceQuery(opt, function (res) {
           console.log(res)
           res = JSON.parse(res)
-          console.log(res)
           if (!res.total || res.total <= 0 || res.rows.length <= 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据，下拉加载所有数据')
@@ -353,6 +358,19 @@
 
         }
         $('#vehicle_insurance_list').append(html)
+        $('img').each(function (i) {
+          if ($(this).width() > $(this).height()) {
+            $(this).css({
+              height: '100%',
+              width: 'auto'
+            })
+          } else {
+            $(this).css({
+              width: '100%',
+              height: 'auto'
+            })
+          }
+        })
         lazyLoad.refresh(true);
       }
 

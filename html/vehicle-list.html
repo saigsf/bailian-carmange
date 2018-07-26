@@ -250,7 +250,7 @@
       }, 1000)
     }
     // 获取数据
-    fetchData()
+    // fetchData()
     function fetchData() {
 
       var opt = {
@@ -264,7 +264,7 @@
       }
 
       app[queryType](opt, function (res) {
-        console.log(res)
+        // console.log(res)
         res = JSON.parse(res);
         if (!res.total || res.total <= 0) {
           $('#no-data').show().prev().hide()

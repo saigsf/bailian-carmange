@@ -1,6 +1,6 @@
 // var BASE_URL_1 = 'http://192.168.0.222:8080/';
-var BASE_URL_1 = 'http://36.110.56.189:8848/';
-// var BASE_URL_1 = 'http://47.98.182.165/';
+// var BASE_URL_1 = 'http://36.110.56.189:8848/';
+var BASE_URL_1 = 'http://47.98.182.165/';
 
 
 /**
@@ -163,7 +163,7 @@ var merge = function (arr, subArr) {
   var length = arr.length;
   console.log(length);
   console.log(subArr.length)
-  
+
   for (let i = 0; i < subArr.length; i++) {
     const item = subArr[i];
     if (length == 0) {
@@ -302,3 +302,20 @@ var findNum = function (arr, value) {
 
 
 
+
+// if (window.history && window.history.pushState) {
+//   $(window).on('popstate', function () {
+//     var hashLocation = location.hash; 
+//     var hashSplit = hashLocation.split("#!/");
+//     var hashName = hashSplit[1];
+//     console.log(hashName)
+//     if (hashName !== '') { 
+//       var hash = window.location.hash; 
+//       if (hash === '') { 
+//         alert('后退按钮点击'); 
+
+//       } 
+//     }
+//   });
+//   window.history.pushState('forward', null, './#forward');
+// }

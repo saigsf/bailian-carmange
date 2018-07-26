@@ -116,6 +116,15 @@
     .blue {
       color: #2885cf
     }
+    .no-data {
+      height: 100%;
+      width: 100%;
+      background-color: transparent;
+    }
+
+    .no-data p {
+      top: 40%;
+    }
   </style>
 </head>
 
@@ -134,6 +143,12 @@
         </div>
       </form> -->
       <ul id="OA_task_1" class="mui-table-view mui-table-listview"></ul>
+      <div class="no-data" id="no-data">
+        <p>
+          您未登录，点击
+          <a href="#">登录</a>
+        </p>
+      </div>
     </div>
   </div>
 
@@ -203,10 +218,19 @@
           size: 10,
         }, dataArr);
         app.carInAndOutAll(opt, function (res) {
-           console.log(res)
+           
+          if( res.substring(0, 15) == '<!DOCTYPE html>') {
+            console.log('您未登录');
+            $('#no-data').show().prev().hide()
+            return;
+          }
+          $('#no-data').hide().prev().show()
+          console.log(res)
           res = JSON.parse(res)
          
           if (!res.total || res.total <= 0) {
+            $('#no-data').show().find('p').html('没有数据')
+            .prev().hide()
             return;
           }
           curPage++;

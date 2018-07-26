@@ -521,6 +521,10 @@
 				// updateView.allcar({})
 				// return;
 				app.allcar({}, function (res) {
+					if( res.substring(0, 15) == '<!DOCTYPE html>') {
+            console.log('您未登录');
+            return;
+          }
 					console.log(res)
 					res = JSON.parse(res);
 					// if(res.length<=0) {

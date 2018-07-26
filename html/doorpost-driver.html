@@ -23,9 +23,9 @@
       margin: 0;
     }
 
-    /* .search-wrapper {
+    .search-wrapper {
       width: 85%;
-    } */
+    }
 
     .top .icon-more {
       width: 34px;
@@ -143,7 +143,7 @@
 
     .batch .allcheck,
     .batch .canclecheck {
-      width: 15%;
+      width: 20%;
     }
 
     .batch .search-wrapper {
@@ -251,8 +251,6 @@
     .search-wrapper {
       height: 40px;
     }
-
-    
   </style>
 </head>
 
@@ -288,8 +286,8 @@
     </div>
   </div>
   <div class="btn-container">
-    <button class="btn" id="authorize_batch">授权</buttons>
-      <button class="btn btn-blue" id="cancel_authorize_batch">禁止</button>
+    <button class="btn" id="authorize_batch">授权</button>
+    <button class="btn btn-blue" id="cancel_authorize_batch">禁止</button>
   </div>
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>
@@ -418,6 +416,7 @@
           if (app.getUserRoles('admin') || app.getUserRoles('driverManager')) {
             html += '<div class="mui-slider-right mui-disabled">' +
               '<a class="mui-btn mui-btn-gray update">修改</a>' +
+              '<a class="mui-btn mui-btn-orange ' + (item.isallow == '禁止' ? 'authorize' : 'cancel_authorize') + '">' + (item.isallow == '禁止' ? '授权' : '禁止') + '</a>' +
               '<a class="mui-btn mui-btn-red delete">删除</a>' +
               '</div>'
           }
@@ -451,6 +450,8 @@
 
       function addEvent() {
 
+
+
         // 驾驶员信息修改
         $('#OA_task_1').on('tap', '.update', function () {
           var $li = $(this).parents('li');
@@ -467,6 +468,53 @@
               H: H,
               driverId: $li.attr('data-id')
             } //自定义扩展参数
+          })
+        })
+
+        // 驾驶员授权
+        $('#OA_task_1').on('tap', '.authorize', function () {
+          var $li = $(this).parents('li');
+          // canceLongtap()
+          mui.openWindow({
+            url: 'doorpost-driver-authorize.html',
+            id: 'doorpost-driver-authorize', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              ids: $li.attr('data-id'),
+              names: $li.attr('data-name')
+            } //自定义扩展参数
+          })
+        })
+
+        // 驾驶员取消授权
+        $('#OA_task_1').on('tap', '.cancel_authorize', function () {
+          var $li = $(this).parents('li');
+          app.cancelAuthorized({
+            ids: $li.attr('data-id')
+          }, function (res) {
+            console.log(res);
+            res = JSON.parse(res)
+            if (res.ret) {
+              // plus.webview.currentWebview().reload()
+              curPage = 1;
+              $('#OA_task_1').html('')
+              fetchData();
+            } else {
+              mui.toast('禁止失败')
+            }
+          }, function (xhr, type, errorThrown) {
+            //异常处理；
+            console.log(type);
+            mui.toast(type);
+            if (type == 'timeout') {
+              console.log("请求超时：请检查网络")
+            } else {
+              console.log('请求失败：' + type + '\n err:' + errorThrown);
+            }
           })
         })
 

@@ -433,6 +433,10 @@ input[type=submit] {
   background-color: #c8c7cd;
 }
 
+.mui-btn-orange {
+  background-color: orange;
+}
+
 .mui-button-row {
   width: 90%;
   margin: 10px auto 20px;
