@@ -134,7 +134,7 @@
         </div>
       </div>
       <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="four_next">提交</button>
+        <div class="btn btn-blue" id="four_next">提交</div>
       </div>
     </div>
     <div class="no-data" id="no-data">
@@ -301,7 +301,7 @@
           setTimeout(() => {
             submitLock = false;
             mui.back();
-          }, 500);
+          }, 100);
         } else {
           submitLock = false;
           mui.toast(res.msg);

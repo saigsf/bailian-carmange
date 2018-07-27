@@ -1276,7 +1276,7 @@
         </div>
       </div>
       <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="two_next">提交</button>
+        <div class="btn btn-blue" id="two_next">提交</div>
       </div>
     </div>
   </div>
@@ -1645,12 +1645,12 @@
         }
       })).then(function (res) {
         // console.log(1435, res.msg);
-        mui.toast('安全检查、缸压检测成功');
+        mui.toast('操作成功');
         setTimeout(() => {
           submitLock = false;
           mui.back();
           mui.fire(view, 'update', null)
-        }, 500);
+        }, 100);
 
       }, function (err) {
         submitLock = false;
@@ -1678,6 +1678,7 @@
 
           $(this).html('取消修改检查信息')
           $('#two_next').html('确认修改').parent().show()
+          $('#pressure').find('input').attr('readonly', false)
         } else if (str === '修改核对信息') {
           if (isRevising) {
             mui.alert('请先完成之前的修改操作', '提示')
@@ -1692,6 +1693,7 @@
           $('#two_next').html('确认修改').parent().show()
         } else if (str === '取消修改检查信息') {
           $(this).html('修改检查信息');
+          $('#pressure').find('input').attr('readonly', true)
           isRevising = false;
           if (btnStr == '提交') {
             $('#two_next').parent().hide()

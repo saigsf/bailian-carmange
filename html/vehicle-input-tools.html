@@ -146,7 +146,7 @@
       </div>
       <!-- 提交 -->
       <div class="btn-wrapper ">
-        <button type="button" class="btn btn-blue" id="submit">下一步</button>
+        <div class="btn btn-blue" id="submit">下一步</div>
       </div>
 
     </div>
@@ -204,7 +204,6 @@
       }
 
       fetchData();
-      submitData()
     })
 
     function handsetAdaption() {
@@ -229,6 +228,7 @@
         console.log(res);
         if (res.length <= 0) {
           canTools = false;
+          return;
         }
         // console.log(oneBom, oneInfo);
 
@@ -261,12 +261,12 @@
     }
 
     function submitData() {
+      console.log(submitLock)
       // 车辆录入,包含三部分的数据提交
-      $('#submit').on('tap', function () {
-        if (submitLock) {
-          return;
-        }
-        submitLock = true;
+        // if (submitLock) {
+        //   return;
+        // }
+        // submitLock = true;
 
         var oneToolApply = [];
         var $toolTr = $('#form_one_tool_apply tr');
@@ -303,12 +303,8 @@
           } //自定义扩展参数
         })
 
-        return;
-
-
-      })
-
     }
+    $('#submit').on('tap', submitData)
 
     $('#openPopover').on('tap', function () {
       console.log($(this).html())
@@ -339,14 +335,10 @@
       $(this).attr('placeholder', '')
     })
     $('table tbody ').on('blur', 'input', function () {
-      if(!$(this).val()) {
+      if (!$(this).val()) {
         $(this).parents('tr').remove()
       }
     })
-
-
-
-
   </script>
 </body>
 

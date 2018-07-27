@@ -191,7 +191,7 @@
         </ul>
       </form>
       <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="submit">提交</button>
+        <div class="btn btn-blue" id="submit">提交</div>
       </div>
     </div>
   </div>
@@ -295,7 +295,7 @@
               setTimeout(() => {
                 mui.back();
                 mui.fire(view, 'update', null)
-              }, 500);
+              }, 100);
             }
           }, function (xhr, type, errorThrown) {
             //异常处理；

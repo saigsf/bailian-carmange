@@ -183,7 +183,7 @@
         </div>
       </form> -->
       <div class="btn-wrapper ">
-        <button type="button" class="btn btn-blue" id="submit">提交</button>
+        <div class="btn btn-blue" id="submit">提交</div>
       </div>
     </div>
   </div>
@@ -285,14 +285,21 @@
     }
 
     function fetchData() {
-      app.carQuery({ vSn }, function (res) {
+      app.carQuery({
+        vSn
+      }, function (res) {
         console.log(res)
         res = JSON.parse(res);
         if (res.rows.length == 0) {
           return;
         }
-        if (res.rows[0].picurl)
+        if (res.rows[0].picurl) {
           $('#vehicle_img').prev().find('img').attr('src', res.rows[0].picurl).show()
+          mui('#demo1').progressbar().setProgress(100);
+          $('#demo1').find('span').css('backgroundColor', '#18c918');
+          $('#demo1').next().removeClass('icon-update').addClass('icon-update-success')
+        }
+
         // if(res.picurl)
         // $('#circuit_img').attr('src', res.picurl).show()
         // if(res.picurl)
@@ -340,24 +347,14 @@
       var _this = this;
       var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
 
-      var srcs = getObjectURL(this.files[0]);   //获取路径
+      var srcs = getObjectURL(this.files[0]); //获取路径
       $(this).parent().find('img').prop('src', srcs).show()
       $('#submit').parent().show();
 
-      // if (isModify) {
-      //   submitData()
-      // } else {
-      //   app.getvSn({}, function (res) {
-      //     if (res != null && res != vSn) {
-      //       vSn = res;
-      //     }
-      //     console.log(vSn)
-      //     // return;
-      //     submitData()
-      //   }, function (err) {
+      mui('#demo1').progressbar().setProgress(0);
+      // $('#demo1').find('span').css('backgroundColor', '#ff4c4c');
+      $('#demo1').next().removeClass('icon-update-success').addClass('icon-update')
 
-      //   })
-      // }
     })
 
     // 提交数据
@@ -523,7 +520,9 @@
 
         var process = 0;
         mui(pid)[0].style.visibility = 'visible';
-        mui(pid).progressbar({ progress: 10 }).show();
+        mui(pid).progressbar({
+          progress: 10
+        }).show();
         // mui(pid).progressbar().setProgress(100);
         // $(pid).find('span').css('backgroundColor', '#ff4c4c');
         $(pid).find('span').css('backgroundColor', '#18c918')
@@ -532,8 +531,8 @@
           url: url,
           type: "post",
           data: formData,
-          contentType: false,//必须false才会自动加上正确的Content-Type
-          processData: false,//必须false才会避开jQuery对 formdata 的默认处理
+          contentType: false, //必须false才会自动加上正确的Content-Type
+          processData: false, //必须false才会避开jQuery对 formdata 的默认处理
           crossDomain: true,
           xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
             myXhr = $.ajaxSettings.xhr();
@@ -563,24 +562,27 @@
               $(pid).next().removeClass('icon-update').addClass('icon-update-success')
 
               plus.nativeUI.toast("图片上传成功", {
-                duration: "shot",// 持续3.5s，short---2s
-                align: "center",// 水平居中
+                duration: "shot", // 持续3.5s，short---2s
+                align: "center", // 水平居中
               });
 
-              console.log(flagCheck, flagInfo, flagBom, flagTools)
-              if (flagCheck && flagInfo && flagBom && flagTools) {
-                mui.back();
-                mui.fire(view, 'goback', {});
-              }
+              setTimeout(() => {
+                console.log(flagCheck, flagInfo, flagBom, flagTools)
+                if (flagCheck && flagInfo && flagBom && flagTools) {
+                  mui.back();
+                  mui.fire(view, 'goback', {});
+                }
+                submitLock = false;
+              }, 500);
 
             } else {
               mui(pid).progressbar().setProgress(100);
               $(pid).find('span').css('backgroundColor', '#ff4c4c');
               $(pid).next().removeClass('icon-update').addClass('icon-update-failed')
               mui.alert('上传失败', "提示", "确定");
-              $('input').on('change', function () {
-                submitData2()
-              })
+              // $('input').on('change', function () {
+              //   submitData2()
+              // })
             }
 
 
@@ -597,7 +599,7 @@
 
 
     }
-    // 
+    //
   </script>
 </body>
 
