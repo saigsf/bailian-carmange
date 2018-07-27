@@ -165,6 +165,7 @@
   <script src="../js/app/app.js"></script>
   <!-- 百度地图api -->
   <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=cf6a86da25b978f2976688a4d2f71a0d"></script>
+  <script crossorigin="anonymous" id="amap_plus_js" src="http://webapi.amap.com/maps/modules?v=1.4.7&amp;key=ffc8503b4c8647c3753679c5e95278a5&amp;vrs=1527753092704&amp;m=mouse,vectorlayer,overlay,wgl,sync" type="text/javascript"></script>
   <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
   <!--多点聚合-->
   <!-- 当前页面js -->
@@ -360,9 +361,10 @@
         })
         // console.log(res[0].towards)
         // lineArr.length = 0;
-        for (var i = 0; i < res.length; i++) {
-          lineArr.push(new AMap.LngLat(res[i].longitude, res[i].latitude));
-        }
+
+        mui.each(res, function(k, v) {
+          lineArr.push(new AMap.LngLat(v.longitude, v.latitude));
+        })
         // 绘制轨迹
         var polyline = new AMap.Polyline({
           map: map,

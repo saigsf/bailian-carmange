@@ -20,7 +20,6 @@
     .mui-input-row>label~textarea {
       /* border: 1px solid #f1f1f1 */
     }
-
   </style>
 </head>
 
@@ -92,50 +91,85 @@
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
   <script>
-    ; (function () {
+    ;
+    (function () {
       mui.init();
       mui('.mui-scroll-wrapper').scroll();
 
       var view = null;
+      var submitLock = false;
 
       mui.plusReady(function () {
-        $('.mui-scroll').css('min-height', $('.mui-content').height())
+        $('.mui-scroll').css('min-height', 'auto')
         view = plus.webview.getWebviewById('html/repair.html')
       })
 
       // 提交数据
-      submitData()
+
+      $('#submit').on('tap', submitData)
+
       function submitData() {
+
+        if (submitLock) {
+          mui.toast('请勿重复提交');
+          return;
+        }
+        submitLock = true
+
         // 维修申请
-        $('#submit').on('tap', function () {
-          var data = serialize($('#repair_apply'));
-          data.applyTEL = app.getState().data.telephone
-          console.log(JSON.stringify(data));
+        var data = serialize($('#repair_apply'));
+        data.applyTEL = app.getState().data.telephone
+        console.log(JSON.stringify(data));
 
-          // 维修申请
-          app.carMaintainApply(data, function (res) {
-            // console.log(res)
-            // res = JSON.parse(res);
-            mui.toast(res.msg);
+        var checkArr = ['vSn', 'item', 'send_park', 'applyTEL'];
+        var translateArr = [{
+          name: 'vSn',
+          value: '车辆编号不能为空'
+        }, {
+          name: 'item',
+          value: '维修项目不能为空'
+        }, {
+          name: 'send_park',
+          value: '停放地地点不能为空'
+        }, {
+          name: 'applyTEL',
+          value: '申请人电话不能为空'
+        }]
 
-            if (res.ret) {
-              setTimeout(function () {
-                mui.fire(view, 'repair', {
-                  domId: 'repair-list'
-                })
-              }, 500)
-            }
+        var checkResult = hasEmptyValue(data, checkArr);
+        if (checkResult) {
+          mui.toast(translate(checkResult, translateArr));
+          submitLock = false;
+          return;
+        }
 
-          }, function (xhr, type, errorThrown) {
-            //异常处理；
-            console.log(type);
-            mui.toast(type);
-            if (type == 'timeout') {
-              console.log("请求超时：请检查网络")
-            } else {
-              console.log('请求失败：' + type + '\n err:' + errorThrown);
-            }
-          })
+        // 维修申请
+        app.carMaintainApply(data, function (res) {
+          submitLock = false;
+          // console.log(res)
+          // res = JSON.parse(res);
+          mui.toast(res.msg);
+
+          if (res.ret) {
+            setTimeout(function () {
+              $('#repair_apply').find('input').val('')
+              $('#repair_apply').find('textarea').val('')
+              mui.fire(view, 'repair', {
+                domId: 'repair-list'
+              })
+            }, 100)
+          }
+
+        }, function (xhr, type, errorThrown) {
+          submitLock = false
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
         })
       }
     })();

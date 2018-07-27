@@ -278,14 +278,13 @@
         emsAndBomCheckResults.push(obj)
       });
 
-      for (let i = 0; i < emsAndBomCheckResults.length; i++) {
-        const item = emsAndBomCheckResults[i];
-        if (item.status == 'N' && item.checkExplanation == '') {
-          mui.alert('"' + item.item +'"未添加说明' , '提示')
+      mui.each(emsAndBomCheckResults, function(k, v) {
+        if (v.status == 'N' && v.checkExplanation == '') {
+          mui.alert('"' + v.item +'"未添加说明' , '提示')
           submitLock = false;
           return;
         }
-      }
+      })
 
       data = {
         vSn: vSn,
@@ -298,7 +297,7 @@
 
         if (res.ret) {
           mui.toast(res.msg);
-          setTimeout(() => {
+          setTimeout(function() {
             submitLock = false;
             mui.back();
           }, 100);
@@ -387,11 +386,10 @@
     function updateView(res) {
       var data = res.checkResults;
       var html = '';
-      for (let i = 0; i < data.length; i++) {
-        const item = data[i];
-        html += '<tr data-uuid="' + item.uuid + '">'
-          + '<td class="bomName">' + item.bomName + '</td>'
-          + '<td class="bomNum">' + item.bomNum + '</td>'
+      mui.each(data, function(k, v) {
+        html += '<tr data-uuid="' + v.uuid + '">'
+          + '<td class="bomName">' + v.bomName + '</td>'
+          + '<td class="bomNum">' + v.bomNum + '</td>'
           + '<td>'
           + '<div class="select-container">'
           + '<select name="status" class="status">'
@@ -403,15 +401,15 @@
           + '</div>'
           + '</td>'
           + '<td>'
-          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">' + (item.checkExplanation ? '···' : '+') + '</i>'
-          + '<input class="explain-text" type="hidden" value="' + (item.checkExplanation ? item.checkExplanation : '') + '">'
+          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">' + (v.checkExplanation ? '···' : '+') + '</i>'
+          + '<input class="explain-text" type="hidden" value="' + (v.checkExplanation ? v.checkExplanation : '') + '">'
           + '</td>'
           + '<td>'
-          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">' + (item.checkingExplanation ? '···' : '+') + '</i>'
-          + '<input class="resolvent-text" type="hidden" value="' + (item.checkingExplanation ? item.checkingExplanation : '') + '">'
+          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">' + (v.checkingExplanation ? '···' : '+') + '</i>'
+          + '<input class="resolvent-text" type="hidden" value="' + (v.checkingExplanation ? v.checkingExplanation : '') + '">'
           + '</td>'
           + '</tr>'
-      }
+      })
 
       $('tbody').html(html);
 

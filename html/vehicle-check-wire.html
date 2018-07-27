@@ -36,6 +36,7 @@
 
     .info-operator {
       flex-direction: column;
+      margin-bottom: 20px
     }
 
     .info-operator-item {
@@ -2235,36 +2236,34 @@
       var data = {};
       var pitem = '';
 
-      for (let i = 0; i < $wireTr.length; i++) {
-        const element = $wireTr[i];
-        if ($(element).find('.pitem').length > 0) {
-          pitem = $(element).find('.pitem').html()
+      $wireTr.each(function(i) {
+        if ($(this).find('.pitem').length > 0) {
+          pitem = $(this).find('.pitem').html()
         }
         var obj = {
-          'checkExplanation': $(element).find('.explain-text').val(),
-          'checkingExplanation': $(element).find('.resolvent-text').val(),
+          'checkExplanation': $(this).find('.explain-text').val(),
+          'checkingExplanation': $(this).find('.resolvent-text').val(),
           'pitem': pitem,
-          'item': $(element).find('.item').length > 0 ? $(element).find('.item').html() : '',
-          'status': $(element).find('.status').val(),
+          'item': $(this).find('.item').length > 0 ? $(this).find('.item').html() : '',
+          'status': $(this).find('.status').val(),
           'vSn': vSn,
-          'uuid': $(element).attr('data-uuid') ? $(element).attr('data-uuid') : ''
+          'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : ''
         }
         if (obj.status == 'N' && obj.checkExplanation == '') {
           $(this).find('.status').css('color', '#ff3a31')
         }
 
         HIResults.push(obj)
-      }
+      })
 
 
-      for (let i = 0; i < HIResults.length; i++) {
-        const item = HIResults[i];
-        if (item.status == 'N' && item.checkExplanation == '') {
-          mui.alert('"' + item.item + '"未添加说明', '提示')
+      mui.each(HIResults, function(k, v) {
+        if (v.status == 'N' && v.checkExplanation == '') {
+          mui.alert('"' + v.item + '"未添加说明', '提示')
           submitLock = false;
           return;
         }
-      }
+      })
 
       data = {
         vSn: vSn,
@@ -2277,7 +2276,7 @@
         // mui.toast(res.msg);
         if (res.ret) {
           mui.toast(res.msg);
-          setTimeout(() => {
+          setTimeout(function() {
             submitLock = false;
             mui.back()
             mui.fire(view, 'update', null)

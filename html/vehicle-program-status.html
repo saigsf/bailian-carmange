@@ -205,7 +205,7 @@
             console.log(res)
             mui.toast(res.msg)
             if(res.ret) {
-              setTimeout(() => {
+              setTimeout(function() {
                 mui.back();
                 mui.fire(view, 'update', null)
               }, 500);

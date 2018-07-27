@@ -512,16 +512,16 @@
         $('.mui-pages').css('top', '88px')
       }
 
-      plus.share.getServices(function (s) {
-        if (s && s.length > 0) {
-          for (var i = 0; i < s.length; i++) {
-            var t = s[i];
-            shares[t.id] = t;
-          }
-        }
-      }, function () {
-        console.log("获取分享服务列表失败");
-      });
+      // plus.share.getServices(function (s) {
+      //   if (s && s.length > 0) {
+      //     for (let i = 0; i < s.length; i++) {
+      //       var t = s[i];
+      //       shares[t.id] = t;
+      //     }
+      //   }
+      // }, function () {
+      //   console.log("获取分享服务列表失败");
+      // });
     });
 
     setTimeout(function () {
@@ -806,7 +806,7 @@
         console.log(JSON.stringify(res))
         mui.toast(res.msg)
         if (res.ret) {
-          setTimeout(() => {
+          setTimeout(function() {
             mui.back()
           }, 500);
         }
@@ -836,7 +836,7 @@
         console.log(JSON.stringify(res))
         mui.toast(res.msg)
         if (res.ret) {
-          setTimeout(() => {
+          setTimeout(function() {
             mui.back()
           }, 500);
         }

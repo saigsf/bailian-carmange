@@ -287,12 +287,17 @@
             return;
           }
           var data = serialize($('form'));
+
+
+          if(validateIdCard(data.pick_card)){
+            return;
+          }
           // console.log(data)
           app.backCheck(data, function (res) {
             console.log(res.msg)
             mui.toast(res.msg)
             if (res.ret) {
-              setTimeout(() => {
+              setTimeout(function() {
                 mui.back();
                 mui.fire(view, 'update', null)
               }, 100);

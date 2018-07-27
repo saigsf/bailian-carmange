@@ -194,7 +194,7 @@
 		var state = owner.getState();
 		var roles = state.data.roles;
 
-		for (let i = 0; i < roles.length; i++) {
+		for (var i = 0; i < roles.length; i++) {
 			const item = roles[i];
 			if (role == item.keyWord) {
 				return !!1;
@@ -572,7 +572,7 @@
 
 		var url = 'car-management/car/addEmsAndBomCheck/' + data.vSn + '.action'
 		data = JSON.stringify(data.emsAndBomCheckResults)
-		owner.HTTPRequestPost('POST', url, data, success, error)
+		owner.HTTPRequestPost('POST', url, data, success, error, true)
 	}
 
 	/**
@@ -588,7 +588,7 @@
 
 		// console.log(JSON.stringify(data.emsAndBomCheckResults))
 		data = JSON.stringify(data.emsAndBomCheckResults)
-		owner.HTTPRequestPost('POST', url, data, success, error)
+		owner.HTTPRequestPost('POST', url, data, success, error, true)
 	}
 
 	/**
@@ -617,7 +617,7 @@
 
 		var url = 'car-management/car/addHiCheck/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data.HIResults, success, error)
+		owner.HTTPRequestPost('POST', url, data.HIResults, success, error, true)
 	}
 
 	/**
@@ -631,7 +631,7 @@
 
 		var url = 'car-management/car/updateHiCheckByvSn/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data.HIResults, success, error)
+		owner.HTTPRequestPost('POST', url, data.HIResults, success, error, true)
 	}
 
 	/**
@@ -660,7 +660,7 @@
 
 		var url = 'car-management/car/addSafeCheck/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data.safeCheckResult, success, error)
+		owner.HTTPRequestPost('POST', url, data.safeCheckResult, success, error, true)
 	}
 
 	/**
@@ -675,7 +675,7 @@
 
 		var url = 'car-management/car/updateSafeCheckByvSn/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data.safeCheckResult, success, error)
+		owner.HTTPRequestPost('POST', url, data.safeCheckResult, success, error, true)
 	}
 
 	/**
@@ -769,7 +769,7 @@
 
 		var url = 'car-management/car/backCheck.action';
 
-		owner.HTTPRequestPost('POST', url, data, success, error)
+		owner.HTTPRequestPost('POST', url, data, success, error, true)
 	}
 
 	/**
@@ -1165,28 +1165,9 @@
 	owner.carMaintainApply = function (data, success, error) {
 
 		data = data || {};
-		var checkArr = ['vSn', 'item', 'send_park', 'applyTEL'];
-		var translateArr = [{
-			name: 'vSn',
-			value: '车辆编号不能为空'
-		}, {
-			name: 'item',
-			value: '维修项目不能为空'
-		}, {
-			name: 'send_park',
-			value: '停放地地点不能为空'
-		}, {
-			name: 'applyTEL',
-			value: '申请人电话不能为空'
-		}]
 
-		var checkResult = hasEmptyValue(data, checkArr);
-		if (checkResult) {
-			mui.toast(translate(checkResult, translateArr));
-			return;
-		}
 		var url = 'car-management/carmaintain/apply.action';
-		owner.HTTPRequestPost('POST', url, data, success, error)
+		owner.HTTPRequestPost('POST', url, data, success, error, true)
 	}
 
 	/**
@@ -1316,22 +1297,13 @@
 	 * 保存保养记录
 	 * @param {Object} data 请求参数
 	 * @param {Function} success 回掉函数
+	 * @param {Function} error 回掉函数
 	 */
 	owner.saveMaintenance = function (data, success, error) {
-		var newData = {};
-
-
 		data = data || {};
-
 		var url = 'car-management/car/maintenance/save/' + data.vSn + '/' + data.mm + '/' + data.nt + '/' + data.id + '.action';
-
-		// url = decodeURI(url)
-		// console.log(url)
-		owner.HTTPRequestPost('post', url, JSON.stringify(data.maintenanceItems), success, error)
+		owner.HTTPRequestPost('post', url, JSON.stringify(data.maintenanceItems), success, error, true)
 	}
-
-
-
 
 	/* ===============维修 end=============== */
 	/* =================驾驶员 start====================== */

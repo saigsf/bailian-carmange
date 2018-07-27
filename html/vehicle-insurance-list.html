@@ -309,21 +309,19 @@
       function updateView(data) {
         var html = '';
 
-
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-          if (item.endTime) {
-            var endDate = new Date(item.endTime.replace(/-/g, "/"))
-            var startDate = new Date(item.startTime.replace(/-/g, "/"))
+        mui.each(data, function(k, v) {
+          if (v.endTime) {
+            var endDate = new Date(v.endTime.replace(/-/g, "/"))
+            var startDate = new Date(v.startTime.replace(/-/g, "/"))
             var time = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
           }
 
-          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
+          html += '<li class="mui-table-view-cell" data-vSn="' + v.vSn + '">'
             + '<div class="list-item">'
             + '<div class="item-left">'
 
-          if (item.picurl) {
-            html += '<img data-lazyload="' + item.picurl + '" alt="" />'
+          if (v.picurl) {
+            html += '<img data-lazyload="' + v.picurl + '" alt="" />'
           } else {
             html += '<i class="icon icon-nopic"></i>'
           }
@@ -331,32 +329,32 @@
             + '<div class="item-right">'
             + '<div class="item-top">'
             + '<h4>'
-            + '<span>' + item.vSn + '</span>'
+            + '<span>' + v.vSn + '</span>'
             + '</h4>'
             + '<p>'
             + '<span>保单号：</span>'
-            + '<span class="blue">' + (item.insNo ? item.insNo : '-') + '</span>'
+            + '<span class="blue">' + (v.insNo ? v.insNo : '-') + '</span>'
             + '</p>'
             + '</div>'
             + '<div class="progress-wrapper">'
             + '<label>剩余时间：</label>'
             + '<div class="progress">'
-            + '<div class="move ' + (item.lave < 90 ? 'red' : 'green') + '" style="width:' + (item.lave ? (item.lave / time * 100 + '%') : '0') + '" ></div>'
+            + '<div class="move ' + (v.lave < 90 ? 'red' : 'green') + '" style="width:' + (v.lave ? (v.lave / time * 100 + '%') : '0') + '" ></div>'
             + '</div>'
-            + '<span>' + (item.lave ? (item.lave + '天') : '暂无') + '</span>'
+            + '<span>' + (v.lave ? (v.lave + '天') : '暂无') + '</span>'
             + '</div>'
             + '</div>'
             + '</div>'
 
-          if (item.istatus == '未续保') {
-            html += '<span class="marker red">' + item.istatus + '</span></li>'
-          } else if (item.istatus == '已申请' || item.istatus == '已续保') {
-            html += '<span class="marker green">' + item.istatus + '</span></li>'
-          } else if (item.istatus == '未申请') {
-            html += '<span class="marker blue">' + item.istatus + '</span></li>'
+          if (v.istatus == '未续保') {
+            html += '<span class="marker red">' + v.istatus + '</span></li>'
+          } else if (v.istatus == '已申请' || v.istatus == '已续保') {
+            html += '<span class="marker green">' + v.istatus + '</span></li>'
+          } else if (v.istatus == '未申请') {
+            html += '<span class="marker blue">' + v.istatus + '</span></li>'
           }
+        })
 
-        }
         $('#vehicle_insurance_list').append(html)
         $('img').each(function (i) {
           if ($(this).width() > $(this).height()) {

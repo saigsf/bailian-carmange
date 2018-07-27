@@ -118,7 +118,9 @@
 
     var deceleration = mui.os.ios ? 0.003 : 0.0009;
     //子页面列表
-    var subpages = ['vehicle-list.html', 'vehicle-check-up.html', 'vehicle-input-list.html', 'vehicle-insurance-list.html', 'vehicle-license-list.html'];
+    var subpages = ['vehicle-list.html', 'vehicle-check-up.html', 'vehicle-input-list.html',
+      'vehicle-insurance-list.html', 'vehicle-license-list.html'
+    ];
     // 子页面切换样式
     var subpages_style = {
       top: '64px',
@@ -148,18 +150,18 @@
       // console.log(self.id)
       extras.H = self.H;
 
-      for (var i = 0; i < subpages.length; i++) {
+      mui.each(subpages, function (k, v) {
         var temp = {};
-        var sub = plus.webview.create(subpages[i], subpages[i], subpages_style, extras);
+        var sub = plus.webview.create(v, v, subpages_style, extras);
 
-        if (i > 0) {
+        if (k > 0) {
           sub.hide();
         } else {
-          temp[subpages[i]] = "true";
+          temp[v] = "true";
           mui.extend(aniShow, temp);
         }
         self.append(sub);
-      }
+      })
 
     });
     //当前激活选项
@@ -201,6 +203,22 @@
       activeTab = targetTab;
     });
 
+    document.addEventListener('toList', function (e) {
+      console.log(e.detail.domId)
+      var defaultTab = document.getElementById(e.detail.domId);
+
+      //模拟首页点击
+      mui.trigger(defaultTab, 'tap');
+      //切换选项卡高亮
+      var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
+      console.log(defaultTab != current)
+      if (defaultTab !== current) {
+        current.classList.remove('mui-active');
+        defaultTab.classList.add('mui-active');
+      }
+
+    });
+
     document.addEventListener('roles', function () {
 
       if (!app.getUserRoles('uppeople') && !app.getUserRoles('admin')) {
@@ -208,17 +226,16 @@
       } else {
         $('#vehicle-check-up').attr('ishide', false).show()
       }
+
       var $a = $('.mui-scroll a');
       var sw = 0;
-      for (let i = 0; i < $a.length; i++) {
-        console.log($a.eq(i).attr('ishide') != 'true')
-        if ($a.eq(i).attr('ishide') != 'true') {
-          sw += $a.eq(i).outerWidth();
+
+      $a.each(function (i) {
+        if ($(this).attr('ishide') != 'true') {
+          sw += $(this).outerWidth();
         }
-
-      }
+      })
       $('.mui-scroll').width(sw + 16)
-
     })
 
     // 点击a标签时，检测下一个是否显示完全，如果不完整，则滚动到完整的位置，否则不变。
@@ -229,9 +246,7 @@
       indicators: true, //是否显示滚动条
       deceleration: deceleration
     })
-    var w = $('.mui-scroll-wrapper').width();  // 可视区域的宽度
-
-
+    var w = $('.mui-scroll-wrapper').width(); // 可视区域的宽度
     // })()
   </script>
 </body>

@@ -52,6 +52,7 @@
     .mui-scroll {
       padding-bottom: 24px;
     }
+
     .no-data {
       position: relative;
       background-color: transparent;
@@ -152,7 +153,8 @@
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
   <script>
-    ; (function () {
+    ;
+    (function () {
       mui.init();
 
       var vSn = '1111';
@@ -173,16 +175,18 @@
             'paddingTop': '88px'
           })
         }
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         vSn = self.vSn;
         hasData = self.hasData;
         fetchData();
       });
 
-// fetchData()
+      // fetchData()
       function fetchData() {
-        app.getMaintenance({vSn}, function (res) {
+        app.getMaintenance({
+          vSn
+        }, function (res) {
           res = JSON.parse(res);
           console.log(res)
           updateView(res)
@@ -203,7 +207,8 @@
 
         var html = '';
         if (data.length == 0) {
-          html = '<div class="info-middle"></div>\
+          html =
+            '<div class="info-middle"></div>\
                   <div class="info-item">\
                     <div class="info-title">\
                       <h4>保养记录</h4>\
@@ -213,9 +218,9 @@
                     </div>\
                   </div>'
         }
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-          html += '<div class="info-middle"></div>\
+        mui.each(data, function (k, v) {
+          html +=
+            '<div class="info-middle"></div>\
         <div class="info-item">\
           <div class="info-title">\
             <h4>保养记录</h4>\
@@ -224,25 +229,33 @@
             <div class="date-wrapper">\
               <label>维修日期</label>\
               <div class="date-text">\
-                <input type="text" name="" value="'+ item.maintenanceTime + '" placeholder="" readonly>\
+                <input type="text" name="" value="' +
+            v.maintenanceTime +
+            '" placeholder="" readonly>\
               </div>\
             </div>\
             <div class="date-wrapper">\
               <label>里程</label>\
               <div class="date-text">\
-                <input type="text" name="" value="'+ item.maintenanceMileage + '" placeholder="" readonly>\
+                <input type="text" name="" value="' +
+            v.maintenanceMileage +
+            '" placeholder="" readonly>\
               </div>\
             </div>\
             <div class="date-wrapper">\
               <label>下次保养日期</label>\
               <div class="date-text">\
-                <input type="text" name="" value="'+ item.nextMaintenanceTime + '" placeholder="" readonly>\
+                <input type="text" name="" value="' +
+            v.nextMaintenanceTime +
+            '" placeholder="" readonly>\
               </div>\
             </div>\
             <div class="date-wrapper">\
               <label>保养人员</label>\
               <div class="date-text">\
-                <input type="text" name="" value="'+ item.maintenanceOperator + '" placeholder="" readonly>\
+                <input type="text" name="" value="' +
+            v.maintenanceOperator +
+            '" placeholder="" readonly>\
               </div>\
             </div>\
             <div class="date-wrapper">\
@@ -250,14 +263,13 @@
               <div class="date-text">\
                 <select name="" id="maintenanceItem">';
 
-          for (let j = 0; j < item.maintenanceItem.length; j++) {
-            const element = item.maintenanceItem[j];
-            html += '<option value="">' + element.itemName + '/' + element.brandAndlabel + '</option>'
-          }
 
+          mui.each(v.maintenanceItem, function (ks, vs) {
+            html += '<option value="">' + vs.itemName + '/' + vs.brandAndlabel + '</option>'
+          })
 
           html += '</select></div></div></div></div>'
-        }
+        })
 
         $('.info-wrapper').append(html)
         $('#no_data').show();

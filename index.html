@@ -180,18 +180,32 @@
 
         var self = plus.webview.currentWebview();
 
-        for (var i = 0; i < subpages.length; i++) {
+        // for (let i = 0; i < subpages.length; i++) {
+        //   var temp = {};
+        //   var sub = plus.webview.create(subpages[i], subpages[i], subpages_style, extras);
+        //   if (i > 0) {
+        //     sub.hide();
+        //   } else {
+        //     temp[subpages[i]] = "true";
+        //     mui.extend(aniShow, temp);
+        //   }
+
+        //   self.append(sub);
+        // }
+
+        mui.each(subpages, function(k, v) {
           var temp = {};
-          var sub = plus.webview.create(subpages[i], subpages[i], subpages_style, extras);
-          if (i > 0) {
+          var sub = plus.webview.create(v, v, subpages_style, extras);
+          if (k > 0) {
             sub.hide();
           } else {
-            temp[subpages[i]] = "true";
+            temp[v] = "true";
             mui.extend(aniShow, temp);
           }
 
           self.append(sub);
-        }
+        })
+
 
 
 

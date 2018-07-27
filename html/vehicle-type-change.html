@@ -159,7 +159,7 @@
             console.log(res.msg)
             mui.toast(res.msg);
             if(res.ret) {
-              setTimeout(() => {
+              setTimeout(function() {
                 mui.back()
               }, 500);
               

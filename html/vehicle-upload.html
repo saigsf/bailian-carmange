@@ -363,6 +363,7 @@
       app[addcar](oneInfo, function (res) {
         console.log(res)
         res = JSON.parse(res)
+        console.log(res.msg)
         if (res.ret) {
           flagInfo = true;
         }
@@ -379,6 +380,7 @@
 
       app.applybom(oneBom, function (res) {
         console.log(JSON.stringify(res))
+        console.log(res.msg)
         if (res.ret) {
           flagBom = true;
         }
@@ -395,6 +397,7 @@
 
       app.applytools(oneToolApply, function (res) {
         console.log(JSON.stringify(res))
+        console.log(res.msg)
         if (res.ret) {
           flagTools = true;
         }
@@ -409,15 +412,6 @@
         }
       });
       submitData2()
-
-      // setTimeout(() => {
-      //   console.log(flagCheck, flagInfo, flagBom, flagTools)
-      //   if (flagCheck && flagInfo && flagBom && flagTools) {
-      //     mui.back();
-      //     mui.fire(view, 'goback', {});
-      //   }
-      //   submitLock = false;
-      // }, 500);
     }
 
     $('#submit').on('tap', function () {
@@ -430,6 +424,9 @@
       if (isModify) {
         upcheck = 'updateUpcheck';
         addcar = 'update'
+        if(oneInfo.id == null) {
+          addcar = 'save'
+        }
         submitData1()
       } else {
         app.getvSn({}, function (res) {
@@ -443,14 +440,13 @@
                   upCheckInfo.vSn = res
                   oneInfo.vSn = res
 
-                  for (let i = 0; i < oneBom.length; i++) {
-                    const item = oneBom[i];
-                    item.vSn = res
-                  }
-                  for (let i = 0; i < oneToolApply.length; i++) {
-                    const item = oneToolApply[i];
-                    item.vSn = res
-                  }
+                  mui.each(oneBom, function(k, v) {
+                    v.vSn = res
+                  })
+                  mui.each(oneToolApply, function(k, v) {
+                    v.vSn = res
+                  })
+
                   submitData1()
                 } else {
                   submitLock = false;
@@ -468,9 +464,6 @@
 
         })
       }
-
-
-
     })
 
     // 接车点检提交数据
@@ -479,12 +472,12 @@
       // console.log(upcheck)
       app[upcheck](upCheckInfo, function (res) {
         console.log(JSON.stringify(res))
+        console.log(res.msg)
         if (res.ret) {
           flagCheck = true;
           submitData()
         } else {
           submitLock = false;
-          mui.toast('接车点检失败，请检查数据是否填写正确', '提示')
         }
       }, function (xhr, type, errorThrown) {
         //异常处理；
@@ -505,8 +498,17 @@
     function submitData2() {
       $('input').each(function (i) {
         if (this.files.length == 0) {
+          setTimeout(function() {
+            console.log(flagCheck, flagInfo, flagBom, flagTools)
+            if (flagCheck) {
+              mui.back();
+              mui.fire(view, 'goback', {});
+            }
+            submitLock = false;
+          }, 500);
           return;
         }
+
         var pid = '#' + $(this).parents('.items').find('.mui-progressbar').attr('id')
 
         var formData = new FormData($(this).parents('form')[0])
@@ -523,10 +525,9 @@
         mui(pid).progressbar({
           progress: 10
         }).show();
-        // mui(pid).progressbar().setProgress(100);
-        // $(pid).find('span').css('backgroundColor', '#ff4c4c');
         $(pid).find('span').css('backgroundColor', '#18c918')
-        $(pid).next().removeClass('icon-update-failed').addClass('icon-update')
+        $(pid).next().removeClass('icon-update-failed').addClass('icon-update');
+
         $.ajax({
           url: url,
           type: "post",
@@ -554,6 +555,10 @@
             }
             return myXhr; //xhr对象返回给jQuery使用  
           },
+          beforeSend: function () {
+            console.log('beforesend!');
+            plus.nativeUI.showWaiting();
+          },
           success: function (data) {
             submitLock = false;
             if (data.ret == true) {
@@ -566,9 +571,9 @@
                 align: "center", // 水平居中
               });
 
-              setTimeout(() => {
+              setTimeout(function() {
                 console.log(flagCheck, flagInfo, flagBom, flagTools)
-                if (flagCheck && flagInfo && flagBom && flagTools) {
+                if (flagCheck) {
                   mui.back();
                   mui.fire(view, 'goback', {});
                 }
@@ -592,14 +597,14 @@
             $(pid).find('span').css('backgroundColor', '#ff4c4c');
             $(pid).next().removeClass('icon-update').addClass('icon-update-failed')
             mui.alert('上传失败', "提示", "确定");
+          },
+          complete: function () {
+            console.log('complete');
+            plus.nativeUI.closeWaiting();
           }
-
         })
       })
-
-
     }
-    //
   </script>
 </body>
 

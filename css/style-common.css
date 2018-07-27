@@ -46,6 +46,12 @@ header.mui-navbar .mui-bar-nav {
   padding-top: 20px;
 }
 
+#openPopover{
+  border: none;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
 /*mui-content样式重写*/
 
 .mui-bar-nav~.mui-content {
@@ -1550,6 +1556,7 @@ button {
   border: 1px solid #eee;
   border-radius: 3px;
   line-height: 16px;
+  height: 18px;
 }
 
 .marker.red {

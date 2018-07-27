@@ -529,7 +529,7 @@
 
       function updateView(data) {
         var html = '';
-        data.forEach(item => {
+        data.forEach(function(item) {
           html += '<li class="mui-table-view-cell" data-vsn="' + item.vSn + '">\
                     <div class="list-item">\
                       <div class="item-left">'

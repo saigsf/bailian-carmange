@@ -267,7 +267,9 @@
     }
 
     function fetchData() {
-      app.findEmsAndBomCheckByvSn({ vSn }, function (res) {
+      app.findEmsAndBomCheckByvSn({
+        vSn
+      }, function (res) {
         console.log(res);
         if (res.checkResults.length <= 0) {
           canBomCheck = false;
@@ -293,27 +295,18 @@
 
     function updateView(data) {
       var html = '';
-      for (let i = 0; i < data.length; i++) {
-        const item = data[i];
-        html += '<tr data-uuid="' + item.uuid + '">\
-              <td>\
-                <input type="text" name="bomName" value="'+ item.bomName + '">\
-              </td>\
-              <td>\
-                <input type="text" name="bomNum" value="'+ item.bomNum + '">\
-              </td>\
-            </tr>'
-      }
+      mui.each(data, function (k, v) {
+        html += '<tr data-uuid="' + v.uuid + '">' +
+          '<td><input type="text" name="bomName" value="' + v.bomName + '"></td>' +
+          '<td><input type="text" name="bomNum" value="' + v.bomNum + '"></td>' +
+          '</tr>'
+      })
 
-
-      html += '<tr>\
-              <td>\
-                <input type="text" name="bomName" value="" placeholder="添加">\
-              </td>\
-              <td>\
-                <input type="text" name="bomNum" value="">\
-              </td>\
-            </tr>'
+      html +=
+        '<tr>\
+          <td><input type="text" name="bomName" value="" placeholder="添加"></td>\
+          <td><input type="text" name="bomNum" value=""></td>\
+        </tr>'
 
       $('table tbody').html(html)
       $('input').attr('readonly', true)
@@ -321,6 +314,7 @@
 
 
     submitData()
+
     function submitData() {
       // vSn = '2018ICECTC001'
       $('#vehicle-input-tools').on('tap', function () {
@@ -381,11 +375,13 @@
 
 
     $('table tbody ').on('focus', 'tr:last td:first input', function () {
-      $('table tbody').append('<tr><td><input type="text" name="bomName" value="" placeholder="添加"></td><td><input type="text" name="bomNum" value=""></td></tr>');
+      $('table tbody').append(
+        '<tr><td><input type="text" name="bomName" value="" placeholder="添加"></td><td><input type="text" name="bomNum" value=""></td></tr>'
+      );
       $(this).attr('placeholder', '')
     })
     $('table tbody').on('blur', 'input[name=bomName]', function () {
-      if(!$(this).val()) {
+      if (!$(this).val()) {
         $(this).parents('tr').remove()
       }
     })

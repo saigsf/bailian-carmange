@@ -215,6 +215,7 @@
       z-index: 20;
       background-color: #000;
     }
+
     .mui-preview-header,
     .mui-preview-footer {
       position: absolute;
@@ -222,15 +223,18 @@
       left: 0;
       z-index: 10;
     }
+
     .mui-preview-header {
       height: 44px;
       line-height: 44px;
       top: 40px;
     }
+
     .mui-preview-footer {
       height: 50px;
       bottom: 0px;
     }
+
     .mui-preview-header .mui-preview-indicator {
       display: block;
       line-height: 25px;
@@ -242,6 +246,7 @@
       border-radius: 12px;
       font-size: 16px;
     }
+
     .mui-preview-image {
       display: none;
       -webkit-animation-duration: 0.5s;
@@ -249,19 +254,23 @@
       -webkit-animation-fill-mode: both;
       animation-fill-mode: both;
     }
+
     .mui-preview-image.mui-preview-in {
       -webkit-animation-name: fadeIn;
       animation-name: fadeIn;
     }
+
     .mui-preview-image.mui-preview-out {
       background: none;
       -webkit-animation-name: fadeOut;
       animation-name: fadeOut;
     }
+
     .mui-preview-image.mui-preview-out .mui-preview-header,
     .mui-preview-image.mui-preview-out .mui-preview-footer {
       display: none;
     }
+
     .mui-zoom-scroller {
       position: absolute;
       display: -webkit-box;
@@ -282,26 +291,32 @@
       margin: 0;
       -webkit-backface-visibility: hidden;
     }
+
     .mui-zoom {
       -webkit-transform-style: preserve-3d;
       transform-style: preserve-3d;
     }
+
     .mui-slider .mui-slider-group .mui-slider-item img {
       width: auto;
       height: auto;
       max-width: 100%;
       max-height: 100%;
     }
+
     .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
       width: 100%;
     }
+
     .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
       display: inline-table;
     }
+
     .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
       display: table-cell;
       vertical-align: middle;
     }
+
     .mui-preview-loading {
       position: absolute;
       width: 100%;
@@ -310,9 +325,11 @@
       left: 0;
       display: none;
     }
+
     .mui-preview-loading.mui-active {
       display: block;
     }
+
     .mui-preview-loading .mui-spinner-white {
       position: absolute;
       top: 50%;
@@ -322,10 +339,12 @@
       height: 50px;
       width: 50px;
     }
+
     .mui-preview-image img.mui-transitioning {
       -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
       transition: transform 0.5s ease, opacity 0.5s ease;
     }
+
     @-webkit-keyframes fadeIn {
       0% {
         opacity: 0;
@@ -334,6 +353,7 @@
         opacity: 1;
       }
     }
+
     @keyframes fadeIn {
       0% {
         opacity: 0;
@@ -342,6 +362,7 @@
         opacity: 1;
       }
     }
+
     @-webkit-keyframes fadeOut {
       0% {
         opacity: 1;
@@ -350,6 +371,7 @@
         opacity: 0;
       }
     }
+
     @keyframes fadeOut {
       0% {
         opacity: 1;
@@ -358,6 +380,7 @@
         opacity: 0;
       }
     }
+
     p img {
       max-width: 100%;
       height: auto;
@@ -1774,7 +1797,7 @@
             <div class="info-operator">
               <div class="info-operator-item">
                 <span class="checkPerson">检查人：</span>
-                <span class="checkTime" ></span>
+                <span class="checkTime"></span>
               </div>
               <div class="info-operator-item">
                 <span class="checkingPerson">核对人：</span>
@@ -2246,21 +2269,29 @@
         }
         vSn = self.vSn;
         if (!(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
-          $('#vehicle-input').find('i').removeClass('icon-vehicle-input').addClass('icon-vehicle-input-disabled').next().css('color', '#bbb')
-          $('#vehicle-up-check').find('i').removeClass('icon-up-check').addClass('icon-up-check-disabled').next().css('color', '#bbb')
+          $('#vehicle-input').find('i').removeClass('icon-vehicle-input').addClass('icon-vehicle-input-disabled')
+            .next().css('color', '#bbb')
+          $('#vehicle-up-check').find('i').removeClass('icon-up-check').addClass('icon-up-check-disabled').next()
+            .css('color', '#bbb')
 
         }
         // 维修技师
         if (!(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
-          $('#vehicle-check-safe').find('i').removeClass('icon-safe-check').addClass('icon-safe-check-disabled').next().css('color', '#bbb')
-          $('#vehicle-check-wire').find('i').removeClass('icon-wire-check').addClass('icon-wire-check-disabled').next().css('color', '#bbb')
-          $('#vehicle-check-bom').find('i').removeClass('icon-bom-check').addClass('icon-bom-check-disabled').next().css('color', '#bbb')
-          $('#vehicle-RD-tools').find('i').removeClass('icon-tools').addClass('icon-tools-disabled').next().css('color', '#bbb')
-          $('#vehicle-check-down').find('i').removeClass('icon-down-check').addClass('icon-down-check-disabled').next().css('color', '#bbb')
+          $('#vehicle-check-safe').find('i').removeClass('icon-safe-check').addClass('icon-safe-check-disabled').next()
+            .css('color', '#bbb')
+          $('#vehicle-check-wire').find('i').removeClass('icon-wire-check').addClass('icon-wire-check-disabled').next()
+            .css('color', '#bbb')
+          $('#vehicle-check-bom').find('i').removeClass('icon-bom-check').addClass('icon-bom-check-disabled').next()
+            .css('color', '#bbb')
+          $('#vehicle-RD-tools').find('i').removeClass('icon-tools').addClass('icon-tools-disabled').next().css(
+            'color', '#bbb')
+          $('#vehicle-check-down').find('i').removeClass('icon-down-check').addClass('icon-down-check-disabled').next()
+            .css('color', '#bbb')
         }
         // 超级管理员
         if (!app.getUserRoles('admin')) {
-          $('#vehicle-auditing').find('i').removeClass('icon-vehicle-auditing').addClass('icon-vehicle-auditing-disabled').next().css('color', '#bbb')
+          $('#vehicle-auditing').find('i').removeClass('icon-vehicle-auditing').addClass(
+            'icon-vehicle-auditing-disabled').next().css('color', '#bbb')
         }
 
         fetchData()
@@ -2285,7 +2316,9 @@
       // fetchData()
       function fetchData() {
         // 接车点检查看
-        app.findUpcheck({ vSn }, function (res) {
+        app.findUpcheck({
+          vSn
+        }, function (res) {
           console.log('接车点检查看')
           console.log(res)
           updateView.checkUp(res)
@@ -2300,7 +2333,9 @@
           }
         })
         // 车辆录入查看
-        app.findAddCar({ vSn }, function (res) {
+        app.findAddCar({
+          vSn
+        }, function (res) {
           res = JSON.parse(res);
           console.log('车辆录入查看')
           console.log(res);
@@ -2317,7 +2352,9 @@
           }
         })
         // 安全检查查看
-        app.findSafeCheckByvSn({ vSn }, function (res) {
+        app.findSafeCheckByvSn({
+          vSn
+        }, function (res) {
           // res = JSON.parse(res);
           console.log('安全检查查看')
           console.log(res);
@@ -2333,7 +2370,9 @@
           }
         })
         // 缸压检查查看
-        app.findCldCheckByvSn({ vSn }, function (res) {
+        app.findCldCheckByvSn({
+          vSn
+        }, function (res) {
           console.log('缸压检查查看')
           console.log(res);
           if (!res) {
@@ -2353,7 +2392,9 @@
         })
         // bom检查查看
 
-        app.findEmsAndBomCheckByvSn({ vSn }, function (res) {
+        app.findEmsAndBomCheckByvSn({
+          vSn
+        }, function (res) {
           console.log('bom检查查看')
           console.log(res);
           updateView.bomCheck(res)
@@ -2369,7 +2410,9 @@
         })
         // 线束检查查看
 
-        app.findHiCheckByvSn({ vSn }, function (res) {
+        app.findHiCheckByvSn({
+          vSn
+        }, function (res) {
           console.log('线束检查查看')
           console.log(res);
           updateView.wire(res)
@@ -2384,7 +2427,9 @@
           }
         })
         // 研发工具查看
-        app.findDevelopTools({ vSn }, function (res) {
+        app.findDevelopTools({
+          vSn
+        }, function (res) {
           console.log('研发工具查看')
           console.log(res)
           updateView.tools(res);
@@ -2399,7 +2444,9 @@
           }
         })
         // 审核
-        app.findReview({ vSn }, function (res) {
+        app.findReview({
+          vSn
+        }, function (res) {
           console.log('审核')
           res = JSON.parse(res)
           console.log(res)
@@ -2416,7 +2463,9 @@
         })
 
         // 还车
-        app.findBackcheck({ vSn }, function (res) {
+        app.findBackcheck({
+          vSn
+        }, function (res) {
           console.log('还车')
           res = JSON.parse(res)
           console.log(res)
@@ -2434,7 +2483,9 @@
         })
 
         // 保险信息
-        app.insuranceFindByvSn({ vSn }, function (res) {
+        app.insuranceFindByvSn({
+          vSn
+        }, function (res) {
           console.log('保险信息')
           res = JSON.parse(res)
           console.log(res);
@@ -2451,7 +2502,9 @@
         })
 
         // 临牌信息
-        app.historyLicenseByvSn({ vSn }, function (res) {
+        app.historyLicenseByvSn({
+          vSn
+        }, function (res) {
           console.log('临牌信息');
           res = JSON.parse(res)
           console.log(res);
@@ -2477,12 +2530,9 @@
             $('#checkUp .no-data').show().prev().hide()
             return;
           }
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              $('#checkUp input[name=' + key + ']').val(item)
-            }
-          }
+          mui.each(data, function (k, v) {
+            $('#checkUp input[name=' + k + ']').val(v)
+          })
 
           $('#checkUp').find('.pickone').html('接车人：' + data.pickone)
           $('#checkUp').find('.time').html(data.time)
@@ -2495,12 +2545,9 @@
             return;
           }
 
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              $('#vehicle_input input[name=' + key + ']').val(item)
-            }
-          }
+          mui.each(data, function (k, v) {
+            $('#vehicle_input input[name=' + k + ']').val(v)
+          })
           // $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
           // $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
 
@@ -2510,7 +2557,7 @@
           $('#status').html(data.status)
 
           $('img').attr('src', data.picurl)
-          if($('img').width()>$('img').height()) {
+          if ($('img').width() > $('img').height()) {
             $('img').css({
               height: '100%',
               width: 'auto'
@@ -2533,14 +2580,18 @@
             return;
           }
           var html = '';
-          for (let i = 0; i < 41; i++) {
-            const item = data[i];
+
+          mui.each(data, function (k, v) {
             html += '<tr>\
-                      <td><span class="item">'+ item.item + '</span></td>\
-                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '无') + '</span></td>\
-                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '无') + '</span></td>\
+                      <td><span class="item">' + v.item +
+              '</span></td>\
+                      <td><span class="checkExplanation">' + (v.checkExplanation ?
+                v.checkExplanation : '无') +
+              '</span></td>\
+                      <td><span class="checkingExplanation">' + (v.checkingExplanation ?
+                v.checkingExplanation : '无') + '</span></td>\
                     </tr>'
-          }
+          })
           $('#safeCheck table tbody').html(html);
           $('#safeCheck').find('.checkPerson').html('检查人：' + res.check.checkPerson)
           $('#safeCheck').find('.checkTime').html(res.check.checkTime)
@@ -2549,12 +2600,9 @@
 
         },
         cldCheck: function (data) {
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              $('input[name=' + key + ']').val(item)
-            }
-          }
+          mui.each(data, function (k, v) {
+            $('input[name=' + k + ']').val(v)
+          })
         },
         bomCheck: function (res) {
           var data = res.checkResults;
@@ -2564,14 +2612,18 @@
             return;
           }
           var html = '';
-          for (let i = 0; i < data.length; i++) {
-            const item = data[i];
+
+          mui.each(data, function (k, v) {
             html += '<tr>\
-                      <td><span class="item">'+ item.bomName + '</span></td>\
-                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '无') + '</span></td>\
-                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '无') + '</span></td>\
+                      <td><span class="item">' + v.bomName +
+              '</span></td>\
+                      <td><span class="checkExplanation">' + (v.checkExplanation ?
+                v.checkExplanation : '无') +
+              '</span></td>\
+                      <td><span class="checkingExplanation">' + (v.checkingExplanation ?
+                v.checkingExplanation : '无') + '</span></td>\
                     </tr>'
-          }
+          })
           $('#bomCheck table tbody').html(html);
 
           $('#bomCheck').find('.checkPerson').html(res.check.checkPerson ? res.check.checkPerson : '无')
@@ -2580,8 +2632,6 @@
           $('#bomCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '无')
           $('#bomCheck').find('.applyPerson').html(res.check.applyPerson)
           $('#bomCheck').find('.applyTime').html(res.check.applyTime)
-
-
         },
         wire: function (res) {
           var data = res.checkResults;
@@ -2598,14 +2648,16 @@
             }
 
             $(this).find('.checkExplanation').html(data[i].checkExplanation ? data[i].checkExplanation : '无')
-            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation : '无')
+            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation :
+              '无')
           })
 
-           $('#wireCheck').find('.checkPerson').html('检查人：' + res.check.checkPerson ? res.check.checkPerson : '无')
+          $('#wireCheck').find('.checkPerson').html('检查人：' + res.check.checkPerson ? res.check.checkPerson : '无')
           $('#wireCheck').find('.checkTime').html(res.check.checkTime ? res.check.checkTime : '无')
-          $('#wireCheck').find('.checkingPerson').html('核对人：'+ res.check.checkingPerson ? res.check.checkingPerson : '无')
+          $('#wireCheck').find('.checkingPerson').html('核对人：' + res.check.checkingPerson ? res.check.checkingPerson :
+            '无')
           $('#wireCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '无')
-          
+
 
         },
         tools: function (data) {
@@ -2616,16 +2668,22 @@
             return;
           }
           var html = '';
-          for (let i = 0; i < data.length; i++) {
-            const item = data[i];
+
+          mui.each(data, function (k, v) {
             html += '<tr>\
-                  <td><span>'+ item.toolName + '</span></td>\
-                  <td>'+ item.applicant + '</td>\
-                  <td>'+ (item.equippedDate ? item.equippedDate : '-') + '</td>\
-                  <td>'+ (item.remark ? item.remark : '-') + '</td>\
-                  <td>'+ (item.operator ? item.operator : '-') + '</td>\
+                  <td><span>' + v.toolName +
+              '</span></td>\
+                  <td>' +
+              v.applicant + '</td>\
+                  <td>' + (v.equippedDate ? v.equippedDate : '-') +
+              '</td>\
+                  <td>' + (v.remark ? v.remark : '-') +
+              '</td>\
+                  <td>' + (v.operator ? v.operator : '-') +
+              '</td>\
                 </tr>'
-          }
+          })
+
           $('#tools table tbody').html(html);
           // $('#tools').find('.applyPerson').html('申请人：' + data[0].applicant)
           // $('#tools').find('.applyTime').html(data[0].applyTime)
@@ -2636,12 +2694,11 @@
             $('#review .no-data').show().prev().hide()
             return;
           }
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              $('#review input[name=' + key + ']').val(item)
-            }
-          }
+
+          mui.each(data, function (k, v) {
+            $('#review input[name=' + k + ']').val(v)
+          })
+
           $('#review').find('#reviewerPerson').html('审核人：' + data.reviewerPerson)
           $('#review').find('#reviewerTime').html(data.reviewerTime)
         },
@@ -2659,21 +2716,18 @@
             return;
           }
           insuranceData = data;
-          for (const key in data[0]) {
-            if (data[0].hasOwnProperty(key)) {
-              const item = data[0][key];
-              $('#insurance input[name=' + key + ']').val(item)
-            }
-          }
+
+          mui.each(data[0], function (k, v) {
+            $('#insurance input[name=' + k + ']').val(v)
+          })
           $('#insurance').find('.addPerson').html('录入人：' + data[0].addPerson)
           $('#insurance').find('.addtime').html(data[0].addtime)
           // insNo
           var html = ''
 
-          for (let i = 0; i < data.length; i++) {
-            const item = data[i];
-            html += '<option value="' + i + '">' + item.insNo + '</option>'
-          }
+          mui.each(data, function (k, v) {
+            html += '<option value="' + k + '">' + v.insNo + '</option>'
+          })
 
           $('#insNo').html(html)
         },
@@ -2683,37 +2737,38 @@
             return;
           }
           licenseData = data;
-          for (const key in data[0]) {
-            if (data[0].hasOwnProperty(key)) {
-              const item = (typeof data[0][key] == 'number') ? (new Date(data[0][key])).format('yyyy-MM-dd') : data[0][key];
-              $('#license input[name=' + key + ']').val(item)
-            }
-          }
+
+          mui.each(data[0], function (k, v) {
+            $('#license input[name=' + k + ']').val((typeof v == 'number') ? (new Date(v)).format(
+              'yyyy-MM-dd') : v)
+          })
           var html = ''
 
-          for (let i = 0; i < data.length; i++) {
-            const item = data[i];
-            html += '<option value="' + i + '">' + item.licenseNo + '</option>'
-          }
+          mui.each(data, function (k, v) {
+            html += '<option value="' + k + '">' + v.licenseNo + '</option>'
+          })
 
           $('#licenseNo').html(html)
         }
       }
 
       addEvent()
+
       function addEvent() {
         var $link = $('#info_link_box .info-link');
         $link.on('tap', function () {
           var id = $(this).attr('id')
 
           // 工程师
-          if (id == 'vehicle-input' && id != 'vehicle-up-check' && !(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
+          if (id == 'vehicle-input' && id != 'vehicle-up-check' && !(app.getUserRoles('admin') || app.getUserRoles(
+              'engineer'))) {
             // mui.alert('您没有这个权限', '提示')
             mui.toast('您没有这个权限')
             return;
           }
           // 维修技师
-          if ((id != 'vehicle-input' && id != 'vehicle-auditing' && id != 'vehicle-up-check') && !(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
+          if ((id != 'vehicle-input' && id != 'vehicle-auditing' && id != 'vehicle-up-check') && !(app.getUserRoles(
+              'admin') || app.getUserRoles('maintain'))) {
             // mui.alert('您没有这个权限', '提示')
             mui.toast('您没有这个权限')
             return;
@@ -2750,40 +2805,37 @@
           }
         })
 
-        for (let i = 0; i < checkArr.length; i++) {
-          const item = checkArr[i];
-          $('#' + item + ' table tbody').on('tap', 'tr', function () {
-            console.log($(this).find('td'))
-            // mui.openWindow({
-            //   url: 'vehicle-info-detail.html',
-            //   id: 'vehicle-info-detail', //默认使用当前页面的url作为id
-            //   styles: {
-            //     top: '0px',
-            //     bottom: H
-            //   }, //窗口参数
-            //   extras: {
-            //     H: H,
-            //   } //自定义扩展参数
-            // })
-          })
-        }
+        // for (let i = 0; i < checkArr.length; i++) {
+        //   const item = checkArr[i];
+        //   $('#' + item + ' table tbody').on('tap', 'tr', function () {
+        //     console.log($(this).find('td'))
+        //     // mui.openWindow({
+        //     //   url: 'vehicle-info-detail.html',
+        //     //   id: 'vehicle-info-detail', //默认使用当前页面的url作为id
+        //     //   styles: {
+        //     //     top: '0px',
+        //     //     bottom: H
+        //     //   }, //窗口参数
+        //     //   extras: {
+        //     //     H: H,
+        //     //   } //自定义扩展参数
+        //     // })
+        //   })
+        // }
 
 
         $('#licenseNo').on('change', function () {
-          for (const key in licenseData[$(this).val()]) {
-            if (licenseData[$(this).val()].hasOwnProperty(key)) {
-              const item = (typeof licenseData[$(this).val()][key] == 'number') ? (new Date(licenseData[$(this).val()][key])).format('yyyy-MM-dd') : licenseData[$(this).val()][key];
-              $('#license input[name=' + key + ']').val(item)
-            }
-          }
+          mui.each(licenseData[$(this).val()], function (k, v) {
+            const item = (typeof v == 'number') ? (new Date(v)).format('yyyy-MM-dd') : v;
+            $('#license input[name=' + k + ']').val(item)
+          })
         })
         $('#insNo').on('change', function () {
-          for (const key in insuranceData[$(this).val()]) {
-            if (insuranceData[$(this).val()].hasOwnProperty(key)) {
-              const item = (typeof insuranceData[$(this).val()][key] == 'number') ? (new Date(insuranceData[$(this).val()][key])).format('yyyy-MM-dd') : insuranceData[$(this).val()][key];
-              $('#license input[name=' + key + ']').val(item)
-            }
-          }
+
+          mui.each(insuranceData[$(this).val()], function(k, v) {
+            const item = (typeof v == 'number') ? (new Date(v)).format('yyyy-MM-dd') : v;
+              $('#license input[name=' + k + ']').val(item)
+          })
           $('#insurance').find('.addPerson').html('录入人：' + insuranceData[$(this).val()].addPerson)
           $('#insurance').find('.addtime').html(insuranceData[$(this).val()].addtime)
         })

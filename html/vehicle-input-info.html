@@ -299,11 +299,10 @@
       }
 
       if (mui.os.ios) {
-        for (let i = 0; i < idArr.length; i++) {
-          const item = idArr[i];
+        mui.each(idArr, function(k, v) {
           page.push(mui.preload({
-            url: item + '.html',
-            id: item, //默认使用当前页面的url作为id
+            url: v + '.html',
+            id: v, //默认使用当前页面的url作为id
             styles: {
               top: '0px',
               // bottom: H,
@@ -315,13 +314,10 @@
               prevId: self.id
             } //自定义扩展参数
           }))
-        }
+        })
       }
       fetchData();
-      // data = self.data;
       addEvent()
-
-
     })
     function handsetAdaption() {
       if (plus.device.model === 'iPhoneX') {

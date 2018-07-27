@@ -43,10 +43,12 @@
     .mui-input-row span {
       float: left;
       line-height: 40px;
+      width: 30%;
+    text-align: right;
     }
 
     .mui-input-row textarea {
-      width: 78%;
+      width: 70%;
       margin-top: 10px;
       font-size: 14px;
     }
@@ -2187,12 +2189,10 @@
       // 视图更新
       var updateView = {
         checkUp: function (data) {
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              $('#checkUp input[name=' + key + ']').val(item)
-            }
-          }
+
+          mui.each(data, function(k, v) {
+            $('#checkUp input[name=' + k + ']').val(v)
+          })
 
           $('#checkUp').find('.pickone').html('接车人：' + data.pickone)
           $('#checkUp').find('.time').html(data.time)
@@ -2205,12 +2205,10 @@
             return;
           }
 
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              $('#vehicle_input input[name=' + key + ']').val(item)
-            }
-          }
+          mui.each(data, function(k, v) {
+             $('#vehicle_input input[name=' + k + ']').val(v)
+          })
+
           // $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
           // $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
 
@@ -2241,14 +2239,13 @@
             return;
           }
           var html = '';
-          for (let i = 0; i < 41; i++) {
-            const item = data[i];
-            html += '<tr>\
-                      <td><span class="item">'+ item.item + '</span></td>\
-                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '-') + '</span></td>\
-                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '-') + '</span></td>\
+          mui.each(data, function(k, v) {
+                   html += '<tr>\
+                      <td><span class="item">'+ v.item + '</span></td>\
+                      <td><span class="checkExplanation">'+ (v.checkExplanation ? v.checkExplanation : '-') + '</span></td>\
+                      <td><span class="checkingExplanation">'+ (v.checkingExplanation ? v.checkingExplanation : '-') + '</span></td>\
                     </tr>'
-          }
+          })
           $('#safeCheck table tbody').html(html);
           $('#safeCheck').find('.checkPerson').html('检查人：' + res.check.checkPerson)
           $('#safeCheck').find('.checkTime').html(res.check.checkTime)
@@ -2264,14 +2261,14 @@
             return;
           }
           var html = '';
-          for (let i = 0; i < data.length; i++) {
-            const item = data[i];
+
+          mui.each(data, function(k,v ) {
             html += '<tr>\
-                      <td><span class="item">'+ item.bomName + '</span></td>\
-                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '-') + '</span></td>\
-                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '-') + '</span></td>\
+                      <td><span class="item">'+ v.bomName + '</span></td>\
+                      <td><span class="checkExplanation">'+ (v.checkExplanation ? v.checkExplanation : '-') + '</span></td>\
+                      <td><span class="checkingExplanation">'+ (v.checkingExplanation ? v.checkingExplanation : '-') + '</span></td>\
                     </tr>'
-          }
+          })
           $('#bomCheck table tbody').html(html);
 
           $('#bomCheck').find('.checkPerson').html(res.check.checkPerson ? res.check.checkPerson : '-')
@@ -2314,32 +2311,30 @@
             return;
           }
           var html = '';
-          for (let i = 0; i < data.length; i++) {
-            const item = data[i];
-            html += '<tr>\
-                  <td><span>'+ item.toolName + '</span></td>\
-                  <td>'+ item.applicant + '</td>\
-                  <td>'+ (item.equippedDate ? item.equippedDate : '-') + '</td>\
-                  <td>'+ (item.remark ? item.remark : '-') + '</td>\
-                  <td>'+ (item.operator ? item.operator : '-') + '</td>\
+
+          mui.each(data, function(k,v) {
+             html += '<tr>\
+                  <td><span>'+ v.toolName + '</span></td>\
+                  <td>'+ v.applicant + '</td>\
+                  <td>'+ (v.equippedDate ? v.equippedDate : '-') + '</td>\
+                  <td>'+ (v.remark ? v.remark : '-') + '</td>\
+                  <td>'+ (v.operator ? v.operator : '-') + '</td>\
                 </tr>'
-          }
+          })
+          
           $('#tools table tbody').html(html);
           $('#tools').find('.applyPerson').html('申请人：' + data[0].applicant)
           $('#tools').find('.applyTime').html(data[0].applyTime)
         },
         review: function (data) {
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              if (item != null) {
-                $('.' + key + '.checkPerson').val(item.checkPerson ? item.checkPerson : '')
-                $('.' + key + '.checkTime').val(item.checkTime ? item.checkTime : '')
-                $('.' + key + '.checkingPerson').val(item.checkingPerson ? item.checkingPerson : '')
-                $('.' + key + '.checkingTime').val(item.checkingTime ? item.checkingTime : '')
+          mui.each(data, function(k, v) {
+            if (v != null) {
+                $('.' + key + '.checkPerson').val(v.checkPerson ? v.checkPerson : '')
+                $('.' + key + '.checkTime').val(v.checkTime ? v.checkTime : '')
+                $('.' + key + '.checkingPerson').val(v.checkingPerson ? v.checkingPerson : '')
+                $('.' + key + '.checkingTime').val(v.checkingTime ? v.checkingTime : '')
               }
-            }
-          }
+          })
 
           if (data.reviewer != null) {
             $('#auditing_form input').attr('disabled', true)
@@ -2347,12 +2342,9 @@
           }
         },
         cldCheck: function (data) {
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              $('input[name=' + key + ']').val(item)
-            }
-          }
+          mui.each(data, function(k, v) {
+            $('input[name=' + k + ']').val(v)
+          })
         }
       }
 
@@ -2377,7 +2369,7 @@
           res = JSON.parse(res)
           mui.toast(res.msg);
           if (res.ret) {
-            setTimeout(() => {
+            setTimeout(function() {
               submitLock = false;
               mui.back()
               mui.fire(view, 'update', null)

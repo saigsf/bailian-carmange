@@ -558,7 +558,8 @@
       "img/common/icon_app.png",
       "img/common/md/icon_checked@2x.png",
       "img/common/md/in_background.png",
-      "img/common/md/driver_pic.png"
+      "img/common/md/driver_pic.png",
+      "img/common/md/icon_more.png"
     ],
     "refer": [
       "html/doorpost-driver-input.html",

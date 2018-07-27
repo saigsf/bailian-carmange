@@ -402,21 +402,20 @@
       // 更新视图
       function updateView(data) {
         var html = '';
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-
+        
+        mui.each(data, function(k, v) {
           var groups = '';
-          for (let i = 0; i < item.groups.length; i++) {
-            groups += item.groups[i].name;
-          }
 
+          mui.each(v.groups, function(ks, vs) {
+            groups += vs.name + ' ';
+          })
 
-          html += '<li class="mui-table-view-cell" data-id="' + item.id + '" data-name="' + item.name + '">'
+          html += '<li class="mui-table-view-cell" data-id="' + v.id + '" data-name="' + v.name + '">'
 
           if (app.getUserRoles('admin') || app.getUserRoles('driverManager')) {
             html += '<div class="mui-slider-right mui-disabled">' +
               '<a class="mui-btn mui-btn-gray update">修改</a>' +
-              '<a class="mui-btn mui-btn-orange ' + (item.isallow == '禁止' ? 'authorize' : 'cancel_authorize') + '">' + (item.isallow == '禁止' ? '授权' : '禁止') + '</a>' +
+              '<a class="mui-btn mui-btn-orange ' + (v.isallow == '禁止' ? 'authorize' : 'cancel_authorize') + '">' + (v.isallow == '禁止' ? '授权' : '禁止') + '</a>' +
               '<a class="mui-btn mui-btn-red delete">删除</a>' +
               '</div>'
           }
@@ -424,27 +423,28 @@
           html += '<div class="mui-slider-handle">' +
             '<div class="list-item">' +
             '<div class="item-checked">' +
-            '<input type="checkbox" name="" id="myCheck' + item.id + '">' +
-            '<label for="myCheck' + item.id + '"></label>' +
+            '<input type="checkbox" name="" id="myCheck' + v.id + '">' +
+            '<label for="myCheck' + v.id + '"></label>' +
             '</div>' +
             '<div class="item-left"><img src="../img/common/md/driver_pic.png" /></div>' +
             '<div class="item-right">' +
             '<div class="item-top">' +
             '<div class="number">' +
-            '<h4>' + item.name + '</h4>' +
-            '<p><span>员工卡号：</span><span class="">' + (item.employeeCard ? item.employeeCard : '-') + '</span></p>' +
+            '<h4>' + v.name + '</h4>' +
+            '<p><span>员工卡号：</span><span class="">' + (v.employeeCard ? v.employeeCard : '-') + '</span></p>' +
             '</div>' +
             '</div>' +
             '<div class="item-bottom">' +
             '<p><span>授权分组：</span>' + groups + '</p>' +
-            '<p><span>电话：</span>' + (item.telephone ? item.telephone : '-') + '</p>' +
+            '<p><span>电话：</span>' + (v.telephone ? v.telephone : '-') + '</p>' +
             '</div>' +
             '</div>' +
             '</div>' +
-            '<span class="marker ' + (item.isallow == '禁止' ? 'red' : 'green') + '">' + item.isallow + '</span>' +
+            '<span class="marker ' + (v.isallow == '禁止' ? 'red' : 'green') + '">' + v.isallow + '</span>' +
             '</div>' +
             '</li>';
-        }
+        })
+
         $('#OA_task_1').append($(html));
       }
 

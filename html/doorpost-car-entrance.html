@@ -251,9 +251,8 @@
       // 视图更新
       function updateView(data) {
         var html = '';
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-          html += '<li class="mui-table-view-cell" data-vSn="' + (item.vSn ? item.vSn : '-') + '" data-status="' + item.status + '" data-id="' + item.id + '">'
+        mui.each(data, function(k, v) {
+          html += '<li class="mui-table-view-cell" data-vSn="' + (v.vSn ? v.vSn : '-') + '" data-status="' + v.status + '" data-id="' + v.id + '">'
             // + '<div class="mui-slider-right mui-disabled">'
             // + '</div>'
             + '<div class="mui-slider-handle">'
@@ -264,28 +263,29 @@
             + '<div class="item-right">'
             + '<div class="item-top">'
             + '<div class="number">'
-            + '<h4>' + (item.licenseNo ? item.licenseNo : '-') + '</h4>'
-            + '<p><span>更新日期：</span><span class="blue">' + (item.updateTime ? item.updateTime : '-') + '</span></p>'
+            + '<h4>' + (v.licenseNo ? v.licenseNo : '-') + '</h4>'
+            + '<p><span>更新日期：</span><span class="blue">' + (v.updateTime ? v.updateTime : '-') + '</span></p>'
             + '</div>'
             + '</div>'
             + '<div class="item-bottom">'
-            + '<p><span>驾驶员：</span>' + (item.driverName ? item.driverName : '-') + '</p>'
-            + '<p><span>牌照有效期：</span>' + (item.licenseEndTime ? item.licenseEndTime : '-') + '</p>'
+            + '<p><span>驾驶员：</span>' + (v.driverName ? v.driverName : '-') + '</p>'
+            + '<p><span>牌照有效期：</span>' + (v.licenseEndTime ? v.licenseEndTime : '-') + '</p>'
 
 
           html += '</div></div></div>'
 
-          if (item.isallow == null) {
+          if (v.isallow == null) {
             html += '<span class="marker red">无数据</span>'
 
-          } else if (item.isallow == '正常') {
-            html += '<span class="marker green">' + item.isallow + '</span>'
+          } else if (v.isallow == '正常') {
+            html += '<span class="marker green">' + v.isallow + '</span>'
 
           } else {
-            html += '<span class="marker red">' + item.isallow + '</span>'
+            html += '<span class="marker red">' + v.isallow + '</span>'
           }
           html += '</div></li>';
-        }
+        })
+
         $('#OA_task_1').append(html);
       }
 

@@ -194,7 +194,7 @@
 
       mui.plusReady(function () {
         handsetAdaption()
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById('doorpost-driver.html');
         H = self.H;
@@ -229,6 +229,7 @@
 
       // 获取分组
       fetchData()
+
       function fetchData() {
         app.carDriverGetGroup({}, function (res) {
           console.log(res);
@@ -249,14 +250,15 @@
       // 视图更新
       function updateView(data) {
         var html = '';
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-          html += '<option value="' + item.id + '">' + item.name + '</option>'
-        }
+
+        mui.each(data, function (k, v) {
+          html += '<option value="' + v.id + '">' + v.name + '</option>'
+        })
         $('#groups').append(html);
       }
       // 提交数据
       submitData()
+
       function submitData() {
         $('#next').on('tap', function () {
           var startTime = $('#start_date').val();
@@ -282,7 +284,7 @@
               mui.toast(res.msg)
               if (res.ret) {
                 // mui.toast('授权成功')
-                setTimeout(() => {
+                setTimeout(function () {
                   mui.fire(view, 'update', {});
                   mui.back();
                 }, 500);
@@ -309,7 +311,7 @@
               if (res.ret) {
 
                 mui.toast('禁止成功')
-                setTimeout(() => {
+                setTimeout(function () {
                   mui.fire(view, 'update', {});
                   mui.back();
                 }, 500);
@@ -330,6 +332,7 @@
 
         })
       }
+
       function addEvent() {
         var dDate = new Date();
         $('#start_date').val(dDate.format('yyyy-MM-dd'))
@@ -342,9 +345,9 @@
           }, function (e) {
             $('#start_date').val('您没有选择日期');
           }, {
-              title: '',
-              date: dDate
-            });
+            title: '',
+            date: dDate
+          });
         });
         $('#end_date').val((new Date('2018/12/31')).format('yyyy-MM-dd'));
         $('#end_date_box').off().on('tap', function () {
@@ -355,9 +358,9 @@
           }, function (e) {
             $('#end_date').val('您没有选择日期');
           }, {
-              title: '',
-              date: new Date('2018/12/31')
-            });
+            title: '',
+            date: new Date('2018/12/31')
+          });
         });
       }
 

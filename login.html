@@ -283,7 +283,7 @@
             clearInterval(id);
             mui.fire(mainPage, 'goback', null);
             mui.fire(plus.webview.getWebviewById('html/home.html'), 'statusBar', null)
-            mui.fire(plus.webview.getWebviewById('html/doorpost-car-entrance.html'), 'statusBar', null)
+            mui.fire(plus.webview.getWebviewById('doorpost-car-entrance.html'), 'statusBar', null)
             mui.fire(plus.webview.getWebviewById('html/setting.html'), 'statusBar', null)
             mui.fire(plus.webview.getWebviewById('html/vehicle.html'), 'roles', null)
             mui.fire(plus.webview.getWebviewById('vehicle-list.html'), 'roles', null)
@@ -345,6 +345,7 @@
       function login() {
         var loginInfo = serialize($('form'))
         loginInfo.autoLogin = 'true';
+        loginInfo.password = $('#password').val()
         console.log(loginInfo)
         if (loginType == 'netid') {
           app.loginNetId(loginInfo, function (err) {

@@ -103,6 +103,7 @@
     .mui-table-view.mui-table-inputview {
       overflow: visible;
     }
+
     #openPopover {
       display: none;
       padding: 6px 12px;
@@ -359,7 +360,7 @@
 
     mui.plusReady(function () {
       handsetAdaption();
-      $('.mui-scroll').css('min-height',$('.mui-content').height())
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId);
       H = self.H;
@@ -369,7 +370,7 @@
       isFirst = self.isFirst;
       upCheckInfo = self.upCheckInfo;
 
-      if(!isFirst) {
+      if (!isFirst) {
         $('#openPopover').show()
       }
 
@@ -394,6 +395,7 @@
     }
 
     addEvent()
+
     function addEvent() {
       $('#openPopover').on('tap', function () {
         if ($(this).html() == '修改') {
@@ -423,9 +425,9 @@
         }, function (e) {
           $('#makeTime').val('您没有选择日期');
         }, {
-            title: '',
-            date: dDate
-          });
+          title: '',
+          date: dDate
+        });
       });
     }
 
@@ -469,15 +471,15 @@
       // })
 
       app.likeProjectSn({
-        projectsn:''
-      }, function(res) {
+        projectsn: ''
+      }, function (res) {
         console.log('项目编号')
         console.log(res);
         res = JSON.parse(res)
-        if(res != null && res.length>0) {
+        if (res != null && res.length > 0) {
           updateView.project(res)
         }
-      }, function(xhr, type, errorThrown) {
+      }, function (xhr, type, errorThrown) {
         console.log(type);
         mui.toast(type);
         if (type == 'timeout') {
@@ -499,7 +501,9 @@
       // })
 
       // 查看录入信息
-      app.findAddCar({ vSn }, function (res) {
+      app.findAddCar({
+        vSn
+      }, function (res) {
         console.log(res);
         res = JSON.parse(res)
 
@@ -507,7 +511,6 @@
           canReviseInput = false;
           return;
         }
-        
 
         id = res.id;
         updateView.addCar(res)
@@ -531,7 +534,7 @@
     var updateView = {
       group: function (data) {
         var html = '';
-        data.forEach(item => {
+        data.forEach(function (item) {
           html += '<option value="' + item.name + '">' + item.name + '</option>';
         });
 
@@ -542,11 +545,11 @@
           return;
         }
         var html = '';
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-          html += '<option value="' + item + '">' + item + '</option>'
-        }
-        
+
+        mui.each(data, function (k, v) {
+          html += '<option value="' + v + '">' + v + '</option>'
+        })
+
         $('#project_sn').append(html);
         return;
         $('#project_name').val(data[0].projectName);
@@ -554,12 +557,10 @@
       addCar: function (data) {
         $('#project_sn').append('<option value="' + data.project_sn + '">' + data.project_sn + '</option>');
         $('#groupName').append('<option value="' + data.groupName + '">' + data.groupName + '</option>')
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const item = data[key];
-            $('*[name=' + key + ']').val(item).attr('readonly', true)
-          }
-        }
+
+        mui.each(data, function (k, v) {
+          $('*[name=' + k + ']').val(v).attr('readonly', true)
+        })
 
         $('select').attr('disabled', true)
       }
@@ -570,12 +571,7 @@
     function submitData() {
       $('#vehicle-input-bom').on('tap', function () {
         var oneInfo = serialize($('#form_one_info'));
-        if (!isFirst) {
-          oneInfo.id = id;
-        }
         oneInfo.id = id;
-        console.log(oneInfo)
-
         var checkArr = [
           'carName',
           'vSn',
@@ -654,7 +650,7 @@
         var idx = $(this).attr('id');
 
 
-          mui.openWindow({
+        mui.openWindow({
           url: idx + '.html',
           id: idx, //默认使用当前页面的url作为id
           styles: {
@@ -671,21 +667,17 @@
             isFirst: isFirst
           } //自定义扩展参数
         })
-      
-        
-
-       })
-
+      })
     }
     // submitData();
 
     $('#project_sn').on('change', function () {
-      
+
       app.loadNameBySn({
         sn: $(this).val()
-      }, function(res) {
+      }, function (res) {
         console.log(res)
-          $('#project_name').val(res)
+        $('#project_name').val(res)
       }, function (xhr, type, errorThrown) {
         //异常处理；
         console.log(type);

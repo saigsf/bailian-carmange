@@ -145,7 +145,7 @@
     // ; (function () {
     // var storage = myStorage.getItem('vehicleList')
     // console.log('本地存储'+ storage)
-    var curPage = 1;  //当前页码初始化数0开始
+    var curPage = 1; //当前页码初始化数0开始
     var totalPage = 0; //后台算出总页数
     var H = null;
     var filter = '20px';
@@ -170,10 +170,10 @@
 
     mui.init({
       pullRefresh: {
-        container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+        container: "#refreshContainer", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
         down: {
           // style:'circle',
-          auto: true,//可选,默认false.首次加载自动下拉刷新一次
+          auto: true, //可选,默认false.首次加载自动下拉刷新一次
           callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
         },
         up: {
@@ -259,7 +259,8 @@
       }
       opt = $.extend(opt, dataArr);
       console.log(opt)
-      if (opt.all || opt.ing || opt.stop || opt.beforBack || opt.thismonthback || opt.thismonnew || opt.beforup || opt.HaveIn || opt.haveLi) {
+      if (opt.all || opt.ing || opt.stop || opt.beforBack || opt.thismonthback || opt.thismonnew || opt.beforup || opt.HaveIn ||
+        opt.haveLi) {
         queryType = 'orderQuery'
       }
 
@@ -292,70 +293,61 @@
       });
     }
 
-    // function fetchStorage() {
-    //   var subData = []
-    //   for (let i = (curPage - 1) * 10; i < curPage * 10; i++) {
-    //     const item = storage[i];
-    //     subData.push(item)
-    //   }
-    //   updateView(subData);
-    //   curPage++;
-    //   totalPage = Math.ceil(storage.length / 10) + 1;
-    // }
     // 更新视图
     function updateView(data) {
       var html = '';
 
-      for (let i = 0; i < data.length; i++) {
-        const item = data[i];
-        html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
+      mui.each(data, function (k, v) {
+        html += '<li class="mui-table-view-cell" data-vSn="' + v.vSn + '">'
 
-        // if (app.getUserRoles('admin')) {
-        //   html += '<div class="mui-slider-right mui-disabled">'
-        //     + '<a class="mui-btn mui-btn-red car-type-change">车型修改</a>'
-        //     + '</div>'
-        // }
+        if (app.getUserRoles('admin')) {
+          html += '<div class="mui-slider-right mui-disabled">' +
+            '<a class="mui-btn mui-btn-red car-type-change">车型修改</a>' +
+            '</div>'
+        }
 
 
-        html += '<div class="mui-slider-handle">'
-          + '<div class="list-item">'
-          + '<div class="item-top">'
-          + '<div class="item-left">'
-          + '<img data-lazyload="' + (item.picurl ? item.picurl : '../img/common/md/backup_picture1.png') + '" alt="暂无图片" />'
-          + '</div>'
-          + '<div class="item-right">'
-          + '<h4>' + item.vSn + '</h4>'
-          + '<p><span>项目编号：</span><span>' + (item.project ? item.project.project_sn : '-') + '</span></p>'
-          + '</div>'
-          + '</div>'
-          + '<div class="item-middle">'
-          + '<img src="../img/common/md/line_' + (item.car_status == '已还' ? 'finished' : 'runing') + '@2x.png" />'
-          + '</div>'
-          + '<div class="item-bottom">'
-          + '<div class="item-left">'
-          + '<img src="../img/common/md/icon_' + (item.car_status == '已还' ? 'finished' : 'runing') + '@2x.png" />'
-          + '</div>'
-          + '<div class="item-right">'
-          + '<div class="bottom-item">'
-          + '<h4>' + (item.car_status ? item.car_status : '-') + '</h4>'
-          + '<p>车辆状态</p>'
-          + '</div>'
-          + '<div class="bottom-item bottom-item-empty"></div>'
-          + '<div class="bottom-item">'
-          + '<h4>' + (item.project ? (item.project.project_status ? item.project.project_status : '-') : '-') + '</h4>'
-          + '<p>项目状态</p>'
-          + '</div>'
-          + '<div class="bottom-item bottom-item-empty"></div>'
-          + '<div class="bottom-item">'
-          + '<h4>' + (item.projectEngineer ? item.projectEngineer : '-') + '</h4>'
-          + '<p>项目工程师</p>'
-          + '</div>'
-          + '</div>'
-          + '</div>'
-          + '</div>'
-          + '</div>'
-          + '</li>';
-      }
+        html += '<div class="mui-slider-handle">' +
+          '<div class="list-item">' +
+          '<div class="item-top">' +
+          '<div class="item-left">' +
+          '<img data-lazyload="' + (v.picurl ? v.picurl : '../img/common/md/backup_picture1.png') +
+          '" alt="暂无图片" />' +
+          '</div>' +
+          '<div class="item-right">' +
+          '<h4>' + v.vSn + '</h4>' +
+          '<p><span>项目编号：</span><span>' + (v.project ? v.project.project_sn : '-') + '</span></p>' +
+          '</div>' +
+          '</div>' +
+          '<div class="item-middle">' +
+          '<img src="../img/common/md/line_' + (v.car_status == '已还' ? 'finished' : 'runing') + '@2x.png" />' +
+          '</div>' +
+          '<div class="item-bottom">' +
+          '<div class="item-left">' +
+          '<img src="../img/common/md/icon_' + (v.car_status == '已还' ? 'finished' : 'runing') + '@2x.png" />' +
+          '</div>' +
+          '<div class="item-right">' +
+          '<div class="bottom-item">' +
+          '<h4>' + (v.car_status ? v.car_status : '-') + '</h4>' +
+          '<p>车辆状态</p>' +
+          '</div>' +
+          '<div class="bottom-item bottom-item-empty"></div>' +
+          '<div class="bottom-item">' +
+          '<h4>' + (v.project ? (v.project.project_status ? v.project.project_status : '-') : '-') +
+          '</h4>' +
+          '<p>项目状态</p>' +
+          '</div>' +
+          '<div class="bottom-item bottom-item-empty"></div>' +
+          '<div class="bottom-item">' +
+          '<h4>' + (v.projectEngineer ? v.projectEngineer : '-') + '</h4>' +
+          '<p>项目工程师</p>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</li>';
+      })
 
       $('#OA_task_1').append(html);
       lazyLoad.refresh(true);
@@ -432,7 +424,9 @@
     // 搜索
     $('#search').on('tap', function () {
       prepageSearch.show('fade-in');
-      mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
+      mui.fire(plus.webview.getWebviewById('search'), 'getFocus', {
+        prevId: self.id
+      })
     })
     // }
 

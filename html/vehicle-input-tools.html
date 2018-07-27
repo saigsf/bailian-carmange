@@ -223,7 +223,9 @@
     }
 
     function fetchData() {
-      app.findDevelop({ vSn }, function (res) {
+      app.findDevelop({
+        vSn
+      }, function (res) {
         res = JSON.parse(res)
         console.log(res);
         if (res.length <= 0) {
@@ -248,10 +250,11 @@
 
     function updateView(data) {
       var html = '';
-      for (let i = 0; i < data.length; i++) {
-        const item = data[i];
-        html += '<tr data-id="' + item.id + '"><td><input type="text" name="toolName" value="' + item.toolName + '"></td></tr>'
-      }
+      mui.each(data, function (k, v) {
+        html += '<tr data-id="' + v.id + '"><td><input type="text" name="toolName" value="' + v.toolName +
+          '"></td></tr>'
+      })
+
       html += '<tr><td><input type="text" name="toolName" value="" placeholder="添加"></td></tr>';
       $('table tbody').html(html)
       $('input').attr('readonly', true)
@@ -263,45 +266,45 @@
     function submitData() {
       console.log(submitLock)
       // 车辆录入,包含三部分的数据提交
-        // if (submitLock) {
-        //   return;
-        // }
-        // submitLock = true;
+      // if (submitLock) {
+      //   return;
+      // }
+      // submitLock = true;
 
-        var oneToolApply = [];
-        var $toolTr = $('#form_one_tool_apply tr');
+      var oneToolApply = [];
+      var $toolTr = $('#form_one_tool_apply tr');
 
-        $toolTr.each(function (i) {
-          var $toolName = $(this).find('input[name=toolName]');
+      $toolTr.each(function (i) {
+        var $toolName = $(this).find('input[name=toolName]');
 
-          if ($toolName.val()) {
-            oneToolApply.push({
-              toolName: $toolName.val(),
-              vSn: vSn
-            })
-          }
-        })
+        if ($toolName.val()) {
+          oneToolApply.push({
+            toolName: $toolName.val(),
+            vSn: vSn
+          })
+        }
+      })
 
 
-        mui.openWindow({
-          url: 'vehicle-upload.html',
-          id: 'vehicle-upload', //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            bottom: H,
-            hardwareAccelerated: true
-          }, //窗口参数
-          extras: {
-            H: H,
-            vSn: vSn,
-            oneBom: oneBom,
-            oneInfo: oneInfo,
-            upCheckInfo: upCheckInfo,
-            oneToolApply: oneToolApply,
-            isModify: isModify,
-            isFirst: isFirst
-          } //自定义扩展参数
-        })
+      mui.openWindow({
+        url: 'vehicle-upload.html',
+        id: 'vehicle-upload', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H,
+          hardwareAccelerated: true
+        }, //窗口参数
+        extras: {
+          H: H,
+          vSn: vSn,
+          oneBom: oneBom,
+          oneInfo: oneInfo,
+          upCheckInfo: upCheckInfo,
+          oneToolApply: oneToolApply,
+          isModify: isModify,
+          isFirst: isFirst
+        } //自定义扩展参数
+      })
 
     }
     $('#submit').on('tap', submitData)

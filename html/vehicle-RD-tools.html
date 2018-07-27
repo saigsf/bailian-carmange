@@ -228,21 +228,21 @@
       // 视图更新<input type="text" readonly placeholder="2018-12-12 00:00:00">
       function updateView(data) {
         var html = '';
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-          html += '<tr data-id="' + item.id + '">\
-                    <td>'+ item.toolName + '</td>\
-                    <td>'+ item.applicant + '</td>\
-                    <td><span class="equippedDate">'+ (item.equippedDate ? item.equippedDate : '请选择时间') + '</span></td>\
+
+        mui.each(data, function(k, v) {
+          html += '<tr data-id="' + v.id + '">\
+                    <td>'+ v.toolName + '</td>\
+                    <td>'+ v.applicant + '</td>\
+                    <td><span class="equippedDate">'+ (v.equippedDate ? v.equippedDate : '请选择时间') + '</span></td>\
                     <td>\
-                      <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">' + (item.remark ? '···' : '+') + '</i>\
-                      <input class="explain-text" type="hidden" value="' + (item.remark ? item.remark : '') + '">\
+                      <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">' + (v.remark ? '···' : '+') + '</i>\
+                      <input class="explain-text" type="hidden" value="' + (v.remark ? v.remark : '') + '">\
                     </td>\
                     <td>\
-                      <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder ' + (item.operator ? 'finished' : 'to-submit') + '">' + (item.operator ? item.operator : '提交') + '</i>\
+                      <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder ' + (v.operator ? 'finished' : 'to-submit') + '">' + (v.operator ? v.operator : '提交') + '</i>\
                     </td>\
                   </tr>'
-        }
+        })
 
         $('table tbody').html(html)
       }

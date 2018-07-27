@@ -28,6 +28,7 @@
     .pressure input[type=number] {
       margin: 0;
       height: 34px;
+      font-size: 14px;
     }
 
     .pressure-vat {
@@ -1567,14 +1568,13 @@
 
       })
 
-      for (let i = 0; i < safeCheckResult.length; i++) {
-        const item = safeCheckResult[i];
-        if (item.status == 'N' && item.checkExplanation == '') {
-          mui.alert('"' + item.item +'"未添加说明' , '提示')
+      mui.each(safeCheckResult, function(k, v) {
+        if (v.status == 'N' && v.checkExplanation == '') {
+          mui.alert('"' + v.item +'"未添加说明' , '提示')
           submitLock = false;
           return;
         }
-      }
+      })
       data = {
         vSn: vSn,
         safeCheckResult: safeCheckResult
@@ -1646,7 +1646,7 @@
       })).then(function (res) {
         // console.log(1435, res.msg);
         mui.toast('操作成功');
-        setTimeout(() => {
+        setTimeout(function() {
           submitLock = false;
           mui.back();
           mui.fire(view, 'update', null)

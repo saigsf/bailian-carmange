@@ -243,7 +243,7 @@
   <!-- 当前页面js -->
   <script>
     (function () {
-      var curPage = 1;  //当前页码初始化数0开始
+      var curPage = 1; //当前页码初始化数0开始
       var totalPage = 0; //后台算出总页数
       var self = null;
       var H = null;
@@ -255,9 +255,9 @@
 
       mui.init({
         pullRefresh: {
-          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          container: "#refreshContainer", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
           down: {
-            auto: true,//可选,默认false.首次加载自动下拉刷新一次
+            auto: true, //可选,默认false.首次加载自动下拉刷新一次
             callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
           },
           up: {
@@ -267,7 +267,7 @@
       });
       // mui('.mui-scroll-wrapper').scroll();
       mui.plusReady(function () {
-        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         H = self.H;
         prepageSearch = mui.preload({
@@ -349,100 +349,101 @@
       function updateView(data) {
         // console.log(data.length)
         var html = '';
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-          // console.log(item.status) 正在维修   已完成   排队中
-          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '" data-status="' + item.status + '" data-id="' + item.id + '">'
+        mui.each(data, function (k, v) {
+          html += '<li class="mui-table-view-cell" data-vSn="' + v.vSn + '" data-status="' + v.status +
+            '" data-id="' + v.id + '">'
 
-          if (item.status == '已完成') {
+          if (v.status == '已完成') {
             if (app.getUserRoles('admin') || app.getUserRoles('maintenanceManager')) {
-              html += '<div class="mui-slider-right mui-disabled">'
-                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
-                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-                + '</div>'
-
-            } else if(app.getUserRoles('maintain')) {
-              html += '<div class="mui-slider-right mui-disabled">'
-                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-                + '</div>'
-            }
-
-          } else if (item.status == '排队中') {
-            
-            if (app.getUserRoles('admin') || app.getUserRoles('maintenanceManager')) {
-              html += '<div class="mui-slider-right mui-disabled">'
-                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
-                + '<a class="mui-btn mui-btn-red allot">分配</a>'
-                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-                + '</div>'
+              html += '<div class="mui-slider-right mui-disabled">' +
+                '<a class="mui-btn mui-btn-gray settop">优先</a>' +
+                '<a class="mui-btn mui-btn-blue maintain">保养</a>' +
+                '</div>'
 
             } else if (app.getUserRoles('maintain')) {
-              html += '<div class="mui-slider-right mui-disabled">'
-                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-                + '</div>'
+              html += '<div class="mui-slider-right mui-disabled">' +
+                '<a class="mui-btn mui-btn-blue maintain">保养</a>' +
+                '</div>'
             }
 
-          } else if (item.status == '维修中') {
+          } else if (v.status == '排队中') {
+
             if (app.getUserRoles('admin') || app.getUserRoles('maintenanceManager')) {
-              html += '<div class="mui-slider-right mui-disabled">'
-                + '<a class="mui-btn mui-btn-gray settop">优先</a>'
-                + '<a class="mui-btn mui-btn-red repaired">完成</a>'
-                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-                + '</div>'
+              html += '<div class="mui-slider-right mui-disabled">' +
+                '<a class="mui-btn mui-btn-gray settop">优先</a>' +
+                '<a class="mui-btn mui-btn-red allot">分配</a>' +
+                '<a class="mui-btn mui-btn-blue maintain">保养</a>' +
+                '</div>'
+
             } else if (app.getUserRoles('maintain')) {
-              html += '<div class="mui-slider-right mui-disabled">'
-                + '<a class="mui-btn mui-btn-red repaired">完成</a>'
-                + '<a class="mui-btn mui-btn-blue maintain">保养</a>'
-                + '</div>'
+              html += '<div class="mui-slider-right mui-disabled">' +
+                '<a class="mui-btn mui-btn-blue maintain">保养</a>' +
+                '</div>'
+            }
+
+          } else if (v.status == '维修中') {
+            if (app.getUserRoles('admin') || app.getUserRoles('maintenanceManager')) {
+              html += '<div class="mui-slider-right mui-disabled">' +
+                '<a class="mui-btn mui-btn-gray settop">优先</a>' +
+                '<a class="mui-btn mui-btn-red repaired">完成</a>' +
+                '<a class="mui-btn mui-btn-blue maintain">保养</a>' +
+                '</div>'
+            } else if (app.getUserRoles('maintain')) {
+              html += '<div class="mui-slider-right mui-disabled">' +
+                '<a class="mui-btn mui-btn-red repaired">完成</a>' +
+                '<a class="mui-btn mui-btn-blue maintain">保养</a>' +
+                '</div>'
             }
 
           }
 
-          html += '<div class="mui-slider-handle">'
-            + '<div class="list-item">'
+          html += '<div class="mui-slider-handle">' +
+            '<div class="list-item">'
             // + '<div class="item-left">'
             // // + '<img src="../img/common/md/backup_picture.png" />'
             // + '<i class="icon icon-nopic"></i>'
             // + '</div>'
-            + '<div class="item-right">'
-            + '<div class="item-top">'
-            + '<div class="number">'
-            + '<h4>' + item.vSn + '</h4>'
-            + '<p><span>停放地点：</span><span class="blue">' + item.send_park + '</span></p>'
-            + '</div>'
-            + '</div>'
-            + '<div class="item-bottom">'
+            +
+            '<div class="item-right">' +
+            '<div class="item-top">' +
+            '<div class="number">' +
+            '<h4>' + v.vSn + '</h4>' +
+            '<p><span>停放地点：</span><span class="blue">' + v.send_park + '</span></p>' +
+            '</div>' +
+            '</div>' +
+            '<div class="item-bottom">'
 
-          if (item.status == '已完成') {
-            html += '<p><span>操作员：</span>' + item.applyPeople + '</p>'
-              + '<p><span>备注：</span>' + (item.item ? item.item : '无') + '</p>'
+          if (v.status == '已完成') {
+            html += '<p><span>操作员：</span>' + v.applyPeople + '</p>' +
+              '<p><span>备注：</span>' + (v.item ? v.item : '无') + '</p>'
 
-          } else if (item.status == '排队中') {
-            html += '<p><span>申请人：</span>' + item.applyPeople + '</p>'
-              + '<p><span>申请日期：</span>' + item.applytime + '</p>'
-          } else if (item.status == '维修中') {
-            html += '<p><span>操作员：</span>' + item.applyPeople + '</p>'
-              + '<p><span>预计完成日期：</span>' + item.applytime + '</p>'
+          } else if (v.status == '排队中') {
+            html += '<p><span>申请人：</span>' + v.applyPeople + '</p>' +
+              '<p><span>申请日期：</span>' + v.applytime + '</p>'
+          } else if (v.status == '维修中') {
+            html += '<p><span>操作员：</span>' + v.applyPeople + '</p>' +
+              '<p><span>预计完成日期：</span>' + v.applytime + '</p>'
           }
 
           html += '</div></div></div>'
 
-          if (item.status == '已完成') {
-            html += '<span class="marker blue">' + item.status + '</span>'
+          if (v.status == '已完成') {
+            html += '<span class="marker blue">' + v.status + '</span>'
 
-          } else if (item.status == '排队中') {
-            html += '<span class="marker red">' + item.status + '</span>'
-          } else if (item.status == '维修中') {
-            html += '<span class="marker green">' + item.status + '</span>'
+          } else if (v.status == '排队中') {
+            html += '<span class="marker red">' + v.status + '</span>'
+          } else if (v.status == '维修中') {
+            html += '<span class="marker green">' + v.status + '</span>'
           }
           html += '</div></li>';
+        })
 
-        }
         $('#OA_task_1').append(html);
       }
 
       // 添加点击事件
       addEvent();
+
       function addEvent() {
         // 查看详情 
         $('#OA_task_1').on('tap', '.mui-slider-handle', function () {
@@ -503,7 +504,9 @@
             return;
           }
 
-          app.carMaintainTop({ id }, function (res) {
+          app.carMaintainTop({
+            id: id
+          }, function (res) {
             res = JSON.parse(res);
             console.log(res);
             if (res.ret) {
@@ -589,7 +592,7 @@
         var form = document.getElementsByTagName('form')[0];
 
         form.onsubmit = function (e) {
-          e.preventDefault();// 取消默认事件
+          e.preventDefault(); // 取消默认事件
         }
 
         // 搜索
@@ -664,7 +667,6 @@
       })
 
     })()
-
   </script>
 </body>
 
