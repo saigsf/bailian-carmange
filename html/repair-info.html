@@ -109,7 +109,7 @@
               <label>维修项目</label>
               <div class="date-text">
                 <!-- <input type="text" id="item" placeholder="" readonly> -->
-                <textarea name="item" id="item" cols="30" rows="3" readonly></textarea>
+                <textarea name="item" id="item" cols="30"  readonly></textarea>
               </div>
             </div>
             <div class="date-wrapper">
@@ -211,7 +211,8 @@
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
   <script>
-    ; (function () {
+    ;
+    (function () {
       mui.init();
 
       var vSn = '2018-217';
@@ -251,10 +252,17 @@
 
         fetchData();
       });
+
       function fetchData() {
-        app.carMaintainQuery({ vSn }, function (res) {
+        app.carMaintainQuery({
+          vSn
+        }, function (res) {
           console.log(res)
+          
           res = JSON.parse(res);
+          if(res.ret == false) {
+            return;
+          }
           updateView(res.rows[0])
         }, function (xhr, type, errorThrown) {
           //异常处理；
@@ -278,6 +286,10 @@
         $('#applyPeople_0').html('送修申请人：' + data.applyPeople)
         $('#operator_0').html('维修人：' + data.operator)
 
+        $("textarea").autoTextarea({
+          maxHeight: 340,
+          minHeight: 34
+        });
       }
 
       $("#submit").on('tap', function () {
@@ -285,10 +297,7 @@
         page.show('slide-in-right')
       })
 
-      $("textarea").autoTextarea({
-        maxHeight: 400,
-        minHeight: 34
-      });
+      
 
     })();
   </script>

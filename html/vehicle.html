@@ -217,6 +217,8 @@
         defaultTab.classList.add('mui-active');
       }
 
+      mui.fire(plus.webview.getWebviewById('vehicle-input-list.html'), 'statusBar', null)
+
     });
 
     document.addEventListener('roles', function () {

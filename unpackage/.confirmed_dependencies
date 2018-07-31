@@ -1064,5 +1064,10 @@
       "html/vehicle-input.html"
     ],
     "resources": []
+  },
+  "html/vehicle-RD-tools.html": {
+    "refer": [
+      "html/vehicle-check-add-explain.html"
+    ]
   }
 }

@@ -2007,7 +2007,8 @@
 					"html/vehicle-check-down.html",
 					"html/vehicle-check-up.html",
 					"html/vehicle-insurance-list.html",
-					"html/vehicle-license-list.html"
+					"html/vehicle-license-list.html",
+					null
 				],
 				"priority": 0
 			},
@@ -4041,7 +4042,8 @@
 					"img/common/md/icon_clear@2x.png"
 				],
 				"refer": [
-					"html/doorpost-driver.html"
+					"html/doorpost-driver.html",
+					null
 				],
 				"priority": 5
 			},
@@ -4199,7 +4201,8 @@
 					"html/setting.html",
 					"html/repair.html",
 					"html/doorpost.html",
-					"login.html"
+					"login.html",
+					null
 				],
 				"priority": 0
 			},
@@ -6767,6 +6770,13 @@
 				"resources": [],
 				"refer": [
 					"html/vehicle-input.html"
+				],
+				"priority": 0
+			},
+			"html/vehicle-RD-tools.html": {
+				"resources": [],
+				"refer": [
+					"html/vehicle-check-add-explain.html"
 				],
 				"priority": 0
 			}

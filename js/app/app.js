@@ -558,7 +558,7 @@
 
 		var url = 'car-management/car/findUpcheck/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, {}, success, error)
+		owner.HTTPRequestPost('POST', url, {}, success, error, true)
 	}
 
 	/**
@@ -602,7 +602,7 @@
 
 		var url = 'car-management/car/findEmsAndBomCheckByvSn/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, {}, success, error)
+		owner.HTTPRequestPost('POST', url, {}, success, error, true)
 	}
 
 
@@ -839,7 +839,7 @@
 
 		var url = 'car-management/car/findDevelop.action';
 
-		owner.HTTPRequest('POST', url, data, success, error)
+		owner.HTTPRequest('POST', url, data, success, error, true)
 	}
 
 	/**
@@ -882,7 +882,7 @@
 
 		var url = 'car-management/car/findAddCar.action';
 
-		owner.HTTPRequest('POST', url, data, success, error)
+		owner.HTTPRequest('POST', url, data, success, error, true)
 	}
 
 

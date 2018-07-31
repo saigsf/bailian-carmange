@@ -329,9 +329,9 @@
       // 获取数据
 
       function fetchData() {
-        app.findUpcheck({ vSn }, function (res) {
+        app.findUpcheck({ vSn: vSn }, function (res) {
+          console.log(JSON.stringify(res))
           if (JSON.stringify(res) == 'null') {
-
             return;
           }
           updateView(res)
@@ -351,13 +351,10 @@
       // 视图更新
       function updateView(data) {
         id = data.id;
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const item = data[key];
-            $('input[name=' + key + ']').val(item).attr('readonly', true)
+        mui.each(data, function(k, v) {
+          $('input[name=' + k + ']').val(v).attr('readonly', true)
               .parents('li').find('.mui-icon-clear').hide()
-          }
-        }
+        })
       }
 
       // 返回事件

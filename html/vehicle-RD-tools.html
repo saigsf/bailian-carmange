@@ -192,7 +192,7 @@
             } //自定义扩展参数
           })
 
-          window.addEventListener('updateExplain', (evt) => {
+          window.addEventListener('updateExplain', function(evt) {
             var explainText = evt.detail.explainText;
             //do something
             $(_this).parents('tr').find('.explain-text').val(explainText);

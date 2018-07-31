@@ -2182,7 +2182,7 @@
 
         if (data[i].checkingExplanation) {
           $(this).find('.resolvent').html('···')
-          $(this).find('.resolvent-text').val(data[i].checkExplanation)
+          $(this).find('.resolvent-text').val(data[i].checkingExplanation)
         }
 
       })
@@ -2329,7 +2329,7 @@
             canInspect = false;
             canChecked = false;
           } else {
-            $('#three_next').html('核对提交')
+            $('#three_next').html('核对提交').parent().hide()
             canInspect = false;
             canChecked = true;
           }
@@ -2369,7 +2369,7 @@
           } //自定义扩展参数
         })
 
-        window.addEventListener('updateExplain', (evt) => {
+        window.addEventListener('updateExplain', function(evt) {
           var explainText = evt.detail.explainText;
           //do something
           $(_this).parents('tr').find('.explain-text').val(explainText);
@@ -2406,7 +2406,7 @@
             resolventText: resolventText
           } //自定义扩展参数
         })
-        window.addEventListener('updateResolvent', (evt) => {
+        window.addEventListener('updateResolvent', function(evt) {
           var resolventText = evt.detail.resolventText;
           //do something
           $(_this).parents('tr').find('.resolvent-text').val(resolventText);

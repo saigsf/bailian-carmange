@@ -216,7 +216,7 @@
     var searchArr = [];
     searchArr.push(function () {
       app.likevSn({
-        vSn: $('#current_input').val()
+        vSn: $('#current_input').val().trim()
       }, function (res) {
         // console.log(typeof res)
         // res = JSON.parse(res)

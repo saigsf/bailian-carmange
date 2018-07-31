@@ -206,9 +206,13 @@
             <input type="text" id="current_input" placeholder="请输入车辆编号">
           </div>
         </div>
-        <a href="#popover" id="openPopover" class="openPopover">
+        <!-- <a href="#popover" id="openPopover" class="openPopover">
           <i class="icon icon-filter">筛选</i>
-        </a>
+        </a> -->
+
+        <div class="filter" id="filter">
+          <i class="icon icon-filter">筛选</i>
+        </div>
 
       </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview"></ul>
@@ -246,10 +250,13 @@
       var curPage = 1; //当前页码初始化数0开始
       var totalPage = 0; //后台算出总页数
       var self = null;
+      var main = null;
       var H = null;
       var vSn = null;
       var status = null;
       var dataArr = {}
+
+      var filter = '20px';
       // 预加载页面
       var prepageSearch = null;
 
@@ -267,8 +274,14 @@
       });
       // mui('.mui-scroll-wrapper').scroll();
       mui.plusReady(function () {
+        if (mui.os.ios && parseFloat(mui.os.version) >= 10.0) {
+          //页面样式重置
+          filter = '34px'
+        }
         $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
+        main = plus.webview.getWebviewById("index");
+        main.addEventListener('maskClick', closeMenu);
         H = self.H;
         prepageSearch = mui.preload({
           url: 'search.html',
@@ -279,14 +292,8 @@
           }
         })
 
-
-        // console.log($(document).height())
-        // $('#refreshContainer').height($(document).height() - 62)
-        // console.log($('#refreshContainer').height())
-        // $('#no-data').height($('#refreshContainer').height())
       });
-
-
+      
       // 下拉刷新
       function pulldownRwfresh() {
         curPage = 1;
@@ -665,6 +672,61 @@
         $('#OA_task_1').html('')
         fetchData();
       })
+
+
+      //打开侧滑窗口；
+      function openMenu() {
+
+        main.setStyle({
+          mask: 'rgba(0,0,0,0.5)'
+        }); //menu设置透明遮罩防止点击
+
+        mui.openWindow({
+          url: 'vehicle-filter.html',
+          id: 'vehicle-filter', //默认使用当前页面的url作为id
+          styles: {
+            top: filter,
+            bottom: '0',
+            left: '30%',
+            width: '70%',
+            hardwareAccelerated: true
+          }, //窗口参数
+          extras: {
+            H: H,
+            prevId: self.id
+          }, //自定义扩展参数
+          waiting: {
+            autoShow: false, //自动显示等待框，默认为true
+            title: '正在加载...', //等待对话框上显示的提示内容
+          }
+        })
+      };
+
+      //关闭侧滑窗口；
+      function closeMenu(e) {
+        // console.log( mui.os.ios && e != 'null')
+        if ((mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
+          dataArr = e.detail.data;
+          curPage = 1;
+          $('#OA_task_1').html('')
+          fetchData();
+        }
+        //关闭遮罩；
+        side = plus.webview.getWebviewById("vehicle-filter");
+        main.setStyle({
+          mask: 'none'
+        });
+        mui.fire(side, 'close', {})
+
+      };
+
+      //点击头部菜单小图标，打开侧滑菜单；
+      $('#filter').on('tap', function (e) {
+        e.stopPropagation();
+        openMenu()
+      });
+      //menu页面点击后关闭菜单；
+      window.addEventListener('closeMenu', closeMenu);
 
     })()
   </script>

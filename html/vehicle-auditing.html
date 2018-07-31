@@ -44,7 +44,7 @@
       float: left;
       line-height: 40px;
       width: 30%;
-    text-align: right;
+      text-align: right;
     }
 
     .mui-input-row textarea {
@@ -1961,7 +1961,8 @@
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
   <script type="text/javascript">
-    ; (function () {
+    ;
+    (function () {
       var H = null;
       var self = null;
       var view = null;
@@ -2002,7 +2003,9 @@
       // fetchData()
       function fetchData() {
         // 查看车辆信息
-        app.carQuery({ vSn }, function (res) {
+        app.carQuery({
+          vSn
+        }, function (res) {
           console.log(res);
           res = JSON.parse(res);
           // res.rows
@@ -2022,9 +2025,12 @@
         })
 
         // 查看审核
-        app.getReviewInfo({ vSn }, function (res) {
+        app.getReviewInfo({
+          vSn
+        }, function (res) {
           console.log('审核查看')
           // res = JSON.stringify(res)
+          
           console.log(res)
           // return;
           updateView.review(res)
@@ -2040,7 +2046,9 @@
         })
 
         // 查看审核信息
-        app.findReview({ vSn }, function (res) {
+        app.findReview({
+          vSn
+        }, function (res) {
           console.log(res)
           res = JSON.parse(res);
           if (res != null && res.reviewerPerson != null) {
@@ -2054,6 +2062,9 @@
                 $(this).attr('checked', false)
               }
             })
+
+            $('#auditing_form input').attr('disabled', true)
+            $('#auditing_form textarea').attr('disabled', true)
 
             $('#auditing_form').find('textarea[name=explanation]').val(res.explanation)
             $('#auditing_form').find('.reviewerPerson').html('申请人：' + res.reviewerPerson)
@@ -2071,7 +2082,9 @@
         })
 
         // 接车点检查看
-        app.findUpcheck({ vSn }, function (res) {
+        app.findUpcheck({
+          vSn
+        }, function (res) {
           console.log('接车点检查看')
           console.log(res)
           updateView.checkUp(res)
@@ -2086,7 +2099,9 @@
           }
         })
         // 车辆录入查看
-        app.findAddCar({ vSn }, function (res) {
+        app.findAddCar({
+          vSn
+        }, function (res) {
           res = JSON.parse(res);
           console.log('车辆录入查看')
           console.log(res);
@@ -2103,7 +2118,9 @@
           }
         })
         // 安全检查查看
-        app.findSafeCheckByvSn({ vSn }, function (res) {
+        app.findSafeCheckByvSn({
+          vSn
+        }, function (res) {
           // res = JSON.parse(res);
           console.log('安全检查查看')
           console.log(res);
@@ -2119,7 +2136,9 @@
           }
         })
         // 缸压检查查看
-        app.findCldCheckByvSn({ vSn }, function (res) {
+        app.findCldCheckByvSn({
+          vSn
+        }, function (res) {
           console.log('缸压检查查看')
           console.log(res);
           if (!res) {
@@ -2139,7 +2158,9 @@
         })
         // bom检查查看
 
-        app.findEmsAndBomCheckByvSn({ vSn }, function (res) {
+        app.findEmsAndBomCheckByvSn({
+          vSn
+        }, function (res) {
           console.log('bom检查查看')
           console.log(res);
           updateView.bomCheck(res)
@@ -2155,7 +2176,9 @@
         })
         // 线束检查查看
 
-        app.findHiCheckByvSn({ vSn }, function (res) {
+        app.findHiCheckByvSn({
+          vSn
+        }, function (res) {
           console.log('线束检查查看')
           console.log(res);
           updateView.wire(res)
@@ -2170,7 +2193,9 @@
           }
         })
         // 研发工具查看
-        app.findDevelopTools({ vSn }, function (res) {
+        app.findDevelopTools({
+          vSn
+        }, function (res) {
           console.log('研发工具查看')
           console.log(res)
           updateView.tools(res);
@@ -2190,7 +2215,7 @@
       var updateView = {
         checkUp: function (data) {
 
-          mui.each(data, function(k, v) {
+          mui.each(data, function (k, v) {
             $('#checkUp input[name=' + k + ']').val(v)
           })
 
@@ -2205,8 +2230,8 @@
             return;
           }
 
-          mui.each(data, function(k, v) {
-             $('#vehicle_input input[name=' + k + ']').val(v)
+          mui.each(data, function (k, v) {
+            $('#vehicle_input input[name=' + k + ']').val(v)
           })
 
           // $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
@@ -2239,11 +2264,15 @@
             return;
           }
           var html = '';
-          mui.each(data, function(k, v) {
-                   html += '<tr>\
-                      <td><span class="item">'+ v.item + '</span></td>\
-                      <td><span class="checkExplanation">'+ (v.checkExplanation ? v.checkExplanation : '-') + '</span></td>\
-                      <td><span class="checkingExplanation">'+ (v.checkingExplanation ? v.checkingExplanation : '-') + '</span></td>\
+          mui.each(data, function (k, v) {
+            html += '<tr>\
+                      <td><span class="item">' + v.item +
+              '</span></td>\
+                      <td><span class="checkExplanation">' + (v.checkExplanation ?
+                v.checkExplanation : '-') +
+              '</span></td>\
+                      <td><span class="checkingExplanation">' + (v.checkingExplanation ?
+                v.checkingExplanation : '-') + '</span></td>\
                     </tr>'
           })
           $('#safeCheck table tbody').html(html);
@@ -2262,11 +2291,15 @@
           }
           var html = '';
 
-          mui.each(data, function(k,v ) {
+          mui.each(data, function (k, v) {
             html += '<tr>\
-                      <td><span class="item">'+ v.bomName + '</span></td>\
-                      <td><span class="checkExplanation">'+ (v.checkExplanation ? v.checkExplanation : '-') + '</span></td>\
-                      <td><span class="checkingExplanation">'+ (v.checkingExplanation ? v.checkingExplanation : '-') + '</span></td>\
+                      <td><span class="item">' + v.bomName +
+              '</span></td>\
+                      <td><span class="checkExplanation">' + (v.checkExplanation ?
+                v.checkExplanation : '-') +
+              '</span></td>\
+                      <td><span class="checkingExplanation">' + (v.checkingExplanation ?
+                v.checkingExplanation : '-') + '</span></td>\
                     </tr>'
           })
           $('#bomCheck table tbody').html(html);
@@ -2295,11 +2328,13 @@
             }
 
             $(this).find('.checkExplanation').html(data[i].checkExplanation ? data[i].checkExplanation : '-')
-            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation : '-')
+            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation :
+              '-')
           })
           $('#wireCheck').find('.checkPerson').html('检查人：' + (res.check.checkPerson ? res.check.checkPerson : '-'))
           $('#wireCheck').find('.checkTime').html(res.check.checkTime ? res.check.checkTime : '-')
-          $('#wireCheck').find('.checkingPerson').html('核对人：' + (res.check.checkingPerson ? res.check.checkingPerson : '-'))
+          $('#wireCheck').find('.checkingPerson').html('核对人：' + (res.check.checkingPerson ? res.check.checkingPerson :
+            '-'))
           $('#wireCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '-')
 
 
@@ -2312,28 +2347,32 @@
           }
           var html = '';
 
-          mui.each(data, function(k,v) {
-             html += '<tr>\
-                  <td><span>'+ v.toolName + '</span></td>\
-                  <td>'+ v.applicant + '</td>\
-                  <td>'+ (v.equippedDate ? v.equippedDate : '-') + '</td>\
-                  <td>'+ (v.remark ? v.remark : '-') + '</td>\
-                  <td>'+ (v.operator ? v.operator : '-') + '</td>\
+          mui.each(data, function (k, v) {
+            html += '<tr>\
+                  <td><span>' + v.toolName +
+              '</span></td>\
+                  <td>' + v.applicant + '</td>\
+                  <td>' + (v.equippedDate ?
+                v.equippedDate : '-') + '</td>\
+                  <td>' + (v.remark ? v.remark : '-') +
+              '</td>\
+                  <td>' + (v.operator ? v.operator : '-') +
+              '</td>\
                 </tr>'
           })
-          
+
           $('#tools table tbody').html(html);
           $('#tools').find('.applyPerson').html('申请人：' + data[0].applicant)
           $('#tools').find('.applyTime').html(data[0].applyTime)
         },
         review: function (data) {
-          mui.each(data, function(k, v) {
+          mui.each(data, function (k, v) {
             if (v != null) {
-                $('.' + key + '.checkPerson').val(v.checkPerson ? v.checkPerson : '')
-                $('.' + key + '.checkTime').val(v.checkTime ? v.checkTime : '')
-                $('.' + key + '.checkingPerson').val(v.checkingPerson ? v.checkingPerson : '')
-                $('.' + key + '.checkingTime').val(v.checkingTime ? v.checkingTime : '')
-              }
+              $('.' + k + '.checkPerson').val(v.checkPerson ? v.checkPerson : '')
+              $('.' + k + '.checkTime').val(v.checkTime ? v.checkTime : '')
+              $('.' + k + '.checkingPerson').val(v.checkingPerson ? v.checkingPerson : '')
+              $('.' + k + '.checkingTime').val(v.checkingTime ? v.checkingTime : '')
+            }
           })
 
           if (data.reviewer != null) {
@@ -2342,7 +2381,7 @@
           }
         },
         cldCheck: function (data) {
-          mui.each(data, function(k, v) {
+          mui.each(data, function (k, v) {
             $('input[name=' + k + ']').val(v)
           })
         }
@@ -2358,6 +2397,7 @@
         submitLock = true;
         submitData();
       })
+
       function submitData() {
         var data = serialize($('#auditing_form'));
         data.vSn = vSn;
@@ -2369,7 +2409,7 @@
           res = JSON.parse(res)
           mui.toast(res.msg);
           if (res.ret) {
-            setTimeout(function() {
+            setTimeout(function () {
               submitLock = false;
               mui.back()
               mui.fire(view, 'update', null)

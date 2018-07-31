@@ -2506,8 +2506,8 @@
           vSn
         }, function (res) {
           console.log('临牌信息');
-          res = JSON.parse(res)
           console.log(res);
+          res = JSON.parse(res)
           updateView.license(res)
         }, function (xhr, type, errorThrown) {
           //异常处理；
