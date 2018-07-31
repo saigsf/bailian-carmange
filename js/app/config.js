@@ -27,7 +27,6 @@ Date.prototype.format = function (format) {
       format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? v : ("00" + v).substr(("" + v).length));
   })
 
-
   return format;
 }
 

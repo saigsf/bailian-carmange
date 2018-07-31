@@ -293,8 +293,12 @@
       }
 
       $("#submit").on('tap', function () {
-
         page.show('slide-in-right')
+        mui.fire(page, 'info', {
+          send_park: $('#send_park_0').html(),
+          applyPeople: $('#applyPeople').html(),
+          status: $('#status').html()
+        })
       })
 
       
