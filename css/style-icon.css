@@ -13,21 +13,36 @@
 .icon-home {
   background-image: url(../img/common/md/icon_gps@2x.png);
 }
+.icon-home-active {
+  background-image: url(../img/common/md/icon_gps_active@2x.png);
+}
 
 .icon-vehicle {
   background-image: url(../img/common/md/icon_car.png);
+}
+.icon-vehicle-active {
+  background-image: url(../img/common/md/icon_car_active.png);
 }
 
 .icon-repair {
   background-image: url(../img/common/md/icon_repair.png);
 }
+.icon-repair-active {
+  background-image: url(../img/common/md/icon_repair_active.png);
+}
 
 .icon-user {
   background-image: url(../img/common/md/icon_user.png);
 }
+.icon-user-active {
+  background-image: url(../img/common/md/icon_user_active.png);
+}
 
 .icon-door {
   background-image: url(../img/common/md/icon_door.png);
+}
+.icon-door-active {
+  background-image: url(../img/common/md/icon_door_active.png);
 }
 
 .icon-log {
@@ -446,6 +461,7 @@
 .icon-status-change {
   line-height: 44px;
   font-size: 14px;
+  width: 80px
 }
 
 .icon-status-change:after {

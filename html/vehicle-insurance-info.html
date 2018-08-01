@@ -160,6 +160,10 @@
                 <div class="tab-col" id="brandModelone"></div>
               </div>
               <div class="tab-row">
+                <div class="tab-col">客户</div>
+                <div class="tab-col" id="customer"></div>
+              </div>
+              <div class="tab-row">
                 <div class="tab-col">保险期限</div>
                 <div class="tab-col" id="numtime"></div>
               </div>
@@ -272,6 +276,7 @@
 
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         self = plus.webview.currentWebview();
         vSn = self.vSn;
         H = self.H;
@@ -342,7 +347,7 @@
             id: 'vehicle-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {

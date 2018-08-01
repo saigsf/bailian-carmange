@@ -47,6 +47,11 @@
     .info-operator-item span {
       display: inline;
     }
+
+    #openPopover {
+      display: none;
+      padding: 6px 12px;
+    }
   </style>
 </head>
 
@@ -83,6 +88,16 @@
             </tr>
             <tr>
               <td>
+                <input type="text" name="toolName" value="CAN0开发接头">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="前催化器载体温度">
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <input type="text" name="toolName" value="空气比传感器座">
               </td>
             </tr>
@@ -93,24 +108,29 @@
             </tr>
             <tr>
               <td>
-                <input type="text" name="toolName" value="">
+                <input type="text" name="toolName" value="排气管改造">
               </td>
             </tr>
             <tr>
               <td>
-                <input type="text" name="toolName" value="">
+                <input type="text" name="toolName" value="安装前拖车钩">
               </td>
             </tr>
             <tr>
               <td>
-                <input type="text" name="toolName" value="">
+                <input type="text" name="toolName" value="拆下ECU">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="toolName" value="" placeholder="添加">
               </td>
             </tr>
           </tbody>
         </table>
       </form>
       <!-- 研发工具申请end -->
-      <div class="info-operator">
+      <div class="info-operator hide">
         <div class="info-operator-item">
           <p>
             <span>申请人：</span>
@@ -126,7 +146,7 @@
       </div>
       <!-- 提交 -->
       <div class="btn-wrapper ">
-        <button type="button" class="btn btn-blue" id="submit">下一步</button>
+        <div class="btn btn-blue" id="submit">下一步</div>
       </div>
 
     </div>
@@ -165,15 +185,25 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
+
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById('vehicle-input-bom')
+      vSn = self.vSn;
       oneInfo = self.oneInfo
       oneBom = self.oneBom
       upCheckInfo = self.upCheckInfo;
       isModify = self.isModify;
-      vSn = self.vSn;
+      isFirst = self.isFirst;
+
+      if (!isFirst) {
+        $('#openPopover').show()
+        $('.info-operator').css('display', 'flex')
+      } else {
+        $('.info-operator').hide()
+      }
+
       fetchData();
-      submitData()
     })
 
     function handsetAdaption() {
@@ -193,22 +223,17 @@
     }
 
     function fetchData() {
-      app.findDevelop({ vSn }, function (res) {
+      app.findDevelop({
+        vSn
+      }, function (res) {
         res = JSON.parse(res)
         console.log(res);
         if (res.length <= 0) {
           canTools = false;
-          isFirst = true;
-          $('#openPopover').hide()
           return;
         }
         // console.log(oneBom, oneInfo);
 
-        // if (!isModify && !isFirst) {
-        //   // $('#submit').parent().hide()
-        // } else {
-        //   // $('#submit').html('确认修改').parent().show()
-        // }
         updateView(res);
       }, function (xhr, type, errorThrown) {
         //异常处理；
@@ -225,12 +250,12 @@
 
     function updateView(data) {
       var html = '';
-      for (let i = 0; i < data.length; i++) {
-        const item = data[i];
-        html += '<tr data-id="' + item.id + '"><td><input type="text" name="toolName" value="' + item.toolName + '"></td></tr>'
-      }
-      html += '<tr><td><input type="text" name="toolName" value=""></td></tr>';
-      html += '<tr><td><input type="text" name="toolName" value=""></td></tr>';
+      mui.each(data, function (k, v) {
+        html += '<tr data-id="' + v.id + '"><td><input type="text" name="toolName" value="' + v.toolName +
+          '"></td></tr>'
+      })
+
+      html += '<tr><td><input type="text" name="toolName" value="" placeholder="添加"></td></tr>';
       $('table tbody').html(html)
       $('input').attr('readonly', true)
 
@@ -239,56 +264,50 @@
     }
 
     function submitData() {
+      console.log(submitLock)
       // 车辆录入,包含三部分的数据提交
-      $('#submit').on('tap', function () {
-        if (submitLock) {
-          return;
+      // if (submitLock) {
+      //   return;
+      // }
+      // submitLock = true;
+
+      var oneToolApply = [];
+      var $toolTr = $('#form_one_tool_apply tr');
+
+      $toolTr.each(function (i) {
+        var $toolName = $(this).find('input[name=toolName]');
+
+        if ($toolName.val()) {
+          oneToolApply.push({
+            toolName: $toolName.val(),
+            vSn: vSn
+          })
         }
-        submitLock = true;
-
-        var oneToolApply = [];
-        var $toolTr = $('#form_one_tool_apply tr');
-
-        $toolTr.each(function (i) {
-          var $toolName = $(this).find('input[name=toolName]');
-
-          if ($toolName.val()) {
-            oneToolApply.push({
-              toolName: $toolName.val(),
-              vSn: vSn
-            })
-          }
-        })
-
-        // if (!((!isFirst && canTools) || isFirst)) {
-        //   oneToolApply = null;
-        // }
-
-        mui.openWindow({
-          url: 'vehicle-upload.html',
-          id: 'vehicle-upload', //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            bottom: H,
-            hardwareAccelerated: true
-          }, //窗口参数
-          extras: {
-            H: H,
-            vSn: vSn,
-            oneBom: oneBom,
-            oneInfo: oneInfo,
-            upCheckInfo: upCheckInfo,
-            oneToolApply: oneToolApply,
-            isModify: isModify
-          } //自定义扩展参数
-        })
-
-        return;
+      })
 
 
+      mui.openWindow({
+        url: 'vehicle-upload.html',
+        id: 'vehicle-upload', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          bottom: H,
+          hardwareAccelerated: true
+        }, //窗口参数
+        extras: {
+          H: H,
+          vSn: vSn,
+          oneBom: oneBom,
+          oneInfo: oneInfo,
+          upCheckInfo: upCheckInfo,
+          oneToolApply: oneToolApply,
+          isModify: isModify,
+          isFirst: isFirst
+        } //自定义扩展参数
       })
 
     }
+    $('#submit').on('tap', submitData)
 
     $('#openPopover').on('tap', function () {
       console.log($(this).html())
@@ -314,8 +333,15 @@
       mui.fire(view, 'goback', {});
     })
 
-
-
+    $('table tbody ').on('focus', 'tr:last input', function () {
+      $('table tbody ').append('<tr><td><input type="text" name="toolName" value="" placeholder="添加"></td></tr>');
+      $(this).attr('placeholder', '')
+    })
+    $('table tbody ').on('blur', 'input', function () {
+      if (!$(this).val()) {
+        $(this).parents('tr').remove()
+      }
+    })
   </script>
 </body>
 

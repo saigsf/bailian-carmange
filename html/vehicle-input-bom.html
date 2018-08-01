@@ -39,6 +39,11 @@
     .info-operator-item span {
       display: inline;
     }
+
+    #openPopover {
+      display: none;
+      padding: 6px 12px;
+    }
   </style>
 </head>
 
@@ -63,7 +68,7 @@
           <tbody>
             <tr>
               <td>
-                <input type="text" name="bomName" value="ECM发动机电子控制模块">
+                <input type="text" name="bomName" value="ECM发动机电子控制模块-MT92.1">
               </td>
               <td>
                 <input type="text" name="bomNum" value="">
@@ -71,7 +76,23 @@
             </tr>
             <tr>
               <td>
-                <input type="text" name="bomName" value="MAP/MAT sensor进气歧管压力温度传感器">
+                <input type="text" name="bomName" value="高压燃油油轨总成">
+              </td>
+              <td>
+                <input type="text" name="bomNum" value="">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="高压油泵总成">
+              </td>
+              <td>
+                <input type="text" name="bomNum" value="">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="MAP/MAT sensor进气压力温度传感器">
               </td>
               <td>
                 <input type="text" name="bomNum" value="">
@@ -95,6 +116,14 @@
             </tr>
             <tr>
               <td>
+                <input type="text" name="bomName" value="Fuel Rail Assembly燃油导轨总成">
+              </td>
+              <td>
+                <input type="text" name="bomNum" value="">
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <input type="text" name="bomName" value="Knock Sensor 爆震传感器">
               </td>
               <td>
@@ -111,7 +140,7 @@
             </tr>
             <tr>
               <td>
-                <input type="text" name="bomName" value="Purge Solenoid-ECP炭罐电磁">
+                <input type="text" name="bomName" value="Purge Solenoid-ECP炭罐电磁阀">
               </td>
               <td>
                 <input type="text" name="bomNum" value="">
@@ -119,7 +148,7 @@
             </tr>
             <tr>
               <td>
-                <input type="text" name="bomName" value="">
+                <input type="text" name="bomName" value="ETC电子节气阀体总成">
               </td>
               <td>
                 <input type="text" name="bomNum" value="">
@@ -127,7 +156,23 @@
             </tr>
             <tr>
               <td>
-                <input type="text" name="bomName" value="">
+                <input type="text" name="bomName" value="coolant Sensor 冷却液温度传感器">
+              </td>
+              <td>
+                <input type="text" name="bomNum" value="">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="Boot P/T sensor增压压力温度传感器">
+              </td>
+              <td>
+                <input type="text" name="bomNum" value="">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="bomName" value="" placeholder="添加">
               </td>
               <td>
                 <input type="text" name="bomNum" value="">
@@ -138,7 +183,7 @@
 
       </form>
       <!-- BOM零部件申请end -->
-      <div class="info-operator">
+      <div class="info-operator hide">
         <div class="info-operator-item">
           <p>
             <span>申请人：</span>
@@ -154,7 +199,7 @@
       </div>
       <!-- 提交 -->
       <div class="btn-wrapper ">
-        <a href="#" class="btn btn-blue" id="vehicle-input-tools">下一步</a>
+        <div class="btn btn-blue" id="vehicle-input-tools">下一步</div>
       </div>
 
     </div>
@@ -186,6 +231,7 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById('vehicle-input')
       H = self.H;
@@ -193,6 +239,13 @@
       oneInfo = self.oneInfo;
       upCheckInfo = self.upCheckInfo;
       isModify = self.isModify;
+      isFirst = self.isFirst;
+      if (!isFirst) {
+        $('#openPopover').show()
+        $('.info-operator').css('display', 'flex')
+      } else {
+        $('.info-operator').hide()
+      }
       fetchData();
       submitData();
     })
@@ -214,12 +267,12 @@
     }
 
     function fetchData() {
-      app.findEmsAndBomCheckByvSn({ vSn }, function (res) {
+      app.findEmsAndBomCheckByvSn({
+        vSn
+      }, function (res) {
         console.log(res);
         if (res.checkResults.length <= 0) {
           canBomCheck = false;
-          isFirst = true;
-          $('#openPopover').hide()
           return;
         }
 
@@ -228,49 +281,32 @@
         updateView(res.checkResults)
 
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
     }
 
 
     function updateView(data) {
       var html = '';
-      for (let i = 0; i < data.length; i++) {
-        const item = data[i];
-        html += '<tr data-uuid="' + item.uuid + '">\
-              <td>\
-                <input type="text" name="bomName" value="'+ item.bomName + '">\
-              </td>\
-              <td>\
-                <input type="text" name="bomNum" value="'+ item.bomNum + '">\
-              </td>\
-            </tr>'
-      }
+      mui.each(data, function (k, v) {
+        html += '<tr data-uuid="' + v.uuid + '">' +
+          '<td><input type="text" name="bomName" value="' + v.bomName + '"></td>' +
+          '<td><input type="text" name="bomNum" value="' + v.bomNum + '"></td>' +
+          '</tr>'
+      })
 
-
-      html += '<tr>\
-              <td>\
-                <input type="text" name="bomName" value="">\
-              </td>\
-              <td>\
-                <input type="text" name="bomNum" value="">\
-              </td>\
-            </tr>\
-            <tr>\
-              <td>\
-                <input type="text" name="bomName" value="">\
-              </td>\
-              <td>\
-                <input type="text" name="bomNum" value="">\
-              </td>\
-            </tr>'
+      html +=
+        '<tr>\
+          <td><input type="text" name="bomName" value="" placeholder="添加"></td>\
+          <td><input type="text" name="bomNum" value=""></td>\
+        </tr>'
 
       $('table tbody').html(html)
       $('input').attr('readonly', true)
@@ -278,6 +314,7 @@
 
 
     submitData()
+
     function submitData() {
       // vSn = '2018ICECTC001'
       $('#vehicle-input-tools').on('tap', function () {
@@ -287,7 +324,7 @@
         $bomTr.each(function (i) {
           var $bomName = $(this).find('input[name=bomName]');
           var $bomNum = $(this).find('input[name=bomNum]');
-          if ($bomName.val()) {
+          if ($bomName.val() && $bomNum.val()) {
             oneBom.push({
               bomName: $bomName.val(),
               bomNum: $bomNum.val(),
@@ -297,31 +334,13 @@
           }
         })
 
-        // oneBom = JSON.stringify(oneBom)
-        // console.log(oneBom)
-        // app.applybom(oneBom, function(res) {
-        //   // res = JSON.parse(res)
-        //   console.log(res);
-        //   mui.toast(res.msg)
-        // })
-
-        // return;
-        // console.log(!((canBomCheck && !isFirst) || isFirst))
-        // console.log(isFirst)
-        // console.log(canBomCheck)
-        // return;
-
-        // if (!((!isFirst && canBomCheck) || isFirst)) {
-        //   oneBom = null;
-        // }
-
         var id = $(this).attr('id');
         mui.openWindow({
           url: id + '.html',
           id: id, //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H,
+            // bottom: H,
             hardwareAccelerated: true
           }, //窗口参数
           extras: {
@@ -330,7 +349,8 @@
             oneBom: oneBom,
             oneInfo: oneInfo,
             upCheckInfo: upCheckInfo,
-            isModify: isModify
+            isModify: isModify,
+            isFirst: isFirst
           } //自定义扩展参数
         })
       })
@@ -353,6 +373,18 @@
       isModify = canBomCheck || isModify
     })
 
+
+    $('table tbody ').on('focus', 'tr:last td:first input', function () {
+      $('table tbody').append(
+        '<tr><td><input type="text" name="bomName" value="" placeholder="添加"></td><td><input type="text" name="bomNum" value=""></td></tr>'
+      );
+      $(this).attr('placeholder', '')
+    })
+    $('table tbody').on('blur', 'input[name=bomName]', function () {
+      if (!$(this).val()) {
+        $(this).parents('tr').remove()
+      }
+    })
 
     // 返回事件
     document.addEventListener('goback', function () {

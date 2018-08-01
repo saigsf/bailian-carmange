@@ -27,7 +27,8 @@
       "html/home.html",
       "html/popover.html",
       "html/doorpost.html",
-      "html/home-map-search.html"
+      "html/home-map-search.html",
+      "login.html"
     ]
   },
   "html/vehicle.html": {
@@ -101,7 +102,8 @@
       "js/app/vehicle-check-up.js"
     ],
     "refer": [
-      "html/vehicle-check-safety.html"
+      "html/vehicle-check-safety.html",
+      "html/vehicle-input.html"
     ],
     "priority": 0
   },
@@ -118,7 +120,8 @@
       "js/app/vehicle-input.js"
     ],
     "refer": [
-      "html/vehicle-check-up.html"
+      "html/vehicle-check-up.html",
+      "html/vehicle-input-bom.html"
     ],
     "priority": 0
   },
@@ -232,7 +235,8 @@
     ],
     "refer": [
       "html/vehicle-info-detail.html",
-      "html/vehicle-up-check.html"
+      "html/vehicle-up-check.html",
+      "html/vehicle-auditing.html"
     ],
     "priority": 0
   },
@@ -343,7 +347,8 @@
       "js/app/login.js",
       "img/login/md_background.png",
       "img/login/md/background.png",
-      "img/common/md/icon_checked@2x.png"
+      "img/common/md/icon_checked@2x.png",
+      "js/mui.js"
     ],
     "refer": [
       "index.html",
@@ -553,7 +558,8 @@
       "img/common/icon_app.png",
       "img/common/md/icon_checked@2x.png",
       "img/common/md/in_background.png",
-      "img/common/md/driver_pic.png"
+      "img/common/md/driver_pic.png",
+      "img/common/md/icon_more.png"
     ],
     "refer": [
       "html/doorpost-driver-input.html",
@@ -636,7 +642,8 @@
       "html/vehicle-input-detail.html",
       "html/vehicle-insurance-apply.html",
       "html/vehicle-input-info.html",
-      "html/search.html"
+      "html/search.html",
+      "html/vehicle-filter.html"
     ],
     "priority": 0
   },
@@ -1039,5 +1046,28 @@
     ],
     "refer": [],
     "priority": 0
+  },
+  "html/vehicle-input-bom.html": {
+    "refer": [
+      "html/vehicle-input-tools.html"
+    ],
+    "resources": []
+  },
+  "html/vehicle-input-tools.html": {
+    "refer": [
+      "html/vehicle-upload.html"
+    ],
+    "resources": []
+  },
+  "html/vehicle-up-check.html": {
+    "refer": [
+      "html/vehicle-input.html"
+    ],
+    "resources": []
+  },
+  "html/vehicle-RD-tools.html": {
+    "refer": [
+      "html/vehicle-check-add-explain.html"
+    ]
   }
 }

@@ -121,7 +121,7 @@
             <div class="date-wrapper">
               <label>预计完成日</label>
               <div class="date-text">
-                <input type="text" name="forecastTime" id="forecastTime" placeholder="2018-01-01" readonly>
+                <input type="text" name="forecastTime" id="forecastTime" placeholder="请选择时间 " readonly>
                 <div class="date-icon">
                   <i class="icon icon-date"></i>
                 </div>
@@ -163,13 +163,15 @@
       var H = null;
       var vSn = null;
       var ids = null;
+      var self = null;
       var view = null;
       var dDate = new Date();
       var operatorArr = []
 
       mui.plusReady(function () {
         handsetAdaption()
-        var self = plus.webview.currentWebview();
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
+        self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById('repair-list.html')
         H = self.H;
         vSn = self.vSn;
@@ -251,10 +253,10 @@
 
       function updateView(data) {
         var html = '';
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-          html += '<option value="' + item.nickname + '">' + item.nickname + '</option>'
-        }
+
+        mui.each(data, function(k, v) {
+          html += '<option value="' + v.nickname + '">' + v.nickname + '</option>'
+        })
         $('#operator').append(html)
       }
 
@@ -269,7 +271,7 @@
             // res = JSON.parse(res);
             mui.toast(res.msg)
             if (res.ret) {
-              setTimeout(() => {
+              setTimeout(function() {
                 mui.fire(view, 'update', {});
                 mui.back();
               }, 100);

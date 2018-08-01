@@ -23,8 +23,12 @@
       margin: 0;
     }
 
+    .search-wrapper {
+      width: 85%;
+    }
+
     .top .icon-more {
-      width: 40px;
+      width: 34px;
       height: 40px;
     }
 
@@ -139,10 +143,10 @@
 
     .batch .allcheck,
     .batch .canclecheck {
-      width: 15%;
+      width: 20%;
     }
 
-    .top.batch .search-wrapper {
+    .batch .search-wrapper {
       width: 60%
     }
 
@@ -175,7 +179,7 @@
     } */
 
     .mui-table-view-cell {
-      background: url(../img/common/md/in_background.png)no-repeat center;
+      /* background: url(../img/common/md/in_background.png)no-repeat center; */
       background-size: 105%;
       background-position-x: center;
       background-position-y: 0;
@@ -183,8 +187,19 @@
       padding: 0;
     }
 
-    .mui-table-view-cell>.mui-slider-handle {
-      background-color: transparent;
+    .mui-slider-handle:before {
+      content: "";
+      width: 90%;
+      height: 6px;
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #eef7fd;
+    }
+
+    .mui-slider-handle {
+      position: relative;
     }
 
     .item-right {
@@ -197,6 +212,8 @@
       flex-direction: row;
       justify-content: space-between;
       padding: 12px 5px 5px;
+      position: relative;
+      background-color: #fff;
     }
 
     .item-right .item-top {
@@ -234,10 +251,6 @@
     .search-wrapper {
       height: 40px;
     }
-
-    .search-wrapper {
-      width: 85%;
-    }
   </style>
 </head>
 
@@ -256,7 +269,7 @@
             <i class="icon-search icon"></i>
           </div>
           <div class="search-text">
-            <input type="text" placeholder="请输入车辆编号">
+            <input type="text" id="current_input" placeholder="请输入驾驶员姓名">
           </div>
         </div>
         <div class="btn" id="add">
@@ -273,8 +286,8 @@
     </div>
   </div>
   <div class="btn-container">
-    <button class="btn" id="authorize_batch">授权</buttons>
-      <button class="btn btn-blue" id="cancel_authorize_batch">禁止</button>
+    <button class="btn" id="authorize_batch">授权</button>
+    <button class="btn btn-blue" id="cancel_authorize_batch">禁止</button>
   </div>
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>
@@ -290,6 +303,7 @@
       var curPage = 1; //当前页码初始化数0开始
       var totalPage = 1; //后台算出总页数
       var H = null;
+      var self = null;
       var allCheckFlag = false;
       var dataArr = {}
 
@@ -342,7 +356,8 @@
       }
       // 
       mui.plusReady(function () {
-        var self = plus.webview.currentWebview();
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
+        self = plus.webview.currentWebview();
         H = self.H;
         addEvent()
 
@@ -351,13 +366,16 @@
       });
 
       // 获取数据
+      // fetchData()
       function fetchData() {
-        console.log(curPage);
+
         var opt = $.extend({
           page: curPage,
-          size: 3
+          size: 10
         }, dataArr)
+        console.log(JSON.stringify(opt));
         app.carDriverList(opt, function (res) {
+          res = JSON.parse(res)
           console.log(res)
           if (!res.total || res.total <= 0) {
             $('#no-data').show().prev().hide()
@@ -365,7 +383,7 @@
             return;
           }
           curPage++;
-          totalPage = Math.ceil(res.total / 3)
+          totalPage = Math.ceil(res.total / 10)
           var data = res.rows;
 
           updateView(data);
@@ -384,20 +402,20 @@
       // 更新视图
       function updateView(data) {
         var html = '';
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-
+        
+        mui.each(data, function(k, v) {
           var groups = '';
-          for (let i = 0; i < item.groups.length; i++) {
-            groups += item.groups[i].name;
-          }
 
+          mui.each(v.groups, function(ks, vs) {
+            groups += vs.name + ' ';
+          })
 
-          html += '<li class="mui-table-view-cell" data-id="' + item.id + '" data-name="' + item.name + '">'
+          html += '<li class="mui-table-view-cell" data-id="' + v.id + '" data-name="' + v.name + '">'
 
           if (app.getUserRoles('admin') || app.getUserRoles('driverManager')) {
             html += '<div class="mui-slider-right mui-disabled">' +
               '<a class="mui-btn mui-btn-gray update">修改</a>' +
+              '<a class="mui-btn mui-btn-orange ' + (v.isallow == '禁止' ? 'authorize' : 'cancel_authorize') + '">' + (v.isallow == '禁止' ? '授权' : '禁止') + '</a>' +
               '<a class="mui-btn mui-btn-red delete">删除</a>' +
               '</div>'
           }
@@ -405,31 +423,34 @@
           html += '<div class="mui-slider-handle">' +
             '<div class="list-item">' +
             '<div class="item-checked">' +
-            '<input type="checkbox" name="" id="myCheck' + item.id + '">' +
-            '<label for="myCheck' + item.id + '"></label>' +
+            '<input type="checkbox" name="" id="myCheck' + v.id + '">' +
+            '<label for="myCheck' + v.id + '"></label>' +
             '</div>' +
             '<div class="item-left"><img src="../img/common/md/driver_pic.png" /></div>' +
             '<div class="item-right">' +
             '<div class="item-top">' +
             '<div class="number">' +
-            '<h4>' + item.name + '</h4>' +
-            '<p><span>员工卡号：</span><span class="">' + (item.employeeCard ? item.employeeCard : '-') + '</span></p>' +
+            '<h4>' + v.name + '</h4>' +
+            '<p><span>员工卡号：</span><span class="">' + (v.employeeCard ? v.employeeCard : '-') + '</span></p>' +
             '</div>' +
             '</div>' +
             '<div class="item-bottom">' +
             '<p><span>授权分组：</span>' + groups + '</p>' +
-            '<p><span>电话：</span>' + (item.telephone ? item.telephone : '-') + '</p>' +
+            '<p><span>电话：</span>' + (v.telephone ? v.telephone : '-') + '</p>' +
             '</div>' +
             '</div>' +
             '</div>' +
-            '<span class="marker ' + (item.isallow == '禁止' ? 'red' : 'green') + '">' + item.isallow + '</span>' +
+            '<span class="marker ' + (v.isallow == '禁止' ? 'red' : 'green') + '">' + v.isallow + '</span>' +
             '</div>' +
             '</li>';
-        }
+        })
+
         $('#OA_task_1').append($(html));
       }
 
       function addEvent() {
+
+
 
         // 驾驶员信息修改
         $('#OA_task_1').on('tap', '.update', function () {
@@ -440,13 +461,60 @@
             id: 'doorpost-driver-input', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
               H: H,
               driverId: $li.attr('data-id')
             } //自定义扩展参数
+          })
+        })
+
+        // 驾驶员授权
+        $('#OA_task_1').on('tap', '.authorize', function () {
+          var $li = $(this).parents('li');
+          // canceLongtap()
+          mui.openWindow({
+            url: 'doorpost-driver-authorize.html',
+            id: 'doorpost-driver-authorize', //默认使用当前页面的url作为id
+            styles: {
+              top: '0px',
+              bottom: H
+            }, //窗口参数
+            extras: {
+              H: H,
+              ids: $li.attr('data-id'),
+              names: $li.attr('data-name')
+            } //自定义扩展参数
+          })
+        })
+
+        // 驾驶员取消授权
+        $('#OA_task_1').on('tap', '.cancel_authorize', function () {
+          var $li = $(this).parents('li');
+          app.cancelAuthorized({
+            ids: $li.attr('data-id')
+          }, function (res) {
+            console.log(res);
+            res = JSON.parse(res)
+            if (res.ret) {
+              // plus.webview.currentWebview().reload()
+              curPage = 1;
+              $('#OA_task_1').html('')
+              fetchData();
+            } else {
+              mui.toast('禁止失败')
+            }
+          }, function (xhr, type, errorThrown) {
+            //异常处理；
+            console.log(type);
+            mui.toast(type);
+            if (type == 'timeout') {
+              console.log("请求超时：请检查网络")
+            } else {
+              console.log('请求失败：' + type + '\n err:' + errorThrown);
+            }
           })
         })
 
@@ -457,7 +525,7 @@
             id: 'doorpost-driver-input', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -475,7 +543,7 @@
             id: 'doorpost-driver-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -502,7 +570,7 @@
         //   })
         // })
 
-        $('#search').on('keyup', function (e) {
+        $('#current_input').on('keyup', function (e) {
           if (e.keyCode == 13) {
             dataArr = {
               driverName: $(this).val()
@@ -523,13 +591,6 @@
         $('.btn-container').fadeIn()
       }
       document.addEventListener("longtap", langTap, false);
-
-      if (!app.getUserRoles('admin') && !app.getUserRoles('driverManager')) {
-        document.removeEventListener('longtap', langTap, false);
-        $('#add').hide().prev().css('width', '100%')
-      }
-
-
 
       // 取消
       $('.top').on('tap', '#canclecheck', canceLongtap);
@@ -679,7 +740,13 @@
       })
 
       document.addEventListener('roles', function () {
-        document.removeEventListener('longtap', function () { })
+        if (!app.getUserRoles('admin') && !app.getUserRoles('driverManager')) {
+          document.removeEventListener('longtap', langTap, false);
+          $('#add').hide().prev().css('width', '100%')
+        } else {
+          document.addEventListener('longtap', langTap, false);
+          $('#add').show().prev().css('width', '85%')
+        }
       })
     })()
   </script>

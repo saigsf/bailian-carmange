@@ -71,16 +71,22 @@
       top: 40%;
     }
 
+    .mui-table-view.mui-table-listview .mui-table-view-cell {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .1)
+    }
 
     .mui-table-view-cell {
-      background: url(../img/common/md/in_background.png)no-repeat center;
+      /* background: url(../img/common/md/in_background.png)no-repeat center; */
       background-size: 105%;
       background-position-x: center;
       background-position-y: 0;
-      background-color: transparent !important;
+      /* background-color: transparent !important; */
       padding: 0;
     }
 
+    .item-right .item-top {
+      line-height: 24px;
+    }
 
     .item-right {
       flex-direction: column;
@@ -102,6 +108,16 @@
 
     .item-left {
       width: 80px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .item-left img {
+      width: 100%;
+      display: block;
     }
 
     .item-right {
@@ -143,6 +159,9 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- 懒加载 -->
+  <script src="../js/lib/mui.lazyload.js"></script>
+  <script src="../js/lib/mui.lazyload.img.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -161,6 +180,10 @@
       var filter = '20px';
 
       var prepageSearch = null;
+      var lazyLoad = mui('#vehicle_insurance_list').imageLazyload({
+        placeholder: '../img/common/md/loading0.gif',
+        autoDestroy: false
+      });
 
       // 初始化
       mui.init({
@@ -177,7 +200,7 @@
       });
 
       // 页面滚动
-      mui('.mui-scroll-wrapper').scroll();
+      // mui('.mui-scroll-wrapper').scroll();
 
       // 下拉刷新业务
       function pulldownRwfresh() {
@@ -209,9 +232,10 @@
       mui.plusReady(function () {
         // plus准备好后执行H5
         handsetAdaption();
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         // 获取当前视图
         self = plus.webview.currentWebview();
-        main = plus.webview.getWebviewById("index");
+        main = plus.webview.getWebviewById("main");
         main.addEventListener('maskClick', closeMenu);
         // 获取传递参数
         H = self.H;
@@ -251,12 +275,13 @@
       function fetchData() {
         var opt = $.extend({
           page: curPage,
-          size: 3
+          size: 10
         }, dataArr);
+        console.log(JSON.stringify(dataArr))
 
         app.insuranceQuery(opt, function (res) {
-          res = JSON.parse(res)
           console.log(res)
+          res = JSON.parse(res)
           if (!res.total || res.total <= 0 || res.rows.length <= 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据，下拉加载所有数据')
@@ -264,7 +289,7 @@
           }
           // console.log(res.total)
           curPage++;
-          totalPage = Math.ceil(res.total / 3)
+          totalPage = Math.ceil(res.total / 10)
 
           data = res.rows;
           updateView(res.rows);
@@ -284,52 +309,67 @@
       function updateView(data) {
         var html = '';
 
-
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-          if (item.endTime) {
-            var endDate = new Date(item.endTime.replace(/-/g, "/"))
-            var startDate = new Date(item.startTime.replace(/-/g, "/"))
+        mui.each(data, function(k, v) {
+          if (v.endTime) {
+            var endDate = new Date(v.endTime.replace(/-/g, "/"))
+            var startDate = new Date(v.startTime.replace(/-/g, "/"))
             var time = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
           }
-          console.log(time)
 
-
-          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
+          html += '<li class="mui-table-view-cell" data-vSn="' + v.vSn + '">'
             + '<div class="list-item">'
             + '<div class="item-left">'
-            + '<img src="../img/common/md/in_pic.png" />'
-            + '</div>'
+
+          if (v.picurl) {
+            html += '<img data-lazyload="' + v.picurl + '" alt="" />'
+          } else {
+            html += '<i class="icon icon-nopic"></i>'
+          }
+          html += '</div>'
             + '<div class="item-right">'
             + '<div class="item-top">'
             + '<h4>'
-            + '<span>' + item.vSn + '</span>'
+            + '<span>' + v.vSn + '</span>'
             + '</h4>'
             + '<p>'
-            + '<span>车辆名称：</span>'
-            + '<span class="blue">' + (item.carName ? item.carName : '-') + '</span>'
+            + '<span>保单号：</span>'
+            + '<span class="blue">' + (v.insNo ? v.insNo : '-') + '</span>'
             + '</p>'
             + '</div>'
             + '<div class="progress-wrapper">'
             + '<label>剩余时间：</label>'
             + '<div class="progress">'
-            + '<div class="move ' + (item.lave < 90 ? 'red' : 'green') + '" style="width:' + (item.lave ? (item.lave / time * 100 + '%') : '0') + '" ></div>'
+            + '<div class="move ' + (v.lave < 90 ? 'red' : 'green') + '" style="width:' + (v.lave ? (v.lave / time * 100 + '%') : '0') + '" ></div>'
             + '</div>'
-            + '<span>' + (item.lave ? (item.lave + '天') : '暂无') + '</span>'
+            + '<span>' + (v.lave ? (v.lave + '天') : '暂无') + '</span>'
             + '</div>'
             + '</div>'
             + '</div>'
 
-          if (item.istatus == '未续保') {
-            html += '<span class="marker red">' + item.istatus + '</span></li>'
-          } else if (item.istatus == '已申请' || item.istatus == '已续保') {
-            html += '<span class="marker green">' + item.istatus + '</span></li>'
-          } else if (item.istatus == '未申请') {
-            html += '<span class="marker blue">' + item.istatus + '</span></li>'
+          if (v.istatus == '未续保') {
+            html += '<span class="marker red">' + v.istatus + '</span></li>'
+          } else if (v.istatus == '已申请' || v.istatus == '已续保') {
+            html += '<span class="marker green">' + v.istatus + '</span></li>'
+          } else if (v.istatus == '未申请') {
+            html += '<span class="marker blue">' + v.istatus + '</span></li>'
           }
+        })
 
-        }
         $('#vehicle_insurance_list').append(html)
+        $('img').each(function (i) {
+          if ($(this).width() > $(this).height()) {
+            $(this).css({
+              height: '100%',
+              width: 'auto'
+            })
+          } else {
+            $(this).css({
+              width: '100%',
+              height: 'auto'
+            })
+          }
+        })
+        lazyLoad.refresh(true);
       }
 
       // 页面点击事件
@@ -344,7 +384,7 @@
             id: 'vehicle-insurance-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -395,7 +435,8 @@
       };
       //关闭侧滑窗口；
       function closeMenu(e) {
-        if (e) {
+        console.log(e)
+        if ((mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
           dataArr = e.detail.data;
           curPage = 1;
           $('#vehicle_insurance_list').html('')

@@ -58,6 +58,8 @@
     .item-left img {
       /* height: 100%; */
       width: 100%;
+      /* min-width: 100%;
+      min-height: 100%; */
       /* width: auto; */
       /* margin-left: -20px; */
     }
@@ -72,7 +74,7 @@
     }
 
     .search-wrapper {
-      /* width: 80%; */
+      width: 80%;
       /* margin: 10px auto; */
       height: 40px;
     }
@@ -114,6 +116,185 @@
       color: #333;
     }
   </style>
+
+  <!--App自定义的css-->
+  <style type="text/css">
+    .mui-preview-image.mui-fullscreen {
+      position: fixed;
+      z-index: 20;
+      background-color: #000;
+    }
+
+    .mui-preview-header,
+    .mui-preview-footer {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      z-index: 10;
+    }
+
+    .mui-preview-header {
+      height: 44px;
+      line-height: 44px;
+      top: 0px;
+    }
+
+    .mui-preview-footer {
+      height: 50px;
+      bottom: 0px;
+    }
+
+    .mui-preview-header .mui-preview-indicator {
+      display: block;
+      line-height: 25px;
+      color: #fff;
+      text-align: center;
+      margin: 15px auto 4;
+      width: 70px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    .mui-preview-image {
+      display: none;
+      -webkit-animation-duration: 0.5s;
+      animation-duration: 0.5s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+    }
+
+    .mui-preview-image.mui-preview-in {
+      -webkit-animation-name: fadeIn;
+      animation-name: fadeIn;
+    }
+
+    .mui-preview-image.mui-preview-out {
+      background: none;
+      -webkit-animation-name: fadeOut;
+      animation-name: fadeOut;
+    }
+
+    .mui-preview-image.mui-preview-out .mui-preview-header,
+    .mui-preview-image.mui-preview-out .mui-preview-footer {
+      display: none;
+    }
+
+    .mui-zoom-scroller {
+      position: absolute;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .mui-zoom {
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+
+    .mui-slider .mui-slider-group .mui-slider-item img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+      width: 100%;
+    }
+
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+      display: inline-table;
+    }
+
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .mui-preview-loading {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+
+    .mui-preview-loading.mui-active {
+      display: block;
+    }
+
+    .mui-preview-loading .mui-spinner-white {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -25px;
+      margin-top: -25px;
+      height: 50px;
+      width: 50px;
+    }
+
+    .mui-preview-image img.mui-transitioning {
+      -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    @-webkit-keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    p img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
 </head>
 
 <body>
@@ -128,6 +309,11 @@
           <div class="search-text">
             <input type="text" readonly placeholder="请输入车辆编号">
           </div>
+
+
+        </div>
+        <div class="filter" id="filter">
+          <i class="icon icon-filter">筛选</i>
         </div>
       </form>
       <ul id="vehicle_input_list" class="mui-table-view mui-table-listview"></ul>
@@ -140,6 +326,12 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- 图片预览 -->
+  <script src="../js/lib/mui.zoom.js"></script>
+  <script src="../js/lib/mui.previewimage.js"></script>
+  <!-- 懒加载 -->
+  <script src="../js/lib/mui.lazyload.js"></script>
+  <script src="../js/lib/mui.lazyload.img.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -151,13 +343,20 @@
       var curPage = 1;  //当前页码初始化数0开始
       var totalPage = 0; //后台算出总页数
       var self = null;
+      var main = null;
       var H = null; // 页面高度
       var vSn = null;
       var data = [];
       var dataArr = {};
+      var filter = '20px';
 
       // 预加载页面
       var prepageSearch = null;
+
+      var lazyLoad = mui('#vehicle_input_list').imageLazyload({
+        placeholder: '../img/common/md/loading0.gif',
+        autoDestroy: false
+      });
 
       mui.init({
         pullRefresh: {
@@ -172,7 +371,9 @@
           }
         }
       });
-      mui('.mui-scroll-wrapper').scroll();
+      mui.previewImage();
+
+      // mui('.mui-scroll-wrapper').scroll();
       // 下拉刷新业务
       function pulldownRwfresh() {
         curPage = 1;
@@ -203,8 +404,11 @@
       mui.plusReady(function () {
         // plus准备好后执行H5
         handsetAdaption();
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         // 获取当前视图
         self = plus.webview.currentWebview();
+        main = plus.webview.getWebviewById("main");
+        main.addEventListener('maskClick', closeMenu);
         // 获取传递参数
         H = self.H;
 
@@ -240,6 +444,7 @@
           $('.mui-bar-nav~.mui-content').css({
             'paddingTop': '88px'
           })
+          filter = '34px';
         }
         // 弹出软键盘时自动改变webview的高度
         plus.webview.currentWebview().setStyle({
@@ -251,20 +456,20 @@
       // 页面点击事件
       function addEvents() {
         // 跳转执行下一步
-        $('#vehicle_input_list').on('tap', 'li', function () {
-          var $li = $(this);
+        $('#vehicle_input_list').on('tap', 'li .item-right', function () {
+          var $li = $(this).parents('li');
           mui.openWindow({
             url: 'vehicle-input-info.html',
             id: 'vehicle-input-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
               H: H,
               vSn: $li.attr('data-vsn'),
-              data: data[$li.index()]
+              // data: data[$li.index()]
             } //自定义扩展参数
           })
         })
@@ -280,23 +485,32 @@
 
       // 获取数据
       function fetchData() {
+
         var opt = $.extend({
           page: curPage,
-          size: 3
+          size: 10
         }, dataArr);
 
         console.log(JSON.stringify(opt))
 
-        app.carQuery(opt, function (res) {
-          res = JSON.parse(res);
+        app.carQuery2(opt, function (res) {
+          if (res.substring(0, 15) == '<!DOCTYPE html>') {
+            console.log('您未登录');
+            $('#no-data').show().find('p').html('您未登录，点击<a href="#">登录</a>')
+              .prev().hide()
+            return;
+          }
           console.log(res);
+          res = JSON.parse(res);
+          $('#no-data').hide().find('p').html('没有您想要的数据，下拉刷新')
+            .prev().show()
           if (!res.total || res.total == 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据，下拉加载所有数据')
             return;
           }
           curPage++;
-          totalPage = Math.ceil(res.total / 3);
+          totalPage = Math.ceil(res.total / 10);
           if (res.rows) {
             data = res.rows;
             updateView(res.rows);
@@ -315,14 +529,14 @@
 
       function updateView(data) {
         var html = '';
-        data.forEach(item => {
+        data.forEach(function(item) {
           html += '<li class="mui-table-view-cell" data-vsn="' + item.vSn + '">\
                     <div class="list-item">\
                       <div class="item-left">'
 
 
           if (item.picurl) {
-            html += '<img src="' + item.picurl + '" />'
+            html += '<img data-lazyload="' + item.picurl + '" alt="" data-preview-src data-preview-group="1" />'
           } else {
             html += '<i class="icon icon-nopic"></i>'
           }
@@ -348,10 +562,10 @@
 
           if (item.istatus == null) {
             html += '<p><span>保险状态：</span>暂无保险信息</p>'
-          } else if (item.istatus == '未申请') {
+          } else if (item.istatus == '未申请' || item.istatus == '已申请') {
             html += '<p><span>保险状态：</span>' + item.istatus + '</p>'
           } else {
-            html += '<p><span>保险状态：</span>' + (item.istatus + '(' + (item.startTime?item.startTime:'-') + '至' + (item.endTime?item.endTime:'-') + ')') + '</p>'
+            html += '<p><span>保险状态：</span>' + (item.istatus + '(' + (item.startTime ? item.startTime : '-') + '至' + (item.endTime ? item.endTime : '-') + ')') + '</p>'
           }
 
           html += '</div></div></div></li>'
@@ -360,8 +574,29 @@
           //   </div>\
         });
 
-        $('#vehicle_input_list').append(html)
+        $('#vehicle_input_list').append(html).show();
+
+        $('img').each(function (i) {
+          if ($(this).width() > $(this).height()) {
+            $(this).css({
+              height: '100%',
+              width: 'auto'
+            })
+          } else {
+            $(this).css({
+              width: '100%',
+              height: 'auto'
+            })
+          }
+        })
+        lazyLoad.refresh(true);
       }
+
+      document.addEventListener('update', function () {
+        curPage = 1;
+        $('#vehicle_input_list').html('');
+        fetchData();
+      })
 
 
       document.addEventListener('statusBar', function (e) {
@@ -371,6 +606,60 @@
         fetchData();
         // mui('#pullrefresh').pullRefresh().pulldownLoading();
       })
+
+
+      //打开侧滑窗口；
+      function openMenu() {
+
+        main.setStyle({
+          mask: 'rgba(0,0,0,0.5)'
+        }); //menu设置透明遮罩防止点击
+
+        mui.openWindow({
+          url: 'vehicle-filter.html',
+          id: 'vehicle-filter', //默认使用当前页面的url作为id
+          styles: {
+            top: filter,
+            bottom: '0',
+            left: '30%',
+            width: '70%',
+            hardwareAccelerated: true
+          }, //窗口参数
+          extras: {
+            H: H,
+            prevId: self.id
+          }, //自定义扩展参数
+          waiting: {
+            autoShow: false, //自动显示等待框，默认为true
+            title: '正在加载...', //等待对话框上显示的提示内容
+          }
+        })
+      };
+      //关闭侧滑窗口；
+      function closeMenu(e) {
+        if ((mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
+          dataArr = e.detail.data;
+          curPage = 1;
+          $('#vehicle_input_list').html('')
+          fetchData();
+        }
+        //关闭遮罩；
+        side = plus.webview.getWebviewById("vehicle-filter");
+        main.setStyle({
+          mask: 'none'
+        });
+        mui.fire(side, 'close', {})
+
+      };
+
+      //点击头部菜单小图标，打开侧滑菜单；
+      $('#filter').on('tap', function (e) {
+        e.stopPropagation();
+        openMenu()
+      });
+      //menu页面点击后关闭菜单；
+      window.addEventListener('closeMenu', closeMenu);
+
 
 
 

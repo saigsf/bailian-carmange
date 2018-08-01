@@ -105,11 +105,11 @@
             <h4>送修申请信息</h4>
           </div>
           <div class="info-content">
-            <div class="date-wrapper">
+            <div class="date-wrapper start">
               <label>维修项目</label>
               <div class="date-text">
                 <!-- <input type="text" id="item" placeholder="" readonly> -->
-                <textarea name="item" id="item" cols="30" rows="1" readonly></textarea>
+                <textarea name="item" id="item" cols="30"  readonly></textarea>
               </div>
             </div>
             <div class="date-wrapper">
@@ -124,10 +124,12 @@
                 <input type="text" name="" id="applytime" placeholder="" readonly>
               </div>
             </div>
-            <div class="date-wrapper">
+            <div class="date-wrapper start">
               <label>维修备注</label>
               <div class="date-text">
-                <input type="text" name="" id="applyRemark" placeholder="" readonly>
+                <!-- <input type="text" name="" id="applyRemark" placeholder="" readonly> -->
+                <textarea name="applyRemark" id="applyRemark" cols="30" rows="3" readonly></textarea>
+
               </div>
             </div>
             <div class="info-operator">
@@ -163,16 +165,20 @@
                 <input type="text" name="" value="" id="fin_park" placeholder="" readonly>
               </div>
             </div>
-            <div class="date-wrapper">
+            <div class="date-wrapper start">
               <label>工作内容</label>
               <div class="date-text">
-                <input type="text" name="" id="workContent" placeholder="" readonly>
+                <!-- <input type="text" name="" id="workContent" placeholder="" readonly> -->
+                <textarea name="workContent" id="workContent" cols="30" rows="3" readonly></textarea>
+
               </div>
             </div>
             <div class="date-wrapper">
               <label>备注</label>
               <div class="date-text">
-                <input type="text" name="" id="remark" placeholder="" readonly>
+                <!-- <input type="text" name="" id="remark" placeholder="" readonly> -->
+                <textarea name="remark" id="remark" cols="30" rows="3" readonly></textarea>
+
               </div>
             </div>
             <div class="info-operator">
@@ -205,12 +211,14 @@
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
   <script>
-    ; (function () {
+    ;
+    (function () {
       mui.init();
 
       var vSn = '2018-217';
       var H = null;
       var page = null;
+      var self = null;
       //初始化单页的区域滚动
       mui('.mui-scroll-wrapper').scroll();
 
@@ -225,7 +233,8 @@
             'paddingTop': '88px'
           })
         }
-        var self = plus.webview.currentWebview();
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
+        self = plus.webview.currentWebview();
         vSn = self.vSn;
         H = self.H;
         page = mui.preload({
@@ -233,7 +242,7 @@
           id: 'repair-maintain-info', //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H
+            // bottom: H
           }, //窗口参数
           extras: {
             H: H,
@@ -243,10 +252,17 @@
 
         fetchData();
       });
+
       function fetchData() {
-        app.carMaintainQuery({vSn}, function (res) {
+        app.carMaintainQuery({
+          vSn
+        }, function (res) {
           console.log(res)
+          
           res = JSON.parse(res);
+          if(res.ret == false) {
+            return;
+          }
           updateView(res.rows[0])
         }, function (xhr, type, errorThrown) {
           //异常处理；
@@ -270,17 +286,22 @@
         $('#applyPeople_0').html('送修申请人：' + data.applyPeople)
         $('#operator_0').html('维修人：' + data.operator)
 
+        $("textarea").autoTextarea({
+          maxHeight: 340,
+          minHeight: 34
+        });
       }
 
       $("#submit").on('tap', function () {
-
         page.show('slide-in-right')
+        mui.fire(page, 'info', {
+          send_park: $('#send_park_0').html(),
+          applyPeople: $('#applyPeople').html(),
+          status: $('#status').html()
+        })
       })
 
-      $("textarea").autoTextarea({
-        maxHeight:400,
-        minHeight:34
-      });
+      
 
     })();
   </script>

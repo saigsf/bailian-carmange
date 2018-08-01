@@ -62,7 +62,7 @@
     <div class="mui-input-row explain" id="explain">
       <p>
         <span>问题原因：</span>
-        <span class="explainText" ></span>
+        <span class="explainText"></span>
       </p>
     </div>
     <div class="mui-input-row">
@@ -94,9 +94,9 @@
       mui('.mui-scroll-wrapper').scroll();
       mui.plusReady(function () {
         handsetAdaption();
-
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
-        view = plus.webview.getWebviewById(self.viewId);  // ?????????????????????
+        view = plus.webview.getWebviewById(self.viewId); // ?????????????????????
         explainText = self.explainText;
         resolventText = self.resolventText;
         status = self.status;
@@ -136,22 +136,22 @@
       function addEvent() {
         // 发表components
         $('#issue').on('tap', function () {
-          if ($('#issue_text').val()) {
-            if (status == 'resolvent') {
-              mui.fire(view, 'updateResolvent', {// 触发自定义事件
-                resolventText: $('#issue_text').val()
-              });
-            } else {
-              mui.fire(view, 'updateExplain', {// 触发自定义事件
-                explainText: $('#issue_text').val()
-              });
-            }
-
-            self.close("auto", 300);
-
+          // if ($('#issue_text').val()) {
+          if (status == 'resolvent') {
+            mui.fire(view, 'updateResolvent', { // 触发自定义事件
+              resolventText: $('#issue_text').val()
+            });
           } else {
-            mui.alert('亲，请输入内容！！', '提示', '确定')
+            mui.fire(view, 'updateExplain', { // 触发自定义事件
+              explainText: $('#issue_text').val()
+            });
           }
+
+          self.close("auto", 300);
+
+          // } else {
+          //   mui.alert('亲，请输入内容！！', '提示', '确定')
+          // }
         })
       }
 

@@ -33,9 +33,9 @@
     }
 
     .search-container {
-      height: 20%;
       background-color: #fff;
       padding-left: 5%;
+      padding: 2% 0 2% 5%;
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -69,7 +69,7 @@
     .search-btn {
       height: 100%;
       width: 30%;
-      line-height: 170px;
+      /* line-height: 170px; */
       text-align: center;
       font-size: 16px;
       color: #2885cf;
@@ -165,6 +165,7 @@
   <script src="../js/app/app.js"></script>
   <!-- 百度地图api -->
   <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=cf6a86da25b978f2976688a4d2f71a0d"></script>
+  <script crossorigin="anonymous" id="amap_plus_js" src="http://webapi.amap.com/maps/modules?v=1.4.7&amp;key=ffc8503b4c8647c3753679c5e95278a5&amp;vrs=1527753092704&amp;m=mouse,vectorlayer,overlay,wgl,sync" type="text/javascript"></script>
   <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
   <!--多点聚合-->
   <!-- 当前页面js -->
@@ -183,7 +184,8 @@
       var submitLock = false;
 
 
-
+      // console.log($('.mui-content').height())
+      $('#map').height($('.mui-content').height() - $('#map').prev().height())
 
       var icon = new AMap.Icon({
         size: new AMap.Size(35, 35),  //图标大小
@@ -225,6 +227,7 @@
       mui.plusReady(function () {
         // plus准备好后执行H5
         handsetAdaption()
+        
         // 获取当前视图
         self = plus.webview.currentWebview();
         // 获取传递参数
@@ -356,11 +359,12 @@
           autoRotation: true,
           angle: res[0].towards
         })
-        console.log(res[0].towards)
+        // console.log(res[0].towards)
         // lineArr.length = 0;
-        for (var i = 0; i < res.length; i++) {
-          lineArr.push(new AMap.LngLat(res[i].longitude, res[i].latitude));
-        }
+
+        mui.each(res, function(k, v) {
+          lineArr.push(new AMap.LngLat(v.longitude, v.latitude));
+        })
         // 绘制轨迹
         var polyline = new AMap.Polyline({
           map: map,

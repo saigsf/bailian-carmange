@@ -133,6 +133,7 @@
       // plus Ready
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById(self.prevId)
         H = self.H;
@@ -204,7 +205,7 @@
             console.log(res)
             mui.toast(res.msg)
             if(res.ret) {
-              setTimeout(() => {
+              setTimeout(function() {
                 mui.back();
                 mui.fire(view, 'update', null)
               }, 500);

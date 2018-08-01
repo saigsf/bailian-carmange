@@ -27,6 +27,8 @@
 
     .pressure input[type=number] {
       margin: 0;
+      height: 34px;
+      font-size: 14px;
     }
 
     .pressure-vat {
@@ -214,7 +216,9 @@
 
 <body>
   <header class="mui-bar mui-bar-nav">
-    <a class="mui-action-back icon icon-back mui-pull-left"></a>
+    <a class="mui-action-back mui-pull-left">
+      <i class="icon-back icon"></i>
+    </a>
     <h1 class="mui-title">安全检查</h1>
     <a href="#popover" id="openPopover" class="mui-btn mui-btn-outlined mui-pull-right">修改</a>
   </header>
@@ -1273,7 +1277,7 @@
         </div>
       </div>
       <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="two_next">提交</button>
+        <div class="btn btn-blue" id="two_next">提交</div>
       </div>
     </div>
   </div>
@@ -1329,6 +1333,7 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;
@@ -1350,9 +1355,9 @@
           'paddingTop': '88px'
         })
       }
-      // plus.webview.currentWebview().setStyle({
-      //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
-      // });
+      plus.webview.currentWebview().setStyle({
+        softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
+      });
     }
 
     // 获取数据
@@ -1368,15 +1373,15 @@
         }
         updateView.cldCheck(res);
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
 
       app.findSafeCheckByvSn({ vSn: vSn }, function (res) {
         console.log(res);
@@ -1393,7 +1398,7 @@
             canInspect = false;
             canChecked = false;
             $('#two_next').parent().hide();
-            mui.alert('您没有操作权限，只能浏览信息！', '提示')
+            // mui.alert('您没有操作权限，只能浏览信息！', '提示')
           }
 
           return;
@@ -1423,7 +1428,7 @@
 
             $('#openPopover').hide();
             $('#two_next').parent().hide();
-            mui.alert('您没有相关操作权限', '提示')
+            // mui.alert('您没有相关操作权限', '提示')
           }
 
         } else if (res.check && res.check.checkPerson && res.check.checkingPerson) {
@@ -1435,15 +1440,15 @@
         updateView.safeCheck(res);
 
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
     }
 
     // 更新视图 
@@ -1454,7 +1459,8 @@
         $('#three_p').val(data.three_p);
         $('#four_p').val(data.four_p);
         $('#actual_p').val(data.actual_p);
-        $('#pressure').attr('data-id', data.id)
+        $('#pressure').attr('data-id', data.id);
+        $('#pressure').find('input').attr('readonly', true)
       },
       safeCheck: function (res) {
         var data = res.checkResults
@@ -1471,7 +1477,7 @@
 
           if (data[i].checkingExplanation) {
             $(this).find('.resolvent').html('···')
-            $(this).find('.resolvent-text').val(data[i].checkExplanation)
+            $(this).find('.resolvent-text').val(data[i].checkingExplanation)
           }
 
         })
@@ -1533,8 +1539,6 @@
       pressure.fuel_p = $('#fuel_p').html()
       pressure.vSn = vSn
       // pressure.id = $('#pressure').attr('data-id')
-      console.log(JSON.stringify(pressure))
-      console.log(hasEmptyValue(pressure))
       if (hasEmptyValue(pressure)) {
         submitLock = false;
         mui.toast('请填写完整的缸压数据');
@@ -1548,7 +1552,7 @@
 
       $safeTr.each(function (i) {
         // console.log($(this).attr('data-uuid') ? $(this).attr('data-uuid') : '无')
-        safeCheckResult.push({
+        var obj = {
           'checkExplanation': $(this).find('.explain-text').val(),
           'checkingExplanation': $(this).find('.resolvent-text').val(),
           'item': $(this).find('.item').html(),
@@ -1556,13 +1560,26 @@
           'status': $(this).find('.status').val(),
           'vSn': vSn,
           'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : ''
-        })
+        }
+        if (obj.status == 'N' && obj.checkExplanation == '') {
+          $(this).find('.status').css('color', '#ff3a31')
+        }
+        safeCheckResult.push(obj)
+
+      })
+
+      mui.each(safeCheckResult, function(k, v) {
+        if (v.status == 'N' && v.checkExplanation == '') {
+          mui.alert('"' + v.item +'"未添加说明' , '提示')
+          submitLock = false;
+          return;
+        }
       })
       data = {
         vSn: vSn,
         safeCheckResult: safeCheckResult
       }
-      // return;
+      
       // console.log(data);
       // app[stateArr[0]](pressure, function (res) {
       //   console.log(res.msg);
@@ -1628,12 +1645,12 @@
         }
       })).then(function (res) {
         // console.log(1435, res.msg);
-        mui.toast('安全检查、缸压检测成功');
-        setTimeout(() => {
+        mui.toast('操作成功');
+        // setTimeout(function() {
           submitLock = false;
           mui.back();
           mui.fire(view, 'update', null)
-        }, 500);
+        // }, 100);
 
       }, function (err) {
         submitLock = false;
@@ -1661,6 +1678,7 @@
 
           $(this).html('取消修改检查信息')
           $('#two_next').html('确认修改').parent().show()
+          $('#pressure').find('input').attr('readonly', false)
         } else if (str === '修改核对信息') {
           if (isRevising) {
             mui.alert('请先完成之前的修改操作', '提示')
@@ -1675,13 +1693,14 @@
           $('#two_next').html('确认修改').parent().show()
         } else if (str === '取消修改检查信息') {
           $(this).html('修改检查信息');
+          $('#pressure').find('input').attr('readonly', true)
           isRevising = false;
           if (btnStr == '提交') {
             $('#two_next').parent().hide()
             canInspect = false;
             canChecked = false;
           } else {
-            $('#two_next').html('核对提交')
+            $('#two_next').html('核对提交').parent().hide()
             canInspect = false;
             canChecked = true;
           }
@@ -1709,7 +1728,7 @@
           id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H,
+            // bottom: H,
             hardwareAccelerated: true
           }, //窗口参数
           extras: {
@@ -1720,7 +1739,7 @@
           } //自定义扩展参数
         })
 
-        window.addEventListener('updateExplain', (evt) => {
+        window.addEventListener('updateExplain', function(evt) {
           var explainText = evt.detail.explainText;
           //do something
           $(_this).parents('tr').find('.explain-text').val(explainText);
@@ -1747,7 +1766,7 @@
           id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H,
+            // bottom: H,
             hardwareAccelerated: true
           }, //窗口参数
           extras: {
@@ -1758,17 +1777,17 @@
             resolventText: resolventText
           } //自定义扩展参数
         })
-        window.addEventListener('updateResolvent', (evt) => {
+        window.addEventListener('updateResolvent', function(evt) {
           var resolventText = evt.detail.resolventText;
           //do something
           $(_this).parents('tr').find('.resolvent-text').val(resolventText);
           $(_this).html('···');
         });
       })
-      
+
     }
 
-    document.addEventListener('update', function() {
+    document.addEventListener('update', function () {
       fetchData()
     })
   </script>

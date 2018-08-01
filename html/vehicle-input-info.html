@@ -266,8 +266,10 @@
     var H = null;
     var self = null;
     var vSn = '2018ICECTC001';
-    var data = {}
-    var idArr = ['vehicle-up-check', 'vehicle-check-safe', 'vehicle-check-wire', 'vehicle-check-bom', 'vehicle-RD-tools', 'vehicle-auditing', 'vehicle-check-down', 'vehicle-info']
+    // var data = {}
+    var idArr = ['vehicle-up-check', 'vehicle-check-safe', 'vehicle-check-wire', 'vehicle-check-bom',
+      'vehicle-RD-tools', 'vehicle-auditing', 'vehicle-check-down', 'vehicle-info'
+    ]
     var page = []
 
     mui.init();
@@ -275,52 +277,58 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
       H = self.H;
       vSn = self.vSn;
       // 工程师
       if (!(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
-        $('#vehicle-up-check').find('i').removeClass('icon-vehicle-input').addClass('icon-vehicle-input-disabled').next().css('color', '#bbb')
+        $('#vehicle-up-check').find('i').removeClass('icon-vehicle-input').addClass('icon-vehicle-input-disabled').next()
+          .css('color', '#bbb')
       }
       // 维修技师
       if (!(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
-        $('#vehicle-check-safe').find('i').removeClass('icon-safe-check').addClass('icon-safe-check-disabled').next().css('color', '#bbb')
-        $('#vehicle-check-wire').find('i').removeClass('icon-wire-check').addClass('icon-wire-check-disabled').next().css('color', '#bbb')
-        $('#vehicle-check-bom').find('i').removeClass('icon-bom-check').addClass('icon-bom-check-disabled').next().css('color', '#bbb')
-        $('#vehicle-RD-tools').find('i').removeClass('icon-tools').addClass('icon-tools-disabled').next().css('color', '#bbb')
-        $('#vehicle-check-down').find('i').removeClass('icon-vehicle-check-down').addClass('icon-vehicle-check-down-disabled').next().css('color', '#bbb')
-      
+        $('#vehicle-check-safe').find('i').removeClass('icon-safe-check').addClass('icon-safe-check-disabled').next()
+          .css('color', '#bbb')
+        $('#vehicle-check-wire').find('i').removeClass('icon-wire-check').addClass('icon-wire-check-disabled').next()
+          .css('color', '#bbb')
+        $('#vehicle-check-bom').find('i').removeClass('icon-bom-check').addClass('icon-bom-check-disabled').next().css(
+          'color', '#bbb')
+        $('#vehicle-RD-tools').find('i').removeClass('icon-tools').addClass('icon-tools-disabled').next().css(
+          'color', '#bbb')
+        $('#vehicle-check-down').find('i').removeClass('icon-vehicle-check-down').addClass(
+          'icon-vehicle-check-down-disabled').next().css('color', '#bbb')
+
       }
       // 审核
       if (!app.getUserRoles('admin')) {
-        $('#vehicle-auditing').find('i').removeClass('icon-vehicle-auditing').addClass('icon-vehicle-auditing-disabled').next().css('color', '#bbb')
+        $('#vehicle-auditing').find('i').removeClass('icon-vehicle-auditing').addClass(
+          'icon-vehicle-auditing-disabled').next().css('color', '#bbb')
 
       }
 
-      for (let i = 0; i < idArr.length; i++) {
-        const item = idArr[i];
-        page.push(mui.preload({
-          url: item + '.html',
-          id: item, //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            bottom: H,
-            hardwareAccelerated: true
-          }, //窗口参数
-          extras: {
-            H: H,
-            vSn: vSn,
-            prevId: self.id
-          } //自定义扩展参数
-        }))
-      }
-      
+      // if (mui.os.ios) {
+      //   mui.each(idArr, function(k, v) {
+      //     page.push(mui.preload({
+      //       url: v + '.html',
+      //       id: v, //默认使用当前页面的url作为id
+      //       styles: {
+      //         top: '0px',
+      //         // bottom: H,
+      //         hardwareAccelerated: true
+      //       }, //窗口参数
+      //       extras: {
+      //         H: H,
+      //         vSn: vSn,
+      //         prevId: self.id
+      //       } //自定义扩展参数
+      //     }))
+      //   })
+      // }
       fetchData();
-      // data = self.data;
       addEvent()
-
-
     })
+
     function handsetAdaption() {
       if (plus.device.model === 'iPhoneX') {
         //页面样式重置
@@ -336,7 +344,7 @@
       //   softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
       // });
     }
-    addEvent()
+
     function addEvent() {
       var $link = $('#input_operation a');
 
@@ -349,7 +357,8 @@
           mui.toast('您没有这个权限')
           return;
         }
-        if ((id != 'vehicle-up-check' && id != 'vehicle-auditing') && !(app.getUserRoles('admin') || app.getUserRoles('maintain'))) {
+        if ((id != 'vehicle-up-check' && id != 'vehicle-auditing') && !(app.getUserRoles('admin') || app.getUserRoles(
+            'maintain'))) {
           // mui.alert('您没有这个权限', '提示')
           mui.toast('您没有这个权限')
           return;
@@ -360,39 +369,48 @@
           return;
         }
 
+        // if (!mui.os.ios) {
+        mui.openWindow({
+          url: id + '.html',
+          id: id, //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            // bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn,
+            prevId: self.id
+          } //自定义扩展参数
+        })
+        // } else {
+        //   mui.fire(plus.webview.getWebviewById(id), 'update', null)
+        //   plus.webview.getWebviewById(id).show('slide-in-right')
+        // }
 
-        // mui.openWindow({
-        //   url: id + '.html',
-        //   id: id, //默认使用当前页面的url作为id
-        //   styles: {
-        //     top: '0px',
-        //     bottom: H
-        //   }, //窗口参数
-        //   extras: {
-        //     H: H,
-        //     vSn: vSn,
-        //     prevId: self.id
-        //   } //自定义扩展参数
-        // })
-        plus.webview.getWebviewById(id).show('slide-in-right')
-        mui.fire(plus.webview.getWebviewById(id), 'update', null)
+
       });
       // 查看详情
       $('#vehicle-info').on('tap', function () {
         var id = $(this).attr('id');
-        plus.webview.getWebviewById(id).show('slide-in-right')
-        // mui.openWindow({
-        //   url: id + '.html',
-        //   id: id, //默认使用当前页面的url作为id
-        //   styles: {
-        //     top: '0px',
-        //     bottom: H
-        //   }, //窗口参数
-        //   extras: {
-        //     H: H,
-        //     vSn: vSn
-        //   } //自定义扩展参数
-        // })
+        // if (mui.os.ios) {
+        //   plus.webview.getWebviewById(id).show('slide-in-right')
+        // } else {
+        mui.openWindow({
+          url: id + '.html',
+          id: id, //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            // bottom: H
+          }, //窗口参数
+          extras: {
+            H: H,
+            vSn: vSn
+          } //自定义扩展参数
+        })
+        // }
+
+
       });
 
       var flag = false;
@@ -418,21 +436,25 @@
 
     // 获取数据
     function fetchData() {
-      app.carQuery({vSn}, function (res) {
+      console.log(vSn)
+      app.carQuery2({
+        vSn
+      }, function (res) {
         console.log(res)
         res = JSON.parse(res)
         updateView(res.rows[0])
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
     }
+
     function updateView(data) {
       dataRetrieval(data);
       $('#remark').html(data.remark)
@@ -451,10 +473,6 @@
     document.addEventListener('update', function () {
       fetchData();
     })
-
-
-
-
   </script>
 </body>
 

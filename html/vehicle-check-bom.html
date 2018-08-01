@@ -134,7 +134,7 @@
         </div>
       </div>
       <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="four_next">提交</button>
+        <div class="btn btn-blue" id="four_next">提交</div>
       </div>
     </div>
     <div class="no-data" id="no-data">
@@ -185,6 +185,7 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
+      $('.mui-scroll').css('min-height',$('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;
@@ -262,8 +263,7 @@
       var data = {};
 
       $bomTr.each(function (i) {
-        console.log($(this).attr('data-uuid') ? $(this).attr('data-uuid') : '无')
-        emsAndBomCheckResults.push({
+        var obj = {
           'vSn': vSn,
           'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : '',
           'bomName': $(this).find('.bomName').html(),
@@ -271,8 +271,20 @@
           'status': $(this).find('.status').val(),
           'checkExplanation': $(this).find('.explain-text').val(),
           'checkingExplanation': $(this).find('.resolvent-text').val(),
-        })
+        }
+        if (obj.status == 'N' && obj.checkExplanation == '') {
+          $(this).find('.status').css('color', '#ff3a31')
+        }
+        emsAndBomCheckResults.push(obj)
       });
+
+      mui.each(emsAndBomCheckResults, function(k, v) {
+        if (v.status == 'N' && v.checkExplanation == '') {
+          mui.alert('"' + v.item +'"未添加说明' , '提示')
+          submitLock = false;
+          return;
+        }
+      })
 
       data = {
         vSn: vSn,
@@ -285,10 +297,10 @@
 
         if (res.ret) {
           mui.toast(res.msg);
-          setTimeout(() => {
+          // setTimeout(function() {
             submitLock = false;
             mui.back();
-          }, 500);
+          // }, 100);
         } else {
           submitLock = false;
           mui.toast(res.msg);
@@ -321,7 +333,7 @@
             canInspect = false;
             canChecked = false;
             $('#four_next').parent().hide();
-            mui.alert('您没有操作权限，只能浏览信息！', '提示')
+            // mui.alert('您没有操作权限，只能浏览信息！', '提示')
           }
         } else if (res.check && res.check.checkPerson && !res.check.checkingPerson) {
           // 检查完成，核对未完成
@@ -349,7 +361,7 @@
 
             $('#openPopover').hide();
             $('#four_next').parent().hide();
-            mui.alert('您没有相关操作权限', '提示')
+            // mui.alert('您没有相关操作权限', '提示')
           }
 
         } else if (res.check && res.check.checkPerson && res.check.checkingPerson) {
@@ -374,11 +386,10 @@
     function updateView(res) {
       var data = res.checkResults;
       var html = '';
-      for (let i = 0; i < data.length; i++) {
-        const item = data[i];
-        html += '<tr data-uuid="' + item.uuid + '">'
-          + '<td class="bomName">' + item.bomName + '</td>'
-          + '<td class="bomNum">' + item.bomNum + '</td>'
+      mui.each(data, function(k, v) {
+        html += '<tr data-uuid="' + v.uuid + '">'
+          + '<td class="bomName">' + v.bomName + '</td>'
+          + '<td class="bomNum">' + v.bomNum + '</td>'
           + '<td>'
           + '<div class="select-container">'
           + '<select name="status" class="status">'
@@ -390,15 +401,15 @@
           + '</div>'
           + '</td>'
           + '<td>'
-          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">' + (item.checkExplanation ? '···' : '+') + '</i>'
-          + '<input class="explain-text" type="hidden" value="' + (item.checkExplanation ? item.checkExplanation : '') + '">'
+          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">' + (v.checkExplanation ? '···' : '+') + '</i>'
+          + '<input class="explain-text" type="hidden" value="' + (v.checkExplanation ? v.checkExplanation : '') + '">'
           + '</td>'
           + '<td>'
-          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">' + (item.checkingExplanation ? '···' : '+') + '</i>'
-          + '<input class="resolvent-text" type="hidden" value="' + (item.checkingExplanation ? item.checkingExplanation : '') + '">'
+          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">' + (v.checkingExplanation ? '···' : '+') + '</i>'
+          + '<input class="resolvent-text" type="hidden" value="' + (v.checkingExplanation ? v.checkingExplanation : '') + '">'
           + '</td>'
           + '</tr>'
-      }
+      })
 
       $('tbody').html(html);
 
@@ -450,7 +461,7 @@
             canInspect = false;
             canChecked = false;
           } else {
-            $('#four_next').html('核对提交')
+            $('#four_next').html('核对提交').parent().hide();
             canInspect = false;
             canChecked = true;
           }
@@ -479,7 +490,7 @@
           id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H,
+            // bottom: H,
             hardwareAccelerated: true
           }, //窗口参数
           extras: {
@@ -490,7 +501,7 @@
           } //自定义扩展参数
         })
 
-        window.addEventListener('updateExplain', (evt) => {
+        window.addEventListener('updateExplain', function(evt) {
           var explainText = evt.detail.explainText;
           //do something
           $(_this).parents('tr').find('.explain-text').val(explainText);
@@ -512,7 +523,7 @@
           id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H,
+            // bottom: H,
             hardwareAccelerated: true
           }, //窗口参数
           extras: {
@@ -523,7 +534,7 @@
             resolventText: resolventText
           } //自定义扩展参数
         })
-        window.addEventListener('updateResolvent', (evt) => {
+        window.addEventListener('updateResolvent', function(evt) {
           var resolventText = evt.detail.resolventText;
           //do something
           $(_this).parents('tr').find('.resolvent-text').val(resolventText);

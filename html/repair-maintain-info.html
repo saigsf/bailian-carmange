@@ -52,6 +52,7 @@
     .mui-scroll {
       padding-bottom: 24px;
     }
+
     .no-data {
       position: relative;
       background-color: transparent;
@@ -73,70 +74,28 @@
           <div class="info-content">
             <div class="info-content-top">
               <p>车辆编号</p>
-              <h3 id="vSn">2017-123</h3>
+              <h3 id="vSn">-</h3>
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="item_0">32156A</h5>
-                <p>维修项目</p>
+                <h5 id="send_park">-</h5>
+                <p>停放地点</p>
               </div>
               <div class="info-content-empty"></div>
               <div class="info-content-item">
-                <h5 id="applyPeople">张三</h5>
+                <h5 id="applyPeople">-</h5>
                 <p>申请人</p>
               </div>
               <div class="info-content-empty"></div>
               <div class="info-content-item">
-                <h5 id="status">排队中</h5>
+                <h5 id="status">-</h5>
                 <p>维修状态</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- <div class="info-middle"></div>
-        <div class="info-item">
-          <div class="info-title">
-            <h4>保养记录</h4>
-          </div>
-          <div class="info-content">
-            <div class="date-wrapper">
-              <label>维修日期</label>
-              <div class="date-text">
-                <input type="text" name="" id="maintenanceTime" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>里程</label>
-              <div class="date-text">
-                <input type="text" name="" id="maintenanceMileage" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>下次保养日期</label>
-              <div class="date-text">
-                <input type="text" name="" value="" id="nextMaintenanceTime" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>保养人员</label>
-              <div class="date-text">
-                <input type="text" name="" id="maintenanceOperator" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="date-wrapper">
-              <label>保养项目</label>
-              <div class="date-text">
-                <select name="" id="maintenanceItem">
-                  <option value=""></option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="no-data" id="no_data">
-            <p>没有维修数据</p>
-          </div>
-        </div> -->
+        
       </div>
     </div>
   </div>
@@ -152,10 +111,12 @@
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
   <script>
-    ; (function () {
+    ;
+    (function () {
       mui.init();
 
       var vSn = '1111';
+      var self = null;
       var hasData = null;
 
       //初始化单页的区域滚动
@@ -172,17 +133,21 @@
             'paddingTop': '88px'
           })
         }
-        var self = plus.webview.currentWebview();
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
+        self = plus.webview.currentWebview();
         vSn = self.vSn;
+        $('#vSn').html(vSn)
         hasData = self.hasData;
         fetchData();
       });
 
-// fetchData()
+      // fetchData()
       function fetchData() {
-        app.getMaintenance({vSn}, function (res) {
-          res = JSON.parse(res);
+        app.getMaintenance({
+          vSn: vSn
+        }, function (res) {
           console.log(res)
+          res = JSON.parse(res);
           updateView(res)
         }, function (xhr, type, errorThrown) {
           //异常处理；
@@ -201,7 +166,8 @@
 
         var html = '';
         if (data.length == 0) {
-          html = '<div class="info-middle"></div>\
+          html =
+            '<div class="info-middle"></div>\
                   <div class="info-item">\
                     <div class="info-title">\
                       <h4>保养记录</h4>\
@@ -211,9 +177,9 @@
                     </div>\
                   </div>'
         }
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-          html += '<div class="info-middle"></div>\
+        mui.each(data, function (k, v) {
+          html +=
+            '<div class="info-middle"></div>\
         <div class="info-item">\
           <div class="info-title">\
             <h4>保养记录</h4>\
@@ -222,25 +188,33 @@
             <div class="date-wrapper">\
               <label>维修日期</label>\
               <div class="date-text">\
-                <input type="text" name="" value="'+ item.maintenanceTime + '" placeholder="" readonly>\
+                <input type="text" name="" value="' +
+            v.maintenanceTime +
+            '" placeholder="" readonly>\
               </div>\
             </div>\
             <div class="date-wrapper">\
               <label>里程</label>\
               <div class="date-text">\
-                <input type="text" name="" value="'+ item.maintenanceMileage + '" placeholder="" readonly>\
+                <input type="text" name="" value="' +
+            v.maintenanceMileage +
+            '" placeholder="" readonly>\
               </div>\
             </div>\
             <div class="date-wrapper">\
               <label>下次保养日期</label>\
               <div class="date-text">\
-                <input type="text" name="" value="'+ item.nextMaintenanceTime + '" placeholder="" readonly>\
+                <input type="text" name="" value="' +
+            v.nextMaintenanceTime +
+            '" placeholder="" readonly>\
               </div>\
             </div>\
             <div class="date-wrapper">\
               <label>保养人员</label>\
               <div class="date-text">\
-                <input type="text" name="" value="'+ item.maintenanceOperator + '" placeholder="" readonly>\
+                <input type="text" name="" value="' +
+            v.maintenanceOperator +
+            '" placeholder="" readonly>\
               </div>\
             </div>\
             <div class="date-wrapper">\
@@ -248,19 +222,24 @@
               <div class="date-text">\
                 <select name="" id="maintenanceItem">';
 
-          for (let j = 0; j < item.maintenanceItem.length; j++) {
-            const element = item.maintenanceItem[j];
-            html += '<option value="">' + element.itemName + '/' + element.brandAndlabel + '</option>'
-          }
 
+          mui.each(v.maintenanceItem, function (ks, vs) {
+            html += '<option value="">' + vs.itemName + '/' + vs.brandAndlabel + '</option>'
+          })
 
           html += '</select></div></div></div></div>'
-        }
+        })
 
         $('.info-wrapper').append(html)
         $('#no_data').show();
         dataRetrieval(data[0])
       }
+
+      document.addEventListener('info', function (e) {
+        $('#send_park').html(e.detail.send_park),
+        $('#applyPeople').html(e.detail.applyPeople),
+        $('#status').html(e.detail.status)
+      }, false)
 
     })();
   </script>

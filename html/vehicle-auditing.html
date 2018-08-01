@@ -43,10 +43,12 @@
     .mui-input-row span {
       float: left;
       line-height: 40px;
+      width: 30%;
+      text-align: right;
     }
 
     .mui-input-row textarea {
-      width: 78%;
+      width: 70%;
       margin-top: 10px;
       font-size: 14px;
     }
@@ -96,9 +98,29 @@
       height: 34px;
     }
 
-    .date-wrapper .date-text {
+    .date-wrapper .date-text,
+    .date-wrapper .date-file {
       width: 70%;
     }
+
+    .date-wrapper .date-img {
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .date-file .mui-btn {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      border-color: #eee;
+    }
+
+
 
     table tbody tr td span {
       margin: 0 auto;
@@ -134,6 +156,194 @@
       position: relative;
       background-color: transparent;
     }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .review .date-wrapper label {
+      width: 30%;
+    }
+  </style>
+
+  <!--App自定义的css-->
+  <style type="text/css">
+    .mui-preview-image.mui-fullscreen {
+      position: fixed;
+      z-index: 20;
+      background-color: #000;
+    }
+
+    .mui-preview-header,
+    .mui-preview-footer {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      z-index: 10;
+    }
+
+    .mui-preview-header {
+      height: 44px;
+      line-height: 44px;
+      top: 40px;
+    }
+
+    .mui-preview-footer {
+      height: 50px;
+      bottom: 0px;
+    }
+
+    .mui-preview-header .mui-preview-indicator {
+      display: block;
+      line-height: 25px;
+      color: #fff;
+      text-align: center;
+      margin: 15px auto 4;
+      width: 70px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    .mui-preview-image {
+      display: none;
+      -webkit-animation-duration: 0.5s;
+      animation-duration: 0.5s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+    }
+
+    .mui-preview-image.mui-preview-in {
+      -webkit-animation-name: fadeIn;
+      animation-name: fadeIn;
+    }
+
+    .mui-preview-image.mui-preview-out {
+      background: none;
+      -webkit-animation-name: fadeOut;
+      animation-name: fadeOut;
+    }
+
+    .mui-preview-image.mui-preview-out .mui-preview-header,
+    .mui-preview-image.mui-preview-out .mui-preview-footer {
+      display: none;
+    }
+
+    .mui-zoom-scroller {
+      position: absolute;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .mui-zoom {
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+
+    .mui-slider .mui-slider-group .mui-slider-item img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+      width: 100%;
+    }
+
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+      display: inline-table;
+    }
+
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .mui-preview-loading {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+
+    .mui-preview-loading.mui-active {
+      display: block;
+    }
+
+    .mui-preview-loading .mui-spinner-white {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -25px;
+      margin-top: -25px;
+      height: 50px;
+      width: 50px;
+    }
+
+    .mui-preview-image img.mui-transitioning {
+      -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    @-webkit-keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    p img {
+      max-width: 100%;
+      height: auto;
+    }
   </style>
 </head>
 
@@ -156,8 +366,8 @@
             </div>
             <div class="info-content-bottom">
               <div class="info-content-item">
-                <h5 id="project_status_0">-</h5>
-                <p>项目状态</p>
+                <h5 id="project_sn_0">-</h5>
+                <p>项目编号</p>
               </div>
               <div class="info-content-empty"></div>
               <div class="info-content-item">
@@ -203,12 +413,12 @@
                 <input type="text" name="vin" id="" placeholder="" readonly>
               </div>
             </div>
-            <div class="date-wrapper">
+            <!-- <div class="date-wrapper">
               <label>车架号</label>
               <div class="date-text">
                 <input type="text" name="vin" id="" placeholder="" readonly>
               </div>
-            </div>
+            </div> -->
             <div class="date-wrapper">
               <label>车辆外观</label>
               <div class="date-text">
@@ -477,12 +687,12 @@
                 <input type="text" name="remark" placeholder="" readonly>
               </div>
             </div>
-            <div class="info-operator">
+            <!-- <div class="info-operator">
               <div class="info-operator-item">
-                <span class="operator">录入人：张三问</span>
-                <span class="makeTime">2018-12-12</span>
+                <span class="operator">录入人：</span>
+                <span class="makeTime"></span>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="no-data">
             <p>车辆录入未完成！</p>
@@ -1565,9 +1775,10 @@
               <thead>
                 <tr>
                   <!-- 工具或设备 -->
-                  <td width="30%">名称</td>
+                  <td width="20%">名称</td>
                   <td width="20%">申请人</td>
-                  <td width="30%">装备日期</td>
+                  <td width="20%">装备日期</td>
+                  <td width="20%">备注</td>
                   <td width="20%">操作人</td>
                 </tr>
               </thead>
@@ -1592,9 +1803,38 @@
           </div>
         </div>
         <!-- 研发工具结束 -->
+        <!-- 图片文件开始 -->
+        <div class="info-middle"></div>
+        <div class="info-item">
+          <div class="info-title">
+            <h4>车辆图片和电路图</h4>
+          </div>
+          <div class="info-content">
+            <div class="date-wrapper start">
+              <label>车辆图片</label>
+              <div class="date-img">
+                <img src="" id="vehicel-img" alt="没有图片" data-preview-src data-preview-group="1">
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>电路图</label>
+              <div class="date-file">
+                <div class="mui-btn" id="download_cir">点击下载文件</div>
+              </div>
+            </div>
+            <div class="date-wrapper">
+              <label>crd文件</label>
+              <div class="date-file">
+                <div class="mui-btn" id="download_crd">点击下载文件</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- 图片文件结束 -->
         <!-- 审核开始 -->
         <div class="info-middle"></div>
-        <div class="info-item" id="review">
+        <div class="info-item review" id="review">
           <div class="info-title">
             <h4>车辆审核</h4>
           </div>
@@ -1712,13 +1952,17 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- 图片预览 -->
+  <script src="../js/lib/mui.zoom.js"></script>
+  <script src="../js/lib/mui.previewimage.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
   <script src="../js/app/app.js"></script>
   <!-- 当前页面js -->
   <script type="text/javascript">
-    ; (function () {
+    ;
+    (function () {
       var H = null;
       var self = null;
       var view = null;
@@ -1726,10 +1970,12 @@
       var submitLock = false;
 
       mui.init();
+      mui.previewImage();
       // 初始化区域滚动
       mui('.mui-scroll-wrapper').scroll();
       mui.plusReady(function () {
         handsetAdaption();
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById(self.prevId)
         H = self.H;
@@ -1757,12 +2003,14 @@
       // fetchData()
       function fetchData() {
         // 查看车辆信息
-        app.carQuery({ vSn }, function (res) {
+        app.carQuery({
+          vSn
+        }, function (res) {
           console.log(res);
           res = JSON.parse(res);
           // res.rows
           $('#vSn_0').html(res.rows[0].vSn)
-          $('#project_status_0').html(res.rows[0].project ? res.rows[0].project.project_status : '-')
+          $('#project_sn_0').html(res.rows[0].project ? res.rows[0].project.project_sn : '-')
           $('#projectEngineer_0').html(res.rows[0].projectEngineer ? res.rows[0].projectEngineer : '-')
           $('#checks_status_0').html(res.rows[0].checks_status ? res.rows[0].checks_status : '-')
         }, function (xhr, type, errorThrown) {
@@ -1777,9 +2025,12 @@
         })
 
         // 查看审核
-        app.getReviewInfo({vSn}, function (res) {
+        app.getReviewInfo({
+          vSn
+        }, function (res) {
           console.log('审核查看')
           // res = JSON.stringify(res)
+          
           console.log(res)
           // return;
           updateView.review(res)
@@ -1793,16 +2044,28 @@
             console.log('请求失败：' + type + '\n err:' + errorThrown);
           }
         })
-        
+
         // 查看审核信息
-        app.findReview({vSn}, function(res) {
+        app.findReview({
+          vSn
+        }, function (res) {
           console.log(res)
           res = JSON.parse(res);
-          if(res != null && res.reviewerPerson != null) {
+          if (res != null && res.reviewerPerson != null) {
             $('#openPopover').show();
             $('#six_next').html('确定修改').parent().hide()
 
-            $('#auditing_form').find('input[name=status]').val(res.status)
+            $('#auditing_form').find('input[name=status]').each(function (i) {
+              if ($(this).val() == res.status) {
+                $(this).attr('checked', true)
+              } else {
+                $(this).attr('checked', false)
+              }
+            })
+
+            $('#auditing_form input').attr('disabled', true)
+            $('#auditing_form textarea').attr('disabled', true)
+
             $('#auditing_form').find('textarea[name=explanation]').val(res.explanation)
             $('#auditing_form').find('.reviewerPerson').html('申请人：' + res.reviewerPerson)
             $('#auditing_form').find('.reviewerTime').html(res.reviewerTime)
@@ -1819,7 +2082,9 @@
         })
 
         // 接车点检查看
-        app.findUpcheck({ vSn }, function (res) {
+        app.findUpcheck({
+          vSn
+        }, function (res) {
           console.log('接车点检查看')
           console.log(res)
           updateView.checkUp(res)
@@ -1834,7 +2099,9 @@
           }
         })
         // 车辆录入查看
-        app.findAddCar({ vSn }, function (res) {
+        app.findAddCar({
+          vSn
+        }, function (res) {
           res = JSON.parse(res);
           console.log('车辆录入查看')
           console.log(res);
@@ -1851,7 +2118,9 @@
           }
         })
         // 安全检查查看
-        app.findSafeCheckByvSn({ vSn }, function (res) {
+        app.findSafeCheckByvSn({
+          vSn
+        }, function (res) {
           // res = JSON.parse(res);
           console.log('安全检查查看')
           console.log(res);
@@ -1867,7 +2136,9 @@
           }
         })
         // 缸压检查查看
-        app.findCldCheckByvSn({ vSn }, function (res) {
+        app.findCldCheckByvSn({
+          vSn
+        }, function (res) {
           console.log('缸压检查查看')
           console.log(res);
           if (!res) {
@@ -1887,7 +2158,9 @@
         })
         // bom检查查看
 
-        app.findEmsAndBomCheckByvSn({ vSn }, function (res) {
+        app.findEmsAndBomCheckByvSn({
+          vSn
+        }, function (res) {
           console.log('bom检查查看')
           console.log(res);
           updateView.bomCheck(res)
@@ -1903,7 +2176,9 @@
         })
         // 线束检查查看
 
-        app.findHiCheckByvSn({ vSn }, function (res) {
+        app.findHiCheckByvSn({
+          vSn
+        }, function (res) {
           console.log('线束检查查看')
           console.log(res);
           updateView.wire(res)
@@ -1918,7 +2193,9 @@
           }
         })
         // 研发工具查看
-        app.findDevelopTools({ vSn }, function (res) {
+        app.findDevelopTools({
+          vSn
+        }, function (res) {
           console.log('研发工具查看')
           console.log(res)
           updateView.tools(res);
@@ -1937,12 +2214,10 @@
       // 视图更新
       var updateView = {
         checkUp: function (data) {
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              $('#checkUp input[name=' + key + ']').val(item)
-            }
-          }
+
+          mui.each(data, function (k, v) {
+            $('#checkUp input[name=' + k + ']').val(v)
+          })
 
           $('#checkUp').find('.pickone').html('接车人：' + data.pickone)
           $('#checkUp').find('.time').html(data.time)
@@ -1955,19 +2230,31 @@
             return;
           }
 
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              $('#vehicle_input input[name=' + key + ']').val(item)
-            }
-          }
-          $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
-          $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
+          mui.each(data, function (k, v) {
+            $('#vehicle_input input[name=' + k + ']').val(v)
+          })
+
+          // $('#vehicle_input').find('.operator').html('录入人：' + data.operator)
+          // $('#vehicle_input').find('.makeTime').html(new Date(data.makeTime).format('yyyy-MM-dd'))
 
           $('#vSn').html(data.vSn)
           $('#vin').html(data.vin)
           $('#projectEngineer').html(data.projectEngineer)
           $('#status').html(data.status)
+
+          $('img').attr('src', data.picurl)
+          if ($('img').width() > $('img').height()) {
+            $('img').css({
+              height: '100%',
+              width: 'auto'
+            })
+          }
+          var cir_url = (data.circuiturl ? data.circuiturl : '') + (data.circuitName ? data.circuitName : '')
+          $('#download_cir').attr('data-url', cir_url).html(data.circuitName ? data.circuitName : '暂无文件')
+
+          var crd_url = (data.wordurl ? data.wordurl : '') + (data.wordName ? data.wordName : '')
+          $('#download_crd').attr('data-url', crd_url).html(data.wordName ? data.wordName : '暂无文件')
+
         },
         safeCheck: function (res) {
           var data = res.checkResults;
@@ -1977,14 +2264,17 @@
             return;
           }
           var html = '';
-          for (let i = 0; i < 41; i++) {
-            const item = data[i];
+          mui.each(data, function (k, v) {
             html += '<tr>\
-                      <td><span class="item">'+ item.item + '</span></td>\
-                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '-') + '</span></td>\
-                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '-') + '</span></td>\
+                      <td><span class="item">' + v.item +
+              '</span></td>\
+                      <td><span class="checkExplanation">' + (v.checkExplanation ?
+                v.checkExplanation : '-') +
+              '</span></td>\
+                      <td><span class="checkingExplanation">' + (v.checkingExplanation ?
+                v.checkingExplanation : '-') + '</span></td>\
                     </tr>'
-          }
+          })
           $('#safeCheck table tbody').html(html);
           $('#safeCheck').find('.checkPerson').html('检查人：' + res.check.checkPerson)
           $('#safeCheck').find('.checkTime').html(res.check.checkTime)
@@ -2000,14 +2290,18 @@
             return;
           }
           var html = '';
-          for (let i = 0; i < data.length; i++) {
-            const item = data[i];
+
+          mui.each(data, function (k, v) {
             html += '<tr>\
-                      <td><span class="item">'+ item.bomName + '</span></td>\
-                      <td><span class="checkExplanation">'+ (item.checkExplanation ? item.checkExplanation : '-') + '</span></td>\
-                      <td><span class="checkingExplanation">'+ (item.checkingExplanation ? item.checkingExplanation : '-') + '</span></td>\
+                      <td><span class="item">' + v.bomName +
+              '</span></td>\
+                      <td><span class="checkExplanation">' + (v.checkExplanation ?
+                v.checkExplanation : '-') +
+              '</span></td>\
+                      <td><span class="checkingExplanation">' + (v.checkingExplanation ?
+                v.checkingExplanation : '-') + '</span></td>\
                     </tr>'
-          }
+          })
           $('#bomCheck table tbody').html(html);
 
           $('#bomCheck').find('.checkPerson').html(res.check.checkPerson ? res.check.checkPerson : '-')
@@ -2034,11 +2328,13 @@
             }
 
             $(this).find('.checkExplanation').html(data[i].checkExplanation ? data[i].checkExplanation : '-')
-            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation : '-')
+            $(this).find('.checkingExplanation').html(data[i].checkingExplanation ? data[i].checkingExplanation :
+              '-')
           })
           $('#wireCheck').find('.checkPerson').html('检查人：' + (res.check.checkPerson ? res.check.checkPerson : '-'))
           $('#wireCheck').find('.checkTime').html(res.check.checkTime ? res.check.checkTime : '-')
-          $('#wireCheck').find('.checkingPerson').html('核对人：' + (res.check.checkingPerson ? res.check.checkingPerson : '-'))
+          $('#wireCheck').find('.checkingPerson').html('核对人：' + (res.check.checkingPerson ? res.check.checkingPerson :
+            '-'))
           $('#wireCheck').find('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '-')
 
 
@@ -2050,31 +2346,34 @@
             return;
           }
           var html = '';
-          for (let i = 0; i < data.length; i++) {
-            const item = data[i];
+
+          mui.each(data, function (k, v) {
             html += '<tr>\
-                  <td><span>'+ item.toolName + '</span></td>\
-                  <td>'+ item.applicant + '</td>\
-                  <td>'+ (item.equippedDate ? item.equippedDate : '-') + '</td>\
-                  <td>'+ (item.operator ? item.operator : '-') + '</td>\
+                  <td><span>' + v.toolName +
+              '</span></td>\
+                  <td>' + v.applicant + '</td>\
+                  <td>' + (v.equippedDate ?
+                v.equippedDate : '-') + '</td>\
+                  <td>' + (v.remark ? v.remark : '-') +
+              '</td>\
+                  <td>' + (v.operator ? v.operator : '-') +
+              '</td>\
                 </tr>'
-          }
+          })
+
           $('#tools table tbody').html(html);
           $('#tools').find('.applyPerson').html('申请人：' + data[0].applicant)
           $('#tools').find('.applyTime').html(data[0].applyTime)
         },
         review: function (data) {
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              if (item != null) {
-                $('.' + key + '.checkPerson').val(item.checkPerson ? item.checkPerson : '')
-                $('.' + key + '.checkTime').val(item.checkTime ? item.checkTime : '')
-                $('.' + key + '.checkingPerson').val(item.checkingPerson ? item.checkingPerson : '')
-                $('.' + key + '.checkingTime').val(item.checkingTime ? item.checkingTime : '')
-              }
+          mui.each(data, function (k, v) {
+            if (v != null) {
+              $('.' + k + '.checkPerson').val(v.checkPerson ? v.checkPerson : '')
+              $('.' + k + '.checkTime').val(v.checkTime ? v.checkTime : '')
+              $('.' + k + '.checkingPerson').val(v.checkingPerson ? v.checkingPerson : '')
+              $('.' + k + '.checkingTime').val(v.checkingTime ? v.checkingTime : '')
             }
-          }
+          })
 
           if (data.reviewer != null) {
             $('#auditing_form input').attr('disabled', true)
@@ -2082,12 +2381,9 @@
           }
         },
         cldCheck: function (data) {
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const item = data[key];
-              $('input[name=' + key + ']').val(item)
-            }
-          }
+          mui.each(data, function (k, v) {
+            $('input[name=' + k + ']').val(v)
+          })
         }
       }
 
@@ -2101,6 +2397,7 @@
         submitLock = true;
         submitData();
       })
+
       function submitData() {
         var data = serialize($('#auditing_form'));
         data.vSn = vSn;
@@ -2112,11 +2409,11 @@
           res = JSON.parse(res)
           mui.toast(res.msg);
           if (res.ret) {
-            setTimeout(() => {
+            setTimeout(function () {
               submitLock = false;
               mui.back()
               mui.fire(view, 'update', null)
-            }, 500);
+            }, 100);
           } else {
             submitLock = false;
           }
@@ -2134,13 +2431,13 @@
 
       $('#openPopover').on('tap', function () {
         if ($(this).html() == '修改') {
-          $('#next').parent().show();
+          $('#six_next').parent().show();
           $('#auditing_form input').attr('disabled', false)
           $('#auditing_form textarea').attr('disabled', false)
           $(this).html('取消')
 
         } else {
-          $('#next').parent().hide();
+          $('#six_next').parent().hide();
           $('#auditing_form input').attr('disabled', true)
           $('#auditing_form textarea').attr('disabled', true)
           $(this).html('修改')

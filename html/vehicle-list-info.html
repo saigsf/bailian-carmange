@@ -222,15 +222,15 @@
               </div>
 
               <div class="tab-row">
-                <div class="tab-col">临牌到期日</div>
+                <div class="tab-col">车牌到期日</div>
                 <div class="tab-col" id="licenseEndTime"></div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">临牌</div>
+                <div class="tab-col">车牌</div>
                 <div class="tab-col" id="licenseNo"></div>
               </div>
               <div class="tab-row">
-                <div class="tab-col">临牌备注</div>
+                <div class="tab-col">车牌备注</div>
                 <div class="tab-col" id="licremark"></div>
               </div>
             </div>
@@ -275,6 +275,7 @@
 
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;
@@ -287,7 +288,7 @@
             id: 'vehicle-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
@@ -295,11 +296,7 @@
               vSn: vSn
             } //自定义扩展参数
           })
-
         })
-        
-
-       
       });
 
       // 手机适配
@@ -327,7 +324,7 @@
       // fetchData();
       // 获取数据
       function fetchData() {
-        console.log(vSn)
+        // console.log(vSn)
         app.carQuery({ vSn }, function (res) {
           res = JSON.parse(res);
           console.log(res)

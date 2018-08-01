@@ -130,7 +130,7 @@
       mui.plusReady(function () {
         handsetAdaption()
         self = plus.webview.currentWebview();
-
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         if (self.driverId) {
           // 驾驶员数据回显
           $('.mui-title').html('驾驶员编辑');
@@ -190,7 +190,7 @@
               console.log(res.msg)
               mui.toast(res.msg)
               if (res.ret) {
-                setTimeout(() => {
+                setTimeout(function () {
                   mui.fire(view, 'update', {});
                   mui.back();
                 }, 500);
@@ -216,7 +216,7 @@
               res = JSON.parse(res);
               mui.toast(res.msg)
               if (res.ret) {
-                setTimeout(() => {
+                setTimeout(function () {
                   mui.fire(view, 'update', {});
                   mui.back();
                 }, 500);
@@ -237,7 +237,9 @@
 
         },
         edit: function () {
-          app.carDriverEdit({ id: id }, function (res) {
+          app.carDriverEdit({
+            id: id
+          }, function (res) {
             console.log(res)
             updateView(res)
           }, function (xhr, type, errorThrown) {
@@ -254,10 +256,10 @@
         groups: function () {
           app.carDriverGetGroup({}, function (res) {
             var html = '';
-            for (let i = 0; i < res.length; i++) {
-              const item = res[i];
-              html += '<option value="' + item.id + '">' + item.name + '</option>'
-            }
+
+            mui.each(res, function (k, v) {
+              html += '<option value="' + v.id + '">' + v.name + '</option>'
+            })
             $('#groups').html(html)
           }, function (xhr, type, errorThrown) {
             //异常处理；

@@ -38,12 +38,16 @@
       top: 40%;
     }
 
+    .mui-table-view.mui-table-listview .mui-table-view-cell {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .1)
+    }
+
     .mui-table-view-cell {
-      background: url(../img/common/md/in_background.png)no-repeat center;
+      /* background: url(../img/common/md/in_background.png)no-repeat center; */
       background-size: 105%;
       background-position-x: center;
       background-position-y: 0;
-      background-color: transparent !important;
+      /* background-color: transparent !important; */
       padding: 0;
     }
 
@@ -68,6 +72,16 @@
 
     .item-left {
       width: 80px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .item-left img {
+      width: 100%;
+
     }
 
     .item-right {
@@ -97,14 +111,40 @@
             <i class="icon-search icon"></i>
           </div>
           <div class="search-text">
-            <input type="text" readonly placeholder="请输入车辆编号">
+            <input type="text" id="current_input" readonly placeholder="请输入车辆编号">
           </div>
         </div>
         <div class="filter" id="filter">
           <i class="icon icon-filter">筛选</i>
         </div>
       </form>
-      <ul id="OA_task_1" class="mui-table-view mui-table-listview"></ul>
+      <ul id="OA_task_1" class="mui-table-view mui-table-listview">
+        <!-- <li class="mui-table-view-cell" data-vSn="'+ v.vSn+'" data-lNo="' + v.licenseNo + '">
+              <div class="list-item">
+              <div class="item-left">
+              <img src="../img/common/md/lience_pic.png" />
+              </div>
+              <div class="item-right">
+              <div class="item-top">
+              <h4>
+              <span>' + v.vSn + '</span>
+              </h4>
+              <p>
+              <span>车牌号：</span>
+              <span class="blue">(v.licenseNo ? v.licenseNo : '-')</span>
+              </p>
+              </div>
+              <div class="progress-wrapper">
+              <label>剩余时间：</label>
+              <div class="progress">
+              <div class="move green" ></div>
+              </div>
+              <span>(v.llave > 0 ? (v.llave + '天') : '暂无') </span>
+              </div>
+              </div>
+              </div>
+          <span class="marker green"> v.vehicleInspection </span></li> -->
+      </ul>
       <div class="no-data" id="no-data">
         <p>没有找到想要的数据,下拉刷新</p>
       </div>
@@ -115,6 +155,9 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- 懒加载 -->
+  <script src="../js/lib/mui.lazyload.js"></script>
+  <script src="../js/lib/mui.lazyload.img.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -122,7 +165,7 @@
   <!-- 当前页面js -->
   <script>
     (function () {
-      var curPage = 1;  //当前页码初始化数0开始
+      var curPage = 1; //当前页码初始化数0开始
       var totalPage = 0; //后台算出总页数
       var H = null;
       var self = null;
@@ -132,15 +175,20 @@
       var dataArr = {};
       var filter = '20px';
 
+      var lazyLoad = mui('#OA_task_1').imageLazyload({
+        placeholder: '../img/common/md/loading0.gif',
+        autoDestroy: false
+      });
+
       // 预加载页面
       var prepageSearch = null;
 
       // 初始化mui
       mui.init({
         pullRefresh: {
-          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          container: "#refreshContainer", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
           down: {
-            auto: true,//可选,默认false.首次加载自动下拉刷新一次
+            auto: true, //可选,默认false.首次加载自动下拉刷新一次
             callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
           },
           up: {
@@ -150,14 +198,21 @@
         }
       });
 
+      var form = document.getElementsByTagName('form')[0];
+
+      form.onsubmit = function (e) {
+        e.preventDefault(); // 取消默认事件
+      }
+
       //页面滚动 
-      mui('.mui-scroll-wrapper').scroll();
+      // mui('.mui-scroll-wrapper').scroll();
 
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
-        main = plus.webview.getWebviewById("index");
+        main = plus.webview.getWebviewById("main");
         main.addEventListener('maskClick', closeMenu);
         H = self.H;
 
@@ -220,26 +275,27 @@
       }
 
       // 获取数据
+      fetchData()
+
       function fetchData() {
         // console.log(curPage)
         // var data = null;
         var opt = $.extend({
           page: curPage,
-          size: 3
+          size: 10
         }, dataArr);
-        console.log(JSON.stringify(opt))
         app.licenseQuery(opt, function (res) {
-
-          res = JSON.parse(res);
           console.log(res)
-          if (!res.total || res.total <= 0 || res.rows.length <= 0) {
+          res = JSON.parse(res);
+
+          if (res.total == 0 && res.rows.length == 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据')
             return;
           }
           // console.log(res.totalCount)
           curPage++;
-          totalPage = Math.ceil(res.total / 3)
+          totalPage = Math.ceil(res.total / 10)
 
           // data = res.rows;
           updateView(res.rows);
@@ -260,47 +316,66 @@
       function updateView(data) {
         var html = '';
 
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i];
-
-          var endDate = new Date(item.licenseEndTime.replace(/-/g, "/"))
-          var startDate = new Date(item.licenseStartTime.replace(/-/g, "/"))
-          var time = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-          console.log(time)
-          html += '<li class="mui-table-view-cell" data-vSn="' + item.vSn + '">'
-            + '<div class="list-item">'
-            + '<div class="item-left">'
-            + '<img src="../img/common/md/lience_pic.png" />'
-            + '</div>'
-            + '<div class="item-right">'
-            + '<div class="item-top">'
-            + '<h4>'
-            + '<span>' + item.vSn + '</span>'
-            + '</h4>'
-            + '<p>'
-            + '<span>车牌号：</span>'
-            + '<span class="blue">' + (item.licenseNo ? item.licenseNo : '-') + '</span>'
-            + '</p>'
-            + '</div>'
-            + '<div class="progress-wrapper">'
-            + '<label>剩余时间：</label>'
-            + '<div class="progress">'
-            + '<div class="move green" style="width:' + (item.llave > 0 ? (item.llave / time * 100 + '%') : '0') + '" ></div>'
-            + '</div>'
-            + '<span>' + (item.llave > 0 ? (item.llave + '天') : '暂无') + '</span>'
-            + '</div>'
-            + '</div>'
-            + '</div>'
-
-          if (item.vehicleInspection == '已申请') {
-            html += '<span class="marker green">' + item.vehicleInspection + '</span></li>'
-          } else if (item.vehicleInspection == '未申请') {
-            html += '<span class="marker blue">' + item.vehicleInspection + '</span></li>'
+        mui.each(data, function (k, v) {
+          if (v.licenseStartTime) {
+            var endDate = new Date(v.licenseEndTime.replace(/-/g, "/"))
+            var startDate = new Date(v.licenseStartTime.replace(/-/g, "/"))
+            var time = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
           }
 
-        }
+          html += '<li class="mui-table-view-cell" data-vSn="' + v.vSn + '" data-lNo="' + v.licenseNo + '">' +
+            '<div class="list-item">' +
+            '<div class="item-left">'
 
-        $('#OA_task_1').append($(html))
+          if (v.picurl) {
+            html += '<img data-lazyload="' + v.picurl + '" alt="" />'
+          } else {
+            html += '<i class="icon icon-nopic"></i>'
+          }
+          html += '</div>' +
+            '<div class="item-right">' +
+            '<div class="item-top">' +
+            '<h4>' +
+            '<span>' + v.vSn + '</span>' +
+            '</h4>' +
+            '<p>' +
+            '<span>车牌号：</span>' +
+            '<span class="blue">' + (v.licenseNo ? v.licenseNo : '-') + '</span>' +
+            '</p>' +
+            '</div>' +
+            '<div class="progress-wrapper">' +
+            '<label>剩余时间：</label>' +
+            '<div class="progress">' +
+            '<div class="move green" style="width:' + (v.llave > 0 ? (v.llave / time * 100 + '%') : '0') +
+            '" ></div>' +
+            '</div>' +
+            '<span>' + (v.llave > 0 ? (v.llave + '天') : '暂无') + '</span>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+
+          if (v.vehicleInspection == '已申请') {
+            html += '<span class="marker green">' + v.vehicleInspection + '</span></li>'
+          } else if (v.vehicleInspection == '未申请') {
+            html += '<span class="marker blue">' + v.vehicleInspection + '</span></li>'
+          }
+        })
+
+        $('#OA_task_1').append(html)
+        $('img').each(function (i) {
+          if ($(this).width() > $(this).height()) {
+            $(this).css({
+              height: '100%',
+              width: 'auto'
+            })
+          } else {
+            $(this).css({
+              width: '100%',
+              height: 'auto'
+            })
+          }
+        })
+        lazyLoad.refresh(true);
       }
 
       //添加事件
@@ -314,12 +389,13 @@
             id: 'vehicle-license-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {
               H: H,
-              vSn: $li.attr('data-vSn'),
+              lNo: $li.attr('data-lNo'),
+              vSn: $li.attr('data-vSn')
               // hasData: $li.attr('data-status'),
               // data: data[$li.index()]
             } //自定义扩展参数
@@ -329,8 +405,22 @@
         // 搜索
         $('#search').on('tap', function () {
           prepageSearch.show('fade-in');
-          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', { prevId: self.id })
+          mui.fire(plus.webview.getWebviewById('search'), 'getFocus', {
+            prevId: self.id
+          })
         })
+
+        // $('#current_input').on('keyup', function (e) {
+        //   if (e.keyCode == 13) {
+        //     dataArr = {
+        //       page: 1,
+        //       lNo: $(this).val(),
+        //       applyTime: '',
+        //       lEndTime: ''
+        //     }
+        //     fetchData()
+        //   }
+        // })
       }
       addEvent();
 
@@ -363,7 +453,7 @@
       };
       //关闭侧滑窗口；
       function closeMenu(e) {
-        if (e) {
+        if ((mui.os.ios && e) || (!mui.os.ios && e != 'null')) {
           dataArr = e.detail.data;
           curPage = 1;
           $('#OA_task_1').html('')

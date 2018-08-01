@@ -139,6 +139,7 @@
 			margin: 20px auto;
 			width: 60%;
 			height: 40px;
+			line-height: 40px;
 		}
 
 		.btn-wrapper .btn {
@@ -161,6 +162,7 @@
 		<h5 class="">筛选</h5>
 	</header>
 	<div class="mui-content mui-scroll-wrapper">
+		<!-- 总表筛选 -->
 		<div class="mui-scroll" id="vehicle-list.html">
 			<form>
 				<ul class="mui-table-view">
@@ -170,12 +172,12 @@
 							<input name="project_sn" type="text" placeholder="请输入">
 						</div>
 					</li>
-					<!-- <li class="mui-table-view-cell">
+					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
 							<label>车辆编号：</label>
 							<input name="vSn" type="text" placeholder="请输入">
 						</div>
-					</li> -->
+					</li>
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
 							<label>车架号：</label>
@@ -204,6 +206,12 @@
 						<div class="filter-wrapper">
 							<label>保单号：</label>
 							<input name="NO" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>客户：</label>
+							<input name="customer" type="text" placeholder="请输入">
 						</div>
 					</li>
 				</ul>
@@ -250,13 +258,12 @@
 					</li>
 				</ul>
 			</form>
-
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
 					<div class="filter-wrapper-column">
 						<label>车辆计数</label>
 						<div class="filter-btn-box" id="filter-btn-box">
-							<div class="mui-btn mui-active" data-key="all">所有车辆</div>
+							<div class="mui-btn" data-key="all">所有车辆</div>
 							<div class="mui-btn" data-key="ing">在用车辆</div>
 							<div class="mui-btn" data-key="stop">停用车辆</div>
 							<div class="mui-btn" data-key="beforBack">先前归还</div>
@@ -273,6 +280,7 @@
 
 
 		</div>
+		<!-- 新车录入筛选 -->
 		<div class="mui-scroll" id="vehicle-insurance-list.html">
 			<form>
 				<ul class="mui-table-view">
@@ -281,6 +289,24 @@
 						<div class="filter-wrapper">
 							<label>车辆编号：</label>
 							<input name="vSn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车架号：</label>
+							<input name="vin" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>发动机号：</label>
+							<input name="engineNumber" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>保单号：</label>
+							<input name="insNo" type="text" placeholder="请输入">
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
@@ -304,10 +330,17 @@
 				</ul>
 			</form>
 		</div>
-		<div class="mui-scroll" id="vehicle-license-list.html">
+		<!-- 车牌列表筛选 -->
+		<div class="mui-scroll license" id="vehicle-license-list.html">
 			<form>
 				<ul class="mui-table-view">
 
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车辆编号：</label>
+							<input name="vSn" type="text" placeholder="请输入">
+						</div>
+					</li>
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
 							<label>车牌号：</label>
@@ -316,8 +349,26 @@
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
+							<label>车架号：</label>
+							<input name="vin" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>发动机号：</label>
+							<input name="engineNumber" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
 							<label>验车申请日：</label>
 							<input name="applyTime" id="applyTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车牌录入日：</label>
+							<input name="maketime" id="maketime" type="text" readonly placeholder="请输入">
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
@@ -329,13 +380,92 @@
 				</ul>
 			</form>
 		</div>
+		<!-- 保险列表筛选 -->
+		<div class="mui-scroll vehicle-input" id="vehicle-input-list.html">
+			<form>
+				<ul class="mui-table-view">
+
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车辆编号：</label>
+							<input name="vSn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>项目号：</label>
+							<input name="project_sn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车架号：</label>
+							<input name="vin" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>项目工程师：</label>
+							<input name="projectEngineer" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>保险状态：</label>
+							<input name="istatus" type="text" placeholder="请输入">
+						</div>
+					</li>
 
 
+				</ul>
+			</form>
+		</div>
+		<!-- 维修列表筛选 -->
+		<div class="mui-scroll" id="repair-list.html">
+			<form>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>车辆编号：</label>
+							<input name="vSn" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>申请人：</label>
+							<input name="applyPeople" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>申请日期：</label>
+							<input name="applyTime" type="text" placeholder="请输入">
+						</div>
+					</li>
+				</ul>
+			</form>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="filter-wrapper-column">
+						<label>维修状态</label>
+						<div class="filter-btn-box" id="filter-btn-box-1">
+							<div class="mui-btn" data-value="">全部</div>
+							<div class="mui-btn" data-value="排队中">排队中</div>
+							<div class="mui-btn" data-value="维修中">维修中</div>
+							<div class="mui-btn" data-value="已完成">已完成</div>
+						</div>
+					</div>
+				</li>
+
+			</ul>
+
+
+		</div>
 	</div>
 	<nav class="mui-bar mui-bar-tab">
 		<div class="btn-wrapper ">
-			<button class="btn" id="reset">重置</button>
-			<button class="btn btn-blue" id="submit">确认</button>
+			<div class="btn" id="reset">重置</div>
+			<div class="btn btn-blue" id="submit">确认</div>
 		</div>
 	</nav>
 
@@ -352,7 +482,8 @@
 	<script src="../js/app/app.js"></script>
 	<!-- 当前页面js -->
 	<script>
-		; (function () {
+		;
+		(function () {
 			var H = null;
 			var self = null;
 			var main = null;
@@ -364,6 +495,7 @@
 			mui('.mui-scroll-wrapper').scroll();
 			mui.plusReady(function () {
 				handsetAdaption()
+				$('.mui-scroll').css('min-height', $('.mui-content').height())
 				self = plus.webview.currentWebview();
 				// mui.toast(self.prevId)
 				$('.mui-scroll').each(function (i) {
@@ -402,13 +534,13 @@
 						}, function (e) {
 							$(_this).val('您没有选择日期');
 						}, {
-								title: '',
-								date: dDate
-							});
+							title: '',
+							date: dDate
+						});
 					});
 				});
 
-				$('#iendTime').on('tap', function() {
+				$('#iendTime').on('tap', function () {
 					var _this = this;
 					$(_this).off().on('tap', function () {
 
@@ -419,12 +551,12 @@
 						}, function (e) {
 							$(_this).val('您没有选择日期');
 						}, {
-								title: '',
-								date: dDate
-							});
+							title: '',
+							date: dDate
+						});
 					});
 				})
-				$('#applyTime').on('tap', function() {
+				$('#applyTime').on('tap', function () {
 					var _this = this;
 					$(_this).off().on('tap', function () {
 
@@ -435,13 +567,12 @@
 						}, function (e) {
 							$(_this).val('您没有选择日期');
 						}, {
-								title: '',
-								date: dDate
-							});
+							title: '',
+							date: dDate
+						});
 					});
 				})
-
-				$('#updateTime').on('tap', function() {
+				$('#updateTime').on('tap', function () {
 					var _this = this;
 					$(_this).off().on('tap', function () {
 
@@ -452,9 +583,41 @@
 						}, function (e) {
 							$(_this).val('您没有选择日期');
 						}, {
-								title: '',
-								date: dDate
-							});
+							title: '',
+							date: dDate
+						});
+					});
+				})
+				$('.license #applyTime').on('tap', function () {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+							title: '',
+							date: dDate
+						});
+					});
+				})
+				$('.license #lEndTime').on('tap', function () {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+							title: '',
+							date: dDate
+						});
 					});
 				})
 
@@ -463,16 +626,21 @@
 				$('#filter-btn-box').on('tap', '.mui-btn', function () {
 					$(this).addClass('mui-active').siblings().removeClass('mui-active');
 				})
+				$('#filter-btn-box-1').on('tap', '.mui-btn', function () {
+					$(this).addClass('mui-active').siblings().removeClass('mui-active');
+				})
 
 				// 提交
 				$('#submit').on('tap', function () {
 					var data = {}
-					
+
 					$('.mui-scroll').each(function (i) {
 						if ($(this).attr('id') == self.prevId) {
 							data = serialize($(this).find('form'));
 							if ($(this).find('#filter-btn-box').length > 0)
 								data[$('#filter-btn-box').find('.mui-active').attr('data-key')] = true;
+							if ($(this).find('#filter-btn-box-1').length > 0)
+								data.status = $('#filter-btn-box-1').find('.mui-active').attr('data-value');
 						}
 					})
 					// app.carQuery(data, function(res) {

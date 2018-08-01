@@ -27,6 +27,10 @@
     .mui-scroll {
       background-color: transparent;
     }
+
+    .mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+      padding: 0 12px;
+    }
   </style>
 </head>
 
@@ -90,18 +94,18 @@
 
         extras.H = self.H;
 
-        for (var i = 0; i < subpages.length; i++) {
+        mui.each(subpages, function (k, v) {
           var temp = {};
-          var sub = plus.webview.create(subpages[i], subpages[i], subpages_style, extras);
+          var sub = plus.webview.create(v, v, subpages_style, extras);
 
-          if (i > 0) {
+          if (k > 0) {
             sub.hide();
           } else {
-            temp[subpages[i]] = "true";
+            temp[v] = "true";
             mui.extend(aniShow, temp);
           }
           self.append(sub);
-        }
+        })
 
       });
       //当前激活选项

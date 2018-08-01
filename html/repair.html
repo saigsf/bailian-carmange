@@ -27,6 +27,10 @@
     .mui-scroll {
       background-color: transparent;
     }
+
+    .mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+      padding: 0 12px;
+    }
   </style>
 </head>
 
@@ -55,9 +59,10 @@
     (function () {
 
       mui.init();
+      var self = null;
 
       //子页面列表
-      var subpages = ['repair-apply.html', 'repair-list.html', 'repair-maintain-list.html'];
+      var subpages = ['repair-apply.html', 'repair-list.html'];
 
       // 子页面切换样式
       var subpages_style = {
@@ -91,22 +96,23 @@
           })
         }
 
-        var self = plus.webview.currentWebview();
+        self = plus.webview.currentWebview();
 
         extras.H = self.H;
 
-        for (var i = 0; i < subpages.length; i++) {
-          var temp = {};
-          var sub = plus.webview.create(subpages[i], subpages[i], subpages_style, extras);
 
-          if (i > 0) {
+        mui.each(subpages, function(k, v) {
+          var temp = {};
+          var sub = plus.webview.create(v, v, subpages_style, extras);
+
+          if (k > 0) {
             sub.hide();
           } else {
-            temp[subpages[i]] = "true";
+            temp[v] = "true";
             mui.extend(aniShow, temp);
           }
           self.append(sub);
-        }
+        })
 
       });
       //当前激活选项
@@ -138,23 +144,38 @@
         activeTab = targetTab;
       });
 
+      // 跳转到列表
+      //自定义事件，模拟点击“首页选项卡”
+      document.addEventListener('repair', function (e) {
+        console.log(e.detail.domId)
+        var defaultTab = document.getElementById(e.detail.domId);
+
+        //模拟首页点击
+        mui.trigger(defaultTab, 'tap');
+        //切换选项卡高亮
+        var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
+        console.log(defaultTab != current)
+        if (defaultTab !== current) {
+          current.classList.remove('mui-active');
+          defaultTab.classList.add('mui-active');
+        }
+
+      });
+
       // //接车点检
-      // document.addEventListener('repair', function (e) {
-      //   console.log(e.detail.domId)
-      //   var defaultTab = document.getElementById(e.detail.domId);
-      //   //模拟首页点击
-      //   mui.trigger(defaultTab, 'tap');
-      //   //切换选项卡高亮
-      //   var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
-      //   if (defaultTab !== current) {
-      //     current.classList.remove('mui-active');
-      //     defaultTab.classList.add('mui-active');
-      //   }
-      // });
-      
-      document.addEventListener('roles', function() {
-        if(!app.getUserRoles('engineer') && !app.getUserRoles('admin')) {
+      document.addEventListener('roles', function () {
+        if (!app.getUserRoles('engineer') && !app.getUserRoles('admin')) {
           $('#defaultTab').hide()
+          plus.webview.hide('repair-apply.html');
+          plus.webview.show('repair-list.html');
+          activeTab = 'repair-list.html';
+          $('#repair-list').addClass('mui-active')
+        } else {
+          $('#defaultTab').show().addClass('mui-active')
+          plus.webview.show('repair-apply.html');
+          plus.webview.hide('repair-list.html');
+          activeTab = 'repair-apply.html';
+          $('#repair-list').removeClass('mui-active');
         }
       })
 

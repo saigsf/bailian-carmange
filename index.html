@@ -4,281 +4,53 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-  <title></title>
+  <title>入口页面</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
   <link href="css/mui.min.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="css/style-icon.css" />
-  <style type="text/css">
-    .mui-bar-tab {
-      border-top: 1px solid #eee;
-      background-color: #fff;
-    }
-
-    .mui-bar-tab .mui-tab-item {
-      color: #4c4b4b
-    }
-
-    .mui-bar-tab .mui-tab-item.mui-active {
-      color: #2885cf;
-    }
-
-    .mui-tab-item.mui-active .icon-home {
-      background-image: url(img/common/md/icon_gps_active@2x.png);
-    }
-
-    .mui-tab-item.mui-active .icon-vehicle {
-      background-image: url(img/common/md/icon_car_active.png);
-    }
-
-    .mui-tab-item.mui-active .icon-repair {
-      background-image: url(img/common/md/icon_repair_active.png);
-    }
-
-    .mui-tab-item.mui-active .icon-user {
-      background-image: url(img/common/md/icon_user_active.png);
-    }
-
-    .mui-tab-item.mui-active .icon-door {
-      background-image: url(img/common/md/icon_door_active.png);
-    }
-
-    .mui-bar-tab .mui-tab-item .mui-icon.icon-add {
-      background-color: #2885CF;
-      /*padding: 10px;*/
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background-size: 24px 24px;
-      margin-top: -2px;
-    }
-
-    #popover {
-      height: 100px;
-      width: 200px;
-    }
-  </style>
 </head>
 
 <body>
-
-  <!--底部导航-->
-  <nav class="mui-bar mui-bar-tab" id="mui_bar_tab">
-    <a id="defaultTab" class="mui-tab-item mui-active" href="html/home.html">
-      <span class="mui-icon icon icon-home"></span>
-      <span class="mui-tab-label">GPS</span>
-    </a>
-    <a class="mui-tab-item" href="html/vehicle.html">
-      <span class="mui-icon icon icon-vehicle"></span>
-      <span class="mui-tab-label">车辆</span>
-    </a>
-    <!-- <a class="mui-tab-item" href="html/popover.html" id="openPopover">
-        <span class="mui-icon icon icon-add"></span>
-      </a> -->
-    <a class="mui-tab-item" id="doorpost" href="html/doorpost.html">
-      <span class="mui-icon icon icon-door"></span>
-      <span class="mui-tab-label">门岗</span>
-    </a>
-    <a class="mui-tab-item" href="html/repair.html">
-      <span class="mui-icon icon icon-repair"></span>
-      <span class="mui-tab-label">维修</span>
-    </a>
-    <a class="mui-tab-item" href="html/setting.html">
-      <span class="mui-icon icon icon-user"></span>
-      <span class="mui-tab-label">我的</span>
-    </a>
-  </nav>
-
-
-
   <!-- jquery -->
   <script src="js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="js/mui.min.js"></script>
+  <!-- common.js -->
+  <script src="js/app/common.js"></script>
   <!-- config 配置项 -->
   <script src="js/app/config.js"></script>
   <!-- app 数据获取 -->
   <script src="js/app/app.js"></script>
   <!-- 当前页面js -->
   <script type="text/javascript" charset="utf-8">
-    var closeView = function () {
-      var ws = plus.webview.getDisplayWebview();
-
-      if (ws.length === 2) {
-        ws[0].close();
-        setTimeout(function () {
-          closeView()
-        }, 1);
-      }
-    };
     (function () {
-      mui.init();
-
-      var settings = app.getSettings();
-
-      window.addEventListener('show', function () {
-        var state = app.getState();
-      }, false);
-
-      //iponeX底部高度
-      var H = 34;
-
-      //子页面列表
-      var subpages = ['html/home.html', 'html/vehicle.html', 'html/repair.html', 'html/setting.html', 'html/doorpost.html'];
-
-      // 子页面切换效果
-      var subpages_style = {
-        top: '0px',
-        bottom: '52px',
-        hardwareAccelerated: true
-      }
-
-      //页面切换效果
-      var aniShow = {};
-
-      //页面传值
-      var extras = {
-        H: subpages_style.bottom
-      }
-
-      // 创建子页面，显示首个选项卡其他都影藏
-      mui.plusReady(function () {
-
-        //获取底部导航栏的实际高度
-        var tabH = $('#mui_bar_tab').height()
-        //iphonX适配
-        if (plus.device.model === 'iPhoneX') {
-          //子页面导入样式重置
-          subpages_style.bottom = tabH + H + 1 + 'px';
-          //传参重置
-          extras.H = subpages_style.bottom;
-          //页面样式重置
-          document.getElementById('mui_bar_tab').style.height = tabH + H + 'px';
-          document.getElementById('mui_bar_tab').style.paddingBottom = H + 'px';
-        }
-        //更改状态栏颜色
-        // plus.navigator.setStatusBarStyle("light");
-
-        //禁止横屏
-        plus.screen.lockOrientation("portrait-primary");
-
-        var self = plus.webview.currentWebview();
-
-        for (var i = 0; i < subpages.length; i++) {
-          var temp = {};
-          var sub = plus.webview.create(subpages[i], subpages[i], subpages_style, extras);
-          if (i > 0) {
-            sub.hide();
+        mui.init();
+        mui.plusReady(function () {
+          /**
+           * 获取本地存储中launchFlag的值
+           * http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getItem
+           * 若存在，说明不是首次启动，直接进入首页；
+           * 若不存在，说明是首次启动，进入引导页；
+           */
+          var launchFlag = myStorage.getItem('launchFlag');
+          console.log('launchFlag'+launchFlag)
+          if (launchFlag) {
+            mui.openWindow({
+              url: "html/main.html",
+              id: "main",
+              extras: {
+                mark: "index" //额外的参数，仅仅是个标识，实际开发中不用；
+              }
+            });
           } else {
-            temp[subpages[i]] = "true";
-            mui.extend(aniShow, temp);
+            mui.openWindow({
+              url: "login.html",
+              id: "login"
+            });
           }
-
-          self.append(sub);
-        }
-
-      });
-
-      //当前激活选项
-      var activeTab = subpages[0];
-      //选项卡点击事件
-      mui('.mui-bar-tab').on('tap', 'a', function (e) {
-        var targetTab = this.getAttribute('href');
-
-        if (targetTab == activeTab) {
-          return;
-        }
-
-        if (targetTab === 'html/home.html') {
-          plus.navigator.setStatusBarStyle("dark");
-          mui.fire(plus.webview.getWebviewById('html/home.html'), 'statusBar', null)
-        } else {
-          plus.navigator.setStatusBarStyle("light");
-          mui.fire(plus.webview.getWebviewById('html/home.html'), 'clearTimer', null)
-        }
-
-        //显示目标选项卡
-        //若为iOS平台或非首次显示，则直接显示
-        if (mui.os.ios || aniShow[targetTab]) {
-          plus.webview.show(targetTab);
-          // plus.webview.getWebviewById(targetTab).reload()
-        } else {
-          //否则，使用fade-in动画，且保存变量
-          var temp = {};
-          temp[targetTab] = "true";
-          mui.extend(aniShow, temp);
-          plus.webview.show(targetTab, "fade-in", 300);
-          // plus.webview.getWebviewById(targetTab).reload()
-        }
-
-        //隐藏当前;
-        plus.webview.hide(activeTab);
-        //更改当前活跃的选项卡
-
-        activeTab = targetTab;
-
-        if (mui.os.ios) closeView();
-        // closeView();
-
-      });
-
-      //自定义事件，模拟点击“首页选项卡”
-      document.addEventListener('goback', function (e) {
-        var defaultTab = document.getElementById("defaultTab");
-
-        //模拟首页点击
-        mui.trigger(defaultTab, 'tap');
-        //切换选项卡高亮
-        var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
-        if (defaultTab !== current) {
-          current.classList.remove('mui-active');
-          defaultTab.classList.add('mui-active');
-        }
-
-      });
-
-      document.addEventListener('clearActiveTab', function (e) {
-        console.log(!!e.detail.targetTab)
-        if (e.detail.targetTab) {
-          activeTab = e.detail.targetTab;
-          $('a').each(function (i) {
-            if ($(this).attr('href') == activeTab) {
-              $(this).addClass('mui-active').siblings().removeClass('mui-active')
-            }
-          })
-
-        } else {
-          activeTab = '';
-        }
-
-      })
-
-      document.addEventListener('roles', function () {
-        if (!app.getUserRoles('driverManager') && !app.getUserRoles('admin')) {
-          // $('#doorpost').hide()
-        }
-      })
-
-      document.addEventListener("netchange", onNetChange, false);
-      function onNetChange() {
-        //获取当前网络类型
-        var nt = plus.networkinfo.getCurrentType();
-        switch (nt) {
-          case plus.networkinfo.CONNECTION_ETHERNET:
-          case plus.networkinfo.CONNECTION_WIFI:
-            mui.toast("当前网络为WiFi");
-            break;
-          case plus.networkinfo.CONNECTION_CELL2G:
-          case plus.networkinfo.CONNECTION_CELL3G:
-          case plus.networkinfo.CONNECTION_CELL4G:
-            mui.alert("当前网络非WiFi，可能会造成流量费用", '提示');
-            break;
-          default:
-            mui.alert("当前没有网络,请检查网络是否正常", '提示');
-            break;
-        }
-      }
-    })()
+        });
+      })()
   </script>
 </body>
 

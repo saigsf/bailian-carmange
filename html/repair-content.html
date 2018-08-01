@@ -147,6 +147,7 @@
 
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height',$('.mui-content').height())
         var self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById('repair-list.html')
         H = self.H;
@@ -184,7 +185,7 @@
             console.log(res.msg);
             mui.toast(res.msg);
             if (res.ret) {
-              setTimeout(() => {
+              setTimeout(function() {
                 mui.fire(view, 'update', {});
                 mui.back();
               }, 500);

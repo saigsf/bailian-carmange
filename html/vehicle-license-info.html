@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>临牌信息</title>
+  <title>车牌信息</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-status-bar-style" content="black">
@@ -73,9 +73,11 @@
     .tab-col.red {
       color: red
     }
+
     .tab-col.green {
       color: green
     }
+
     .tab-col.blue {
       color: #2885cf
     }
@@ -144,6 +146,10 @@
                 <div class="tab-col" id="car_status"></div>
               </div>
               <div class="tab-row">
+                <div class="tab-col">客户</div>
+                <div class="tab-col" id="customer"></div>
+              </div>
+              <div class="tab-row">
                 <div class="tab-col">接车日期</div>
                 <div class="tab-col" id="upcheckTime"></div>
               </div>
@@ -209,7 +215,7 @@
               </div>
             </div>
             <div class="no-data" id="no_data">
-              <p>暂时没有临牌数据</p>
+              <p>暂时没有车牌数据</p>
             </div>
           </div>
         </div>
@@ -232,6 +238,7 @@
       // 全局变量
       var H = null;
       var vSn = null;
+      var lNo = null;
       var self = null;
       var hasData = false;
 
@@ -244,9 +251,11 @@
       // plusReady
       mui.plusReady(function () {
         handsetAdaption()
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
         H = self.H;
         vSn = self.vSn;
+        lNo = self.lNo;
         // hasData = self.hasData;
         // console.log(hasData);
         fetchData();
@@ -271,7 +280,9 @@
 
       // 获取数据
       function fetchData() {
-        app.licenseQuery({vSn}, function(res) {
+        // console.log(lNo)
+        app.licenseQuery({ vSn }, function (res) {
+          console.log(res)
           res = JSON.parse(res);
           console.log(res)
           updateView(res.rows[0])
@@ -285,24 +296,24 @@
             console.log('请求失败：' + type + '\n err:' + errorThrown);
           }
         })
-        
+
       }
 
       // 数据回显
       function updateView(data) {
         dataRetrieval(data);
-        if(data.vehicleInspection == '未申请') {
+        if (data.vehicleInspection == '未申请') {
           $('#vehicleInspection').addClass('red')
         } else {
           $('#vehicleInspection').addClass('green')
         }
-        if(data.llave > 90) {
-          $('#llave').addClass('green').html('剩余'+ (data.llave?data.llave:'-') + '天')
+        if (data.llave > 90) {
+          $('#llave').addClass('green').html('剩余' + (data.llave ? data.llave : '-') + '天')
         } else {
-          $('#llave').addClass('blue').html('剩余'+ (data.llave?data.llave:'-') + '天')
+          $('#llave').addClass('blue').html('剩余' + (data.llave ? data.llave : '-') + '天')
         }
       }
- 
+
       function addEvent() {
         // 详情页
         $('#info').on('tap', function () {
@@ -311,7 +322,7 @@
             id: 'vehicle-info', //默认使用当前页面的url作为id
             styles: {
               top: '0px',
-              bottom: H,
+              // bottom: H,
               hardwareAccelerated: true
             }, //窗口参数
             extras: {

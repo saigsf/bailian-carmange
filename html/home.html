@@ -49,9 +49,10 @@
 			top: 0;
 			left: 0;
 			width: 100%;
-			height: 44px;
+			height: 20px;
 			z-index: 998;
 			background: url(../img/common/md/top_mark@2x.png) no-repeat center;
+			background-size: cover;
 		}
 
 		.mui-btn {
@@ -188,10 +189,19 @@
 
 		.no-data {
 			background-image: url(../img/common/md/no_mapdata.png);
-			background-size: 50%;
+			background-size: 40%;
 			background-position: center 10%;
 			background-color: #fff;
 			display: block;
+		}
+
+		.no-data p {
+			color: #999;
+			top: 50%;
+		}
+
+		.car {
+			display: none;
 		}
 	</style>
 </head>
@@ -208,8 +218,8 @@
 			</div>
 			<div class="search-text">
 				<input type="text" placeholder="请输入车辆编号" id="search">
-				<div class="clear-btn" id="clear-btn"></div>
 			</div>
+			<div class="clear-btn" id="clear-btn"></div>
 		</div>
 
 		<div class="mui-btn mui-btn-blue" id="track">轨迹</div>
@@ -243,7 +253,9 @@
 			<div class="car">
 				<img src="../img/common/md/home_car@2x.png" alt="">
 			</div>
-			<div class="no-data" id="no-data"></div>
+			<div class="no-data" id="no-data">
+				<p>请先搜索或选择车辆</p>
+			</div>
 		</div>
 	</div>
 	<!-- jquery -->
@@ -257,7 +269,7 @@
 	<!-- 百度地图api -->
 	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=ffc8503b4c8647c3753679c5e95278a5"></script>
 	<script crossorigin="anonymous" id="amap_plus_js" src="http://webapi.amap.com/maps/modules?v=1.4.7&amp;key=ffc8503b4c8647c3753679c5e95278a5&amp;vrs=1527753092704&amp;m=mouse,vectorlayer,overlay,wgl,sync"
-	 type="text/javascript"></script>
+	  type="text/javascript"></script>
 	<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 	<!--多点聚合-->
 	<!-- 当前页面js -->
@@ -276,7 +288,7 @@
 			var timer = null;
 
 			var icon = new AMap.Icon({
-				size: new AMap.Size(35, 35),  //图标大小
+				size: new AMap.Size(35, 35), //图标大小
 				image: "../img/car.png",
 				imageSize: new AMap.Size(35, 35)
 				// imageOffset: new AMap.Pixel(0, -60)
@@ -285,7 +297,7 @@
 			// 百度地图API功能	
 			var map = new AMap.Map("map", {
 				resizeEnable: true,
-				zoom: 16 //地图显示的缩放级别
+				zoom: 4 //地图显示的缩放级别
 			});
 
 			var center = map.getCenter(); /// 中心点
@@ -314,13 +326,13 @@
 					// map.zoomIn();
 					// alert(EventListener);
 					// mui.toast(marker.getTitle(), '提示')
+					map.setZoomAndCenter(16, point)
 					$('#no-data').hide()
-					for (const key in data) {
-						if (data.hasOwnProperty(key)) {
-							const item = data[key];
-							$('#' + key).html(item ? item : '-')
-						}
-					}
+					$('.car').show()
+					mui.each(data, function (k, v) {
+						$('#' + k).html(v ? v : '-')
+					})
+
 				});
 				// 移除其他marker
 				markers.push(marker)
@@ -338,8 +350,8 @@
 					url: 'home-track.html',
 					id: 'home-track',
 					styles: {
-						top: '0',//mui标题栏默认高度为45px；
-						bottom: H//默认为0px，可不定义；
+						top: '0', //mui标题栏默认高度为45px；
+						bottom: '0' //默认为0px，可不定义；
 					},
 					extras: {
 						H: H,
@@ -371,6 +383,8 @@
 					$('.mui-bar-nav~.mui-content').css({
 						'paddingTop': '88px'
 					})
+
+					$('.top-mark').height(44)
 				}
 
 				// 更改状态栏颜色
@@ -382,6 +396,7 @@
 
 			}
 			addEvent()
+
 			function addEvent() {
 				$('#track').on('tap', function () {
 
@@ -421,7 +436,7 @@
 					$('.result').hide()
 					$('#clear-btn').hide();
 					$(this).val('')
-					setTimeout(() => {
+					setTimeout(function () {
 						$('#track').show()
 					}, 500);
 
@@ -434,14 +449,17 @@
 					// console.log($(this).val())
 					var reg = new RegExp(vSn, 'g');
 
-					app.likevSn({ vSn }, function (res) {
+					app.likevSn({
+						vSn: vSn
+					}, function (res) {
 						console.log(res)
 						// res = ['2018ICECTC001', '2018ICECTC002', '2018ICECTC003']
 						var html = '';
-						for (let i = 0; i < res.length; i++) {
-							const item = res[i];
-							html += '<div class="result-item" data-vSn="' + item + '">' + item.replace(reg, '<span>' + vSn + '</span>') + '</div>'
-						}
+						mui.each(res, function (k, v) {
+							html += '<div class="result-item" data-vSn="' + v + '">' + v.replace(reg, '<span>' + vSn + '</span>') +
+								'</div>'
+						})
+
 						$('.result').show().html(html)
 					}, function (xhr, type, errorThrown) {
 						//异常处理；
@@ -457,14 +475,17 @@
 
 				// 取消搜索
 				$('#clear-btn').on('tap', function () {
-					$('#search').blur()
+					// console.log(123)
+					$('#search')[0].blur()
 				})
 
 				$('.result').on('tap', function (e) {
 					$('#search').blur()
 					vSn = $(e.target).attr('data-vSn')
 
-					app.carData({ vSn }, function (res) {
+					app.carData({
+						vSn
+					}, function (res) {
 						console.log(res);
 						res = JSON.parse(res);
 						updateView.carData(res)
@@ -480,7 +501,9 @@
 					});
 					clearInterval(timer)
 					timer = setInterval(function () {
-						app.carData({ vSn }, function (res) {
+						app.carData({
+							vSn
+						}, function (res) {
 							console.log(res);
 							res = JSON.parse(res);
 							updateView.carData(res)
@@ -504,6 +527,10 @@
 				// updateView.allcar({})
 				// return;
 				app.allcar({}, function (res) {
+					if (res.substring(0, 15) == '<!DOCTYPE html>') {
+						console.log('您未登录');
+						return;
+					}
 					console.log(res)
 					res = JSON.parse(res);
 					// if(res.length<=0) {
@@ -525,39 +552,37 @@
 			var updateView = {
 				carData: function (data) {
 					$('#no-data').hide()
-					for (const key in data) {
-						if (data.hasOwnProperty(key)) {
-							const item = data[key];
-							$('#' + key).html(item ? item : '-')
-						}
-					}
-					
+					$('.car').show()
+
+					mui.each(data, function (k, v) {
+						$('#' + k).html(v ? v : '-')
+					})
+
 					console.log(markers.length)
 					if (markers.length > 0) {
 						markers[0].setPosition([data.longitude, data.latitude])
 					} else {
 						map.remove(markers)
-						map.setCenter(new AMap.LngLat(data.longitude, data.latitude))
+						// map.setCenter(new AMap.LngLat(data.longitude, data.latitude))
 						addMarker([data.longitude, data.latitude], map, data);
 					}
-					
+
 				},
 				allcar: function (data) {
 					console.log(markers.length)
 					// map.remove(markers)
-					map.setZoomAndCenter(12, new AMap.LngLat(getAllCenter(data).longitude, getAllCenter(data).latitude))
+					// map.setZoomAndCenter(12, new AMap.LngLat(getAllCenter(data).longitude, getAllCenter(data).latitude))
 
 					if (markers.length > 0) {
-						for (let i = 0; i < markers.length; i++) {
-							const item = markers[i];
-							item.setPosition([data[i].longitude, data[i].latitude])
-						}
+						mui.each(markers, function (k, v) {
+							v.setPosition([data[k].longitude, data[k].latitude])
+						})
 					} else {
 						map.remove(markers)
-						for (let i = 0; i < data.length; i++) {
-							const item = data[i];
-							addMarker([item.longitude, item.latitude], map, item);
-						}
+
+						mui.each(data, function (k, v) {
+							addMarker([v.longitude, v.latitude], map, v);
+						})
 					}
 				}
 			}
@@ -566,13 +591,14 @@
 			function getAllCenter(data) {
 				var longitude = 0;
 				var latitude = 0;
-				for (let i = 0; i < data.length; i++) {
-					const item = data[i];
-					longitude += item.longitude;
-					latitude += item.latitude;
+				mui.each(data, function (k, v) {
+					longitude += v.longitude;
+					latitude += v.latitude;
+				})
+				return {
+					longitude: longitude / data.length,
+					latitude: latitude / data.length
 				}
-
-				return { longitude: longitude / data.length, latitude: latitude / data.length }
 			}
 			// 状态栏颜色更改
 			document.addEventListener('statusBar', function (e) {
@@ -587,8 +613,18 @@
 			document.addEventListener('clearTimer', function () {
 				clearInterval(timer)
 			})
-		})()
 
+
+
+			// 绑定事件
+			var listener = AMap.event.addListener(map, "tap", function (ev) {
+				// DOM 被点击时触发，ev 为原生事件
+				console.log(ev)
+				$('#no-data').show()
+				$('.car').hide()
+				map.setZoom(10)
+			});
+		})()
 	</script>
 </body>
 

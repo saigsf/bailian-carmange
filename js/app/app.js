@@ -194,7 +194,7 @@
 		var state = owner.getState();
 		var roles = state.data.roles;
 
-		for (let i = 0; i < roles.length; i++) {
+		for (var i = 0; i < roles.length; i++) {
 			const item = roles[i];
 			if (role == item.keyWord) {
 				return !!1;
@@ -332,7 +332,7 @@
 			dataType: 'jsonp',//服务器返回json格式数据
 			jsonp: "jsonCallback",
 			async: true,
-			timeout: 10000,
+			// timeout: 10000,
 			beforeSend: function () {
 				console.log('beforesend!');
 				if (loading) {
@@ -365,7 +365,7 @@
 			contentType: 'application/json;charset=UTF-8', //contentType很重要 
 			crossDomain: true,
 			async: true,
-			timeout: 10000,
+			// timeout: 10000,
 			beforeSend: function () {
 				console.log('beforesend!');
 				if (loading) plus.nativeUI.showWaiting();
@@ -396,7 +396,7 @@
 			url: BASE_URL_1 + url,
 			data: data,
 			async: true,
-			timeout: 10000,
+			// timeout: 10000,
 			beforeSend: function () {
 				console.log('beforesend!')
 			},
@@ -558,7 +558,7 @@
 
 		var url = 'car-management/car/findUpcheck/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, {}, success, error)
+		owner.HTTPRequestPost('POST', url, {}, success, error, true)
 	}
 
 	/**
@@ -572,7 +572,7 @@
 
 		var url = 'car-management/car/addEmsAndBomCheck/' + data.vSn + '.action'
 		data = JSON.stringify(data.emsAndBomCheckResults)
-		owner.HTTPRequestPost('POST', url, data, success, error)
+		owner.HTTPRequestPost('POST', url, data, success, error, true)
 	}
 
 	/**
@@ -588,7 +588,7 @@
 
 		// console.log(JSON.stringify(data.emsAndBomCheckResults))
 		data = JSON.stringify(data.emsAndBomCheckResults)
-		owner.HTTPRequestPost('POST', url, data, success, error)
+		owner.HTTPRequestPost('POST', url, data, success, error, true)
 	}
 
 	/**
@@ -602,7 +602,7 @@
 
 		var url = 'car-management/car/findEmsAndBomCheckByvSn/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, {}, success, error)
+		owner.HTTPRequestPost('POST', url, {}, success, error, true)
 	}
 
 
@@ -617,7 +617,7 @@
 
 		var url = 'car-management/car/addHiCheck/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data.HIResults, success, error)
+		owner.HTTPRequestPost('POST', url, data.HIResults, success, error, true)
 	}
 
 	/**
@@ -631,7 +631,7 @@
 
 		var url = 'car-management/car/updateHiCheckByvSn/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data.HIResults, success, error)
+		owner.HTTPRequestPost('POST', url, data.HIResults, success, error, true)
 	}
 
 	/**
@@ -660,7 +660,7 @@
 
 		var url = 'car-management/car/addSafeCheck/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data.safeCheckResult, success, error)
+		owner.HTTPRequestPost('POST', url, data.safeCheckResult, success, error, true)
 	}
 
 	/**
@@ -675,7 +675,7 @@
 
 		var url = 'car-management/car/updateSafeCheckByvSn/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, data.safeCheckResult, success, error)
+		owner.HTTPRequestPost('POST', url, data.safeCheckResult, success, error, true)
 	}
 
 	/**
@@ -769,7 +769,7 @@
 
 		var url = 'car-management/car/backCheck.action';
 
-		owner.HTTPRequestPost('POST', url, data, success, error)
+		owner.HTTPRequestPost('POST', url, data, success, error, true)
 	}
 
 	/**
@@ -839,7 +839,7 @@
 
 		var url = 'car-management/car/findDevelop.action';
 
-		owner.HTTPRequest('POST', url, data, success, error)
+		owner.HTTPRequest('POST', url, data, success, error, true)
 	}
 
 	/**
@@ -882,7 +882,7 @@
 
 		var url = 'car-management/car/findAddCar.action';
 
-		owner.HTTPRequest('POST', url, data, success, error)
+		owner.HTTPRequest('POST', url, data, success, error, true)
 	}
 
 
@@ -954,6 +954,20 @@
 		data = data || {};
 
 		var url = 'car-management/car/pageQuery.action';
+
+		owner.HTTPRequest('get', url, data, success, error)
+	}
+
+	/**
+	 * 车辆列表
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} success 回掉函数
+	 */
+	owner.carQuery2 = function (data, success, error) {
+
+		data = data || {};
+
+		var url = 'car-management/car/pageQuery2.action';
 
 		owner.HTTPRequest('get', url, data, success, error)
 	}
@@ -1035,7 +1049,7 @@
 
 		var url = 'car-management/license/query.action';
 
-		owner.HTTPRequest('POST', url, data, success, error)
+		owner.HTTPRequest('GET', url, data, success, error)
 	}
 
 	/**
@@ -1082,6 +1096,32 @@
 
 		owner.HTTPRequest('POST', url, data, success, error)
 	}
+	/**
+	 * 加载所有的项目编号
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} success 回掉函数
+	 */
+	owner.likeProjectSn = function (data, success, error) {
+
+		data = data || {};
+
+		var url = 'car-management/project/likeProjectSn.action';
+
+		owner.HTTPRequest('get', url, data, success, error)
+	}
+	/**
+	 * 通过项目编号获取项目名称
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} success 回掉函数
+	 */
+	owner.loadNameBySn = function (data, success, error) {
+
+		data = data || {};
+
+		var url = 'car-management/project/loadNameBySn.action';
+
+		owner.HTTPRequest('get', url, data, success, error)
+	}
 
 	/**
 	 * 通过项目号查询项目状态
@@ -1125,28 +1165,9 @@
 	owner.carMaintainApply = function (data, success, error) {
 
 		data = data || {};
-		var checkArr = ['vSn', 'item', 'send_park', 'applyTEL'];
-		var translateArr = [{
-			name: 'vSn',
-			value: '车辆编号不能为空'
-		}, {
-			name: 'item',
-			value: '维修项目不能为空'
-		}, {
-			name: 'send_park',
-			value: '停放地地点不能为空'
-		}, {
-			name: 'applyTEL',
-			value: '申请人电话不能为空'
-		}]
 
-		var checkResult = hasEmptyValue(data, checkArr);
-		if (checkResult) {
-			mui.toast(translate(checkResult, translateArr));
-			return;
-		}
 		var url = 'car-management/carmaintain/apply.action';
-		owner.HTTPRequestPost('POST', url, data, success, error)
+		owner.HTTPRequestPost('POST', url, data, success, error, true)
 	}
 
 	/**
@@ -1212,7 +1233,7 @@
 
 		var url = 'car-management/carmaintain/query.action';
 
-		owner.HTTPRequest('post', url, data, success, error)
+		owner.HTTPRequest('get', url, data, success, error)
 	}
 
 
@@ -1276,22 +1297,13 @@
 	 * 保存保养记录
 	 * @param {Object} data 请求参数
 	 * @param {Function} success 回掉函数
+	 * @param {Function} error 回掉函数
 	 */
 	owner.saveMaintenance = function (data, success, error) {
-		var newData = {};
-
-
 		data = data || {};
-
 		var url = 'car-management/car/maintenance/save/' + data.vSn + '/' + data.mm + '/' + data.nt + '/' + data.id + '.action';
-
-		// url = decodeURI(url)
-		// console.log(url)
-		owner.HTTPRequestPost('post', url, JSON.stringify(data.maintenanceItems), success, error)
+		owner.HTTPRequestPost('post', url, JSON.stringify(data.maintenanceItems), success, error, true)
 	}
-
-
-
 
 	/* ===============维修 end=============== */
 	/* =================驾驶员 start====================== */
@@ -1305,7 +1317,7 @@
 		data = data || {};
 		var url = 'car-management/driver/CarDriverList.action';
 
-		owner.HttpRequestNonCrossDomain('post', url, data, success, error)
+		owner.HTTPRequest('get', url, data, success, error)
 	}
 
 	/**
@@ -1507,6 +1519,19 @@
 		data = data || {};
 
 		var url = 'car-management/user/changeUserPassWord.action';
+
+		owner.HTTPRequestPost('POST', url, data, success, error)
+	}
+	/**
+	 * 更新用户信息
+	 * @param {Object} data 请求参数
+	 * @param {Function} success 回掉函数
+	 */
+	owner.updateUser = function (data, success, error) {
+
+		data = data || {};
+
+		var url = 'car-management/user/updateUser.action';
 
 		owner.HTTPRequestPost('POST', url, data, success, error)
 	}

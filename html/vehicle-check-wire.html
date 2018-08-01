@@ -16,8 +16,9 @@
   <!--独立样式-->
 
   <style type="text/css">
-    table tbody td {
+    table tbody tr td {
       border: 1px solid #eee;
+      padding: 0
     }
 
     table tbody tr td:not(:last-of-type):after {
@@ -35,6 +36,7 @@
 
     .info-operator {
       flex-direction: column;
+      margin-bottom: 20px
     }
 
     .info-operator-item {
@@ -2018,7 +2020,7 @@
       </div>
 
       <div class="btn-wrapper ">
-        <button class="btn btn-blue" id="three_next">提交</button>
+        <div class="btn btn-blue" id="three_next">提交</div>
       </div>
     </div>
   </div>
@@ -2066,6 +2068,7 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;
@@ -2096,7 +2099,7 @@
     // 获取数据
     // fetchData()
     function fetchData() {
-      app.findHiCheckByvSn({vSn}, function (res) {
+      app.findHiCheckByvSn({ vSn }, function (res) {
         console.log(res)
         // console.log(res.check)
         if (res.checkResults == 0 && res.check == null) {
@@ -2112,7 +2115,7 @@
             canInspect = false;
             canChecked = false;
             $('#three_next').parent().hide();
-            mui.alert('您没有操作权限，只能浏览信息！', '提示')
+            // mui.alert('您没有操作权限，只能浏览信息！', '提示')
           }
 
           return;
@@ -2139,10 +2142,10 @@
             $('#openPopover').hide();
 
           } else {
-            
+
             $('#openPopover').hide();
             $('#three_next').parent().hide();
-            mui.alert('您没有相关操作权限', '提示')
+            // mui.alert('您没有相关操作权限', '提示')
           }
 
         } else if (res.check && res.check.checkPerson && res.check.checkingPerson) {
@@ -2152,15 +2155,15 @@
         }
         updateView(res)
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
     }
 
     // 更新视图 
@@ -2179,7 +2182,7 @@
 
         if (data[i].checkingExplanation) {
           $(this).find('.resolvent').html('···')
-          $(this).find('.resolvent-text').val(data[i].checkExplanation)
+          $(this).find('.resolvent-text').val(data[i].checkingExplanation)
         }
 
       })
@@ -2197,31 +2200,24 @@
         return;
       }
       submitLock = true;
-      console.log(canChecked, canInspect)
       if (canChecked && !canInspect) {
         stateArr = updateArr;
         // 执行检查操作;
         submitData();
-        console.log(stateArr)
       } else if (!canChecked && canInspect) {
         stateArr = submitArr;
         // 执行核对操作
         submitData()
-        console.log(stateArr)
       } else if (canChecked && canInspect) {
         stateArr = submitArr;
         // 执行检查操作;
         submitData()
-        console.log(stateArr);
         stateArr = updateArr;
         // 执行核对操作
         submitData()
-        console.log(stateArr);
       } else {
         stateArr = submitArr;
         submitData();
-        console.log(stateArr);
-
       }
       return;
 
@@ -2233,22 +2229,34 @@
       var data = {};
       var pitem = '';
 
-      for (let i = 0; i < $wireTr.length; i++) {
-        const element = $wireTr[i];
-        if ($(element).find('.pitem').length > 0) {
-          pitem = $(element).find('.pitem').html()
+      $wireTr.each(function(i) {
+        if ($(this).find('.pitem').length > 0) {
+          pitem = $(this).find('.pitem').html()
         }
-        console.log($(element).attr('data-uuid') ? $(element).attr('data-uuid') : '无')
-        HIResults.push({
-          'checkExplanation': $(element).find('.explain-text').val(),
-          'checkingExplanation': $(element).find('.resolvent-text').val(),
+        var obj = {
+          'checkExplanation': $(this).find('.explain-text').val(),
+          'checkingExplanation': $(this).find('.resolvent-text').val(),
           'pitem': pitem,
-          'item': $(element).find('.item').length > 0 ? $(element).find('.item').html() : '',
-          'status': $(element).find('.status').val(),
+          'item': $(this).find('.item').length > 0 ? $(this).find('.item').html() : '',
+          'status': $(this).find('.status').val(),
           'vSn': vSn,
-          'uuid': $(element).attr('data-uuid') ? $(element).attr('data-uuid') : ''
-        })
-      }
+          'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : ''
+        }
+        if (obj.status == 'N' && obj.checkExplanation == '') {
+          $(this).find('.status').css('color', '#ff3a31')
+        }
+
+        HIResults.push(obj)
+      })
+
+
+      mui.each(HIResults, function(k, v) {
+        if (v.status == 'N' && v.checkExplanation == '') {
+          mui.alert('"' + v.item + '"未添加说明', '提示')
+          submitLock = false;
+          return;
+        }
+      })
 
       data = {
         vSn: vSn,
@@ -2261,11 +2269,11 @@
         // mui.toast(res.msg);
         if (res.ret) {
           mui.toast(res.msg);
-          setTimeout(() => {
+          // setTimeout(function() {
             submitLock = false;
             mui.back()
             mui.fire(view, 'update', null)
-          }, 500);
+          // }, 100);
 
         } else {
           mui.toast('线束检查失败')
@@ -2314,7 +2322,7 @@
             canInspect = false;
             canChecked = false;
           } else {
-            $('#three_next').html('核对提交')
+            $('#three_next').html('核对提交').parent().hide()
             canInspect = false;
             canChecked = true;
           }
@@ -2343,7 +2351,7 @@
           id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H,
+            // bottom: H,
             hardwareAccelerated: true
           }, //窗口参数
           extras: {
@@ -2354,7 +2362,7 @@
           } //自定义扩展参数
         })
 
-        window.addEventListener('updateExplain', (evt) => {
+        window.addEventListener('updateExplain', function(evt) {
           var explainText = evt.detail.explainText;
           //do something
           $(_this).parents('tr').find('.explain-text').val(explainText);
@@ -2381,7 +2389,7 @@
           id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
           styles: {
             top: '0px',
-            bottom: H
+            // bottom: H
           }, //窗口参数
           extras: {
             H: H,
@@ -2391,7 +2399,7 @@
             resolventText: resolventText
           } //自定义扩展参数
         })
-        window.addEventListener('updateResolvent', (evt) => {
+        window.addEventListener('updateResolvent', function(evt) {
           var resolventText = evt.detail.resolventText;
           //do something
           $(_this).parents('tr').find('.resolvent-text').val(resolventText);
@@ -2400,7 +2408,7 @@
       })
     }
 
-    document.addEventListener('update', function() {
+    document.addEventListener('update', function () {
       fetchData()
     })
   </script>

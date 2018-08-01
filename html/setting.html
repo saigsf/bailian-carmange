@@ -227,7 +227,7 @@
       width: 100%
     }
 
-    .repassword .mui-input-row>label~input[type=text], 
+    .repassword .mui-input-row>label~input[type=text],
     .repassword .mui-input-row>label~input[type=password] {
       width: 70%
     }
@@ -285,7 +285,7 @@
           <ul class="mui-table-view mui-table-view-chevron">
             <li class="mui-table-view-cell">
               <i class="icon icon-set"></i>
-              <a class="mui-navigate-right mui-active" href="#general">系统设置</a>
+              <a class="mui-navigate-right mui-active" href="#general">修改信息</a>
             </li>
           </ul>
 
@@ -300,18 +300,18 @@
             </li>
           </ul>
           <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell">
+            <!-- <li class="mui-table-view-cell">
               <i class="icon icon-logout"></i>
               <a class="mui-navigate-right" href="#">注销账号</a>
-            </li>
+            </li> -->
             <li class="mui-table-view-cell" id="clear_cache">
               <i class="icon icon-clear-cache"></i>
               <a class="mui-navigate-right" href="#">清除缓存</a>
             </li>
-            <li class="mui-table-view-cell">
+            <!-- <li class="mui-table-view-cell">
               <i class="icon icon-update"></i>
               <a class="mui-navigate-right" href="#">版本更新</a>
-            </li>
+            </li> -->
           </ul>
           <div class="mui-btn mui-btn-block exit" id="exit">退出登录</div>
         </div>
@@ -370,7 +370,9 @@
   </div>
   <div id="repassword" class="mui-page repassword">
     <div class="mui-navbar-inner mui-bar mui-bar-nav">
-      <a class="mui-action-back icon icon-back mui-pull-left"></a>
+      <a class="mui-action-back mui-pull-left">
+        <i class="icon icon-back"></i>
+      </a>
       <h1 class="mui-center mui-title">修改密码</h1>
     </div>
     <div class="mui-page-content">
@@ -378,134 +380,97 @@
         <div class="mui-scroll">
           <form>
             <ul class="mui-table-view mui-table-inputview">
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>用户名</label>
-                <input id="" name="nickname" type="text" class="" placeholder="">
-                <span class="icon-red-star">*</span>
-              </div>
-            </li>
-          </ul>
-          <ul class="mui-table-view mui-table-inputview">
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>旧密码</label>
-                <input id="" name="oldPass" type="password" class="" placeholder="">
-                <span class="icon-red-star">*</span>
-              </div>
-            </li>
-          </ul>
-          <ul class="mui-table-view mui-table-inputview">
-            <li class="mui-table-view-cell">
-              <div class="mui-input-row">
-                <label>新密码</label>
-                <input id="" name="newPass" type="password" class="" placeholder="">
-                <span class="icon-red-star">*</span>
-              </div>
-            </li>
-          </ul>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>用户名</label>
+                  <input id="" name="nickname" type="text" class="" placeholder="">
+                  <span class="icon-red-star">*</span>
+                </div>
+              </li>
+            </ul>
+            <ul class="mui-table-view mui-table-inputview">
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>旧密码</label>
+                  <input id="" name="oldPass" type="password" class="" placeholder="">
+                  <span class="icon-red-star">*</span>
+                </div>
+              </li>
+            </ul>
+            <ul class="mui-table-view mui-table-inputview">
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>新密码</label>
+                  <input id="" name="newPass" type="password" class="" placeholder="">
+                  <span class="icon-red-star">*</span>
+                </div>
+              </li>
+            </ul>
           </form>
-          
+
           <div class="btn-wrapper ">
-              <div class="btn btn-blue" id="next">提交</div>
-            </div>
+            <div class="btn btn-blue" id="next">提交</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div id="notifications_disturb" class="mui-page">
+  <div id="general" class="mui-page repassword">
     <div class="mui-navbar-inner mui-bar mui-bar-nav">
-      <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
-        <span class="mui-icon mui-icon-left-nav"></span>新消息通知
-      </button>
-      <h1 class="mui-center mui-title">功能消息免打扰</h1>
+      <a class="mui-action-back mui-pull-left">
+        <i class="icon icon-back"></i>
+      </a>
+      <h1 class="mui-center mui-title">修改信息</h1>
     </div>
     <div class="mui-page-content">
       <div class="mui-scroll-wrapper">
         <div class="mui-scroll">
-          <ul class="mui-table-view mui-table-view-radio">
-            <li class="mui-table-view-cell">
-              <a class="mui-navigate-right">开启</a>
-            </li>
-            <li class="mui-table-view-cell">
-              <a class="mui-navigate-right">只在夜间开启</a>
-            </li>
-            <li class="mui-table-view-cell">
-              <a class="mui-navigate-right">关闭</a>
-            </li>
-          </ul>
+          <form>
+            <ul class="mui-table-view mui-table-inputview">
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>姓名</label>
+                  <input id="" name="nickname" type="text" class="" placeholder="">
+                  <span class="icon-red-star">*</span>
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>员工卡号</label>
+                  <input id="" name="employeeCard" type="text" class="" placeholder="">
+                  <span class="icon-red-star">*</span>
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>NET ID</label>
+                  <input id="" name="netid" type="text" class="" placeholder="">
+                  <span class="icon-red-star">*</span>
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>手机</label>
+                  <input id="" name="telephone" type="text" class="" placeholder="">
+                  <span class="icon-red-star">*</span>
+                </div>
+              </li>
+              <li class="mui-table-view-cell">
+                <div class="mui-input-row">
+                  <label>所在team</label>
+                  <input id="" name="team" type="text" class="" placeholder="">
+                  <span class="icon-red-star">*</span>
+                </div>
+              </li>
+            </ul>
+          </form>
+          <div class="btn-wrapper ">
+            <div class="btn btn-blue" id="next">提交</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div id="general" class="mui-page">
-    <div class="mui-navbar-inner mui-bar mui-bar-nav">
-      <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
-        <span class="mui-icon mui-icon-left-nav"></span>设置
-      </button>
-      <h1 class="mui-center mui-title">通用</h1>
-    </div>
-    <div class="mui-page-content">
-      <div class="mui-scroll-wrapper">
-        <div class="mui-scroll">
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              多语言
-            </li>
-          </ul>
-
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              听筒模式
-              <div class="mui-switch mui-switch-mini">
-                <div class="mui-switch-handle"></div>
-              </div>
-            </li>
-          </ul>
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              功能
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- <div id="about" class="mui-page">
-    <div class="mui-navbar-inner mui-bar mui-bar-nav">
-      <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
-        <span class="mui-icon mui-icon-left-nav"></span>设置
-      </button>
-      <h1 class="mui-center mui-title">关于MUI</h1>
-    </div>
-    <div class="mui-page-content">
-      <div class="mui-scroll-wrapper">
-        <div class="mui-scroll">
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell mui-plus-visible">
-              <a id="rate" class="mui-navigate-right">评分鼓励</a>
-            </li>
-            <li class="mui-table-view-cell mui-plus-visible">
-              <a id="welcome" class="mui-navigate-right">欢迎页</a>
-            </li>
-            <li class="mui-table-view-cell mui-plus-visible">
-              <a id="share" class="mui-navigate-right">分享推荐</a>
-            </li>
-            <li class="mui-table-view-cell">
-              <a id="tel" class="mui-navigate-right">客服电话</a>
-            </li>
-            <li class="mui-table-view-cell">
-              <a id="feedback-btn" href="#feedback" class="mui-navigate-right">问题反馈</a>
-            </li>
-            <li id="check_update" class="mui-table-view-cell mui-plus-visible">
-              <a id="update" class="mui-navigate-right">检查更新</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div> -->
 
   <!-- jquery -->
   <script src="../js/lib/jquery.min.js"></script>
@@ -546,16 +511,17 @@
         });
         $('.mui-pages').css('top', '88px')
       }
-      plus.share.getServices(function (s) {
-        if (s && s.length > 0) {
-          for (var i = 0; i < s.length; i++) {
-            var t = s[i];
-            shares[t.id] = t;
-          }
-        }
-      }, function () {
-        console.log("获取分享服务列表失败");
-      });
+
+      // plus.share.getServices(function (s) {
+      //   if (s && s.length > 0) {
+      //     for (let i = 0; i < s.length; i++) {
+      //       var t = s[i];
+      //       shares[t.id] = t;
+      //     }
+      //   }
+      // }, function () {
+      //   console.log("获取分享服务列表失败");
+      // });
     });
 
     setTimeout(function () {
@@ -565,38 +531,17 @@
       }, 300);
     }, 500);
 
-    //		//意见反馈
-    //		document.getElementById("quest").addEventListener('tap', function() {
-    //			
-    //		});
-    //		
-    //检查更新
-    // document.getElementById("update").addEventListener('tap', function () {
-    //   var server = "http://www.dcloud.io/check/update"; //获取升级描述文件服务器地址
-    //   mui.getJSON(server, {
-    //     "appid": plus.runtime.appid,
-    //     "version": plus.runtime.version,
-    //     "imei": plus.device.imei
-    //   }, function (data) {
-    //     if (data.status) {
-    //       plus.ui.confirm(data.note, function (i) {
-    //         if (0 == i) {
-    //           plus.runtime.openURL(data.url);
-    //         }
-    //       }, data.title, ["立即更新", "取　　消"]);
-    //     } else {
-    //       mui.toast('Hello MUI 已是最新版本~')
-    //     }
-    //   });
-    // });
+
     var view = viewApi.view;
 
     //处理view的后退与webview后退
     var oldBack = mui.back;
     mui.back = function () {
       if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+        console.log(1)
         viewApi.back();
       } else { //执行webview后退
+        console.log(2)
         oldBack();
       }
     };
@@ -809,15 +754,15 @@
              * 1、因本示例应用启动页就是登录页面，因此注册成功后，直接显示登录页即可；
              * 2、如果真实案例中，启动页不是登录页，则需修改，使用mui.openWindow打开真实的登录页面
              */
-            plus.webview.getLaunchWebview().show("pop-in");
+            // plus.webview.getLaunchWebview().show("pop-in");
             //若启动页不是登录页，则需通过如下方式打开登录页
-            //						mui.openWindow({
-            //							url: 'login.html',
-            //							id: 'login',
-            //							show: {
-            //								aniShow: 'pop-in'
-            //							}
-            //						});
+            						mui.openWindow({
+            							url: '../login.html',
+            							id: 'login',
+            							show: {
+            								aniShow: 'pop-in'
+            							}
+            						});
             break;
           case 2:
             plus.runtime.quit();
@@ -831,48 +776,91 @@
     // y用户名
     var state = null;
 
-    document.addEventListener('statusBar', function () {
+    function getState() {
       state = app.getState();
       console.log(JSON.stringify(state.data))
       $('#username').html(state.data.nickname)
-      $('input[name=nickname]').val(state.data.nickname)
-
+      $('#repassword input[name=nickname]').val(state.data.nickname)
+      $('#general input[name=nickname]').val(state.data.nickname)
+      $('#general input[name=employeeCard]').val(state.data.employeeCard)
+      $('#general input[name=netid]').val(state.data.netid)
+      $('#general input[name=telephone]').val(state.data.telephone)
+      $('#general input[name=team]').val(state.data.team)
       dataRetrieval(state.data)
-    })
-    $('#next').on('tap', function() {
-      var data = serialize($('form'));
+    }
+    getState()
+
+    // document.addEventListener('statusBar', getState)
+
+    $('#repassword #next').on('tap', function () {
+      var data = serialize($('#repassword form'));
       console.log(data)
       var emptyArr = hasEmptyValue(data)
       console.log(emptyArr)
       data.uid = state.data.uid
 
-      if(emptyArr) {
+      if (emptyArr) {
         mui.alert('请确保信息填写完毕', '提示')
         return;
       }
-      app.changeUserPassWord(data, function(res) {
+      app.changeUserPassWord(data, function (res) {
         console.log(JSON.stringify(res))
         mui.toast(res.msg)
-        if(res.ret) {
-          setTimeout(() => {
+        if (res.ret) {
+          setTimeout(function() {
             mui.back()
           }, 500);
         }
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
+    })
+    $('#general #next').on('tap', function () {
+      var data = serialize($('#general form'));
+      console.log(data)
+      var emptyArr = hasEmptyValue(data)
+      console.log(emptyArr)
+      data.uid = state.data.uid
+      console.log(JSON.stringify(data))
+      if (emptyArr) {
+        mui.alert('请确保信息填写完毕', '提示')
+        return;
+      }
+      app.updateUser(data, function (res) {
+        console.log(JSON.stringify(res))
+        mui.toast(res.msg)
+        if (res.ret) {
+          setTimeout(function() {
+            mui.back()
+          }, 500);
+        }
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
     })
 
-    $('#clear_cache').on('tap', function() {
+    $('#clear_cache').on('tap', function () {
       // myStorage.clear();
-      myStorage.removeItem('vehicleList')
+      console.log('清除数据')
+      var cle = myStorage.clear();
+      if(cle) {
+        mui.toast('数据清除成功')
+      }
+      console.log(cle)
     })
   </script>
 

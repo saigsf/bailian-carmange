@@ -236,13 +236,17 @@
 
       var H = null;
       var vSn = null;
+      var self = null;
       var view = null;
       var dDate = new Date();
       var ids = null;
 
+      var submitLock = false;
+
       mui.plusReady(function () {
         handsetAdaption()
-        var self = plus.webview.currentWebview();
+        $('.mui-scroll').css('min-height', $('.mui-content').height())
+        self = plus.webview.currentWebview();
         view = plus.webview.getWebviewById('repair-list.html')
         H = self.H;
         vSn = self.vSn;
@@ -267,6 +271,7 @@
       }
 
       addEvent();
+
       function addEvent() {
         $('#maintenance_date').val(dDate.format('yyyy-MM-dd'))
         // 开始时间
@@ -279,68 +284,67 @@
           }, function (e) {
             $(_this).val('您没有选择日期');
           }, {
-              title: '',
-              date: dDate,
-              minDate: dDate
-            });
+            title: '',
+            date: dDate,
+            minDate: dDate
+          });
         });
       }
-      function fetchData() {
 
-      }
-      fetchData();
+      // 提交
+      $('#next').on('tap', submitData)
 
-      function updateView(data) {
-
-      }
-
-      submitData()
       function submitData() {
-        // 提交
-        $('#next').on('tap', function () {
-          var data = {};
-          var data = serialize($('#maintain'));
-          var maintenanceItems = [];
-          data.vSn = $('#vSn').html()
-          data.id = ids;
+        if(submitLock) {
+          mui.toast('请不要重复提交')
+          return;
+        }
 
-          var $checkbox = $('#maintenance li input[type=checkbox]');
-          $checkbox.each(function (i) {
-            var _this = this;
+        submitLock = true;
 
-            if ($(this).prop('checked')) {
-              maintenanceItems.push({
-                brandAndlabel: $(_this).next().next().find('input').val(),
-                itemName: $(_this).next().html()
-              })
-            }
-          })
+        var data = {};
+        var data = serialize($('#maintain'));
+        var maintenanceItems = [];
+        data.vSn = $('#vSn').html()
+        data.id = ids;
 
-          data.maintenanceItems = maintenanceItems;
-          console.log(data)
+        var $checkbox = $('#maintenance li input[type=checkbox]');
+        $checkbox.each(function (i) {
+          var _this = this;
 
-          app.saveMaintenance(data, function (res) {
-            console.log(res)
-            mui.toast(res.msg)
-            if (res.ret) {
-              mui.back();
-              mui.fire(view, 'update', {});
-            }
-          }, function (xhr, type, errorThrown) {
-            //异常处理；
-            console.log(type);
-            mui.toast(type);
-            if (type == 'timeout') {
-              console.log("请求超时：请检查网络")
-            } else {
-              console.log('请求失败：' + type + '\n err:' + errorThrown);
-            }
-          })
-
+          if ($(this).prop('checked')) {
+            maintenanceItems.push({
+              brandAndlabel: $(_this).next().next().find('input').val(),
+              itemName: $(_this).next().html()
+            })
+          }
         })
+
+        data.maintenanceItems = maintenanceItems;
+        console.log(data)
+
+        app.saveMaintenance(data, function (res) {
+          submitLock = false;
+          console.log(res)
+          mui.toast(res.msg)
+          if (res.ret) {
+            mui.back();
+            mui.fire(view, 'update', {});
+          }
+        }, function (xhr, type, errorThrown) {
+          submitLock = false;
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+
       }
     })();
-
   </script>
 </body>
 

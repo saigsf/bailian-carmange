@@ -15,6 +15,11 @@
   <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
   <!--独立样式-->
   <style type="text/css">
+    html,
+    body {
+      height: 100%;
+    }
+
     header.mui-bar,
     header.mui-navbar {
       background-color: #fff;
@@ -149,7 +154,7 @@
     var form = document.getElementsByTagName('form')[0];
 
     form.onsubmit = function (e) {
-      e.preventDefault();// 取消默认事件
+      e.preventDefault(); // 取消默认事件
     }
 
 
@@ -211,7 +216,7 @@
     var searchArr = [];
     searchArr.push(function () {
       app.likevSn({
-        vSn: $('#current_input').val()
+        vSn: $('#current_input').val().trim()
       }, function (res) {
         // console.log(typeof res)
         // res = JSON.parse(res)
@@ -219,10 +224,10 @@
 
         if (res && res.length > 0) {
           var html = ''
-          for (let i = 0; i < res.length; i++) {
-            const item = res[i];
-            html += '<div class="mui-btn" data-vSn="' + item + '">' + item + '</div>'
-          }
+          mui.each(res, function (k, v) {
+            html += '<div class="mui-btn" data-vSn="' + v + '">' + v + '</div>'
+          })
+
           $('#no_data').hide();
           $('#result').show().html(html);
         } else {
@@ -230,15 +235,15 @@
           $('#result').hide()
         }
       }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
     })
 
 
@@ -254,9 +259,8 @@
       // 输入框获取焦点
       // app.focusAndOpenKeyboard(document.getElementById('current_input'));
       $('#current_input')[0].focus()
+      $('#result').html('')
     })
-
-
   </script>
 </body>
 
