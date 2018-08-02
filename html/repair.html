@@ -50,6 +50,8 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- common.js -->
+  <script src="../js/app/common.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -114,6 +116,9 @@
           self.append(sub);
         })
 
+        // setRoles()
+        once(setRoles)();
+
       });
       //当前激活选项
       var activeTab = subpages[0];
@@ -149,12 +154,10 @@
       document.addEventListener('repair', function (e) {
         console.log(e.detail.domId)
         var defaultTab = document.getElementById(e.detail.domId);
-
         //模拟首页点击
         mui.trigger(defaultTab, 'tap');
         //切换选项卡高亮
         var current = document.querySelector(".mui-scroll>.mui-control-item.mui-active");
-        console.log(defaultTab != current)
         if (defaultTab !== current) {
           current.classList.remove('mui-active');
           defaultTab.classList.add('mui-active');
@@ -162,12 +165,12 @@
 
       });
 
-      // //接车点检
-      document.addEventListener('roles', function () {
+      function setRoles() {
+        console.log(11241343)
         if (!app.getUserRoles('engineer') && !app.getUserRoles('admin')) {
           $('#defaultTab').hide()
           plus.webview.hide('repair-apply.html');
-          plus.webview.show('repair-list.html');
+          plus.webview.show('repair-list.html', "slide-in-right", 300);
           activeTab = 'repair-list.html';
           $('#repair-list').addClass('mui-active')
         } else {
@@ -177,7 +180,9 @@
           activeTab = 'repair-apply.html';
           $('#repair-list').removeClass('mui-active');
         }
-      })
+      }
+    
+      document.addEventListener('roles', setRoles)
 
     })()
   </script>

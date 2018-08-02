@@ -739,7 +739,7 @@
         fetchData();
       })
 
-      document.addEventListener('roles', function () {
+      function setRoles() {
         if (!app.getUserRoles('admin') && !app.getUserRoles('driverManager')) {
           document.removeEventListener('longtap', langTap, false);
           $('#add').hide().prev().css('width', '100%')
@@ -747,7 +747,11 @@
           document.addEventListener('longtap', langTap, false);
           $('#add').show().prev().css('width', '85%')
         }
-      })
+      }
+
+      once(setRoles)()
+
+      document.addEventListener('roles', setRoles)
     })()
   </script>
 </body>

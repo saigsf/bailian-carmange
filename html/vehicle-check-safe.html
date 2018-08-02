@@ -1646,11 +1646,11 @@
       })).then(function (res) {
         // console.log(1435, res.msg);
         mui.toast('操作成功');
-        setTimeout(function() {
+        // setTimeout(function() {
           submitLock = false;
           mui.back();
           mui.fire(view, 'update', null)
-        }, 100);
+        // }, 100);
 
       }, function (err) {
         submitLock = false;

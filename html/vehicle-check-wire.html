@@ -2200,31 +2200,24 @@
         return;
       }
       submitLock = true;
-      console.log(canChecked, canInspect)
       if (canChecked && !canInspect) {
         stateArr = updateArr;
         // 执行检查操作;
         submitData();
-        console.log(stateArr)
       } else if (!canChecked && canInspect) {
         stateArr = submitArr;
         // 执行核对操作
         submitData()
-        console.log(stateArr)
       } else if (canChecked && canInspect) {
         stateArr = submitArr;
         // 执行检查操作;
         submitData()
-        console.log(stateArr);
         stateArr = updateArr;
         // 执行核对操作
         submitData()
-        console.log(stateArr);
       } else {
         stateArr = submitArr;
         submitData();
-        console.log(stateArr);
-
       }
       return;
 
@@ -2276,11 +2269,11 @@
         // mui.toast(res.msg);
         if (res.ret) {
           mui.toast(res.msg);
-          setTimeout(function() {
+          // setTimeout(function() {
             submitLock = false;
             mui.back()
             mui.fire(view, 'update', null)
-          }, 100);
+          // }, 100);
 
         } else {
           mui.toast('线束检查失败')

@@ -1,73 +1,119 @@
 {
+  "html/home-track.html": {
+    "href": "html/home-track.html",
+    "resources": [],
+    "priority": 0
+  },
+  "html/home.html": {
+    "href": "html/home.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
   "html/vehicle-input-info.html": {
     "href": "html/vehicle-input-info.html",
     "resources": [],
-    "priority": 0
-  },
-  "html/search.html": {
-    "href": "html/search.html",
-    "resources": [],
-    "priority": 1
-  },
-  "html/vehicle-input-list.html": {
-    "href": "html/vehicle-input-list.html",
-    "resources": [],
-    "refer": [],
-    "priority": 0
-  },
-  "html/vehicle-info.html": {
-    "href": "html/vehicle-info.html",
-    "resources": [],
-    "priority": 4
-  },
-  "html/vehicle-insurance-info.html": {
-    "href": "html/vehicle-insurance-info.html",
-    "resources": [],
-    "refer": [],
-    "priority": 4
-  },
-  "html/vehicle-insurance-list.html": {
-    "href": "html/vehicle-insurance-list.html",
-    "resources": [],
-    "refer": [],
-    "priority": 2
-  },
-  "html/vehicle-license-info.html": {
-    "href": "html/vehicle-license-info.html",
-    "resources": [],
-    "refer": [],
-    "priority": 4
-  },
-  "html/vehicle-license-list.html": {
-    "href": "html/vehicle-license-list.html",
-    "resources": [],
-    "refer": [],
-    "priority": 3
-  },
-  "html/vehicle-filter.html": {
-    "href": "html/vehicle-filter.html",
-    "resources": [],
-    "refer": [],
     "priority": 1
   },
   "html/vehicle-type-change.html": {
     "href": "html/vehicle-type-change.html",
     "resources": [],
-    "priority": 2
+    "priority": 3
+  },
+  "html/search.html": {
+    "href": "html/search.html",
+    "resources": [],
+    "priority": 4
+  },
+  "html/vehicle-info.html": {
+    "href": "html/vehicle-info.html",
+    "resources": [],
+    "priority": 5
   },
   "html/vehicle-list-info.html": {
     "href": "html/vehicle-list-info.html",
     "resources": [],
     "refer": [],
-    "priority": 4
+    "priority": 5
   },
   "html/vehicle-program-status.html": {
     "href": "html/vehicle-program-status.html",
     "resources": [],
-    "priority": 5
+    "priority": 6
   },
   "html/vehicle-list.html": {
     "href": "html/vehicle-list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "html/vehicle-insurance-info.html": {
+    "href": "html/vehicle-insurance-info.html",
+    "resources": [],
+    "refer": [],
+    "priority": 5
+  },
+  "html/vehicle-insurance-list.html": {
+    "href": "html/vehicle-insurance-list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 3
+  },
+  "html/vehicle-license-info.html": {
+    "href": "html/vehicle-license-info.html",
+    "resources": [],
+    "refer": [],
+    "priority": 5
+  },
+  "html/vehicle-license-list.html": {
+    "href": "html/vehicle-license-list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 4
+  },
+  "html/repair-maintain-info.html": {
+    "href": "html/repair-maintain-info.html",
+    "resources": [],
+    "priority": 6
+  },
+  "html/repair-info.html": {
+    "href": "html/repair-info.html",
+    "resources": [],
+    "refer": [],
+    "priority": 6
+  },
+  "html/repair-content.html": {
+    "href": "html/repair-content.html",
+    "resources": [],
+    "refer": [],
+    "priority": 8
+  },
+  "html/repair-allot.html": {
+    "href": "html/repair-allot.html",
+    "resources": [],
+    "refer": [],
+    "priority": 9
+  },
+  "html/repair-maintain.html": {
+    "href": "html/repair-maintain.html",
+    "resources": [],
+    "refer": [],
+    "priority": 10
+  },
+  "html/repair-list.html": {
+    "href": "html/repair-list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 6
+  },
+  "html/vehicle-filter.html": {
+    "href": "html/vehicle-filter.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "html/vehicle-input-list.html": {
+    "href": "html/vehicle-input-list.html",
     "resources": [],
     "refer": [],
     "priority": 1
@@ -75,56 +121,16 @@
   "html/vehicle-check-up.html": {
     "href": "html/vehicle-check-up.html",
     "resources": [],
-    "priority": 3
+    "priority": 4
   },
   "html/vehicle.html": {
     "href": "html/vehicle.html",
     "resources": [],
     "refer": [],
-    "priority": 0
+    "priority": 1
   },
   "html/setting.html": {
     "href": "html/setting.html",
-    "resources": [],
-    "priority": 1
-  },
-  "html/repair-maintain-info.html": {
-    "href": "html/repair-maintain-info.html",
-    "resources": [],
-    "priority": 2
-  },
-  "html/repair-info.html": {
-    "href": "html/repair-info.html",
-    "resources": [],
-    "refer": [],
-    "priority": 3
-  },
-  "html/repair-content.html": {
-    "href": "html/repair-content.html",
-    "resources": [],
-    "refer": [],
-    "priority": 4
-  },
-  "html/repair-allot.html": {
-    "href": "html/repair-allot.html",
-    "resources": [],
-    "refer": [],
-    "priority": 5
-  },
-  "html/repair-list.html": {
-    "href": "html/repair-list.html",
-    "resources": [],
-    "refer": [],
-    "priority": 3
-  },
-  "html/repair-maintain.html": {
-    "href": "html/repair-maintain.html",
-    "resources": [],
-    "refer": [],
-    "priority": 3
-  },
-  "html/repair-maintain-list.html": {
-    "href": "html/repair-maintain-list.html",
     "resources": [],
     "refer": [],
     "priority": 2
@@ -138,65 +144,55 @@
     "href": "html/repair.html",
     "resources": [],
     "refer": [],
-    "priority": 2
-  },
-  "html/home-track.html": {
-    "href": "html/home-track.html",
-    "resources": [],
     "priority": 3
-  },
-  "html/home.html": {
-    "href": "html/home.html",
-    "resources": [],
-    "refer": [],
-    "priority": 3
-  },
-  "html/popover.html": {
-    "href": "html/popover.html",
-    "resources": [],
-    "priority": 5
   },
   "html/doorpost-car-entrance.html": {
     "href": "html/doorpost-car-entrance.html",
     "resources": [],
-    "priority": 9
+    "priority": 4
   },
   "html/doorpost-driver-info.html": {
     "href": "html/doorpost-driver-info.html",
     "resources": [],
-    "priority": 10
+    "priority": 5
   },
   "html/doorpost-driver-input.html": {
     "href": "html/doorpost-driver-input.html",
     "resources": [],
-    "priority": 11
+    "priority": 6
   },
   "html/doorpost-driver-authorize.html": {
     "href": "html/doorpost-driver-authorize.html",
     "resources": [],
     "refer": [],
-    "priority": 12
+    "priority": 7
   },
   "html/doorpost-driver.html": {
     "href": "html/doorpost-driver.html",
     "resources": [],
     "refer": [],
-    "priority": 10
+    "priority": 5
   },
   "html/doorpost.html": {
     "href": "html/doorpost.html",
     "resources": [],
     "refer": [],
-    "priority": 9
+    "priority": 4
   },
-  "index.html": {
-    "href": "index.html",
+  "html/main.html": {
+    "href": "html/main.html",
     "resources": [],
     "refer": [],
-    "priority": 4
+    "priority": 0
   },
   "login.html": {
     "href": "login.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "index.html": {
+    "href": "index.html",
     "resources": [],
     "refer": [],
     "priority": 0

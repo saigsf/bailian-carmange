@@ -240,6 +240,8 @@
   <script src="../js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="../js/mui.min.js"></script>
+  <!-- common.js -->
+  <script src="../js/app/common.js"></script>
   <!-- config 配置项 -->
   <script src="../js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -280,7 +282,7 @@
         }
         $('.mui-scroll').css('min-height', $('.mui-content').height())
         self = plus.webview.currentWebview();
-        main = plus.webview.getWebviewById("index");
+        main = plus.webview.getWebviewById("main");
         main.addEventListener('maskClick', closeMenu);
         H = self.H;
         prepageSearch = mui.preload({
@@ -293,7 +295,7 @@
         })
 
       });
-      
+
       // 下拉刷新
       function pulldownRwfresh() {
         curPage = 1;
@@ -326,10 +328,29 @@
           size: 10,
         }, dataArr);
 
-        console.log(JSON.stringify(data))
         app.carMaintainQuery(data, function (res) {
+
           console.log(res)
           res = JSON.parse(res);
+
+          if (res.ret == false) {
+            // mui.toast(res.msg)
+            var loginInfo = myStorage.getItem('loginInfo')
+            app.login(loginInfo, function (res) {
+              console.log(res);
+              fetchData()
+            }, function (xhr, type, errorThrown) {
+              //异常处理；
+              console.log(type);
+              mui.toast(type);
+              if (type == 'timeout') {
+                console.log("请求超时：请检查网络")
+              } else {
+                console.log('请求失败：' + type + '\n err:' + errorThrown);
+              }
+            })
+            
+          }
 
           if (!res.total || res.total <= 0) {
             return;
@@ -667,7 +688,6 @@
         // plus.navigator.setStatusBarStyle('light');
         console.log(e.detail.vSn)
         if (e.detail != null && e.detail.vSn) dataArr.vSn = e.detail.vSn;
-
         curPage = 1;
         $('#OA_task_1').html('')
         fetchData();

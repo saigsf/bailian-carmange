@@ -297,10 +297,10 @@
 
         if (res.ret) {
           mui.toast(res.msg);
-          setTimeout(function() {
+          // setTimeout(function() {
             submitLock = false;
             mui.back();
-          }, 100);
+          // }, 100);
         } else {
           submitLock = false;
           mui.toast(res.msg);

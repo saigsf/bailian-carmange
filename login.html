@@ -217,6 +217,8 @@
   <script src="js/lib/jquery.min.js"></script>
   <!-- mui -->
   <script src="js/mui.min.js"></script>
+  <!-- common.js -->
+  <script src="js/app/common.js"></script>
   <!-- config 配置项 -->
   <script src="js/app/config.js"></script>
   <!-- app 数据获取 -->
@@ -238,92 +240,87 @@
       var settings = app.getSettings();
       // console.log(JSON.stringify(settings))
       // 获取本地存储
-      var state = app.getState();
+      var state = myStorage.getItem('loginInfo');
       // 预加载页面是否加载完成
       var main_loaded_flag = false;
       // 获取预加载页面
-      var mainPage = plus.webview.getWebviewById("index");
+      var mainPage = plus.webview.getWebviewById("main");
       // 判读预加载页面是否存在，
-      if (!mainPage) {
-        mainPage = mui.preload({
-          "id": 'index',
-          "url": 'index.html'
-        });
-      } else {
+      if (mainPage) {
         main_loaded_flag = true;
       }
-      // 预加载页面添加加载完成事件
-      mainPage.addEventListener("loaded", function () {
-        main_loaded_flag = true;
-      });
+      // // 预加载页面添加加载完成事件
+      // mainPage.addEventListener("loaded", function () {
+      //   main_loaded_flag = true;
+      // });
 
-
-
-      // 
-      document.getElementById('NETID').value = state.data ? state.data.netid : '';
-      document.getElementById('employeeCard').value = state.data ? state.data.employeeCard : '';
-      document.getElementById('password').value = state.loginInfo ? state.loginInfo.password : '';
-
-
-      //					console.log(state.token)
-      if (settings.autoLogin && state.data) {
+      var backButtonPress = 0;
+      mui.back = function (event) {
+        backButtonPress++;
+        if (backButtonPress > 1) {
+          plus.runtime.quit();
+        } else {
+          plus.nativeUI.toast('再按一次退出应用');
+        }
         setTimeout(function () {
-          login();
-        }, 1000)
-
-      }
-
-
+          backButtonPress = 0;
+        }, 1000);
+        return false;
+      };
+      // 
+      document.getElementById('NETID').value = state ? state.NETID : '';
+      document.getElementById('employeeCard').value = state ? state.employeeCard : '';
+      document.getElementById('password').value = state ? state.password : '';
 
       var toMain = function () {
-        // 使用定时器的原因：
-        // 可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
-        var id = setInterval(function () {
-          if (main_loaded_flag) {
-            clearInterval(id);
-            mui.fire(mainPage, 'goback', null);
-            mui.fire(plus.webview.getWebviewById('html/home.html'), 'statusBar', null)
-            mui.fire(plus.webview.getWebviewById('doorpost-car-entrance.html'), 'statusBar', null)
-            mui.fire(plus.webview.getWebviewById('html/setting.html'), 'statusBar', null)
-            mui.fire(plus.webview.getWebviewById('html/vehicle.html'), 'roles', null)
-            mui.fire(plus.webview.getWebviewById('vehicle-list.html'), 'roles', null)
-            mui.fire(plus.webview.getWebviewById('doorpost-driver.html'), 'roles', null)
-            mui.fire(plus.webview.getWebviewById('doorpost-driver.html'), 'update', null)
-            mui.fire(plus.webview.getWebviewById('vehicle-list.html'), 'update', null)
-            mui.fire(plus.webview.getWebviewById('vehicle-input-list.html'), 'update', null)
-            mui.fire(plus.webview.getWebviewById('repair-list.html'), 'update', null)
-            mui.fire(plus.webview.getWebviewById('html/repair.html'), 'roles', null)
-            mui.fire(mainPage, 'roles', null)
+        if (myStorage.getItem('launchFlag')) {
+          mui.fire(mainPage, 'goback', null);
+          mui.fire(plus.webview.getWebviewById('home.html'), 'statusBar', null)
+          mui.fire(plus.webview.getWebviewById('doorpost-car-entrance.html'), 'statusBar', null)
+          mui.fire(plus.webview.getWebviewById('setting.html'), 'statusBar', null)
+          mui.fire(plus.webview.getWebviewById('vehicle.html'), 'roles', null)
+          mui.fire(plus.webview.getWebviewById('vehicle-list.html'), 'roles', null)
+          mui.fire(plus.webview.getWebviewById('doorpost-driver.html'), 'roles', null)
+          mui.fire(plus.webview.getWebviewById('repair.html'), 'roles', null)
+          mui.fire(plus.webview.getWebviewById('doorpost-driver.html'), 'update', null)
+          mui.fire(plus.webview.getWebviewById('vehicle-list.html'), 'update', null)
+          mui.fire(plus.webview.getWebviewById('vehicle-input-list.html'), 'update', null)
+          mui.fire(plus.webview.getWebviewById('repair-list.html'), 'update', null)
 
-            // plus.storage.setItem("launchFlag", "true")
-            mainPage.show("pop-in");
-            // mui.back();
+          mui.openWindow({
+            url: 'html/main.html',
+            id: 'main', //默认使用当前页面的url作为id
+            styles: {}, //窗口参数
+            extras: {} //自定义扩展参数
+          })
 
-          }
-        }, 20);
 
-        // mui.openWindow({
-        //   url: 'index.html',
-        //   id: 'index', //默认使用当前页面的url作为id
-        //   styles: {}, //窗口参数
-        //   extras: {}, //自定义扩展参数
-        //   createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-        //   show: {
-        //     autoShow: true, //页面loaded事件发生后自动显示，默认为true
-        //   },
-        //   waiting: {
-        //     autoShow: true, //自动显示等待框，默认为true
-        //     title: '正在加载...', //等待对话框上显示的提示内容
-        //   }
-        // })
+        } else {
+          myStorage.setItem("launchFlag", 'true')
+          mui.openWindow({
+            url: 'html/main.html',
+            id: 'main', //默认使用当前页面的url作为id
+            styles: {}, //窗口参数
+            extras: {}, //自定义扩展参数
+            createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+            show: {
+              autoShow: true, //页面loaded事件发生后自动显示，默认为true
+            },
+            waiting: {
+              autoShow: true, //自动显示等待框，默认为true
+              title: '正在加载...', //等待对话框上显示的提示内容
+            }
+          })
+        }
+
       };
       var loginTypeBtn = document.getElementById('loginType');
 
       loginTypeBtn.addEventListener('tap', changeType, false)
 
       function changeType() {
-        console.log(this.innerHTML== '用员工卡号登录')
-        if (this.innerHTML== '用员工卡号登录') {
+        console.log(this.innerHTML == '用员工卡号登录')
+        if (this.innerHTML == '用员工卡号登录') {
           $('#NETID').hide().attr('disabled', true);
           $('#employeeCard').show().attr('disabled', false);
           $(this).html('用员工NET ID号登录');
@@ -347,23 +344,26 @@
         loginInfo.autoLogin = 'true';
         loginInfo.password = $('#password').val()
         console.log(loginInfo)
-        if (loginType == 'netid') {
-          app.loginNetId(loginInfo, function (err) {
-            if (err) {
-              mui.toast(err);
-              return;
-            }
+
+
+        app.login(loginInfo, function (res) {
+          console.log(res)
+          res = JSON.parse(res);
+          mui.toast(res.msg)
+          if (res.ret) {
+            myStorage.setItem("loginInfo", loginInfo)
+            myStorage.setItem("data", res.data);
+            app.createState(res.data, loginInfo, function () {})
             toMain();
-          });
-        } else {
-          app.loginCard(loginInfo, function (err) {
-            if (err) {
-              plus.nativeUI.toast(err);
-              return;
-            }
-            toMain();
-          });
-        }
+          }
+        }, function (xhr, type, errorThrown) {
+          console.log(type);
+          if (type == 'timeout') {
+            $.toast("请求超时：请检查网络")
+          } else {
+            $.toast('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        }, true)
       }
     });
   </script>

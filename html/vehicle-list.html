@@ -186,7 +186,7 @@
       handsetAdaption()
       $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
-      main = plus.webview.getWebviewById("index");
+      main = plus.webview.getWebviewById("main");
       view = plus.webview.getWebviewById('html/vehicle.html')
       H = self.H;
 
@@ -497,13 +497,16 @@
       fetchData();
     })
 
-    document.addEventListener('roles', function () {
+    function setRoles() {
       if (!app.getUserRoles('admin')) {
         $('#program_status').hide().next().css('width', '80%')
       } else {
         $('#program_status').show().next().css('width', '65%')
       }
-    })
+    }
+    once(setRoles)()
+
+    document.addEventListener('roles', setRoles)
 
     document.addEventListener('setHeight', function () {
       // $('#refreshContainer').height($(document).height() - 62)

@@ -221,8 +221,7 @@
 
     });
 
-    document.addEventListener('roles', function () {
-
+    function setRoles() {
       if (!app.getUserRoles('uppeople') && !app.getUserRoles('admin')) {
         $('#vehicle-check-up').attr('ishide', true).hide()
       } else {
@@ -238,7 +237,11 @@
         }
       })
       $('.mui-scroll').width(sw + 16)
-    })
+    }
+
+    once(setRoles)()
+
+    document.addEventListener('roles', setRoles)
 
     // 点击a标签时，检测下一个是否显示完全，如果不完整，则滚动到完整的位置，否则不变。
     // 点击a标签时，检测上一个是否显示完全，如果不完整，则滚动到完整的位置，否则不变。

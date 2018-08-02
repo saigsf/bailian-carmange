@@ -18,7 +18,8 @@
       "img/common/md/icon_user_active.png",
       "img/common/md/icon_gps_active@2x.png",
       "html/home.html",
-      "img/common/md/icon_door_active.png"
+      "img/common/md/icon_door_active.png",
+      "js/app/common.js"
     ],
     "refer": [
       "html/repair.html",
@@ -28,7 +29,8 @@
       "html/popover.html",
       "html/doorpost.html",
       "html/home-map-search.html",
-      "login.html"
+      "login.html",
+      "html/main.html"
     ]
   },
   "html/vehicle.html": {
@@ -53,7 +55,9 @@
       "js/app/app.js",
       "js/app/vehicle.js",
       "css/reset.css",
-      "html/vehicle-list.html"
+      "html/vehicle-list.html",
+      "js/lib/mui.pullToRefresh.js",
+      "js/lib/mui.pullToRefresh.material.js"
     ]
   },
   "html/vehicle-check-add-explain.html": {
@@ -231,7 +235,9 @@
       "img/common/md/wire_check_disabled@2x.png",
       "img/common/md/bom_check_disabled@2x.png",
       "img/common/md/vehicle_auditing_disabled@2x.png",
-      "img/common/md/tools_disabled@2x.png"
+      "img/common/md/tools_disabled@2x.png",
+      "js/lib/mui.zoom.js",
+      "js/lib/mui.previewimage.js"
     ],
     "refer": [
       "html/vehicle-info-detail.html",
@@ -284,7 +290,11 @@
       "js/app/vehicle-list.js",
       "img/common/icon_app.png",
       "html/vehicle-list-sub.html",
-      "img/common/md/backup_picture1.png"
+      "img/common/md/backup_picture1.png",
+      "js/lib/mui.lazyload.js",
+      "js/lib/mui.lazyload.img.js",
+      "js/app/common.js",
+      "img/common/md/loading0.gif"
     ],
     "refer": [
       "html/vehicle-info.html",
@@ -348,14 +358,16 @@
       "img/login/md_background.png",
       "img/login/md/background.png",
       "img/common/md/icon_checked@2x.png",
-      "js/mui.js"
+      "js/mui.js",
+      "js/app/common.js"
     ],
     "refer": [
       "index.html",
       "html/vehicle.html",
       "html/setting.html",
       "html/repair.html",
-      "html/home.html"
+      "html/home.html",
+      "html/main.html"
     ],
     "priority": 0
   },
@@ -372,7 +384,8 @@
       "img/login/user_logo.png",
       "js/app/config.js",
       "js/app/app.js",
-      "js/lib/mui.view.js"
+      "js/lib/mui.view.js",
+      "js/app/common.js"
     ],
     "refer": [
       "login.html"
@@ -421,7 +434,8 @@
       "js/app/app.js",
       "js/app/repair-list.js",
       "img/common/icon_app.png",
-      "img/common/md/backup_picture.png"
+      "img/common/md/backup_picture.png",
+      "js/app/common.js"
     ],
     "refer": [
       "html/repair-repairman.html",
@@ -429,7 +443,8 @@
       "html/repair-content.html",
       "html/repair-allot.html",
       "html/repair-maintain.html",
-      "html/search.html"
+      "html/search.html",
+      "html/vehicle-filter.html"
     ],
     "priority": 0
   },
@@ -487,7 +502,8 @@
       "img/common/md/top_mark@2x.png",
       "img/common/md/icon_arraw_right_top@2x.png",
       "img/car.png",
-      "img/common/md/home_car@2x.png"
+      "img/common/md/home_car@2x.png",
+      "img/common/md/no_mapdata.png"
     ],
     "refer": [
       "html/home-map-search.html",
@@ -636,7 +652,12 @@
       "js/app/config.js",
       "js/app/app.js",
       "js/app/vehicle-input-list.js",
-      "img/common/icon_app.png"
+      "img/common/icon_app.png",
+      "js/lib/mui.zoom.js",
+      "js/lib/mui.previewimage.js",
+      "js/lib/mui.lazyload.js",
+      "js/lib/mui.lazyload.img.js",
+      "img/common/md/loading0.gif"
     ],
     "refer": [
       "html/vehicle-input-detail.html",
@@ -663,7 +684,9 @@
     "refer": [
       "html/vehicle-list.html",
       "html/vehicle-insurance-list.html",
-      "html/vehicle-license-list.html"
+      "html/vehicle-license-list.html",
+      "html/vehicle-input-list.html",
+      "html/repair-list.html"
     ],
     "priority": 0
   },
@@ -727,7 +750,10 @@
       "js/app/vehicle-insurance-list.js",
       "img/common/icon_app.png",
       "img/common/md/in_background.png",
-      "img/common/md/in_pic.png"
+      "img/common/md/in_pic.png",
+      "js/lib/mui.lazyload.js",
+      "js/lib/mui.lazyload.img.js",
+      "img/common/md/loading0.gif"
     ],
     "refer": [
       "html/vehicle-insurance-apply.html",
@@ -954,7 +980,10 @@
       "js/app/vehicle-license-list.js",
       "img/common/icon_app.png",
       "img/common/md/in_background.png",
-      "img/common/md/lience_pic.png"
+      "img/common/md/lience_pic.png",
+      "js/lib/mui.lazyload.js",
+      "js/lib/mui.lazyload.img.js",
+      "img/common/md/loading0.gif"
     ],
     "refer": [
       "html/vehicle-license-info.html",
@@ -1042,7 +1071,8 @@
       "js/mui.min.js",
       "js/app/config.js",
       "js/app/app.js",
-      "img/car.png"
+      "img/car.png",
+      "img/common/md/icon_arraw_right_top@2x.png"
     ],
     "refer": [],
     "priority": 0
@@ -1068,6 +1098,31 @@
   "html/vehicle-RD-tools.html": {
     "refer": [
       "html/vehicle-check-add-explain.html"
-    ]
+    ],
+    "resources": []
+  },
+  "html/main.html": {
+    "href": "html/main.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style-icon.css",
+      "img/common/md/icon_gps_active@2x.png",
+      "img/common/md/icon_car_active.png",
+      "img/common/md/icon_repair_active.png",
+      "img/common/md/icon_user_active.png",
+      "img/common/md/icon_door_active.png",
+      "js/lib/jquery.min.js",
+      "js/mui.min.js",
+      "js/app/config.js",
+      "js/app/app.js"
+    ],
+    "refer": [
+      "html/home.html",
+      "html/vehicle.html",
+      "html/setting.html",
+      "html/repair.html",
+      "html/doorpost.html"
+    ],
+    "priority": 0
   }
 }

@@ -97,7 +97,7 @@
 				console.log(res)
 				res = JSON.parse(res);
 				if (res.ret) {
-					$.toast(res.msg);
+					$.toast('登录成功');
 					owner.createState(res.data, loginInfo, success);
 				} else {
 					$.toast(res.msg)
@@ -155,7 +155,7 @@
 				console.log(res)
 				res = JSON.parse(res);
 				if (res.ret) {
-					$.toast(res.msg);
+					$.toast('登录成功');
 					owner.createState(res.data, loginInfo, success);
 				} else {
 					$.toast(res.msg)
@@ -406,6 +406,20 @@
 				console.log('complete')
 			}
 		});
+	}
+
+
+	owner.login = function(loginInfo, success, error, flag) {
+		loginInfo = loginInfo || {};
+		var url = '';
+
+		if(loginInfo.NETID) {
+			url = 'car-management/user/login.action'
+		} else {
+			url = 'car-management/user/logintwo.action'
+		}
+
+		owner.HTTPRequest('POST', url, loginInfo, success, error, flag)
 	}
 
 	/* ===============车辆 start==================== */

@@ -1,6 +1,6 @@
 // var BASE_URL_1 = 'http://192.168.0.222:8080/';
-var BASE_URL_1 = 'http://36.110.56.189:8848/';
-// var BASE_URL_1 = 'http://47.98.182.165/';
+// var BASE_URL_1 = 'http://36.110.56.189:8848/';
+var BASE_URL_1 = 'http://47.98.182.165/';
 
 
 /**
@@ -20,10 +20,10 @@ Date.prototype.format = function (format) {
   }
 
   if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-  
-  
-  $.each(o, function(k, v) {
-     if (new RegExp("(" + k + ")").test(format))
+
+
+  $.each(o, function (k, v) {
+    if (new RegExp("(" + k + ")").test(format))
       format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? v : ("00" + v).substr(("" + v).length));
   })
 
@@ -355,4 +355,19 @@ function validateIdCard(idCard) {
     mui.alert("身份证格式不正确!");
   }
   return (flag)
+}
+
+
+
+
+function once(fn) {
+  var result;
+
+  return function () {
+    if (fn) {
+      result = fn.apply(this, arguments);
+      fn = null;
+    }
+    return result;
+  };
 }
