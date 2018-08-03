@@ -224,12 +224,13 @@
   <!-- app 数据获取 -->
   <script src="js/app/app.js"></script>
   <!-- 当前页面js -->
-  <!-- <script src="js/app/login.js"></script> -->
   <script>
     var loginType = 'netid';
     mui.init({
       swipeBack: true //启用右滑关闭功能
     });
+
+    var oldBack = mui.back
     mui.plusReady(function () {
       plus.webview.currentWebview().setStyle({
         softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
@@ -255,6 +256,7 @@
       // });
 
       var backButtonPress = 0;
+
       mui.back = function (event) {
         backButtonPress++;
         if (backButtonPress > 1) {
@@ -287,14 +289,16 @@
           mui.fire(plus.webview.getWebviewById('vehicle-input-list.html'), 'update', null)
           mui.fire(plus.webview.getWebviewById('repair-list.html'), 'update', null)
 
-          mui.openWindow({
-            url: 'html/main.html',
-            id: 'main', //默认使用当前页面的url作为id
-            styles: {}, //窗口参数
-            extras: {} //自定义扩展参数
-          })
-
-
+          if (main_loaded_flag) {
+            oldBack();
+          } else {
+            mui.openWindow({
+              url: 'html/main.html',
+              id: 'main', //默认使用当前页面的url作为id
+              styles: {}, //窗口参数
+              extras: {} //自定义扩展参数
+            })
+          }
         } else {
           myStorage.setItem("launchFlag", 'true')
           mui.openWindow({
