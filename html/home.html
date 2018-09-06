@@ -262,6 +262,8 @@
 	<script src="../js/lib/jquery.min.js"></script>
 	<!-- mui -->
 	<script src="../js/mui.min.js"></script>
+	<!-- common.js -->
+	<script src="../js/app/common.js"></script>
 	<!-- config 配置项 -->
 	<script src="../js/app/config.js"></script>
 	<!-- app 数据获取 -->
@@ -522,13 +524,25 @@
 
 			}
 
-
+			fetchData();
 			function fetchData() {
-				// updateView.allcar({})
-				// return;
 				app.allcar({}, function (res) {
 					if (res.substring(0, 15) == '<!DOCTYPE html>') {
 						console.log('您未登录');
+						var loginInfo = myStorage.getItem('loginInfo')
+            app.login(loginInfo, function (res) {
+              console.log(res);
+              fetchData()
+            }, function (xhr, type, errorThrown) {
+              //异常处理；
+              console.log(type);
+              mui.toast(type);
+              if (type == 'timeout') {
+                console.log("请求超时：请检查网络")
+              } else {
+                console.log('请求失败：' + type + '\n err:' + errorThrown);
+              }
+            })
 						return;
 					}
 					console.log(res)

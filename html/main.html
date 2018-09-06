@@ -143,7 +143,7 @@
 
       // 创建子页面，显示首个选项卡其他都影藏
       mui.plusReady(function () {
-
+        self = plus.webview.currentWebview();
         //获取底部导航栏的实际高度
         var tabH = $('#mui_bar_tab').height()
         //iphonX适配
