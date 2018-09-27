@@ -243,29 +243,59 @@
           mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
         } else {
           fetchData()
-
-
           mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
         }
       }, 1000)
     }
     // 获取数据
-    // fetchData()
+    fetchData()
+
     function fetchData() {
 
       var opt = {
         page: curPage,
-        size: 10
+        size: 10,
+        sort: 'vSn',
+        sortOrder: 'asc',
+        vSn: '',
+        customer: '',
+        project_sn: '',
+        adminName: '',
+        vin: '',
+        engineNumber: '',
+        projectEngineer: '',
+        brandModeltwo: '',
+        groupName: '',
+        istatus: '',
+        vehicleInspection: '',
+        NO: '',
+        bstart: '',
+        bend: '',
+        pstart: '',
+        pend: '',
+        ustart: '',
+        uend: '',
+        backstart: '',
+        backend: '',
+        ing: '',
+        all: '',
+        beforup: '',
+        haveLi: '',
+        HaveIn: '',
+        thismonthback: '',
+        thismonnew: '',
+        beforBack: '',
+        stop: ''
       }
       opt = $.extend(opt, dataArr);
-      console.log(opt)
+
       if (opt.all || opt.ing || opt.stop || opt.beforBack || opt.thismonthback || opt.thismonnew || opt.beforup || opt.HaveIn ||
         opt.haveLi) {
         queryType = 'orderQuery'
       }
-
+      console.log(queryType, 1)
       app[queryType](opt, function (res) {
-        // console.log(res)
+        console.log(res)
         res = JSON.parse(res);
         if (!res.total || res.total <= 0) {
           $('#no-data').show().prev().hide()

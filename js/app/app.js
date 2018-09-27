@@ -966,7 +966,7 @@
 	owner.carQuery = function (data, success, error) {
 
 		data = data || {};
-
+		
 		var url = 'car-management/car/pageQuery.action';
 
 		owner.HTTPRequest('get', url, data, success, error)
