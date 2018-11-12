@@ -61,6 +61,19 @@
     .date-text textarea {
       font-size: 14px;
     }
+    .info-title {
+      position: relative;
+    }
+    .edit {
+      font-weight: normal;
+      color: #2885cf;
+      font-size: 12px;
+      text-decoration: underline;
+      position: absolute;
+      right: 18%;
+      top: 50%;
+      transform: translateY(-50%)
+    }
   </style>
 </head>
 
@@ -101,8 +114,10 @@
         </div>
         <div class="info-middle"></div>
         <div class="info-item">
-          <div class="info-title">
-            <h4>送修申请信息</h4>
+          <div class="info-title" id="edit">
+            <h4>送修申请信息
+              <!-- <i class="icon icon-edit-repair"></i> -->
+            </h4><span class="edit">(点击编辑)</span>
           </div>
           <div class="info-content">
             <div class="date-wrapper start">
@@ -138,6 +153,9 @@
                 <span id="applytime_0"></span>
               </div>
             </div>
+            <!-- <div class="btn-wrapper ">
+              <div class="btn btn-blue" id="repair_btn">点击修改</div>
+            </div> -->
           </div>
 
         </div>
@@ -219,6 +237,7 @@
       var H = null;
       var page = null;
       var self = null;
+      var repairData = {}
       //初始化单页的区域滚动
       mui('.mui-scroll-wrapper').scroll();
 
@@ -255,15 +274,15 @@
 
       function fetchData() {
         app.carMaintainQuery({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log(res)
-          
           res = JSON.parse(res);
           if(res.ret == false) {
             return;
           }
           updateView(res.rows[0])
+          repairData = res.rows[0]
         }, function (xhr, type, errorThrown) {
           //异常处理；
           console.log(type);
@@ -301,7 +320,25 @@
         })
       })
 
-      
+      $('#edit').on('tap', function() {
+        mui.openWindow({
+          url: 'repair-edit.html',
+          id: 'repair-edit', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            // bottom: H,
+            hardwareAccelerated: true
+          }, //窗口参数
+          extras: {
+            H: H,
+            repairData: repairData
+          } //自定义扩展参数
+        })
+      })
+
+      document.addEventListener('update', function() {
+        fetchData()
+      })
 
     })();
   </script>

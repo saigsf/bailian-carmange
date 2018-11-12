@@ -43,13 +43,24 @@
     .info-operator-item span {
       display: inline;
     }
+
     .no-data {
       height: 100%;
       z-index: 999;
       background-color: #fff;
     }
+
     .no-data p {
       top: 40%
+    }
+    .select-container select {
+      padding-left: 10px;
+    }
+    table {
+      margin-top: 10px;
+    }
+    #openPopover {
+      display: none
     }
   </style>
 </head>
@@ -66,37 +77,13 @@
       <table>
         <thead>
           <tr>
-            <td width="30%">零部件名称</td>
-            <td width="20%">零部件号</td>
-            <td width="20%">状态</td>
-            <td width="15%">说明</td>
-            <td width="15%">解决</td>
+            <td width="40%">零部件名称</td>
+            <td width="25%">零部件号</td>
+            <td width="15%">状态</td>
+            <td width="30%">检查进度</td>
           </tr>
         </thead>
-        <tbody>
-          <!-- <tr>
-            <td class="bomName">ECM发动机电子控制模块</td>
-            <td class="bomNum">28452294</td>
-            <td>
-              <div class="select-container">
-                <select name="status" class="status">
-                  <option value="是">是</option>
-                  <option value="否">否</option>
-                  <option value="NA">NA</option>
-                </select>
-                <i class="mui-icon mui-icon-arrowdown"></i>
-              </div>
-            </td>
-            <td>
-              <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">+</i>
-              <input class="explain-text" type="hidden">
-            </td>
-            <td>
-              <i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">+</i>
-              <input class="resolvent-text" type="hidden">
-            </td>
-          </tr> -->
-        </tbody>
+        <tbody></tbody>
       </table>
 
       <div class="info-operator">
@@ -133,7 +120,7 @@
           </p>
         </div>
       </div>
-      <div class="btn-wrapper ">
+      <div class="btn-wrapper">
         <div class="btn btn-blue" id="four_next">提交</div>
       </div>
     </div>
@@ -166,7 +153,8 @@
     var H = null;
     var self = null;
     var view = null;
-    var vSn = '2018ICECTC006';
+    var vSn = '2018-512';
+    var status = 'explain'
     var viewId = null;
     var state = null;
     var stateArr = [];
@@ -185,7 +173,7 @@
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
-      $('.mui-scroll').css('min-height',$('.mui-content').height())
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
       view = plus.webview.getWebviewById(self.prevId)
       viewId = self.id;
@@ -212,47 +200,167 @@
       });
     }
 
+    // 获取数据
+    fetchData()
+
+    function fetchData() {
+      app.findEmsAndBomCheckByvSn({
+        vSn: vSn
+      }, function (res) {
+        console.log(res)
+        updateView(res)
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
+    }
+
+    // 视图更新
+    function updateView(res) {
+      var data = res.checkResults;
+      var html = '';
+      if(!res.check && data.length === 0) {
+        return;
+      }
+      var a = res.check.checkPerson
+      var b = res.check.checkingPerson
+
+      mui.each(data, function (k, v) {
+        var x = v.checkExplanation
+        var y = v.checkingExplanation
+        html += '<tr data-uuid="' + v.uuid + '">' +
+          '<td class="bomName">' + v.bomName + '</td>' +
+          '<td class="bomNum">' + v.bomNum + '</td>' +
+          '<td>' +
+          '<div class="select-container">' +
+          '<select name="status" class="status" value="'+v.status+'">' +
+          '<option value="Y">是</option>' +
+          '<option value="N">否</option>' +
+          '<option value="NA">NA</option>' +
+          '</select>' +
+          '</div>' +
+          '</td>' +
+          '<td>'
+
+        if (!a) {
+          html += '<span class="checkSpeed " data-status="explain">未说明</span>'
+          status = 'explain'
+          $('#openPopover').hide()
+        } else if (!b) {
+          if(x) {
+            html += '<span class="checkSpeed unfinished" data-status="resolvent">未解决</span>' // 核对人
+          } else {
+            html += '<span class="checkSpeed finished" data-status="resolvent">完成</span>'  // 核对人
+          }
+          status = 'resolvent'
+          $('#openPopover').show()
+        } else {
+          if(x && y) {
+            html += '<span class="checkSpeed" data-status="">查看</span>'
+          } else if (x && !y) { 
+            html += '<span class="checkSpeed unfinished" data-status="resolvent">未完成</span>'
+          } else {
+            html += '<span class="checkSpeed finished" data-status="explain">完成</span>'
+          }
+          status = ''
+          $('#openPopover').show()
+          $('#four_next').parent().hide()
+        }
+          
+        html += '<input class="explainText" type="hidden" value="' + v.checkExplanation + '">' +
+          '<input class="resolventText" type="hidden" value="' + v.checkingExplanation + '">' +
+          '</td>' +
+          '</tr>'
+      })
+
+      $('table tbody').html(html);
+
+      $('.applyPerson').html(res.check.applyPerson ? res.check.applyPerson : '')
+      $('.applyTime').html(res.check.applyTime ? res.check.applyTime : '')
+      $('.checkPerson').html(res.check.checkPerson ? res.check.checkPerson : '')
+      $('.checkTime').html(res.check.checkTime ? res.check.checkTime : '')
+      $('.checkingPerson').html(res.check.checkingPerson ? res.check.checkingPerson : '')
+      $('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '')
+
+
+      var $bomTr = $('table tbody tr');
+    }
+
+    // 添加说明
+    $('table tbody').on('tap', '.checkSpeed', addExplanation)
+    function addExplanation() {
+      var _this = this;
+      var explainText = $(_this).parents('tr').find('.explainText').val();
+      var resolventText = $(_this).parents('tr').find('.resolventText').val();
+      var trId = $(_this).parents('tr').data('uuid')
+      if($(_this).html() == '完成') {
+        mui.alert('该项目正常，无检查信息', '提示')
+        return
+      }
+      mui.openWindow({
+        url: 'vehicle-check-add-explain.html',
+        id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
+        styles: {
+          top: '0px',
+          // bottom: H,
+          hardwareAccelerated: true
+        }, //窗口参数
+        extras: {
+          H: H,
+          viewId: viewId,
+          trId: trId,
+          status: status,
+          explainText: explainText,
+          resolventText: resolventText,
+          confirmText: 'NOCONFIRM'
+        } //自定义扩展参数
+      })
+      
+    }
+    document.removeEventListener('updateExplain', updateExplain, false)
+    document.addEventListener('updateExplain', updateExplain, false);
+
+    function updateExplain(evt) {
+      evt.preventDefault()
+      var data = evt.detail;
+      mui.each(data, function(k, v) {
+        console.log(k)
+        if(k == 'html') {
+          $('table tbody tr[data-uuid='+data.trId+']').find('.checkSpeed').html(v)
+        } else {
+          $('table tbody tr[data-uuid='+data.trId+']').find('.checkSpeed').addClass('unfinished').parents('tr').find('.'+k).val(v);
+        }
+      })
+      $('table tbody tr[data-uuid='+data.trId+']').find('.status').val('N').addClass('unfinished')
+      // status = $(_this).data('status')
+    }
+    
     // 提交数据
-    $('#four_next').on('tap', function () {
+    $('#four_next').on('tap', toSubmit)
+
+    function toSubmit() {
       if (submitLock) {
-        mui.toast('请不要重复操作，以免数据重复提交')
+        mui.toast('请不要重复操作！')
         return;
       }
       submitLock = true;
-      console.log(canChecked, canInspect)
-      if (canChecked && !canInspect) {
+      if (status == 'explain') {
+        stateArr = submitArr;
+      } else if (status == 'resolvent') {
         stateArr = updateArr;
-        // 执行检查操作;
-        submitData();
-        console.log(stateArr)
-      } else if (!canChecked && canInspect) {
-        stateArr = submitArr;
-        // 执行核对操作
-        submitData()
-        console.log(stateArr)
-      } else if (canChecked && canInspect) {
-        stateArr = submitArr;
-        // 执行检查操作;
-        submitData()
-        console.log(stateArr);
-        stateArr = updateArr;
-        // 执行核对操作
-        submitData()
-        console.log(stateArr);
-      } else {
-        stateArr = submitArr;
-        submitData();
-        console.log(stateArr);
-
       }
-
-      // return;
-    })
+      submitData()
+    }
 
     function submitData() {
       // bom检查
       var $bomTr = $('table tbody tr');
-      console.log($bomTr.length);
       if ($bomTr.length == 0) {
         mui.alert('您还没有进行bom申请，请先去bom申请', '提示');
         submitLock = false;
@@ -278,9 +386,9 @@
         emsAndBomCheckResults.push(obj)
       });
 
-      mui.each(emsAndBomCheckResults, function(k, v) {
+      mui.each(emsAndBomCheckResults, function (k, v) {
         if (v.status == 'N' && v.checkExplanation == '') {
-          mui.alert('"' + v.item +'"未添加说明' , '提示')
+          mui.alert('"' + v.item + '"未添加说明', '提示')
           submitLock = false;
           return;
         }
@@ -298,8 +406,8 @@
         if (res.ret) {
           mui.toast(res.msg);
           // setTimeout(function() {
-            submitLock = false;
-            mui.back();
+          submitLock = false;
+          mui.back();
           // }, 100);
         } else {
           submitLock = false;
@@ -308,241 +416,53 @@
       })
 
     }
-
-    // 获取数据
-
-    function fetchData() {
-      app.findEmsAndBomCheckByvSn({vSn}, function (res) {
-        console.log(res)
-        if (res.checkResults == 0 && res.check == null) {
-          // 两者都未完成
-          // 不出现修改按钮，提交按钮的内容为检查提交，
-          // 目前先定位在用户不能同时提交，检查与核对两个操作。即使有这个权限
-          $('#openPopover').hide();
-          $('#no-data').show()
-          return;
-        } else if (res.check && !res.check.checkPerson && !res.check.checkingPerson) {
-          // 两者都未完成
-          // 显示修改按钮，判断用户是否可以进行修改，添加点击操作
-          $('#openPopover').hide();
-          if (app.getUserRoles('admin') || app.getUserRoles('engineer')) {
-            canInspect = true;
-            canChecked = false;
-            $('#four_next').html('检查提交')
-          } else {
-            canInspect = false;
-            canChecked = false;
-            $('#four_next').parent().hide();
-            // mui.alert('您没有操作权限，只能浏览信息！', '提示')
-          }
-        } else if (res.check && res.check.checkPerson && !res.check.checkingPerson) {
-          // 检查完成，核对未完成
-          // 判断当前账号与监察人是否一致，
-          // 如果一致，出现修改按钮，并隐藏提交按钮同时将按钮内容改为确认修改。
-          // 如果不一致，隐藏修改按钮，并锁定检查操作，
-          // 判断权限，是否有核对权限，如果有则开放核对操作，并显示提交按钮为核对提交
-          // 如果没有核对权限，那用户只能看
-          // 点击修改按钮，弹出两种修改，检查修改和核对修改，
-          // 判断权限，添加点击操作 
-          $('#four_next').html('核对提交');
-          $('#popover li').eq(1).hide();
-          if ((app.getUserRoles('admin') || app.getUserRoles('engineer')) && state.data.netid == res.check.checkPerson) {
-            $('#openPopover').show();
-            canInspect = false;
-            canChecked = true;
-
-
-          } else if ((app.getUserRoles('admin') || app.getUserRoles('engineer')) && state.data.netid != res.check.checkPerson) {
-            canInspect = false;
-            canChecked = true;
-            $('#openPopover').hide();
-
-          } else {
-
-            $('#openPopover').hide();
-            $('#four_next').parent().hide();
-            // mui.alert('您没有相关操作权限', '提示')
-          }
-
-        } else if (res.check && res.check.checkPerson && res.check.checkingPerson) {
-          // 两者都完成
-          // 显示修改按钮，判断用户是否可以进行修改，添加点击操作
-          $('#four_next').parent().hide();
-        }
-        updateView(res)
-      }, function (xhr, type, errorThrown) {
-          //异常处理；
-          console.log(type);
-          mui.toast(type);
-          if (type == 'timeout') {
-            console.log("请求超时：请检查网络")
-          } else {
-            console.log('请求失败：' + type + '\n err:' + errorThrown);
-          }
-        })
-    }
-
-    // 视图更新
-    function updateView(res) {
-      var data = res.checkResults;
-      var html = '';
-      mui.each(data, function(k, v) {
-        html += '<tr data-uuid="' + v.uuid + '">'
-          + '<td class="bomName">' + v.bomName + '</td>'
-          + '<td class="bomNum">' + v.bomNum + '</td>'
-          + '<td>'
-          + '<div class="select-container">'
-          + '<select name="status" class="status">'
-          + '<option value="Y">是</option>'
-          + '<option value="N">否</option>'
-          + '<option value="NA">NA</option>'
-          + '</select>'
-          + '<i class="mui-icon mui-icon-arrowdown"></i>'
-          + '</div>'
-          + '</td>'
-          + '<td>'
-          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder explain">' + (v.checkExplanation ? '···' : '+') + '</i>'
-          + '<input class="explain-text" type="hidden" value="' + (v.checkExplanation ? v.checkExplanation : '') + '">'
-          + '</td>'
-          + '<td>'
-          + '<i class="mui-btn mui-btn-blue mui-btn-outlined mui-btn-noborder resolvent">' + (v.checkingExplanation ? '···' : '+') + '</i>'
-          + '<input class="resolvent-text" type="hidden" value="' + (v.checkingExplanation ? v.checkingExplanation : '') + '">'
-          + '</td>'
-          + '</tr>'
-      })
-
-      $('tbody').html(html);
-
-      $('.applyPerson').html(res.check.applyPerson ? res.check.applyPerson : '')
-      $('.applyTime').html(res.check.applyTime ? res.check.applyTime : '')
-      $('.checkPerson').html(res.check.checkPerson ? res.check.checkPerson : '')
-      $('.checkTime').html(res.check.checkTime ? res.check.checkTime : '')
-      $('.checkingPerson').html(res.check.checkingPerson ? res.check.checkingPerson : '')
-      $('.checkingTime').html(res.check.checkingTime ? res.check.checkingTime : '')
-
-    }
-
-    addEvent();
-    function addEvent() {
-      $('#popover').on('tap', 'a', function () {
-        var str = $(this).html()
-        var btnStr = $('#four_next').show().html()
-        mui('.mui-popover').popover('hide');
-
-        if (str === '修改检查信息') {
-          if (isRevising) {
-            mui.alert('请先完成之前的修改操作', '提示')
-            return;
-          }
-
-          isRevising = true;
-          canInspect = true;
-          canChecked = false;
-
-          $(this).html('取消修改检查信息')
-          $('#four_next').html('确认修改').parent().show()
-        } else if (str === '修改核对信息') {
-          if (isRevising) {
-            mui.alert('请先完成之前的修改操作', '提示')
-            return;
-          }
-
-          isRevising = true;
-          canInspect = false;
-          canChecked = true;
-
-          $(this).html('取消修改核对信息')
-          $('#four_next').html('确认修改').parent().show()
-        } else if (str === '取消修改检查信息') {
-          $(this).html('修改检查信息');
-          isRevising = false;
-          if (btnStr == '提交') {
-            $('#four_next').parent().hide()
-            canInspect = false;
-            canChecked = false;
-          } else {
-            $('#four_next').html('核对提交').parent().hide();
-            canInspect = false;
-            canChecked = true;
-          }
-
-        } else if (str === '取消修改核对信息') {
-          $(this).html('修改核对信息');
-          isRevising = false;
-          $('#four_next').parent().hide();
-          canInspect = false;
-          canChecked = false;
-        }
-
-
-      })
-
-      // 添加说明
-      $('table').on('tap', '.explain', function () {
-        if (!(canInspect && !canChecked)) {
-          mui.alert('您不能这样操作', '提示')
+    $('#popover').on('tap', 'a', function () {
+      var str = $(this).html()
+      mui('.mui-popover').popover('hide');
+      if(str == '修改检查项') {
+        if (isRevising) {
+          mui.alert('请先完成之前的修改操作', '提示')
           return;
         }
-        var _this = this;
-        var explainText = $(_this).parents('tr').find('.explain-text').val();
-        mui.openWindow({
-          url: 'vehicle-check-add-explain.html',
-          id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            // bottom: H,
-            hardwareAccelerated: true
-          }, //窗口参数
-          extras: {
-            H: H,
-            viewId: viewId,
-            status: 'explain',
-            explainText: explainText
-          } //自定义扩展参数
+        isRevising = true
+        status = 'explain'
+        $(this).html('取消修改检查项')
+        $('#four_next').html('确认修改').parent().show()
+        $('table tbody tr').each(function(i) {
+          var text = $(this).find('.checkSpeed').html()
+          $(this).find('.checkSpeed').html('修改')
         })
-
-        window.addEventListener('updateExplain', function(evt) {
-          var explainText = evt.detail.explainText;
-          //do something
-          $(_this).parents('tr').find('.explain-text').val(explainText);
-          $(_this).html('···');
-        });
-      })
-      // 添加解决方法
-      $('table').on('tap', '.resolvent', function () {
-        if (!(!canInspect && canChecked)) {
-          mui.alert('请先进行检查操作,或者点击修改', '提示')
+      } else if (str == '修改核对项') {
+        if (isRevising) {
+          mui.alert('请先完成之前的修改操作', '提示')
           return;
         }
-        var _this = this;
-        var explainText = $(_this).parents('tr').find('.explain-text').val();
-        var resolventText = $(_this).parents('tr').find('.resolvent-text').val();
-
-        mui.openWindow({
-          url: 'vehicle-check-add-explain.html',
-          id: 'vehicle-check-add-explain', //默认使用当前页面的url作为id
-          styles: {
-            top: '0px',
-            // bottom: H,
-            hardwareAccelerated: true
-          }, //窗口参数
-          extras: {
-            H: H,
-            viewId: viewId,
-            status: 'resolvent',
-            explainText: explainText,
-            resolventText: resolventText
-          } //自定义扩展参数
+        isRevising = true
+        status = 'resolvent'
+        $(this).html('取消修改核对项')
+        $('#four_next').html('确认修改').parent().show()
+        
+        $('table tbody tr').each(function(i) {
+          var text = $(this).find('.checkSpeed').html()
+          if(text == '未完成' || text == '查看') $(this).find('.checkSpeed').html('修改')
         })
-        window.addEventListener('updateResolvent', function(evt) {
-          var resolventText = evt.detail.resolventText;
-          //do something
-          $(_this).parents('tr').find('.resolvent-text').val(resolventText);
-          $(_this).html('···');
-        });
-      })
-    }
-    document.addEventListener('update', function() {
+      } else if(str == '取消修改检查项') {
+        isRevising = false
+        status = 'explain'
+        $(this).html('修改检查项')
+        $('#four_next').parent().hide()
+        _init()
+      } else if (str == '取消修改核对项') {
+        isRevising = false
+        status = 'resolvent'
+        $(this).html('修改核对项')
+        $('#four_next').parent().hide()
+        _init()
+      }
+    })
+
+
+    document.addEventListener('update', function () {
       fetchData()
     })
   </script>

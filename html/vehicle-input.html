@@ -220,7 +220,7 @@
             <div class="mui-input-row">
               <label>座位容纳</label>
               <input name="seats" type="text" class="" placeholder="">
-              <span class="icon-red-star">*</span>
+              <span class="icon-red-star">人*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -263,7 +263,7 @@
             <div class="mui-input-row">
               <label>车辆吨位</label>
               <input name="vehicleQuality" type="text" class="" placeholder="">
-              <span class="icon-red-star">*</span>
+              <span class="icon-red-star">Kg*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -302,7 +302,7 @@
             <div class="mui-input-row">
               <label>价值</label>
               <input name="price" type="text" class="" placeholder="">
-              <span class="icon-red-star">*</span>
+              <span class="icon-red-star">万*</span>
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -502,7 +502,7 @@
 
       // 查看录入信息
       app.findAddCar({
-        vSn
+        vSn: vSn
       }, function (res) {
         console.log(res);
         res = JSON.parse(res)

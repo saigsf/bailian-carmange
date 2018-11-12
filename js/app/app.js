@@ -89,12 +89,12 @@
 			jsonp: "jsonCallback",
 			// timeout: 10000,//超时时间设置为10秒；
 			beforeSend: function () {
-				console.log('beforesend!' + JSON.stringify(loginInfo))
+				// console.log('beforesend!' + JSON.stringify(loginInfo))
 				plus.nativeUI.showWaiting();
 			},
 			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
-				console.log(res)
+				// console.log(res)
 				res = JSON.parse(res);
 				if (res.ret) {
 					$.toast('登录成功');
@@ -105,7 +105,7 @@
 			},
 			error: function (xhr, type, errorThrown) {
 				//异常处理；
-				console.log(type);
+				// console.log(type);
 				if (type == 'timeout') {
 					$.toast("请求超时：请检查网络")
 				} else {
@@ -113,7 +113,7 @@
 				}
 			},
 			complete: function () {
-				console.log('userLogin:关闭转圈')
+				// console.log('userLogin:关闭转圈')
 				plus.nativeUI.closeWaiting();
 			}
 		});
@@ -147,12 +147,12 @@
 			jsonp: "jsonCallback",
 			// timeout: 10000,//超时时间设置为10秒；
 			beforeSend: function () {
-				console.log('beforesend!' + JSON.stringify(loginInfo))
+				// console.log('beforesend!' + JSON.stringify(loginInfo))
 				plus.nativeUI.showWaiting();
 			},
 			success: function (res) {
 				//服务器返回响应，根据响应结果，分析是否登录成功；
-				console.log(res)
+				// console.log(res)
 				res = JSON.parse(res);
 				if (res.ret) {
 					$.toast('登录成功');
@@ -163,7 +163,7 @@
 			},
 			error: function (xhr, type, errorThrown) {
 				//异常处理；
-				console.log(type);
+				// console.log(type);
 				if (type == 'timeout') {
 					$.toast("请求超时：请检查网络")
 				} else {
@@ -171,7 +171,7 @@
 				}
 			},
 			complete: function () {
-				console.log('userLogin:关闭转圈')
+				// console.log('userLogin:关闭转圈')
 				plus.nativeUI.closeWaiting();
 			}
 		});
@@ -194,6 +194,9 @@
 		var state = owner.getState();
 		var roles = state.data.roles;
 
+		if (roles == undefined) {
+			return !!0;
+		}
 		for (var i = 0; i < roles.length; i++) {
 			const item = roles[i];
 			if (role == item.keyWord) {
@@ -324,7 +327,7 @@
 	owner.HTTPRequest = function (type, url, data, success, error, loading) {
 		success = success || $.noop;
 		error = error || $.noop;
-		console.log(loading)
+		// console.log(loading)
 		$.ajax({
 			type: type,//HTTP请求类型
 			url: BASE_URL_1 + url,
@@ -334,7 +337,7 @@
 			async: true,
 			// timeout: 10000,
 			beforeSend: function () {
-				console.log('beforesend!');
+				// console.log('beforesend!');
 				if (loading) {
 					plus.nativeUI.showWaiting();
 				}
@@ -367,7 +370,7 @@
 			async: true,
 			// timeout: 10000,
 			beforeSend: function () {
-				console.log('beforesend!');
+				// console.log('beforesend!');
 				if (loading) plus.nativeUI.showWaiting();
 			},
 			success: success,
@@ -398,7 +401,7 @@
 			async: true,
 			// timeout: 10000,
 			beforeSend: function () {
-				console.log('beforesend!')
+				// console.log('beforesend!')
 			},
 			success: success,
 			error: error,
@@ -616,7 +619,7 @@
 
 		var url = 'car-management/car/findEmsAndBomCheckByvSn/' + data.vSn + '.action';
 
-		owner.HTTPRequestPost('POST', url, {}, success, error, true)
+		owner.HTTPRequestPost('POST', url, {}, success, error, false)
 	}
 
 
@@ -688,6 +691,21 @@
 		data = data || {};
 
 		var url = 'car-management/car/updateSafeCheckByvSn/' + data.vSn + '.action';
+
+		owner.HTTPRequestPost('POST', url, data.safeCheckResult, success, error, true)
+	}
+
+	/**
+	 * 安全检查确认
+	 * @param {JSON} data 请求参数	
+	 * @param {Function} success 回掉函数
+	 * 
+	 */
+	owner.confirmSafeCheckByvSn = function (data, success, error) {
+
+		data = data || {};
+
+		var url = 'car-management/car/confirmSafeCheckByvSn/' + data.vSn + '.action';
 
 		owner.HTTPRequestPost('POST', url, data.safeCheckResult, success, error, true)
 	}
@@ -1185,6 +1203,19 @@
 	}
 
 	/**
+	 * 修改维修申请
+	 * @param {Object} data 请求参数
+	 * @param {Function} success 回掉函数
+	 */
+	owner.carMaintainEditApply = function (data, success, error) {
+
+		data = data || {};
+
+		var url = 'car-management/carmaintain/editApply.action';
+		owner.HTTPRequest('GET', url, data, success, error, true)
+	}
+
+	/**
 	 * 任务分配
 	 * @param {Object} data 请求参数
 	 * @param {Function} success 回掉函数
@@ -1225,7 +1256,7 @@
 
 		data = data || {};
 
-		console.log(data)
+		// console.log(data)
 		if (!data.fin_park) {
 			mui.toast('请填写停放地点')
 			return;
@@ -1414,7 +1445,7 @@
 
 		data = data || {};
 
-		console.log(data)
+		// console.log(data)
 
 		var url = 'car-management/driver/update.action';
 
@@ -1492,7 +1523,7 @@
 
 		var url = 'car-management/car/carDataByvSn.action';
 
-		owner.HTTPRequest('post', url, data, success, error)
+		owner.HTTPRequest('get', url, data, success, error)
 	}
 
 	/**
@@ -1550,11 +1581,30 @@
 		owner.HTTPRequestPost('POST', url, data, success, error)
 	}
 
+	/**
+	 * 获取车辆终端列表
+	 * @param {Object} data 请求参数
+	 * @param {Function} success 回掉函数
+	 */
+	owner.getGpscar = function (data, success, error) {
 
+		data = data || {};
+		var url = 'car-management/gpscar/pageQuery.action';
 
+		owner.HTTPRequest('GET', url, data, success, error)
+	}
 
+	/**
+	 * 车辆绑定终端
+	 * @param {Object} data 请求参数
+	 * @param {Function} success 回掉函数
+	 */
+	owner.bindCarGps = function (data, success, error) {
 
+		data = data || {};
+		var url = 'car-management/gpscar/bindCarGps.action';
 
-
+		owner.HTTPRequest('GET', url, data, success, error)
+	}
 
 }(mui, window.app = {}));

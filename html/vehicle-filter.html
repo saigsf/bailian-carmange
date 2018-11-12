@@ -121,7 +121,7 @@
 			background-color: #f1f1f1;
 			font-size: 10px;
 			height: 34px;
-			width: auto;
+			/* width: auto; */
 			border: none;
 			padding: 5px 10px;
 		}
@@ -280,7 +280,7 @@
 
 
 		</div>
-		<!-- 新车录入筛选 -->
+		<!-- 保险列表筛选 -->
 		<div class="mui-scroll" id="vehicle-insurance-list.html">
 			<form>
 				<ul class="mui-table-view">
@@ -311,7 +311,7 @@
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
-							<label>更新日期：</label>
+							<label>保险录入日：</label>
 							<input name="updateTime" id="updateTime" type="text" readonly placeholder="请输入">
 						</div>
 					</li>
@@ -325,6 +325,18 @@
 						<div class="filter-wrapper">
 							<label>保险申请日：</label>
 							<input name="applyTime" id="applyTime" type="text" readonly placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>保险状态：</label>
+							<input name="istatus" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>验车状态：</label>
+							<input name="yanche_state" type="text" placeholder="请输入">
 						</div>
 					</li>
 				</ul>
@@ -361,6 +373,12 @@
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
+							<label>验车状态：</label>
+							<input name="yanche_state" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
 							<label>验车申请日：</label>
 							<input name="applyTime" id="applyTime" type="text" readonly placeholder="请输入">
 						</div>
@@ -380,7 +398,7 @@
 				</ul>
 			</form>
 		</div>
-		<!-- 保险列表筛选 -->
+		<!-- 新车录入筛选 -->
 		<div class="mui-scroll vehicle-input" id="vehicle-input-list.html">
 			<form>
 				<ul class="mui-table-view">
@@ -411,17 +429,28 @@
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
+							<label>车辆分组：</label>
+							<input name="groupName" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
 							<label>保险状态：</label>
 							<input name="istatus" type="text" placeholder="请输入">
 						</div>
 					</li>
-
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>审核状态：</label>
+							<input name="checks_status" type="text" placeholder="请输入">
+						</div>
+					</li>
 
 				</ul>
 			</form>
 		</div>
 		<!-- 维修列表筛选 -->
-		<div class="mui-scroll" id="repair-list.html">
+		<div class="mui-scroll repair" id="repair-list.html">
 			<form>
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
@@ -438,8 +467,26 @@
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="filter-wrapper">
-							<label>申请日期：</label>
-							<input name="applyTime" type="text" placeholder="请输入">
+							<label>申请起始日：</label>
+							<input id="applyStartTime" name="applyStartTime" type="text" readonly placeholder="请选择">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>申请终止日：</label>
+							<input id="applyEndTime" name="applyEndTime" type="text" readonly placeholder="请选择">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>工作内容：</label>
+							<input name="workContent" type="text" placeholder="请输入">
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="filter-wrapper">
+							<label>操作人：</label>
+							<input name="operator" type="text" placeholder="请输入">
 						</div>
 					</li>
 				</ul>
@@ -605,6 +652,56 @@
 					});
 				})
 				$('.license #lEndTime').on('tap', function () {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+							title: '',
+							date: dDate
+						});
+					});
+				})
+
+				$('.license #maketime').on('tap', function () {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+							title: '',
+							date: dDate
+						});
+					});
+				})
+
+				$('.repair #applyStartTime').on('tap', function () {
+					var _this = this;
+					$(_this).off().on('tap', function () {
+
+						plus.nativeUI.pickDate(function (e) {
+							var d = e.date;
+							$(_this).val(d.format('yyyy-MM-dd'));
+
+						}, function (e) {
+							$(_this).val('您没有选择日期');
+						}, {
+							title: '',
+							date: dDate
+						});
+					});
+				})
+				$('.repair #applyEndTime').on('tap', function () {
 					var _this = this;
 					$(_this).off().on('tap', function () {
 

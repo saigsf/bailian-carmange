@@ -382,6 +382,21 @@ table tr td {
   position: relative;
   padding: 2px 7px;
   border: none;
+  
+}
+.checkSpeed {
+  line-height: 34px;
+  text-decoration: underline
+  /* color: #2885cf */
+}
+.checkSpeed.finished {
+  color: #333;
+  text-decoration: none
+}
+
+.checkSpeed.unfinished {
+  color: #2885cf;
+  /* text-decoration: none */
 }
 
 table tr td input[type=text] {
@@ -1037,6 +1052,9 @@ span.hide {
   padding: 0 25px 0 10px;
   z-index: 1;
   position: relative;
+}
+.select-container select.unfinished {
+  color: #2885cf; 
 }
 
 .select-container i {

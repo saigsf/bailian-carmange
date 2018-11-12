@@ -741,24 +741,13 @@
             <table>
               <thead>
                 <tr>
-                  <td width="33%">检查项目</td>
-                  <td width="34%">问题原因</td>
-                  <td width="33%">解决方法</td>
+                  <td width="25%">检查项目</td>
+                  <td width="25%">问题原因</td>
+                  <td width="25%">解决方法</td>
+                  <td width="25%">确认信息</td>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <span>检查项目</span>
-                  </td>
-                  <td>
-                    <span>解决方法检查项目检查项目</span>
-                  </td>
-                  <td>
-                    <span>解决方法检查项目检查项目</span>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody></tbody>
 
             </table>
             <div class="info-operator">
@@ -769,6 +758,10 @@
               <div class="info-operator-item">
                 <span class="checkingPerson">核对人：</span>
                 <span class="checkingTime"></span>
+              </div>
+              <div class="info-operator-item">
+                <span class="confirmPerson">确认人：</span>
+                <span class="confirmTime"></span>
               </div>
             </div>
           </div>
@@ -2004,7 +1997,7 @@
       function fetchData() {
         // 查看车辆信息
         app.carQuery({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log(res);
           res = JSON.parse(res);
@@ -2026,7 +2019,7 @@
 
         // 查看审核
         app.getReviewInfo({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('审核查看')
           // res = JSON.stringify(res)
@@ -2047,7 +2040,7 @@
 
         // 查看审核信息
         app.findReview({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log(res)
           res = JSON.parse(res);
@@ -2067,7 +2060,7 @@
             $('#auditing_form textarea').attr('disabled', true)
 
             $('#auditing_form').find('textarea[name=explanation]').val(res.explanation)
-            $('#auditing_form').find('.reviewerPerson').html('申请人：' + res.reviewerPerson)
+            $('#auditing_form').find('.reviewerPerson').html('审核人：' + res.reviewerPerson)
             $('#auditing_form').find('.reviewerTime').html(res.reviewerTime)
           }
         }, function (xhr, type, errorThrown) {
@@ -2083,7 +2076,7 @@
 
         // 接车点检查看
         app.findUpcheck({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('接车点检查看')
           console.log(res)
@@ -2100,7 +2093,7 @@
         })
         // 车辆录入查看
         app.findAddCar({
-          vSn
+          vSn: vSn
         }, function (res) {
           res = JSON.parse(res);
           console.log('车辆录入查看')
@@ -2119,7 +2112,7 @@
         })
         // 安全检查查看
         app.findSafeCheckByvSn({
-          vSn
+          vSn: vSn
         }, function (res) {
           // res = JSON.parse(res);
           console.log('安全检查查看')
@@ -2137,7 +2130,7 @@
         })
         // 缸压检查查看
         app.findCldCheckByvSn({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('缸压检查查看')
           console.log(res);
@@ -2159,7 +2152,7 @@
         // bom检查查看
 
         app.findEmsAndBomCheckByvSn({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('bom检查查看')
           console.log(res);
@@ -2177,7 +2170,7 @@
         // 线束检查查看
 
         app.findHiCheckByvSn({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('线束检查查看')
           console.log(res);
@@ -2194,7 +2187,7 @@
         })
         // 研发工具查看
         app.findDevelopTools({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('研发工具查看')
           console.log(res)
@@ -2265,21 +2258,20 @@
           }
           var html = '';
           mui.each(data, function (k, v) {
-            html += '<tr>\
-                      <td><span class="item">' + v.item +
-              '</span></td>\
-                      <td><span class="checkExplanation">' + (v.checkExplanation ?
-                v.checkExplanation : '-') +
-              '</span></td>\
-                      <td><span class="checkingExplanation">' + (v.checkingExplanation ?
-                v.checkingExplanation : '-') + '</span></td>\
-                    </tr>'
+            html += '<tr>'
+              +'<td><span class="item">' + v.item + '</span></td>'
+              +'<td><span class="checkExplanation">' + (v.checkExplanation ? v.checkExplanation : '-') + '</span></td>'
+              +'<td><span class="checkingExplanation">' + (v.checkingExplanation ? v.checkingExplanation : '-') + '</span></td>'
+              +'<td><span class="confirmExplanation">' + (v.confirmExplanation ? v.confirmExplanation : '-') + '</span></td>'
+              +'</tr>'
           })
           $('#safeCheck table tbody').html(html);
           $('#safeCheck').find('.checkPerson').html('检查人：' + res.check.checkPerson)
           $('#safeCheck').find('.checkTime').html(res.check.checkTime)
           $('#safeCheck').find('.checkingPerson').html('核对人：' + res.check.checkingPerson)
           $('#safeCheck').find('.checkingTime').html(res.check.checkingTime)
+          $('#safeCheck').find('.confirmPerson').html('确认人：' + res.check.confirmPerson)
+          $('#safeCheck').find('.confirmTime').html(res.check.confirmTime)
 
         },
         bomCheck: function (res) {

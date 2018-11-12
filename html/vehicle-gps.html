@@ -1,0 +1,476 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>车辆终端</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-status-bar-style" content="black">
+  <!--mui样式应用-->
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <!--自定义图标样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-icon.css" />
+  <!--自定义页面样式-->
+  <link rel="stylesheet" type="text/css" href="../css/style-common.css" />
+  <!--独立样式-->
+  <style type="text/css">
+    .mui-input-row.mui-search.mui-active:before {
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+    }
+
+    .search-wrapper {
+      width: 85%;
+    }
+
+    .top .icon-more {
+      width: 34px;
+      height: 40px;
+    }
+
+    .top {
+      padding-top: 14px;
+      padding-bottom: 8px;
+    }
+
+
+    .mui-table-view-cell {
+      margin-bottom: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, .1)
+    }
+
+    .mui-table-view-cell:after {
+      display: none;
+    }
+
+    .mui-scroll-wrapper {
+      height: 100%;
+      /* padding-top: 66px; */
+    }
+
+    .item-right-middle {
+      flex-direction: column;
+    }
+
+    .item-right-middle p {
+      width: 100%;
+      line-height: 20px;
+    }
+
+    .item-right-middle p span {
+      width: 64px;
+    }
+
+    .bottom-item {
+      width: 50%;
+      text-align: left;
+    }
+
+    .item-right-top h4 {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .item-right-top h4 .icon {
+      margin-left: 20px;
+    }
+
+    .top * {
+      transition: all .5s;
+    }
+
+    .top .btn {
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+    }
+
+    .top .allcheck,
+    .top .canclecheck {
+      width: 0;
+      line-height: 40px;
+      text-align: center;
+      color: #2885cf;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .batch .btn {
+      display: none;
+    }
+
+    .top .allcheck input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    .allcheck input[type=checkbox]+label {
+      display: inline-block;
+      line-height: 40px;
+    }
+
+    .allcheck input[type=checkbox]+label:before {
+      content: "";
+      background-color: white;
+      border-radius: 50%;
+      border: 1px solid #d3d3d3;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 16px;
+      color: #fff;
+      margin: 0;
+      margin-right: 2px;
+    }
+
+    .allcheck input[type=checkbox]:checked+label:before {
+      /* background-color: #2885cf; */
+      color: #fff;
+      border-color: #2885cf;
+      background-image: url(../img/common/md/icon_checked@2x.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 18px 18px;
+    }
+
+    .batch .allcheck,
+    .batch .canclecheck {
+      width: 20%;
+    }
+
+    .batch .search-wrapper {
+      width: 60%
+    }
+
+
+    .batch .item-checked {
+      width: 15%;
+    }
+
+    .btn-container {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 50px;
+      z-index: 999;
+      display: none;
+    }
+
+    .btn-container .btn {
+      width: 50%;
+      height: 100%;
+      float: left;
+      text-align: center;
+      border-radius: 0;
+    }
+
+    /* body {
+      font-size: 12px;
+    } */
+
+    .mui-table-view-cell {
+      /* background: url(../img/common/md/in_background.png)no-repeat center; */
+      background-size: 105%;
+      background-position-x: center;
+      background-position-y: 0;
+      background-color: transparent !important;
+      padding: 0;
+    }
+
+    .mui-slider-handle:before {
+      content: "";
+      width: 90%;
+      height: 6px;
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #eef7fd;
+    }
+
+    .mui-slider-handle {
+      position: relative;
+    }
+
+    .item-right {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 75%;
+    }
+
+    .list-item {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 12px 5px 5px;
+      position: relative;
+      background-color: #fff;
+    }
+
+    .item-right .item-top {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 2px 0;
+    }
+
+    .item-left {
+      width: 80px;
+    }
+
+
+    .marker.blue {
+      border-color: #7484f9;
+      color: #7484f9;
+    }
+
+    .item-right h4 {
+      color: #333;
+    }
+
+    .item-right .item-bottom {
+      padding: 0
+    }
+
+    .item-left {
+      width: 76px;
+    }
+
+    .mui-table-view-cell {
+      background-size: cover;
+    }
+
+    .search-wrapper {
+      height: 40px;
+    }
+
+    table tr td {
+      line-height: 44px;
+    }
+    table {
+      margin-top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!--下拉刷新容器-->
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <form class="top">
+        <div class="search-wrapper" id="search">
+          <div class="search-btn">
+            <i class="icon-search icon"></i>
+          </div>
+          <div class="search-text">
+            <input type="text" id="current_input" placeholder="请输入车辆编号">
+          </div>
+        </div>
+        <div class="btn" id="add">
+          <i class="icon icon-more"></i>
+        </div>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <td width="50%">车辆编号</td>
+            <td width="50%">GPS编号</td>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="no-data" id="no-data">
+        <p>没有找到想要的数据，下拉刷新</p>
+      </div>
+    </div>
+  </div>
+  <div class="btn-container">
+    <button class="btn" id="authorize_batch">授权</button>
+    <button class="btn btn-blue" id="cancel_authorize_batch">禁止</button>
+  </div>
+  <!-- jquery -->
+  <script src="../js/lib/jquery.min.js"></script>
+  <!-- mui -->
+  <script src="../js/mui.min.js"></script>
+  <!-- config 配置项 -->
+  <script src="../js/app/config.js"></script>
+  <!-- app 数据获取 -->
+  <script src="../js/app/app.js"></script>
+  <!-- 当前页面js -->
+  <script>
+    // (function () {
+    var curPage = 1; //当前页码初始化数0开始
+    var totalPage = 1; //后台算出总页数
+    var H = null;
+    var self = null;
+    var allCheckFlag = false;
+    var dataArr = {}
+
+    var form = document.getElementsByTagName('form')[0];
+
+    form.onsubmit = function (e) {
+      e.preventDefault(); // 取消默认事件
+    }
+
+    mui.init({
+      pullRefresh: {
+        container: "#refreshContainer", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+        down: {
+          auto: true, //可选,默认false.首次加载自动下拉刷新一次
+          callback: pulldownRwfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+        },
+        up: {
+          callback: pullupRefresh
+        }
+      },
+      gestureConfig: {
+        // doubletap: true, //默认为false
+        longtap: true, //默认为false
+      }
+    });
+
+    // 下拉刷新业务
+    function pulldownRwfresh() {
+      curPage = 1;
+      dataArr = {}
+      $('#no-data').hide().prev().show()
+      setTimeout(function () {
+        $('table tbody').html('')
+        fetchData();
+        mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+        mui('#refreshContainer').pullRefresh().refresh(true); //激活上拉加载
+      }, 1000)
+    }
+
+    // 上拉加载业务
+    function pullupRefresh() {
+      setTimeout(function () {
+        if (curPage > totalPage) {
+          mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+        } else {
+          fetchData();
+          mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+        }
+      }, 1000)
+    }
+    // 
+    mui.plusReady(function () {
+      $('.mui-scroll').css('min-height', $('.mui-content').height())
+      self = plus.webview.currentWebview();
+      H = self.H;
+      addEvent()
+
+      // $('#refreshContainer').height($(document).height() - 62)
+      // $('#no-data').height($('#refreshContainer').height())
+    });
+
+    // 获取数据
+    // fetchData()
+    function fetchData() {
+
+      var opt = $.extend({
+        page: curPage,
+        size: 10
+      }, dataArr)
+      console.log(JSON.stringify(opt));
+      app.getGpscar(opt, function (res) {
+        res = JSON.parse(res)
+        console.log(res)
+        if (!res.total || res.total <= 0) {
+          $('#no-data').show().prev().hide()
+          // mui.toast('没有找到想要的数据，下拉加载所有数据')
+          return;
+        }
+        curPage++;
+        totalPage = Math.ceil(res.total / 10)
+        var data = res.rows;
+
+        updateView(data);
+      }, function (xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
+    }
+
+    // 更新视图
+    function updateView(data) {
+      var html = '';
+
+      mui.each(data, function (k, v) {
+        html += '<tr>' +
+          '<td>' + v.vSn + '</td>' +
+          '<td>' + v.gpsSn + '</td>' +
+          '</tr>'
+      })
+
+      $('table tbody').append($(html));
+    }
+
+    function addEvent() {
+      // 绑定终端
+      $('#add').on('tap', function () {
+        mui.openWindow({
+          url: 'vehicle-gps-bind.html',
+          id: 'vehicle-gps-bind', //默认使用当前页面的url作为id
+          styles: {
+            top: '0px',
+            // bottom: H,
+            hardwareAccelerated: true
+          }, //窗口参数
+          extras: {
+            H: H
+          } //自定义扩展参数
+        })
+      })
+    }
+    // 搜索
+    $('#current_input').on('keyup', function (e) {
+      if (e.keyCode == 13) {
+        dataArr = {
+          vSn: $(this).val()
+        }
+        curPage = 1;
+        $('table tbody').html('')
+        fetchData();
+      }
+    })
+    // 刷新页面
+    document.addEventListener('update', function (e) {
+      // plus.webview.currentWebview().reload()
+      curPage = 1;
+      $('table tbody').html('')
+      fetchData();
+    })
+
+    document.addEventListener('statusBar', function (e) {
+      // plus.navigator.setStatusBarStyle('light');
+      if (e.detail != null && e.detail.data) dataArr = e.detail.data;
+      curPage = 1;
+      $('table tbody').html('')
+      fetchData();
+    })
+
+    function setRoles() {}
+
+    once(setRoles)()
+
+    document.addEventListener('roles', setRoles)
+    // })()
+  </script>
+</body>
+
+</html>

@@ -268,7 +268,7 @@
 
     function fetchData() {
       app.findEmsAndBomCheckByvSn({
-        vSn
+        vSn: vSn
       }, function (res) {
         console.log(res);
         if (res.checkResults.length <= 0) {

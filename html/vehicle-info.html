@@ -400,7 +400,7 @@
         <div class="info-item">
           <div class="info-content">
             <div class="info-content-top">
-              <h5>分类</h5>
+              <h5>模块修改</h5>
             </div>
             <div class="info-content-bottom" id="info_link_box">
               <a href="#" class="info-link" id="vehicle-up-check">
@@ -828,34 +828,27 @@
             <table>
               <thead>
                 <tr>
-                  <td width="33%">检查项目</td>
-                  <td width="34%">问题原因</td>
-                  <td width="33%">解决方法</td>
+                  <td width="25%">检查项目</td>
+                  <td width="25%">问题原因</td>
+                  <td width="25%">解决方法</td>
+                  <td width="25%">确认信息</td>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <span></span>
-                  </td>
-                  <td>
-                    <span></span>
-                  </td>
-                  <td>
-                    <span></span>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody></tbody>
 
             </table>
             <div class="info-operator">
               <div class="info-operator-item">
-                <span class="checkPerson">检查人：张三问</span>
-                <span class="checkTime">2018-12-12</span>
+                <span class="checkPerson">检查人：</span>
+                <span class="checkTime"></span>
               </div>
               <div class="info-operator-item">
-                <span class="checkingPerson">核对人：张三问</span>
-                <span class="checkingTime">2018-12-12</span>
+                <span class="checkingPerson">核对人：</span>
+                <span class="checkingTime"></span>
+              </div>
+              <div class="info-operator-item">
+                <span class="confirmPerson">核对人：</span>
+                <span class="confirmTime"></span>
               </div>
             </div>
           </div>
@@ -2267,7 +2260,7 @@
         if (!self.vSn) {
           return
         }
-        vSn = self.vSn;
+        vSn: vSn = self.vSn;
         if (!(app.getUserRoles('admin') || app.getUserRoles('engineer'))) {
           $('#vehicle-input').find('i').removeClass('icon-vehicle-input').addClass('icon-vehicle-input-disabled')
             .next().css('color', '#bbb')
@@ -2317,7 +2310,7 @@
       function fetchData() {
         // 接车点检查看
         app.findUpcheck({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('接车点检查看')
           console.log(res)
@@ -2334,7 +2327,7 @@
         })
         // 车辆录入查看
         app.findAddCar({
-          vSn
+          vSn: vSn
         }, function (res) {
           res = JSON.parse(res);
           console.log('车辆录入查看')
@@ -2353,7 +2346,7 @@
         })
         // 安全检查查看
         app.findSafeCheckByvSn({
-          vSn
+          vSn: vSn
         }, function (res) {
           // res = JSON.parse(res);
           console.log('安全检查查看')
@@ -2371,7 +2364,7 @@
         })
         // 缸压检查查看
         app.findCldCheckByvSn({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('缸压检查查看')
           console.log(res);
@@ -2393,7 +2386,7 @@
         // bom检查查看
 
         app.findEmsAndBomCheckByvSn({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('bom检查查看')
           console.log(res);
@@ -2411,7 +2404,7 @@
         // 线束检查查看
 
         app.findHiCheckByvSn({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('线束检查查看')
           console.log(res);
@@ -2428,7 +2421,7 @@
         })
         // 研发工具查看
         app.findDevelopTools({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('研发工具查看')
           console.log(res)
@@ -2445,7 +2438,7 @@
         })
         // 审核
         app.findReview({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('审核')
           res = JSON.parse(res)
@@ -2464,7 +2457,7 @@
 
         // 还车
         app.findBackcheck({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('还车')
           res = JSON.parse(res)
@@ -2484,7 +2477,7 @@
 
         // 保险信息
         app.insuranceFindByvSn({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('保险信息')
           res = JSON.parse(res)
@@ -2503,7 +2496,7 @@
 
         // 临牌信息
         app.historyLicenseByvSn({
-          vSn
+          vSn: vSn
         }, function (res) {
           console.log('临牌信息');
           console.log(res);
@@ -2582,21 +2575,20 @@
           var html = '';
 
           mui.each(data, function (k, v) {
-            html += '<tr>\
-                      <td><span class="item">' + v.item +
-              '</span></td>\
-                      <td><span class="checkExplanation">' + (v.checkExplanation ?
-                v.checkExplanation : '无') +
-              '</span></td>\
-                      <td><span class="checkingExplanation">' + (v.checkingExplanation ?
-                v.checkingExplanation : '无') + '</span></td>\
-                    </tr>'
+            html += '<tr>'
+              +'<td><span class="item">' + v.item + '</span></td>'
+              +'<td><span class="checkExplanation">' + (v.checkExplanation ? v.checkExplanation : '-') + '</span></td>'
+              +'<td><span class="checkingExplanation">' + (v.checkingExplanation ? v.checkingExplanation : '-') + '</span></td>'
+              +'<td><span class="confirmExplanation">' + (v.confirmExplanation ? v.confirmExplanation : '-') + '</span></td>'
+              +'</tr>'
           })
           $('#safeCheck table tbody').html(html);
           $('#safeCheck').find('.checkPerson').html('检查人：' + res.check.checkPerson)
           $('#safeCheck').find('.checkTime').html(res.check.checkTime)
           $('#safeCheck').find('.checkingPerson').html('核对人：' + res.check.checkingPerson)
           $('#safeCheck').find('.checkingTime').html(res.check.checkingTime)
+          $('#safeCheck').find('.confirmPerson').html('确认人：' + res.check.confirmPerson)
+          $('#safeCheck').find('.confirmTime').html(res.check.confirmTime)
 
         },
         cldCheck: function (data) {

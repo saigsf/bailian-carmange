@@ -438,7 +438,7 @@
     function fetchData() {
       console.log(vSn)
       app.carQuery2({
-        vSn
+        vSn: vSn
       }, function (res) {
         console.log(res)
         res = JSON.parse(res)

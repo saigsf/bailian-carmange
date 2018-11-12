@@ -1,6 +1,5 @@
-// var BASE_URL_1 = 'http://192.168.0.222:8080/';
-//var BASE_URL_1 = 'http://36.110.56.189:8848/';
-   var BASE_URL_1 = 'http://222.91.98.78:8848/';
+var BASE_URL_1 = 'http://222.91.98.78:9999/';
+// var BASE_URL_1 = 'http://222.91.98.78:8848/';
 
 
 /**
@@ -370,4 +369,15 @@ function once(fn) {
     }
     return result;
   };
+}
+
+
+function getCount(str, arr) {
+  var count = 0
+  arr.forEach(function (item) {
+    if (item.pitem == str) {
+      count++
+    }
+  });
+  return count
 }

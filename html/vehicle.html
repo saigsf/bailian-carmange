@@ -92,7 +92,8 @@
           <a id="vehicle-check-up" class="mui-control-item" href="vehicle-check-up.html">车辆录入</a>
           <a id="vehicle-input-list" class="mui-control-item" href="vehicle-input-list.html">新车查验</a>
           <a id="vehicle-insurance-input" class="mui-control-item" href="vehicle-insurance-list.html">车辆保险</a>
-          <a id="vehicle-insurance-input" class="mui-control-item" href="vehicle-license-list.html">车辆牌照</a>
+          <a id="vehicle-license-input" class="mui-control-item" href="vehicle-license-list.html">车辆牌照</a>
+          <a id="vehicle-gps" class="mui-control-item" href="vehicle-gps.html">车辆终端</a>
         </div>
       </div>
     </div>
@@ -119,7 +120,7 @@
     var deceleration = mui.os.ios ? 0.003 : 0.0009;
     //子页面列表
     var subpages = ['vehicle-list.html', 'vehicle-check-up.html', 'vehicle-input-list.html',
-      'vehicle-insurance-list.html', 'vehicle-license-list.html'
+      'vehicle-insurance-list.html', 'vehicle-license-list.html', 'vehicle-gps.html'
     ];
     // 子页面切换样式
     var subpages_style = {
@@ -222,7 +223,7 @@
     });
 
     function setRoles() {
-      if (!app.getUserRoles('uppeople') && !app.getUserRoles('admin')) {
+      if (!app.getUserRoles('engineer') && !app.getUserRoles('admin')) {
         $('#vehicle-check-up').attr('ishide', true).hide()
       } else {
         $('#vehicle-check-up').attr('ishide', false).show()

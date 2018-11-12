@@ -252,7 +252,7 @@
       function updateView(data) {
         var html = '';
         mui.each(data, function(k, v) {
-          html += '<li class="mui-table-view-cell" data-vSn="' + (v.vSn ? v.vSn : '-') + '" data-status="' + v.status + '" data-id="' + v.id + '">'
+          html += '<li class="mui-table-view-cell" data-vSn="' + v.carSn + '" data-status="' + v.io + '" data-id="' + v.id + '">'
             // + '<div class="mui-slider-right mui-disabled">'
             // + '</div>'
             + '<div class="mui-slider-handle">'
@@ -264,24 +264,20 @@
             + '<div class="item-top">'
             + '<div class="number">'
             + '<h4>' + (v.licenseNo ? v.licenseNo : '-') + '</h4>'
-            + '<p><span>更新日期：</span><span class="blue">' + (v.updateTime ? v.updateTime : '-') + '</span></p>'
+            + '<p><span>车辆编号：</span><span class="blue">' + v.carSn + '</span></p>'
             + '</div>'
             + '</div>'
             + '<div class="item-bottom">'
-            + '<p><span>驾驶员：</span>' + (v.driverName ? v.driverName : '-') + '</p>'
-            + '<p><span>牌照有效期：</span>' + (v.licenseEndTime ? v.licenseEndTime : '-') + '</p>'
+            + '<p><span>驾驶员：</span>' + v.driverName + '</p>'
+            + '<p><span>进出时间：</span>' + v.updateTime + '</p>'
 
 
           html += '</div></div></div>'
+          if (v.io == 'i') {
+            html += '<span class="marker green">' + v.error + '</span>'
 
-          if (v.isallow == null) {
-            html += '<span class="marker red">无数据</span>'
-
-          } else if (v.isallow == '正常') {
-            html += '<span class="marker green">' + v.isallow + '</span>'
-
-          } else {
-            html += '<span class="marker red">' + v.isallow + '</span>'
+          } else if (v.io == 'o') {
+            html += '<span class="marker red">' + v.error + '</span>'
           }
           html += '</div></li>';
         })

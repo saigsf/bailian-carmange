@@ -363,9 +363,9 @@
         }, function (xhr, type, errorThrown) {
           console.log(type);
           if (type == 'timeout') {
-            $.toast("请求超时：请检查网络")
+            mui.toast("请求超时：请检查网络")
           } else {
-            $.toast('请求失败：' + type + '\n err:' + errorThrown);
+            mui.toast('请求失败：' + type + '\n err:' + errorThrown);
           }
         }, true)
       }
