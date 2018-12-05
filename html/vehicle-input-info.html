@@ -265,20 +265,32 @@
   <script type="text/javascript">
     var H = null;
     var self = null;
+    var view = null;
     var vSn = '2018ICECTC001';
     // var data = {}
     var idArr = ['vehicle-up-check', 'vehicle-check-safe', 'vehicle-check-wire', 'vehicle-check-bom',
       'vehicle-RD-tools', 'vehicle-auditing', 'vehicle-check-down', 'vehicle-info'
     ]
     var page = []
+    var oldBack = mui.back
 
-    mui.init();
+    mui.init({
+      beforeback: function(){
+        //获得列表界面的webview
+        var list = plus.webview.getWebviewById('vehicle-input-list.html');
+        //触发列表界面的自定义事件（refresh）,从而进行数据刷新
+        mui.fire(list,'update');
+        //返回true，继续页面关闭逻辑
+        return true;
+      }
+    });
     //初始化单页的区域滚动
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
       handsetAdaption();
       $('.mui-scroll').css('min-height', $('.mui-content').height())
       self = plus.webview.currentWebview();
+      view = plus.webview.getWebviewById('vehicle-input-list.html')
       H = self.H;
       vSn = self.vSn;
       // 工程师
@@ -369,6 +381,7 @@
           return;
         }
 
+        
         // if (!mui.os.ios) {
         mui.openWindow({
           url: id + '.html',
@@ -383,19 +396,15 @@
             prevId: self.id
           } //自定义扩展参数
         })
-        // } else {
-        //   mui.fire(plus.webview.getWebviewById(id), 'update', null)
-        //   plus.webview.getWebviewById(id).show('slide-in-right')
+        
+        // if(id == 'vehicle-check-down') {
+        //   mui.back();
         // }
-
 
       });
       // 查看详情
       $('#vehicle-info').on('tap', function () {
         var id = $(this).attr('id');
-        // if (mui.os.ios) {
-        //   plus.webview.getWebviewById(id).show('slide-in-right')
-        // } else {
         mui.openWindow({
           url: id + '.html',
           id: id, //默认使用当前页面的url作为id
@@ -408,9 +417,6 @@
             vSn: vSn
           } //自定义扩展参数
         })
-        // }
-
-
       });
 
       var flag = false;
@@ -442,6 +448,9 @@
       }, function (res) {
         console.log(res)
         res = JSON.parse(res)
+        if(res.rows.length == 0) {
+          mui.back()
+        }
         updateView(res.rows[0])
       }, function (xhr, type, errorThrown) {
         //异常处理；
@@ -472,6 +481,10 @@
 
     document.addEventListener('update', function () {
       fetchData();
+    })
+    document.addEventListener('goback', function () {
+      oldBack();
+      // mui.fire(view, 'update', null)
     })
   </script>
 </body>

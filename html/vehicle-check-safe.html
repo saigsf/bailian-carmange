@@ -187,6 +187,7 @@
     }
     .select-container select  {
       padding-left: 10px;
+      padding-right: 0;
     }
 
     .explain,
@@ -500,7 +501,17 @@
       }
     }
 
-    mui.init();
+    mui.init({
+      beforeback: function(){
+        //获得列表界面的webview
+        let self = plus.webview.currentWebview();
+        let view = plus.webview.getWebviewById(self.prevId)
+        //触发列表界面的自定义事件（refresh）,从而进行数据刷新
+        mui.fire(view,'update');
+        //返回true，继续页面关闭逻辑
+        return true;
+      }
+    });
     //初始化单页的区域滚动
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
@@ -864,7 +875,7 @@
       ]
       var html = ''
       mui.each(itemJson, function(k, item) {
-        html += '<tr>' +
+        html += '<tr data-uuid="'+k+'">' +
           '<td class="item">' + item.item + '</td>' +
           '<td class="request">' + item.request + '</td>' +
           '<td>' +
@@ -1013,7 +1024,7 @@
           if(res.ret) {
             submitLock = false;
             mui.back();
-            mui.fire(view, 'update', null)
+            // mui.fire(view, 'update', null)
           }
         }, function(err) {
           console.log(err)

@@ -60,14 +60,14 @@
             <div class="mui-input-row">
               <label>车辆编号</label>
               <input name="vSn" type="text" class="" readonly placeholder="车辆编号">
-              <span class="icon-red-star">*</span>
+              <span class="icon-red-star"></span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label>运输车号</label>
               <input name="trans_sn" type="text" class="" placeholder="">
-              <span class="icon-red-star">*</span>
+              <span class="icon-red-star"></span>
             </div>
           </li>
         </ul>
@@ -149,7 +149,7 @@
             <div class="mui-input-row">
               <label>交车人</label>
               <input name="forpeople" type="text" class="" placeholder="">
-              <span class="icon-red-star">*</span>
+              <span class="icon-red-star"></span>
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -163,21 +163,21 @@
             <div class="mui-input-row">
               <label class="padtb0">接车人电话</label>
               <input name="pick_tel" type="tel" class="" placeholder="">
-              <span class="icon-red-star">*</span>
+              <span class="icon-red-star"></span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label class="padtb0">接车人身份证</label>
               <input name="pick_card" type="text" class="" placeholder="">
-              <span class="icon-red-star">*</span>
+              <span class="icon-red-star"></span>
             </div>
           </li>
           <li class="mui-table-view-cell">
             <div class="mui-input-row">
               <label class="">实际还车日期</label>
               <input name="time" id="time" type="text" class="" readonly placeholder="">
-              <span class="icon-red-star">*</span>
+              <span class="icon-red-star"></span>
             </div>
           </li>
           <li class="mui-table-view-cell">
@@ -282,25 +282,23 @@
 
         $('input[name=vSn]').val(vSn)
         $('#submit').on('tap', function () {
-          if (id) {
-            mui.toast('该车已归还')
-            return;
-          }
+          // if (id) {
+          //   mui.toast('该车已归还')
+          //   return;
+          // }
           var data = serialize($('form'));
 
 
-          if(validateIdCard(data.pick_card)){
-            return;
-          }
+          // if(validateIdCard(data.pick_card)){
+          //   return;
+          // }
           // console.log(data)
           app.backCheck(data, function (res) {
             console.log(res.msg)
             mui.toast(res.msg)
             if (res.ret) {
-              setTimeout(function() {
-                mui.back();
-                mui.fire(view, 'update', null)
-              }, 100);
+              mui.back();
+              mui.fire(view, 'back', null)
             }
           }, function (xhr, type, errorThrown) {
             //异常处理；

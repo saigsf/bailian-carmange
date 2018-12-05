@@ -185,8 +185,11 @@
     }
 
     .no-data {
-      position: relative;
-      background-color: transparent;
+      height: 100%;
+      
+    }
+    .no-data p {
+      top: 37%
     }
   </style>
 </head>
@@ -216,6 +219,9 @@
 
       </form>
       <ul id="OA_task_1" class="mui-table-view mui-table-listview"></ul>
+      <div class="no-data" id="no-data">
+        <p>没有找到想要的数据，下拉刷新</p>
+      </div>
     </div>
   </div>
 
@@ -353,8 +359,10 @@
           }
 
           if (!res.total || res.total <= 0) {
+            $('#no-data').show().prev().hide()
             return;
           }
+          $('#no-data').hide().prev().show()
           // console.log(res.totalCount)
           curPage++;
           totalPage = Math.ceil(res.total / 10);

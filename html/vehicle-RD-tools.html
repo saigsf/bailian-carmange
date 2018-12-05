@@ -116,8 +116,18 @@
       var vSn = '2018ICECTC020';
 
       // 初始化
-      mui.init();
-
+      mui.init({
+        beforeback: function(){
+          //获得列表界面的webview
+          let self = plus.webview.currentWebview();
+          let view = plus.webview.getWebviewById(self.prevId)
+          //触发列表界面的自定义事件（refresh）,从而进行数据刷新
+          mui.fire(view,'update');
+          //返回true，继续页面关闭逻辑
+          return true;
+        }
+      });
+  
       // 页面滚动
       mui('.mui-scroll-wrapper').scroll();
       // plusReady

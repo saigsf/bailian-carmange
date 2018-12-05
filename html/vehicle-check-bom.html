@@ -55,6 +55,7 @@
     }
     .select-container select {
       padding-left: 10px;
+      padding-right: 0;
     }
     table {
       margin-top: 10px;
@@ -133,10 +134,10 @@
   <div id="popover" class="mui-popover">
     <ul class="mui-table-view">
       <li class="mui-table-view-cell">
-        <a href="#">修改检查信息</a>
+        <a href="#">修改检查项</a>
       </li>
       <li class="mui-table-view-cell">
-        <a href="#">修改核对信息</a>
+        <a href="#">修改核对项</a>
       </li>
     </ul>
   </div>
@@ -207,7 +208,8 @@
       app.findEmsAndBomCheckByvSn({
         vSn: vSn
       }, function (res) {
-        console.log(res)
+        console.log(JSON.stringify(res.check))
+        console.log(JSON.stringify(res.checkResults))
         updateView(res)
       }, function (xhr, type, errorThrown) {
         //异常处理；
@@ -231,9 +233,12 @@
       var a = res.check.checkPerson
       var b = res.check.checkingPerson
 
+      console.log(a, b)
+
       mui.each(data, function (k, v) {
         var x = v.checkExplanation
         var y = v.checkingExplanation
+        console.log(x)
         html += '<tr data-uuid="' + v.uuid + '">' +
           '<td class="bomName">' + v.bomName + '</td>' +
           '<td class="bomNum">' + v.bomNum + '</td>' +
@@ -249,9 +254,10 @@
           '<td>'
 
         if (!a) {
-          html += '<span class="checkSpeed " data-status="explain">未说明</span>'
+          html += '<span class="checkSpeed unfinished" data-status="explain">未说明</span>'
           status = 'explain'
           $('#openPopover').hide()
+          $('#four_next').parent().show()
         } else if (!b) {
           if(x) {
             html += '<span class="checkSpeed unfinished" data-status="resolvent">未解决</span>' // 核对人
@@ -260,6 +266,7 @@
           }
           status = 'resolvent'
           $('#openPopover').show()
+          $('#four_next').parent().show()
         } else {
           if(x && y) {
             html += '<span class="checkSpeed" data-status="">查看</span>'
@@ -273,8 +280,8 @@
           $('#four_next').parent().hide()
         }
           
-        html += '<input class="explainText" type="hidden" value="' + v.checkExplanation + '">' +
-          '<input class="resolventText" type="hidden" value="' + v.checkingExplanation + '">' +
+        html += '<input class="explainText" type="hidden" value="' + (v.checkExplanation?v.checkExplanation:'') + '">' +
+          '<input class="resolventText" type="hidden" value="' + (v.checkingExplanation?v.checkingExplanation:'') + '">' +
           '</td>' +
           '</tr>'
       })
@@ -371,33 +378,35 @@
       var data = {};
 
       $bomTr.each(function (i) {
+        var _this = this
         var obj = {
           'vSn': vSn,
-          'uuid': $(this).attr('data-uuid') ? $(this).attr('data-uuid') : '',
-          'bomName': $(this).find('.bomName').html(),
-          'bomNum': $(this).find('.bomNum').html(),
-          'status': $(this).find('.status').val(),
-          'checkExplanation': $(this).find('.explain-text').val(),
-          'checkingExplanation': $(this).find('.resolvent-text').val(),
+          'uuid': $(_this).attr('data-uuid') ? $(_this).attr('data-uuid') : '',
+          'bomName': $(_this).find('.bomName').html(),
+          'bomNum': $(_this).find('.bomNum').html(),
+          'status': $(_this).find('.status').val(),
+          'checkExplanation': $(_this).find('.explainText').val(),
+          'checkingExplanation': $(_this).find('.resolventText').val(),
         }
-        if (obj.status == 'N' && obj.checkExplanation == '') {
-          $(this).find('.status').css('color', '#ff3a31')
-        }
+        // if (obj.status == 'N' && obj.checkExplanation == '') {
+        //   $(this).find('.status').css('color', '#ff3a31')
+        // }
         emsAndBomCheckResults.push(obj)
       });
 
-      mui.each(emsAndBomCheckResults, function (k, v) {
-        if (v.status == 'N' && v.checkExplanation == '') {
-          mui.alert('"' + v.item + '"未添加说明', '提示')
-          submitLock = false;
-          return;
-        }
-      })
+      // mui.each(emsAndBomCheckResults, function (k, v) {
+      //   if (v.status == 'N' && v.checkExplanation == '') {
+      //     mui.alert('"' + v.item + '"未添加说明', '提示')
+      //     submitLock = false;
+      //     return;
+      //   }
+      // })
 
       data = {
         vSn: vSn,
         emsAndBomCheckResults: emsAndBomCheckResults
       }
+      console.log(JSON.stringify(data))
       // return;
       // console.log(stateArr[0])
       app[stateArr[0]](data, function (res) {

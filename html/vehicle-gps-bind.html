@@ -100,7 +100,7 @@
         handsetAdaption()
         self = plus.webview.currentWebview();
         $('.mui-scroll').css('min-height', $('.mui-content').height())
-        fetchData.update()
+        view = plus.webview.getWebviewById('vehicle_gps.html')
       });
 
 
@@ -126,88 +126,63 @@
 
       }
 
-      function updateView(data) {
-        if (data == null) {
-          mui.toast('没有驾驶员数据')
-          return;
-        }
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const item = data[key];
-            $('input[name=' + key + ']').val(item)
-          }
-        }
-      }
+      // 提交数据
+      $('#vehicle_gps').on('tap', '#next', function () {
+        var data = serialize($('#vehicle_gps'));
+        // console.log(data)
 
-      var fetchData = {
-        update: function () {
-          view = plus.webview.getWebviewById('vehicle_gps.html')
-          // 提交数据
-          $('#vehicle_gps').on('tap', '#next', function () {
-            var data = serialize($('#vehicle_gps'));
-            // console.log(data)
-            app.bindCarGps(data, function (res) {
-              res = JSON.parse(res);
-              console.log(res.msg)
-              mui.toast(res.msg)
-              if (res.ret) {
-                setTimeout(function () {
-                  mui.fire(view, 'update', {});
-                  mui.back();
-                }, 500);
-              }
-            }, function (xhr, type, errorThrown) {
-              //异常处理；
-              console.log(type);
-              mui.toast(type);
-              if (type == 'timeout') {
-                console.log("请求超时：请检查网络")
+
+        app.bindCarGpsCheck(data, function (res) {
+          console.log(res)
+          res = JSON.parse(res);
+          if (res.ret) {
+            submitBind(data)
+          } else {
+            var btnArray = ['取消', '确认'];
+            mui.confirm(res.msg.replace('/车辆绑定过', '已被绑定'), '提示', btnArray, function (e) {
+              if (e.index == 1) {
+                submitBind(data)
               } else {
-                console.log('请求失败：' + type + '\n err:' + errorThrown);
+                submitLock = false;
               }
-            })
-            // console.log(hasEmptyValue(data, requiredArr));
-          })
-         
-        },
-        edit: function () {
-          app.carDriverEdit({
-            id: id
-          }, function (res) {
-            console.log(res)
-            updateView(res)
-          }, function (xhr, type, errorThrown) {
-            //异常处理；
-            console.log(type);
-            mui.toast(type);
-            if (type == 'timeout') {
-              console.log("请求超时：请检查网络")
-            } else {
-              console.log('请求失败：' + type + '\n err:' + errorThrown);
-            }
-          })
-        },
-        groups: function () {
-          app.carDriverGetGroup({}, function (res) {
-            var html = '';
+            });
 
-            mui.each(res, function (k, v) {
-              html += '<option value="' + v.id + '">' + v.name + '</option>'
-            })
-            $('#groups').html(html)
-          }, function (xhr, type, errorThrown) {
-            //异常处理；
-            console.log(type);
-            mui.toast(type);
-            if (type == 'timeout') {
-              console.log("请求超时：请检查网络")
-            } else {
-              console.log('请求失败：' + type + '\n err:' + errorThrown);
-            }
-          })
-        }
+          }
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
+      })
+
+      function submitBind(data) {
+        app.bindCarGps(data, function (res) {
+          res = JSON.parse(res);
+          console.log(res.msg)
+          mui.toast(res.msg)
+          if (res.ret) {
+            setTimeout(function () {
+              mui.fire(view, 'update', {});
+              mui.back();
+            }, 500);
+          }
+        }, function (xhr, type, errorThrown) {
+          //异常处理；
+          console.log(type);
+          mui.toast(type);
+          if (type == 'timeout') {
+            console.log("请求超时：请检查网络")
+          } else {
+            console.log('请求失败：' + type + '\n err:' + errorThrown);
+          }
+        })
       }
-      // fetchData.update();
+
     })()
   </script>
 </body>

@@ -58,7 +58,8 @@
       display: inline;
     }
     .select-container select {
-      padding-left: 18px
+      padding-left: 18px;
+      padding-right: 0;
     }
     #openPopover {
       display: none
@@ -155,7 +156,17 @@
 
     var isRevising = false; // 修改索订
 
-    mui.init();
+    mui.init({
+      beforeback: function(){
+        //获得列表界面的webview
+        let self = plus.webview.currentWebview();
+        let view = plus.webview.getWebviewById(self.prevId)
+        //触发列表界面的自定义事件（refresh）,从而进行数据刷新
+        mui.fire(view,'update');
+        //返回true，继续页面关闭逻辑
+        return true;
+      }
+    });
     //初始化单页的区域滚动
     mui('.mui-scroll-wrapper').scroll();
     mui.plusReady(function () {
@@ -712,7 +723,7 @@
       var html = ''
       var pitem = ''
       mui.each(wireJson, function(k, item) {
-        html += '<tr>'
+        html += '<tr data-uuid="'+k+'">'
 
         if (item.item) {
           if (pitem == item.pitem) {
@@ -956,7 +967,7 @@
           // setTimeout(function() {
           submitLock = false;
           mui.back()
-          mui.fire(view, 'update', null)
+          // mui.fire(view, 'update', null)
           // }, 100);
 
         } else {

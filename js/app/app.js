@@ -367,7 +367,7 @@
 			data: data,
 			contentType: 'application/json;charset=UTF-8', //contentType很重要 
 			crossDomain: true,
-			async: true,
+			// async: true,
 			// timeout: 10000,
 			beforeSend: function () {
 				// console.log('beforesend!');
@@ -775,7 +775,7 @@
 		data = data || {};
 
 
-		var checkArr = ['forpeople', 'trans_sn', 'pick_tel', 'proposer', 'pickone']
+		var checkArr = ['proposer', 'pickone']
 		var translateArr = [{
 			name: 'forpeople',
 			value: '交车人不能为空'
@@ -1605,6 +1605,32 @@
 		var url = 'car-management/gpscar/bindCarGps.action';
 
 		owner.HTTPRequest('GET', url, data, success, error)
+	}
+
+	/**
+	 * 车辆绑定终端验证
+	 * @param {Object} data 请求参数
+	 * @param {Function} success 回掉函数
+	 */
+	owner.bindCarGpsCheck = function (data, success, error) {
+
+		data = data || {};
+		var url = 'car-management/gpscar/check.action';
+
+		owner.HTTPRequest('GET', url, data, success, error)
+	}
+
+	/**
+	 * 取消还车
+	 * @param {Object} data 请求参数
+	 * @param {Function} success 回掉函数
+	 */
+	owner.cancleBack = function (data, success, error) {
+
+		data = data || {};
+		var url = 'car-management/car/cancleBackCar.action';
+
+		owner.HTTPRequest('POST', url, data, success, error)
 	}
 
 }(mui, window.app = {}));

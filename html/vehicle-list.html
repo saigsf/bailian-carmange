@@ -94,6 +94,9 @@
       align-items: center;
       overflow: hidden;
     }
+    .cancle-back {
+      background-color: #c8c7cd;
+    }
   </style>
 </head>
 
@@ -248,7 +251,7 @@
       }, 1000)
     }
     // 获取数据
-    fetchData()
+    // fetchData()
 
     function fetchData() {
 
@@ -328,16 +331,20 @@
       var html = '';
 
       mui.each(data, function (k, v) {
-        html += '<li class="mui-table-view-cell" data-vSn="' + v.vSn + '">'
+        html += '<li class="mui-table-view-cell" data-vSn="' + v.vSn + '" data-id="'+v.id+'">' +
+                '<div class="mui-slider-right mui-disabled">'
 
+        if(v.car_status == '已还') {
+          html +='<a class="mui-btn mui-btn-red cancle-back" id="cancleBack">撤销还车</a>'
+        }
+                
         if (app.getUserRoles('admin')) {
-          html += '<div class="mui-slider-right mui-disabled">' +
-            '<a class="mui-btn mui-btn-red car-type-change">车型修改</a>' +
-            '</div>'
+          html += '<a class="mui-btn mui-btn-red car-type-change" id="changeType">车型修改</a>'
+            
         }
 
 
-        html += '<div class="mui-slider-handle">' +
+        html += '</div><div class="mui-slider-handle">' +
           '<div class="list-item">' +
           '<div class="item-top">' +
           '<div class="item-left">' +
@@ -429,6 +436,31 @@
 
     })
 
+    // 撤销还车
+    $('#OA_task_1').on('tap', '.cancle-back', function(){
+      var $li = $(this).parents('li')
+      mui.swipeoutClose($li[0])
+      app.cancleBack({ids: $li.data('id')}, function(res) {
+        console.log(res)
+        res = JSON.parse(res);
+        if(res.ret) {
+          curPage = 1;
+          $('#OA_task_1').html('');
+          fetchData();
+        }
+        mui.toast(res.msg);
+      }, function(xhr, type, errorThrown) {
+        //异常处理；
+        console.log(type);
+        mui.toast(type);
+        if (type == 'timeout') {
+          console.log("请求超时：请检查网络")
+        } else {
+          console.log('请求失败：' + type + '\n err:' + errorThrown);
+        }
+      })
+    })
+
     // 更改项目状态
     $('#program_status').on('tap', function () {
       if (!app.getUserRoles('admin')) {
@@ -451,6 +483,7 @@
       })
     })
 
+    
     // 搜索
     $('#search').on('tap', function () {
       prepageSearch.show('fade-in');

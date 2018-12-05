@@ -1962,7 +1962,17 @@
       var vSn = '2018ICECTC006';
       var submitLock = false;
 
-      mui.init();
+      mui.init({
+        beforeback: function(){
+          //获得列表界面的webview
+          let self = plus.webview.currentWebview();
+          let view = plus.webview.getWebviewById(self.prevId)
+          //触发列表界面的自定义事件（refresh）,从而进行数据刷新
+          mui.fire(view,'update');
+          //返回true，继续页面关闭逻辑
+          return true;
+        }
+      });
       mui.previewImage();
       // 初始化区域滚动
       mui('.mui-scroll-wrapper').scroll();
@@ -2404,7 +2414,7 @@
             setTimeout(function () {
               submitLock = false;
               mui.back()
-              mui.fire(view, 'update', null)
+              // mui.fire(view, 'update', null)
             }, 100);
           } else {
             submitLock = false;

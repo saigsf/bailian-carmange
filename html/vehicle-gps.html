@@ -258,6 +258,13 @@
     table {
       margin-top: 0;
     }
+    .no-data {
+      height: 100%;
+      
+    }
+    .no-data p {
+      top: 37%
+    }
   </style>
 </head>
 
@@ -341,7 +348,6 @@
     function pulldownRwfresh() {
       curPage = 1;
       dataArr = {}
-      $('#no-data').hide().prev().show()
       setTimeout(function () {
         $('table tbody').html('')
         fetchData();
@@ -389,6 +395,7 @@
           // mui.toast('没有找到想要的数据，下拉加载所有数据')
           return;
         }
+        $('#no-data').hide().prev().show()
         curPage++;
         totalPage = Math.ceil(res.total / 10)
         var data = res.rows;

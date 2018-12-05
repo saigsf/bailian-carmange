@@ -393,7 +393,7 @@
 
       function fetchData() {
         var data = serialize($('form'));
-
+        console.log(JSON.stringify(data))
         // 实时数据查询
         app.carTrack(data, function (res) {
           console.log(res)

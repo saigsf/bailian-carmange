@@ -270,7 +270,7 @@
   <script src="../js/app/app.js"></script>
   <!-- 百度地图api -->
   <script src="http://webapi.amap.com/maps?v=1.4.6&key=ffc8503b4c8647c3753679c5e95278a5&plugin=AMap.MarkerClusterer"></script>
-  <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+  <!-- <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script> -->
   <!-- <script type="text/javascript" src="http://webapi.amap.com/demos/js/liteToolbar.js"></script> -->
   <script src="http://a.amap.com/jsapi_demos/static/china.js"></script>
   <!--多点聚合-->
@@ -323,14 +323,15 @@
         //     data: res[i]
         //   })
         // }
-        res.forEach(function(k, v) {
-          var lot = v.longitude
-          var lat = v.latitude
+        res.forEach(function(item, i) {
+          console.log(item)
+          var lot = item.longitude
+          var lat = item.latitude
           markers.push({
             position: [lot, lat],
             icon: icon,
-            angle: v.towards,
-            data: v
+            angle: item.towards,
+            data: item
           })
         });
         if (mapMarkers.length === 0 || mapMarkers.length != markers.length) {
