@@ -268,13 +268,13 @@
 
           // console.log($('input[name=isallow]').val())
           var opt = {
-            isallow,
-            ids,
-            startTime,
-            endTime,
-            gid
+            isallow: isallow,
+            ids: ids,
+            startTime: startTime,
+            endTime: endTime,
+            gid: gid
           }
-          console.log(JSON.stringify(opt))
+          // console.log(JSON.stringify(opt))
           // return;
           if ($('input[name=isallow]').val() == '是') {
             app.authorized(opt, function (res) {

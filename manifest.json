@@ -4,7 +4,7 @@
     "iPhone"
   ],
   "id": "io.app.cardelphi",/*应用的标识，创建应用时自动生成，勿手动修改*/
-  "name": "Vehicle management",/*应用名称，程序桌面图标名称*/
+  "name": "车辆管理系统",/*应用名称，程序桌面图标名称*/
   "version": {
     "name": "1.0.9",/*应用版本名称*/
     "code": "83"

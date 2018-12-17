@@ -450,14 +450,14 @@
             '<div class="item-bottom">'
 
           if (v.status == '已完成') {
-            html += '<p><span>操作员：</span>' + v.applyPeople + '</p>' +
+            html += '<p><span>操作员：</span>' + v.operator + '</p>' +
               '<p><span>备注：</span>' + (v.item ? v.item : '无') + '</p>'
 
           } else if (v.status == '排队中') {
             html += '<p><span>申请人：</span>' + v.applyPeople + '</p>' +
               '<p><span>申请日期：</span>' + v.applytime + '</p>'
           } else if (v.status == '维修中') {
-            html += '<p><span>操作员：</span>' + v.applyPeople + '</p>' +
+            html += '<p><span>操作员：</span>' + v.operator + '</p>' +
               '<p><span>预计完成日期：</span>' + v.applytime + '</p>'
           }
 

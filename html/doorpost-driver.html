@@ -251,6 +251,12 @@
     .search-wrapper {
       height: 40px;
     }
+    .no-data {
+      height: 100%;
+    }
+    .no-data p {
+      top: 40%
+    }
   </style>
 </head>
 
@@ -374,14 +380,15 @@
           size: 10
         }, dataArr)
         console.log(JSON.stringify(opt));
-        app.carDriverList(opt, function (res) {
+        app.carDriverList(opt, function (res) {console.log(res)
           res = JSON.parse(res)
-          console.log(res)
+          
           if (!res.total || res.total <= 0) {
             $('#no-data').show().prev().hide()
             // mui.toast('没有找到想要的数据，下拉加载所有数据')
             return;
           }
+          $('#no-data').hide().prev().show()
           curPage++;
           totalPage = Math.ceil(res.total / 10)
           var data = res.rows;
@@ -450,7 +457,24 @@
 
       function addEvent() {
 
-
+        $('#OA_task_1').on('tap', '.delete', function() {
+          var $li = $(this).parents('li');
+          var btnArray = ['确认', '取消'];
+          var data = {ids: $li.attr('data-id')}
+          mui.swipeoutClose($li[0]);
+          mui.confirm('是否删除该驾驶员', '提示', btnArray, function (e) {
+            if (e.index == 0) {
+              app.carDriverDelete(data, function(res) {
+                mui.toast(res.msg)
+                if(res.ret) {
+                  curPage = 1;
+                  $('#OA_task_1').html('')
+                  fetchData();
+                }
+              })
+            }
+          });
+        })
 
         // 驾驶员信息修改
         $('#OA_task_1').on('tap', '.update', function () {
@@ -552,23 +576,6 @@
             } //自定义扩展参数
           })
         })
-
-        // 搜索
-        // $('#search').on('tap', function () {
-        //   // 修改车型
-        //   mui.openWindow({
-        //     url: 'search.html',
-        //     id: 'search', //默认使用当前页面的url作为id
-        //     styles: {
-        //       top: '0px',
-        //       bottom: H
-        //     }, //窗口参数
-        //     extras: {
-        //       H: H,
-        //       prevId: self.id
-        //     } //自定义扩展参数
-        //   })
-        // })
 
         $('#current_input').on('keyup', function (e) {
           if (e.keyCode == 13) {

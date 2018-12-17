@@ -116,10 +116,10 @@
 
         // console.log(confirmText)
         if (status == 'confirm') {
-          $('.mui-title').html('添加解决方法');
+          $('.mui-title').html('添加确认信息');
           $('#explain').show().find('.explainText').html(explainText);
           $('#resolvent').show().find('.resolventText').html(resolventText);
-          $('#issue_text').attr('placeholder', '说明解决问题的方法')
+          $('#issue_text').attr('placeholder', '请输入确认信息')
           $('#issue_text').val(confirmText)
         } else if (status == 'resolvent') {
           $('.mui-title').html('添加解决方法');

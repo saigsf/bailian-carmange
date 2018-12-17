@@ -1578,7 +1578,7 @@
 
 		var url = 'car-management/user/updateUser.action';
 
-		owner.HTTPRequestPost('POST', url, data, success, error)
+		owner.HTTPRequest('get', url, data, success, error)
 	}
 
 	/**

@@ -408,7 +408,6 @@
       function getAllCar() {
         app.allcar({}, function (res) {
           res = JSON.parse(res)
-          // console.log(res)
           if (res.ret == false) {
             alert(res.msg);
             return;
@@ -629,12 +628,16 @@
 
 
       // 绑定事件
-      var listener = AMap.event.addListener(map, "tap", function (ev) {
+      var listener = AMap.event.addListener(map, "click", function (ev) {
         // DOM 被点击时触发，ev 为原生事件
-        console.log(ev)
         $('#no-data').show()
         $('.car').hide()
-        map.setZoom(10)
+        clearMarkers()
+        clearInterval(timer)
+        getAllCar()
+        timer = setInterval(function () {
+          getAllCar()
+        }, 5000)
       });
     })()
   </script>

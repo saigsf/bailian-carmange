@@ -304,10 +304,10 @@
               <i class="icon icon-logout"></i>
               <a class="mui-navigate-right" href="#">注销账号</a>
             </li> -->
-            <li class="mui-table-view-cell" id="clear_cache">
+            <!-- <li class="mui-table-view-cell" id="clear_cache">
               <i class="icon icon-clear-cache"></i>
               <a class="mui-navigate-right" href="#">清除缓存</a>
-            </li>
+            </li> -->
             <!-- <li class="mui-table-view-cell">
               <i class="icon icon-update"></i>
               <a class="mui-navigate-right" href="#">版本更新</a>
@@ -836,7 +836,8 @@
         return;
       }
       app.updateUser(data, function (res) {
-        console.log(JSON.stringify(res))
+        console.log(res)
+        res =JSON.parse(res)
         mui.toast(res.msg)
         if (res.ret) {
           setTimeout(function () {
