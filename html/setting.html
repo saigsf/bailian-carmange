@@ -308,7 +308,7 @@
               <i class="icon icon-clear-cache"></i>
               <a class="mui-navigate-right" href="#">清除缓存</a>
             </li> -->
-            <!-- <li class="mui-table-view-cell">
+            <!-- <li class="mui-table-view-cell" id="download">
               <i class="icon icon-update"></i>
               <a class="mui-navigate-right" href="#">版本更新</a>
             </li> -->
@@ -725,20 +725,6 @@
 
     //退出操作******************
     document.getElementById('exit').addEventListener('tap', function () {
-      // if (mui.os.ios) {
-      //   app.setState({});
-      //   mui.openWindow({
-      //     url: '../login.html',
-      //     id: 'login',
-      //     show: {
-      //       aniShow: 'pop-in'
-      //     },
-      //     waiting: {
-      //       autoShow: false
-      //     }
-      //   });
-      //   return;
-      // }
       var btnArray = [{
         title: "注销当前账号"
       }];
@@ -773,7 +759,73 @@
       });
     }, false);
 
+    document.getElementById('download').addEventListener('tap', function () {
+      // 检查当前版本，与从后台获取的版本作比较，以此判断是否更新     
+      downloadWgt();
+      return
+      plus.runtime.getProperty(plus.runtime.appid, function (inf) {
+        // 当前版本
+        var wgtVersion = inf.version;
+        mui.ajax("https:// houtai.com", {
+          data: {},
+          dataType: 'json',
+          type: 'get',
+          success: function (data) {
+            console.log(data)
+            // 如果有新版本，则提示需要更新
+            if (data.version > wgtVersion) {
+              mui.confirm('检查更新', '发现新版本，是否更新', ['确定', '取消'], function (e) {
+                if (e.index == 0) {
+                  // downloadWgt(); // 下载wgt方法
+                } else {
+                  return;
+                }
+              })
+            } else {
+              return;
+            }
+          },
+          error: function (err) {
+            console.log(err, 8)
+          }
+        });
+      });
+    }, false)
 
+    // 下载wgt方法
+    function downloadWgt() {
+      var that = this;
+      // 更新文件 wgt 文件地址
+      var wgtUrl = "http://192.168.0.105:8080/car-management/setup/download/io.app.cardelphi.wgt.action";
+      plus.nativeUI.showWaiting("正在更新...");
+      plus.downloader.createDownload(wgtUrl, {
+        filename: "_doc/update/"
+      }, function (d, status) {
+        if (status == 200) {
+          console.log("下载wgt成功：" + d.filename);
+          that.installWgt(d.filename); // 安装wgt方法
+        } else {
+          console.log("下载wgt失败！");
+          plus.nativeUI.alert("下载wgt失败！");
+        }
+        plus.nativeUI.closeWaiting();
+      }).start();
+    }
+    // 安装wgt方法
+    function installWgt(path) {
+      plus.nativeUI.showWaiting("安装wgt文件...");
+      plus.runtime.install(path, {}, function () {
+        plus.nativeUI.closeWaiting();
+        console.log("安装wgt文件成功！");
+        plus.nativeUI.alert("应用资源更新完成！", function () {
+          plus.runtime.restart();
+        });
+      }, function (e) {
+        plus.nativeUI.closeWaiting();
+        console.log("安装wgt文件失败[" + e.code + "]：" + e.message);
+        plus.nativeUI.alert("安装wgt文件失败[" + e.code + "]：" + e.message);
+      });
+    }
 
     // y用户名
     var state = null;
@@ -837,7 +889,7 @@
       }
       app.updateUser(data, function (res) {
         console.log(res)
-        res =JSON.parse(res)
+        res = JSON.parse(res)
         mui.toast(res.msg)
         if (res.ret) {
           setTimeout(function () {

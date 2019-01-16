@@ -1,6 +1,7 @@
-var BASE_URL_1 = 'http://222.91.98.78:9999/';
+// var BASE_URL_1 = 'http://222.91.98.78:9999/';
 // var BASE_URL_1 = 'http://192.168.0.107:8081/';
 // BASE_URL_1 = 'http://222.91.98.78:8848/';
+BASE_URL_1 = 'http://www.canhud.cn:8848/';
 
 
 /**
